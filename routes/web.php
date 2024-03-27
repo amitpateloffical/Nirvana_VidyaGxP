@@ -356,6 +356,26 @@ Route::view('quality-event', 'frontend.forms.quality-event');
 Route::view('vendor-entity', 'frontend.forms.vendor-entity');
 Route::view('deviation_new', 'frontend.forms.deviation_new');
 
+
+
+
+// -------------------------------------ehs---------forms--------
+Route::view('recurring_commitment', 'frontend.ehs.recurring_commitment');
+Route::view('sanction', 'frontend.ehs.sanction');
+Route::view('monthly_working', 'frontend.ehs.monthly_working');
+
+Route::view('investigation', 'frontend.ehs.investigation');
+
+Route::view('environmental_task', 'frontend.ehs.environmental_task');
+Route::view('ehs_event', 'frontend.ehs.ehs_event');
+Route::view('effectiveness', 'frontend.ehs.effectiveness');
+Route::view('capa', 'frontend.ehs.capa');
+Route::view('action_item', 'frontend.ehs.action_item');
+
+
+
+
+
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
 
