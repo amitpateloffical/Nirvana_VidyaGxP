@@ -376,9 +376,9 @@ Route::view('action_item', 'frontend.ehs.action_item');
 
 
 
+
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
-
 
 Route::get('meeting', [ManagementReviewController::class, 'meeting']);
 
