@@ -359,7 +359,7 @@ Route::view('deviation_new', 'frontend.forms.deviation_new');
 
 
 
-// -------------------------------------ehs---------forms--------
+// -------------------------------------EHS---------forms--------
 Route::view('recurring_commitment', 'frontend.ehs.recurring_commitment');
 Route::view('sanction', 'frontend.ehs.sanction');
 Route::view('monthly_working', 'frontend.ehs.monthly_working');
@@ -372,7 +372,19 @@ Route::view('effectiveness', 'frontend.ehs.effectiveness');
 Route::view('capa', 'frontend.ehs.capa');
 Route::view('action_item', 'frontend.ehs.action_item');
 
+// -------------------------------------CTMS---------forms--------
+Route::view('violation', 'frontend.ctms.violation');
+Route::view('subject', 'frontend.ctms.subject');
+Route::view('subject_action_item', 'frontend.ctms.subject_action_item');
 
+Route::view('study', 'frontend.ctms.study');
+
+Route::view('serious_adverse_event', 'frontend.ctms.serious_adverse_event');
+Route::view('monitoring_visit', 'frontend.ctms.monitoring_visit');
+Route::view('investigational_nda_anda', 'frontend.ctms.investigational_nda_anda');
+Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
+Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
+Route::view('clinical_site', 'frontend.ctms.clinical_site');
 
 
 
