@@ -386,7 +386,11 @@ Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
 Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
 Route::view('clinical_site', 'frontend.ctms.clinical_site');
 
-
+Route::view('cta_submission', 'frontend.ctms.cta_submission');
+Route::view('masking', 'frontend.ctms.masking');
+Route::view('randomization', 'frontend.ctms.randomization');
+Route::view('regulatory_quary_managment', 'frontend.ctms.regulatory_quary_managment');
+Route::view('regulatory_notification', 'frontend.ctms.regulatory_notification');
 
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
