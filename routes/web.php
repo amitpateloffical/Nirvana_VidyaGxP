@@ -387,6 +387,10 @@ Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
 Route::view('clinical_site', 'frontend.ctms.clinical_site');
 
 
+//--------------------------------OOC-----form---------------//
+
+Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
+
 
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
