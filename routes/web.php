@@ -373,12 +373,31 @@ Route::view('capa', 'frontend.ehs.capa');
 Route::view('action_item', 'frontend.ehs.action_item');
 
 
+// --------------------------------------ctms-------forms-------
+
+Route::view('violation', 'frontend.ctms.violation');
+Route::view('subject', 'frontend.ctms.subject');
+Route::view('subject_action_item', 'frontend.ctms.subject_action_item');
+
+Route::view('study', 'frontend.ctms.study');
+
+Route::view('serious_adverse_event', 'frontend.ctms.serious_adverse_event');
+Route::view('monitoring_visit', 'frontend.ctms.monitoring_visit');
+Route::view('investigational_nda_anda', 'frontend.ctms.investigational_nda_anda');
+Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
+Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
+Route::view('clinical_site', 'frontend.ctms.clinical_site');
+
+Route::view('cta_submission', 'frontend.ctms.cta_submission');
+Route::view('masking', 'frontend.ctms.masking');
+Route::view('randomization', 'frontend.ctms.randomization');
+Route::view('regulatory_quary_managment', 'frontend.ctms.regulatory_quary_managment');
+Route::view('regulatory_notification', 'frontend.ctms.regulatory_notification');
 
 
 
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
-
 
 Route::get('meeting', [ManagementReviewController::class, 'meeting']);
 
