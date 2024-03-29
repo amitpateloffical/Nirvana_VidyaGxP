@@ -258,7 +258,7 @@ Route::view('designate-proxy', 'frontend.designate-proxy');
 Route::view('person-details', 'frontend.person-details');
 
 Route::view('basic-search', 'frontend.basic-search');
-
+Route::view('GCP_study', 'frontend.new_forms.GCP_study');
 //! ============================================ //
 //!                    TMS
 //! ============================================ //
