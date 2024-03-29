@@ -402,6 +402,9 @@ Route::view('complaint', 'frontend.new_forms.complaint');
 
 Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
 
+//--------------------------------Incident-----form---------------//
+
+Route::view('incident', 'frontend.Incident.incident');
 
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);

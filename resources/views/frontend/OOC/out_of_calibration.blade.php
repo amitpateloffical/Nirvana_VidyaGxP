@@ -977,8 +977,6 @@
                     </div>
                     <div class="row">
 
-                      
-
                         <div class="col-6">
                                 <div class="group-input">
                                     <label for="Short Description">Closure Comments
