@@ -319,10 +319,7 @@
                                                 <th style="width: 15%">Mfg Date</th>
                                                 <th style="width: 15%">Expiry Date </th>
                                                 <th style="width: 15%">Label Claim</th>
-                                                <th style="width: 15%">Analyst Name</th>
-                                                <th style="width: 15%">Sample Type</th>
-                                                <th style="width: 15%">Others (Specify)</th>
-                                                <th style="width: 15%">Stability For</th>
+                                               
 
 
 
@@ -337,29 +334,51 @@
                                             <td><input type="text" name="MfgDate[]"></td>
                                             <td><input type="text" name="ExpiryDate[]"></td>
                                             <td><input type="text" name="LabelClaim[]"></td>
-                                            <td><input type="text" name="AnalystName[]"></td>
-                                            <td>
-                                                <select multiple id="reference_record" name="SampleType[]" id="">
-                                                    <option value="">--Select---</option>
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-
-                                                </select>
-                                            </td>
-                                            <td><input type="text" name="Others[]"></td>
-                                            <td>
-                                                <select multiple id="reference_record" name="StabilityFor[]" id="">
-                                                    <option value="">--Select---</option>
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-
-                                                </select>
-                                            </td>
+                                           
                                         </tbody>
 
                                     </table>
                                 </div>
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label>Analyst Name<span class="text-danger"></span></label>
+                                   <input/>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reference Recores">Sample Type </label>
+                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
+                                        <option value="">--Select---</option>
+                                        <option value="">Pankaj</option>
+                                        <option value="">Gourav</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label>Others (Specify)<span class="text-danger"></span></label>
+                                   <input/>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reference Recores">Stability For </label>
+                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
+                                        <option value="">--Select---</option>
+                                        <option value="">Pankaj</option>
+                                        <option value="">Gourav</option>
+                                    </select>
+                                </div>
+                            </div>
+
 
 
                             <div class="group-input">
@@ -380,8 +399,7 @@
                                                 <th style="width: 15%">Interval</th>
                                                 <th style="width: 15%">Orientation</th>
                                                 <th style="width: 15%">Pack Details (if any) </th>
-                                                <th style="width: 15%">Specification/Procedure No</th>
-                                                <th style="width: 15%">Specification Limit</th>
+                                                
 
 
 
@@ -396,14 +414,26 @@
                                             <td><input type="text" name="Interval[]"></td>
                                             <td><input type="text" name="Orientation[]"></td>
                                             <td><input type="text" name="PackDetails[]"></td>
-                                            <td><input type="text" name="Specification/ProcedureNo[]"></td>
-                                            <td><input type="text" name="SpecificationLimit[]"></td>
+                                            
 
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
 
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label>Specification Procedure Number <span class="text-danger"></span></label>
+                                   <input/>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label>Specification Limit<span class="text-danger"></span></label>
+                                   <input/>
+                                </div>
+                            </div>
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
@@ -425,9 +455,7 @@
                                                 <th style="width: 15%">Previous Interval Details </th>
                                                 <th style="width: 15%">% Difference Of Results</th>
                                                 <th style="width: 15%">Trend Limit</th>
-                                                <th style="width: 15%">File Attachment</th>
-                                                <th style="width: 15%">Submit By</th>
-                                                <th style="width: 15%">Submit On</th>
+                                                
 
                                             </tr>
                                         </thead>
@@ -441,19 +469,46 @@
                                             <td><input type="text" name="previousIntervalDetails[]"></td>
                                             <td><input type="text" name="DifferenceOfResults[]"></td>
                                             <td><input type="text" name="TrendLimit[]"></td>
-                                            <td><input type="file" name="FileAttachment[]"></td>
-                                            <td><input type="date" name="SubmitBy[]"></td>
-                                            <td><select name="SubmitOn[]">
-                                                    <option>---select---</option>
-                                                    <option>PDF </option>
-                                                    <option>Document </option>
-                                                </select></td>
+                                          
 
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
 
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="closure attachment">File Attachment </label>
+                                    <div><small class="text-primary">
+                                        </small>
+                                    </div>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="Attachment[]" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reference Recores">Submit By</label>
+                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
+                                        <option value="">--Select---</option>
+                                        <option value="">Pankaj</option>
+                                        <option value="">Gourav</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="date and time">Submit On</label>
+                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
+                                </div>
+                            </div>
 
                         </div>
                         <div class="button-block">
@@ -643,24 +698,28 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+
+<div class="col-12">
                                 <div class="group-input">
-                                    <label for="date and time">OOT Category (Others)</label>
-                                    <input type="date" name="OOTCategory" />
+                                    <label class="mt-4" for="Audit Comments">SOOT Category (Others)</label>
+                                    <textarea class="summernote" name="SummaryOfPreliminaryInvestigation" id="summernote-16"></textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+
+                            <div class="col-12">
                                 <div class="group-input">
-                                    <label for="date and time">Root Cause Details</label>
-                                    <input type="date" name="RootCauseDetails" />
+                                    <label class="mt-4" for="Audit Comments">Root Cause Details</label>
+                                    <textarea class="summernote" name="SummaryOfPreliminaryInvestigation" id="summernote-16"></textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+
+                            <div class="col-12">
                                 <div class="group-input">
-                                    <label for="date and time">Impact Of Root Cause</label>
-                                    <input type="date" name="ImpactOfRootCause" />
+                                    <label class="mt-4" for="Audit Comments">Impact Of Root Cause</label>
+                                    <textarea class="summernote" name="SummaryOfPreliminaryInvestigation" id="summernote-16"></textarea>
                                 </div>
                             </div>
+                            
 
 
 
@@ -706,10 +765,12 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                           
+
+                            <div class="col-12">
                                 <div class="group-input">
-                                    <label for="date and time">Delay Justification</label>
-                                    <input type="date" name="DelayJustification" />
+                                    <label class="mt-4" for="Audit Comments">Delay Justification</label>
+                                    <textarea class="summernote" name="SummaryOfPreliminaryInvestigation" id="summernote-16"></textarea>
                                 </div>
                             </div>
 
@@ -789,12 +850,12 @@
                                                 <th style="width: 15%">Previous OOT Root Cause</th>
                                                 <th style="width: 15%">CAPA </th>
                                                 <th style="width: 15%">Closure Date Of CAPA</th>
-                                                <th style="width: 15%">CAPA Required</th>
+                                                <!-- <th style="width: 15%">CAPA Required</th>
                                                 <th style="width: 15%">CAPA Reference</th>
                                                 <th style="width: 15%">Phase II Inves. Req</th>
                                                 <th style="width: 15%">Supporting Attachment</th>
                                                 <th style="width: 15%">Pre. Lab Invest. Review By</th>
-                                                <th style="width: 15%">Pre. Lab Invest. Review On</th>
+                                                <th style="width: 15%">Pre. Lab Invest. Review On</th> -->
 
 
                                             </tr>
@@ -808,33 +869,82 @@
                                             <td><input type="text" name="previousIntervalDetails[]"></td>
                                             <td><input type="text" name="CAPA[]"></td>
                                             <td><input type="text" name="ClosureDateOfCAPA[]"></td>
-                                            <td><select name="CAPARequired[]">
-                                                    <option>---select---</option>
-                                                    <option>Yes </option>
-                                                    <option>No </option>
-                                                    </select< /td>
-                                            <td><select multiple id="reference_record" name="CAPAReference[]" id="">
-                                                    <option value="">--Select---</option>
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-                                                </select></td>
-                                            <td><select name="PhaseIIInvesReq[]">
-                                                    <option>---select---</option>
-                                                    <option>Yes </option>
-                                                    <option>No </option>
-                                                    </select< /td>
-                                            <td><input type="file" name="SupportingAttachment[]"></td>
-                                            <td><select name="PreLabInvestReviewBy[]">
-                                                    <option>---select---</option>
-                                                    <option>Pankaj </option>
-                                                    <option>Gaurav </option>
-                                                    </select< /td>
-                                            <td><input type="date" name="PreLabInvestReviewOn[]"></td>
+                                           
 
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label>CAPA Required<span class="text-danger"></span></label>
+                                    <select>
+                                        <option>---select---</option>
+                                        <option>Yes </option>
+                                        <option>No </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reference Recores"> CAPA Reference  </label>
+                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
+                                        <option value="">--Select---</option>
+                                        <option value="">Pankaj</option>
+                                        <option value="">Gourav</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label>Phase II Inves. Req<span class="text-danger"></span></label>
+                                    <select>
+                                        <option>---select---</option>
+                                        <option>Yes </option>
+                                        <option>No </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="closure attachment">Supporting Attachment </label>
+                                    <div><small class="text-primary">
+                                        </small>
+                                    </div>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="ConclusionAttachment[]" oninput="addMultipleFiles(this, 'ConclusionAttachment')" multiple>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reference Recores"> Preliminary Lab Investigation Review By</label>
+                                    <select multiple id="reference_record" name="PreliminaryLabInvestigationConclusionBy[]" id="">
+                                        <option value="">--Select---</option>
+                                        <option value="">Pankaj</option>
+                                        <option value="">Gourav</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="date and time">Preliminary Lab Investigation Review On</label>
+                                    <input type="date" name="PreliminaryLabInvestigationConclusionOn" />
+                                </div>
+                            </div>
+
+
 
                         </div>
                         <div class="button-block">
@@ -1094,13 +1204,14 @@
                                 </div>
                             </div>
 
-
-                            <div class="col-lg-6">
+                            <div class="col-12">
                                 <div class="group-input">
-                                    <label>Justify If No Investigation Required <span class="text-danger"></span></label>
-                                    <input type="date" />
+                                    <label class="mt-4" for="Audit Comments"> Justify If No Investigation Required</label>
+                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
                                 </div>
                             </div>
+
+                           
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -1419,7 +1530,7 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores"> OOT Conclusion Complete By</label>
+                                    <label for="Reference Recores">Submit By</label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
                                         <option value="">--Select---</option>
                                         <option value="">Pankaj</option>
@@ -1830,14 +1941,6 @@
                                     <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
                                 </div>
                             </div>
-
-
-
-
-
-
-
-
 
 
                             <div class="col-lg-6">
@@ -2452,12 +2555,7 @@
                     '<td><input type="text" name="previousIntervalDetails[]"></td>' +
                     '<td><input type="text" name="CAPA[]"></td>' +
                     '<td><input type="text" name="ClosureDateOfCAPA[]"></td>' +
-                    '<td><select name="CAPARequired[]"><option>---select---</option><option>Yes </option><option>No </option></select</td>' +
-                    ' <td><select multiple id="reference_record" name="CAPAReference[]" id=""><option value="">--Select---</option><option value="">1</option><option value="">2</option> </select></td>' +
-                    '<td><select name="PhaseIIInvesReq[]"><option>---select---</option><option>Yes </option><option>No </option></select</td>' +
-                    '<td><input type="file" name="SupportingAttachment[]"></td>' +
-                    '<td><select name="PreLabInvestReviewBy[]"><option>---select---</option><option>Pankaj </option><option>Gaurav </option></select</td>' +
-                    '<td><input type="date" name="PreLabInvestReviewOn[]"></td>' +
+                   
 
                     '</tr>';
 
@@ -2492,11 +2590,7 @@
                     '<td><input type="text" name="MfgDate[]"></td>' +
                     '<td><input type="text" name="ExpiryDate[]"></td>' +
                     '<td><input type="text" name="LabelClaim[]"></td>' +
-                    '<td><input type="text" name="AnalystName[]"></td>' +
-                    ' <td><select multiple id="reference_record" name="SampleType[]" id=""><option value="">--Select---</option><option value="">1</option><option value="">2</option></select></td>' +
-                    '<td><input type="text" name="Others[]"></td>' +
-                    ' <td> <select multiple id="reference_record" name="StabilityFor[]" id=""> <option value="">--Select---</option> <option value="">1</option> <option value="">2</option> </select></td>' +
-
+                   
                     '</tr>';
 
 
@@ -2529,8 +2623,7 @@
                     '<td><input type="text" name="Interval[]"></td>' +
                     '<td><input type="text" name="Orientation[]"></td>' +
                     '<td><input type="text" name="PackDetails[]"></td>' +
-                    '<td><input type="text" name="Specification/ProcedureNo[]"></td>' +
-                    '<td><input type="text" name="SpecificationLimit[]"></td>' +
+                
                     '</tr>';
 
 
@@ -2563,10 +2656,7 @@
                     '<td><input type="text" name="previousIntervalDetails[]"></td>' +
                     '<td><input type="text" name="DifferenceOfResults[]"></td>' +
                     '<td><input type="text" name="TrendLimit[]"></td>' +
-                    '<td><input type="file" name="FileAttachment[]"></td>' +
-                    '<td><input type="date" name="SubmitBy[]"></td>' +
-                    '<td><select name="SubmitOn[]"><option>---select---</option><option>PDF </option> <option>Document </option></select></td>' +
-
+                   
                     '</tr>';
 
 
