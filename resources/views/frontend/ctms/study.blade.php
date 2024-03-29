@@ -46,6 +46,7 @@
                 <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                 <input type="hidden" name="parent_type" value="{{ $parent_type }}">
                 @endif
+                
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
