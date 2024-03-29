@@ -458,3 +458,5 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 //! ============================================
 
 
+// ===============OOt form==========================\
+Route::view('OOT_form', 'frontend.OOT.OOT_form');
