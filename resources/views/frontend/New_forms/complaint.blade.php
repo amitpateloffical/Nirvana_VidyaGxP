@@ -308,7 +308,7 @@
                                 <label for="audit-agenda-grid">
                                     Product/Material(0)
                                     <button type="button" name="audit-agenda-grid" id="Product_Material">+</button>
-                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#Product-Material-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
                                 </label>
@@ -323,11 +323,13 @@
                                                 <th style="width: 16%">ManuFactured Date</th>
                                                 <th style="width: 15%">Disposition</th>
                                                 <th style="width: 15%">Comment</th>
+                                                <th style="width: 15%">Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
                                             <td><input type="text" name="IDnumber[]"></td>
+                                            <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
@@ -359,23 +361,40 @@
                                 Additional Data
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-12">
                                 <div class="group-input">
                                     <label for="Attached_Files">Attached Files</label>
-                                    <select name="Attached_Files">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
+                                    <div>
+                                        <small class="text-primary">
+                                            Please Attach all relevant or supporting documents
+                                        </small>
+                                    </div>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="Attached_Files" oninput="" multiple>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="col-lg-6">
+                            </div> 
+                            <div class="col-12">
                                 <div class="group-input">
                                     <label for="Attached_Pictures">Attached Pictures</label>
-                                    <select name="Attached_Pictures">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
+                                    <div>
+                                        <small class="text-primary">
+                                            Please Attach all relevant or supporting documents
+                                        </small>
+                                    </div>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="Attached_Pictures" oninput="" multiple>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </div> 
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -526,7 +545,7 @@
                                 <label for="audit-agenda-grid">
                                     Treatment of Adverse Reaction(0)
                                     <button type="button" name="audit-agenda-grid" id="Treatment_of_Adverse_Reaction">+</button>
-                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#Treatment_of_Adverse_Reaction-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
                                 </label>
@@ -540,11 +559,13 @@
                                                 <th style="width: 16%">Date Start</th>
                                                 <th style="width: 16%">Date End</th>
                                                 <th style="width: 15%">Comment</th>
+                                                <th style="width: 15%">Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
                                             <td><input type="text" name="IDnumber[]"></td>
+                                            <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
@@ -889,11 +910,13 @@
                                                 <th style="width: 16%">Root Cause Sub Category</th>
                                                 <th style="width: 16%">Probability</th>
                                                 <th style="width: 15%">Comment</th>
+                                                <th style="width: 15%">Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
                                             <td><input type="text" name="IDnumber[]"></td>
+                                            <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
@@ -1090,15 +1113,11 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Response_to_Customer">Demerit Points</label>
-                                    
-                                        <input type="radio" id="age2" name="age" value="sfrgd">
-                                      
-                                    
-                                    <input type="radio" id="age2" name="age" value="">
-                                   
-                                    <input type="radio" id="age2" name="age" value="">
-                               
-
+                                    <div class="check_box">
+                                        <input type="radio" id="age2" name="age" value="">
+                                        <input type="radio" id="age2" name="age" value="">
+                                        <input type="radio" id="age2" name="age" value="">
+                                    </div>
                                 </div>
                             </div>
 
@@ -1280,6 +1299,7 @@
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="text" name="[]"></td>' +
                     '</tr>';
 
                 return html;
@@ -1304,6 +1324,7 @@
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="text" name="[]"></td>' +
                     '</tr>';
 
                 return html;
@@ -1319,37 +1340,13 @@
 
 <script>
     $(document).ready(function() {
-        $('#Tests').click(function(e) {
-            function generateTableRow(serialNumber) {
-
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '</tr>';
-
-                return html;
-            }
-
-            var tableBody = $('#Tests-field-table tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
         $('#Product_Material').click(function(e) {
             function generateTableRow(serialNumber) {
 
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +

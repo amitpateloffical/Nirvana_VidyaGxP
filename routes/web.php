@@ -396,6 +396,7 @@ Route::view('regulatory_notification', 'frontend.ctms.regulatory_notification');
 
 // ----------------------------------------------------------------------New Forms ------------------------------
 Route::view('complaint', 'frontend.new_forms.complaint');
+Route::view('supplier-observation', 'frontend.new_forms.supplier-observation');
 
 
 

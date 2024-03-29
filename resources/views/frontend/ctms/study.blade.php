@@ -46,7 +46,7 @@
                 <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                 <input type="hidden" name="parent_type" value="{{ $parent_type }}">
                 @endif
-                
+
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -549,7 +549,7 @@
                                 <label for="audit-agenda-grid">
                                     Equipment(0)
                                     <button type="button" name="audit-agenda-grid" id="Equipment">+</button>
-                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#Equipment-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
                                 </label>
@@ -565,11 +565,13 @@
                                                 <th style="width: 15%">Number of items Needed</th>
                                                 <th style="width: 15%">Exits</th>
                                                 <th style="width: 15%">Comment</th>
+                                                <th style="width: 15%">Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
                                             <td><input type="text" name="IDnumber[]"></td>
+                                            <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
@@ -672,7 +674,7 @@
                                 <label for="audit-agenda-grid">
                                     Dosing Schedule
                                     <button type="button" name="audit-agenda-grid" id="DosingSchedule">+</button>
-                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#DosingSchedule-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
                                 </label>
@@ -691,11 +693,13 @@
                                                 <th style="width: 15%">Dose</th>
                                                 <th style="width: 15%">Date Start</th>
                                                 <th style="width: 15%">Comments</th>
+                                                <th style="width: 15%">Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
                                             <td><input type="text" name="IDnumber[]"></td>
+                                            <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
@@ -715,7 +719,7 @@
                                 <label for="audit-agenda-grid">
                                     Tests(0)
                                     <button type="button" name="audit-agenda-grid" id="Tests">+</button>
-                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#Tests-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
                                 </label>
@@ -968,67 +972,69 @@
 
                 <div id="CCForm6" class="inner-block cctabcontent">
                     <div class="inner-block-content">
-                        <div class="sub-head">
-                            Electronic Signatures
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="submitted by">Submitted By</label>
-                                <div class="static"></div>
+                        <div class="row">
+                            <div class="sub-head">
+                                Electronic Signatures
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="submitted on">Submitted On</label>
-                                <div class="Date"></div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="submitted by">Submitted By</label>
+                                    <div class="static"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Closed by">Closed By</label>
-                                <div class="static"></div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="submitted on">Submitted On</label>
+                                    <div class="Date"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Closed on">Closed On</label>
-                                <div class="Date"></div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Closed by">Closed By</label>
+                                    <div class="static"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="closer by">Early Closure By</label>
-                                <div class="static"></div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Closed on">Closed On</label>
+                                    <div class="Date"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="closer on">Early Closure On</label>
-                                <div class="Date"></div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="closer by">Early Closure By</label>
+                                    <div class="static"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Finalized_by">Report Finalized By</label>
-                                <div class="static"></div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="closer on">Early Closure On</label>
+                                    <div class="Date"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Finalized_on">Report Finalized On</label>
-                                <div class="Date"></div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Finalized_by">Report Finalized By</label>
+                                    <div class="static"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Approved_By">Report Approved By</label>
-                                <div class="Date"></div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Finalized_on">Report Finalized On</label>
+                                    <div class="Date"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Approved_on">Report Approved On</label>
-                                <div class="Date"></div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved_By">Report Approved By</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved_on">Report Approved On</label>
+                                    <div class="Date"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -1196,6 +1202,7 @@
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="text" name="[]"></td>' +
                     '</tr>';
 
                 return html;
@@ -1221,7 +1228,7 @@
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
-                    '</tr>';
+                     '</tr>';
 
                 return html;
             }
@@ -1241,6 +1248,7 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
