@@ -394,6 +394,9 @@ Route::view('randomization', 'frontend.ctms.randomization');
 Route::view('regulatory_quary_managment', 'frontend.ctms.regulatory_quary_managment');
 Route::view('regulatory_notification', 'frontend.ctms.regulatory_notification');
 
+// ----------------------------------------------------------------------New Forms ------------------------------
+Route::view('complaint', 'frontend.new_forms.complaint');
+
 
 
 // Route::view('auditee', 'frontend.forms.auditee');
