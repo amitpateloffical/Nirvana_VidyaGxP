@@ -31,9 +31,6 @@
             <!-- Tab links -->
             <div class="cctab">
                 <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Monthly Working Hours</button>
-                <!-- {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Parent Information</button> --}}
-                <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Post Completion</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Action Approval</button> -->
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Activity Log</button>
             </div>
 
@@ -49,7 +46,7 @@
                     <div id="CCForm1" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="sub-head">
-                                General Information
+                                <!-- General Information -->
                             </div> <!-- RECORD NUMBER -->
                             <div class="row">
                                 <div class="col-lg-6">
@@ -61,9 +58,6 @@
                                     </div>
                                 </div>
 
-                               
-
-                               
 
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
@@ -134,8 +128,8 @@
 
 <label for="Short Description"> City<span class="text-danger"></span></label>
 <select>
-    <option>India</option>
-    <option>USA</option>
+    <option>Indore</option>
+    <option>Bhopal</option>
 </select>
 </div>
 </div>
@@ -145,8 +139,8 @@
 
 <label for="Short Description"> State/District<span class="text-danger"></span></label>
 <select>
-    <option>India</option>
-    <option>USA</option>
+    <option>Mp</option>
+    <option>Gujrat</option>
 </select>
 </div>
 </div>

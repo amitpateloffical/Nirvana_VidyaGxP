@@ -239,7 +239,6 @@ Route::view('emp', 'emp');
 
 Route::view('tasks', 'frontend.tasks');
 Route::view('tasks', 'frontend.T');
-
 Route::view('review-details', 'frontend.documents.review-details');
 Route::view('audit-trial-inner', 'frontend.documents.audit-trial-inner');
 Route::view('new-pdf', 'frontend.documents.new-pdf');
@@ -258,7 +257,6 @@ Route::view('designate-proxy', 'frontend.designate-proxy');
 Route::view('person-details', 'frontend.person-details');
 
 Route::view('basic-search', 'frontend.basic-search');
-
 //! ============================================ //
 //!                    TMS
 //! ============================================ //
@@ -359,7 +357,7 @@ Route::view('deviation_new', 'frontend.forms.deviation_new');
 
 
 
-// -------------------------------------EHS---------forms--------
+// -------------------------------------ehs---------forms--------
 Route::view('recurring_commitment', 'frontend.ehs.recurring_commitment');
 Route::view('sanction', 'frontend.ehs.sanction');
 Route::view('monthly_working', 'frontend.ehs.monthly_working');
@@ -372,7 +370,9 @@ Route::view('effectiveness', 'frontend.ehs.effectiveness');
 Route::view('capa', 'frontend.ehs.capa');
 Route::view('action_item', 'frontend.ehs.action_item');
 
-// -------------------------------------CTMS---------forms--------
+
+// --------------------------------------ctms-------forms-------
+
 Route::view('violation', 'frontend.ctms.violation');
 Route::view('subject', 'frontend.ctms.subject');
 Route::view('subject_action_item', 'frontend.ctms.subject_action_item');
@@ -386,11 +386,58 @@ Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
 Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
 Route::view('clinical_site', 'frontend.ctms.clinical_site');
 
+Route::view('cta_submission', 'frontend.ctms.cta_submission');
+Route::view('masking', 'frontend.ctms.masking');
+Route::view('randomization', 'frontend.ctms.randomization');
+Route::view('regulatory_quary_managment', 'frontend.ctms.regulatory_quary_managment');
+Route::view('regulatory_notification', 'frontend.ctms.regulatory_notification');
+
+// ----------------------------------------------------------------------New Forms ------------------------------
+Route::view('complaint', 'frontend.new_forms.complaint');
+Route::view('supplier-observation', 'frontend.new_forms.supplier-observation');
+Route::view('validation', 'frontend.new_forms.validation');
+Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
+Route::view('product-recall', 'frontend.new_forms.product-recall');
+Route::view('field-inquiry', 'frontend.new_forms.field-inquiry');
+Route::view('medical-device', 'frontend.new_forms.medical-device');
+Route::view('risk-management', 'frontend.new_forms.risk-management');
 
 
+Route::view('training_course', 'frontend.New_forms.training_course');
+Route::view('lab_test', 'frontend.New_forms.lab_test');
+Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
+Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
+Route::view('GCP_study', 'frontend.new_forms.GCP_study');
+Route::view('calibration', 'frontend.new_forms.calibration');
+
+//--------------------------------OOC-----form---------------//
+
+Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
+
+//--------------------------------Incident-----form---------------//
+
+Route::view('incident', 'frontend.Incident.incident');
+
+
+
+
+// -------------------------OOS-----------------
+Route::view('oos-form', 'frontend.OOS.oos-form');
+
+
+
+
+
+
+
+Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
+Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');
+Route::view('correspondence', 'frontend.New_forms.correspondence');
+Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
+Route::view('read_and_understand', 'frontend.New_forms.read_and_understand');
+Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
-
 
 Route::get('meeting', [ManagementReviewController::class, 'meeting']);
 
@@ -418,7 +465,7 @@ Route::view('supplier-investigation', 'frontend.forms.supplier-investigation');
 
 Route::view('supplier-issue-notification', 'frontend.forms.supplier-issue-notification');
 
-Route::view('supplier-audit', 'frontend.forms.supplier-audit');
+
 
 // Route::view('audit', 'frontend.forms.audit');
 Route::get('audit', [InternalauditController::class, 'internal_audit']);
@@ -451,3 +498,5 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 //! ============================================
 
 
+// ===============OOt form==========================\
+Route::view('OOT_form', 'frontend.OOT.OOT_form');

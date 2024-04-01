@@ -9,7 +9,44 @@
         display: none;
     }
 </style>
+<script>
+    $(document).ready(function() {
+        $('#ReferenceDocument').click(function(e) {
+            function generateTableRow(serialNumber) {
 
+
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+
+                    '<td><input type="text" name="Transaction[]"></td>' +
+                    '<td><input type="text" name="TransactionType[]"></td>' +
+                    '<td><input type="date" name="Date[]"></td>' +
+                    '<td><input type="number" name="Amount[]"></td>' +
+                    '<td><input type="text" name="Currencyused[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
+
+
+                    //     '</tr>';
+
+                    // for (var i = 0; i < users.length; i++) {
+                    //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                    // }
+
+                    // html += '</select></td>' + 
+
+                    '</tr>';
+
+                return html;
+            }
+
+            var tableBody = $('#ReferenceDocument_details tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1);
+            tableBody.append(newRow);
+        });
+    });
+</script>
 <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
@@ -30,12 +67,10 @@
 
         <!-- Tab links -->
         <div class="cctab">
-            <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">General Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Detailed Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Damage Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Investigation Summary</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Root casue and Risk Analysis</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Activity Log</button>
+            <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Contract</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Contract Detail</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
+
         </div>
 
         <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
@@ -55,16 +90,29 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>Initiator</b></label>
-                                    <input disabled type="text" name="record_number" value="">
+
+                                    <label for="RLS Record Number" class="mb-4"><b>Initiator</b></label>
+
+                                    <input type="text" name="record_number" value="">
+
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date Of Initiation</b></label>
+                                    <label for="Division Code"><b>Date Opened</b></label>
+                                    <p class="text-primary">When was this contract record opened </p>
                                     <input disabled type="date" name="division_code" value="">
-                                    <input type="hidden" name="division_id" value="">
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-12">
+                                <div class="group-input">
+                                    <label for="Short Description">Short Description<span class="text-danger">*</span>
+                                        <p class="text-primary">contract short description to be presented on desktop</p>
+                                        <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
 
@@ -73,6 +121,7 @@
                                     <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
+                                    <p class="text-primary">Person responsible</p>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
@@ -85,52 +134,16 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <p class="text-danger">6 Last Date this Contract to be closed by</p>
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Short Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
-                                    characters remaining
-                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
-                                </div>
-                            </div>
-
-                            <div class="sub-head">
-                                EHS Event Details
-                            </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Event type</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Incident Sub-Type</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RLS Record Number"><b>Date Occurred</b></label>
-                                    <input type="date" name="record_number" value="">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Time Occurred</label>
+                                    <label for="Responsible Department">Supplier List</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
@@ -142,13 +155,84 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>Date of Reporting</b></label>
-                                    <input type="date" name="record_number" value="">
+                                    <label for="Actions">Distribution List<span class="text-danger"></span></label>
+                                    <textarea placeholder="" name="description"></textarea>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="group-input">
+                                    <label for="Actions">Description<span class="text-danger"></span></label>
+                                    <textarea placeholder="" name="description"></textarea>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="RLS Record Number"><b>Manufacturer</b></label>
+                                    <input type="text" name="record_number" value="">
+
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>Reporter</b></label>
+                                    <label for="Responsible Department">Priority level</label>
+                                    <select name="departments">
+                                        <option value="">Enter Your Selection Here</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Responsible Department">Zone </label>
+                                    <select name="departments">
+                                        <option value="">Enter Your Selection Here</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="RLS Record Number"><b>Country</b></label>
+                                    <input type="text" name="record_number" value="">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="RLS Record Number"><b>City</b></label>
+                                    <p class="text-primary">auto filter according to selected country</p>
+                                    <input type="text" name="record_number" value="">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label class="mb-4" for="Responsible Department">State/District</label>
+                                    <select name="departments">
+                                        <option value="">Enter Your Selection Here</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label class="mb-4" for="Responsible Department">Type </label>
+                                    <select name="departments">
+                                        <option value="">Enter Your Selection Here</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="RLS Record Number"><b>Other type</b></label>
+                                    <p class="text-primary">If you choose "other" -please specify</p>
                                     <input type="text" name="record_number" value="">
 
                                 </div>
@@ -167,36 +251,10 @@
                                     {{-- <input type="file" name="file_attach[]" multiple> --}}
                                 </div>
                             </div>
-
-                            <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Similar Incidents(s)</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="A">1</option>
-                                        <option value="B">2</option>
-                                        <option value="C">3</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Short Description"> Description<span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Actions">Immediate Actions<span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
-                                </div>
-                            </div>
-
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -204,90 +262,33 @@
                     </div>
                 </div>
 
+                <!-- TAB 1 ENDS HERE -->
+
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="sub-head col-12">Detailed Information</div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Accident Type</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">OSHA Reportable?</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="start_date">First Lost Work Date</label>
+                                    <label for="start_date">Actual start Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6  new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="end_date">Last Lost Work Date</lable>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="end_date" placeholder="DD-MMM-YYYY" />
-                                            <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="end_date_checkdate" name="end_date" class="hide-input" oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6  new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="end_date">First Restricted Work Date</lable>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="end_date" placeholder="DD-MMM-YYYY" />
-                                            <input type="date" min="" id="end_date_checkdate" name="end_date" class="hide-input" oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6  new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="end_date">Last Restricted Work Date</lable>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="end_date" placeholder="DD-MMM-YYYY" />
-                                            <input type="date" min="" id="end_date_checkdate" name="end_date" class="hide-input" oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                        </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Vehicle Type</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="start_date">Vehicle Number</label>
+                                    <label for="start_date">Actual end Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly />
+                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Litigation</label>
+                                    <label for="Responsible Department">Suppplier List</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="">1</option>
@@ -296,363 +297,68 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="start_date">Department(s)</label>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="sub-head col-12">Involved Persons</div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Actions">Employee(s) Involved<span class="text-danger"></span></label>
+                                    <label for="Actions">Negotiation Team<span class="text-danger"></span></label>
+                                    <textarea placeholder="" name="description"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+                        <div class="group-input">
+                            <label for="audit-agenda-grid">
+                                Financial Transaction (0)
+                                <button type="button" name="audit-agenda-grid" id="ReferenceDocument">+</button>
+                                <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                    (open)
+                                </span>
+                            </label>
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="ReferenceDocument_details" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 4%">Row#</th>
+                                            <th style="width: 12%">Transaction</th>
+                                            <th style="width: 16%">Transaction Type</th>
+                                            <th style="width: 16%">Date</th>
+                                            <th style="width: 16%">Amount</th>
+                                            <th style="width: 16%">Currency used</th>
+                                            <th style="width: 16%">Remarks</th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+                                        <td><input type="text" name="Transaction[]"></td>
+                                        <td><input type="text" name="TransactionType[]"></td>
+                                        <td><input type="date" name="Date[]"></td>
+                                        <td><input type="number" name="Amount[]"></td>
+                                        <td><input type="text" name="Currencyused[]"></td>
+                                        <td><input type="text" name="Remarks[]"></td>
+
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Actions">Comments <span class="text-danger"></span></label>
                                     <textarea name="description"></textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Actions">Involved(s) Contractor(s)<span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Actions">Attorneys (s) Involved(s)<span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
-                                </div>
-                            </div>
 
-                            <div class="group-input">
-                                <label for="audit-agenda-grid">
-                                    Witness(es) Infoormation(0)
-                                    <button type="button" name="audit-agenda-grid" id="Witness_details">+</button>
-                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                        (Launch Instruction)
-                                    </span>
-                                </label>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="Witness_details_details">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 5%">Row#</th>
-                                                <th style="width: 12%">Witness Name</th>
-                                                <th style="width: 16%"> Witness Type</th>
-                                                <th style="width: 16%"> Item Descriptions</th>
-                                                <th style="width: 16%"> Comments</th>
-                                                <th style="width: 15%">Remarks</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-
-                                            <td><input type="text" name="WitnessName[]"></td>
-                                            <td><input type="text" name="WitnessType[]"></td>ḍ
-                                            <td><input type="text" name="ItemDescriptions[]"></td>
-                                            <td><input type="text" name="Comments[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
-
-
-
-                                        </tbody>
-
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Comments">Lead Investigator </label>
-                                    <Input name="Lead" />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Comments">Line Operator </label>
-                                    <Input name="Line" />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Comments">Reporter </label>
-                                    <Input name="Lead" />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Comments">Supervisor </label>
-                                    <Input name="Line" />
-                                </div>
-                            </div>
-
-                            <div class="sub-head col-12">Near Miss and Measures</div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Unsafe Situation</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Safeguarding Measure Taken</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="sub-head col-12">Enviromental Information</div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Enviromental Category</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Special Weather Conditions</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Source Department">Source Of Release or Spill</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department"></label>
-                                    <select name="departments">
-                                        <option value="">Cause Of Release or Spill</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department"></label>
-                                    <select name="departments">
-                                        <option value="">Environment Evacuation Ordered</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Date">Date Simples Taken</label>
-                                    <input type="date">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="Agency">Agency(s) Notified</label>
-                                    <select name="departments">
-                                        <option value="">Environment Evacuation Ordered</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="audit-agenda-grid">
-                                        Materials Released(0)
-                                        <button type="button" name="audit-agenda-grid" id="MaterialsReleased">+</button>
-                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                            (Launch Instruction)
-                                        </span>
-                                    </label>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="MaterialsReleased-field-table">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 5%">Row#</th>
-                                                    <th style="width: 12%">Type of Material(s) Released</th>
-                                                    <th style="width: 16%">Quantity Of Materials Released</th>
-                                                    <th style="width: 16%"> Medium Affected By Released</th>
-                                                    <th style="width: 16%"> Health Risk?</th>
-                                                    <th style="width: 15%">Remarks</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                <td><input type="text" name="IDnumber[]"></td>
-                                                <td><input type="text" name=""></td>
-                                                <td><input type="text" name=""></td>
-                                                <td><input type="text" name=""></td>
-                                                <td><input type="text" name="Remarks[]"></td>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-
-                        <div class="sub-head col-12">Fire Incident</div>
-                        <!-- <div class="col-lg-12"> -->
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Agency">Fire Category</label>
-                                <select name="departments">
-                                    <option value="">--select--</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Agency">Fire Evacuation Ordered?</label>
-                                <select name="departments">
-                                    <option value="">--select--</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- </div> -->
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Agency">Combat By</label>
-                                <select name="departments">
-                                    <option value="">--select--</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Agency">Fire Fighting Equipment Used</label>
-                                <input type="text">
-                            </div>
-                        </div>
-
-                        <div class="sub-head col-12">Event Location</div>
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Agency">Zone</label>
-                                <select name="departments">
-                                    <option value="">--select--</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Agency">Country</label>
-                                <input type="text">
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Agency">City</label>
-                                <input type="text">
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="State">State/District</label>
-                                <select name="State">
-                                    <option value="">--select--</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Site">Site Name</label>
-                                <select name="Site">
-                                    <option value="">--select--</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Building">Building</label>
-                                <select name="Building">
-                                    <option value="">--select--</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Floor">Floor</label>
-                                <select name="Floor">
-                                    <option value="">--select--</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Room">Room</label>
-                                <select name="Room">
-                                    <option value="">--select--</option>
-                                    <option value="">1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Location">Location</label>
-                                <input type="text">
-                            </div>
-                        </div>
-
 
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
@@ -670,188 +376,21 @@
                             <div class="sub-head">Victim Information</div>
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Victim">Victim</label>
+                                    <label for="Victim">Signed By</label>
                                     <input type="text" name="Victim" />
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Medical">Medical Treatment?(Y/N)</label>
-                                    <select name="Medical">
-                                        <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Victim_Position">Victim Position</label>
-                                    <select name="Victim_Position">
-                                        <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Victim_Realation">Victim Realation To Company</label>
-                                    <select name="Victim_Realation">
-                                        <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Hospitalization">Hospitalization</label>
-                                    <select name="Hospitalization">
-                                        <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Hospital_name">Hospital Name</label>
-                                    <input type="text" name="Hospital_name" />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Date">Date of Treatment</label>
-                                    <input type="date" name="Date" />
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Victim_Treated">Victim Treated By</label>
-                                    <input type="text" name="Victim_Treated" />
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Victim_Treated">Medical Treatment Discription</label>
-                                    <textarea name="" id="" cols="30" rows="3"></textarea>
+
+                                    <label for="Division Code"><b>Signed On</b></label>
+
+                                    <input disabled type="date" name="division_code" value="">
+
+
                                 </div>
                             </div>
 
-                            <div class="col-12 sub-head">
-                                Physical Damage
-                            </div>
-
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Injury">Injury Type</label>
-                                    <select name="Injury">
-                                        <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Injury">Number of Injuries</label>
-                                    <input type="text" name="number">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Injury">Type of Illness</label>
-                                    <select name="Injury">
-                                        <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Injury">Permanent Disability?</label>
-                                    <select name="Injury">
-                                        <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="sub-head">
-                                Damage Information
-                            </div>
-
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Permanent">Damage Category</label>
-                                    <select name="Permanent">
-                                        <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Related_Equipment">Related Equipment</label>
-                                    <input type="text" name="Related_Equipment">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Estimated_Amount">Estimated Amount of Damage Equipment</label>
-                                    <input type="text" name="Estimated_Amount">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Permanent">Currency</label>
-                                    <select name="Permanent">
-                                        <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Involved">Insurance Company Involved?</label>
-                                    <select name="Involved">
-                                        <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Denied_By_Insurance">Denied By Insurance Company?</label>
-                                    <select name="Denied_By_Insurance">
-                                        <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Damage_Details">Damage Details</label>
-                                    <textarea name="Damage_Details" id="" cols="30" rows="3"></textarea>
-                                </div>
-                            </div>
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
@@ -1341,12 +880,12 @@
                         </div>
                     </div>
 
-                    <div class="button-block">
+                    <!-- <div class="button-block">
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="submit" class="saveButton">Save</button>
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
