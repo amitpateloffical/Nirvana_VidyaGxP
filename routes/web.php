@@ -239,7 +239,6 @@ Route::view('emp', 'emp');
 
 Route::view('tasks', 'frontend.tasks');
 Route::view('tasks', 'frontend.T');
-
 Route::view('review-details', 'frontend.documents.review-details');
 Route::view('audit-trial-inner', 'frontend.documents.audit-trial-inner');
 Route::view('new-pdf', 'frontend.documents.new-pdf');
@@ -258,7 +257,6 @@ Route::view('designate-proxy', 'frontend.designate-proxy');
 Route::view('person-details', 'frontend.person-details');
 
 Route::view('basic-search', 'frontend.basic-search');
-
 //! ============================================ //
 //!                    TMS
 //! ============================================ //
@@ -411,6 +409,8 @@ Route::view('training_course', 'frontend.New_forms.training_course');
 Route::view('lab_test', 'frontend.New_forms.lab_test');
 Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
 Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
+Route::view('GCP_study', 'frontend.new_forms.GCP_study');
+Route::view('calibration', 'frontend.new_forms.calibration');
 
 //--------------------------------OOC-----form---------------//
 
@@ -423,6 +423,21 @@ Route::view('incident', 'frontend.Incident.incident');
 
 
 
+// -------------------------OOS-----------------
+Route::view('oos-form', 'frontend.OOS.oos-form');
+
+
+
+
+
+
+
+Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
+Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');
+Route::view('correspondence', 'frontend.New_forms.correspondence');
+Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
+Route::view('read_and_understand', 'frontend.New_forms.read_and_understand');
+Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
 
@@ -452,7 +467,7 @@ Route::view('supplier-investigation', 'frontend.forms.supplier-investigation');
 
 Route::view('supplier-issue-notification', 'frontend.forms.supplier-issue-notification');
 
-Route::view('supplier-audit', 'frontend.forms.supplier-audit');
+
 
 // Route::view('audit', 'frontend.forms.audit');
 Route::get('audit', [InternalauditController::class, 'internal_audit']);
