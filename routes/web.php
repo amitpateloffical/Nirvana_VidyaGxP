@@ -401,6 +401,7 @@ Route::view('validation', 'frontend.new_forms.validation');
 Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
 Route::view('product-recall', 'frontend.new_forms.product-recall');
 Route::view('field-inquiry', 'frontend.new_forms.field-inquiry');
+Route::view('medical-device', 'frontend.new_forms.medical-device');
 
 
 //--------------------------------OOC-----form---------------//
