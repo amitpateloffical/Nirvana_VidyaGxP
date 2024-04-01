@@ -403,6 +403,8 @@ Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
 Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');
 Route::view('correspondence', 'frontend.New_forms.correspondence');
 Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
+Route::view('read_and_understand', 'frontend.New_forms.read_and_understand');
+Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
 
