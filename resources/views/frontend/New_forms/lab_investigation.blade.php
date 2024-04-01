@@ -10,11 +10,6 @@
     }
 </style>
 
-
-
-
-
-
 <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
@@ -37,12 +32,10 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="root_couse_category[]"></td>'+
-                                                '<td><input type="text" name="root_couse_sub_category[]"></td>'+
-                                                '<td><input type="text" name="probability[]"></td>'+
-                                                '<td><input type="text" name="Comment[]"></td>' +
-
-
+                    '<td><input type="text" name="root_couse_category[]"></td>' +
+                    '<td><input type="text" name="root_couse_sub_category[]"></td>' +
+                    '<td><input type="text" name="probability[]"></td>' +
+                    '<td><input type="text" name="Comment[]"></td>' +
                     '</tr>';
 
                 // for (var i = 0; i < users.length; i++) {
@@ -210,7 +203,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Original Test Results">Original Test Results</label>
@@ -221,7 +214,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Limits / Specifications">Limits / Specifications</label>
@@ -234,34 +227,34 @@
                             </div>
 
                             <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Additional Investigators">Additional Investigators</label>
-                                        <select multiple id="additional_investigators" name="" id="">
-                                            <option value="">--Select---</option>
-                                         
-                                                <option value="">
-                                              
-                                                </option>
-                                         
-                                        </select>
-                                    </div>
-                                </div>
+                                <div class="group-input">
+                                    <label for="Additional Investigators">Additional Investigators</label>
+                                    <select multiple id="additional_investigators" name="" id="">
+                                        <option value="">--Select---</option>
 
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Department(s)">Department(s)</label>
-                                        <select multiple id="departments" name="" id="">
-                                            <option value="">--Select---</option>
-                                         
-                                                <option value="">
-                                              
-                                                </option>
-                                         
-                                        </select>
-                                    </div>
-                                </div>
+                                        <option value="">
 
-                                <div class="col-md-6">
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Department(s)">Department(s)</label>
+                                    <select multiple id="departments" name="" id="">
+                                        <option value="">--Select---</option>
+
+                                        <option value="">
+
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Description">Description</label>
                                     <textarea class="" name="Description" id="">
@@ -366,7 +359,7 @@
                                 </div>
                             </div>
 
-                            
+
                             <div class="col-md-12">
                                 <div class="group-input">
                                     <label for="Risk Analysis">Risk Analysis</label>
@@ -426,13 +419,13 @@
                 </div>
 
                 <div id="CCForm3" class="inner-block cctabcontent">
-                <div class="inner-block-content">
-                    <div class="sub-head">
-                       Investigation & Root Couse
-                    </div>
-                    <div class="row">
+                    <div class="inner-block-content">
+                        <div class="sub-head">
+                            Investigation & Root Couse
+                        </div>
+                        <div class="row">
 
-                    <div class="col-lg-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Root Couse Methodology">Root Couse Methodology</label>
                                     <select name="root_couse_methodology" onchange="">
@@ -482,58 +475,58 @@
                                     </textarea>
                                 </div>
                             </div>
-                     
-                        
-                    </div>
-                    <div class="button-block">
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="submit" class="saveButton">Save</button>
-                        <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
-                            </a> </button>
+
+
+                        </div>
+                        <div class="button-block">
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                                </a> </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="CCForm4" class="inner-block cctabcontent">
-                <div class="inner-block-content">
-                    <div class="sub-head">
-                        Activity Log
-                    </div>
-                    <div class="row">
-
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Completed By">Completed By</label>
-                                <select name="Completed_By" onchange="">
-                                    <option value="">-- select --</option>
-                                    <option value=""></option>
-
-                                </select>
-                            </div>
+                <div id="CCForm4" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="sub-head">
+                            Activity Log
                         </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Completedon">Completed on </label>
+                        <div class="row">
 
-                                <div class="calenderauditee">
-                                    <input type="text" id="Completedon" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" name="Completedon" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Completed By">Completed By</label>
+                                    <select name="Completed_By" onchange="">
+                                        <option value="">-- select --</option>
+                                        <option value=""></option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Completedon">Completed on </label>
+
+                                    <div class="calenderauditee">
+                                        <input type="text" id="Completedon" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="Completedon" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="button-block">
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="submit" class="saveButton">Save</button>
-                        <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
-                            </a> </button>
+                        <div class="button-block">
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                                </a> </button>
+                        </div>
                     </div>
                 </div>
             </div>
-    </div>
-    </form>
+        </form>
 
-</div>
+    </div>
 </div>
 
 <style>
