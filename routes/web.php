@@ -396,7 +396,8 @@ Route::view('regulatory_notification', 'frontend.ctms.regulatory_notification');
 
 // ----------------------------------------------------------------------New Forms ------------------------------
 Route::view('complaint', 'frontend.new_forms.complaint');
-
+Route::view('supplier-observation', 'frontend.new_forms.supplier-observation');
+Route::view('validation', 'frontend.new_forms.validation');
 
 //--------------------------------OOC-----form---------------//
 
@@ -478,3 +479,5 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 //! ============================================
 
 
+// ===============OOt form==========================\
+Route::view('OOT_form', 'frontend.OOT.OOT_form');

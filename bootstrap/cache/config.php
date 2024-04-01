@@ -391,7 +391,7 @@
     array (
       'font_dir' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP\\storage\\fonts',
       'font_cache' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP\\storage\\fonts',
-      'temp_dir' => 'C:\\Users\\VIDYAG~1\\AppData\\Local\\Temp',
+      'temp_dir' => 'C:\\Users\\panka\\AppData\\Local\\Temp',
       'chroot' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
@@ -410,7 +410,7 @@
     array (
       'font_dir' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP\\storage\\fonts',
       'font_cache' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP\\storage\\fonts',
-      'temp_dir' => 'C:\\Users\\VIDYAG~1\\AppData\\Local\\Temp',
+      'temp_dir' => 'C:\\Users\\panka\\AppData\\Local\\Temp',
       'chroot' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP',
       'allowed_protocols' => 
       array (
