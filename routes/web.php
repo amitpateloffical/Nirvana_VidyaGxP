@@ -398,6 +398,9 @@ Route::view('regulatory_notification', 'frontend.ctms.regulatory_notification');
 Route::view('complaint', 'frontend.new_forms.complaint');
 Route::view('supplier-observation', 'frontend.new_forms.supplier-observation');
 Route::view('validation', 'frontend.new_forms.validation');
+Route::view('training_course', 'frontend.New_forms.training_course');
+Route::view('lab_test', 'frontend.New_forms.lab_test');
+Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
 
 //--------------------------------OOC-----form---------------//
 
@@ -408,13 +411,6 @@ Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
 Route::view('incident', 'frontend.Incident.incident');
 
 
-//--------------------------------Training Course-----form---------------//
-
-Route::view('training_course', 'frontend.New_forms.training_course');
-
-//--------------------------------Lab Test-----form---------------//
-
-Route::view('lab_test', 'frontend.New_forms.lab_test');
 
 
 // Route::view('auditee', 'frontend.forms.auditee');
