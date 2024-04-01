@@ -257,8 +257,6 @@ Route::view('designate-proxy', 'frontend.designate-proxy');
 Route::view('person-details', 'frontend.person-details');
 
 Route::view('basic-search', 'frontend.basic-search');
-Route::view('GCP_study', 'frontend.new_forms.GCP_study');
-Route::view('calibration', 'frontend.new_forms.calibration');
 //! ============================================ //
 //!                    TMS
 //! ============================================ //
@@ -409,6 +407,8 @@ Route::view('training_course', 'frontend.New_forms.training_course');
 Route::view('lab_test', 'frontend.New_forms.lab_test');
 Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
 Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
+Route::view('GCP_study', 'frontend.new_forms.GCP_study');
+Route::view('calibration', 'frontend.new_forms.calibration');
 
 //--------------------------------OOC-----form---------------//
 
@@ -417,6 +417,12 @@ Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
 //--------------------------------Incident-----form---------------//
 
 Route::view('incident', 'frontend.Incident.incident');
+
+
+
+
+// -------------------------OOS-----------------
+Route::view('oos-form', 'frontend.OOS.oos-form');
 
 
 

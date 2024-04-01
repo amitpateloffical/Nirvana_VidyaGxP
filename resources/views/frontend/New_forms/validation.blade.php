@@ -16,7 +16,7 @@
         </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / Complaint
+        / Validation
     </div>
 </div>
 
