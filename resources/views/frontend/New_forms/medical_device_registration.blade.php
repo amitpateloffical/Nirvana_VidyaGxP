@@ -57,7 +57,7 @@
         </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / EHS_Event
+        / Medical Device Registration
     </div>
 </div>
 

@@ -55,7 +55,7 @@
         </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / EHS_Event
+        / Correspondence
     </div>
 </div>
 
