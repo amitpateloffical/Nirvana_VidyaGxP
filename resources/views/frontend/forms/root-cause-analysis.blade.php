@@ -76,16 +76,6 @@
                                     </div>
                                 </div>
                               
-                                {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="date-opened">Date Opened </label>
-                                        <div><small class="text-primary">When was this Investigation record opened?</small>
-                                        </div>
-                                        <input type="text" name="date_opened" value="{{date('d-M-Y')}}" readonly>
-                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="date_opened">
-
-                                    </div>
-                                </div> --}}
                                 <div class="col-lg-6">
                                     <div class="group-input ">
                                         <label for="Date Due"><b>Date of Initiation</b></label>
