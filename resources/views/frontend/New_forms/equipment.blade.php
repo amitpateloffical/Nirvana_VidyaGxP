@@ -16,9 +16,11 @@
         </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / Supplier Observation
+        / Equipment
     </div>
 </div>
+
+
 
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
@@ -28,9 +30,8 @@
 
         <!-- Tab links -->
         <div class="cctab">
-            <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Supplier Observation</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Impact Analysis</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
+            <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Preventive Maintenance</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Signatures</button>
         </div>
 
         <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
@@ -45,10 +46,7 @@
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="sub-head">
-                                General Information
-                            </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Originator"><b>Originator</b></label>
                                     <input disabled type="text" name="Originator" value="">
@@ -64,9 +62,26 @@
 
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short_Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
+                                    <label for="Short Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
                                     characters remaining
-                                    <input id="docname" type="text" name="Short_Description" maxlength="255" required>
+                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="group-input">
+                                    <label for="type">
+                                        Type</label>
+                                    <select id="select-state" placeholder="Select..." name="type">
+                                        <option value="">Select a value</option>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Number"><b>Number (ID)</b></label>
+                                    <input type="text" name="Number" value="">
                                 </div>
                             </div>
 
@@ -78,9 +93,7 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         <option value=""></option>
-
                                     </select>
-
                                 </div>
                             </div>
 
@@ -93,105 +106,124 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="Criticality"><b>Criticality</b></label>
-                                    <select name="Criticality">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <label for="site_name">Site Name</label>
+                                    <select id="select-state" placeholder="Select..." name="site_name">
+                                        <option value="">Select a value</option>
+                                        <option value=""></option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="PriorityLevel"><b>Priority Level</b></label>
-                                    <select name="PriorityLevel">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <label for="building">Building</label>
+                                    <select id="select-state" placeholder="Select..." name="building">
+                                        <option value="">Select a value</option>
+                                        <option value=""></option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="Auditee_Supplier">Auditee/Supplier</label>
-                                    <input type="text" name="Auditee_Supplier">
-
+                                    <label for="floor">Floor</label>
+                                    <select id="select-state" placeholder="Select..." name="floor">
+                                        <option value="">Select a value</option>
+                                        <option value=""></option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="Contact_Person">Contact Person</label>
-                                    <input type="text" name="Contact_Person">
+                                    <label for="room">Room</label>
+                                    <select id="select-state" placeholder="Select..." name="room">
+                                        <option value="">Select a value</option>
+                                        <option value=""></option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Descriptions">Descriptions</label>
-                                    <textarea name="Descriptions" id="" cols="30" rows="3"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="Attached_File">Attached File</label>
+                                    <label for="attached_file">Attached Files</label>
+                                    <div>
+                                        <small class="text-primary">
+                                            Please Attach all relevant or supporting documents
+                                        </small>
+                                    </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id=""></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="Attached_File[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="attached_file" oninput="" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="Attached_Picture">Attached Picture</label>
-                                    <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
-                                        <div class="add-btn">
-                                            <div>Add</div>
-                                            <input type="file" id="myfile" name="Attached_Picture[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Manufacturer">Manufacturer</label>
-                                    <input type="text" name="Manufacturer">
+                                    <label for="description">Description</label>
+                                    <textarea name="description" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Trade_name">Type</label>
-                                    <select name="Trade_name">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Product">Product/Materials(0)</label>
-                                    <input type="text" name="Product" id="">
+                                    <label for="comments">Comments</label>
+                                    <textarea name="comments" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
 
                             <div class="sub-head">
-                                Actions
+                                Manitenance and Calibration Information
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Proposed_Actions">Proposed Actions</label>
-                                    <textarea name="Proposed_Actions" id="" cols="30" rows="3"></textarea>
+                                    <label for="pm_frequency">PM Frequency</label>
+                                    <select name="pm_frequency">
+                                        <option value="">Enter Your Selection Here</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Calibration Frequency">Calibration Frequency</label>
+                                    <select name="Calibration_Frequency">
+                                        <option value="">Enter Your Selection Here</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Comments">Comments</label>
-                                    <textarea name="Proposed_Actions" id="" cols="30" rows="3"></textarea>
+                                    <label for="Preventive Maintenance Plan">Preventive Maintenance Plan</label>
+                                    <textarea name="Preventive_Maintenance_Plan" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Calibration Information">Calibration Information</label>
+                                    <textarea name="Calibration_Information" id="" cols="30" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Next_PM_Date">Next PM Date</label>
+                                    <input type="date" name="Next_PM_Date" id="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Next Calibration Date">Next Calibration Date</label>
+                                    <input type="date" name="Next_Calibration_Date" id="">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="group-input">
+                                    <label for="Next Calibration Date">Maintenance History</label>
+                                    <textarea name="Next_Calibration_Date" id="" cols="30" rows="3"></textarea>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
@@ -205,93 +237,38 @@
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="sub-head col-12">Impact Analysis</div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Impact">Impact</label>
-                                    <select name="Impact">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Impact_Analysis">Impact Analysis </label>
-                                    <textarea name="Impact_Analysis" id="" cols="30" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class="sub-head col-12">Risk Analysis</div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Severity_Rate">Severity Rate</label>
-                                    <select name="Severity_Rate">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Occurence">Occurence</label>
-                                    <select name="Occurence">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Occurence">Detection</label>
-                                    <select name="Occurence">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RPN">RPN</label>
-                                    <select name="RPN">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                        Exit </a> </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="CCForm3" class="inner-block cctabcontent">
-                    <div class="inner-block-content">
-                        <div class="row">
-                            <div class="sub-head">
-                                Electronic Signatures
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="submitted by">Approved By</label>
+                                    <label for="Submitted by">Submitted By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="submitted on">Approved On</label>
+                                    <label for="Submitted on">Submitted On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="QA Approved by">QA Approved By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="QA Approved on">QA Approved On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
-
                     </div>
                 </div>
 
@@ -382,6 +359,7 @@
         }
     }
 </script>
+
 <script>
     var maxLength = 255;
     $('#docname').keyup(function() {
