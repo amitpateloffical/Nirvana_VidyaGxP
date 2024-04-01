@@ -47,17 +47,17 @@
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="sub-head">
-                            General Information
+                            Basic Information
                         </div> <!-- RECORD NUMBER -->
                         <div class="row">
-                            <div class="col-lg-6">
+                        <div class="col-12">
                                 <div class="group-input">
-                                    <label class="mb-4" for="RLS Record Number"><b>Initiator</b></label>
-
-                                    <input type="text" name="record_number" value="">
-
+                                    <label for="Short Description">Short Description</label>
+                                    <p class="text-primary">Short Description to be presented on dekstop</p>
+                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Opened</b></label>
@@ -66,13 +66,18 @@
                                     <input type="hidden" name="division_id" value="">
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Short Description">Short Description</label>
-                                    <p class="text-primary">Short Description to be presented on dekstop</p>
-                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
+                            <div class="col-md-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <p class="text-danger">6 last date this record should be closed by</p>
+
+                                    <div class="calenderauditee">
+                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="search">
@@ -88,121 +93,100 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-danger">6 last date this record should be closed by</p>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="group-input">
-                                    <label for="search">
-                                        Department(s)<span class="text-danger"></span>
-                                    </label>
-                                    <p class="text-primary">Add all the related departments</p>
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
-                                        <option value="">Select a value</option>
-
-                                        <option value=""></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="sub-head">
-                                Study Details
-                            </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Study Number</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
+                                    <label class="mb-4" for="Originator"><b>Originator</b></label>
+
+                                    <input type="text" name="Originator" value="">
+
                                 </div>
                             </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Name of Product</label>
-                                    <input type="text" name="record_number" value="">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-
+                          
                             
+                            <div class="col-md-12">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Study Title</label>
-                                    <input type="text" name="record_number" value="">
+                                    <label for="Description">(Parent)Description</label>
+                                    <textarea class="" name="Description" id="">
+                                    </textarea>
                                 </div>
                             </div>
 
+                            <div class="sub-head">Calibration Details</div>
+
+
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Study type</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Short Description">Study Protocol Number</label>
-                                    <input id="docname" type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <p class="text-primary">Detailed Description</p>
-                                    <label for="Responsible Department">Description</label>
-                                    <input type="text" name="record_number" value="">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label class="mb-4" for="Responsible Department">Comments</label>
-                                    <input type="text" name="record_number" value="">
-                                </div>
-                            </div>
-                            <div class="sub-head">
-                                Additional Information
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Related studies</label>
-                                    <p class="text-primary">Link between study records related to the same study type or topic</p>
-                                    <select name="departments">
+                                    <label for="Device Condition_M">Device Condition_M</label>
+                                    <select name="Device_Condition_M" onchange="">
+                                        <option value="">-- select --</option>
                                         <option value=""></option>
+
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="Responsible Department">Document Link</label>
-                                    <input type="text" name="record_number" value="">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Appendiceis</label>
-                                    <select name="departments">
+                                    <label for="Replace Parts?_M">Replace Parts?_M</label>
+                                    <select name="Replace_Parts?_M" onchange="">
+                                        <option value="">-- select --</option>
                                         <option value=""></option>
+
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Related Audits</label>
-                                    <select name="departments">
+                                    <label for="Calibration Rating_M">Calibration Rating_M</label>
+                                    <select name="Calibration_Rating_M" onchange="">
+                                        <option value="">-- select --</option>
                                         <option value=""></option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Update Software?_M">Update Software?_M</label>
+                                    <select name="Update_Software?_M" onchange="">
+                                        <option value="">-- select --</option>
+                                        <option value=""></option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Replace Betteries?_M">Replace Betteries?_M</label>
+                                    <select name="Replace_Betteries?_M" onchange="">
+                                        <option value="">-- select --</option>
+                                        <option value=""></option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="(Parent) Equipment Name_M">(Parent) Equipment Name_M</label>
+                                    <select name="(Parent)_Equipment_Name_M" onchange="">
+                                        <option value="">-- select --</option>
+                                        <option value=""></option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="(Parent) Equipment Type_M">(Parent) Equipment Type_M</label>
+                                    <span> No options available</span>
+
                                     </select>
                                 </div>
                             </div>
@@ -221,214 +205,38 @@
             <div id="CCForm2" class="inner-block cctabcontent">
                 <div class="inner-block-content">
                     <div class="row">
-                        <div class="sub-head col-12">GCP Details</div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="start_date">Generic Product Name</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="start_date" readonly />
-                                </div>
-                            </div>
+                        <div class="sub-head">
+                            E-Signatures
                         </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="start_date">Indication Name</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="start_date" readonly />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="start_date">Clinical Study Manager</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="start_date" readonly />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="start_date">Clinical Expert</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="start_date" readonly />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="group-input">
-                                <label for="Responsible Department">Phase Level</label>
-                                <select name="departments">
-                                    <option value="">Enter Your Selection Here</option>
-                                </select>
-                            </div>
-                        </div>
-
-
-
-
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Responsible Department">Therapeutic Area</label>
-                                <select name="departments">
-                                    <option value="">Enter Your Selection Here</option>
+                                <label for="Approved By">Approved Type</label>
+                                <select name="Approved_by-" onchange="">
+                                    <option value="">-- select --</option>
+                                    <option value=""></option>
+
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="start_date">IND No.</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="start_date" readonly />
-                                </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Approved on">Approved On</label>
+                                <input type="date" name="Started_On" id="">
                             </div>
                         </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="start_date">Number of Centers</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="start_date" readonly />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="start_date">#of Subjects</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="start_date" readonly />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="group-input">
-                        <label for="audit-agenda-grid">
-                            Audit Site Information(0)
-                            <button type="button" name="audit-agenda-grid" id="ReferenceDocument">+</button>
-                            <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                (Launch Instruction)
-                            </span>
-                        </label>
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="ReferenceDocument_details" style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 4%">Row#</th>
-                                        <th style="width: 12%">N</th>
-                                        <th style="width: 16%">Audit Frequency</th>
-                                        <th style="width: 16%"> Current</th>
-                                        <th style="width: 16%"> CRO</th>
-                                        <th style="width: 16%">Remark</th>
 
-
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <td><input disabled type="text" name="serial[]" value="1"></td>
-                                    <td><input type="text" name="Number[]"></td>
-                                    <td><input type="text" name="ReferenceDocumentName[]"></td>
-                                    <td><input type="text" name="Remarks[]"></td>
-
-                                </tbody>
-
-                            </table>
-                        </div>
-                    </div>
-                    <div class="group-input">
-                        <label for="audit-agenda-grid">
-                            Study Site Information(0)
-                            <button type="button" name="audit-agenda-grid" id="ReferenceDocument">+</button>
-                            <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                (Launch Instruction)
-                            </span>
-                        </label>
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="ReferenceDocument_details" style="width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 4%">Row#</th>
-                                        <th style="width: 12%">Audit Site</th>
-                                        <th style="width: 16%">Site No.</th>
-                                        <th style="width: 16%"> Investigator</th>
-                                        <th style="width: 16%"> First Patient in Date</th>
-                                        <th style="width: 16%">Enrolled No.</th>
-                                        <th style="width: 16%">Current</th>
-                                        <th style="width: 16%">Remark</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <td><input disabled type="text" name="serial[]" value="1"></td>
-                                    <td><input type="text" name="Number[]"></td>
-                                    <td><input type="text" name="ReferenceDocumentName[]"></td>
-                                    <td><input type="text" name="Remarks[]"></td>
-
-                                </tbody>
-
-                            </table>
+                        <div class="button-block">
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                                </a> </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- =========================================================================================================== -->
-
-            <div id="CCForm3" class="inner-block cctabcontent">
-                <div class="inner-block-content">
-                    <div class="row">
-                        <div class="sub-head">Important Date</div>
-                        <div class="col-12">
-                            <div class="group-input">
-                                <label for="Date">Initiation Date</label>
-                                <input type="date" name="Date" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="Date">Study Start Date</label>
-                                <input type="date" name="Date" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="Date">Study End Date</label>
-                                <input type="date" name="Date" />
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="group-input">
-                                <label for="Date">Study Protocol</label>
-                                <input type="date" name="Date" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="Date">First Subject in(FSI)</label>
-                                <input type="date" name="Date" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="Date">Last Subject Out</label>
-                                <input type="date" name="Date" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="Date">Data Base Lock(DBL)</label>
-                                <input type="date" name="Date" />
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="Date">Integrated CTR</label>
-                                <input type="date" name="Date" />
-                            </div>
-                        </div>
-
-                        <!-- ============================================================================================================================== -->
-                        <!--  -->
-<!-- </div> -->
-
+    </div>
+</div>
 <style>
     #step-form>div {
         display: none
