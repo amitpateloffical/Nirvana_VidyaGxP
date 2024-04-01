@@ -16,7 +16,7 @@
         </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / Action Item
+        / Serious Adverse Event
     </div>
 </div>
 

@@ -16,7 +16,7 @@
         </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / Complaint
+        / Medical Device
     </div>
 </div>
 
