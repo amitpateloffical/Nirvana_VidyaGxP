@@ -343,7 +343,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Started on">Started On</label>
-                                    <input type="date" name="Started_On" id="">
+                                    <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -355,7 +355,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Submitted on">Submitted On</label>
-                                    <input type="date" name="Submitted_On" id="">
+                                    <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -367,7 +367,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Approved_on">Approved On</label>
-                                    <input type="date" name="Approved_On" id="">
+                                    <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -379,7 +379,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Withdrawn on">Withdrawn On</label>
-                                    <input type="date" name="Withdrawn_On" id="">
+                                    <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -391,7 +391,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Refused on">Refused On</label>
-                                    <input type="date" name="Refused_on" id="">
+                                    <div class="static"></div>
                                 </div>
                             </div>
 
