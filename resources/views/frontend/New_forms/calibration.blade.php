@@ -210,18 +210,14 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Approved By">Approved Type</label>
-                                <select name="Approved_by-" onchange="">
-                                    <option value="">-- select --</option>
-                                    <option value=""></option>
-
-                                </select>
+                                <label for="Approved By">Approved Type : </label>
+                               
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Approved on">Approved On</label>
-                                <input type="date" name="Started_On" id="">
+                                <label for="Approved on">Approved On : </label>
+                             
                             </div>
                         </div>
 
