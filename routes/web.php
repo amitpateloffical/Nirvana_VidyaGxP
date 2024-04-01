@@ -401,6 +401,7 @@ Route::view('validation', 'frontend.new_forms.validation');
 Route::view('training_course', 'frontend.New_forms.training_course');
 Route::view('lab_test', 'frontend.New_forms.lab_test');
 Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
+Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
 
 //--------------------------------OOC-----form---------------//
 
