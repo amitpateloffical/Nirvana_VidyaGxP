@@ -259,6 +259,7 @@ Route::view('person-details', 'frontend.person-details');
 
 Route::view('basic-search', 'frontend.basic-search');
 Route::view('GCP_study', 'frontend.new_forms.GCP_study');
+Route::view('calibration', 'frontend.new_forms.calibration');
 //! ============================================ //
 //!                    TMS
 //! ============================================ //

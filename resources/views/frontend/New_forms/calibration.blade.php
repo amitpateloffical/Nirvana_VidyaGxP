@@ -16,7 +16,7 @@
         </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / GCP Study
+        / Calibration
     </div>
 </div>
 
@@ -30,9 +30,8 @@
 
         <!-- Tab links -->
         <div class="cctab">
-            <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">GCP Study</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">GCP Details</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Important Dates</button>
+            <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">General Information</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">E Signature</button>
 
         </div>
 
@@ -135,6 +134,8 @@
                             </div>
 
                             <div class="col-lg-6">
+
+                            
                                 <div class="group-input">
                                     <label for="Responsible Department">Study Title</label>
                                     <input type="text" name="record_number" value="">
@@ -349,7 +350,6 @@
                                         <th style="width: 12%">Audit Site</th>
                                         <th style="width: 16%">Site No.</th>
                                         <th style="width: 16%"> Investigator</th>
-                                        p  ,  ,                            ioyuyu                    
                                         <th style="width: 16%"> First Patient in Date</th>
                                         <th style="width: 16%">Enrolled No.</th>
                                         <th style="width: 16%">Current</th>
