@@ -405,6 +405,10 @@ Route::view('medical-device', 'frontend.new_forms.medical-device');
 Route::view('risk-management', 'frontend.new_forms.risk-management');
 
 
+Route::view('training_course', 'frontend.New_forms.training_course');
+Route::view('lab_test', 'frontend.New_forms.lab_test');
+Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
+Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
 
 //--------------------------------OOC-----form---------------//
 
@@ -413,6 +417,9 @@ Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
 //--------------------------------Incident-----form---------------//
 
 Route::view('incident', 'frontend.Incident.incident');
+
+
+
 
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);

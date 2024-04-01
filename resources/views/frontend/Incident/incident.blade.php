@@ -916,11 +916,8 @@
                                         <input type="text" id="Cancellation_Request_on" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="Cancellation_Request_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
                                     </div>
-
-
                                 </div>
                             </div>
-                        
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Cancellation Approve by">Cancellation Approve by</label>
@@ -937,24 +934,13 @@
                                     <label for="Cancellation Approve on"> Cancellation Approve on </label>
 
                                     <div class="calenderauditee">
-                                        <input type="text" id="Cancellation _Approve_on" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="Cancellation _Approve_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
+                                        <input type="text" id="Cancellation_Approve_on" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="Cancellation_Approve_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
                                     </div>
 
 
                                 </div>
                             </div>
-
-
-                       
-
-                       
-                       
-
-                        
-
-                       
-                      
 
                     </div>
                     <div class="button-block">
