@@ -59,8 +59,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Opened</b></label>
-                                    <input disabled type="date" name="Date Opened" value="">
-                                    <input type="hidden" name="division_id" value="">
+                                    <input  type="date" name="Date Opened" value="">
+                                   
                                 </div>
                             </div>
 
