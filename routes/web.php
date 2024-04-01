@@ -239,7 +239,6 @@ Route::view('emp', 'emp');
 
 Route::view('tasks', 'frontend.tasks');
 Route::view('tasks', 'frontend.T');
-
 Route::view('review-details', 'frontend.documents.review-details');
 Route::view('audit-trial-inner', 'frontend.documents.audit-trial-inner');
 Route::view('new-pdf', 'frontend.documents.new-pdf');
@@ -394,11 +393,16 @@ Route::view('randomization', 'frontend.ctms.randomization');
 Route::view('regulatory_quary_managment', 'frontend.ctms.regulatory_quary_managment');
 Route::view('regulatory_notification', 'frontend.ctms.regulatory_notification');
 
-// ----------------------------------------------------------------------New Forms ------------------------------
-Route::view('complaint', 'frontend.new_forms.complaint');
 
 
 
+
+
+
+Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
+Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');
+Route::view('correspondence', 'frontend.New_forms.correspondence');
+Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
 
@@ -428,7 +432,7 @@ Route::view('supplier-investigation', 'frontend.forms.supplier-investigation');
 
 Route::view('supplier-issue-notification', 'frontend.forms.supplier-issue-notification');
 
-Route::view('supplier-audit', 'frontend.forms.supplier-audit');
+
 
 // Route::view('audit', 'frontend.forms.audit');
 Route::get('audit', [InternalauditController::class, 'internal_audit']);
