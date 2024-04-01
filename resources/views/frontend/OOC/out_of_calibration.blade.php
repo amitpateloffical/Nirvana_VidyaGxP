@@ -287,13 +287,15 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">If Others<span class="text-danger d-none">*</span></label>
-                                    <textarea name="initiated_if_other"></textarea>
-                                </div>
-                            </div>
 
+                            <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="If Other">If Other</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_if_other" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -306,20 +308,25 @@
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Short Description">Repeat Nature
+                            <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Repeat Nature">Repeat Nature</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Repeat_Nature" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
 
-                                        <input id="docname" type="text" name="Repeat_Nature">
+
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Description">Description</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Description" id="summernote-1">
+                                    </textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Short Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
-                                    characters remaining
-                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
-                                </div>
-                            </div>
+                           
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -400,12 +407,16 @@
                             </div>
 
                             <div class="sub-head"> Delay Justfication for Reporting</div>
-                            <div class="col-lg-12">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">Delay Justification for Reporting<span class="text-danger d-none">*</span></label>
-                                    <textarea name="initiated_if_other"></textarea>
+
+                            <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Delay Justification for Reporting">Delay Justification for Reporting</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Delay_Justification_for_Reporting" id="summernote-1">
+                                    </textarea>
+                                    </div>
                                 </div>
-                            </div>
+                            
 
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -421,13 +432,16 @@
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head col-12">HOD/Supervisor Review</div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">HOD Remarks<span class="text-danger d-none">*</span></label>
-                                    <textarea name="initiated_if_other"></textarea>
+                            <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="HOD Remarks">HOD Remarks</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="HOD_Remarks" id="summernote-1">
+                                    </textarea>
+                                    </div>
                                 </div>
-                            </div>
+
+                            
 
                             <div class="col-6">
                                 <div class="group-input">
@@ -442,19 +456,28 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">Immediate Action<span class="text-danger d-none">*</span></label>
-                                    <textarea name="initiated_if_other"></textarea>
+                            <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Immediate Action">Immediate Action</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Immediate_Action" id="summernote-1">
+                                    </textarea>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">Preliminary Investigation<span class="text-danger d-none">*</span></label>
-                                    <textarea name="initiated_if_other"></textarea>
+                            <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Preliminary Investigation">Preliminary Investigation</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Preliminary_Investigation" id="summernote-1">
+                                    </textarea>
+                                    </div>
                                 </div>
-                            </div>
+
+
+                            
+
+                            
 
                             {{-- <div class="col-12">
                                     <div class="group-input">
@@ -643,30 +666,45 @@
                         Hypothesis Study
                         </div>
 
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="due-dateextension">Protocol Based Study/Hypothesis Study</label>
-                                <textarea name=""></textarea>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="due-dateextension">Justification for Protocol study/ Hypothesis Study</label>
-                                <textarea name=""></textarea>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="due-dateextension">Plan of Protocol Study/ Hypothesis Study</label>
-                                <textarea name=""></textarea>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="due-dateextension">Conclusion of Protocol based Study/Hypothesis Study</label>
-                                <textarea name=""></textarea>
-                            </div>
-                        </div>
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Protocol Based Study/Hypothesis Study">Protocol Based Study/Hypothesis Study</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Protocol_Based_Study/Hypothesis_Study" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
+
+                    
+                       
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Justification for Protocol study/ Hypothesis Study">Justification for Protocol study/ Hypothesis Study</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Justification_for_Protocol_study/Hypothesis_Study" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
+                        
+
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Plan of Protocol Study/ Hypothesis Study">Plan of Protocol Study/ Hypothesis Study</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Plan_of_Protocol_Study/Hypothesis_Study" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
+
+
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Conclusion of Protocol based Study/Hypothesis Study">Conclusion of Protocol based Study/Hypothesis Study</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Conclusion_of_Protocol_based_Study/Hypothesis_Study" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
                     </div>
                     <div class="button-block">
                         <button type="submit" class="saveButton">Save</button>
@@ -681,19 +719,25 @@
                 <div class="inner-block-content">
                     <div class="row">
                         <div class="sub-head">Stage I</div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="qa_comments">Analyst Remarks</label>
-                                <textarea name="qa_comments"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="qa_comments">Calibration Results</label>
-                                <textarea name="qa_comments"></textarea>
-                            </div>
-                        </div>
+                       
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Analyst Remarks">Analyst Remarks</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Analyst_Remarks" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
 
+                      
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Calibration Results">Calibration Results</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Calibration_Results" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator Group">Results Naturey</label>
@@ -706,12 +750,16 @@
                         </div>
 
 
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="qa_comments">Review of Calibration Results of Analyst</label>
-                                <textarea name="qa_comments"></textarea>
-                            </div>
-                        </div>
+                    
+
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Review of Calibration Results of Analyst">Review of Calibration Results of Analyst</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Review_of_Calibration_Results_of_Analyst" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
 
                         <div class="col-6">
                             <div class="group-input">
@@ -726,12 +774,16 @@
                             </div>
                         </div>
 
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="qa_comments">Results Criteria</label>
-                                <textarea name="qa_comments"></textarea>
-                            </div>
-                        </div>
+                     
+
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Results Criteria">Results Criteria</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Results_Criteria" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
 
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -751,6 +803,15 @@
                                 <textarea name="qa_comments"></textarea>
                             </div>
                         </div>
+
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Additinal Remarks (if any)">Additinal Remarks (if any)</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="Additinal_Remarks" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
 
                     </div>
                     <div class="button-block">

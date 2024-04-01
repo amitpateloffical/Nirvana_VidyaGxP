@@ -401,7 +401,18 @@ Route::view('preventive-maintenance', 'frontend.new_forms.preventive-maintenance
 Route::view('equipment', 'frontend.new_forms.equipment');
 Route::view('production-line-audit', 'frontend.new_forms.production-line-audit');
 Route::view('renewal', 'frontend.new_forms.renewal');
+Route::view('validation', 'frontend.new_forms.validation');
+Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
+Route::view('product-recall', 'frontend.new_forms.product-recall');
+Route::view('field-inquiry', 'frontend.new_forms.field-inquiry');
+Route::view('medical-device', 'frontend.new_forms.medical-device');
+Route::view('risk-management', 'frontend.new_forms.risk-management');
 
+
+Route::view('training_course', 'frontend.New_forms.training_course');
+Route::view('lab_test', 'frontend.New_forms.lab_test');
+Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
+Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
 
 //--------------------------------OOC-----form---------------//
 
@@ -410,6 +421,9 @@ Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
 //--------------------------------Incident-----form---------------//
 
 Route::view('incident', 'frontend.Incident.incident');
+
+
+
 
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
@@ -473,3 +487,5 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 //! ============================================
 
 
+// ===============OOt form==========================\
+Route::view('OOT_form', 'frontend.OOT.OOT_form');
