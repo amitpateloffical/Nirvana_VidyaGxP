@@ -396,6 +396,16 @@ Route::view('regulatory_notification', 'frontend.ctms.regulatory_notification');
 
 
 
+
+
+
+
+// -------------------------OOS-----------------
+Route::view('oos-form', 'frontend.OOS.oos-form');
+
+
+
+
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
 
