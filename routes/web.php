@@ -399,6 +399,8 @@ Route::view('complaint', 'frontend.new_forms.complaint');
 Route::view('supplier-observation', 'frontend.new_forms.supplier-observation');
 Route::view('preventive-maintenance', 'frontend.new_forms.preventive-maintenance');
 Route::view('equipment', 'frontend.new_forms.equipment');
+Route::view('production-line-audit', 'frontend.new_forms.production-line-audit');
+Route::view('renewal', 'frontend.new_forms.renewal');
 
 
 //--------------------------------OOC-----form---------------//
