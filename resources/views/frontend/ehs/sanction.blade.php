@@ -49,8 +49,8 @@
                                 <div class="col-lg-6">
                                     <div class="group-input"> 
                                         
-                                        <label for="RLS Record Number"><b>Originator</b></label>
-                                        <input disabled type="text" name="originator"
+                                        <label for="EHS originator"><b>Originator</b></label>
+                                        <input type="text" name="originator"
                                             value="">
                                     </div>
                                 </div>
@@ -59,10 +59,10 @@
                                         <label for="due-date">Date Opened<span class="text-danger"></span></label>
                                         <div><small class="text-primary">When was this sanction record opened?</small></div>
                                         <div class="calenderauditee">                                     
-                                            <input type="text"  id="opened_date" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="text"  id="opened_date" placeholder="DD-MMM-YYYY" />
                                             <input type="date" name="opened_date"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input"
-                                            oninput="handleDateInput(this, 'due_date')"/>
+                                            oninput="handleDateInput(this, 'opened_date')"/>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
                                                 class="text-danger">*</span></label>
-                                                <div><small class="text-primary">Sanction short description to represented on desktop</small></div>
+                                                <div><small class="text-primary">Sanction short description to be represented on desktop</small></div>
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
                                 </div>
@@ -82,7 +82,9 @@
                                         <div><small class="text-primary">Person Responsible</small></div>
                                         <select id="select-state" placeholder="Select..." name="assign_to">
                                             <option value="">Select a value</option>
-                                            <option value=""></option>
+                                            <option value="">$1</option>
+                                            <option value="">$2</option>
+                                            <option value="">$3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -106,7 +108,9 @@
                                         <div><small class="text-primary">Type of Sanction</small></div>
                                         <select id="select-state" placeholder="Select..." name="assign_to">
                                             <option value="">Enter your selection here</option>
-                                            <option value=""></option>
+                                            <option value="">$1</option>
+                                            <option value="">$2</option>
+                                            <option value="">$3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -139,9 +143,9 @@
                                         </label>
                                         <select id="select-state" placeholder="Enter your selection here" name="assign_to">
                                             <option value="">Select a value</option>
-                                           
-                                                <option value=""></option>
-                                      
+                                            <option value="">$1</option>
+                                            <option value="">$2</option>
+                                            <option value="">$3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -152,9 +156,9 @@
                                         </label>
                                         <select id="select-state" placeholder="Enter your selection here" name="assign_to">
                                             <option value="">Select a value</option>
-                                           
-                                                <option value=""></option>
-                                      
+                                            <option value="">$1</option>
+                                            <option value="">$2</option>
+                                            <option value="">$3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -175,10 +179,9 @@
                                         </label>
                                         <select id="select-state" placeholder="Enter your selection here" name="assign_to">
                                             <option value="">Select a value</option>
+                                            <option value="">$1</option>
                                             <option value="">$2</option>
-                                           
-                                                <option value="">$1</option>
-                                      
+                                            <option value="">$3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -188,7 +191,6 @@
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                         Exit </a> </button>
-
                             </div>
                         </div>
                     </div>
@@ -199,7 +201,7 @@
                             <div class="row">
                             <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="submitted on">Closed By</label>
+                                        <label for="Closed By">Closed By</label>
                                         <div class="Date"></div>
                                     </div>
                                 </div>
@@ -221,7 +223,6 @@
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
 
