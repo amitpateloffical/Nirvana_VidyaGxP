@@ -406,6 +406,16 @@ Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
 
 Route::view('incident', 'frontend.Incident.incident');
 
+
+//--------------------------------Training Course-----form---------------//
+
+Route::view('training_course', 'frontend.New_forms.training_course');
+
+//--------------------------------Lab Test-----form---------------//
+
+Route::view('lab_test', 'frontend.New_forms.lab_test');
+
+
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
 
