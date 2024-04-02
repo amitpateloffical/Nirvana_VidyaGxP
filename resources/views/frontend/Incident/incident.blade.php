@@ -151,7 +151,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">RCA & Corrective Action</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Supervisor & SQA Review</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Reference Info / Comments</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Electronic Signature</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm5')"> Signatures</button>
 
         </div>
 

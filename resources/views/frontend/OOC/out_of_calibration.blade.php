@@ -1353,6 +1353,55 @@
     }
 </script>
 <script>
+    VirtualSelect.init({
+        ele: '#reference_record, #notify_to'
+    });
+
+    $('#summernote').summernote({
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear', 'italic']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
+    $('.summernote').summernote({
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear', 'italic']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
+    let referenceCount = 1;
+
+    function addReference() {
+        referenceCount++;
+        let newReference = document.createElement('div');
+        newReference.classList.add('row', 'reference-data-' + referenceCount);
+        newReference.innerHTML = `
+            <div class="col-lg-6">
+                <input type="text" name="reference-text">
+            </div>
+            <div class="col-lg-6">
+                <input type="file" name="references" class="myclassname">
+            </div><div class="col-lg-6">
+                <input type="file" name="references" class="myclassname">
+            </div>
+        `;
+        let referenceContainer = document.querySelector('.reference-data');
+        referenceContainer.parentNode.insertBefore(newReference, referenceContainer.nextSibling);
+    }
+</script>
+<script>
     var maxLength = 255;
     $('#docname').keyup(function() {
         var textlen = maxLength - $(this).val().length;
