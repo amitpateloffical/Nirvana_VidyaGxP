@@ -48,16 +48,16 @@
                             <div class="sub-head">
                                 General Information
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Originator"><b>Originator</b></label>
-                                    <input disabled type="text" name="Originator" value="">
+                                    <label for="Initiator"><b>Initiator</b></label>
+                                    <input disabled type="text" name="Initiator" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date Opened</b></label>
-                                    <input disabled type="date" name="Date Opened" value="">
+                                    <label for="Date of Initiation"><b>Date of Initiation</b></label>
+                                    <input disabled type="date" name="Date_of_Initiation" value="">
                                     <input type="hidden" name="division_id" value="">
                                 </div>
                             </div>
