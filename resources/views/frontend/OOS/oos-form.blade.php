@@ -330,6 +330,10 @@
                         <div class="group-input">
                             <label for="Initiator"> Due Date
                             </label>
+
+                            <small class="text-primary">
+                            Please mention expected date of completion
+                            </small>
                             <input type="date" id="date" name="date-time">
 
                         </div>
@@ -417,7 +421,7 @@
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Initiator Group">Deviation Occured On</label>
-                            <input type="date">
+                            <input type="date"  name="date">
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -944,6 +948,9 @@
                     <div class="col-12">
                         <div class="group-input">
                             <label for="Audit Attachments"> Supporting Attachment </label>
+                            <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                             <div class="file-attachment-field">
                                 <div class="file-attachment-list" id="file_attach"></div>
                                 <div class="add-btn">
@@ -1080,6 +1087,9 @@
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Audit Attachments"> Supporting Attachments</label>
+                            <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                             <div class="file-attachment-field">
                                 <div class="file-attachment-list" id="file_attach"></div>
                                 <div class="add-btn">
@@ -1221,6 +1231,9 @@
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="Audit Attachments"> Attachment</label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -1372,6 +1385,9 @@
                 <div class="col-12">
                     <div class="group-input">
                         <label for="Audit Lead More Info Reqd On">Attachments </label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -1477,6 +1493,9 @@
                 <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Additional Testing Attachment </label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -1688,6 +1707,9 @@
                 <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Attachments if Any</label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -1873,6 +1895,9 @@
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="Reference Recores">Conclusion Attachment</label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -1980,6 +2005,9 @@
                 <div class="col-12">
                     <div class="group-input">
                         <label for="Audit Attachments"> CQ Attachment</label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2198,6 +2226,9 @@
                 <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Disposition Attachment</label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2252,6 +2283,9 @@
                 <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Reopen Attachment</label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2315,6 +2349,9 @@
                 <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Addendum Attachment</label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2440,8 +2477,10 @@
                 <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Addendum Attachments
-
                         </label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2504,6 +2543,9 @@
                 <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Required Attachment</label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2567,6 +2609,9 @@
                 <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Verification Attachment</label>
+                        <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
