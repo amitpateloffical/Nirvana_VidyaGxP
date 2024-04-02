@@ -196,7 +196,7 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Zone </label>
+                                    <label class="mb-4" for="Responsible Department">Zone </label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="">1</option>

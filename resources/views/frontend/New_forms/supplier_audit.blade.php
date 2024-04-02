@@ -92,6 +92,7 @@
                                 <div class="group-input">
 
                                     <label for="RLS Record Number" ><b>Initiator</b></label>
+                                    <label for="RLS Record Number" ><b>Initiator</b></label>
 
                                     <input type="text" name="record_number" value="">
 

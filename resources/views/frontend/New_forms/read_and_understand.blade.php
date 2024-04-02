@@ -100,6 +100,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date of Initiation</b></label>
+                                    <label for="Division Code"><b>Date of Initiation</b></label>
                                     <input disabled type="date" name="division_code" value="">
 
                                 </div>
