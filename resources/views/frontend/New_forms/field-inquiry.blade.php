@@ -50,13 +50,13 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Originator"><b>Originator</b></label>
+                                    <label for="Originator"><b>Initiator</b></label>
                                     <input disabled type="text" name="Originator" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date Opened</b></label>
+                                    <label for="Division Code"><b>Date Of Initiation</b></label>
                                     <input  type="date" name="Date Opened" value="">
                                  
                                 </div>
@@ -77,7 +77,10 @@
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
-                                        <option value=""></option>
+                                        <option value="">Pankaj Jat</option>
+                                        <option value="">Gaurav</option>
+                                        <option value="">Manish</option>
+
 
                                     </select>
 
@@ -87,6 +90,8 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
+
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
