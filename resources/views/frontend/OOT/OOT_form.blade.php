@@ -70,7 +70,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Record Number</b></label>
-                                    <input type="number">
+                                    <input type="text">
                                 </div>
                             </div>
                             <div class="col-lg-6">
