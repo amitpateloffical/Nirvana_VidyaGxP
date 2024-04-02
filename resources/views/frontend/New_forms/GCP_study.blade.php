@@ -47,23 +47,23 @@
                 <!-- Tab content -->
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
-                        <div class="sub-head">
-                            General Information
-                        </div> <!-- RECORD NUMBER -->
                         <div class="row">
+                            <div class="sub-head">
+                                General Information
+                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="RLS Record Number"><b>Initiator</b></label>
-
+                                    <label for="RLS Record Number"><b>Initiator</b></label>
                                     <input type="text" name="record_number" value="">
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date Of Opened</b></label>
-                                    <p class="text-primary">When was this record opened?</p>
-                                    <input disabled type="date" name="division_code" value="">
+                                    <label for="Date of Initiation"><b>Date of Initiation</b></label>
+                                    <div><span class="text-primary">When was this record opened?</span>
+                                    </div>
+                                    <input disabled type="date" name="Date_of_Initiation" value="">
                                     <input type="hidden" name="division_id" value="">
                                 </div>
                             </div>
@@ -92,15 +92,14 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-danger">6 last date this record should be closed by</p>
-
+                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="group-input">
                                     <label for="search">
                                         Department(s)<span class="text-danger"></span>
@@ -205,14 +204,13 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="button-block">
+                                <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
+                                        Exit </a> </button>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
-                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                Exit </a> </button>
                     </div>
                 </div>
             </div>
@@ -302,13 +300,13 @@
                     <div class="group-input">
                         <label for="audit-agenda-grid">
                             Audit Site Information(0)
-                            <button type="button" name="audit-agenda-grid" id="ReferenceDocument">+</button>
+                            <button type="button" name="audit-agenda-grid" id="AuditSiteInformation">+</button>
                             <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                 (Launch Instruction)
                             </span>
                         </label>
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="ReferenceDocument_details" style="width: 100%;">
+                            <table class="table table-bordered" id="AuditSiteInformation_details" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th style="width: 4%">Row#</th>
@@ -317,17 +315,15 @@
                                         <th style="width: 16%"> Current</th>
                                         <th style="width: 16%"> CRO</th>
                                         <th style="width: 16%">Remark</th>
-
-
-
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <td><input disabled type="text" name="serial[]" value="1"></td>
                                     <td><input type="text" name="Number[]"></td>
                                     <td><input type="text" name="ReferenceDocumentName[]"></td>
+                                    <td><input type="text" name="[]"></td>
+                                    <td><input type="text" name="[]"></td>
                                     <td><input type="text" name="Remarks[]"></td>
-
                                 </tbody>
 
                             </table>
@@ -336,20 +332,19 @@
                     <div class="group-input">
                         <label for="audit-agenda-grid">
                             Study Site Information(0)
-                            <button type="button" name="audit-agenda-grid" id="ReferenceDocument">+</button>
+                            <button type="button" name="audit-agenda-grid" id="StudySiteInformation">+</button>
                             <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                 (Launch Instruction)
                             </span>
                         </label>
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="ReferenceDocument_details" style="width: 100%;">
+                            <table class="table table-bordered" id="StudySiteInformation_details" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th style="width: 4%">Row#</th>
                                         <th style="width: 12%">Audit Site</th>
                                         <th style="width: 16%">Site No.</th>
                                         <th style="width: 16%"> Investigator</th>
-                                        p  ,  ,                            ioyuyu                    
                                         <th style="width: 16%"> First Patient in Date</th>
                                         <th style="width: 16%">Enrolled No.</th>
                                         <th style="width: 16%">Current</th>
@@ -359,13 +354,23 @@
                                 <tbody>
                                     <td><input disabled type="text" name="serial[]" value="1"></td>
                                     <td><input type="text" name="Number[]"></td>
-                                    <td><input type="text" name="ReferenceDocumentName[]"></td>
-                                    <td><input type="text" name="Remarks[]"></td>
+                                    <td><input type="text" name=""></td>
+                                    <td><input type="text" name=""></td>
+                                    <td><input type="text" name=""></td>
+                                    <td><input type="text" name=""></td>
+                                    <td><input type="text" name=""></td>
+                                    <td><input type="text" name="Remarks"></td>
 
                                 </tbody>
 
                             </table>
                         </div>
+                    </div>
+                    <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
+                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                        <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
+                                Exit </a> </button>
                     </div>
                 </div>
             </div>
@@ -424,173 +429,156 @@
                                 <input type="date" name="Date" />
                             </div>
                         </div>
+                    </div>
+                    <div class="button-block">
+                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                        <button type="submit" class="saveButton">Save</button>
+                        <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                            </a> </button>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- ============================================================================================================================== -->
-                        <!--  -->
-<!-- </div> -->
+            <style>
+                #step-form>div {
+                    display: none
+                }
 
-<style>
-    #step-form>div {
-        display: none
-    }
+                #step-form>div:nth-child(1) {
+                    display: block;
+                }
+            </style>
 
-    #step-form>div:nth-child(1) {
-        display: block;
-    }
-</style>
+            <script>
+                VirtualSelect.init({
+                    ele: '#related_records, #hod'
+                });
 
-<script>
-    VirtualSelect.init({
-        ele: '#related_records, #hod'
-    });
+                function openCity(evt, cityName) {
+                    var i, cctabcontent, cctablinks;
+                    cctabcontent = document.getElementsByClassName("cctabcontent");
+                    for (i = 0; i < cctabcontent.length; i++) {
+                        cctabcontent[i].style.display = "none";
+                    }
+                    cctablinks = document.getElementsByClassName("cctablinks");
+                    for (i = 0; i < cctablinks.length; i++) {
+                        cctablinks[i].className = cctablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(cityName).style.display = "block";
+                    evt.currentTarget.className += " active";
 
-    function openCity(evt, cityName) {
-        var i, cctabcontent, cctablinks;
-        cctabcontent = document.getElementsByClassName("cctabcontent");
-        for (i = 0; i < cctabcontent.length; i++) {
-            cctabcontent[i].style.display = "none";
-        }
-        cctablinks = document.getElementsByClassName("cctablinks");
-        for (i = 0; i < cctablinks.length; i++) {
-            cctablinks[i].className = cctablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
+                    // Find the index of the clicked tab button
+                    const index = Array.from(cctablinks).findIndex(button => button === evt.currentTarget);
 
-        // Find the index of the clicked tab button
-        const index = Array.from(cctablinks).findIndex(button => button === evt.currentTarget);
+                    // Update the currentStep to the index of the clicked tab
+                    currentStep = index;
+                }
 
-        // Update the currentStep to the index of the clicked tab
-        currentStep = index;
-    }
+                const saveButtons = document.querySelectorAll(".saveButton");
+                const nextButtons = document.querySelectorAll(".nextButton");
+                const form = document.getElementById("step-form");
+                const stepButtons = document.querySelectorAll(".cctablinks");
+                const steps = document.querySelectorAll(".cctabcontent");
+                let currentStep = 0;
 
-    const saveButtons = document.querySelectorAll(".saveButton");
-    const nextButtons = document.querySelectorAll(".nextButton");
-    const form = document.getElementById("step-form");
-    const stepButtons = document.querySelectorAll(".cctablinks");
-    const steps = document.querySelectorAll(".cctabcontent");
-    let currentStep = 0;
+                function nextStep() {
+                    // Check if there is a next step
+                    if (currentStep < steps.length - 1) {
+                        // Hide current step
+                        steps[currentStep].style.display = "none";
 
-    function nextStep() {
-        // Check if there is a next step
-        if (currentStep < steps.length - 1) {
-            // Hide current step
-            steps[currentStep].style.display = "none";
+                        // Show next step
+                        steps[currentStep + 1].style.display = "block";
 
-            // Show next step
-            steps[currentStep + 1].style.display = "block";
+                        // Add active class to next button
+                        stepButtons[currentStep + 1].classList.add("active");
 
-            // Add active class to next button
-            stepButtons[currentStep + 1].classList.add("active");
+                        // Remove active class from current button
+                        stepButtons[currentStep].classList.remove("active");
 
-            // Remove active class from current button
-            stepButtons[currentStep].classList.remove("active");
+                        // Update current step
+                        currentStep++;
+                    }
+                }
 
-            // Update current step
-            currentStep++;
-        }
-    }
+                function previousStep() {
+                    // Check if there is a previous step
+                    if (currentStep > 0) {
+                        // Hide current step
+                        steps[currentStep].style.display = "none";
 
-    function previousStep() {
-        // Check if there is a previous step
-        if (currentStep > 0) {
-            // Hide current step
-            steps[currentStep].style.display = "none";
+                        // Show previous step
+                        steps[currentStep - 1].style.display = "block";
 
-            // Show previous step
-            steps[currentStep - 1].style.display = "block";
+                        // Add active class to previous button
+                        stepButtons[currentStep - 1].classList.add("active");
 
-            // Add active class to previous button
-            stepButtons[currentStep - 1].classList.add("active");
+                        // Remove active class from current button
+                        stepButtons[currentStep].classList.remove("active");
 
-            // Remove active class from current button
-            stepButtons[currentStep].classList.remove("active");
+                        // Update current step
+                        currentStep--;
+                    }
+                }
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $('#AuditSiteInformation').click(function(e) {
+                        function generateTableRow(serialNumber) {
 
-            // Update current step
-            currentStep--;
-        }
-    }
-</script>
-<script>
-    $(document).ready(function() {
-        $('#Witness_details').click(function(e) {
-            function generateTableRow(serialNumber) {
+                            var html =
+                                '<tr>' +
+                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                                '<td><input type="text" name="WitnessName[]"></td>' +
+                                '<td><input type="text" name="WitnessType[]"></td>' +
+                                '<td><input type="text" name="ItemDescriptions[]"></td>' +
+                                '<td><input type="text" name="Comments[]"></td>' +
+                                '<td><input type="text" name="Remarks[]"></td>' +
+                                '</tr>';
 
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="WitnessName[]"></td>' +
-                    '<td><input type="text" name="WitnessType[]"></td>' +
-                    '<td><input type="text" name="ItemDescriptions[]"></td>' +
-                    '<td><input type="text" name="Comments[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>' +
-                    '</tr>';
+                            return html;
+                        }
 
-                return html;
-            }
+                        var tableBody = $('#AuditSiteInformation_details tbody');
+                        var rowCount = tableBody.children('tr').length;
+                        var newRow = generateTableRow(rowCount + 1);
+                        tableBody.append(newRow);
+                    });
+                });
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $('#StudySiteInformation').click(function(e) {
+                        function generateTableRow(serialNumber) {
 
-            var tableBody = $('#Witness_details_details tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#MaterialsReleased').click(function(e) {
-            function generateTableRow(serialNumber) {
+                            var html =
+                                '<tr>' +
+                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                                '<td><input type="text" name="[]"></td>' +
+                                '<td><input type="text" name="[]"></td>' +
+                                '<td><input type="text" name="[]"></td>' +
+                                '<td><input type="text" name="[]"></td>' +
+                                '<td><input type="text" name="[]"></td>' +
+                                '<td><input type="text" name="[]"></td>' +
+                                '<td><input type="text" name="[]"></td>' +
+                                '</tr>';
 
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '</tr>';
+                            return html;
+                        }
 
-                return html;
-            }
+                        var tableBody = $('#StudySiteInformation_details tbody');
+                        var rowCount = tableBody.children('tr').length;
+                        var newRow = generateTableRow(rowCount + 1);
+                        tableBody.append(newRow);
+                    });
+                });
+            </script>
 
-            var tableBody = $('#MaterialsReleased-field-table tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#RootCause').click(function(e) {
-            function generateTableRow(serialNumber) {
-
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '</tr>';
-
-                return html;
-            }
-
-            var tableBody = $('#RootCause-field-instruction-modal tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-    });
-</script>
-<script>
-    var maxLength = 255;
-    $('#docname').keyup(function() {
-        var textlen = maxLength - $(this).val().length;
-        $('#rchars').text(textlen);
-    });
-</script>
-@endsection
+            <script>
+                var maxLength = 255;
+                $('#docname').keyup(function() {
+                    var textlen = maxLength - $(this).val().length;
+                    $('#rchars').text(textlen);
+                });
+            </script>
+            @endsection

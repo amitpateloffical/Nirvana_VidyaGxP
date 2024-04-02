@@ -12,7 +12,7 @@
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
-    'key' => 'base64:eie9eOD0k8xSuXO1d8D9SdG1J3hYV1YLzayb2J3PXlM=',
+    'key' => 'base64:q2liST+50abP/RZ5RZ6d2u2tSjv+keK8f/aAL891AY0=',
     'cipher' => 'AES-256-CBC',
     'maintenance' => 
     array (
@@ -309,7 +309,7 @@
         'driver' => 'mysql',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '3307',
+        'port' => '3306',
         'database' => 'trackwise',
         'username' => 'root',
         'password' => '',
@@ -329,7 +329,7 @@
         'driver' => 'pgsql',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '3307',
+        'port' => '3306',
         'database' => 'trackwise',
         'username' => 'root',
         'password' => '',
@@ -344,7 +344,7 @@
         'driver' => 'sqlsrv',
         'url' => NULL,
         'host' => '127.0.0.1',
-        'port' => '3307',
+        'port' => '3306',
         'database' => 'trackwise',
         'username' => 'root',
         'password' => '',
@@ -391,7 +391,7 @@
     array (
       'font_dir' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP\\storage\\fonts',
       'font_cache' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP\\storage\\fonts',
-      'temp_dir' => 'C:\\Users\\lenovo\\AppData\\Local\\Temp',
+      'temp_dir' => 'C:\\Users\\VIDYAG~1\\AppData\\Local\\Temp',
       'chroot' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP',
       'enable_font_subsetting' => false,
       'pdf_backend' => 'CPDF',
@@ -410,7 +410,7 @@
     array (
       'font_dir' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP\\storage\\fonts',
       'font_cache' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP\\storage\\fonts',
-      'temp_dir' => 'C:\\Users\\lenovo\\AppData\\Local\\Temp',
+      'temp_dir' => 'C:\\Users\\VIDYAG~1\\AppData\\Local\\Temp',
       'chroot' => 'C:\\xampp\\htdocs\\qms_demo_org_vidyaGxP',
       'allowed_protocols' => 
       array (

@@ -69,7 +69,7 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-danger">6 last date this record should be closed by</p>
+                                    <p class="text-primary"> last date this record should be closed by</p>
 
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
@@ -210,18 +210,14 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Approved By">Approved Type</label>
-                                <select name="Approved_by-" onchange="">
-                                    <option value="">-- select --</option>
-                                    <option value=""></option>
-
-                                </select>
+                                <label for="Approved By">Approved Type : </label>
+                               
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Approved on">Approved On</label>
-                                <input type="date" name="Started_On" id="">
+                                <label for="Approved on">Approved On : </label>
+                             
                             </div>
                         </div>
 

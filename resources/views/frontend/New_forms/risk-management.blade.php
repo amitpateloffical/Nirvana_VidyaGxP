@@ -51,13 +51,13 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Originator"><b>Originator</b></label>
+                                    <label for="Originator"><b>Initiator</b></label>
                                     <input disabled type="text" name="Originator" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date Opened</b></label>
+                                    <label for="Division Code"><b>Date Of Initiation</b></label>
                                     <input type="date" name="Date Opened" value="">
 
                                 </div>
@@ -85,7 +85,9 @@
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
-                                        <option value=""></option>
+                                        <option value="">Pankaj Jat</option>
+                                        <option value="">Gaurav</option>
+                                        <option value="">Manish</option>
 
                                     </select>
 
@@ -95,14 +97,14 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
+
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
                             </div>
-
-
 
 
 
@@ -115,33 +117,27 @@
 
 
 
-
-
-
-
-
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Reference Recores">Team Members</label>
-                                <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                    <option value="">--Select---</option>
-                                    <option value="">Pankaj</option>
-                                    <option value="">Gourav</option>
-                                </select>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reference Recores">Team Members</label>
+                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
+                                        <option value="">--Select---</option>
+                                        <option value="">Pankaj</option>
+                                        <option value="">Gourav</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Division Code"><b>Meeting Date</b></label>
-                                <input type="date" name="Date Opened" value="">
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Meeting Date</b></label>
+                                    <input type="date" name="Date Opened" value="">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="group-input">
+                            <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                   Activities
+                                    Activities
                                     <button type="button" name="audit-agenda-grid" id="ActivitiesAdd">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
 
@@ -192,7 +188,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
                     </div>
                     <div class="button-block">
                         <button type="submit" class="saveButton">Save</button>
@@ -393,15 +389,15 @@
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
 
-                    '<td><input type="text" name="Action[]"></td>'+
-                                            '<td><input type="text" name="Risk/Hazard[]"></td>'+
-                                            '<td><input type="text" name="EffectedParties[]"></td>'+
-                                            '<td><input type="text" name="MeasureToControlThe[]"></td>'+
-                                            '<td><input type="text" name="ImpactOfRisk[]"></td>'+
-                                            '<td><input type="text" name="ProbabilityOfOccurence[]"></td>'+
-                                            '<td><input type="text" name="CompositeRiskIndex[]"></td>'+
+                    '<td><input type="text" name="Action[]"></td>' +
+                    '<td><input type="text" name="Risk/Hazard[]"></td>' +
+                    '<td><input type="text" name="EffectedParties[]"></td>' +
+                    '<td><input type="text" name="MeasureToControlThe[]"></td>' +
+                    '<td><input type="text" name="ImpactOfRisk[]"></td>' +
+                    '<td><input type="text" name="ProbabilityOfOccurence[]"></td>' +
+                    '<td><input type="text" name="CompositeRiskIndex[]"></td>' +
 
-                   
+
 
                     '</tr>';
 

@@ -50,23 +50,23 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Originator"><b>Originator</b></label>
-                                    <input disabled type="text" name="Originator" value="">
+                                    <label for="Initiator"><b>Initiator</b></label>
+                                    <input disabled type="text" name="Initiator" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date Opened</b></label>
-                                    <input disabled type="date" name="Date Opened" value="">
+                                    <label for="Date of Initiation"><b>Date of Initiation</b></label>
+                                    <input disabled type="date" name="Date_of_Initiation" value="">
                                     <input type="hidden" name="division_id" value="">
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
+                                    <label for="Short_Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
                                     characters remaining
-                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                    <input id="docname" type="text" name="Short_Description" maxlength="255" required>
                                 </div>
                             </div>
 
@@ -78,7 +78,6 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         <option value=""></option>
-
                                     </select>
 
                                 </div>
@@ -86,7 +85,8 @@
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <label for="due-date">Date Due</label>
+                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -123,7 +123,7 @@
                                     <input type="text" name="Contact_Person">
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Descriptions">Descriptions</label>
                                     <textarea name="Descriptions" id="" cols="30" rows="3"></textarea>
@@ -169,7 +169,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Product">Product/Materials(0)</label>
                                     <input type="text" name="Product" id="">

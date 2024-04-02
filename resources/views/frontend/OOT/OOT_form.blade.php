@@ -46,6 +46,8 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm14')">Under Addendum Execution</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm15')">Under Addendum Review</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm16')">Under Addendum Verification</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm17')">Signature</button>
+
         </div>
 
         <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
@@ -68,7 +70,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Record Number</b></label>
-                                    <input type="number">
+                                    <input type="text">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -93,27 +95,28 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
+                            <div class="col-md-6 ">
+                                <div class="group-input ">
                                     <label for="due-date"> Date Of Initiation<span class="text-danger"></span></label>
+                                    <input type="date"/>
                                     <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                             value="" name="due_date"> -->
-                                    <div class="calenderauditee">
+                                    <!-- <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" />
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
+                            <div class="col-md-6 ">
+                                <div class="group-input ">
                                     <label for="due-date">Due Date <span class="text-danger"></span></label>
-                                    <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                            value="" name="due_date"> -->
-                                    <div class="calenderauditee">
+                                    <input type="date"/>
+
+                                    <!-- <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" />
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -292,7 +295,7 @@
                                     <input name="Market" />
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label>Customer</label>
                                     <input name="Customer" />
@@ -319,7 +322,7 @@
                                                 <th style="width: 15%">Mfg Date</th>
                                                 <th style="width: 15%">Expiry Date </th>
                                                 <th style="width: 15%">Label Claim</th>
-                                               
+
 
 
 
@@ -334,7 +337,7 @@
                                             <td><input type="text" name="MfgDate[]"></td>
                                             <td><input type="text" name="ExpiryDate[]"></td>
                                             <td><input type="text" name="LabelClaim[]"></td>
-                                           
+
                                         </tbody>
 
                                     </table>
@@ -344,7 +347,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label>Analyst Name<span class="text-danger"></span></label>
-                                   <input/>
+                                    <input />
                                 </div>
                             </div>
 
@@ -363,7 +366,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label>Others (Specify)<span class="text-danger"></span></label>
-                                   <input/>
+                                    <input />
                                 </div>
                             </div>
 
@@ -399,7 +402,7 @@
                                                 <th style="width: 15%">Interval</th>
                                                 <th style="width: 15%">Orientation</th>
                                                 <th style="width: 15%">Pack Details (if any) </th>
-                                                
+
 
 
 
@@ -414,7 +417,7 @@
                                             <td><input type="text" name="Interval[]"></td>
                                             <td><input type="text" name="Orientation[]"></td>
                                             <td><input type="text" name="PackDetails[]"></td>
-                                            
+
 
                                         </tbody>
                                     </table>
@@ -424,14 +427,14 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label>Specification Procedure Number <span class="text-danger"></span></label>
-                                   <input/>
+                                    <input />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label>Specification Limit<span class="text-danger"></span></label>
-                                   <input/>
+                                    <input />
                                 </div>
                             </div>
 
@@ -455,7 +458,7 @@
                                                 <th style="width: 15%">Previous Interval Details </th>
                                                 <th style="width: 15%">% Difference Of Results</th>
                                                 <th style="width: 15%">Trend Limit</th>
-                                                
+
 
                                             </tr>
                                         </thead>
@@ -469,14 +472,14 @@
                                             <td><input type="text" name="previousIntervalDetails[]"></td>
                                             <td><input type="text" name="DifferenceOfResults[]"></td>
                                             <td><input type="text" name="TrendLimit[]"></td>
-                                          
+
 
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">File Attachment </label>
                                     <div><small class="text-primary">
@@ -492,23 +495,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores">Submit By</label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Submit On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
 
                         </div>
                         <div class="button-block">
@@ -608,7 +595,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Reference Recores"> Phase-I Investigation Ref.</label>
                                     <select multiple id="reference_record" name="refrence_record[]" id="">
@@ -621,7 +608,7 @@
 
 
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">File Attachment </label>
                                     <div><small class="text-primary">
@@ -637,28 +624,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Preliminary Lab Investigation done By</label>
-                                    <select multiple id="reference_record" name="PreliminaryLabInvestigationdoneBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Preliminary Lab Investigation done On</label>
-                                    <input type="date" name="PreliminaryLabInvestigationdoneOn" />
-                                </div>
-                            </div>
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -699,7 +671,7 @@
                             </div>
 
 
-<div class="col-12">
+                            <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments">SOOT Category (Others)</label>
                                     <textarea class="summernote" name="SummaryOfPreliminaryInvestigation" id="summernote-16"></textarea>
@@ -719,7 +691,7 @@
                                     <textarea class="summernote" name="SummaryOfPreliminaryInvestigation" id="summernote-16"></textarea>
                                 </div>
                             </div>
-                            
+
 
 
 
@@ -765,7 +737,7 @@
                                 </div>
                             </div>
 
-                           
+
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -774,7 +746,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">Conclusion Attachment </label>
                                     <div><small class="text-primary">
@@ -791,28 +763,13 @@
                             </div>
 
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Preliminary Lab Investigation Conclusion By</label>
-                                    <select multiple id="reference_record" name="PreliminaryLabInvestigationConclusionBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Preliminary Lab Investigation Conclusion On</label>
-                                    <input type="date" name="PreliminaryLabInvestigationConclusionOn" />
-                                </div>
-                            </div>
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -869,7 +826,7 @@
                                             <td><input type="text" name="previousIntervalDetails[]"></td>
                                             <td><input type="text" name="CAPA[]"></td>
                                             <td><input type="text" name="ClosureDateOfCAPA[]"></td>
-                                           
+
 
                                         </tbody>
                                     </table>
@@ -889,7 +846,7 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores"> CAPA Reference  </label>
+                                    <label for="Reference Recores"> CAPA Reference </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
                                         <option value="">--Select---</option>
                                         <option value="">Pankaj</option>
@@ -926,29 +883,14 @@
                             </div>
 
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Preliminary Lab Investigation Review By</label>
-                                    <select multiple id="reference_record" name="PreliminaryLabInvestigationConclusionBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Preliminary Lab Investigation Review On</label>
-                                    <input type="date" name="PreliminaryLabInvestigationConclusionOn" />
-                                </div>
-                            </div>
+                            
 
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -1067,28 +1009,14 @@
                             </div>
 
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Phase II Investigation Proposed By</label>
-                                    <select multiple id="reference_record" name="PhaseIIInvestigationProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Phase II Investigation Proposed On</label>
-                                    <input type="date" name="PhaseIIInvestigationProposedOn" />
-                                </div>
-                            </div>
+                            
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -1138,7 +1066,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label>Others (OOT Category) <span class="text-danger"></span></label>
                                     <input />
@@ -1211,9 +1139,9 @@
                                 </div>
                             </div>
 
-                           
 
-                            <div class="col-lg-6">
+
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">QC Review Attachment </label>
                                     <div><small class="text-primary">
@@ -1229,28 +1157,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Phase II QC Review Proposed By</label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Phase II QC Review Proposed On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
-
+                        
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -1313,7 +1226,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">Additional Testing Attachment</label>
                                     <div><small class="text-primary">
@@ -1329,28 +1242,14 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Additional TestProposed By</label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Additional Test Proposed On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
+                           
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -1512,7 +1411,7 @@
                             </div>
 
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">Attachment If any</label>
                                     <div><small class="text-primary">
@@ -1528,29 +1427,15 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores">Submit By</label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">OOT Conclusion Complete On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
+                          
 
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -1738,29 +1623,15 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> OOT Conclusion Review By</label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">OOT Conclusion Review On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
+                            
 
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -1833,7 +1704,7 @@
 
 
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">CQ Attachment </label>
                                     <div><small class="text-primary">
@@ -1850,29 +1721,13 @@
                             </div>
 
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> CQ Review Done By </label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">CQ Review On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
-
+                       
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -1916,7 +1771,7 @@
 
 
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label> Material Batch Release<span class="text-danger"></span></label>
                                     <select>
@@ -1943,7 +1798,7 @@
                             </div>
 
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">File Attachment </label>
                                     <div><small class="text-primary">
@@ -1960,29 +1815,13 @@
                             </div>
 
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Disposition Decision Done By </label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Disposition Decision On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
+                            
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -2003,7 +1842,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">Reopen Attachment </label>
                                     <div><small class="text-primary">
@@ -2020,29 +1859,17 @@
                             </div>
 
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Reopen Addendum Done By </label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
+                            
 
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Reopen Addendum On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
+                            
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -2067,7 +1894,7 @@
 
 
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">Approval Attachment </label>
                                     <div><small class="text-primary">
@@ -2084,29 +1911,14 @@
                             </div>
 
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Addendum Approved Done By </label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Addendum Approved On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
+                           
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -2224,7 +2036,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">Any Attachment </label>
                                     <div><small class="text-primary">
@@ -2241,29 +2053,14 @@
                             </div>
 
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Addendum Execution Done By </label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Addendum Execution On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
+                           
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -2272,9 +2069,9 @@
                 </div>
 
 
-                   <!-- ==============Tab-15 start=============== -->
+                <!-- ==============Tab-15 start=============== -->
 
-                   <div id="CCForm15" class="inner-block cctabcontent">
+                <div id="CCForm15" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
 
@@ -2286,9 +2083,9 @@
                             </div>
 
 
-                          
 
-                            <div class="col-lg-6">
+
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">Required Attachment </label>
                                     <div><small class="text-primary">
@@ -2305,29 +2102,14 @@
                             </div>
 
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Addendum Review Done By </label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Addendum Review On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
+                          
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -2335,9 +2117,9 @@
                     </div>
                 </div>
 
-                   <!-- ==============Tab-16 start=============== -->
+                <!-- ==============Tab-16 start=============== -->
 
-                   <div id="CCForm16" class="inner-block cctabcontent">
+                <div id="CCForm16" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
 
@@ -2349,8 +2131,8 @@
                             </div>
 
 
-                         
-                            <div class="col-lg-6">
+
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="closure attachment">Verification Attachment </label>
                                     <div><small class="text-primary">
@@ -2367,29 +2149,14 @@
                             </div>
 
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> Verification Review Done By </label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date and time">Verification Review On</label>
-                                    <input type="date" name="PhaseIIQCReviewProposedOn" />
-                                </div>
-                            </div>
+                           
 
 
                         </div>
                         <div class="button-block">
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
@@ -2397,6 +2164,228 @@
                     </div>
                 </div>
 
+                <!-- ==============Tab-17 start=============== -->
+
+                <div id="CCForm17" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="submitted by">Submitted By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="submitted on">Submitted On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Preliminary Lab Investigation done By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Preliminary Lab Investigation done On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Preliminary Lab Investigation Conclusion By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Preliminary Lab Investigation Conclusion On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Preliminary Lab Investigation Review By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Preliminary Lab Investigation Review On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Phase II Investigation Proposed By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Phase II Investigation Proposed On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Phase II QC Review Proposed By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Phase II QC Review Proposed  On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Additional TestProposed By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Additional TestProposed  On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">OOT Conclusion Complete By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">OOT Conclusion Complete On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">OOT Conclusion Review By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">OOT Conclusion Review On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by"> CQ Review Done By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on"> CQ Review  On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Disposition Decision Done By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Disposition Decision   On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Reopen Addendum Done By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Reopen Addendum   On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Addendum Approved Done By </label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Addendum Approved   On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Addendum Execution Done By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Addendum Execution   On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Addendum Review Done By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Addendum Review   On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div> 
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reviewed by">Verification Review Done By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved on">Verification Review    On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+
+                            <div class="button-block">
+                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                                <button type="submit" class="saveButton">Save</button>
+                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                                    </a> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </form>
@@ -2555,7 +2544,7 @@
                     '<td><input type="text" name="previousIntervalDetails[]"></td>' +
                     '<td><input type="text" name="CAPA[]"></td>' +
                     '<td><input type="text" name="ClosureDateOfCAPA[]"></td>' +
-                   
+
 
                     '</tr>';
 
@@ -2590,7 +2579,7 @@
                     '<td><input type="text" name="MfgDate[]"></td>' +
                     '<td><input type="text" name="ExpiryDate[]"></td>' +
                     '<td><input type="text" name="LabelClaim[]"></td>' +
-                   
+
                     '</tr>';
 
 
@@ -2623,7 +2612,7 @@
                     '<td><input type="text" name="Interval[]"></td>' +
                     '<td><input type="text" name="Orientation[]"></td>' +
                     '<td><input type="text" name="PackDetails[]"></td>' +
-                
+
                     '</tr>';
 
 
@@ -2656,7 +2645,7 @@
                     '<td><input type="text" name="previousIntervalDetails[]"></td>' +
                     '<td><input type="text" name="DifferenceOfResults[]"></td>' +
                     '<td><input type="text" name="TrendLimit[]"></td>' +
-                   
+
                     '</tr>';
 
 

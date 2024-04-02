@@ -151,7 +151,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">RCA & Corrective Action</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Supervisor & SQA Review</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Reference Info / Comments</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Electronic Signature</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm5')"> Signatures</button>
 
         </div>
 
@@ -782,45 +782,31 @@
 
                     <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Submit by">Submit by</label>
-                                    <select name="Submit_by" onchange="">
-                                        <option value="">-- select --</option>
-                                        <option value=""></option>
-
-                                    </select>
+                                    <label for="Submit by">Submit by : </label>
+                                   
                                 </div>
                             </div>
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Submit on"> Submit on </label>
+                                    <label for="Submit on"> Submit on :</label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="Submit_on" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="Submit_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
+                                    
 
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Init. Imp. Asses. Rev. Comp By">Init. Imp. Asses. Rev. Comp By</label>
-                                    <select name="Init_Imp_Asses_Rev_Comp_By" onchange="">
-                                        <option value="">-- select --</option>
-                                        <option value=""></option>
-
-                                    </select>
+                                    <label for="Init. Imp. Asses. Rev. Comp By">Init. Imp. Asses. Rev. Comp By : </label>
+                                    
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Init_Imp_Asses_Rev_Comp_on"> Init. Imp. Asses. Rev. Comp on </label>
+                                    <label for="Init_Imp_Asses_Rev_Comp_on"> Init. Imp. Asses. Rev. Comp on :</label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="Init_Imp_Asses_Rev_Comp_on" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="Init_Imp_Asses_Rev_Comp_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
+                                  
 
 
                                 </div>
@@ -830,113 +816,73 @@
                            
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RCA & Corrective Action Complete by">RCA & Corrective Action Complete by</label>
-                                    <select name="RCA_Corrective_Action_Complete_by" onchange="">
-                                        <option value="">-- select --</option>
-                                        <option value=""></option>
-
-                                    </select>
+                                    <label for="RCA & Corrective Action Complete by">RCA & Corrective Action Complete by  :</label>
+                                    
                                 </div>
                             </div>
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="RCA & Corrective Action Complete on"> RCA & Corrective Action Complete on </label>
+                                    <label for="RCA & Corrective Action Complete on"> RCA & Corrective Action Complete on :</label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="RCA_Corrective_Action_Complete_on" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="RCA_Corrective_Action_Complete_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Supervisor Review Complete by">Supervisor Review Complete by : </label>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Supervisor Review Complete on"> Supervisor Review Complete on :</label>
 
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Supervisor Review Complete by">Supervisor Review Complete by</label>
-                                    <select name="Supervisor_Review_Complete_by" onchange="">
-                                        <option value="">-- select --</option>
-                                        <option value=""></option>
-
-                                    </select>
+                                    <label for="SQA Review & Assessment Complete by">SQA Review & Assessment Complete by :</label>
+                                   
                                 </div>
                             </div>
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Supervisor Review Complete on"> Supervisor Review Complete on </label>
+                                    <label for="SQA Review & Assessment Complete on"> SQA Review & Assessment Complete on :</label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="Supervisor_Review_Complete_on" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="Supervisor_Review_Complete_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
+                                    
 
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="SQA Review & Assessment Complete by">SQA Review & Assessment Complete by</label>
-                                    <select name="SQA_Review_Assessment_Complete_by" onchange="">
-                                        <option value="">-- select --</option>
-                                        <option value=""></option>
-
-                                    </select>
+                                    <label for="Cancellation Request by">Cancellation Request by : </label>
+                                    
                                 </div>
                             </div>
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="SQA Review & Assessment Complete on"> SQA Review & Assessment Complete on </label>
+                                    <label for="Cancellation Request by"> Cancellation Request by :</label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="SQA_Review_Assessment_Complete_on" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="SQA_Review_Assessment_Complete_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
-
-
+                                   
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Cancellation Request by">Cancellation Request by</label>
-                                    <select name="Cancellation_Request_by" onchange="">
-                                        <option value="">-- select --</option>
-                                        <option value=""></option>
-
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="Cancellation Request by"> Cancellation Request by </label>
-
-                                    <div class="calenderauditee">
-                                        <input type="text" id="Cancellation_Request_on" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="Cancellation_Request_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Cancellation Approve by">Cancellation Approve by</label>
-                                    <select name="Cancellation_Approve_by" onchange="">
-                                        <option value="">-- select --</option>
-                                        <option value=""></option>
-
-                                    </select>
+                                    <label for="Cancellation Approve by">Cancellation Approve by :</label>
+                                    
                                 </div>
                             </div>
                         
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Cancellation Approve on"> Cancellation Approve on </label>
+                                    <label for="Cancellation Approve on"> Cancellation Approve on :</label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="Cancellation_Approve_on" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="Cancellation_Approve_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
+                                  
 
 
                                 </div>
