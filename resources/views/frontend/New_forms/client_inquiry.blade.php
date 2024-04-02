@@ -142,12 +142,12 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="Product_name[]"></td>'+
-                                                '<td><input type="text" name="Batch_number[]"></td>'+
-                                                '<td><input type="text" name="Expiry_date[]"></td>'+
-                                                '<td><input type="text" name="Manufactured_date[]"></td>'+
-                                              '<td><input type="text" name="disposition[]"></td>'+
-                                               '<td><input type="text" name="Comment[]"></td>'+
+                    '<td><input type="text" name="Product_name[]"></td>' +
+                    '<td><input type="text" name="Batch_number[]"></td>' +
+                    '<td><input type="text" name="Expiry_date[]"></td>' +
+                    '<td><input type="text" name="Manufactured_date[]"></td>' +
+                    '<td><input type="text" name="disposition[]"></td>' +
+                    '<td><input type="text" name="Comment[]"></td>' +
 
 
                     '</tr>';
@@ -517,8 +517,8 @@
                                         Product/Material(0)
                                         <button type="button" onclick="" id="product_material">+</button>
                                         <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                (Launch Instruction)
-                            </span>
+                                            (Launch Instruction)
+                                        </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="product_material-first-table">
@@ -660,18 +660,18 @@
                             </div>
 
                             <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Account Number">Account Number</label>
-                                        <select multiple id="account_number" name="" id="">
-                                            <option value="">--Select---</option>
-                                                <option value="">
-                                                </option>
-                                        </select>
-                                    </div>
+                                <div class="group-input">
+                                    <label for="Account Number">Account Number</label>
+                                    <select multiple id="account_number" name="" id="">
+                                        <option value="">--Select---</option>
+                                        <option value="">
+                                        </option>
+                                    </select>
                                 </div>
+                            </div>
 
 
-                                <div class="col-lg-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Dispute Amount">Dispute Amount</label>
                                     <select name="dispute_amount" onchange="">
@@ -681,7 +681,7 @@
                                     </select>
                                 </div>
                             </div>
-                             <div class="col-lg-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Currency">Currency</label>
                                     <select name="currency" onchange="">
@@ -690,7 +690,7 @@
 
                                     </select>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Category">Category</label>
@@ -700,7 +700,7 @@
 
                                     </select>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Sub Category">Sub Category</label>
@@ -807,22 +807,18 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Approved by">Approved by</label>
-                                   
                                 </div>
                             </div>
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Approved on"> Approved on </label>
-
-
-
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Completed By">Completed By</label>
-                                    
+
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
