@@ -78,7 +78,6 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         <option value=""></option>
-
                                     </select>
 
                                 </div>
@@ -124,7 +123,7 @@
                                     <input type="text" name="Contact_Person">
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Descriptions">Descriptions</label>
                                     <textarea name="Descriptions" id="" cols="30" rows="3"></textarea>
@@ -170,7 +169,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Product">Product/Materials(0)</label>
                                     <input type="text" name="Product" id="">
