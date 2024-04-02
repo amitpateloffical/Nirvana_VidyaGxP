@@ -118,14 +118,15 @@
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="search">
+                                    <label  for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
                                    
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
-                                        <option value=""></option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
 
                                     </select>
 
@@ -145,7 +146,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
 
-                                    <label for="RLS Record Number" class="mb-4"><b>Auditee/Supplier</b></label>
+                                    <label for="RLS Record Number"><b>Auditee/Supplier</b></label>
 
                                     <input type="text" name="record_number" value="">
 
@@ -235,6 +236,8 @@
                                     <label for="Responsible Department">Quarter</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
                                     </select>
                                 </div>
                             </div>
@@ -252,12 +255,13 @@
                                     <label for="Responsible Department">Related URL</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="Responsible Department">Zone</label>
+                                    <label  for="Responsible Department">Zone</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
                                     </select>
@@ -345,7 +349,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="RLS Record Number"><b>CRO/Vendor</b></label>
+                                    <label  for="RLS Record Number"><b>CRO/Vendor</b></label>
 
                                     <input type="text" name="record_number" value="">
 
@@ -456,7 +460,7 @@
 
                                     <label for="Division Code"><b>Actual start Date</b></label>
 
-                                    <input disabled type="date" name="division_code" value="">
+                                    <input  type="date" name="division_code" value="">
 
 
                                 </div>
@@ -466,7 +470,7 @@
 
                                     <label for="Division Code"><b>Actual end Date</b></label>
 
-                                    <input disabled type="date" name="division_code" value="">
+                                    <input  type="date" name="division_code" value="">
 
 
                                 </div>
@@ -495,7 +499,7 @@
 
                                     <label for="Division Code"><b>Date of Response</b></label>
 
-                                    <input disabled type="date" name="division_code" value="">
+                                    <input  type="date" name="division_code" value="">
 
 
                                 </div>

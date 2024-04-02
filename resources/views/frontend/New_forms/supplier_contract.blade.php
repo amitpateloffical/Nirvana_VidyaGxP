@@ -118,14 +118,17 @@
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="search">
+                                    <label  for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
                                     
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
 
-                                        <option value=""></option>
+                                        
 
                                     </select>
 
@@ -185,15 +188,19 @@
                                     <label for="Responsible Department">Priority level</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="Responsible Department">Zone </label>
+                                    <label for="Responsible Department">Zone </label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
                                     </select>
                                 </div>
                             </div>
@@ -219,15 +226,19 @@
                                     <p class="text-primary">Auto selected according to City</p>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="Responsible Department">Type </label>
+                                    <label  for="Responsible Department">Type </label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
                                     </select>
                                 </div>
                             </div>

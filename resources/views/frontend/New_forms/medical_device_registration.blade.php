@@ -122,7 +122,7 @@
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="search">
+                                    <label  for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
                                     
@@ -162,7 +162,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="search">
+                                    <label  for="search">
                                         Attached File <span class="text-danger"></span>
                                     </label>
 
@@ -199,7 +199,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="Responsible Department">Zone</label>
+                                    <label  for="Responsible Department">Zone</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
@@ -237,7 +237,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
 
-                                    <label class="mb-4" for="RLS Record Number"><b>Registration number</b></label>
+                                    <label for="RLS Record Number"><b>Registration number</b></label>
 
                                     <input type="text" name="record_number" value="">
 
