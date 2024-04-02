@@ -238,10 +238,10 @@
 
 
 <div class="form-field-head">
-    <div class="pr-id">
+    <!-- <div class="pr-id">
         New Document
-    </div>
-    <div class="division-bar">
+    </div> -->
+    <div class="division-bar pt-3">
         <strong>Site Division/Project</strong> :
         QMS-North America / OOS
     </div>
@@ -816,18 +816,6 @@
 
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Agenda">Preliminary Lab Inves. Done By</label>
-                            <input type="text" name="name">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Agenda">Preliminary Lab Inves. Done On</label>
-                            <input type="date" name="time">
-                        </div>
-                    </div>
 
                     <div class="button-block">
                         <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
@@ -964,39 +952,6 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Team">Pre. Lab Inv. Conclusion By</label>
-                            <input type="text">
-
-                            <!-- <label for="Auditee"> Auditee </label>
-                                <select multiple name="auditee" placeholder="Select Nature of Deviation"
-                                    data-search="false" data-silent-initial-value-set="true" id="auditee">
-                                    <option value="Piyush">Piyush Sahu</option>
-                                    <option value="Piyush">Piyush Sahu</option>
-                                    <option value="Piyush">Piyush Sahu</option>
-                                    <option value="Piyush">Piyush Sahu</option>
-                                    <option value="Piyush">Piyush Sahu</option>
-                                    <option value="Piyush">Piyush Sahu</option>
-                                    <option value="Piyush">Piyush Sahu</option>
-                                    <option value="Piyush">Piyush Sahu</option>
-                                    <option value="Piyush">Piyush Sahu</option>
-                                </select> -->
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Team">Pre. Lab Inv. Conclusion On</label>
-                            <input type="date" name="time">
-                        </div>
-                    </div>
-
-
-
-
-
-
                     <div class="button-block">
                         <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1100,19 +1055,7 @@
 
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="group-input">
-                            <label for="Audit Comments"> Pre.Lab Invest. Review By </label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Attachments">Pre.Lab Invest. Review On</label>
-                            <input type="date" name="date">
-                        </div>
-                    </div>
-
+                   
                     <div class="button-block">
                         <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1245,19 +1188,6 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">Phase II Invest. Proposed By</label>
-                        <input type="text" name="name">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">Phase II Invest. Proposed On</label>
-                        <input type="date" name="time">
-                    </div>
-                </div>
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1398,20 +1328,7 @@
 
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Response Completed By"> Phase II QC Review Done By</label>
-                        <!-- <div class=" static">Person datafield</div> -->
-                        <input type="text" name="name">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Response Completed On">Phase II QC Review Done On</label>
-                        <!-- <div class=" static">17-04-2023 11:12PM</div> -->
-                        <input type="date" name="time">
-                    </div>
-                </div>
+                
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1455,13 +1372,6 @@
                     </div>
                 </div>
 
-
-
-
-
-
-
-
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="Reference Recores">Additional Test Reference. </label>
@@ -1504,23 +1414,6 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
-
-
-
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">Additional Test Proposed By</label>
-                        <input type="text" name="name">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">Additional Test Proposed On</label>
-                        <input type="date" name="time">
                     </div>
                 </div>
 
@@ -1720,19 +1613,7 @@
 
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">OOS Conclusion Complete By</label>
-                        <input type="text" name="name">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">OOS Conclusion Complete On</label>
-                        <input type="date" name="time">
-                    </div>
-                </div>
+                
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1914,20 +1795,7 @@
                         <input type="text" name="name">
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">OOS Conclusion Review by</label>
-                        <input type="text" name="name">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">OOS Conclusion Review On</label>
-                        <input type="date" name="time">
-                    </div>
-                </div>
-
+                
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -2016,20 +1884,6 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">CQ Review Done By</label>
-                        <input type="text" name="name">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">CQ Review Done On</label>
-                        <input type="date" name="time">
                     </div>
                 </div>
 
@@ -2240,19 +2094,6 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">Disposition Decision Done by</label>
-                        <input type="text" name="name">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Audit Attachments">Disposition Decision Done On</label>
-                        <input type="date" name="time">
-                    </div>
-                </div>
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -2294,24 +2135,6 @@
                             </div>
                         </div>
 
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Reference Recores">Reopen Addendum Complete By
-
-                        </label>
-                        <input type="text" name="name">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Reference Recores">Reopen Addendum Complete on
-
-                        </label>
-                        <input type="date" name="date">
                     </div>
                 </div>
 
@@ -2362,23 +2185,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Reference Recores">Addendum Approval Completed By
-
-                        </label>
-                        <input type="text" name="name">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Reference Recores">Reopen Addendum Complete on
-
-                        </label>
-                        <input type="date" name="date">
-                    </div>
-                </div>
+               
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -2492,24 +2299,6 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Reference Recores">Addendum Execution Done By
-
-                        </label>
-                        <input type="text" name="name">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Reference Recores">Addendum Execution Done On
-
-                        </label>
-                        <input type="date" name="date">
-                    </div>
-                </div>
-
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -2557,23 +2346,6 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Reference Recores">Addendum Review Done By
-
-                        </label>
-                        <input type="text" name="name">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Reference Recores">Addendum Review Done On
-
-                        </label>
-                        <input type="date" name="date">
-                    </div>
-                </div>
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -2623,23 +2395,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Reference Recores">Verification Review Done By 
-
-                        </label>
-                        <input type="text" name="name">
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Reference Recores">Verification Review Done On 
-
-                        </label>
-                        <input type="date" name="date">
-                    </div>
-                </div>
+                
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -2661,6 +2417,229 @@
                 Activity Log
             </div>
             <div class="row">
+
+            <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Audit Agenda">Preliminary Lab Inves. Done By</label>
+                            <div class="static"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Audit Agenda">Preliminary Lab Inves. Done On</label>
+                            <div class="Date"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Audit Team">Pre. Lab Inv. Conclusion By</label>
+                            <div class="static"></div>
+                           
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Audit Team">Pre. Lab Inv. Conclusion On</label>
+                            <div class="Date"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="group-input">
+                            <label for="Audit Comments"> Pre.Lab Invest. Review By </label>
+                            <div class="static"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Audit Attachments">Pre.Lab Invest. Review On</label>
+                            <div class="Date"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">Phase II Invest. Proposed By</label>
+                        <div class="static"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">Phase II Invest. Proposed On</label>
+                        <div class="Date"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Response Completed By"> Phase II QC Review Done By</label>
+                        <div class=" static"></div>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Response Completed On">Phase II QC Review Done On</label>
+                        <div class="date"></div>
+                       
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">Additional Test Proposed By</label>
+                        <div class=" static"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">Additional Test Proposed On</label>
+                        <div class="date"></div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">OOS Conclusion Complete By</label>
+                        <div class=" static"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">OOS Conclusion Complete On</label>
+                       <div class="date"></div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">CQ Review Done By</label>
+                        <div class=" static"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">CQ Review Done On</label>
+                        <div class="date"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">Disposition Decision Done by</label>
+                        <div class=" static"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">Disposition Decision Done On</label>
+                        <div class="date"></div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Reference Recores">Reopen Addendum Complete By
+
+                        </label>
+                        <div class=" static"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Reference Recores">Reopen Addendum Complete on
+
+                        </label>
+                        <div class="date"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Reference Recores">Addendum Approval Completed By
+
+                        </label>
+                        <div class=" static"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Reference Recores">Reopen Addendum Complete on
+
+                        </label>
+                        <div class="date"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Reference Recores">Addendum Execution Done By
+
+                        </label>
+                        <div class=" static"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Reference Recores">Addendum Execution Done On
+
+                        </label>
+                        <div class="date"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Reference Recores">Addendum Review Done By
+
+                        </label>
+                        <div class=" static"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Reference Recores">Addendum Review Done On
+
+                        </label>
+                        <div class="date"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Reference Recores">Verification Review Done By 
+                        </label>
+                         <div class=" static"></div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Reference Recores">Verification Review Done On 
+
+                        </label>
+                        <div class="date"></div>
+                    </div>
+                </div>
+
+
+
+
+                    <!-- ====================================================================== -->
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="submitted by">Submitted By :</label>
