@@ -89,7 +89,8 @@
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <label for="due-date">Date Due</label>
+                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -377,7 +378,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Attached_Pictures">Attached Pictures</label>
@@ -394,7 +395,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
