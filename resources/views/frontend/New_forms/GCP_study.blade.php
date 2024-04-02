@@ -53,8 +53,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="RLS Record Number"><b>Initiator</b></label>
-
+                                    <label for="RLS Record Number"><b>Initiator</b></label>
                                     <input type="text" name="record_number" value="">
 
                                 </div>
@@ -62,7 +61,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                    <p class="text-primary">When was this record opened?</p>
+                                    <div><span class="text-primary">When was this record opened?</span>
+                                    </div>
                                     <input disabled type="date" name="Date_of_Initiation" value="">
                                     <input type="hidden" name="division_id" value="">
                                 </div>
@@ -431,10 +431,10 @@
                         </div>
                     </div>
                     <div class="button-block">
+                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="submit" class="saveButton">Save</button>
-                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                Exit </a> </button>
+                        <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                            </a> </button>
                     </div>
                 </div>
             </div>
@@ -573,7 +573,7 @@
                     });
                 });
             </script>
-       
+
             <script>
                 var maxLength = 255;
                 $('#docname').keyup(function() {
