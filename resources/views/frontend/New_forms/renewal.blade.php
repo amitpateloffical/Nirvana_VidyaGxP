@@ -109,7 +109,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Documents">Documents</label>
                                     <input type="text" name="Documents" id="">
@@ -259,7 +259,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="group-input">
                                     <label for="Renewal Rule">(Parent) Renewal Rule</label>
                                     <select name="Renewal Rule">

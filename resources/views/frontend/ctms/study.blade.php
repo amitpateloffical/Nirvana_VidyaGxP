@@ -199,7 +199,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Total_study">Total Study Cost</label>
                                     <select name="Total_study">
@@ -601,7 +601,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 new-date-data-field">
+                            <div class="col-lg-12 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Study_Final_Report">Study Final Report</label>
                                     <select name="Study_Final_Report">
@@ -872,7 +872,7 @@
                                     <input type="date" name="lastSubject">
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="group-input">
                                     <label for="Signatures">CROM Contract Signatures Date</label>
                                     <input type="date" name="Signatures">
