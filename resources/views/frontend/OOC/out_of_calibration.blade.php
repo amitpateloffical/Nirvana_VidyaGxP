@@ -155,6 +155,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm6')">CAPA</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm7')">Closure</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm8')">HOD Review</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm9')">Signature</button>
 
         </div>
 
@@ -270,7 +271,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Initiator Group">Initiated Through</label>
                                     <div><small class="text-primary">Please select related information</small></div>
@@ -297,7 +298,7 @@
                                     </div>
                                 </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Initiator Group">Is Repeat</label>
                                     <select name="is_repeat" onchange="">
@@ -313,9 +314,11 @@
                                         <label for="Repeat Nature">Repeat Nature</label>
                                         <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
                                         <textarea class="summernote" name="Repeat_Nature" id="summernote-1">
+                                            
                                     </textarea>
                                     </div>
                                 </div>
+                                
 
 
                                 <div class="col-md-12 mb-3">
@@ -443,7 +446,7 @@
 
                             
 
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="group-input">
                                     <label for="Inv Attachments">HOD Attachement</label>
                                     <div class="file-attachment-field">
@@ -738,7 +741,7 @@
                                     </textarea>
                                     </div>
                                 </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="Initiator Group">Results Naturey</label>
                                 <select name="is_repeat" onchange="">
@@ -761,7 +764,7 @@
                                     </div>
                                 </div>
 
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="group-input">
                                 <label for="Inv Attachments">Stage I Attachement</label>
                                 <div class="file-attachment-field">
@@ -853,7 +856,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="Initiator Group">Proposed By</label>
                                 <select name="is_repeat" onchange="">
@@ -1058,7 +1061,78 @@
                             </div>
                         </div>
 
-                        <div class="sub-head">
+                       
+                    </div>
+                    <div class="button-block">
+                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                        <button type="submit" class="saveButton">Save</button>
+                        <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                            </a> </button>
+                    </div>
+                </div>
+            </div>
+            <div id="CCForm8" class="inner-block cctabcontent">
+                <div class="inner-block-content">
+                    <div class="sub-head">
+                  HOD Review
+                    </div>
+                    <div class="row">
+
+                      
+                    <div class="col-lg-6">
+                                <div class="group-input" id="initiated_through_req">
+                                    <label for="If Other">HOD Remarks
+                                    <textarea name="HOD_Remarks"></textarea>
+                                </div>
+                            </div>
+                        
+
+                        <div class="col-6">
+                            <div class="group-input">
+                                <label for="Inv Attachments">HOD Attachement</label>
+                                <div class="file-attachment-field">
+                                    <div class="file-attachment-list" id=""></div>
+                                    <div class="add-btn">
+                                        <div>Add</div>
+                                        <input type="file" id="myfile" name="" oninput="" multiple>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                                <div class="group-input" id="initiated_through_req">
+                                    <label for="If Other">Root Cause Analysis
+                                    <textarea name="Root_Cause_Analysis"></textarea>
+                                </div>
+                            </div>
+                        
+                            <div class="col-lg-6">
+                                <div class="group-input" id="initiated_through_req">
+                                    <label for="If Other">Impact Assessment
+                                    <textarea name="Impact_Assessment"></textarea>
+                                </div>
+                            </div>
+                        
+
+
+                    </div>
+                    <div class="button-block">
+                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                        <button type="submit" class="saveButton">Save</button>
+                        <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                            </a> </button>
+                    </div>
+                </div>
+            </div>
+            <div id="CCForm9" class="inner-block cctabcontent">
+                <div class="inner-block-content">
+                    
+                    <div class="row">
+                        
+
+                        
+                    <div class="sub-head">
                         Activity Log
                     </div>
 
@@ -1168,7 +1242,7 @@
                             </div>
 
                             
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input" id="initiated_through_req">
                                     <label for="If Other">Immediate Corrective Action
                                     <textarea name="Immediate_Corrective_Action"></textarea>
@@ -1176,57 +1250,6 @@
                             </div>
 
 
-                    </div>
-                    <div class="button-block">
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="submit" class="saveButton">Save</button>
-                        <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
-                            </a> </button>
-                    </div>
-                </div>
-            </div>
-            <div id="CCForm8" class="inner-block cctabcontent">
-                <div class="inner-block-content">
-                    <div class="sub-head">
-                  HOD Review
-                    </div>
-                    <div class="row">
-
-                      
-                    <div class="col-lg-6">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">HOD Remarks
-                                    <textarea name="HOD_Remarks"></textarea>
-                                </div>
-                            </div>
-                        
-
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="Inv Attachments">HOD Attachement</label>
-                                <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id=""></div>
-                                    <div class="add-btn">
-                                        <div>Add</div>
-                                        <input type="file" id="myfile" name="" oninput="" multiple>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">Root Cause Analysis
-                                    <textarea name="Root_Cause_Analysis"></textarea>
-                                </div>
-                            </div>
-                        
-                            <div class="col-lg-6">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">Impact Assessment
-                                    <textarea name="Impact_Assessment"></textarea>
-                                </div>
-                            </div>
                         
 
 
