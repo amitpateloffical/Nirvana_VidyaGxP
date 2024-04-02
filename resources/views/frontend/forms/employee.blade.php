@@ -231,7 +231,13 @@
                     <div class="col-12">
                         <div class="group-input">
                             <label for="Picture">Picture</label>
-                            <input type="file" id="myfile" name="myfile">
+                            <div class="file-attachment-field">
+                                <div class="file-attachment-list" id=""></div>
+                                <div class="add-btn">
+                                    <div>Add</div>
+                                    <input type="file" id="myfile" name="" oninput="" multiple>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12">
