@@ -143,7 +143,7 @@
 
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
 
 
@@ -275,11 +275,7 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Submitted by">Submitted by</label>
-                                <select name="Submitted_by" onchange="">
-                                    <option value="">-- select --</option>
-                                    <option value=""></option>
-
-                                </select>
+                              
                             </div>
                         </div>
 
@@ -287,10 +283,6 @@
                             <div class="group-input input-date">
                                 <label for="Submitted on"> Submitted on </label>
 
-                                <div class="calenderauditee">
-                                    <input type="text" id="Submitted_on" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" name="Submitted_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                </div>
 
 
                             </div>
@@ -298,21 +290,14 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Reviewed By">Reviewed By</label>
-                                <select name="Reviewed_By" onchange="">
-                                    <option value="">-- select --</option>
-                                    <option value=""></option>
-
-                                </select>
+                               
                             </div>
                         </div>
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="Reviewed on">Reviewed on </label>
 
-                                <div class="calenderauditee">
-                                    <input type="text" id="Reviewed_on" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" name="Reviewed_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                </div>
+                              
                             </div>
                         </div>
                     </div>

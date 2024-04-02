@@ -453,6 +453,9 @@
                                         <label for="audit-program-grid">
                                             Audit Program<button type="button" name="ann"
                                                 id="audit_program">+</button>
+                                                <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                (Launch Instruction)
+                            </span>
                                         </label>
                                         <table class="table table-bordered" id="audit_program_body">
                                             <thead>

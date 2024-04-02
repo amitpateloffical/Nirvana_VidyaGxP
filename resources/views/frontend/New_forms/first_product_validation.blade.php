@@ -53,7 +53,7 @@
         </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / EHS_Event
+        / First Product Validation
     </div>
 </div>
 
