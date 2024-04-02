@@ -282,6 +282,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm14')">Under Addendum Execution</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm15')">Under Addendum Review</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm16')">Under Addendum Verification</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm17')">Signature</button>
 
         </div>
 
@@ -390,7 +391,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 mt-4">
                         <div class="group-input">
                             <label for="Initiator Group">Repeat Nature</label>
                             <textarea name="text"></textarea>
@@ -399,9 +400,20 @@
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Initiator Group">Nature of Change</label>
-                            <input type="file">
+                            <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
+
+                            <div class="file-attachment-field">
+                                <div class="file-attachment-list" id=""></div>
+                                <div class="add-btn">
+                                    <div>Add</div>
+                                    <input type="file" id="myfile" name="" oninput="" multiple>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Initiator Group">Deviation Occured On</label>
@@ -426,6 +438,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="group-input">
+                            <label for="Tnitiaror Grouo">Source Document Type</label>
                             <select>
                                 <option>Enter Your Selection Here</option>
                                 <option></option>
@@ -434,15 +447,17 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div class="group-input pt-4">
+                        <div class="group-input ">
                             <label for="Short Description ">Reference System Document </label>
+                            <input type="text" name="initiator_group_code" id="initiator_group_code" value="">
 
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Short Description"> Reference Document</label>
-                            <input type="number">
+                            <input type="string" name="initiator_group_code" id="initiator_group_code" value="">
+
                         </div>
                     </div>
 
@@ -517,7 +532,7 @@
                                     <td><input type="text" name="Remarks[]"></td>
                                     <td><input type="text" name="Number[]"></td>
                                     <td><input type="text" name="Name[]"></td>
-                                 
+
 
                                 </tbody>
 
@@ -638,7 +653,7 @@
                 <div class="sub-head">Preliminary Lab. Investigation </div>
                 <div class="row">
 
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 mb-4">
                         <div class="group-input">
                             <label for="Audit Schedule Start Date"> Comments </label>
                             <div class="col-md-12 4">
@@ -782,7 +797,19 @@
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Audit Attachments">File Attachments</label>
-                            <input type="file" id="myfile" name="myfile">
+                            <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
+                            <div class="file-attachment-field">
+                                <div class="file-attachment-list" id="file_attach"></div>
+                                <div class="add-btn">
+                                    <div>Add</div>
+                                    <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -807,7 +834,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
 
@@ -914,10 +941,19 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="col-12">
                         <div class="group-input">
                             <label for="Audit Attachments"> Supporting Attachment </label>
-                            <input type="file" id="myfile" name="myfile">
+                            <div class="file-attachment-field">
+                                <div class="file-attachment-list" id="file_attach"></div>
+                                <div class="add-btn">
+                                    <div>Add</div>
+                                    <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                </div>
+                            </div>
+
+
+
                         </div>
                     </div>
 
@@ -1044,7 +1080,14 @@
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Audit Attachments"> Supporting Attachments</label>
-                            <input type="file" id="myfile" name="myfile">
+                            <div class="file-attachment-field">
+                                <div class="file-attachment-list" id="file_attach"></div>
+                                <div class="add-btn">
+                                    <div>Add</div>
+                                    <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-6">
@@ -1178,7 +1221,14 @@
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="Audit Attachments"> Attachment</label>
-                        <input type="file" id="myfile" name="myfile">
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -1196,12 +1246,12 @@
                     </div>
                 </div>
                 <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
 
             </div>
         </div>
@@ -1319,10 +1369,17 @@
                         <input type="num" name="num">
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="group-input">
                         <label for="Audit Lead More Info Reqd On">Attachments </label>
-                        <input type="file" id="myfile" name="myfile">
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -1340,12 +1397,12 @@
                     </div>
                 </div>
                 <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
 
 
 
@@ -1417,10 +1474,17 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Additional Testing Attachment </label>
-                        <input type="file" name="myfile">
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -1442,12 +1506,12 @@
                 </div>
 
                 <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
             </div>
         </div>
     </div>
@@ -1621,10 +1685,17 @@
                                     </textarea>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Attachments if Any</label>
-                        <input type="file" name="myfile">
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -1641,12 +1712,12 @@
                     </div>
                 </div>
                 <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
 
             </div>
         </div>
@@ -1802,7 +1873,14 @@
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="Reference Recores">Conclusion Attachment</label>
-                        <input type="file" name="myfile">
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -1826,12 +1904,12 @@
                 </div>
 
                 <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
             </div>
         </div>
     </div>
@@ -1845,94 +1923,102 @@
         <div class="inner-block-content">
             <div class="sub-head">
                 CQ Review Comments
-                <div class="row">
-                    <div class="col-md-12 mb-4">
-                        <div class="group-input">
-                            <label for="Description Deviation">CQ Review comments</label>
-                            <!-- <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div> -->
-                            <textarea class="summernote" name="Description_Deviation[]" id="summernote-1">
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-4">
+                    <div class="group-input">
+                        <label for="Description Deviation">CQ Review comments</label>
+                        <!-- <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div> -->
+                        <textarea class="summernote" name="Description_Deviation[]" id="summernote-1">
                                     </textarea>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Report Attachments">Require CAPA </label>
-                            <select>
-                                <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
-                            </select>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Reference Recores">Reference of CAPA </label>
-                            <input type="num" name="num">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="group-input">
-
-
-                            <label for="Auditee"> Action plan requirement </label>
-                            <select multiple name="auditee" placeholder="Select Nature of Deviation" data-search="false" data-silent-initial-value-set="true" id="auditee">
-                                <option value="sandhya"></option>
-                                <option value="sandhya"></option>
-
-                                <option value="sandhya"></option>
-
-                            </select>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Attachments"> Ref Action Plan </label>
-                            <input type="num" name="num">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Attachments"> CQ Attachment</label>
-                            <input type="file" id="myfile" name="myfile">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Attachments">CQ Review Done By</label>
-                            <input type="text" name="name">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Attachments">CQ Review Done On</label>
-                            <input type="date" name="time">
-                        </div>
-                    </div>
-
-                    <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
                     </div>
                 </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Report Attachments">Require CAPA </label>
+                        <select>
+                            <option>Enter Your Selection Here</option>
+                            <option></option>
+                            <option></option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Reference Recores">Reference of CAPA </label>
+                        <input type="num" name="num">
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+
+
+                        <label for="Auditee"> Action plan requirement </label>
+                        <select multiple name="auditee" placeholder="Select Nature of Deviation" data-search="false" data-silent-initial-value-set="true" id="auditee">
+                            <option value="sandhya"></option>
+                            <option value="sandhya"></option>
+
+                            <option value="sandhya"></option>
+
+                        </select>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments"> Ref Action Plan </label>
+                        <input type="num" name="num">
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="group-input">
+                        <label for="Audit Attachments"> CQ Attachment</label>
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">CQ Review Done By</label>
+                        <input type="text" name="name">
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">CQ Review Done On</label>
+                        <input type="date" name="time">
+                    </div>
+                </div>
+
+                <div class="button-block">
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
             </div>
+
         </div>
     </div>
 
 
-    <!--OOS Conclusion Review -->
+
 
 
     <!-- Batch Disposition -->
@@ -1969,7 +2055,7 @@
                     </div>
                 </div> -->
 
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Material/Batch Release</label>
                         <select>
@@ -1991,7 +2077,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="group-input">
                         <label for="Report Attachments">Field alert reference </label>
                         <input type="string" name="string">
@@ -2109,10 +2195,17 @@
                     </div>
 
                 </div>
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Disposition Attachment</label>
-                        <input type="file" name="myfile">
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -2130,17 +2223,13 @@
                     </div>
                 </div>
                 <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
             </div>
-
-
-
-
         </div>
 
     </div>
@@ -2160,10 +2249,17 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Reopen Attachment</label>
-                        <input type="file" name="myfile">
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -2184,24 +2280,18 @@
                         <input type="date" name="date">
                     </div>
                 </div>
-                
+
                 <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
             </div>
         </div>
 
     </div>
-
-
-
-
-
-
 
 
     <!-- Under Addendum Approval -->
@@ -2211,7 +2301,6 @@
             <div class="sub-head">
                 Addendum Approval Comment
             </div>
-
             <div class="row">
 
                 <div class="col-md-12 mb-4">
@@ -2223,10 +2312,16 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Addendum Attachment</label>
-                        <input type="file" name="myfile">
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -2248,22 +2343,16 @@
                     </div>
                 </div>
                 <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
-
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
             </div>
-
         </div>
 
     </div>
-
-
-
-
 
     <!--Under Addendum Execution -->
     <div id="CCForm14" class="inner-block cctabcontent">
@@ -2288,8 +2377,6 @@
                         <select>
                             <option value="sandhya"></option>
                             <option value="sandhya"></option>
-
-
                         </select>
                     </div>
                 </div>
@@ -2307,8 +2394,6 @@
                         <select>
                             <option value="sandhya"></option>
                             <option value="sandhya"></option>
-
-
                         </select>
                     </div>
                 </div>
@@ -2326,8 +2411,6 @@
                         <select>
                             <option value="sandhya"></option>
                             <option value="sandhya"></option>
-
-
                         </select>
                     </div>
                 </div>
@@ -2344,8 +2427,6 @@
                         <select>
                             <option value="sandhya"></option>
                             <option value="sandhya"></option>
-
-
                         </select>
                     </div>
                 </div>
@@ -2356,12 +2437,19 @@
                         <input type="string" name="string">
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Addendum Attachments
 
                         </label>
-                        <input type="file" name="myfile">
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -2384,12 +2472,12 @@
                 </div>
 
                 <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
             </div>
 
         </div>
@@ -2413,10 +2501,17 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Required Attachment</label>
-                        <input type="file" name="myfile">
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -2438,12 +2533,12 @@
                     </div>
                 </div>
                 <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
 
             </div>
 
@@ -2469,16 +2564,23 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6">
+                <div class="col-12">
                     <div class="group-input">
                         <label for="Reference Recores">Verification Attachment</label>
-                        <input type="file" name="myfile">
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="file_attach"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="col-lg-6">
                     <div class="group-input">
-                        <label for="Reference Recores">Verification Review Done By
+                        <label for="Reference Recores">Verification Review Done By 
 
                         </label>
                         <input type="text" name="name">
@@ -2487,36 +2589,95 @@
 
                 <div class="col-lg-6">
                     <div class="group-input">
-                        <label for="Reference Recores">Verification Review Done On
+                        <label for="Reference Recores">Verification Review Done On 
 
                         </label>
                         <input type="date" name="date">
                     </div>
                 </div>
                 <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
+                    <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            Exit </a> </button>
+                </div>
 
             </div>
-
         </div>
-
     </div>
 
 
+    <!----- Signature ----->
+
+    <div id="CCForm17" class="inner-block cctabcontent">
+        <div class="inner-block-content">
+            <div class="sub-head">
+                Activity Log
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="submitted by">Submitted By :</label>
+                        <div class="static"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="submitted on">Submitted On :</label>
+                        <div class="Date"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="cancelled by">Cancelled By :</label>
+                        <div class="static"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="cancelled on">Cancelled On :</label>
+                        <div class="Date"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="More information required By">More information required By :</label>
+                        <div class="static"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="More information required On">More information required On :</label>
+                        <div class="Date"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="completed by">Completed By :</label>
+                        <div class="static"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="completed on">Completed On :</label>
+                        <div class="Date"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="button-block">
+                <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
+                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                        Exit </a> </button>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
-
-
 </div>
-
-
 
 
 <script>
