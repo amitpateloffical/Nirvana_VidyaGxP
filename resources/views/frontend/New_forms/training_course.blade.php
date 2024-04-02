@@ -249,7 +249,6 @@
                                     <input disabled type="text" name="originator_id" value="" />
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input ">
                                     <label for="Date Due"><b>Date Opened</b></label>
@@ -306,7 +305,7 @@
 
                                     <div class="calenderauditee">
                                         <input type="text" id="expiration_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="expiration_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="date" name="expiration_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'expiration_date')" />
                                     </div>
 
 
@@ -547,7 +546,6 @@
                             <div class="button-block">
                           
                           <button type="submit" class="saveButton">Save</button>
-                          <button type="button" class="backButton" onclick="previousStep()">Back</button>
                           <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                           <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                               </a> </button>
