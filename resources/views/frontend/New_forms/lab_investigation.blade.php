@@ -129,7 +129,7 @@
 
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
 
 
@@ -153,7 +153,7 @@
 
                                     <div class="calenderauditee">
                                         <input type="text" id="expiration_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="expiration_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
+                                        <input type="date" name="expiration_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
 
 
@@ -441,6 +441,9 @@
                                     <label for="root_cause">
                                         Root Couse(0)
                                         <button type="button" onclick="" id="root_couse">+</button>
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                (Launch Instruction)
+                            </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="root_couse-first-table">

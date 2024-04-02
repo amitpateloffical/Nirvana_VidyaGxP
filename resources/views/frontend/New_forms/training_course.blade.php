@@ -282,7 +282,7 @@
 
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
 
 
@@ -306,7 +306,7 @@
 
                                     <div class="calenderauditee">
                                         <input type="text" id="expiration_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="expiration_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
+                                        <input type="date" name="expiration_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
 
 
@@ -413,6 +413,9 @@
                                     <label for="root_cause">
                                         Agenda(0)
                                         <button type="button" onclick="add4Input('root-cause-first-table')">+</button>
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                (Launch Instruction)
+                            </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="root-cause-first-table">
@@ -448,6 +451,9 @@
                                     <label for="root_cause">
                                         Test
                                         <button type="button" onclick="" id="test">+</button>
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                (Launch Instruction)
+                            </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="test-first-table">
@@ -480,6 +486,9 @@
                                     <label for="root_cause">
                                         Survey
                                         <button type="button" onclick="" id="survey">+</button>
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                (Launch Instruction)
+                            </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="survey-first-table">
@@ -549,6 +558,9 @@
                                     <label for="root_cause">
                                         Test
                                         <button type="button" onclick="" id="tests">+</button>
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                (Launch Instruction)
+                            </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="tests-first-table">

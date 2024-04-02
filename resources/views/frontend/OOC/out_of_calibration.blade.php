@@ -207,16 +207,15 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 new-date-data-field">
+                            <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Due Date"> Due Date </label>
+                                    <label for="due-date">Due Date <span class="text-danger"></span></label>
+                                    <p class="text-primary"> last date this record should be closed by</p>
 
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
-
-
                                 </div>
                             </div>
 
@@ -379,6 +378,9 @@
                                     <label for="root_cause">
                                         Instrument Details
                                         <button type="button" onclick="add4Input('root-cause-first-table')">+</button>
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                (Launch Instruction)
+                            </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="root-cause-first-table">
