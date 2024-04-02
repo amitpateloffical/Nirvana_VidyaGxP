@@ -73,7 +73,7 @@
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Registration</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Local Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signature</button>
 
         </div>
 
@@ -95,7 +95,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
 
-                                    <label for="RLS Record Number" ><b>Initiator</b></label>
+                                    <label for="RLS Record Number" class="mb-4"><b>Initiator</b></label>
 
                                     <input type="text" name="record_number" value="">
 
@@ -104,8 +104,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date of Initiation</b></label>
-                                    
+                                    <label for="Division Code"><b>Date Opened</b></label>
+                                    <p class="text-primary">When was this MD Registration record opened </p>
                                     <input disabled type="date" name="division_code" value="">
 
                                 </div>
@@ -115,17 +115,17 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span>
-                                        <p>255 characters remaining</p>
+                                        <p class="text-primary">MD Registration short description to be presented on desktop</p>
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="search">
+                                    <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                    
+                                    <p class="text-primary">Person responsible</p>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
@@ -138,7 +138,7 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-primary">Please mention expected date of completion</p>
+                                    <p class="text-danger">6 Last Date this Contract to be closed by</p>
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -392,7 +392,7 @@
                             </div>
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Actual Approval Date  <span class="text-danger"></span></label>
+                                    <label for="due-date">Actual Aproval Date  <span class="text-danger"></span></label>
                                  
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
@@ -636,32 +636,32 @@
 
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Actual_Amount ">Submitted by :</label>
-                                  
+                                    <label for="Actual_Amount ">Submitted by</label>
+                                    <input type="text" name="Actual_Amount" />
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
-                                    <label for="Division Code"><b>Submitted on :</b></label>
+                                    <label for="Division Code"><b>Submitted on</b></label>
 
-                                   
+                                    <input disabled type="date" name="division_code" value="">
 
 
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Actual_Amount ">Approved by :</label>
-                                 
+                                    <label for="Actual_Amount ">Approved by</label>
+                                    <input type="text" name="Actual_Amount" />
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
-                                    <label for="Division Code"><b>Approved on :</b></label>
+                                    <label for="Division Code"><b>Approved on</b></label>
 
-                                   
+                                    <input disabled type="date" name="division_code" value="">
 
 
                                 </div>

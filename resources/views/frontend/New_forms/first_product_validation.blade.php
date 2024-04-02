@@ -100,7 +100,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date of Initiation</b></label>
+                                    <label for="Division Code"><b>Date Opened</b></label>
                                     <input disabled type="date" name="division_code" value="">
 
                                 </div>
@@ -117,7 +117,6 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger"></span>
-                                    <p>255 characters remaining</p>
 
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
@@ -125,7 +124,7 @@
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="search">
+                                    <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
 
@@ -141,7 +140,6 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-primary">Please mention expected date of completion</p>
 
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
@@ -290,17 +288,28 @@
                             <div class="sub-head">Product Status Information</div>
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Actions">Product Release Summary<span class="text-danger"></span></label>
+                                    <label for="Actions">Submitted By<span class="text-danger"></span></label>
                                     <textarea placeholder="" name="description"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Actions">Product Recall Details<span class="text-danger"></span></label>
+                                    <label for="Actions">Submitted To<span class="text-danger"></span></label>
                                     <textarea placeholder="" name="description"></textarea>
                                 </div>
                             </div>
-                           
+                            <div class="col-lg-12">
+                                <div class="group-input">
+                                    <label for="Actions">Product Release By<span class="text-danger"></span></label>
+                                    <textarea placeholder="" name="description"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="group-input">
+                                    <label for="Actions">Product Release On<span class="text-danger"></span></label>
+                                    <textarea placeholder="" name="description"></textarea>
+                                </div>
+                            </div>
 
                         </div>
 
@@ -320,32 +329,32 @@
                          
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Victim">Submitted By :</label>
-                                   
+                                    <label for="Victim">Submitted By</label>
+                                    <input type="text" name="Victim" />
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
-                                    <label for="Division Code"><b>Submitted On :</b></label>
+                                    <label for="Division Code"><b>Submitted On</b></label>
 
-                                 
+                                    <input disabled type="date" name="division_code" value="">
 
 
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Victim">Product Released By :</label>
-                                 
+                                    <label for="Victim">Product Released By</label>
+                                    <input type="text" name="Victim" />
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
-                                    <label for="Division Code"><b>Product Released On :</b></label>
+                                    <label for="Division Code"><b>Product Released On</b></label>
 
-                                   
+                                    <input disabled type="date" name="division_code" value="">
 
 
                                 </div>
