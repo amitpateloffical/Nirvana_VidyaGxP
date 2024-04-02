@@ -11,12 +11,9 @@
 </style>
 
 <div class="form-field-head">
-    <div class="pr-id">
-        New Document
-    </div>
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        QMS-North America / CAPA
+        Employee
     </div>
 </div>
 
