@@ -1065,23 +1065,16 @@
 
                     <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Initiator Group">Submit By</label>
-                                <select name="is_repeat" onchange="">
-                                    <option value="">-- select --</option>
-                                    <option value=""></option>
-
-                                </select>
+                                <label for="Initiator Group">Submit By : </label>
+                                
                             </div>
                         </div>
 
                         <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="OOC Logged On">Submit On</label>
+                                    <label for="OOC Logged On">Submit On : </label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
+                                   
 
 
                                 </div>
@@ -1091,23 +1084,16 @@
                             
                     <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Initiator Group">HOD Review Completed By</label>
-                                <select name="is_repeat" onchange="">
-                                    <option value="">-- select --</option>
-                                    <option value=""></option>
-
-                                </select>
+                                <label for="Initiator Group">HOD Review Completed By : </label>
+                               
                             </div>
                         </div>
 
                         <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="OOC Logged On">HOD Review Completed On</label>
+                                    <label for="OOC Logged On">HOD Review Completed On :</label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
+                                 
 
 
                                 </div>
@@ -1116,23 +1102,16 @@
                             
                     <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Initiator Group">QA Initial Review Completed By</label>
-                                <select name="is_repeat" onchange="">
-                                    <option value="">-- select --</option>
-                                    <option value=""></option>
-
-                                </select>
+                                <label for="Initiator Group">QA Initial Review Completed By :</label>
+                              
                             </div>
                         </div>
 
                         <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="OOC Logged On">QA Initial Review Completed On</label>
+                                    <label for="OOC Logged On">QA Initial Review Completed On : </label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
+                                   
 
 
                                 </div>
@@ -1141,23 +1120,16 @@
                             
                     <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Initiator Group">QA Final Review Completed By</label>
-                                <select name="is_repeat" onchange="">
-                                    <option value="">-- select --</option>
-                                    <option value=""></option>
-
-                                </select>
+                                <label for="Initiator Group">QA Final Review Completed By : </label>
+                                
                             </div>
                         </div>
 
                         <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="OOC Logged On">QA Final Review Completed On</label>
+                                    <label for="OOC Logged On">QA Final Review Completed On : </label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
+                               
 
 
                                 </div>
@@ -1166,23 +1138,16 @@
                             
                     <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Initiator Group">Closure Done By</label>
-                                <select name="is_repeat" onchange="">
-                                    <option value="">-- select --</option>
-                                    <option value=""></option>
-
-                                </select>
+                                <label for="Initiator Group">Closure Done By : </label>
+                               
                             </div>
                         </div>
 
                         <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="OOC Logged On">Closure Done On</label>
+                                    <label for="OOC Logged On">Closure Done On : </label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
+                                    
 
 
                                 </div>

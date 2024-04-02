@@ -804,11 +804,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Approved by">Approved by</label>
-                                    <select name="Approved_by" onchange="">
-                                        <option value="">-- select --</option>
-                                        <option value=""></option>
-
-                                    </select>
+                                   
                                 </div>
                             </div>
 
@@ -816,10 +812,6 @@
                                 <div class="group-input input-date">
                                     <label for="Approved on"> Approved on </label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="Approved_on" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="Approved_on" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
 
 
                                 </div>
@@ -827,21 +819,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Completed By">Completed By</label>
-                                    <select name="Completed_By" onchange="">
-                                        <option value="">-- select --</option>
-                                        <option value=""></option>
-
-                                    </select>
+                                    
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Completedon">Completed on </label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="Completedon" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="Completedon" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="" />
-                                    </div>
                                 </div>
                             </div>
                         </div>

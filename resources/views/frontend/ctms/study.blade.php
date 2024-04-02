@@ -1228,7 +1228,7 @@
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
-                     '</tr>';
+                    '</tr>';
 
                 return html;
             }

@@ -7,7 +7,7 @@
 
     header {
         display: none;
-    }
+    } 
 </style>
 
 <script>
@@ -52,7 +52,7 @@
         </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / EHS_Event
+        / Supplier Audit
     </div>
 </div>
 
@@ -262,7 +262,7 @@
                                         <option value="">Enter Your Selection Here</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Country</b></label>
