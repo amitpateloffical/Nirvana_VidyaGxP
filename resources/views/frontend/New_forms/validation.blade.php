@@ -48,7 +48,7 @@
                     <div class="inner-block-content">
                         <div class="row">
 
-                        <div class="sub-head">General Information</div>
+                            <div class="sub-head">General Information</div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -59,8 +59,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
-                                    <input  type="date" name="Date Opened" value="">
-                                   
+                                    <input type="date" name="Date Opened" value="">
+
                                 </div>
                             </div>
 
@@ -110,7 +110,7 @@
                                 </div>
                             </div>
 
-                            
+
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
@@ -146,7 +146,7 @@
                             </div>
 
                             <div class="sub-head">
-                             Document Information
+                                Document Information
                             </div>
 
                             <div class="col-lg-12">
@@ -169,7 +169,7 @@
 
 
 
-                           
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Outcome">Validation Category</label>
@@ -267,7 +267,7 @@
 
 
                             <div class="sub-head">
-                               Affected Items
+                                Affected Items
                             </div>
 
                             <div class="group-input">
@@ -275,7 +275,7 @@
                                     Affected Equipment(0)
                                     <button type="button" name="audit-agenda-grid" id="Affected_equipment_add">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                      Open
+                                        Open
                                     </span>
                                 </label>
                                 <div class="table-responsive">
@@ -286,7 +286,7 @@
                                                 <th style="width: 12%">Equipment Name/Code</th>
                                                 <th style="width: 16%">Equipment ID</th>
                                                 <th style="width: 16%">Asset No</th>
-                                               
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -294,7 +294,7 @@
                                             <td><input type="text" name="EquipmentName/Code[]"></td>
                                             <td><input type="text" name="EquipmentID[]"></td>
                                             <td><input type="text" name="AssetNo[]"></td>
-                                           
+
                                         </tbody>
 
                                     </table>
@@ -307,7 +307,7 @@
                                     Affected Item(0)
                                     <button type="button" name="audit-agenda-grid" id="Affected_item_add">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                      Open
+                                        Open
                                     </span>
                                 </label>
                                 <div class="table-responsive">
@@ -318,7 +318,7 @@
                                                 <th style="width: 12%">Item Type</th>
                                                 <th style="width: 16%">Item Name</th>
                                                 <th style="width: 16%">Item No</th>
-                                               
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -326,7 +326,7 @@
                                             <td><input type="text" name="ItemType[]"></td>
                                             <td><input type="text" name="ItemName[]"></td>
                                             <td><input type="text" name="ItemNo[]"></td>
-                                           
+
                                         </tbody>
 
                                     </table>
@@ -339,7 +339,7 @@
                                     Affected Facilities(0)
                                     <button type="button" name="audit-agenda-grid" id="Affected_facilities_add">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                      Open
+                                        Open
                                     </span>
                                 </label>
                                 <div class="table-responsive">
@@ -350,7 +350,7 @@
                                                 <th style="width: 12%">Facility-Location</th>
                                                 <th style="width: 16%">Facility-Type</th>
                                                 <th style="width: 16%">Facility-Name</th>
-                                               
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -358,7 +358,7 @@
                                             <td><input type="text" name="Facility-Location[]"></td>
                                             <td><input type="text" name="Facility-Type[]"></td>
                                             <td><input type="text" name="Facility-Name[]"></td>
-                                           
+
                                         </tbody>
 
                                     </table>
@@ -390,9 +390,9 @@
                                 </div>
                             </div>
 
-                          
+
                             <div class="sub-head">
-                               Document Decision
+                                Document Decision
                             </div>
 
                             <div class="col-lg-12">
@@ -416,7 +416,7 @@
 
 
                             <div class="sub-head">
-                               Document Comments
+                                Document Comments
                             </div>
 
                             <div class="col-12">
@@ -453,7 +453,7 @@
                                 </div>
                             </div>
 
-                          
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -496,7 +496,7 @@
                                 </div>
                             </div>
 
-                          
+
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
@@ -551,13 +551,13 @@
                     </div>
                 </div>
 
-                
+
 
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head">
-                               Record Type History
+                                Record Type History
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -584,8 +584,8 @@
                                 </div>
                             </div>
 
-<div class="sub-head">Review</div>
-<div class="col-lg-6">
+                            <div class="sub-head">Review</div>
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reviewed by">Review By</label>
                                     <div class="static"></div>
@@ -834,12 +834,12 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="DeviationOccured[]"></td>'+
-                                            '<td><input type="text" name="Test-Name[]"></td>'+
-                                            '<td><input type="text" name="Test-Number[]"></td>'+
-                                            '<td><input type="text" name="Test-Method[]"></td>'+
-                                            '<td><input type="text" name="Test-Result[]"></td>'+
-                                            '<td><input type="text" name="Test-Accepted[]"></td>'+
+                    '<td><input type="text" name="DeviationOccured[]"></td>' +
+                    '<td><input type="text" name="Test-Name[]"></td>' +
+                    '<td><input type="text" name="Test-Number[]"></td>' +
+                    '<td><input type="text" name="Test-Method[]"></td>' +
+                    '<td><input type="text" name="Test-Result[]"></td>' +
+                    '<td><input type="text" name="Test-Accepted[]"></td>' +
                     '</tr>';
 
                 return html;
@@ -861,9 +861,9 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="EquipmentName/Code[]"></td>'+
-                                            '<td><input type="text" name="EquipmentID[]"></td>'+
-                                            '<td><input type="text" name="AssetNo[]"></td>'+
+                    '<td><input type="text" name="EquipmentName/Code[]"></td>' +
+                    '<td><input type="text" name="EquipmentID[]"></td>' +
+                    '<td><input type="text" name="AssetNo[]"></td>' +
                     '</tr>';
 
                 return html;
@@ -885,9 +885,9 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="ItemType[]"></td>'+
-                                            '<td><input type="text" name="ItemName[]"></td>'+
-                                            '<td><input type="text" name="ItemNo[]"></td>'+
+                    '<td><input type="text" name="ItemType[]"></td>' +
+                    '<td><input type="text" name="ItemName[]"></td>' +
+                    '<td><input type="text" name="ItemNo[]"></td>' +
                     '</tr>';
 
                 return html;
@@ -908,9 +908,9 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="Facility-Location[]"></td>'+
-                                            '<td><input type="text" name="Facility-Type[]"></td>'+
-                                            '<td><input type="text" name="Facility-Name[]"></td>'+
+                    '<td><input type="text" name="Facility-Location[]"></td>' +
+                    '<td><input type="text" name="Facility-Type[]"></td>' +
+                    '<td><input type="text" name="Facility-Name[]"></td>' +
                     '</tr>';
 
                 return html;

@@ -63,7 +63,6 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Product<span class="text-danger">*</span></label>
-                                  
                                     <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
@@ -85,9 +84,7 @@
                                         <option value="">Pankaj Jat</option>
                                         <option value="">Gaurav</option>
                                         <option value="">Manish</option>
-
                                     </select>
-
                                 </div>
                             </div>
 
@@ -95,7 +92,6 @@
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
-
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -146,7 +142,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Type">Other Related Products</label>
                                     <select name="Type">
