@@ -68,7 +68,7 @@
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Read & Understand</button>
             
-            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Signatures</button>
 
         </div>
 
@@ -224,7 +224,7 @@
                 </div>
 
                 <!-- TAB 1 ENDS HERE -->
-
+<!-- 
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -357,9 +357,9 @@
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div id="CCForm3" class="inner-block cctabcontent">
+                <!-- <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head">Audir Summary</div>
@@ -438,9 +438,9 @@
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div id="CCForm4" class="inner-block cctabcontent">
+                <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
 
@@ -469,7 +469,7 @@
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
                         </div>
