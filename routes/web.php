@@ -412,6 +412,15 @@ Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
 Route::view('GCP_study', 'frontend.new_forms.GCP_study');
 Route::view('calibration', 'frontend.new_forms.calibration');
 
+
+// ------------------------------R T Form--------------------//
+Route::view('national-approval', 'frontend.Registration-Tracking.national-approval');
+Route::view('variation', 'frontend.Registration-Tracking.variation');
+Route::view('PSUR', 'frontend.Registration-Tracking.PSUR');
+Route::view('dosier-documents', 'frontend.Registration-Tracking.dosier-documents');
+Route::view('commitment', 'frontend.Registration-Tracking.commitment');
+
+
 //--------------------------------OOC-----form---------------//
 
 Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
