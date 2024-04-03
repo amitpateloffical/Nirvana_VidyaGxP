@@ -424,8 +424,8 @@
                             
 
                             <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="submit" class="saveButton">Save</button>
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                         Exit </a> </button>
 
@@ -500,9 +500,9 @@
                                 </div> --}}
                         </div>
                         <div class="button-block">
-                            <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
                         </div>
@@ -712,9 +712,9 @@
                                 </div>
                     </div>
                     <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                        <button type="submit" class="saveButton">Save</button>
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                 Exit </a> </button>
                     </div>
@@ -820,9 +820,9 @@
 
                     </div>
                     <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                        <button type="submit" class="saveButton">Save</button>
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                 Exit </a> </button>
                     </div>
@@ -905,21 +905,26 @@
                             </div>
                         </div>
 
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="qa_comments">Impact Assessment at Stage II</label>
-                                <textarea name="qa_comments"></textarea>
-                            </div>
-                        </div>
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Impact Assessment at Stage II">Impact Assessment at Stage II</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Details of Impact Evaluation">Details of Impact Evaluation</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
 
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="qa_comments">Details of Impact Evaluation</label>
-                                <textarea name="qa_comments"></textarea>
-                            </div>
-                        </div>
+                    
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="Initiator Group">Result of Reanalysis:</label>
                                 <select name="is_repeat" onchange="">
@@ -929,12 +934,16 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="qa_comments">Cause for failure</label>
-                                <textarea name="Cause_for_failure"></textarea>
-                            </div>
-                        </div>
+
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Cause for failure">Cause for failure</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
+
 
                     </div>
                     <div class="button-block">
@@ -954,7 +963,7 @@
                     <div class="row">
 
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="Initiator Group">CAPA Type?</label>
                                 <select name="is_repeat" onchange="">
@@ -965,26 +974,33 @@
                             </div>
                         </div>
 
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="qa_comments">Corrective Action</label>
-                                <textarea name="qa_comments"></textarea>
-                            </div>
-                        </div>
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Corrective Action">Corrective Action</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
 
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="qa_comments">Preventive Action</label>
-                                <textarea name="qa_comments"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="group-input">
-                                <label for="qa_comments">Corrective & Preventive Action</label>
-                                <textarea name="qa_comments"></textarea>
-                            </div>
-                        </div>
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Preventive Action">Preventive Action</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
+                        
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Corrective & Preventive Action">Corrective & Preventive Action</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
+                        
                        
                        
                         <div class="col-12">
@@ -1005,14 +1021,17 @@
                         Post Implementation of CAPA
                     </div>
                        
-                    <div class="col-6">
-                            <div class="group-input">
-                                <label for="qa_comments">CAPA Post Implementation Comments</label>
-                                <textarea name="qa_comments"></textarea>
-                            </div>
-                        </div>
+                    <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="CAPA Post Implementation Comments">CAPA Post Implementation Comments</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                                    </div>
+                                </div>
+
                         
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="group-input">
                                 <label for="Inv Attachments">CAPA Post Implementation Attachement</label>
                                 <div class="file-attachment-field">
@@ -1078,16 +1097,14 @@
                                 </div>
                             </div>
 
-                            
-                            <div class="col-lg-12">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">Immediate Corrective Action
-                                    <textarea name="Immediate_Corrective_Action"></textarea>
+                            <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Immediate Corrective Action">Immediate Corrective Action</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                                    </div>
                                 </div>
-                            </div>
-
-
-
                        
                     </div>
                     <div class="button-block">
@@ -1106,16 +1123,18 @@
                     </div>
                     <div class="row">
 
-                      
-                    <div class="col-lg-6">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">HOD Remarks
-                                    <textarea name="HOD_Remarks"></textarea>
+                    <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="HOD Remarks">HOD Remarks</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                                    </div>
                                 </div>
-                            </div>
+                      
                         
 
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="group-input">
                                 <label for="Inv Attachments">HOD Attachement</label>
                                 <div class="file-attachment-field">
@@ -1128,19 +1147,24 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">Root Cause Analysis
-                                    <textarea name="Root_Cause_Analysis"></textarea>
+                        <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Root Cause Analysis">Root Cause Analysis</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                                    </div>
                                 </div>
-                            </div>
-                        
-                            <div class="col-lg-6">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">Impact Assessment
-                                    <textarea name="Impact_Assessment"></textarea>
+                      
+                                <div class="col-md-12 mb-3">
+                                    <div class="group-input">
+                                        <label for="Impact Assessment">Impact Assessment</label>
+                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                                    </div>
                                 </div>
-                            </div>
+                    
                         
 
 

@@ -34,10 +34,10 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="Question[]"></td>'+
-                                               ' <td><input type="text" name="Answer[]"></td>'+
-                                                '<td><input type="text" name="Result[]"></td>'+
-                                                '<td><input type="text" name="Comment[]"></td>'+
+                    '<td><input type="text" name="Question[]"></td>' +
+                    ' <td><input type="text" name="Answer[]"></td>' +
+                    '<td><input type="text" name="Result[]"></td>' +
+                    '<td><input type="text" name="Comment[]"></td>' +
 
 
                     '</tr>';
@@ -70,10 +70,10 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="Question[]"></td>'+
-                                               ' <td><input type="text" name="Answer[]"></td>'+
-                                                '<td><input type="text" name="Result[]"></td>'+
-                                                '<td><input type="text" name="Comment[]"></td>'+
+                    '<td><input type="text" name="Question[]"></td>' +
+                    ' <td><input type="text" name="Answer[]"></td>' +
+                    '<td><input type="text" name="Result[]"></td>' +
+                    '<td><input type="text" name="Comment[]"></td>' +
 
 
                     '</tr>';
@@ -106,10 +106,10 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                 '   <td><input type="text" name="Subject[]"></td>'+
-                                                '<td><input type="text" name="Topic[]"></td>'+
-                                                '<td><input type="text" name="Rating[]"></td>'+
-                                                '<td><input type="text" name="Comment[]"></td>'+
+                    '   <td><input type="text" name="Subject[]"></td>' +
+                    '<td><input type="text" name="Topic[]"></td>' +
+                    '<td><input type="text" name="Rating[]"></td>' +
+                    '<td><input type="text" name="Comment[]"></td>' +
 
 
                     '</tr>';
@@ -249,7 +249,6 @@
                                     <input disabled type="text" name="originator_id" value="" />
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input ">
                                     <label for="Date Due"><b>Date Opened</b></label>
@@ -306,7 +305,7 @@
 
                                     <div class="calenderauditee">
                                         <input type="text" id="expiration_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="expiration_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="date" name="expiration_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'expiration_date')" />
                                     </div>
 
 
@@ -414,8 +413,8 @@
                                         Agenda(0)
                                         <button type="button" onclick="add4Input('root-cause-first-table')">+</button>
                                         <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                (Launch Instruction)
-                            </span>
+                                            (Launch Instruction)
+                                        </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="root-cause-first-table">
@@ -452,8 +451,8 @@
                                         Test
                                         <button type="button" onclick="" id="test">+</button>
                                         <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                (Launch Instruction)
-                            </span>
+                                            (Launch Instruction)
+                                        </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="test-first-table">
@@ -487,8 +486,8 @@
                                         Survey
                                         <button type="button" onclick="" id="survey">+</button>
                                         <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                (Launch Instruction)
-                            </span>
+                                            (Launch Instruction)
+                                        </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="survey-first-table">
@@ -545,13 +544,12 @@
 
 
                             <div class="button-block">
-                          
-                          <button type="submit" class="saveButton">Save</button>
-                          <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                          <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                          <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
-                              </a> </button>
-                      </div>
+
+                                <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                                    </a> </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -566,8 +564,8 @@
                                         Test
                                         <button type="button" onclick="" id="tests">+</button>
                                         <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                (Launch Instruction)
-                            </span>
+                                            (Launch Instruction)
+                                        </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="tests-first-table">
@@ -624,55 +622,55 @@
                     </div>
                 </div>
 
-            <div id="CCForm3" class="inner-block cctabcontent">
-                <div class="inner-block-content">
-                    <div class="sub-head">
-                        Activity Log
-                    </div>
-                    <div class="row">
+                <div id="CCForm3" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="sub-head">
+                            Activity Log
+                        </div>
+                        <div class="row">
 
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Approved by">Approved by</label>
-                              
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Approved by">Approved by</label>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Approved on"> Approved on </label>
+
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Completed By">Completed By</label>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Completedon">Completed on </label>
+
+
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Approved on"> Approved on </label>
-
-                               
-
-
-                            </div>
+                        <div class="button-block">
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                                </a> </button>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Completed By">Completed By</label>
-                               
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Completedon">Completed on </label>
-
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button-block">
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="submit" class="saveButton">Save</button>
-                        <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
-                            </a> </button>
                     </div>
                 </div>
             </div>
-    </div>
-    </form>
+        </form>
 
-</div>
+    </div>
 </div>
 
 <style>
