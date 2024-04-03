@@ -2536,20 +2536,13 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-
                     '<td><input type="text" name="OOTNo[]"></td>' +
                     '<td><input type="text" name="OOTReportedDate[]"></td>' +
                     '<td><input type="text" name="DescriptionOfOOT[]"></td>' +
-
                     '<td><input type="text" name="previousIntervalDetails[]"></td>' +
                     '<td><input type="text" name="CAPA[]"></td>' +
                     '<td><input type="text" name="ClosureDateOfCAPA[]"></td>' +
-
-
                     '</tr>';
-
-
-
                 '</tr>';
 
                 return html;
@@ -2579,11 +2572,7 @@
                     '<td><input type="text" name="MfgDate[]"></td>' +
                     '<td><input type="text" name="ExpiryDate[]"></td>' +
                     '<td><input type="text" name="LabelClaim[]"></td>' +
-
                     '</tr>';
-
-
-
                 '</tr>';
 
                 return html;
@@ -2612,11 +2601,7 @@
                     '<td><input type="text" name="Interval[]"></td>' +
                     '<td><input type="text" name="Orientation[]"></td>' +
                     '<td><input type="text" name="PackDetails[]"></td>' +
-
                     '</tr>';
-
-
-
                 '</tr>';
 
                 return html;
@@ -2645,11 +2630,7 @@
                     '<td><input type="text" name="previousIntervalDetails[]"></td>' +
                     '<td><input type="text" name="DifferenceOfResults[]"></td>' +
                     '<td><input type="text" name="TrendLimit[]"></td>' +
-
                     '</tr>';
-
-
-
                 '</tr>';
 
                 return html;
@@ -2682,9 +2663,6 @@
                     '<td><input type="text" name="AnalystName[]"></td>' +
                     '<td><input type="text" name="Remarks[]"></td>' +
                     '</tr>';
-
-
-
                 '</tr>';
 
                 return html;
@@ -2711,9 +2689,6 @@
                     '<td><input type="text" name="AnyOtherInformation[]"></td>' +
                     '<td><input type="text" name="ActionTakenOnAffectedBatch[]"></td>' +
                     '</tr>';
-
-
-
                 '</tr>';
 
                 return html;

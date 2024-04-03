@@ -706,7 +706,6 @@
                          '<td><input type="date" name="ManufacturedDate[]"></td>'+
                         '<td><input type="text" name="Disposition[]"></td>'+
                          '<td><input type="text" name="Comment[]"></td>'+
-
                         '</tr>';
 
                     // for (var i = 0; i < users.length; i++) {

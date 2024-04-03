@@ -388,7 +388,6 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-
                     '<td><input type="text" name="Action[]"></td>' +
                     '<td><input type="text" name="Risk/Hazard[]"></td>' +
                     '<td><input type="text" name="EffectedParties[]"></td>' +
@@ -396,13 +395,7 @@
                     '<td><input type="text" name="ImpactOfRisk[]"></td>' +
                     '<td><input type="text" name="ProbabilityOfOccurence[]"></td>' +
                     '<td><input type="text" name="CompositeRiskIndex[]"></td>' +
-
-
-
                     '</tr>';
-
-
-
                 '</tr>';
 
                 return html;

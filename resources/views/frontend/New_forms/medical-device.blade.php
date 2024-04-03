@@ -46,7 +46,7 @@
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-<div class="sub-head">General Information</div>
+                            <div class="sub-head">General Information</div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Originator"><b>Initiator</b></label>
@@ -56,11 +56,11 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiaton</b></label>
-                                    <input  type="date" name="Date Opened" value="">
-                                 
+                                    <input type="date" name="Date Opened" value="">
+
                                 </div>
                             </div>
-                           
+
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -84,7 +84,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Other Type</label>
-                                 <input/>
+                                    <input />
                                 </div>
                             </div>
 
@@ -107,7 +107,6 @@
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
-
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -149,7 +148,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Trade Name</label>
-                                  <input/>
+                                    <input />
                                 </div>
                             </div>
 
@@ -176,7 +175,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Prooduct Code</label>
@@ -188,17 +187,13 @@
                                     </select>
                                 </div>
                             </div>
-        
+
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments">Intended Use</label>
                                     <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
                                 </div>
                             </div>
-                         
-
-
-                         
 
                         </div>
                         <div class="button-block">
@@ -210,17 +205,17 @@
                     </div>
                 </div>
 
-              
+
 
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                           
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Started By</label>
                                     <div class="static"></div>
-                                </div>  
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
