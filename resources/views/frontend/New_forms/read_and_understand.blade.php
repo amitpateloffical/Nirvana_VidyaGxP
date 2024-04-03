@@ -99,7 +99,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date Opened</b></label>
+                                  
+                                    <label for="Division Code"><b>Date of Initiation</b></label>
                                     <input disabled type="date" name="division_code" value="">
 
                                 </div>
@@ -109,6 +110,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span>
+                                    <p>255 characters remaining</p>
                                        
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
@@ -116,7 +118,7 @@
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="search">
+                                    <label  for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
                                    
@@ -132,6 +134,7 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <p class="text-primary">Please mention expected date of completion</p>
                                     
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
@@ -441,16 +444,16 @@
 
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Actual_Amount ">Completed by</label>
-                                    <input type="text" name="Actual_Amount" />
+                                    <label for="Actual_Amount ">Completed by :</label>
+                                  
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
-                                    <label for="Division Code"><b>Completed on</b></label>
+                                    <label for="Division Code"><b>Completed on :</b></label>
 
-                                    <input disabled type="date" name="division_code" value="">
+                                   
 
 
                                 </div>

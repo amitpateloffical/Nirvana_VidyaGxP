@@ -939,6 +939,7 @@
                     </div>
                     <div class="button-block">
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                         <button type="submit" class="saveButton">Save</button>
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
@@ -1029,6 +1030,7 @@
                     </div>
                     <div class="button-block">
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                         <button type="submit" class="saveButton">Save</button>
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
@@ -1062,11 +1064,35 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-6">
+                                <div class="group-input">
+                                    <label for="Short Description">Document Code
+                                    <input id="docname" type="text" name="Document_Code">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="group-input">
+                                    <label for="Short Description">Remarks
+                                    <input id="docname" type="text" name="Remarks">
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-lg-12">
+                                <div class="group-input" id="initiated_through_req">
+                                    <label for="If Other">Immediate Corrective Action
+                                    <textarea name="Immediate_Corrective_Action"></textarea>
+                                </div>
+                            </div>
+
+
 
                        
                     </div>
                     <div class="button-block">
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                         <button type="submit" class="saveButton">Save</button>
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
@@ -1121,6 +1147,7 @@
                     </div>
                     <div class="button-block">
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                         <button type="submit" class="saveButton">Save</button>
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
@@ -1229,29 +1256,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Short Description">Document Code
-                                    <input id="docname" type="text" name="Document_Code">
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Short Description">Remarks
-                                    <input id="docname" type="text" name="Remarks">
-                                </div>
-                            </div>
-
                             
-                            <div class="col-lg-12">
-                                <div class="group-input" id="initiated_through_req">
-                                    <label for="If Other">Immediate Corrective Action
-                                    <textarea name="Immediate_Corrective_Action"></textarea>
-                                </div>
-                            </div>
-
-
                         
 
 

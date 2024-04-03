@@ -91,7 +91,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
 
-                                    <label for="RLS Record Number" class="mb-4"><b>Initiator</b></label>
+                                    
+                                    <label for="RLS Record Number" ><b>Initiator</b></label>
 
                                     <input type="text" name="record_number" value="">
 
@@ -100,8 +101,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date Opened</b></label>
-                                    <p class="text-primary">When was this audit record opened </p>
+                                    <label for="Division Code"><b>Date of Initiation</b></label>
+                                   
                                     <input disabled type="date" name="division_code" value="">
 
                                 </div>
@@ -111,21 +112,22 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span>
-                                        <p class="text-primary">audit short description to be presented on desktop</p>
+                                        <p >255 characters remaining </p>
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="search">
+                                    <label  for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                    <p class="text-primary">Person responsible</p>
+                                   
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
-                                        <option value=""></option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
 
                                     </select>
 
@@ -134,7 +136,7 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-danger">6 Last Date this Contract to be closed by</p>
+                                    <p class="text-primary">Please mention expected date of completion</p>
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -145,7 +147,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
 
-                                    <label for="RLS Record Number" class="mb-4"><b>Auditee/Supplier</b></label>
+                                    <label for="RLS Record Number"><b>Auditee/Supplier</b></label>
 
                                     <input type="text" name="record_number" value="">
 
@@ -235,6 +237,8 @@
                                     <label for="Responsible Department">Quarter</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
                                     </select>
                                 </div>
                             </div>
@@ -252,12 +256,13 @@
                                     <label for="Responsible Department">Related URL</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="Responsible Department">Zone</label>
+                                    <label  for="Responsible Department">Zone</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
                                     </select>
@@ -266,7 +271,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Country</b></label>
-                                    <p class="text-primary">auto filter according to selected zone</p>
+                                    <p class="text-primary">Auto filter according to selected zone</p>
                                     <input type="text" name="record_number" value="">
 
                                 </div>
@@ -274,7 +279,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>City</b></label>
-                                    <p class="text-primary">auto filter according to selected country</p>
+                                    <p class="text-primary">Auto filter according to selected country</p>
                                     <input type="text" name="record_number" value="">
 
                                 </div>
@@ -283,7 +288,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">State/District</label>
-                                    <p class="text-primary">auto selected according to City</p>
+                                    <p class="text-primary">Auto selected according to City</p>
                                     <select name="departments">
 
 
@@ -345,7 +350,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="RLS Record Number"><b>CRO/Vendor</b></label>
+                                    <label  for="RLS Record Number"><b>CRO/Vendor</b></label>
 
                                     <input type="text" name="record_number" value="">
 
@@ -456,7 +461,7 @@
 
                                     <label for="Division Code"><b>Actual start Date</b></label>
 
-                                    <input disabled type="date" name="division_code" value="">
+                                    <input  type="date" name="division_code" value="">
 
 
                                 </div>
@@ -466,7 +471,7 @@
 
                                     <label for="Division Code"><b>Actual end Date</b></label>
 
-                                    <input disabled type="date" name="division_code" value="">
+                                    <input  type="date" name="division_code" value="">
 
 
                                 </div>
@@ -495,7 +500,7 @@
 
                                     <label for="Division Code"><b>Date of Response</b></label>
 
-                                    <input disabled type="date" name="division_code" value="">
+                                    <input  type="date" name="division_code" value="">
 
 
                                 </div>
@@ -534,32 +539,31 @@
 
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Actual_Amount ">Scheduled by</label>
-                                    <input type="text" name="Actual_Amount" />
+                                    <label for="Actual_Amount ">Scheduled by :</label>
+                                   
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
-                                    <label for="Division Code"><b>Scheduled on</b></label>
+                                    <label for="Division Code"><b>Scheduled on :</b></label>
 
-                                    <input disabled type="date" name="division_code" value="">
 
 
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Actual_Amount ">Issued by</label>
-                                    <input type="text" name="Actual_Amount" />
+                                    <label for="Actual_Amount ">Issued by :</label>
+                                 
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
-                                    <label for="Division Code"><b>Issued on</b></label>
+                                    <label for="Division Code"><b>Issued on :</b></label>
 
-                                    <input disabled type="date" name="division_code" value="">
+                                   
 
 
                                 </div>
