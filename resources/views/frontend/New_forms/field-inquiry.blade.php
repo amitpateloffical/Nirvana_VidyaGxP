@@ -80,8 +80,6 @@
                                         <option value="">Pankaj Jat</option>
                                         <option value="">Gaurav</option>
                                         <option value="">Manish</option>
-
-
                                     </select>
 
                                 </div>
@@ -119,7 +117,6 @@
                             </div>
                             
                           
-
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Description</label>
@@ -219,9 +216,6 @@
                                                     </td>
 
                                                 </tr>
-
-
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -409,7 +403,6 @@
                     </div>
                 </div>
                 
-
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -426,8 +419,6 @@
                                     <div class="Date"></div>
                                 </div>
                             </div>
-                           
-
 
                             <div class="button-block">
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
