@@ -26,7 +26,6 @@
 <div id="change-control-fields">
     <div class="container-fluid">
 
-        <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Supplier Observation</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Impact Analysis</button>
@@ -327,11 +326,7 @@
         }
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
-
-        // Find the index of the clicked tab button
         const index = Array.from(cctablinks).findIndex(button => button === evt.currentTarget);
-
-        // Update the currentStep to the index of the clicked tab
         currentStep = index;
     }
 
@@ -343,41 +338,21 @@
     let currentStep = 0;
 
     function nextStep() {
-        // Check if there is a next step
         if (currentStep < steps.length - 1) {
-            // Hide current step
             steps[currentStep].style.display = "none";
-
-            // Show next step
             steps[currentStep + 1].style.display = "block";
-
-            // Add active class to next button
             stepButtons[currentStep + 1].classList.add("active");
-
-            // Remove active class from current button
             stepButtons[currentStep].classList.remove("active");
-
-            // Update current step
             currentStep++;
         }
     }
 
     function previousStep() {
-        // Check if there is a previous step
         if (currentStep > 0) {
-            // Hide current step
             steps[currentStep].style.display = "none";
-
-            // Show previous step
             steps[currentStep - 1].style.display = "block";
-
-            // Add active class to previous button
             stepButtons[currentStep - 1].classList.add("active");
-
-            // Remove active class from current button
             stepButtons[currentStep].classList.remove("active");
-
-            // Update current step
             currentStep--;
         }
     }
