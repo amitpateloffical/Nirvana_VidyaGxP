@@ -46,7 +46,7 @@
                 <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                 <input type="hidden" name="parent_type" value="{{ $parent_type }}">
                 @endif
-<!-- Tab-1 -->
+                <!-- Tab-1 -->
 
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
@@ -55,14 +55,14 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="TradeName"><b>(Root Parent) Trade Name</b></label>
-                                    <input  type="text" name="TradeName" value="">
+                                    <input type="text" name="TradeName" value="">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="search">
-                                       (Parent) Member State <span class="text-danger"></span>
+                                        (Parent) Member State <span class="text-danger"></span>
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
@@ -77,17 +77,17 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Initiator</b></label>
-                                    <input  type="text" name="Initiator" value="">
+                                    <input type="text" name="Initiator" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
-                                    <input  type="date" name="Date Opened" value="">
-                                 
+                                    <input type="date" name="Date Opened" value="">
+
                                 </div>
                             </div>
-                            
+
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -123,7 +123,7 @@
                                 </div>
                             </div>
 
-                           
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -136,7 +136,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reference Recores"> Related Change Control</label>
@@ -147,15 +147,15 @@
                                     </select>
                                 </div>
                             </div>
-                          
+
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments">Variation Description</label>
-                                    <input/>
+                                    <input />
                                 </div>
                             </div>
-                         
-                            
+
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -169,7 +169,7 @@
                                 </div>
                             </div>
 
-                            
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -191,14 +191,14 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Change"><b>Change From</b></label>
-                                    <input  type="text" name="Change" value="">
+                                    <input type="text" name="Change" value="">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Change"><b>Change To</b></label>
-                                    <input  type="text" name="Change" value="">
+                                    <input type="text" name="Change" value="">
                                 </div>
                             </div>
 
@@ -212,11 +212,11 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Change"><b>Documents</b></label>
-                                    <input  type="text" name="Change" value="">
+                                    <input type="text" name="Change" value="">
                                 </div>
                             </div>
 
-                          
+
 
                         </div>
                         <div class="button-block">
@@ -232,15 +232,15 @@
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                           <div class="sub-head">Registration Plan</div>
-                        <div class="col-lg-6">
+                            <div class="sub-head">Registration Plan</div>
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Registration Status </label>
                                     <select name="Type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">Done</option>
                                         <option value="2">Progress</option>
-                                       
+
                                     </select>
                                 </div>
                             </div>
@@ -248,7 +248,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Registration Number</label>
-                                    <input/>
+                                    <input />
                                 </div>
                             </div>
 
@@ -257,48 +257,48 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Planned Submission Date</label>
-                                  <input type="date"/>
+                                    <input type="date" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Actual Submission Date</label>
-                                  <input type="date"/>
+                                    <input type="date" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Planned Approval Date</label>
-                                  <input type="date"/>
+                                    <input type="date" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Actual Approval Date</label>
-                                  <input type="date"/>
+                                    <input type="date" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Actual Withdrawn Date</label>
-                                  <input type="date"/>
+                                    <input type="date" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Actual Rejection Date</label>
-                                  <input type="date"/>
+                                    <input type="date" />
                                 </div>
                             </div>
 
-                         
 
-                          
+
+
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -328,19 +328,19 @@
                     </div>
                 </div>
                 <!-- Tab-3 -->
-                
+
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                           
-                        <div class="col-lg-6">
+
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">(Root Parent ) Trade Name </label>
                                     <select name="Type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">Pankaj</option>
                                         <option value="2">Gaurav</option>
-                                       
+
                                     </select>
                                 </div>
                             </div>
@@ -348,7 +348,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">(Parent) Local Trade Name</label>
-                                  <input type="date"/>
+                                    <input type="date" />
                                 </div>
                             </div>
 
@@ -359,17 +359,17 @@
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">Done</option>
                                         <option value="2">Progress</option>
-                                       
+
                                     </select>
                                 </div>
                             </div>
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                   Packaging Information (0)
+                                    Packaging Information (0)
                                     <button type="button" name="audit-agenda-grid" id="PackagingAdd">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-Open
+                                        Open
                                     </span>
                                 </label>
                                 <div class="table-responsive">
@@ -414,14 +414,14 @@ Open
                 <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                           
-                       
-                            <div class="button-block">
+
+
+                            <!-- <div class="button-block">
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -429,12 +429,12 @@ Open
                 <div id="CCForm5" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                           
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Started By</label>
                                     <div class="static"></div>
-                                </div>  
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -447,7 +447,7 @@ Open
                                 <div class="group-input">
                                     <label for="submitted by">Submitted By</label>
                                     <div class="static"></div>
-                                </div>  
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -460,7 +460,7 @@ Open
                                 <div class="group-input">
                                     <label for="submitted by">Approved By</label>
                                     <div class="static"></div>
-                                </div>  
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -473,7 +473,7 @@ Open
                                 <div class="group-input">
                                     <label for="submitted by">Withdrawn By</label>
                                     <div class="static"></div>
-                                </div>  
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -486,7 +486,7 @@ Open
                                 <div class="group-input">
                                     <label for="submitted by">Refused By</label>
                                     <div class="static"></div>
-                                </div>  
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -603,12 +603,12 @@ Open
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="PrimaryPackaging[]"></td>'+
-                                            '<td><input type="text" name="Material[]"></td>'+
-                                            '<td><input type="text" name="PackSize[]"></td>'+
-                                            '<td><input type="text" name="ShelfLife[]"></td>'+
-                                            '<td><input type="text" name="StorageCondition[]"></td>'+
-                                            '<td><input type="text" name="SecondaryPackaging[]"></td>'+
+                    '<td><input type="text" name="PrimaryPackaging[]"></td>' +
+                    '<td><input type="text" name="Material[]"></td>' +
+                    '<td><input type="text" name="PackSize[]"></td>' +
+                    '<td><input type="text" name="ShelfLife[]"></td>' +
+                    '<td><input type="text" name="StorageCondition[]"></td>' +
+                    '<td><input type="text" name="SecondaryPackaging[]"></td>' +
                     '</tr>';
                 '</tr>';
 
