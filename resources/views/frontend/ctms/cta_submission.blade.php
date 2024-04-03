@@ -290,7 +290,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Registration Status </label>
                                     <select name="Type">
@@ -301,7 +301,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type"> Outcome </label>
                                     <select name="Type">
