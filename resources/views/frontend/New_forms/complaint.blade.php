@@ -1,5 +1,6 @@
 @extends('frontend.layout.main')
 @section('container')
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <style>
     textarea.note-codable {
         display: none !important;
@@ -107,9 +108,9 @@
                                     <label for="Type">Type</label>
                                     <select name="Type">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="1">Type 1</option>
+                                        <option value="2">Type 2</option>
+                                        <option value="3">Type 3</option>
                                     </select>
                                 </div>
                             </div>
@@ -172,20 +173,6 @@
                                 </div>
                             </div>
 
-                            <!-- <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="file_attach">File Attachments</label>
-                                    <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
-                                        <div class="add-btn">
-                                            <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
-                                        </div>
-                                    </div>
-                                    {{-- <input type="file" name="file_attach[]" multiple> --}}
-                                </div>
-                            </div> -->
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Date_Occurred">Date Occurred</label>
@@ -209,7 +196,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Comments">Comments</label>
-                                    <textarea name="Comments" id="" cols="30" rows="3"></textarea>
+                                    <!-- <textarea name="Comments" id="" cols="30" rows="3"></textarea> -->
+                                    <textarea id="summernote" name="summernote" class="summernote"></textarea>
                                 </div>
                             </div>
 
@@ -1232,11 +1220,7 @@
         }
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
-
-        // Find the index of the clicked tab button
         const index = Array.from(cctablinks).findIndex(button => button === evt.currentTarget);
-
-        // Update the currentStep to the index of the clicked tab
         currentStep = index;
     }
 
@@ -1248,41 +1232,21 @@
     let currentStep = 0;
 
     function nextStep() {
-        // Check if there is a next step
         if (currentStep < steps.length - 1) {
-            // Hide current step
             steps[currentStep].style.display = "none";
-
-            // Show next step
             steps[currentStep + 1].style.display = "block";
-
-            // Add active class to next button
             stepButtons[currentStep + 1].classList.add("active");
-
-            // Remove active class from current button
             stepButtons[currentStep].classList.remove("active");
-
-            // Update current step
             currentStep++;
         }
     }
 
     function previousStep() {
-        // Check if there is a previous step
         if (currentStep > 0) {
-            // Hide current step
             steps[currentStep].style.display = "none";
-
-            // Show previous step
             steps[currentStep - 1].style.display = "block";
-
-            // Add active class to previous button
             stepButtons[currentStep - 1].classList.add("active");
-
-            // Remove active class from current button
             stepButtons[currentStep].classList.remove("active");
-
-            // Update current step
             currentStep--;
         }
     }
