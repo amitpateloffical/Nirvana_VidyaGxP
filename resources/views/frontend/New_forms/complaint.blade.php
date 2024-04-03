@@ -1,6 +1,5 @@
 @extends('frontend.layout.main')
 @section('container')
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <style>
     textarea.note-codable {
         display: none !important;
@@ -196,8 +195,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Comments">Comments</label>
-                                    <!-- <textarea name="Comments" id="" cols="30" rows="3"></textarea> -->
-                                    <textarea id="summernote" name="summernote" class="summernote"></textarea>
+                                    <textarea name="Comments" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
 
