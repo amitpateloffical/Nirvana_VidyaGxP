@@ -124,8 +124,10 @@
                                    
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
 
-                                        <option value=""></option>
+                                        <option value="">3</option>
 
                                     </select>
 

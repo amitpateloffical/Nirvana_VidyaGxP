@@ -100,7 +100,11 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
-                                        <option value=""></option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
+                                        <option value="">4</option>
+                                        
 
                                     </select>
 
@@ -151,7 +155,9 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
-                                        <option value=""></option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
 
                                     </select>
 
@@ -237,6 +243,9 @@
                                     <label for="Responsible Department">Commitment Required?</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>

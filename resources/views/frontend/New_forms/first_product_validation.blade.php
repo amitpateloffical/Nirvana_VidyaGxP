@@ -132,7 +132,10 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
-                                        <option value=""></option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
+
 
                                     </select>
 
@@ -194,7 +197,10 @@
                                 <div class="group-input">
                                     <label for="Responsible Department">Attached File</label>
                                     <select name="departments">
-                                        <option value=""></option>
+                                    <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -203,6 +209,9 @@
                                     <label for="Responsible Department">Related URL</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -211,7 +220,10 @@
                                 <div class="group-input">
                                     <label for="Responsible Department">Related Records</label>
                                     <select name="departments">
-                                        <option value=""></option>
+                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -267,7 +279,10 @@
                                 <div class="group-input">
                                     <label for="Responsible Department">Send to external lab?</label>
                                     <select name="departments">
-                                        <option value=""></option>
+                                    <option value="">Enter Your Selection Here</option>
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>

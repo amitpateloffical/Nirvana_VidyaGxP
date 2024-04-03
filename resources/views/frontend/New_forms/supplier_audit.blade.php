@@ -225,6 +225,9 @@
                                     <label for="Responsible Department">Year</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -248,6 +251,10 @@
                                     <label for="Responsible Department">Attached File</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
+
                                     </select>
                                 </div>
                             </div>
@@ -257,6 +264,8 @@
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -265,6 +274,9 @@
                                     <label  for="Responsible Department">Zone</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div> 
@@ -293,6 +305,9 @@
 
 
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -487,6 +502,9 @@
                                     <label for="Responsible Department">Audit Result</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -510,6 +528,9 @@
                                     <label for="Responsible Department">Attached File</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
