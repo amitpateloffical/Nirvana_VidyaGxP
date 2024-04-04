@@ -85,13 +85,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Type</label>
-                                    <select multiple id="" name="type" id="">
+                                    <select multiple id="Type" name="Type[]" id="">
                                         <option value="">--Select---</option>
-                                        <option value="">
-                                        </option>
+                                        <option value="">pankaj</option>
                                     </select>
                                 </div>
                             </div>
+                            
 
                             <div class="col-lg-6">
                                 <div class="group-input">
