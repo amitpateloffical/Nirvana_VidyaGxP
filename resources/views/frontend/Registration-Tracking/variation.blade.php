@@ -385,6 +385,7 @@
                                                 <th style="width: 15%">Shelf Life</th>
                                                 <th style="width: 15%">Storage Condition</th>
                                                 <th style="width: 15%">Secondary Packaging</th>
+                                                <th style="width: 16%">Remarks</th>
 
                                             </tr>
                                         </thead>
@@ -397,6 +398,7 @@
                                             <td><input type="text" name="ShelfLife[]"></td>
                                             <td><input type="text" name="StorageCondition[]"></td>
                                             <td><input type="text" name="SecondaryPackaging[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
 
                                         </tbody>
                                     </table>
@@ -613,6 +615,8 @@
                     '<td><input type="text" name="ShelfLife[]"></td>' +
                     '<td><input type="text" name="StorageCondition[]"></td>' +
                     '<td><input type="text" name="SecondaryPackaging[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>'+
+
                     '</tr>';
                 '</tr>';
 

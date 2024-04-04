@@ -729,34 +729,7 @@
     }
 </script>
 
-<script>
-    $(document).ready(function() {
-        $('#productAdd').click(function(e) {
-            function generateTableRow(serialNumber) {
 
-
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="ProductName[]"></td>' +
-                    '<td><input type="date" name="BatchNumber[]"></td>' +
-                    '<td><input type="date" name="ExpiryDate[]"></td>' +
-                    '<td><input type="text" name="ManufacturedDate[]"></td>' +
-                    '<td><input type="text" name="Disposition[]"></td>' +
-                    '<td><input type="text" name="Comment[]"></td>' +
-                    '</tr>';
-                '</tr>';
-
-                return html;
-            }
-
-            var tableBody = $('#product-Table tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-    });
-</script>
 
 <script>
     VirtualSelect.init({
