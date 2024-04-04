@@ -1314,7 +1314,7 @@
             <div id="CCForm6" class="inner-block cctabcontent">
                 <div class="inner-block-content">
                     <div class="sub-head">
-                        Electronic Signatures
+                        Signatures
                     </div>
                     <div class="col-lg-6">
                         <div class="group-input">

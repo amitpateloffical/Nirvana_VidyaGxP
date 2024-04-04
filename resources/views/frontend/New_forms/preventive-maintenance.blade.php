@@ -202,9 +202,6 @@
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="sub-head">
-                                [New Section]
-                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Completed by">Completed By</label>
