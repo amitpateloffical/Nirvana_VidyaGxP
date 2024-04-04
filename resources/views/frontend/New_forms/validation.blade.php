@@ -286,6 +286,8 @@
                                                 <th style="width: 12%">Equipment Name/Code</th>
                                                 <th style="width: 16%">Equipment ID</th>
                                                 <th style="width: 16%">Asset No</th>
+                                                <th style="width: 16%">Remarks</th>
+
 
                                             </tr>
                                         </thead>
@@ -294,6 +296,7 @@
                                             <td><input type="text" name="EquipmentName/Code[]"></td>
                                             <td><input type="text" name="EquipmentID[]"></td>
                                             <td><input type="text" name="AssetNo[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
 
                                         </tbody>
 
@@ -318,7 +321,7 @@
                                                 <th style="width: 12%">Item Type</th>
                                                 <th style="width: 16%">Item Name</th>
                                                 <th style="width: 16%">Item No</th>
-
+                                                <th style="width: 16%"> Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -326,6 +329,8 @@
                                             <td><input type="text" name="ItemType[]"></td>
                                             <td><input type="text" name="ItemName[]"></td>
                                             <td><input type="text" name="ItemNo[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
+
 
                                         </tbody>
 
@@ -350,6 +355,8 @@
                                                 <th style="width: 12%">Facility-Location</th>
                                                 <th style="width: 16%">Facility-Type</th>
                                                 <th style="width: 16%">Facility-Name</th>
+                                                <th style="width: 16%">Remarks</th>
+
 
                                             </tr>
                                         </thead>
@@ -358,6 +365,8 @@
                                             <td><input type="text" name="Facility-Location[]"></td>
                                             <td><input type="text" name="Facility-Type[]"></td>
                                             <td><input type="text" name="Facility-Name[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
+
 
                                         </tbody>
 
@@ -517,6 +526,8 @@
                                                 <th style="width: 16%">Test-Method</th>
                                                 <th style="width: 15%">Test-Result</th>
                                                 <th style="width: 15%">Test-Accepted</th>
+                                                <th style="width: 15%">Remarks</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -527,6 +538,8 @@
                                             <td><input type="text" name="Test-Method[]"></td>
                                             <td><input type="text" name="Test-Result[]"></td>
                                             <td><input type="text" name="Test-Accepted[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
+
                                         </tbody>
 
                                     </table>
@@ -840,6 +853,8 @@
                     '<td><input type="text" name="Test-Method[]"></td>' +
                     '<td><input type="text" name="Test-Result[]"></td>' +
                     '<td><input type="text" name="Test-Accepted[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>'+
+
                     '</tr>';
 
                 return html;
@@ -864,6 +879,8 @@
                     '<td><input type="text" name="EquipmentName/Code[]"></td>' +
                     '<td><input type="text" name="EquipmentID[]"></td>' +
                     '<td><input type="text" name="AssetNo[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>'+
+
                     '</tr>';
 
                 return html;
@@ -888,6 +905,8 @@
                     '<td><input type="text" name="ItemType[]"></td>' +
                     '<td><input type="text" name="ItemName[]"></td>' +
                     '<td><input type="text" name="ItemNo[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>'+
+
                     '</tr>';
 
                 return html;
@@ -911,6 +930,8 @@
                     '<td><input type="text" name="Facility-Location[]"></td>' +
                     '<td><input type="text" name="Facility-Type[]"></td>' +
                     '<td><input type="text" name="Facility-Name[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>'+
+
                     '</tr>';
 
                 return html;

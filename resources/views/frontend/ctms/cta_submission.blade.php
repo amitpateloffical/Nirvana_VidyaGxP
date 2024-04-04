@@ -358,6 +358,8 @@
                                                 <th style="width: 15%">Manufactured Date</th>
                                                 <th style="width: 15%">Disposition </th>
                                                 <th style="width: 15%"> Comment</th>
+                                                <th style="width: 15%"> Remarks</th>
+
 
                                             </tr>
                                         </thead>
@@ -370,6 +372,8 @@
                                             <td><input type="text" name="ManufacturedDate[]"></td>
                                             <td><input type="text" name="Disposition[]"></td>
                                             <td><input type="text" name="Comment[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
+
 
                                         </tbody>
                                     </table>
@@ -729,6 +733,8 @@
                     '<td><input type="text" name="ManufacturedDate[]"></td>' +
                     '<td><input type="text" name="Disposition[]"></td>' +
                     '<td><input type="text" name="Comment[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>'+
+
                     '</tr>';
                 '</tr>';
 
