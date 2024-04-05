@@ -278,20 +278,20 @@
                                     </select>
                                 </div>
                             </div>
-                           
-                      
-                        <div class="button-block">
-                            <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                    Exit </a> </button>
+
+
+                            <div class="button-block">
+                                <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
+                                        Exit </a> </button>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                    </div>
-                    <!-- Local Information -->
-                  
+                </div>
+                <!-- Local Information -->
+
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -343,12 +343,12 @@
 
 
 
-                       
 
 
 
 
-                        <!-- <div class="group-input">
+
+                            <!-- <div class="group-input">
                             <label for="audit-agenda-grid">
                                 Financial Transaction (0)
                                 <button type="button" name="audit-agenda-grid" id="ReferenceDocument">+</button>
@@ -416,71 +416,71 @@
 
                         </div> -->
 
-                        <div class="button-block">
-                            <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                    Exit </a> </button>
+                            <div class="button-block">
+                                <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
+                                        Exit </a> </button>
+                            </div>
                         </div>
                     </div>
-                </div> 
                 </div>
 
 
 
 
-                
 
 
 
 
 
 
-                    <!-- --------Signatures---------- -->
+
+                <!-- --------Signatures---------- -->
 
 
-                    <div id="CCForm3" class="inner-block cctabcontent">
-                        <div class="inner-block-content">
-                            <div class="sub-head">
-                                Electronic Signatures
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="submitted by">Submitted By</label>
-                                        <div class="static"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="submitted on">Submitted On</label>
-                                        <div class="Date"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="cancelled by">Plan Approved By</label>
-                                        <div class="static"></div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="cancelled on">Plan Approved On</label>
-                                        <div class="Date"></div>
-                                    </div>
+                <div id="CCForm3" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="sub-head">
+                            Electronic Signatures
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="submitted by">Submitted By</label>
+                                    <div class="static"></div>
                                 </div>
                             </div>
-                            <div class="button-block">
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                <button type="submit" class="saveButton">Save</button>
-                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
-                                    </a> </button>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="submitted on">Submitted On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="cancelled by">Plan Approved By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="cancelled on">Plan Approved On</label>
+                                    <div class="Date"></div>
+                                </div>
                             </div>
                         </div>
+                        <div class="button-block">
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                                </a> </button>
+                        </div>
                     </div>
+                </div>
 
-                
+
         </form>
 
     </div>
