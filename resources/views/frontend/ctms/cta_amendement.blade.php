@@ -697,8 +697,53 @@
                                 </div>
                             </div>
 
-<div class="sub-head">Person Involved</div>
+                            <div class="sub-head">Person Involved</div>
 
+
+                            <div class="col-md-6">
+                                <div class="group-input">
+                                    <label for="Additional Assignees">Additional Assignees</label>
+                                    <textarea class="" name="additional_assignees" id="">
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="group-input">
+                                    <label for="Additional Investigators">Additional Investigators</label>
+                                    <textarea class="" name="additional_investigators" id="">
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="group-input">
+                                    <label for="Approvers">Approvers</label>
+                                    <textarea class="" name="approvers" id="">
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="group-input">
+                                    <label for="Negotiation Team">Negotiation Team</label>
+                                    <textarea class="" name="negotiation_team" id="">
+                                    </textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="group-input">
+                                    <label for="Trainer">Trainer</label>
+                                    <select name="trainer" onchange="">
+                                        <option value="">-- select --</option>
+                                        <option value="">A</option>
+                                        <option value="">B</option>
+                                        <option value="">C</option>
+
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
@@ -815,9 +860,10 @@
 
                         </div>
                         <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                            <button type="submit" class="saveButton">Save</button>
+                            
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
@@ -842,8 +888,9 @@
                             </div>
                         </div>
                         <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="submit" class="saveButton">Save</button>
+                           
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
