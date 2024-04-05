@@ -184,6 +184,8 @@ Route::post('child/{id}',[RiskManagementController::class,'child'])->name('riskA
 
 
 // ======================================================
+// =================QRM fORM=====================================
+Route::view('qrm', 'frontend.QRM.qrm');
 
 
 // ====================================root cause analysis=======================
