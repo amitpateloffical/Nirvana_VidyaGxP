@@ -92,7 +92,7 @@
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" disabled name="record_number" value="">
 
 
                                 </div>
@@ -145,9 +145,6 @@
                                 </div>
                             </div>
 
-                           
-                           
-
                             <div class="col-lg-6">
                                 <div class="group-input">
 
@@ -159,15 +156,21 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Livelink Document</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                    <label  for="search">
+                                    Livelink Document <span class="text-danger"></span>
+                                    </label>
+                                   
+                                    <select id="select-state" placeholder="Select..." name="assign_to">
+                                        <option value="">Select a value</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+
+                                        <option value="">3</option>
+
                                     </select>
+
                                 </div>
                             </div>
 
@@ -184,16 +187,20 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Attached Document(s)</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
+                                    <label for="closure attachment">Attached Document(s) </label>
+                                    <div><small class="text-primary">
+                                        </small>
+                                    </div>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="Attachment[]" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
 
                                     <label for="RLS Record Number"><b>Training Requirement</b></label>
@@ -215,7 +222,7 @@
                         
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                          
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -447,6 +454,7 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Completed by :</label>
+                                    <div class="static"></div>
                                   
                                 </div>
                             </div>
@@ -454,6 +462,7 @@
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Completed on :</b></label>
+                                    <div class="date"></div>
 
                                    
 

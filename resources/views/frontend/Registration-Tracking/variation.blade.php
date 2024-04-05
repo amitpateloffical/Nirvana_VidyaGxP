@@ -34,7 +34,7 @@
             <button class="cctablinks " onclick="openCity(event, 'CCForm2')">Variation Plan</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Product Details</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Registration Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signature</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signatures</button>
 
         </div>
 
@@ -78,13 +78,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Initiator</b></label>
-                                    <input type="text" name="Initiator" value="">
+                                    <input type="text" disabled name="Initiator" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
-                                    <input type="date" name="Date Opened" value="">
+                                    <input type="date" disabled name="Date Opened" value="">
 
                                 </div>
                             </div>
@@ -372,11 +372,12 @@
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Primary Packaging</th>
-                                                <th style="width: 16%">Material</th>
-                                                <th style="width: 15%">Pack Size. </th>
-                                                <th style="width: 15%">Shelf Life</th>
+                                                <th style="width: 14%">Material</th>
+                                                <th style="width: 14%">Pack Size. </th>
+                                                <th style="width: 14%">Shelf Life</th>
                                                 <th style="width: 15%">Storage Condition</th>
                                                 <th style="width: 15%">Secondary Packaging</th>
+                                                <th style="width: 15%">Remarks</th>
 
                                             </tr>
                                         </thead>
@@ -389,6 +390,7 @@
                                             <td><input type="text" name="ShelfLife[]"></td>
                                             <td><input type="text" name="StorageCondition[]"></td>
                                             <td><input type="text" name="SecondaryPackaging[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
 
                                         </tbody>
                                     </table>
@@ -411,6 +413,15 @@
                 <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
+                            <div class="button-block">
+                                <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
+                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                                    </a> </button>
+                            </div>
 
 
                             <!-- <div class="button-block">
@@ -427,81 +438,103 @@
                     <div class="inner-block-content">
                         <div class="row">
 
-                            <div class="col-lg-6">
+                            <div class="col-6">
                                 <div class="group-input">
-                                    <label for="submitted by">Started By :</label>
-                                   
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Started on">Started On :</label>
-                                  
-                                </div>
-                            </div>
+                                    <label for="Actual_Amount ">Started by :</label>
+                                    <div class="static"></div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="submitted by">Submitted By :</label>
-                                   
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Submitted on">Submitted On :</label>
-                                 
-                                </div>
-                            </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="submitted by">Approved By :</label>
-                                 
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Approved on">Approved On :</label>
-                                 
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="submitted by">Withdrawn By :</label>
-                               
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Withdrawn on">Withdrawn On :</label>
-                                   
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="submitted by">Refused By :</label>
-                                  
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Refused on">Refused On :</label>
-                                   
-                                </div>
-                            </div>
+                                    <label for="Division Code"><b>Started on :</b></label>
+                                    <div class="date"></div>
 
 
 
-                            <div class="button-block">
-
-                                <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
-
-                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
-                                    </a> </button>
+                                </div>
                             </div>
+                            <div class="col-6">
+                                <div class="group-input">
+                                    <label for="Actual_Amount ">Submitted by :</label>
+                                    <div class="static"></div>
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Submitted on :</b></label>
+                                    <div class="date"></div>
+
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="group-input">
+                                    <label for="Actual_Amount ">Approved by :</label>
+                                    <div class="static"></div>
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Approved on :</b></label>
+                                    <div class="date"></div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="group-input">
+                                    <label for="Actual_Amount ">Withdrawn by :</label>
+                                    <div class="static"></div>
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Withdrawn on :</b></label>
+                                    <div class="date"></div>
+
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="group-input">
+                                    <label for="Actual_Amount ">Refused by :</label>
+                                    <div class="static"></div>
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Refused on :</b></label>
+                                    <div class="date"></div>
+
+
+
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                           
+                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
+                                    Exit </a> </button>
                         </div>
                     </div>
                 </div>
@@ -608,6 +641,7 @@
                     '<td><input type="text" name="ShelfLife[]"></td>' +
                     '<td><input type="text" name="StorageCondition[]"></td>' +
                     '<td><input type="text" name="SecondaryPackaging[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
                     '</tr>';
                 '</tr>';
 

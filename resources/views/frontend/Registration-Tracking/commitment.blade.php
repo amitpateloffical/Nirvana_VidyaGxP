@@ -25,6 +25,7 @@
                     '<td><input type="text" name="Responsible[]"></td>' +
                     '<td><input type="date" name="Deadline[]"></td>' +
                     '<td><input type="text" name="ItemStatus[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
 
 
@@ -119,7 +120,7 @@
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" disabled name="record_number" value="">
 
 
                                 </div>
@@ -128,7 +129,7 @@
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date of Initiation</b></label>
 
-                                    <input type="date" name="division_code" value="">
+                                    <input type="date" disabled name="division_code" value="">
 
                                 </div>
                             </div>
@@ -142,14 +143,15 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="search">
-                                        Assigned To <span class="text-danger"></span>
-                                    </label>
-
-                                    <input type="text" name="record_number" value="">
-
+                                    <label for="Responsible Department">Assigned To</label>
+                                    <select name="departments">
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -224,6 +226,7 @@
                                                 <th style="width: 16%">Responsible</th>
                                                 <th style="width: 16%">Deadline</th>
                                                 <th style="width: 16%">Item Status</th>
+                                                <th style="width: 16%">Remarks</th>
 
                                             </tr>
                                         </thead>
@@ -235,6 +238,7 @@
                                                 <td><input type="text" name="Responsible[]"></td>
                                                 <td><input type="date" name="Deadline[]"></td>
                                                 <td><input type="text" name="ItemStatus[]"></td>
+                                                <td><input type="text" name="Remarks[]"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -285,7 +289,7 @@
 
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                           
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -461,6 +465,7 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Completed by :</label>
+                                    <div class="date"></div>
 
                                 </div>
                             </div>
@@ -468,6 +473,7 @@
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Completed on :</b></label>
+                                    <div class="date"></div>
 
 
 

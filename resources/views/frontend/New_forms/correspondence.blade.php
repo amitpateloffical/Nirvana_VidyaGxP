@@ -25,6 +25,7 @@
                     '<td><input type="text" name="Responsible[]"></td>' +
                     '<td><input type="date" name="Deadline[]"></td>' +
                     '<td><input type="text" name="ItemStatus[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
 
 
@@ -123,7 +124,7 @@
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" disabled name="record_number" value="">
 
 
                                 </div>
@@ -222,7 +223,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Authority</label>
                                     <select name="departments">
@@ -243,7 +244,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Commitment Required?</label>
                                     <select name="departments">
@@ -273,6 +274,7 @@
                                             <th style="width: 16%">Responsible</th>
                                             <th style="width: 16%">Deadline</th>
                                             <th style="width: 16%">Item Status</th>
+                                            <th style="width: 16%">Remarks</th>
 
                                         </tr>
                                     </thead>
@@ -283,6 +285,7 @@
                                             <td><input type="text" name="Responsible[]"></td>
                                             <td><input type="date" name="Deadline[]"></td>
                                             <td><input type="text" name="ItemStatus[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -332,7 +335,7 @@
 
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                           
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -564,6 +567,7 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Response Finalized by :</label>
+                                    <div class="static"></div>
 
                                 </div>
                             </div>
@@ -571,6 +575,7 @@
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Response Finalized on :</b></label>
+                                    <div class="date"></div>
 
 
 

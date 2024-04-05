@@ -93,7 +93,7 @@
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" disabled name="record_number" value="">
 
 
                                 </div>
@@ -196,7 +196,7 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label class="mb-4" for="Responsible Department">Zone </label>
+                                    <label  for="Responsible Department">Zone </label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="">1</option>
@@ -267,7 +267,7 @@
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                           
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -364,7 +364,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Comments <span class="text-danger"></span></label>
                                     <textarea name="description"></textarea>
@@ -390,6 +390,7 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Victim">Signed By :</label>
+                                    <div class="static"></div>
                                   
                                 </div>
                             </div>
@@ -397,6 +398,7 @@
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Signed On :</b></label>
+                                    <div class="date"></div>
 
                                   
 

@@ -93,7 +93,7 @@
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" disabled name="record_number" value="">
 
 
                                 </div>
@@ -221,7 +221,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related Records</label>
                                     <select name="departments">
@@ -238,7 +238,7 @@
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                          
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -341,6 +341,7 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Victim">Submitted By :</label>
+                                    <div class="static"></div>
 
                                 </div>
                             </div>
@@ -348,6 +349,7 @@
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Submitted On :</b></label>
+                                    <div class="date"></div>
 
 
 
@@ -357,6 +359,7 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Victim">Product Released By :</label>
+                                    <div class="static"></div>
 
                                 </div>
                             </div>
@@ -364,6 +367,7 @@
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Product Released On :</b></label>
+                                    <div class="date"></div>
 
 
 

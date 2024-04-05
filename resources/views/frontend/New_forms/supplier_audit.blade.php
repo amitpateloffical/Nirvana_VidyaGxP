@@ -22,6 +22,7 @@
 
 
                     '<td><input type="date" name="Date[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
 
 
@@ -94,7 +95,7 @@
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" disabled name="record_number" value="">
 
 
                                 </div>
@@ -327,7 +328,7 @@
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -375,7 +376,7 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-6 new-date-data-field">
+                            <div class="col-lg-12 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="start_date">Date response due</label>
                                     <div class="calenderauditee">
@@ -408,6 +409,7 @@
                                             <th style="width: 4%">Row#</th>
 
                                             <th style="width: 16%">Date</th>
+                                            <th style="width: 16%">Remarks</th>
 
                                         </tr>
                                     </thead>
@@ -416,6 +418,7 @@
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
 
                                             <td><input type="date" name="Date[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -475,24 +478,22 @@
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head">Audit Summary</div>
-                            <div class="col-6">
-                                <div class="group-input">
-
-                                    <label for="Division Code"><b>Actual start Date</b></label>
-
-                                    <input type="date" name="division_code" value="">
-
-
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="start_date">Actual start Date</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="group-input">
-
-                                    <label for="Division Code"><b>Actual end Date</b></label>
-
-                                    <input type="date" name="division_code" value="">
-
-
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="start_date">Actual end Date</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -501,7 +502,7 @@
                                     <textarea name="description"></textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Audit Result</label>
                                     <select name="departments">
@@ -517,14 +518,13 @@
                         </div>
                         <div class="row">
                             <div class="sub-head"> Response Summary</div>
-                            <div class="col-6 pt-3">
-                                <div class="group-input">
-
-                                    <label for="Division Code"><b>Date of Response</b></label>
-
-                                    <input type="date" name="division_code" value="">
-
-
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="start_date">Date of Response</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -570,6 +570,7 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Scheduled by :</label>
+                                    <div class="static"></div>
 
                                 </div>
                             </div>
@@ -577,6 +578,7 @@
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Scheduled on :</b></label>
+                                    <div class="date"></div>
 
 
 
@@ -585,6 +587,7 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Issued by :</label>
+                                    <div class="static"></div>
 
                                 </div>
                             </div>
@@ -592,6 +595,7 @@
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Issued on :</b></label>
+                                    <div class="date"></div>
 
 
 

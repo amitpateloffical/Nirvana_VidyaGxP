@@ -27,6 +27,7 @@
                     '<td><input type="text" name="SelfLife[]"></td>' +
                     '<td><input type="text" name="StorageCondition[]"></td>' +
                     '<td><input type="text" name="SecondaryPacking[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
 
 
@@ -97,7 +98,7 @@
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" disabled name="record_number" value="">
 
 
                                 </div>
@@ -313,11 +314,12 @@
                                             <th style="width: 4%">Row#</th>
 
                                             <th style="width: 16%">Primary Packaging</th>
-                                            <th style="width: 16%">Material</th>
-                                            <th style="width: 16%">Pack Size</th>
-                                            <th style="width: 16%">Self Life</th>
-                                            <th style="width: 16%">Storage Condition</th>
-                                            <th style="width: 16%">Secondary Packaging</th>
+                                            <th style="width: 14%">Material</th>
+                                            <th style="width: 14%">Pack Size</th>
+                                            <th style="width: 14%">Self Life</th>
+                                            <th style="width: 14%">Storage Condition</th>
+                                            <th style="width: 14%">Secondary Packaging</th>
+                                            <th style="width: 16%">Remarks</th>
 
                                         </tr>
                                     </thead>
@@ -331,6 +333,7 @@
                                             <td><input type="text" name="SelfLife[]"></td>
                                             <td><input type="text" name="StorageCondition[]"></td>
                                             <td><input type="text" name="SecondaryPackaging[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -359,7 +362,7 @@
 
 
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related Dossier Document</label>
                                     <select name="departments">
@@ -437,7 +440,7 @@
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                           
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -448,8 +451,9 @@
                 <!-- TAB 1 ENDS HERE -->
 
                 <div id="CCForm2" class="inner-block cctabcontent">
-                    <!-- <div class="inner-block-content">
-                        <div class="row">
+                    
+                    <div class="inner-block-content">
+                        <!-- <div class="row">
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
@@ -498,14 +502,14 @@
 
 
 
-                        </div>
+                        </div> -->
 
 
 
 
 
 
-                        <div class="row">
+                        <!-- <div class="row">
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -541,7 +545,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> -->
 
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
@@ -550,7 +554,7 @@
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
 
                 <!-- <div id="CCForm3" class="inner-block cctabcontent">
@@ -641,6 +645,7 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Submitted by :</label>
+                                    <div class="static"></div>
 
                                 </div>
                             </div>
@@ -648,6 +653,7 @@
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Submitted on :</b></label>
+                                    <div class="date"></div>
 
 
 
@@ -657,6 +663,7 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Approved by :</label>
+                                    <div class="static"></div>
 
                                 </div>
                             </div>
@@ -664,6 +671,7 @@
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Approved on :</b></label>
+                                    <div class="date"></div>
 
 
 
