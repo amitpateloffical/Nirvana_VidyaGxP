@@ -32,7 +32,7 @@
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">SAE</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">SAE Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signature</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
         </div>
 
         <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
