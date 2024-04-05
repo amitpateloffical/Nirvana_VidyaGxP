@@ -34,7 +34,7 @@
             <button class="cctablinks " onclick="openCity(event, 'CCForm2')">Variation Plan</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Product Details</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Registration Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signature</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signatures</button>
 
         </div>
 
