@@ -32,7 +32,7 @@
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">SAE</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">SAE Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signature</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
         </div>
 
         <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
@@ -567,8 +567,8 @@
                                 </div>
                             </div>
                             <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                <button type="submit" class="saveButton">Save</button>
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>
                             </div>
@@ -597,8 +597,8 @@
 
                             </div>
                             <div class="button-block">
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                <button type="submit" class="saveButton">Save</button>
+                            <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="backButton" onclick="previousStep()">Back</button>                              
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>
                             </div>

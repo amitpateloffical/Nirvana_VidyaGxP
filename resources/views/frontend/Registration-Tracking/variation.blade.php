@@ -34,7 +34,7 @@
             <button class="cctablinks " onclick="openCity(event, 'CCForm2')">Variation Plan</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Product Details</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Registration Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signature</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signatures</button>
 
         </div>
 
@@ -406,10 +406,9 @@
                             </div>
 
                             <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-
-                                <button type="submit" class="saveButton">Save</button>
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>
                             </div>
@@ -504,8 +503,8 @@
 
 
                             <div class="button-block">
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                <button type="submit" class="saveButton">Save</button>
+                            <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="backButton" onclick="previousStep()">Back</button>   
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>
                             </div>
