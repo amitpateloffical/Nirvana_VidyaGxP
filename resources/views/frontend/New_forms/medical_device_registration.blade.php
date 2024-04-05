@@ -27,18 +27,19 @@
                     '<td><input type="text" name="SelfLife[]"></td>' +
                     '<td><input type="text" name="StorageCondition[]"></td>' +
                     '<td><input type="text" name="SecondaryPacking[]"></td>' +
-                
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
 
-                //     '</tr>';
 
-                // for (var i = 0; i < users.length; i++) {
-                //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                // }
+                    //     '</tr>';
 
-                // html += '</select></td>' + 
+                    // for (var i = 0; i < users.length; i++) {
+                    //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                    // }
 
-                '</tr>';
+                    // html += '</select></td>' + 
+
+                    '</tr>';
 
                 return html;
             }
@@ -73,7 +74,7 @@
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Registration</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Local Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
 
         </div>
 
@@ -95,9 +96,9 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
 
-                                    <label for="RLS Record Number" ><b>Initiator</b></label>
+                                    <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" disabled name="record_number" value="">
 
 
                                 </div>
@@ -105,7 +106,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date of Initiation</b></label>
-                                    
+
                                     <input disabled type="date" name="division_code" value="">
 
                                 </div>
@@ -122,14 +123,15 @@
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label  for="search">
+                                    <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                    
+
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
-
-                                        <option value=""></option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
 
                                     </select>
 
@@ -153,25 +155,28 @@
                                     <p class="text-primary">Registration Type</p>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
 
-                                        <option value=""></option>
+                                        <option value="">3</option>
 
                                     </select>
 
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label  for="search">
-                                        Attached File <span class="text-danger"></span>
-                                    </label>
-
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
-                                        <option value=""> </option>
-
-                                        <option value=""></option>
-
-                                    </select>
+                                    <label for="Audit Attachments">File Attachments</label>
+                                    <small class="text-primary">
+                                        Please Attach all relevant or supporting documents
+                                    </small>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>
@@ -199,7 +204,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label  for="Responsible Department">Zone</label>
+                                    <label for="Responsible Department">Zone</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
@@ -309,11 +314,12 @@
                                             <th style="width: 4%">Row#</th>
 
                                             <th style="width: 16%">Primary Packaging</th>
-                                            <th style="width: 16%">Material</th>
-                                            <th style="width: 16%">Pack Size</th>
-                                            <th style="width: 16%">Self Life</th>
-                                            <th style="width: 16%">Storage Condition</th>
-                                            <th style="width: 16%">Secondary Packaging</th>
+                                            <th style="width: 14%">Material</th>
+                                            <th style="width: 14%">Pack Size</th>
+                                            <th style="width: 14%">Self Life</th>
+                                            <th style="width: 14%">Storage Condition</th>
+                                            <th style="width: 14%">Secondary Packaging</th>
+                                            <th style="width: 16%">Remarks</th>
 
                                         </tr>
                                     </thead>
@@ -327,6 +333,7 @@
                                             <td><input type="text" name="SelfLife[]"></td>
                                             <td><input type="text" name="StorageCondition[]"></td>
                                             <td><input type="text" name="SecondaryPackaging[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -355,7 +362,7 @@
 
 
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related Dossier Document</label>
                                     <select name="departments">
@@ -373,7 +380,7 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Planned Submission Date <span class="text-danger"></span></label>
-                                 
+
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -383,7 +390,7 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Actual Submission Date <span class="text-danger"></span></label>
-                                   
+
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -392,8 +399,8 @@
                             </div>
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Actual Approval Date  <span class="text-danger"></span></label>
-                                 
+                                    <label for="due-date">Actual Approval Date <span class="text-danger"></span></label>
+
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -403,7 +410,7 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Actual Rejection Date <span class="text-danger"></span></label>
-                                   
+
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -421,7 +428,7 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Next Renewal Date <span class="text-danger"></span></label>
-                               
+
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -429,11 +436,11 @@
                                 </div>
                             </div>
 
-                           
+
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                           
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -444,8 +451,9 @@
                 <!-- TAB 1 ENDS HERE -->
 
                 <div id="CCForm2" class="inner-block cctabcontent">
-                    <!-- <div class="inner-block-content">
-                        <div class="row">
+                    
+                    <div class="inner-block-content">
+                        <!-- <div class="row">
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
@@ -494,14 +502,14 @@
 
 
 
-                        </div>
+                        </div> -->
 
 
 
 
 
 
-                        <div class="row">
+                        <!-- <div class="row">
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -537,7 +545,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> -->
 
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
@@ -546,10 +554,10 @@
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
 
-                <div id="CCForm3" class="inner-block cctabcontent">
+                <!-- <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head">Audir Summary</div>
@@ -628,24 +636,26 @@
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div id="CCForm4" class="inner-block cctabcontent">
+                <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
 
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Submitted by :</label>
-                                  
+                                    <div class="static"></div>
+
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Submitted on :</b></label>
+                                    <div class="date"></div>
 
-                                   
+
 
 
                                 </div>
@@ -653,15 +663,17 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Approved by :</label>
-                                 
+                                    <div class="static"></div>
+
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Approved on :</b></label>
+                                    <div class="date"></div>
 
-                                   
+
 
 
                                 </div>
@@ -673,7 +685,7 @@
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                          
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
                         </div>

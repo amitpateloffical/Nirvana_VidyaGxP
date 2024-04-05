@@ -10,6 +10,82 @@
     }
 </style>
 
+
+<!-- --------------------------------------button--------------------- -->
+
+<script>
+    VirtualSelect.init({
+        ele: '#related_records, #hod'
+    });
+
+    function openCity(evt, cityName) {
+        var i, cctabcontent, cctablinks;
+        cctabcontent = document.getElementsByClassName("cctabcontent");
+        for (i = 0; i < cctabcontent.length; i++) {
+            cctabcontent[i].style.display = "none";
+        }
+        cctablinks = document.getElementsByClassName("cctablinks");
+        for (i = 0; i < cctablinks.length; i++) {
+            cctablinks[i].className = cctablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+
+        // Find the index of the clicked tab button
+        const index = Array.from(cctablinks).findIndex(button => button === evt.currentTarget);
+
+        // Update the currentStep to the index of the clicked tab
+        currentStep = index;
+    }
+
+    const saveButtons = document.querySelectorAll(".saveButton");
+    const nextButtons = document.querySelectorAll(".nextButton");
+    const form = document.getElementById("step-form");
+    const stepButtons = document.querySelectorAll(".cctablinks");
+    const steps = document.querySelectorAll(".cctabcontent");
+    let currentStep = 0;
+
+    function nextStep() {
+        // Check if there is a next step
+        if (currentStep < steps.length - 1) {
+            // Hide current step
+            steps[currentStep].style.display = "none";
+
+            // Show next step
+            steps[currentStep + 1].style.display = "block";
+
+            // Add active class to next button
+            stepButtons[currentStep + 1].classList.add("active");
+
+            // Remove active class from current button
+            stepButtons[currentStep].classList.remove("active");
+
+            // Update current step
+            currentStep++;
+        }
+    }
+
+    function previousStep() {
+        // Check if there is a previous step
+        if (currentStep > 0) {
+            // Hide current step
+            steps[currentStep].style.display = "none";
+
+            // Show previous step
+            steps[currentStep - 1].style.display = "block";
+
+            // Add active class to previous button
+            stepButtons[currentStep - 1].classList.add("active");
+
+            // Remove active class from current button
+            stepButtons[currentStep].classList.remove("active");
+
+            // Update current step
+            currentStep--;
+        }
+    }
+</script>
+
 <!-- -----------------------------grid-1----------------------------script -->
 <script>
     $(document).ready(function() {
@@ -332,7 +408,7 @@
                             </label>
 
                             <small class="text-primary">
-                            Please mention expected date of completion
+                                Please mention expected date of completion
                             </small>
                             <input type="date" id="date" name="date-time">
 
@@ -421,7 +497,7 @@
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Initiator Group">Deviation Occured On</label>
-                            <input type="date"  name="date">
+                            <input type="date" name="date">
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -506,17 +582,17 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 4%">Row#</th>
-                                        <th style="width: 8%">Item/Product Code</th>
+                                        <th style="width: 10%">Item/Product Code</th>
                                         <th style="width: 8%"> Batch No*.</th>
-                                        <th style="width: 12%"> Mfg.Date</th>
-                                        <th style="width: 16%">Expiry Date</th>
-                                        <th style="width: 16%"> Label Claim.</th>
-                                        <th style="width: 16%">Pack Size</th>
-                                        <th style="width: 16%">Analyst Name</th>
+                                        <th style="width: 8%"> Mfg.Date</th>
+                                        <th style="width: 8%">Expiry Date</th>
+                                        <th style="width: 8%"> Label Claim.</th>
+                                        <th style="width: 8%">Pack Size</th>
+                                        <th style="width: 8%">Analyst Name</th>
 
-                                        <th style="width: 16%">Others (Specify)</th>
-                                        <th style="width: 16%"> In- Process Sample Stage.</th>
-                                        <th style="width: 16% pt-3">Packing Material Type</th>
+                                        <th style="width: 10%">Others (Specify)</th>
+                                        <th style="width: 10%"> In- Process Sample Stage.</th>
+                                        <th style="width: 12% pt-3">Packing Material Type</th>
                                         <th style="width: 16% pt-2"> Stability for</th>
 
 
@@ -560,7 +636,7 @@
                                     <tr>
                                         <th style="width: 4%">Row#</th>
                                         <th style="width: 8%">AR Number</th>
-                                        <th style="width: 8%">Condition: Temperature & RH</th>
+                                        <th style="width: 12%">Condition: Temperature & RH</th>
                                         <th style="width: 12%">Interval</th>
                                         <th style="width: 16%">Orientation</th>
                                         <th style="width: 16%">Pack Details (if any)</th>
@@ -637,16 +713,14 @@
 
 
                     <div class="button-block">
-                        <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" id="ChangeNextButton" class="nextButton" onclick="nextStep()">Next</button>
+                        <button type="submit" class="saveButton">Save</button>
+                        <!-- <button type="button" class="backButton" onclick="previousStep()">Back</button> -->
+                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                         <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                 Exit </a> </button>
                     </div>
                 </div>
             </div>
-
-
         </div>
 
 
@@ -811,8 +885,6 @@
                                     <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                 </div>
                             </div>
-
-
 
                         </div>
                     </div>
@@ -1055,7 +1127,7 @@
 
                         </div>
                     </div>
-                   
+
                     <div class="button-block">
                         <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1175,8 +1247,8 @@
                     <div class="group-input">
                         <label for="Audit Attachments"> Attachment</label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -1316,8 +1388,8 @@
                     <div class="group-input">
                         <label for="Audit Lead More Info Reqd On">Attachments </label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -1328,7 +1400,7 @@
 
                     </div>
                 </div>
-                
+
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1404,8 +1476,8 @@
                     <div class="group-input">
                         <label for="Reference Recores">Additional Testing Attachment </label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -1601,8 +1673,8 @@
                     <div class="group-input">
                         <label for="Reference Recores">Attachments if Any</label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -1613,7 +1685,7 @@
 
                     </div>
                 </div>
-                
+
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1777,8 +1849,8 @@
                     <div class="group-input">
                         <label for="Reference Recores">Conclusion Attachment</label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -1795,7 +1867,7 @@
                         <input type="text" name="name">
                     </div>
                 </div>
-                
+
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1874,8 +1946,8 @@
                     <div class="group-input">
                         <label for="Audit Attachments"> CQ Attachment</label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2081,8 +2153,8 @@
                     <div class="group-input">
                         <label for="Reference Recores">Disposition Attachment</label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2125,8 +2197,8 @@
                     <div class="group-input">
                         <label for="Reference Recores">Reopen Attachment</label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2173,8 +2245,8 @@
                     <div class="group-input">
                         <label for="Reference Recores">Addendum Attachment</label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2185,7 +2257,7 @@
                     </div>
                 </div>
 
-               
+
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -2286,8 +2358,8 @@
                         <label for="Reference Recores">Addendum Attachments
                         </label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2333,8 +2405,8 @@
                     <div class="group-input">
                         <label for="Reference Recores">Required Attachment</label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2382,8 +2454,8 @@
                     <div class="group-input">
                         <label for="Reference Recores">Verification Attachment</label>
                         <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            Please Attach all relevant or supporting documents
+                        </small>
                         <div class="file-attachment-field">
                             <div class="file-attachment-list" id="file_attach"></div>
                             <div class="add-btn">
@@ -2395,7 +2467,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -2418,50 +2490,50 @@
             </div>
             <div class="row">
 
-            <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Agenda">Preliminary Lab Inves. Done By</label>
-                            <div class="static"></div>
-                        </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Agenda">Preliminary Lab Inves. Done By</label>
+                        <div class="static"></div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Agenda">Preliminary Lab Inves. Done On</label>
-                            <div class="Date"></div>
-                        </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Agenda">Preliminary Lab Inves. Done On</label>
+                        <div class="Date"></div>
                     </div>
+                </div>
 
 
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Team">Pre. Lab Inv. Conclusion By</label>
-                            <div class="static"></div>
-                           
-                        </div>
-                    </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Team">Pre. Lab Inv. Conclusion By</label>
+                        <div class="static"></div>
 
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Team">Pre. Lab Inv. Conclusion On</label>
-                            <div class="Date"></div>
-                        </div>
                     </div>
+                </div>
 
-                    <div class="col-6">
-                        <div class="group-input">
-                            <label for="Audit Comments"> Pre.Lab Invest. Review By </label>
-                            <div class="static"></div>
-                        </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Team">Pre. Lab Inv. Conclusion On</label>
+                        <div class="Date"></div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="Audit Attachments">Pre.Lab Invest. Review On</label>
-                            <div class="Date"></div>
-                        </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="group-input">
+                        <label for="Audit Comments"> Pre.Lab Invest. Review By </label>
+                        <div class="static"></div>
                     </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Audit Attachments">Pre.Lab Invest. Review On</label>
+                        <div class="Date"></div>
+                    </div>
+                </div>
 
 
-                    <div class="col-lg-6">
+                <div class="col-lg-6">
                     <div class="group-input">
                         <label for="Audit Attachments">Phase II Invest. Proposed By</label>
                         <div class="static"></div>
@@ -2479,14 +2551,14 @@
                     <div class="group-input">
                         <label for="Audit Response Completed By"> Phase II QC Review Done By</label>
                         <div class=" static"></div>
-                        
+
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="Audit Response Completed On">Phase II QC Review Done On</label>
                         <div class="date"></div>
-                       
+
                     </div>
                 </div>
 
@@ -2515,7 +2587,7 @@
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="Audit Attachments">OOS Conclusion Complete On</label>
-                       <div class="date"></div>
+                        <div class="date"></div>
                     </div>
                 </div>
 
@@ -2621,15 +2693,15 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="group-input">
-                        <label for="Reference Recores">Verification Review Done By 
+                        <label for="Reference Recores">Verification Review Done By
                         </label>
-                         <div class=" static"></div>
+                        <div class=" static"></div>
                     </div>
                 </div>
 
                 <div class="col-lg-6">
                     <div class="group-input">
-                        <label for="Reference Recores">Verification Review Done On 
+                        <label for="Reference Recores">Verification Review Done On
 
                         </label>
                         <div class="date"></div>
@@ -2639,7 +2711,7 @@
 
 
 
-                    <!-- ====================================================================== -->
+                <!-- ====================================================================== -->
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="submitted by">Submitted By :</label>

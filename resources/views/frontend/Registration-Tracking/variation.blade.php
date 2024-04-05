@@ -51,6 +51,7 @@
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
+                            <div class="sub-head">General Information</div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -77,13 +78,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Initiator</b></label>
-                                    <input type="text" name="Initiator" value="">
+                                    <input type="text" disabled name="Initiator" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
-                                    <input type="date" name="Date Opened" value="">
+                                    <input type="date" disabled name="Date Opened" value="">
 
                                 </div>
                             </div>
@@ -92,11 +93,12 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span></label>
+                                    <p>255 characters remaining</p>
                                     <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-6 pt-3">
                                 <div class="group-input">
                                     <label for="search">
                                         Assigned To <span class="text-danger"></span>
@@ -202,10 +204,10 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label class="mt-4" for="Audit Comments"> Description</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <label for="Actions">Description<span class="text-danger"></span></label>
+                                    <textarea placeholder="" name="description"></textarea>
                                 </div>
                             </div>
 
@@ -299,15 +301,14 @@
 
 
 
-
-                            <div class="col-12">
+                            <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label class="mt-4" for="Audit Comments">Comments</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <label for="Actions">Comments<span class="text-danger"></span></label>
+                                    <textarea placeholder="" name="description"></textarea>
                                 </div>
                             </div>
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reference Recores"> Related Countries</label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
@@ -319,10 +320,11 @@
                             </div>
 
                             <div class="button-block">
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-
                                 <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>
                             </div>
@@ -337,32 +339,22 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Type">(Root Parent ) Trade Name </label>
-                                    <select name="Type">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="1">Pankaj</option>
-                                        <option value="2">Gaurav</option>
-
-                                    </select>
+                                    <label for="Type">(Root Parent ) Trade Name</label>
+                                    <input type="text" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">(Parent) Local Trade Name</label>
-                                    <input type="date" />
+                                    <input type="text" />
                                 </div>
                             </div>
 
-                            <div class="col-lg-12">
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">(Parent) Manufacturer </label>
-                                    <select name="Type">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="1">Done</option>
-                                        <option value="2">Progress</option>
-
-                                    </select>
+                                    <input type="text" />
                                 </div>
                             </div>
 
@@ -380,12 +372,12 @@
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Primary Packaging</th>
-                                                <th style="width: 16%">Material</th>
-                                                <th style="width: 15%">Pack. Size </th>
-                                                <th style="width: 15%">Shelf Life</th>
+                                                <th style="width: 14%">Material</th>
+                                                <th style="width: 14%">Pack Size. </th>
+                                                <th style="width: 14%">Shelf Life</th>
                                                 <th style="width: 15%">Storage Condition</th>
                                                 <th style="width: 15%">Secondary Packaging</th>
-                                                <th style="width: 16%">Remarks</th>
+                                                <th style="width: 15%">Remarks</th>
 
                                             </tr>
                                         </thead>
@@ -406,9 +398,11 @@
                             </div>
 
                             <div class="button-block">
-                            <button type="submit" class="saveButton">Save</button>
+                                <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>
                             </div>
@@ -419,6 +413,15 @@
                 <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
+                            <div class="button-block">
+                                <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
+                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                                    </a> </button>
+                            </div>
 
 
                             <!-- <div class="button-block">
@@ -435,79 +438,103 @@
                     <div class="inner-block-content">
                         <div class="row">
 
-                            <div class="col-lg-6">
+                            <div class="col-6">
                                 <div class="group-input">
-                                    <label for="submitted by">Started By</label>
+                                    <label for="Actual_Amount ">Started by :</label>
                                     <div class="static"></div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Started on">Started On</label>
-                                    <div class="Date"></div>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-6">
+                                </div>
+                            </div>
+                            <div class="col-6">
                                 <div class="group-input">
-                                    <label for="submitted by">Submitted By</label>
+
+                                    <label for="Division Code"><b>Started on :</b></label>
+                                    <div class="date"></div>
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="group-input">
+                                    <label for="Actual_Amount ">Submitted by :</label>
                                     <div class="static"></div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Submitted on">Submitted On</label>
-                                    <div class="Date"></div>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-6">
+                                </div>
+                            </div>
+                            <div class="col-6">
                                 <div class="group-input">
-                                    <label for="submitted by">Approved By</label>
+
+                                    <label for="Division Code"><b>Submitted on :</b></label>
+                                    <div class="date"></div>
+
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="group-input">
+                                    <label for="Actual_Amount ">Approved by :</label>
                                     <div class="static"></div>
+
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Approved on">Approved On</label>
-                                    <div class="Date"></div>
+
+                                    <label for="Division Code"><b>Approved on :</b></label>
+                                    <div class="date"></div>
+
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-6">
                                 <div class="group-input">
-                                    <label for="submitted by">Withdrawn By</label>
+                                    <label for="Actual_Amount ">Withdrawn by :</label>
                                     <div class="static"></div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Withdrawn on">Withdrawn On</label>
-                                    <div class="Date"></div>
-                                </div>
-                            </div>
 
-                            <div class="col-lg-6">
+                                </div>
+                            </div>
+                            <div class="col-6">
                                 <div class="group-input">
-                                    <label for="submitted by">Refused By</label>
+
+                                    <label for="Division Code"><b>Withdrawn on :</b></label>
+                                    <div class="date"></div>
+
+
+
+
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="group-input">
+                                    <label for="Actual_Amount ">Refused by :</label>
                                     <div class="static"></div>
+
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Refused on">Refused On</label>
-                                    <div class="Date"></div>
+
+                                    <label for="Division Code"><b>Refused on :</b></label>
+                                    <div class="date"></div>
+
+
+
+
                                 </div>
                             </div>
 
 
 
-                            <div class="button-block">
+                        </div>
+                        <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>   
-                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
-                                    </a> </button>
-                            </div>
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                           
+                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
+                                    Exit </a> </button>
                         </div>
                     </div>
                 </div>
@@ -614,8 +641,7 @@
                     '<td><input type="text" name="ShelfLife[]"></td>' +
                     '<td><input type="text" name="StorageCondition[]"></td>' +
                     '<td><input type="text" name="SecondaryPackaging[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>'+
-
+                    '<td><input type="text" name="Remarks[]"></td>' +
                     '</tr>';
                 '</tr>';
 
