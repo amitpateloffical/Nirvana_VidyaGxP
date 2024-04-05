@@ -30,10 +30,12 @@
                     '<td><input type="text" name="BatchNumber[]"></td>' +
                     '<td><input type="text" name="ExpiryDate[]"></td>' +
                     '<td><input type="text" name="UnitsReceived[]"></td>' +
+                    '<td><input type="text" name="UnitsDispensed[]"></td>' +
                     '<td><input type="text" name="UnitsDestroyed[]"></td>' +
                     '<td><input type="text" name="ManufacturedDate[]"></td>' +
                     '<td><input type="text" name="Strength[]"></td>' +
                     '<td><input type="text" name="Form[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
                     '</tr>';
                 return html;
             }
@@ -60,6 +62,7 @@
                     '<td><input type="text" name="Number_of_Items_Needed[]"></td>' +
                     '<td><input type="text" name="Exist[]"></td>' +
                     '<td><input type="text" name="Comment[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
                     '</tr>';
                 return html;
             }
@@ -85,6 +88,7 @@
                     '<td><input type="text" name="Date[]"></td>' +
                     '<td><input type="text" name="Amount[]"></td>' +
                     '<td><input type="text" name="Currency_Used[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
                     '</tr>';
                 return html;
             }
@@ -193,7 +197,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="group-input">
 
                             <label for="Sponsor"><b>Sponsor</b></label>
@@ -224,7 +228,7 @@
                             <textarea name="text"></textarea>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="group-input">
                             <label for="Version_no">
                                 (Parent) Version No. <span class="text-danger"></span>
@@ -256,6 +260,7 @@
                                         <th> Manufactured Date</th>
                                         <th> Strength</th>
                                         <th> Form</th>
+                                        <th> Remarks</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -264,10 +269,12 @@
                                     <td><input type="text" name="BatchNumber[]"></td>
                                     <td><input type="text" name="ExpiryDate[]"></td>
                                     <td><input type="text" name="UnitsReceived[]"></td>
+                                    <td><input type="text" name="UnitsDispensed[]"></td>
                                     <td><input type="text" name="UnitsDestroyed[]"></td>
                                     <td><input type="text" name="ManufacturedDate[]"></td>
                                     <td><input type="text" name="Strength[]"></td>
                                     <td><input type="text" name="Form[]"></td>
+                                    <td><input type="text" name="Remarks[]"></td>
                                 </tbody>
                             </table>
                         </div>
@@ -331,6 +338,7 @@
                                         <th> Number of Items Needed</th>
                                         <th> Exist</th>
                                         <th> Comment</th>
+                                        <th> Remarks</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -342,6 +350,7 @@
                                     <td><input type="text" name="Number_of_Items_Needed[]"></td>
                                     <td><input type="text" name="Exist[]"></td>
                                     <td><input type="text" name="Comment[]"></td>
+                                    <td><input type="text" name="Remarks[]"></td>
                                 </tbody>
 
                             </table>
@@ -470,9 +479,9 @@
                 </div>
                 <div class="button-block">
                     <button type="submit" class="saveButton">Save</button>
-                    <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                    <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                            Exit </a> </button>
+                    <!-- <button type="button" class="backButton" onclick="previousStep()">Back</button> -->
+                    <button type="button" class="nextButton" onclick="nextStep()">Next</button>                            
+                    <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit</a></button>
                 </div>
             </div>
         </div>
@@ -677,7 +686,7 @@
                             <input type="text" name="Site Name" value="">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="group-input">
                             <label for="search">
                                 Control Group <span class="text-danger"></span>
@@ -737,7 +746,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="group-input">
                             <label for="Currency">
                                 Currency <span class="text-danger"></span>
@@ -777,6 +786,7 @@
                                         <th> Date</th>
                                         <th> Amount</th>
                                         <th> Currency Used</th>
+                                        <th> Remarks</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -786,6 +796,7 @@
                                     <td><input type="text" name="Date[]"></td>
                                     <td><input type="text" name="Amount[]"></td>
                                     <td><input type="text" name="Currency_Used[]"></td>
+                                    <td><input type="text" name="Remarks[]"></td>
                                 </tbody>
 
                             </table>
@@ -879,8 +890,8 @@
                     </div>
                 </div>
                 <div class="button-block">
-                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
                     <button type="submit" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
                     <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                         </a> </button>
                 </div>
@@ -889,6 +900,79 @@
 
     </div>
 </div>
+
+<script>
+    VirtualSelect.init({
+        ele: '#related_records, #hod'
+    });
+
+    function openCity(evt, cityName) {
+        var i, cctabcontent, cctablinks;
+        cctabcontent = document.getElementsByClassName("cctabcontent");
+        for (i = 0; i < cctabcontent.length; i++) {
+            cctabcontent[i].style.display = "none";
+        }
+        cctablinks = document.getElementsByClassName("cctablinks");
+        for (i = 0; i < cctablinks.length; i++) {
+            cctablinks[i].className = cctablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+
+        // Find the index of the clicked tab button
+        const index = Array.from(cctablinks).findIndex(button => button === evt.currentTarget);
+
+        // Update the currentStep to the index of the clicked tab
+        currentStep = index;
+    }
+
+    const saveButtons = document.querySelectorAll(".saveButton");
+    const nextButtons = document.querySelectorAll(".nextButton");
+    const form = document.getElementById("step-form");
+    const stepButtons = document.querySelectorAll(".cctablinks");
+    const steps = document.querySelectorAll(".cctabcontent");
+    let currentStep = 0;
+
+    function nextStep() {
+        // Check if there is a next step
+        if (currentStep < steps.length - 1) {
+            // Hide current step
+            steps[currentStep].style.display = "none";
+
+            // Show next step
+            steps[currentStep + 1].style.display = "block";
+
+            // Add active class to next button
+            stepButtons[currentStep + 1].classList.add("active");
+
+            // Remove active class from current button
+            stepButtons[currentStep].classList.remove("active");
+
+            // Update current step
+            currentStep++;
+        }
+    }
+
+    function previousStep() {
+        // Check if there is a previous step
+        if (currentStep > 0) {
+            // Hide current step
+            steps[currentStep].style.display = "none";
+
+            // Show previous step
+            steps[currentStep - 1].style.display = "block";
+
+            // Add active class to previous button
+            stepButtons[currentStep - 1].classList.add("active");
+
+            // Remove active class from current button
+            stepButtons[currentStep].classList.remove("active");
+
+            // Update current step
+            currentStep--;
+        }
+    }
+</script>
 
 <script>
     VirtualSelect.init({

@@ -49,15 +49,14 @@
                                 <div class="col-lg-6">
                                     <div class="group-input"> 
                                         
-                                        <label for="EHS originator"><b>Originator</b></label>
-                                        <input type="text" name="originator"
+                                        <label for="Originator"><b>Originator</b></label>
+                                        <input type="text" name="Originator"
                                             value="">
                                     </div>
                                 </div>
                                 <div class="col-md-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="due-date">Date Opened<span class="text-danger"></span></label>
-                                        <div><small class="text-primary">When was this sanction record opened?</small></div>
+                                        <label for="opened-date">Date Opened<span class="text-danger"></span></label>
                                         <div class="calenderauditee">                                     
                                             <input type="text"  id="opened_date" placeholder="DD-MMM-YYYY" />
                                             <input type="date" name="opened_date"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
@@ -68,7 +67,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Short Description">Short Description<span
+                                        <label for="short_description">Short Description<span
                                                 class="text-danger">*</span></label>
                                                 <div><small class="text-primary">Sanction short description to be represented on desktop</small></div>
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
@@ -76,7 +75,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="group-input">
-                                        <label for="search">
+                                        <label for="assign_to">
                                             Assigned To <span class="text-danger"></span>
                                         </label>
                                         <div><small class="text-primary">Person Responsible</small></div>
@@ -100,13 +99,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="group-input">
-                                        <label for="search">
+                                        <label for="sanction_type">
                                             Type <span class="text-danger"></span>
                                         </label>
                                         <div><small class="text-primary">Type of Sanction</small></div>
-                                        <select id="select-state" placeholder="Select..." name="assign_to">
+                                        <select id="select-state" placeholder="Select..." name="sanction_type">
                                             <option value="">Enter your selection here</option>
                                             <option value="">$1</option>
                                             <option value="">$2</option>
@@ -114,7 +113,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="file_attach">File Attachments</label>
                                         <div class="file-attachment-field">
@@ -131,17 +130,17 @@
                         
                                 <div class="col-lg-12">
                                     <div class="group-input">
-                                        <label for="Short Description"> Description<span
+                                        <label for="description"> Description<span
                                                 class="text-danger"></span></label>
                                         <textarea name="description"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="group-input">
-                                        <label for="search">
+                                        <label for="authority_type">
                                             Authority Type <span class="text-danger"></span>
                                         </label>
-                                        <select id="select-state" placeholder="Enter your selection here" name="assign_to">
+                                        <select id="select-state" placeholder="Enter your selection here" name="authority_type">
                                             <option value="">Select a value</option>
                                             <option value="">$1</option>
                                             <option value="">$2</option>
@@ -151,10 +150,10 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="group-input">
-                                        <label for="search">
+                                        <label for="Authority">
                                             Authority <span class="text-danger"></span>
                                         </label>
-                                        <select id="select-state" placeholder="Enter your selection here" name="assign_to">
+                                        <select id="select-state" placeholder="Enter your selection here" name="Authority">
                                             <option value="">Select a value</option>
                                             <option value="">$1</option>
                                             <option value="">$2</option>
@@ -167,17 +166,16 @@
                                         <input type="hidden" name="ccId" value="{{ $cc->id }}">
                                     @endif
                                     <div class="group-input">
-                                        <label for="originator">Fine</label>
-                                        <input disabled type="text"
-                                            value="">
+                                        <label for="Fine">Fine</label>
+                                        <input type="text" value="" name="Fine">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="group-input">
-                                        <label for="search">
+                                        <label for="Currency">
                                             Currency <span class="text-danger"></span>
                                         </label>
-                                        <select id="select-state" placeholder="Enter your selection here" name="assign_to">
+                                        <select id="select-state" placeholder="Enter your selection here" name="Currency">
                                             <option value="">Select a value</option>
                                             <option value="">$1</option>
                                             <option value="">$2</option>
@@ -189,8 +187,7 @@
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                        Exit </a> </button>
+                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit </a> </button>
                             </div>
                         </div>
                     </div>
@@ -201,23 +198,21 @@
                             <div class="row">
                             <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Closed By">Closed By</label>
+                                        <label for="closed_by">Closed By</label>
                                         <div class="Date"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="Closed on">Closed On</label>
+                                        <label for="closed_on">Closed On</label>
                                         <div class="Date"></div>
                                     </div>
                                 </div>
-                            <div class="button-block">
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                <button type="submit" class="saveButton">Save</button>
-                                <button type="button"> <a class="text-white"
-                                        href="{{ url('rcms/qms-dashboard') }}">Exit
-                                    </a> </button>
-                            </div>
+                                <div class="button-block">
+                                    <button type="submit" class="saveButton">Save</button>
+                                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                                    <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit </a></button>
+                                </div>
                             </div>
                         </div>
                     </div>
