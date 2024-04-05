@@ -52,23 +52,7 @@
                                 General Information
                             </div> <!-- RECORD NUMBER -->
                             <div class="row">
-                                <!-- <div class="col-lg-6">
-                                    <div class="group-input"> 
-                                        <label for="RLS Record Number"><b>Record Number</b></label>
-                                        <input disabled type="text" name="record_number"
-                                            value="">
-                                        
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">  
-                                    <div class="group-input">
-                                        <label for="Division Code"><b>Division Code</b></label>
-                                        <input disabled type="text" name="division_code"
-                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}">
-                                        <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
-                                        {{-- <div class="static">QMS-North America</div> --}}
-                                    </div>
-                                </div> -->
+                               
                                 <div class="col-lg-6">  
                                     @if (!empty($cc->id))
                                         <input type="hidden" name="ccId" value="{{ $cc->id }}">
@@ -89,15 +73,7 @@
                                         <input type="hidden" value="" name="intiation_date">
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Due Date">Due Date</label>
-
-                                        @if (!empty($cc->due_date))
-                                        <div class="static"></div>
-                                        @endif
-                                    </div>
-                                </div> --}}
+                           
                                 <div class="col-md-6">
                                     <div class="group-input">
                                         <label for="search">
@@ -117,8 +93,7 @@
                                 <div class="col-md-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="due-date">Due Date <span class="text-danger"></span></label>
-                                        <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                            value="" name="due_date"> -->
+                                      
                                         <div class="calenderauditee">                                     
                                             <input type="text"  id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date" name="due_date"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
@@ -221,35 +196,9 @@
                                 </div> 
 
                                 
-                                <!-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Related Records">Action Item Related Records</label>
-                                        <select multiple id="related_records" name="related_records[]"
-                                            placeholder="Select Reference Records">
-                                            <option value="">--select record--</option>
-                                                <option value="">
-                                                </option>
-                                        </select>
-                                    </div> -->
+                               
                                 </div>
-                                <!-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="HOD Persons">HOD Persons</label>
-                                        <select multiple  name="hod_preson[]" placeholder="Select HOD Persons" data-search="false"
-                                            data-silent-initial-value-set="true" id="hod" >
-                                           
-                                                <option value=""></option>
-                                       
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="Short Description"> Description<span
-                                                class="text-danger"></span></label>
-                                        <textarea name="description"></textarea>
-                                    </div>
-                                </div> -->
+                               
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Responsible Department">Responsible Department</label>
@@ -325,7 +274,7 @@
                                                     oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                             </div>
                                         </div>
-                                        {{-- <input type="file" name="file_attach[]" multiple> --}}
+                                       
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -339,11 +288,11 @@
                                                     oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                             </div>
                                         </div>
-                                        {{-- <input type="file" name="file_attach[]" multiple> --}}
+                                     
                                     </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="file_attach">Related URL</label>
                                         <div class="file-attachment-field">
@@ -354,55 +303,29 @@
                                                     oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                             </div>
                                         </div>
-                                        {{-- <input type="file" name="file_attach[]" multiple> --}}
+                                       
                                     </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="button-block">
+                                    <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                         Exit </a> </button>
 
                             </div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
 
-                    {{-- <div id="CCForm2" class="inner-block cctabcontent">
-                        <div class="inner-block-content">
-                            <div class="row">
-                                <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="Action Taken">RLS Record Number</label>
-                                        <div class="static">Parent Record Number</div>
-                                        <input disabled type="text"
-                                            value="{{ Helpers::getDivisionName($parent_division_id) }}/{{ $parent_name }}/2023/{{ Helpers::recordFormat($parent_record) }}">
-                                    </div>
-                                </div>
-
-                                <div class="button-block">
-                                    <button type="submit" class="saveButton">Save</button>
-                                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                    <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                    <button type="button"> <a class="text-white"
-                                            href="{{ url('rcms/qms-dashboard') }}">
-                                            Exit </a> </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
+           
 
                     <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
                                 <div class="sub-head col-12">Commitment Details</div>
-                                <!-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="action_taken">Action Taken</label>
-                                        <textarea name="action_taken"></textarea>
-                                    </div>
-                                </div> -->
+                           
                                 <div class="col-md-6">
                                     <div class="group-input">
                                         <label for="search">
@@ -550,51 +473,6 @@
                         </div>
                     </div>
 
-                    <div id="CCForm4" class="inner-block cctabcontent">
-                        <div class="inner-block-content">
-                            <div class="row">
-                                <div class="sub-head">Action Approval</div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="qa_comments">QA Review Comments</label>
-                                        <textarea name="qa_comments"></textarea>
-                                    </div>
-                                </div>
-                                {{--
-                                <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="file_attach">Final Attachments</label>
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="final_attach"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="final_attach[]"
-                                                    oninput="addMultipleFiles(this, 'final_attach')" multiple>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div> --}}
-                                <div class="col-12 sub-head">
-                                    Extension Justification
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="due-dateextension">Due Date Extension Justification</label>
-                                        <textarea name="due_date_extension"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                        Exit </a> </button>
-                            </div>
-                        </div>
-                    </div>
 
                     <div id="CCForm5" class="inner-block cctabcontent">
                         <div class="inner-block-content">

@@ -148,16 +148,15 @@
             <!-- Tab links -->
             <div class="cctab">
                 <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Protocol Violation</button>
-                {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Parent Information</button> --}}
-                <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Violation Information</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Violation Information</button>
                 <!-- <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Action Approval</button> -->
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signature</button>
             </div>
 
-            <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data" >
                 @csrf
 
-                <div id="step-form">
+                <div id="step-form" >
                     @if (!empty($parent_id))
                         <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                         <input type="hidden" name="parent_type" value="{{ $parent_type }}">
@@ -406,7 +405,7 @@
                         </div>
                     </div>
 
-                    <div id="CCForm3" class="inner-block cctabcontent">
+                    <div id="CCForm2" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
                                 <div class="sub-head col-12">Violation Information</div>
@@ -629,53 +628,7 @@
                         </div>
                     </div>
 
-                    <div id="CCForm4" class="inner-block cctabcontent">
-                        <div class="inner-block-content">
-                            <div class="row">
-                                <div class="sub-head">Action Approval</div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="qa_comments">QA Review Comments</label>
-                                        <textarea name="qa_comments"></textarea>
-                                    </div>
-                                </div>
-                                {{--
-                                <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="file_attach">Final Attachments</label>
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="final_attach"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="final_attach[]"
-                                                    oninput="addMultipleFiles(this, 'final_attach')" multiple>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div> --}}
-                                <div class="col-12 sub-head">
-                                    Extension Justification
-                                </div>
-
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="due-dateextension">Due Date Extension Justification</label>
-                                        <textarea name="due_date_extension"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                        Exit </a> </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="CCForm5" class="inner-block cctabcontent">
+                    <div id="CCForm5" class="inner-block cctabcontent" style="padding: 20px;">
                         <div class="inner-block-content">
                             <div class="sub-head">
                                 Electronic Signatures
@@ -693,15 +646,12 @@
                                         <div class="Date"></div>
                                     </div>
                                 </div>
-                              
-                              
-                        
                                 </div>
                               
                             </div>
                             <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                                <button type="submit" class="saveButton">Save</button>
                                 <button type="button"> <a class="text-white"
                                         href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>

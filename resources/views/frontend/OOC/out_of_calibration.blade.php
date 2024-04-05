@@ -289,13 +289,13 @@
                             </div>
 
                             <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="If Other">If Other</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_if_other" id="summernote-1">
+                                <div class="group-input">
+                                    <label for="If Other">If Other</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="initiated_if_other" id="summernote-1">
                                     </textarea>
-                                    </div>
                                 </div>
+                            </div>
 
                             <div class="col-lg-12">
                                 <div class="group-input">
@@ -309,26 +309,26 @@
                             </div>
 
                             <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Repeat Nature">Repeat Nature</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Repeat_Nature" id="summernote-1">
-                                            
+                                <div class="group-input">
+                                    <label for="Repeat Nature">Repeat Nature</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="Repeat_Nature" id="summernote-1">
+
                                     </textarea>
-                                    </div>
                                 </div>
-                                
+                            </div>
 
 
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Description">Description</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Description" id="summernote-1">
+
+                            <div class="col-md-12 mb-3">
+                                <div class="group-input">
+                                    <label for="Description">Description</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="Description" id="summernote-1">
                                     </textarea>
-                                    </div>
                                 </div>
-                           
+                            </div>
+
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -379,8 +379,8 @@
                                         Instrument Details
                                         <button type="button" onclick="add4Input('root-cause-first-table')">+</button>
                                         <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                (Launch Instruction)
-                            </span>
+                                            (Launch Instruction)
+                                        </span>
                                     </label>
                                     <div class="table-responsive">
                                         <table class="table table-bordered" id="root-cause-first-table">
@@ -414,18 +414,19 @@
                             <div class="sub-head"> Delay Justfication for Reporting</div>
 
                             <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Delay Justification for Reporting">Delay Justification for Reporting</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Delay_Justification_for_Reporting" id="summernote-1">
+                                <div class="group-input">
+                                    <label for="Delay Justification for Reporting">Delay Justification for Reporting</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="Delay_Justification_for_Reporting" id="summernote-1">
                                     </textarea>
-                                    </div>
                                 </div>
-                            
+                            </div>
+
 
                             <div class="button-block">
-                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                         Exit </a> </button>
 
@@ -438,15 +439,15 @@
                         <div class="row">
                             <div class="sub-head col-12">HOD/Supervisor Review</div>
                             <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="HOD Remarks">HOD Remarks</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="HOD_Remarks" id="summernote-1">
+                                <div class="group-input">
+                                    <label for="HOD Remarks">HOD Remarks</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="HOD_Remarks" id="summernote-1">
                                     </textarea>
-                                    </div>
                                 </div>
+                            </div>
 
-                            
+
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -462,27 +463,27 @@
                             </div>
 
                             <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Immediate Action">Immediate Action</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Immediate_Action" id="summernote-1">
+                                <div class="group-input">
+                                    <label for="Immediate Action">Immediate Action</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="Immediate_Action" id="summernote-1">
                                     </textarea>
-                                    </div>
                                 </div>
+                            </div>
 
                             <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Preliminary Investigation">Preliminary Investigation</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Preliminary_Investigation" id="summernote-1">
+                                <div class="group-input">
+                                    <label for="Preliminary Investigation">Preliminary Investigation</label>
+                                    <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                    <textarea class="summernote" name="Preliminary_Investigation" id="summernote-1">
                                     </textarea>
-                                    </div>
                                 </div>
+                            </div>
 
 
-                            
 
-                            
+
+
 
                             {{-- <div class="col-12">
                                     <div class="group-input">
@@ -500,9 +501,10 @@
                                 </div> --}}
                         </div>
                         <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                            <button type="submit" class="saveButton">Save</button>
+
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
                         </div>
@@ -513,137 +515,137 @@
                 <div class="inner-block-content">
                     <div class="row">
 
-                   
+
                         <div class="sub-head">OOC Evaluation Form</div>
 
                         <div class="col-12">
-                                        <div class="group-input">
-                                            <div class="why-why-chart">
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                        <th style="width: 5%;">Sr.No.</th>
-                                                            <th style="width: 30%;">Question</th>
-                                                            <th>Response</th>
-                                                            <th>Remarks</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td style="background: #DCD8D8">Status of calibration for other instrument(s) used for performing calibration of the referred instrument</td>
-                                                            <td>
-                                                                <textarea name="what_will_be"></textarea>
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="what_will_not_be"></textarea>
-                                                            </td>
-                                                            
-                                                        </tr>
-                                                        <tr>
-                                                        <td></td>
-                                                            <td style="background: #DCD8D8">Verification of calibration standards used Primary Standard: Physical apperance, validity, certificate. Secondary standard: Physical appearance, validity</td>
-                                                            <td>
-                                                                <textarea name="where_will_be"></textarea>
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="where_will_not_be"></textarea>
-                                                            </td>
-                                                           
-                                                        </tr>
-                                                        <tr>
-                                                        <td></td>
-                                                            <td style="background: #DCD8D8">Verification of dilution, calculation, weighing, Titer values and readings</td>
-                                                            <td>
-                                                                <textarea name="when_will_be"></textarea>
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="when_will_not_be"></textarea>
-                                                            </td>
-                                                           
-                                                        </tr>
-                                                        <tr>
-                                                        <td></td>
-                                                            <td style="background: #DCD8D8">Verification of glassware used</td>
-                                                            <td>
-                                                                <textarea name="coverage_will_be"></textarea>
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="coverage_will_not_be"></textarea>
-                                                            </td>
-                                                           
-                                                        </tr>
-                                                        <tr>
-                                                        <td></td>
-                                                            <td style="background: #DCD8D8">Verification of chromatograms/spectrums/other instrument</td>
-                                                            <td>
-                                                                <textarea name="who_will_be"></textarea>
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="who_will_not_be"></textarea>
-                                                            </td>
-                                                            
-                                                        </tr>
-                                                        <tr>
-                                                        <td></td>
-                                                            <td style="background: #DCD8D8">Adequacy of system suitability checks</td>
-                                                            <td>
-                                                                <textarea name="who_will_be"></textarea>
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="who_will_not_be"></textarea>
-                                                            </td>
-                                                            
-                                                        </tr>
-                                                        <tr>
-                                                        <td></td>
-                                                            <td style="background: #DCD8D8">Instrument Malfunction</td>
-                                                            <td>
-                                                                <textarea name="who_will_be"></textarea>
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="who_will_not_be"></textarea>
-                                                            </td>
-                                                            
-                                                        </tr>
-                                                        <tr>
-                                                        <td></td>
-                                                            <td style="background: #DCD8D8">Check for adherence to the calibration method</td>
-                                                            <td>
-                                                                <textarea name="who_will_be"></textarea>
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="who_will_not_be"></textarea>
-                                                            </td>
-                                                            
-                                                        </tr>
-                                                        <tr>
-                                                        <td></td>
-                                                            <td style="background: #DCD8D8">Previous History of instrument</td>
-                                                            <td>
-                                                                <textarea name="who_will_be"></textarea>
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="who_will_not_be"></textarea>
-                                                            </td>
-                                                            
-                                                        </tr>
-                                                        <tr>
-                                                        <td></td>
-                                                            <td style="background: #DCD8D8">Others</td>
-                                                            <td>
-                                                                <textarea name="who_will_be"></textarea>
-                                                            </td>
-                                                            <td>
-                                                                <textarea name="who_will_not_be"></textarea>
-                                                            </td>
-                                                            
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="group-input">
+                                <div class="why-why-chart">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 5%;">Sr.No.</th>
+                                                <th style="width: 30%;">Question</th>
+                                                <th>Response</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td style="background: #DCD8D8">Status of calibration for other instrument(s) used for performing calibration of the referred instrument</td>
+                                                <td>
+                                                    <textarea name="what_will_be"></textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="what_will_not_be"></textarea>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td style="background: #DCD8D8">Verification of calibration standards used Primary Standard: Physical apperance, validity, certificate. Secondary standard: Physical appearance, validity</td>
+                                                <td>
+                                                    <textarea name="where_will_be"></textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="where_will_not_be"></textarea>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td style="background: #DCD8D8">Verification of dilution, calculation, weighing, Titer values and readings</td>
+                                                <td>
+                                                    <textarea name="when_will_be"></textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="when_will_not_be"></textarea>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td style="background: #DCD8D8">Verification of glassware used</td>
+                                                <td>
+                                                    <textarea name="coverage_will_be"></textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="coverage_will_not_be"></textarea>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td style="background: #DCD8D8">Verification of chromatograms/spectrums/other instrument</td>
+                                                <td>
+                                                    <textarea name="who_will_be"></textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="who_will_not_be"></textarea>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td style="background: #DCD8D8">Adequacy of system suitability checks</td>
+                                                <td>
+                                                    <textarea name="who_will_be"></textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="who_will_not_be"></textarea>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td style="background: #DCD8D8">Instrument Malfunction</td>
+                                                <td>
+                                                    <textarea name="who_will_be"></textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="who_will_not_be"></textarea>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td style="background: #DCD8D8">Check for adherence to the calibration method</td>
+                                                <td>
+                                                    <textarea name="who_will_be"></textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="who_will_not_be"></textarea>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td style="background: #DCD8D8">Previous History of instrument</td>
+                                                <td>
+                                                    <textarea name="who_will_be"></textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="who_will_not_be"></textarea>
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td style="background: #DCD8D8">Others</td>
+                                                <td>
+                                                    <textarea name="who_will_be"></textarea>
+                                                </td>
+                                                <td>
+                                                    <textarea name="who_will_not_be"></textarea>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="qa_comments">Evaluation Remarks</label>
@@ -666,55 +668,56 @@
                                 </select>
                             </div>
                         </div>
-                     
+
                         <div class="col-12 sub-head">
-                        Hypothesis Study
+                            Hypothesis Study
                         </div>
 
                         <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Protocol Based Study/Hypothesis Study">Protocol Based Study/Hypothesis Study</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Protocol_Based_Study/Hypothesis_Study" id="summernote-1">
+                            <div class="group-input">
+                                <label for="Protocol Based Study/Hypothesis Study">Protocol Based Study/Hypothesis Study</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="Protocol_Based_Study/Hypothesis_Study" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
 
-                    
-                       
-                        <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Justification for Protocol study/ Hypothesis Study">Justification for Protocol study/ Hypothesis Study</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Justification_for_Protocol_study/Hypothesis_Study" id="summernote-1">
-                                    </textarea>
-                                    </div>
-                                </div>
-                        
-
-                        <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Plan of Protocol Study/ Hypothesis Study">Plan of Protocol Study/ Hypothesis Study</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Plan_of_Protocol_Study/Hypothesis_Study" id="summernote-1">
-                                    </textarea>
-                                    </div>
-                                </div>
 
 
                         <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Conclusion of Protocol based Study/Hypothesis Study">Conclusion of Protocol based Study/Hypothesis Study</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Conclusion_of_Protocol_based_Study/Hypothesis_Study" id="summernote-1">
+                            <div class="group-input">
+                                <label for="Justification for Protocol study/ Hypothesis Study">Justification for Protocol study/ Hypothesis Study</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="Justification_for_Protocol_study/Hypothesis_Study" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Plan of Protocol Study/ Hypothesis Study">Plan of Protocol Study/ Hypothesis Study</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="Plan_of_Protocol_Study/Hypothesis_Study" id="summernote-1">
+                                    </textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Conclusion of Protocol based Study/Hypothesis Study">Conclusion of Protocol based Study/Hypothesis Study</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="Conclusion_of_Protocol_based_Study/Hypothesis_Study" id="summernote-1">
+                                    </textarea>
+                            </div>
+                        </div>
                     </div>
                     <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="submit" class="saveButton">Save</button>
+
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                 Exit </a> </button>
                     </div>
@@ -724,25 +727,25 @@
                 <div class="inner-block-content">
                     <div class="row">
                         <div class="sub-head">Stage I</div>
-                       
-                        <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Analyst Remarks">Analyst Remarks</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Analyst_Remarks" id="summernote-1">
-                                    </textarea>
-                                    </div>
-                                </div>
 
-                      
                         <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Calibration Results">Calibration Results</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Calibration_Results" id="summernote-1">
+                            <div class="group-input">
+                                <label for="Analyst Remarks">Analyst Remarks</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="Analyst_Remarks" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Calibration Results">Calibration Results</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="Calibration_Results" id="summernote-1">
+                                    </textarea>
+                            </div>
+                        </div>
                         <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="Initiator Group">Results Naturey</label>
@@ -755,16 +758,16 @@
                         </div>
 
 
-                    
+
 
                         <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Review of Calibration Results of Analyst">Review of Calibration Results of Analyst</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Review_of_Calibration_Results_of_Analyst" id="summernote-1">
+                            <div class="group-input">
+                                <label for="Review of Calibration Results of Analyst">Review of Calibration Results of Analyst</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="Review_of_Calibration_Results_of_Analyst" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
 
                         <div class="col-12">
                             <div class="group-input">
@@ -779,16 +782,16 @@
                             </div>
                         </div>
 
-                     
+
 
                         <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Results Criteria">Results Criteria</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Results_Criteria" id="summernote-1">
+                            <div class="group-input">
+                                <label for="Results Criteria">Results Criteria</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="Results_Criteria" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
 
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -810,19 +813,20 @@
                         </div>
 
                         <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Additinal Remarks (if any)">Additinal Remarks (if any)</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="Additinal_Remarks" id="summernote-1">
+                            <div class="group-input">
+                                <label for="Additinal Remarks (if any)">Additinal Remarks (if any)</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="Additinal_Remarks" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="submit" class="saveButton">Save</button>
+
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                 Exit </a> </button>
                     </div>
@@ -906,23 +910,23 @@
                         </div>
 
                         <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Impact Assessment at Stage II">Impact Assessment at Stage II</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                            <div class="group-input">
+                                <label for="Impact Assessment at Stage II">Impact Assessment at Stage II</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="initiated_through" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Details of Impact Evaluation">Details of Impact Evaluation</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Details of Impact Evaluation">Details of Impact Evaluation</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="initiated_through" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
 
-                    
+
 
                         <div class="col-lg-12">
                             <div class="group-input">
@@ -936,20 +940,21 @@
                         </div>
 
                         <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Cause for failure">Cause for failure</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                            <div class="group-input">
+                                <label for="Cause for failure">Cause for failure</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="initiated_through" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
 
 
                     </div>
                     <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="submit" class="saveButton">Save</button>
+
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
                     </div>
@@ -975,34 +980,34 @@
                         </div>
 
                         <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Corrective Action">Corrective Action</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                            <div class="group-input">
+                                <label for="Corrective Action">Corrective Action</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="initiated_through" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
 
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Preventive Action">Preventive Action</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Preventive Action">Preventive Action</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="initiated_through" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
-                        
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Corrective & Preventive Action">Corrective & Preventive Action</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Corrective & Preventive Action">Corrective & Preventive Action</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="initiated_through" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
-                        
-                       
-                       
+                            </div>
+                        </div>
+
+
+
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Inv Attachments">Details of Equipment Rectification</label>
@@ -1018,19 +1023,19 @@
 
 
                         <div class="sub-head">
-                        Post Implementation of CAPA
-                    </div>
-                       
-                    <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="CAPA Post Implementation Comments">CAPA Post Implementation Comments</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
-                                    </textarea>
-                                    </div>
-                                </div>
+                            Post Implementation of CAPA
+                        </div>
 
-                        
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="CAPA Post Implementation Comments">CAPA Post Implementation Comments</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="initiated_through" id="summernote-1">
+                                    </textarea>
+                            </div>
+                        </div>
+
+
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Inv Attachments">CAPA Post Implementation Attachement</label>
@@ -1048,9 +1053,10 @@
 
                     </div>
                     <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="submit" class="saveButton">Save</button>
+
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
                     </div>
@@ -1065,11 +1071,11 @@
                     <div class="row">
 
                         <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Short Description">Closure Comments
+                            <div class="group-input">
+                                <label for="Short Description">Closure Comments
                                     <input id="docname" type="text" name="short_description">
-                                </div>
                             </div>
+                        </div>
 
                         <div class="col-6">
                             <div class="group-input">
@@ -1084,33 +1090,34 @@
                             </div>
                         </div>
                         <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Short Description">Document Code
+                            <div class="group-input">
+                                <label for="Short Description">Document Code
                                     <input id="docname" type="text" name="Document_Code">
-                                </div>
                             </div>
+                        </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Short Description">Remarks
+                        <div class="col-6">
+                            <div class="group-input">
+                                <label for="Short Description">Remarks
                                     <input id="docname" type="text" name="Remarks">
-                                </div>
                             </div>
+                        </div>
 
-                            <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Immediate Corrective Action">Immediate Corrective Action</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Immediate Corrective Action">Immediate Corrective Action</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="initiated_through" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
-                       
+                            </div>
+                        </div>
+
                     </div>
                     <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="submit" class="saveButton">Save</button>
+
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
                     </div>
@@ -1119,20 +1126,20 @@
             <div id="CCForm8" class="inner-block cctabcontent">
                 <div class="inner-block-content">
                     <div class="sub-head">
-                  HOD Review
+                        HOD Review
                     </div>
                     <div class="row">
 
-                    <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="HOD Remarks">HOD Remarks</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="HOD Remarks">HOD Remarks</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="initiated_through" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
-                      
-                        
+                            </div>
+                        </div>
+
+
 
                         <div class="col-12">
                             <div class="group-input">
@@ -1148,31 +1155,32 @@
                         </div>
 
                         <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Root Cause Analysis">Root Cause Analysis</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                            <div class="group-input">
+                                <label for="Root Cause Analysis">Root Cause Analysis</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="initiated_through" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
-                      
-                                <div class="col-md-12 mb-3">
-                                    <div class="group-input">
-                                        <label for="Impact Assessment">Impact Assessment</label>
-                                        <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
-                                        <textarea class="summernote" name="initiated_through" id="summernote-1">
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <div class="group-input">
+                                <label for="Impact Assessment">Impact Assessment</label>
+                                <div><small class="text-primary">Please insert "NA" in the data field if it does not require completion</small></div>
+                                <textarea class="summernote" name="initiated_through" id="summernote-1">
                                     </textarea>
-                                    </div>
-                                </div>
-                    
-                        
+                            </div>
+                        </div>
+
+
 
 
                     </div>
                     <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="submit" class="saveButton">Save</button>
+
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
                     </div>
@@ -1180,114 +1188,115 @@
             </div>
             <div id="CCForm9" class="inner-block cctabcontent">
                 <div class="inner-block-content">
-                    
+
                     <div class="row">
-                        
-
-                        
-                    <div class="sub-head">
-                        Activity Log
-                    </div>
 
 
-                    <div class="col-lg-6">
+
+                        <div class="sub-head">
+                            Activity Log
+                        </div>
+
+
+                        <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator Group">Submit By : </label>
-                                
+
                             </div>
                         </div>
 
                         <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="OOC Logged On">Submit On : </label>
-
-                                   
+                            <div class="group-input input-date">
+                                <label for="OOC Logged On">Submit On : </label>
 
 
-                                </div>
+
+
                             </div>
+                        </div>
 
 
-                            
-                    <div class="col-lg-6">
+
+                        <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator Group">HOD Review Completed By : </label>
-                               
+
                             </div>
                         </div>
 
                         <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="OOC Logged On">HOD Review Completed On :</label>
-
-                                 
+                            <div class="group-input input-date">
+                                <label for="OOC Logged On">HOD Review Completed On :</label>
 
 
-                                </div>
+
+
                             </div>
+                        </div>
 
-                            
-                    <div class="col-lg-6">
+
+                        <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator Group">QA Initial Review Completed By :</label>
-                              
+
                             </div>
                         </div>
 
                         <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="OOC Logged On">QA Initial Review Completed On : </label>
-
-                                   
+                            <div class="group-input input-date">
+                                <label for="OOC Logged On">QA Initial Review Completed On : </label>
 
 
-                                </div>
+
+
                             </div>
+                        </div>
 
-                            
-                    <div class="col-lg-6">
+
+                        <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator Group">QA Final Review Completed By : </label>
-                                
+
                             </div>
                         </div>
 
                         <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="OOC Logged On">QA Final Review Completed On : </label>
-
-                               
+                            <div class="group-input input-date">
+                                <label for="OOC Logged On">QA Final Review Completed On : </label>
 
 
-                                </div>
+
+
                             </div>
+                        </div>
 
-                            
-                    <div class="col-lg-6">
+
+                        <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator Group">Closure Done By : </label>
-                               
+
                             </div>
                         </div>
 
                         <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="OOC Logged On">Closure Done On : </label>
-
-                                    
+                            <div class="group-input input-date">
+                                <label for="OOC Logged On">Closure Done On : </label>
 
 
-                                </div>
+
+
                             </div>
+                        </div>
 
-                            
-                        
+
+
 
 
                     </div>
                     <div class="button-block">
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="submit" class="saveButton">Save</button>
+                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
+
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
                     </div>
