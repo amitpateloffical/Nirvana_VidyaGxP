@@ -300,7 +300,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Related URLs">Related URLs</label>
                                     <select name="Related_URLs" onchange="">
