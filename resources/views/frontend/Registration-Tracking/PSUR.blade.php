@@ -237,7 +237,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Product Information</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Manufacture Details</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Registration Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Signature</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Signatures</button>
 
         </div>
 
