@@ -55,13 +55,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Initiator</b></label>
-                                    <input type="text" name="Initiator" value="">
+                                    <input disabled type="text" name="Initiator" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
-                                    <input type="date" name="Date Opened" value="">
+                                    <input type="date" disabled name="Date Opened" value="">
 
                                 </div>
                             </div>
@@ -367,9 +367,9 @@
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
 
                                             <td><input type="text" name="ProductName[]"></td>
-                                            <td><input type="date" name="BatchNumber[]"></td>
+                                            <td><input type="text" name="BatchNumber[]"></td>
                                             <td><input type="date" name="ExpiryDate[]"></td>
-                                            <td><input type="text" name="ManufacturedDate[]"></td>
+                                            <td><input type="date" name="ManufacturedDate[]"></td>
                                             <td><input type="text" name="Disposition[]"></td>
                                             <td><input type="text" name="Comment[]"></td>
                                             <td><input type="text" name="Remarks[]"></td>
@@ -726,9 +726,9 @@
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                     '<td><input type="text" name="ProductName[]"></td>' +
-                    '<td><input type="date" name="BatchNumber[]"></td>' +
+                    '<td><input type="text" name="BatchNumber[]"></td>' +
                     '<td><input type="date" name="ExpiryDate[]"></td>' +
-                    '<td><input type="text" name="ManufacturedDate[]"></td>' +
+                    '<td><input type="date" name="ManufacturedDate[]"></td>' +
                     '<td><input type="text" name="Disposition[]"></td>' +
                     '<td><input type="text" name="Comment[]"></td>' +
                     '<td><input type="text" name="Remarks[]"></td>'+

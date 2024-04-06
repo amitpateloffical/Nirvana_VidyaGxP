@@ -52,13 +52,13 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Originator"><b>Originator</b></label>
+                                    <label for="Originator"><b>Initiator</b></label>
                                     <input disabled type="text" name="Originator" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date Opened</b></label>
+                                    <label for="Division Code"><b>Date of Initiation</b></label>
                                     <input disabled type="date" name="Date Opened" value="">
                                     <input type="hidden" name="division_id" value="">
                                 </div>
@@ -233,7 +233,7 @@
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
                                             <td><input type="text" name="IDnumber[]"></td>
                                             <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                            <td><input type="date" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name="Remarks[]"></td>
@@ -571,8 +571,8 @@
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
                                             <td><input type="text" name="IDnumber[]"></td>
                                             <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                            <td><input type="date" name=""></td>
+                                            <td><input type="date" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
@@ -699,13 +699,13 @@
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
                                             <td><input type="text" name="IDnumber[]"></td>
                                             <td><input type="text" name=""></td>
+                                            <td><input type="date" name=""></td>
+                                            <td><input type="date" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                            <td><input type="date" name=""></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                         </tbody>
@@ -1038,8 +1038,9 @@
                         </div>
 
                         <div class="button-block">
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                           
                             <button type="submit" class="saveButton">Save</button>
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
@@ -1168,6 +1169,7 @@
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="date" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
@@ -1193,13 +1195,13 @@
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="date" name="[]"></td>' +
+                    '<td><input type="date" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="date" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '</tr>';
@@ -1227,6 +1229,7 @@
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
+                    
                     '</tr>';
 
                 return html;
@@ -1249,8 +1252,8 @@
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="date" name="[]"></td>' +
+                    '<td><input type="date" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +

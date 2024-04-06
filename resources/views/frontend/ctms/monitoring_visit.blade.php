@@ -35,6 +35,7 @@
                     '<td><input type="date" name="SentDate[]"></td>' +
                     '<td><input type="date" name="ReturnDate[]"></td>' +
                     '<td><input type="text" name="Comment[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
 
                     '</tr>';
@@ -73,6 +74,7 @@
                     '<td><input type="date" name="ManufacturedDate[]"></td>' +
                     '<td><input type="text" name="Disposition[]"></td>' +
                     '<td><input type="text" name="Comment[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
 
                     '</tr>';
@@ -113,6 +115,7 @@
                     '<td><input type="number" name="NumberOfItemsNeeded[]"></td>' +
                     '<td><input type="text" name="Exist[]"></td>' +
                     '<td><input type="text" name="Comment[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
 
                     '</tr>';
@@ -173,13 +176,13 @@
                                 <input type="hidden" name="ccId" value="{{ $cc->id }}">
                                 @endif
                                 <div class="group-input">
-                                    <label for="originator">Originator</label>
+                                    <label for="originator">Initiator</label>
                                     <input disabled type="text" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Date Opened">Date Opened</label>
+                                    <label for="Date Opened">Date of Initiator</label>
                                     {{-- <div class="static">{{ date('d-M-Y') }}
                                 </div> --}}
                                 <input disabled type="text" value="" name="intiation_date">
@@ -205,6 +208,7 @@
                         <div class="col-md-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="due-date">Due Date <span class="text-danger"></span></label>
+                                <p class="text-primary">Please mention expected date of completion</p>
                                 <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                             value="" name="due_date"> -->
                                 <div class="calenderauditee">
@@ -470,6 +474,8 @@
                                             <th style="width: 16%"> Sent Date</th>
                                             <th style="width: 16%"> Return Date</th>
                                             <th style="width: 16%"> Comment</th>
+                                            <th style="width: 16%"> Remarks</th>
+
 
 
                                         </tr>
@@ -482,6 +488,7 @@
                                         <td><input type="date" name="SentDate[]"></td>
                                         <td><input type="date" name="ReturnDate[]"></td>
                                         <td><input type="text" name="Comment[]"></td>
+                                        <td><input type="text" name="Remarks[]"></td>
 
                                     </tbody>
 
@@ -508,6 +515,7 @@
                                             <th style="width: 16%"> Manufactured Date</th>
                                             <th style="width: 16%"> Disposition</th>
                                             <th style="width: 16%"> Comment</th>
+                                            <th style="width: 16%"> Remarks</th>
 
 
                                         </tr>
@@ -520,6 +528,7 @@
                                         <td><input type="date" name="ManufacturedDate[]"></td>
                                         <td><input type="text" name="Disposition[]"></td>
                                         <td><input type="text" name="Comment[]"></td>
+                                        <td><input type="text" name="Remarks[]"></td>
 
                                     </tbody>
 
@@ -570,6 +579,8 @@
                                             <th style="width: 8%"> Number of Items Needed</th>
                                             <th style="width: 16%"> Exist</th>
                                             <th style="width: 16%"> Comment</th>
+                                            <th style="width: 16%"> Remarks</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -581,6 +592,7 @@
                                         <td><input type="number" name="NumberOfItemsNeeded[]"></td>
                                         <td><input type="text" name="Exist[]"></td>
                                         <td><input type="text" name="Comment[]"></td>
+                                        <td><input type="text" name="Remarks[]"></td>
 
                                     </tbody>
 

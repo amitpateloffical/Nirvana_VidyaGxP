@@ -27,12 +27,12 @@
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                     '<td><input type="text" name="ProductName[]"></td>' +
-                    '<td><input type="text" name="BatchNumber[]"></td>' +
-                    '<td><input type="text" name="ExpiryDate[]"></td>' +
+                    '<td><input type="number" name="BatchNumber[]"></td>' +
+                    '<td><input type="date" name="ExpiryDate[]"></td>' +
                     '<td><input type="text" name="UnitsReceived[]"></td>' +
                     '<td><input type="text" name="UnitsDispensed[]"></td>' +
                     '<td><input type="text" name="UnitsDestroyed[]"></td>' +
-                    '<td><input type="text" name="ManufacturedDate[]"></td>' +
+                    '<td><input type="date" name="ManufacturedDate[]"></td>' +
                     '<td><input type="text" name="Strength[]"></td>' +
                     '<td><input type="text" name="Form[]"></td>' +
                     '<td><input type="text" name="Remarks[]"></td>' +
@@ -56,10 +56,10 @@
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                     '<td><input type="text" name="Product_Name[]"></td>' +
-                    '<td><input type="text" name="Batch_Number[]"></td>' +
-                    '<td><input type="text" name="Expiry_Date[]"></td>' +
-                    '<td><input type="text" name="Manufactured_Date[]"></td>' +
-                    '<td><input type="text" name="Number_of_Items_Needed[]"></td>' +
+                    '<td><input type="number" name="Batch_Number[]"></td>' +
+                    '<td><input type="date" name="Expiry_Date[]"></td>' +
+                    '<td><input type="date" name="Manufactured_Date[]"></td>' +
+                    '<td><input type="number" name="Number_of_Items_Needed[]"></td>' +
                     '<td><input type="text" name="Exist[]"></td>' +
                     '<td><input type="text" name="Comment[]"></td>' +
                     '<td><input type="text" name="Remarks[]"></td>' +
@@ -85,7 +85,7 @@
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                     '<td><input type="text" name="Transaction[]"></td>' +
                     '<td><input type="text" name="Transaction_Type[]"></td>' +
-                    '<td><input type="text" name="Date[]"></td>' +
+                    '<td><input type="date" name="Date[]"></td>' +
                     '<td><input type="text" name="Amount[]"></td>' +
                     '<td><input type="text" name="Currency_Used[]"></td>' +
                     '<td><input type="text" name="Remarks[]"></td>' +
@@ -121,23 +121,23 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="group-input">
-                            <label for="CTMS originator"><b>Originator</b></label>
-                            <input type="text" name="originator" value="">
+                            <label for="CTMS originator"><b>Initiator</b></label>
+                            <input type="text" disabled name="originator" value="">
                         </div>
                     </div>
                     <div class="col-md-6 new-date-data-field">
                         <div class="group-input input-date">
-                            <label for="opened-date">Date Opened<span class="text-danger"></span></label>
+                            <label for="opened-date">Date of Initiation<span class="text-danger"></span></label>
                             <div class="calenderauditee">
-                                <input type="text" id="opened_date" placeholder="DD-MMM-YYYY" />
-                                <input type="date" name="opened_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'opened_date')" />
+                                <input type="text" disabled id="opened_date" placeholder="DD-MMM-YYYY" />
+                                <input type="date" disabled name="opened_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'opened_date')" />
                             </div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="group-input">
                             <label for="Short Description">Short Description<span class="text-danger">*</span></label>
-                            <div><small class="text-primary">Short description to be represented on desktop</small></div>
+                            <div><small >255 characters remaining</small></div>
                             <input id="short-description" type="text" name="short_description" maxlength="255" required>
                         </div>
                     </div>
@@ -158,7 +158,7 @@
                     <div class="col-md-6 new-date-data-field">
                         <div class="group-input input-date">
                             <label for="due-date">Due Date <span class="text-danger"></span></label>
-                            <div><small class="text-primary text-danger">6 Last date this record should be closed by</small></div>
+                            <div><small class="text-primary">Please mention expected date of completion</small></div>
                             <div class="calenderauditee">
                                 <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                 <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
@@ -266,12 +266,12 @@
                                 <tbody>
                                     <td><input disabled type="text" name="serial[]" value="1"></td>
                                     <td><input type="text" name="ProductName[]"></td>
-                                    <td><input type="text" name="BatchNumber[]"></td>
-                                    <td><input type="text" name="ExpiryDate[]"></td>
+                                    <td><input type="number" name="BatchNumber[]"></td>
+                                    <td><input type="date" name="ExpiryDate[]"></td>
                                     <td><input type="text" name="UnitsReceived[]"></td>
                                     <td><input type="text" name="UnitsDispensed[]"></td>
                                     <td><input type="text" name="UnitsDestroyed[]"></td>
-                                    <td><input type="text" name="ManufacturedDate[]"></td>
+                                    <td><input type="date" name="ManufacturedDate[]"></td>
                                     <td><input type="text" name="Strength[]"></td>
                                     <td><input type="text" name="Form[]"></td>
                                     <td><input type="text" name="Remarks[]"></td>
@@ -345,8 +345,8 @@
                                     <td><input disabled type="text" name="serial[]" value="1"></td>
                                     <td><input type="text" name="Product_Name[]"></td>
                                     <td><input type="text" name="Batch_Number[]"></td>
-                                    <td><input type="text" name="Expiry_Date[]"></td>
-                                    <td><input type="text" name="Manufactured_Date[]"></td>
+                                    <td><input type="date" name="Expiry_Date[]"></td>
+                                    <td><input type="date" name="Manufactured_Date[]"></td>
                                     <td><input type="text" name="Number_of_Items_Needed[]"></td>
                                     <td><input type="text" name="Exist[]"></td>
                                     <td><input type="text" name="Comment[]"></td>
@@ -793,7 +793,7 @@
                                     <td><input disabled type="text" name="serial[]" value="1"></td>
                                     <td><input type="text" name="Transaction[]"></td>
                                     <td><input type="text" name="Transaction_Type[]"></td>
-                                    <td><input type="text" name="Date[]"></td>
+                                    <td><input type="date" name="Date[]"></td>
                                     <td><input type="text" name="Amount[]"></td>
                                     <td><input type="text" name="Currency_Used[]"></td>
                                     <td><input type="text" name="Remarks[]"></td>
