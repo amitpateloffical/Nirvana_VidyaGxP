@@ -184,6 +184,8 @@ Route::post('child/{id}',[RiskManagementController::class,'child'])->name('riskA
 
 
 // ======================================================
+// =================QRM fORM=====================================
+Route::view('qrm', 'frontend.QRM.qrm');
 
 
 // ====================================root cause analysis=======================
@@ -411,6 +413,8 @@ Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
 Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
 Route::view('GCP_study', 'frontend.new_forms.GCP_study');
 Route::view('calibration', 'frontend.new_forms.calibration');
+Route::view('self-inspection', 'frontend.new_forms.self-inspection');
+
 
 
 // ------------------------------R T Form--------------------//
