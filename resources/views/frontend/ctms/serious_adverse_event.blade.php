@@ -52,7 +52,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>Originator</b></label>
+                                    <label for="RLS Record Number"><b>Initiator</b></label>
                                     <input disabled type="text" name="" value="">
 
                                 </div>
@@ -72,12 +72,12 @@
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date"> Date Opened <span class="text-danger"></span></label>
+                                    <label for="due-date">Date of Initiation<span class="text-danger"></span></label>
                                     <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                             value="" name="due_date"> -->
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" />
+                                        <input type="text" disabled id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input disabled type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" />
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +103,8 @@
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Due Date <span class="text-danger"></span></label>
+                                    <label for="due-date">Due Date<span class="text-danger"></span></label>
+                                    <p class="text-primary">Please mention expected date of completion</p>
                                     <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                             value="" name="due_date"> -->
                                     <div class="calenderauditee">
@@ -449,6 +450,7 @@
                                                 <th style="width: 15%">Manufactured Date</th>
                                                 <th style="width: 15%">Disposition </th>
                                                 <th style="width: 15%">Comment</th>
+                                                <th style="width: 15%">Remarks</th>
 
                                             </tr>
                                         </thead>
@@ -461,6 +463,7 @@
                                             <td><input type="date" name="ManufacturedDate[]"></td>
                                             <td><input type="text" name="Disposition[]"></td>
                                             <td><input type="text" name="Comment[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
 
 
                                         </tbody>
@@ -568,7 +571,9 @@
                             </div>
                             <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
+                            
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>
                             </div>
@@ -583,7 +588,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="cancelled by">Closed By</label>
-                                        <input />
+                                        <div class="static"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -706,6 +711,7 @@
                          '<td><input type="date" name="ManufacturedDate[]"></td>'+
                         '<td><input type="text" name="Disposition[]"></td>'+
                          '<td><input type="text" name="Comment[]"></td>'+
+                         '<td><input type="text" name="Remarks[]"></td>'+
                         '</tr>';
 
                     // for (var i = 0; i < users.length; i++) {

@@ -91,7 +91,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -237,13 +237,13 @@
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="IDnumber[]"></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                            <td><input type="text" name="ProductName[]"></td>
+                                            <td><input type="text" name="BatchNumber[]"></td>
+                                            <td><input type="date" name="ExpiryDate"></td>
+                                            <td><input type="date" name="ManufacturedDate[]"></td>
+                                            <td><input type="text" name="Disposition[]"></td>
+                                            <td><input type="text" name="Comments[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
                                         </tbody>
 
                                     </table>
@@ -573,13 +573,13 @@
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="IDnumber[]"></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                            <td><input type="text" name="Transaction[]"></td>
+                                            <td><input type="text" name="TransactionType[]"></td>
+                                            <td><input type="date" name="Date[]"></td>
+                                            <td><input type="number" name="Amount[]"></td>
+                                            <td><input type="text" name="Currency Used[]"></td>
+                                            <td><input type="text" name="Comments[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
                                         </tbody>
 
                                     </table>
@@ -847,8 +847,9 @@
                             </div>
 
                             <div class="button-block">
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                              
                                 <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>
                             </div>
@@ -928,13 +929,13 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="text" name="ProductName[]"></td>' +
+                    '<td><input type="text" name="BatchNumber[]"></td>' +
+                    '<td><input type="date" name="ExpiryDate[]"></td>' +
+                    '<td><input type="date" name="ManufacturedDate[]"></td>' +
+                    '<td><input type="text" name="Disposition[]"></td>' +
+                    '<td><input type="text" name="Comments[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
                     '</tr>';
 
                 return html;
@@ -955,13 +956,13 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="text" name="Transaction[]"></td>' +
+                    '<td><input type="text" name="TransactionType[]"></td>' +
+                    '<td><input type="date" name="Date[]"></td>' +
+                    '<td><input type="number" name="Amount[]"></td>' +
+                    '<td><input type="text" name="CurrencyUsed[]"></td>' +
+                    '<td><input type="text" name="Comments[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
                     '</tr>';
 
                 return html;
@@ -980,13 +981,14 @@
             function generateTableRow(serialNumber) {
 
                 var html =
-                    '<tr>' +
+                '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="text" name="IngredientType[]"></td>' +
+                    '<td><input type="text" name="IngredientName[]"></td>' +
+                    '<td><input type="text" name="IngredientStrength[]"></td>' +
+                    '<td><input type="text" name="Comments[]"></td>' +
+
+                    '<td><input type="text" name="Remarks[]"></td>' +
                     '</tr>';
 
                 return html;

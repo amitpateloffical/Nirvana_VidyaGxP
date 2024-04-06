@@ -53,7 +53,7 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>Originator</b></label>
+                                    <label for="RLS Record Number"><b>Initiator</b></label>
                                     <input disabled type="text" name="" value="">
 
                                 </div>
@@ -84,6 +84,7 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date"> Date Due <span class="text-danger"></span></label>
+                                    <p class="text-primary">Please mention expected date of completion</p>
                                     <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                             value="" name="due_date"> -->
                                     <div class="calenderauditee">
@@ -94,12 +95,12 @@
                             </div>
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date"> Date Opened<span class="text-danger"></span></label>
+                                    <label for="due-date">Date of Initiation<span class="text-danger"></span></label>
                                     <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                             value="" name="due_date"> -->
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" />
+                                        <input type="text" disabled id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" disabled name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" />
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +110,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Root Parent) Trade Name</b></label>
-                                    <input disabled type="text" name="" value="">
+                                    <input  type="text" name="" value="">
                                 </div>
                             </div>
 
@@ -130,7 +131,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Subject Name</b></label>
-                                    <input disabled type="text" name="" value="">
+                                    <input  type="text" name="" value="">
                                 </div>
                             </div>
 
@@ -149,7 +150,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Date Of Birth</b></label>
-                                    <input disabled type="date" name="" value="">
+                                    <input  type="date" name="" value="">
                                 </div>
                             </div>
 
@@ -263,6 +264,7 @@
                                                 <th style="width: 15%">Returned Date</th>
                                                 <th style="width: 15%">Data Collection Method </th>
                                                 <th style="width: 15%">Comment</th>
+                                                <th style="width: 15%">Remarks</th>
 
                                             </tr>
                                         </thead>
@@ -275,6 +277,7 @@
                                             <td><input type="date" name="ReturnedDate[]"></td>
                                             <td><input type="text" name="Data Collection Method[]"></td>
                                             <td><input type="text" name="Comment[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
 
 
                                         </tbody>
@@ -338,6 +341,7 @@
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
@@ -367,8 +371,9 @@
 
                         </div>
                         <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="submit" class="saveButton">Save</button>
+                           
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
@@ -476,6 +481,8 @@
                     '<td><input type="date" name="SentDate[]"></td>' +
                     '<td><input type="date" name="ReturnedDate[]"></td>' +
                     '<td><input type="text" name="Comment[]"></td>' +
+                    '<td><input type="text" name="Comment[]"></td>' +
+                    '<td><input type="text" name="Comment[]"></td>' +
 
                     '</tr>';
 
@@ -511,7 +518,7 @@
                     '<td><input type="date" name="SentDate[]"></td>' +
                     '<td><input type="date" name="ReturnedDate[]"></td>' +
                     '<td><input type="text" name="Data Collection Method[]"></td>' +
-                    '<td><input type="text" name="Comment[]"></td>' +
+                    
 
                     '</tr>';
 

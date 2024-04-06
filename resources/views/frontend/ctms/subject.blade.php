@@ -54,13 +54,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Initiator</b></label>
-                                    <input type="text" name="Initiator" value="">
+                                    <input disabled type="text" name="Initiator" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
-                                    <input type="date" name="Date Opened" value="">
+                                    <input type="date" disabled name="Date Opened" value="">
 
                                 </div>
                             </div>
@@ -69,6 +69,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span></label>
+                                    <p>255 characters remaining</p>
                                     <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
