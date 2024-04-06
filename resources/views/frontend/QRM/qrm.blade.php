@@ -13,19 +13,15 @@
 <div class="form-field-head">
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        {{ Helpers::getDivisionName(session()->get('division')) }} / Root Cause Analysis
-        {{-- KSA / Root Cause Analysis   --}}
-        {{-- EHS-North America --}}
+        / Quality Risk Management
     </div>
 </div>
 
-@php
-$users = DB::table('users')->get();
-@endphp
 
-{{-- ======================================
-                    DATA FIELDS
-    ======================================= --}}
+
+{{-- ! ========================================= --}}
+{{-- !               DATA FIELDS                 --}}
+{{-- ! ========================================= --}}
 <div id="change-control-fields">
     <div class="container-fluid">
 
@@ -33,52 +29,52 @@ $users = DB::table('users')->get();
         <div class="cctab">
 
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Investigation</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Investigation & Root Cause</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">QA Review</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Investigation & Quality Risk Management</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">QA Review</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
 
-            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
         </div>
 
-        <form action="{{ route('root_store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
-                <!--Investigation-->
-
+                @if (!empty($parent_id))
+                <input type="hidden" name="parent_id" value="{{ $parent_id }}">
+                <input type="hidden" name="parent_type" value="{{ $parent_type }}">
+                @endif
+                <!-- Tab content -->
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Record Number</b></label>
-                                    <input disabled type="text" name="record_number" value="{{ Helpers::getDivisionName(session()->get('division')) }}/RCA/{{ date('Y') }}/{{ $record_number }}">
-
+                                    <input disabled type="text" name="record_number" value="">
                                 </div>
                             </div>
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code </b></label>
-                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
-                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
-                                    {{-- <div class="static">QMS-North America</div> --}}
+                                    <input readonly type="text" name="division_code" value="">
+                                    <input type="hidden" name="division_id" value="">
                                 </div>
                             </div>
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="originator">Initiator</label>
-                                    <input readonly type="text" name="originator_id" value="{{ Auth::user()->name }}" />
+                                    <label for="RLS Record Number"><b>Initiator</b></label>
+                                    <input disabled type="text" name="record_number" value="">
+
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
-                                <div class="group-input ">
-                                    <label for="Date Due"><b>Date of Initiation</b></label>
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                    <input type="hidden" value="{{ date('d-m-Y') }}" name="intiation_date">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Date Of Initiation</b></label>
+                                    <input disabled type="date" name="division_code" value="">
+                                    <input type="hidden" name="division_id" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -157,13 +153,10 @@ $users = DB::table('users')->get();
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
-                                        @foreach ($users as $value)
-                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                        @endforeach
+                                        <option value=""></option>
                                     </select>
-                                    @error('assign_to')
-                                    <p class="text-danger">{{ $message }}</p>
-                                    @enderror
+                                    <p class="text-danger"></p>
+
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
@@ -172,13 +165,9 @@ $users = DB::table('users')->get();
                                     <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="date" name="due_date" min="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
 
-                                    {{-- <input type="hidden" value="{{ $due_date }}" name="due_date">
-                                    <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}"> --}}
-                                    {{-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                    value="" name="due_date"> --}}
                                 </div>
                             </div>
 
@@ -236,20 +225,7 @@ $users = DB::table('users')->get();
                                     </select>
                                 </div>
                             </div>
-                            {{-- <div class="col-lg-6"> --}}
-                            {{-- <div class="group-input">
-                                        <label for="investigators">Additional Investigators</label>
-                                        <select  name="investigators" placeholder="Select Investigators"
-                                            data-search="false" data-silent-initial-value-set="true" id="investigators">
-                                            <option value="">Select Investigators</option>
-                                            <option value="1">Amit Guru</option>
-                                            <option value="2">Shaleen Mishra</option>
-                                            <option value="3">Madhulika Mishra</option>
-                                            <option value="4">Amit Patel</option>
-                                            <option value="5">Harsh Mishra</option>
-                                        </select>
-                                    </div> --}}
-                            {{-- </div> --}}
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="department">Department(s)</label>
@@ -293,17 +269,7 @@ $users = DB::table('users')->get();
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="severity-level">Sevrity Level</label>
-                                        <select name="severity-level">
-                                            <option value="0">-- Select --</option>
-                                            <option value="minor">Minor</option>
-                                            <option value="major">Major</option>
-                                            <option value="critical">Critical</option>
-                                        </select>
-                                    </div>
-                                </div> --}}
+
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="related_url">Related URL</label>
@@ -312,9 +278,10 @@ $users = DB::table('users')->get();
                             </div>
                         </div>
                         <div class="button-block">
-                            <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                            <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
-                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white"> Exit </a> </button>
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
+                                    Exit </a> </button>
                         </div>
                     </div>
                 </div>
@@ -325,18 +292,19 @@ $users = DB::table('users')->get();
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="root-cause-methodology">Root Cause Methodology</label>
-                                    <select name="root_cause_methodology[]" multiple placeholder="-- Select --" data-search="false" data-silent-initial-value-set="true" id="root-cause-methodology">
-                                        <option value="1">Why-Why Chart</option>
-                                        <option value="2">Failure Mode and Efect Analysis</option>
-                                        <option value="3">Fishbone or Ishikawa Diagram</option>
-                                        <option value="4">Is/Is Not Analysis</option>
+                                    <select name="root_cause_methodology[]" multiple placeholder="-- Select --" data-search="false" data-silent-initial-value-set="true" id="root-cause-methodology_qrm">
+                                        <option value="11">Why-Why Chart</option>
+                                        <option value="22">Failure Mode and Efect Analysis</option>
+                                        <option value="33">Fishbone or Ishikawa Diagram</option>
+                                        <option value="44">Is/Is Not Analysis</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="root_cause">
-                                        Root Cause
+                                        QRM Cause
                                         <button type="button" onclick="add4Input('root-cause-first-table')">+</button>
                                     </label>
                                     <div class="table-responsive">
@@ -362,6 +330,7 @@ $users = DB::table('users')->get();
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12 sub-head"></div>
                             <div class="col-12 mb-4">
                                 <div class="group-input">
@@ -404,6 +373,7 @@ $users = DB::table('users')->get();
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12 sub-head"></div>
                             <div class="col-12">
                                 <div class="group-input">
@@ -456,6 +426,7 @@ $users = DB::table('users')->get();
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12 sub-head"></div>
                             <div class="col-12">
                                 <div class="group-input">
@@ -535,6 +506,7 @@ $users = DB::table('users')->get();
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12 sub-head"></div>
                             <div class="col-12">
                                 <div class="group-input">
@@ -620,11 +592,12 @@ $users = DB::table('users')->get();
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12 sub-head"></div>
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="root_cause_description">Root Cause Description</label>
-                                    <textarea name="root_cause_description"></textarea>
+                                    <label for="qrm_description">QRM Description</label>
+                                    <textarea name="qrm_description"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -638,14 +611,15 @@ $users = DB::table('users')->get();
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white"> Exit </a> </button>
+                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
+                                    Exit </a> </button>
                         </div>
                     </div>
                 </div>
-                <div id="CCForm4" class="inner-block cctabcontent">
+
+                <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="comments">Final Comments</label>
@@ -669,90 +643,6 @@ $users = DB::table('users')->get();
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="comments">Final Attachment</label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small></div>
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="cft_attchament_new"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="cft_attchament_new[]"
-                                                    oninput="addMultipleFiles(this, 'cft_attchament_new')" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            {{-- <div class="row">
-                                <div class="sub-head">
-                                    Concerned Group Feedback
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="comments">QA Comments</label>
-                                        <textarea name="qa_comments_new"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="comments">QA Head Designee Comments</label>
-                                        <textarea name="designee_comments_new"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="comments">Warehouse Comments</label>
-                                        <textarea name="Warehouse_comments_new"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="comments">Engineering Comments</label>
-                                        <textarea name="Engineering_comments_new"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="comments">Instrumentation Comments</label>
-                                        <textarea name="Instrumentation_comments_new"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="comments">Validation Comments</label>
-                                        <textarea name="Validation_comments_new"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="comments">Others Comments</label>
-                                        <textarea name="Others_comments_new"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="comments">Group Comments</label>
-                                        <textarea name="Group_comments_new"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="group-attachments">Group Attachments</label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small></div>
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="group_attachments_new"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="group_attachments_new[]"
-                                                    oninput="addMultipleFiles(this, 'group_attachments_new')" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -762,10 +652,11 @@ $users = DB::table('users')->get();
 
                             </div>
                         </div>
+
                     </div>
                 </div>
 
-                <div id="CCForm3" class="inner-block cctabcontent">
+                <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="col-lg-6">
@@ -832,16 +723,20 @@ $users = DB::table('users')->get();
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="submit">Submit</button>
-                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white"> Exit </a> </button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
+                                    Exit </a> </button>
                         </div>
                     </div>
                 </div>
 
+
             </div>
-        </form>
 
     </div>
+    </form>
+
+</div>
 </div>
 
 <style>
@@ -856,7 +751,7 @@ $users = DB::table('users')->get();
 
 <script>
     VirtualSelect.init({
-        ele: '#investigators, #department, #root-cause-methodology'
+        ele: '#investigators, #department, #root-cause-methodology_qrm'
     });
 
     function openCity(evt, cityName) {
@@ -941,6 +836,27 @@ $users = DB::table('users')->get();
             currentStep--;
         }
     }
+</script>
+<script>
+    document.getElementById('initiator_group').addEventListener('change', function() {
+        var selectedValue = this.value;
+        document.getElementById('initiator_group_code').value = selectedValue;
+    });
+
+    function setCurrentDate(item) {
+        if (item == 'yes') {
+            $('#effect_check_date').val('{{ date('
+                d - M - Y ')}}');
+        } else {
+            $('#effect_check_date').val('');
+        }
+    }
+</script>
+<script>
+    document.getElementById('initiator_group').addEventListener('change', function() {
+        var selectedValue = this.value;
+        document.getElementById('initiator_group_code').value = selectedValue;
+    });
 </script>
 
 <script>
@@ -1047,27 +963,6 @@ $users = DB::table('users')->get();
     }
 </script>
 <script>
-    document.getElementById('initiator_group').addEventListener('change', function() {
-        var selectedValue = this.value;
-        document.getElementById('initiator_group_code').value = selectedValue;
-    });
-
-    function setCurrentDate(item) {
-        if (item == 'yes') {
-            $('#effect_check_date').val('{{ date('
-                d - M - Y ')}}');
-        } else {
-            $('#effect_check_date').val('');
-        }
-    }
-</script>
-<script>
-    document.getElementById('initiator_group').addEventListener('change', function() {
-        var selectedValue = this.value;
-        document.getElementById('initiator_group_code').value = selectedValue;
-    });
-</script>
-<script>
     document.addEventListener('DOMContentLoaded', function() {
         const removeButtons = document.querySelectorAll('.remove-file');
 
@@ -1084,7 +979,6 @@ $users = DB::table('users')->get();
         });
     });
 </script>
-
 <script>
     var maxLength = 255;
     $('#docname').keyup(function() {

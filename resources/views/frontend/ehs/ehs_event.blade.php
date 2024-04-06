@@ -347,15 +347,11 @@
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
-
                                             <td><input type="text" name="WitnessName[]"></td>
-                                            <td><input type="text" name="WitnessType[]"></td>ḍ
+                                            <td><input type="text" name="WitnessType[]"></td>
                                             <td><input type="text" name="ItemDescriptions[]"></td>
                                             <td><input type="text" name="Comments[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
-
-
-
+                                            <td><input type="text" name="Remarks[]"></td> 
                                         </tbody>
 
                                     </table>
@@ -427,8 +423,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Special Weather Conditions</label>
-                                    <select name="departments">
+                                    <label for="Special Weather Conditions">Special Weather Conditions</label>
+                                    <select name="Special_Weather_Conditions">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
@@ -449,8 +445,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department"></label>
-                                    <select name="departments">
+                                    <label for="Special Weather Conditions">Special Weather Conditions</label>
+                                    <select name="Special_Weather_Conditions">
                                         <option value="">Cause Of Release or Spill</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
@@ -460,8 +456,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department"></label>
-                                    <select name="departments">
+                                    <label for="Environment Evacuation Ordered">Environment Evacuation Ordered</label>
+                                    <select name="Environment_Evacuation_Ordered">
                                         <option value="">Environment Evacuation Ordered</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
@@ -1314,7 +1310,7 @@
             <div id="CCForm6" class="inner-block cctabcontent">
                 <div class="inner-block-content">
                     <div class="sub-head">
-                        Electronic Signatures
+                        Signatures
                     </div>
                     <div class="col-lg-6">
                         <div class="group-input">

@@ -155,6 +155,7 @@
                                                 <th style="width: 15%">Impact Of Risk</th>
                                                 <th style="width: 15%">Probability Of Occurence</th>
                                                 <th style="width: 15%">Composite Risk Index</th>
+                                                <th style="width: 12%">Action</th>
 
                                             </tr>
                                         </thead>
@@ -168,6 +169,7 @@
                                             <td><input type="text" name="ImpactOfRisk[]"></td>
                                             <td><input type="text" name="ProbabilityOfOccurence[]"></td>
                                             <td><input type="text" name="CompositeRiskIndex[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
 
                                         </tbody>
                                     </table>
@@ -233,8 +235,8 @@
 
 
                         <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="submit" class="saveButton">Save</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
@@ -395,6 +397,8 @@
                     '<td><input type="text" name="ImpactOfRisk[]"></td>' +
                     '<td><input type="text" name="ProbabilityOfOccurence[]"></td>' +
                     '<td><input type="text" name="CompositeRiskIndex[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>'+
+
                     '</tr>';
                 '</tr>';
 

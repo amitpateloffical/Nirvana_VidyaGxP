@@ -36,6 +36,7 @@
                     '<td><input type="text" name="root_couse_sub_category[]"></td>' +
                     '<td><input type="text" name="probability[]"></td>' +
                     '<td><input type="text" name="Comment[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
                     '</tr>';
 
                 // for (var i = 0; i < users.length; i++) {
@@ -299,7 +300,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Related URLs">Related URLs</label>
                                     <select name="Related_URLs" onchange="">
@@ -461,6 +462,7 @@
                                                     <th>Root Couse Sub Category</th>
                                                     <th>Probability</th>
                                                     <th>Comment</th>
+                                                    <th>Remarks</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -470,6 +472,7 @@
                                                 <td><input type="text" name="root_couse_sub_category[]"></td>
                                                 <td><input type="text" name="probability[]"></td>
                                                 <td><input type="text" name="Comment[]"></td>
+                                                <td><input type="text" name="Remarks[]"></td>
 
                                             </tbody>
                                         </table>
@@ -515,14 +518,13 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Completedon">Completed on </label>
-
-                                  
                                 </div>
                             </div>
                         </div>
                         <div class="button-block">
+                        <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="submit" class="saveButton">Save</button>
+                            
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
@@ -530,7 +532,6 @@
                 </div>
             </div>
         </form>
-
     </div>
 </div>
 

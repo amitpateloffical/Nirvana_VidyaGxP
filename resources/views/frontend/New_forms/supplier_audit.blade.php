@@ -7,7 +7,7 @@
 
     header {
         display: none;
-    } 
+    }
 </style>
 
 <script>
@@ -22,6 +22,7 @@
 
 
                     '<td><input type="date" name="Date[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
 
 
@@ -91,10 +92,10 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
 
-                                    
-                                    <label for="RLS Record Number" ><b>Initiator</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <label for="RLS Record Number"><b>Initiator</b></label>
+
+                                    <input type="text" disabled name="record_number" value="">
 
 
                                 </div>
@@ -102,7 +103,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date of Initiation</b></label>
-                                   
+
                                     <input disabled type="date" name="division_code" value="">
 
                                 </div>
@@ -112,17 +113,17 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span>
-                                        <p >255 characters remaining </p>
+                                        <p>255 characters remaining </p>
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label  for="search">
+                                    <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                   
+
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
@@ -225,6 +226,9 @@
                                     <label for="Responsible Department">Year</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -245,29 +249,42 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Attached File</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
+                                    <label for="Audit Attachments">File Attachments</label>
+                                    <small class="text-primary">
+                                        Please Attach all relevant or supporting documents
+                                    </small>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="pt-3 col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related URL</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label  for="Responsible Department">Zone</label>
+                                    <label for="Responsible Department">Zone</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Country</b></label>
@@ -293,6 +310,9 @@
 
 
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -308,7 +328,7 @@
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -350,13 +370,13 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label  for="RLS Record Number"><b>CRO/Vendor</b></label>
+                                    <label for="RLS Record Number"><b>CRO/Vendor</b></label>
 
                                     <input type="text" name="record_number" value="">
 
                                 </div>
                             </div>
-                            <div class="col-lg-6 new-date-data-field">
+                            <div class="col-lg-12 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="start_date">Date response due</label>
                                     <div class="calenderauditee">
@@ -389,6 +409,7 @@
                                             <th style="width: 4%">Row#</th>
 
                                             <th style="width: 16%">Date</th>
+                                            <th style="width: 16%">Remarks</th>
 
                                         </tr>
                                     </thead>
@@ -397,6 +418,7 @@
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
 
                                             <td><input type="date" name="Date[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -455,25 +477,23 @@
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="sub-head">Audir Summary</div>
-                            <div class="col-6">
-                                <div class="group-input">
-
-                                    <label for="Division Code"><b>Actual start Date</b></label>
-
-                                    <input  type="date" name="division_code" value="">
-
-
+                            <div class="sub-head">Audit Summary</div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="start_date">Actual start Date</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="group-input">
-
-                                    <label for="Division Code"><b>Actual end Date</b></label>
-
-                                    <input  type="date" name="division_code" value="">
-
-
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="start_date">Actual end Date</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -482,11 +502,14 @@
                                     <textarea name="description"></textarea>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Audit Result</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -495,22 +518,29 @@
                         </div>
                         <div class="row">
                             <div class="sub-head"> Response Summary</div>
-                            <div class="col-6">
-                                <div class="group-input">
-
-                                    <label for="Division Code"><b>Date of Response</b></label>
-
-                                    <input  type="date" name="division_code" value="">
-
-
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="start_date">Date of Response</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Attached File</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
+                                    <label for="Audit Attachments">File Attachments</label>
+                                    <small class="text-primary">
+                                        Please Attach all relevant or supporting documents
+                                    </small>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -540,13 +570,15 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Scheduled by :</label>
-                                   
+                                    <div class="static"></div>
+
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Scheduled on :</b></label>
+                                    <div class="date"></div>
 
 
 
@@ -555,15 +587,17 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Issued by :</label>
-                                 
+                                    <div class="static"></div>
+
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Issued on :</b></label>
+                                    <div class="date"></div>
 
-                                   
+
 
 
                                 </div>
@@ -575,7 +609,7 @@
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                           
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
                         </div>
@@ -1196,12 +1230,3 @@
     });
 </script>
 @endsection
-
-
-
-
-
-
-
-
-

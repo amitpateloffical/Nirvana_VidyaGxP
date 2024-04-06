@@ -93,7 +93,7 @@
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" disabled name="record_number" value="">
 
 
                                 </div>
@@ -117,7 +117,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger"></span>
-                                    <p>255 characters remaining</p>
+                                        <p>255 characters remaining</p>
 
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
@@ -132,7 +132,10 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
-                                        <option value=""></option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
+
 
                                     </select>
 
@@ -192,26 +195,40 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Attached File</label>
-                                    <select name="departments">
-                                        <option value=""></option>
-                                    </select>
+                                    <label for="Audit Attachments">File Attachments</label>
+                                    <small class="text-primary">
+                                        Please Attach all relevant or supporting documents
+                                    </small>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-6 pt-2">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related URL</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related Records</label>
                                     <select name="departments">
-                                        <option value=""></option>
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -221,7 +238,7 @@
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                          
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -246,8 +263,8 @@
                                     </div>
                                 </div>
                             </div>
-                       
-                      
+
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -267,7 +284,10 @@
                                 <div class="group-input">
                                     <label for="Responsible Department">Send to external lab?</label>
                                     <select name="departments">
-                                        <option value=""></option>
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -277,7 +297,7 @@
                                     <textarea placeholder="" name="description"></textarea>
                                 </div>
                             </div>
-                           
+
                         </div>
 
 
@@ -285,7 +305,7 @@
 
 
 
-                       
+
                         <div class="row">
                             <div class="sub-head">Product Status Information</div>
                             <div class="col-lg-12">
@@ -300,7 +320,7 @@
                                     <textarea placeholder="" name="description"></textarea>
                                 </div>
                             </div>
-                           
+
 
                         </div>
 
@@ -317,19 +337,21 @@
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                         
+
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Victim">Submitted By :</label>
-                                   
+                                    <div class="static"></div>
+
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Submitted On :</b></label>
+                                    <div class="date"></div>
 
-                                 
+
 
 
                                 </div>
@@ -337,15 +359,17 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Victim">Product Released By :</label>
-                                 
+                                    <div class="static"></div>
+
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Product Released On :</b></label>
+                                    <div class="date"></div>
 
-                                   
+
 
 
                                 </div>
@@ -355,7 +379,7 @@
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                          
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
                         </div>

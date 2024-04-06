@@ -973,7 +973,7 @@
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head">
-                                Electronic Signatures
+                                Signatures
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">

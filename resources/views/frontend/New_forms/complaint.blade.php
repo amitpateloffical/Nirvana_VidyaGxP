@@ -1,6 +1,5 @@
 @extends('frontend.layout.main')
 @section('container')
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <style>
     textarea.note-codable {
         display: none !important;
@@ -82,9 +81,7 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         <option value=""></option>
-
                                     </select>
-
                                 </div>
                             </div>
 
@@ -196,8 +193,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Comments">Comments</label>
-                                    <!-- <textarea name="Comments" id="" cols="30" rows="3"></textarea> -->
-                                    <textarea id="summernote" name="summernote" class="summernote"></textarea>
+                                    <textarea name="Comments" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
 
@@ -325,7 +321,6 @@
                                             <td><input type="text" name=""></td>
                                             <td><input type="text" name=""></td>
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
@@ -1101,12 +1096,24 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Response_to_Customer">Demerit Points</label>
-                                    <div class="check_box">
-                                        <input type="radio" id="age2" name="age" value="">
-                                        <input type="radio" id="age2" name="age" value="">
-                                        <input type="radio" id="age2" name="age" value="">
+                                    <label for="Demerit Points">Demerit Points</label>
+                                </div>
+                                <div>
+                                    <div class="container">
+                                        <input type="radio" class="radio-input" name="option" value="option1">
+                                        <label class="radio-label">0-50</label>
                                     </div>
+
+                                    <div class="container">
+                                        <input type="radio" class="radio-input" name="option" value="option2">
+                                        <label class="radio-label">50-100</label>
+                                    </div>
+
+                                    <div class="container">
+                                        <input type="radio" class="radio-input" name="option" value="option3">
+                                        <label class="radio-label">100-150</label>
+                                    </div>
+                                    <a href="#" id="clearSelection">Clear Selection</a>
                                 </div>
                             </div>
 
@@ -1127,7 +1134,7 @@
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head">
-                                Electronic Signatures
+                                Signatures
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -1250,6 +1257,14 @@
             currentStep--;
         }
     }
+</script>
+<script>
+    document.getElementById('clearSelection').addEventListener('click', function() {
+        var radios = document.querySelectorAll('input[type="radio"]');
+        for (var i = 0; i < radios.length; i++) {
+            radios[i].checked = false;
+        }
+    });
 </script>
 <script>
     $(document).ready(function() {

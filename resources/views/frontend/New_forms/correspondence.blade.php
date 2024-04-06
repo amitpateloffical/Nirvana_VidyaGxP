@@ -25,6 +25,7 @@
                     '<td><input type="text" name="Responsible[]"></td>' +
                     '<td><input type="date" name="Deadline[]"></td>' +
                     '<td><input type="text" name="ItemStatus[]"></td>' +
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
 
 
@@ -72,7 +73,7 @@
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Correspondence</button>
 
 
-            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Signatures</button>
 
         </div>
 
@@ -100,7 +101,11 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
-                                        <option value=""></option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
+                                        <option value="">4</option>
+
 
                                     </select>
 
@@ -117,9 +122,9 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
 
-                                    <label for="RLS Record Number" ><b>Initiator</b></label>
+                                    <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" disabled name="record_number" value="">
 
 
                                 </div>
@@ -127,7 +132,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date of Initiation</b></label>
-                                
+
                                     <input disabled type="date" name="division_code" value="">
 
                                 </div>
@@ -137,21 +142,23 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span>
-                                        <p >255 charaters remaining</p>
+                                        <p>255 charaters remaining</p>
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label  for="search">
+                                    <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                   
+
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
-                                        <option value=""></option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
 
                                     </select>
 
@@ -191,13 +198,18 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Attached Files</label>
-                                    <select name="departments">
-                                        <option value=""></option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
+                                    <label for="Audit Attachments">File Attachments</label>
+                                    <small class="text-primary">
+                                        Please Attach all relevant or supporting documents
+                                    </small>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -211,7 +223,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Authority</label>
                                     <select name="departments">
@@ -232,11 +244,14 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Commitment Required?</label>
                                     <select name="departments">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -244,7 +259,7 @@
                         </div>
                         <div class="group-input">
                             <label for="audit-agenda-grid">
-                                Financial Transaction (0)
+                                Action Plan (0)
                                 <button type="button" name="audit-agenda-grid" id="ReferenceDocument">+</button>
                                 <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                     (open)
@@ -259,6 +274,7 @@
                                             <th style="width: 16%">Responsible</th>
                                             <th style="width: 16%">Deadline</th>
                                             <th style="width: 16%">Item Status</th>
+                                            <th style="width: 16%">Remarks</th>
 
                                         </tr>
                                     </thead>
@@ -269,6 +285,7 @@
                                             <td><input type="text" name="Responsible[]"></td>
                                             <td><input type="date" name="Deadline[]"></td>
                                             <td><input type="text" name="ItemStatus[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -290,8 +307,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Due to Authority</b></label>
-                                
-                                    <input  type="date" name="division_code" value="">
+
+                                    <input type="date" name="division_code" value="">
 
                                 </div>
                             </div>
@@ -299,16 +316,16 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Scheduled Start Date</b></label>
-                                   
-                                    <input  type="date" name="division_code" value="">
+
+                                    <input type="date" name="division_code" value="">
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Scheduled End Date</b></label>
-                                 
-                                    <input  type="date" name="division_code" value="">
+
+                                    <input type="date" name="division_code" value="">
 
                                 </div>
                             </div>
@@ -318,7 +335,7 @@
 
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                           
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -328,7 +345,7 @@
 
                 <!-- TAB 1 ENDS HERE -->
 
-                <div id="CCForm2" class="inner-block cctabcontent">
+                <!-- <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
 
@@ -460,8 +477,8 @@
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
-
+                </div> -->
+<!-- 
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -541,30 +558,32 @@
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div id="CCForm4" class="inner-block cctabcontent">
+                <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
 
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Response Finalized by :</label>
-                                   
+                                    <div class="static"></div>
+
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
 
                                     <label for="Division Code"><b>Response Finalized on :</b></label>
+                                    <div class="date"></div>
 
-                                  
+
 
 
                                 </div>
                             </div>
-                          
-                          
+
+
 
 
 
@@ -572,7 +591,7 @@
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                         
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
                         </div>
@@ -1000,8 +1019,8 @@
                             <div class="Date"></div>
                         </div>
                     </div>
-                   
-                  
+
+
 
                     <div class="button-block">
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
