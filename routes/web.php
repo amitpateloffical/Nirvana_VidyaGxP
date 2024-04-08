@@ -414,6 +414,7 @@ Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
 Route::view('GCP_study', 'frontend.new_forms.GCP_study');
 Route::view('calibration', 'frontend.new_forms.calibration');
 Route::view('self-inspection', 'frontend.new_forms.self-inspection');
+Route::view('meeting-management', 'frontend.new_forms.meeting-management');
 
 
 
