@@ -122,7 +122,6 @@
                                         <label for="RLS Record Number"><b>Record Number</b></label>
                                         <input  disabled type="text" name="record_number"
                                             value=" {{ Helpers::getDivisionName($data->division_id) }}/MR/{{ Helpers::year($data->created_at) }}/{{ $data->record }}">
-                                        {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -130,14 +129,12 @@
                                         <label for="Division Code"><b>Site/Location Code</b></label>
                                         <input disabled type="text" name="division_code"
                                             value=" {{ Helpers::getDivisionName($data->division_id) }}">
-                                        {{-- <div class="static">QMS-North America</div> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator"><b>Initiator</b></label>
                                         <input type="hidden" name="initiator_id">
-                                        {{-- <div class="static">{{ Auth::user()->name }}</div> --}}
                                         <input disabled type="text" value="{{ $data->initiator_name}}">
                                     </div>
                                 </div>
@@ -147,9 +144,6 @@
                                         <input disabled type="text"
                                             value="{{ Helpers::getdateFormat($data->intiation_date) }}"
                                             name="intiation_date">
-                                        {{-- <input type="hidden" value="{{ $data->intiation_date }}" name="intiation_date"> --}}
-
-                                        {{-- <div class="static">{{ date('d-M-Y') }}</div> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -177,9 +171,6 @@
                                         <input readonly type="text"
                                             value="{{ Helpers::getdateFormat($data->due_date) }}"
                                             name="due_date"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}}>
-                                        {{-- <input type="text" value="{{ $data->due_date }}" name="due_date"> --}}
-                                        {{-- <div class="static"> {{ $due_date }}</div> --}}
-
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -247,14 +238,7 @@
                                         <input type="text" name="initiator_group_code" value="{{ $data->initiator_Group}}" id="initiator_group_code"  value="{{ $data->initiator_Group}}" readonly>
                                     </div>
                                 </div>
-                                <!-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Short Description">Short Description <span
-                                                class="text-danger">*</span></label>
-                                        <div><small class="text-primary">Please mention brief summary</small></div>
-                                        <textarea name="short_description" id="short_desc" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>{{ $data->short_description }}</textarea>
-                                    </div>
-                                </div> -->
+                             
                                 <div class="col-12">
                                             <div class="group-input">
                                                 <label for="Short_Description">Short Description<span
@@ -295,7 +279,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                 {{-- <div class="col-lg-6 new-date-data-field">
+                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled Start Date">Scheduled Start Date</label>
                                         <div class="calenderauditee">
@@ -307,19 +291,6 @@
                                     </div>
                                 </div>
                          
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Scheduled end date">Scheduled end date</label>
-                                        {{-- <input type="text" name="end_date"
-                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}> --}}
-                                            {{-- <div class="calenderauditee">
-                                                <input type="text" id="end_date"  readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->end_date) }}"/>
-                                                <input type="date"  id="end_date_checkdate" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }} name="end_date" value="{{ $data->end_date }} "
-                                                class="hide-input"
-                                                    oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                            </div>
-                                    </div>
-                                </div> --}} 
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Audit Start Date">Scheduled Start Date</label>
@@ -601,15 +572,7 @@
                                             <th>Evalutaion</th>
                                         </tr>
                                     </thead>
-                                    <!-- <tbody>
-                                        <tr>
-                                            <td><input type="text" name="row_no" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}  value="1" disabled></td>
-                                            <td><input type="text" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}  name="monitoring"></td>
-                                            <td><input type="text" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }} name="measurement"></td>
-                                            <td><input type="text" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}  name="analysis"></td>
-                                            <td><input type="text" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}  name="evaluation"></td>
-                                        </tr>
-                                    </tbody> -->
+                                   
                                     <tbody>
                                                 @foreach (unserialize($performance_evaluation->monitoring) as $key => $temps)
                                                     <tr>

@@ -332,48 +332,76 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Operations">Operations </label>
+                                    <label for="Operations">Operations
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#management-review-operations-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor:pointer;">
+                                            (Launch Instruction)
+                                        </span>
+                                    </label>
                                     <textarea name="operations " id="docname" type="text"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Requirements for Products and Services">Requirements for Products and Services </label>
+                                    <label for="Requirements for Products and Services">Requirements for Products and Services
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#management-review-requirement_products_services-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor:pointer;">
+                                            (Launch Instruction)
+                                        </span>
+                                    </label>
                                     <textarea name="operations " id="Requirements_for_Products" type="text"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Design and Development of Products and Services">
-                                        Design and Development of Products and Services</label>
+                                        Design and Development of Products and Services
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#management-review-design_development_product_services-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor:pointer;">
+                                            (Launch Instruction)
+                                        </span>
+                                    </label>
                                     <textarea name="operations " id="Design_and_Development" type="text"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Control of Externally Provided Processes, Products and Services">
-                                        Control of Externally Provided Processes, Products and Services</label>
+                                        Control of Externally Provided Processes, Products and Services
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#management-review-control_externally_provide_services-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor:pointer;">
+                                            (Launch Instruction)
+                                        </span>
+                                    </label>
                                     <textarea name="operations " id="Control_of_Externally_Provided_Processes_Products_and_Services" type="text"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Production and Service Provision">
-                                        Production and Service Provision</label>
+                                        Production and Service Provision
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#management-review-production_service_provision-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor:pointer;">
+                                            (Launch Instruction)
+                                        </span>
+                                    </label>
                                     <textarea name="operations " id="Production_and_Service_Provision" type="text"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Release of Products and Services">
-                                        Release of Products and Services</label>
+                                        Release of Products and Services
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#management-review-release_product_services-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor:pointer;">
+                                            (Launch Instruction)
+                                        </span>
+                                    </label>
                                     <textarea name="operations " id="Release_of_Products_and_Services" type="text"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Control of Non-conforming Outputs ">
-                                        Control of Non-conforming Outputs </label>
+                                        Control of Non-conforming Outputs
+                                        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#management-review-control_nonconforming_outputs-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor:pointer;">
+                                            (Launch Instruction)
+                                        </span>
+                                    </label>
                                     <textarea name="operations " id="Control_of_Non-conforming_Outputs" type="text"></textarea>
                                 </div>
                             </div>
