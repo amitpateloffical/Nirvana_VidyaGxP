@@ -11,9 +11,6 @@
 </style>
 
 <div class="form-field-head">
-    {{-- <div class="pr-id">
-            New Child
-        </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
         / Supplier Observation
@@ -538,11 +535,11 @@
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Short Description</th>
-                                                <th style="width: 16%">Due Date</th>
-                                                <th style="width: 16%">Site / Division</th>
-                                                <th style="width: 16%"> Person Responsible</th>
-                                                <th style="width: 16%">Current Status</th>
-                                                <th style="width: 16%">Date Closed</th>
+                                                <th style="width: 15%">Due Date</th>
+                                                <th style="width: 15%">Site / Division</th>
+                                                <th style="width: 15%"> Person Responsible</th>
+                                                <th style="width: 15%">Current Status</th>
+                                                <th style="width: 15%">Date Closed</th>
                                                 <th style="width: 15%">Remarks</th>
                                             </tr>
                                         </thead>
@@ -551,7 +548,9 @@
                                             <td><input type="text" name="IDnumber[]"></td>
                                             <td><input type="date" name=""></td>
                                             <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                            <td><select id="" placeholder="Select..." name="capa_type">
+                                                    <option value="">Select a value</option>
+                                                </select></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="date" name=""></td>
                                             <td><input type="text" name=""></td>
@@ -574,20 +573,26 @@
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">CAPA Details</th>
-                                                <th style="width: 16%">CAPA Type</th>
-                                                <th style="width: 16%">Site / Division</th>
-                                                <th style="width: 16%">Person Responsible</th>
-                                                <th style="width: 16%">Current Status</th>
-                                                <th style="width: 16%">Date Closed</th>
-                                                <th style="width: 15%">Remarks</th>
+                                                <th style="width: 15%">CAPA Type</th>
+                                                <th style="width: 15%">Site / Division</th>
+                                                <th style="width: 15%">Person Responsible</th>
+                                                <th style="width: 15%">Current Status</th>
+                                                <th style="width: 15%">Date Closed</th>
+                                                <th style="width: 16%">Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="IDnumber[]"></td>
                                             <td><input type="text" name=""></td>
+                                            <td>
+                                                <select id="" placeholder="Select..." name="capa_type">
+                                                    <option value="">Select a value</option>
+                                                </select>
+                                            </td>
                                             <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                            <td> <select id="" placeholder="Select..." name="capa_type">
+                                                    <option value="">Select a value</option>
+                                                </select></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="date" name=""></td>
                                             <td><input type="text" name=""></td>
@@ -787,7 +792,9 @@
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="date" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
+                    '<td><select id="select-state" placeholder="Select..." name="capa_type[]">' +
+                    '<option value="">Select a value</option>' +
+                    '</select></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="date" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
@@ -813,9 +820,13 @@
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                     '<td><input type="text" name="[]"></td>' +
+                    '<td><select id="select-state" placeholder="Select..." name="capa_type[]">' +
+                    '<option value="">Select a value</option>' +
+                    '</select></td>' +
                     '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
+                    '<td><select id="select-state" placeholder="Select..." name="capa_type[]">' +
+                    '<option value="">Select a value</option>' +
+                    '</select></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="date" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +

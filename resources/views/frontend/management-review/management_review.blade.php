@@ -763,13 +763,9 @@
                                             <th>Row #</th>
                                             <th>CAPA Details</th>
                                             <th>CAPA Type</th>
-                                            {{-- <th>CAPA Type112 (Corrective Action / Preventive Action)</th>
-                                            <th>Date Opened</th> --}}
                                             <th>Site / Division</th>
                                             <th>Person Responsible</th>
-                                            {{-- <th>Date Due</th> --}}
                                             <th>Current Status</th>
-                                            {{-- <th>Person Responsible</th> --}}
                                             <th>Date Closed</th>
                                             <th>Remark</th>
                                         </tr>
@@ -787,8 +783,7 @@
                                                             {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}  name="capa_type[]"  > 
                                                                       <option value="">Select a value</option>
                                                                @foreach ($users as $undata)
-                                                                            <!-- <option value="{{ $undata->id }}">{{ $undata->name }}
-                                                                                        </option> -->
+                                                                           
                                                                     <option {{ unserialize($capa_detail_details->capa_type)[$key] ? (unserialize($capa_detail_details->capa_type)[$key] == $undata->id ? 'selected' : ' ') : '' }}
                                                                         value="{{ $undata->id }}">
                                                                         {{ $undata->name }}
@@ -1355,7 +1350,6 @@
                                 '<option value="preventive">Preventive Action</option>'+
                                 '<option value="corrective_preventive">Corrective & Preventive Action</option>'+
                                 '</select></td>'+
-        
                                 '<td><input type="text" name="site2[]">' +
                                 '<td><select name="responsible_person2[]">' +
                                 '<option value="">Select a value</option>';
