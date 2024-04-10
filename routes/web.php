@@ -426,6 +426,9 @@ Route::view('dosier-documents', 'frontend.Registration-Tracking.dosier-documents
 Route::view('commitment', 'frontend.Registration-Tracking.commitment');
 
 
+//--------------------------------ERRATA-----form---------------//
+Route::view('errata', 'frontend.ERRATA.errata');
+
 //--------------------------------OOC-----form---------------//
 
 Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
