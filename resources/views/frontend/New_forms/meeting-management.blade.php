@@ -39,7 +39,7 @@
                 <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                 <input type="hidden" name="parent_type" value="{{ $parent_type }}">
                 @endif
-
+                <!-- ==========================================General Information============================================ -->
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -323,7 +323,7 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- ==========================================Operational Planning & Control============================================ -->
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -446,7 +446,7 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- ==========================================Meetings & Summary============================================ -->
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="col-12">
@@ -517,7 +517,7 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- ==========================================Closure============================================ -->
                 <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -548,8 +548,49 @@
                                             <td><input type="text" name="IDnumber[]"></td>
                                             <td><input type="date" name=""></td>
                                             <td><input type="text" name=""></td>
-                                            <td><select id="" placeholder="Select..." name="capa_type">
+                                            <td> <select id="" placeholder="Select..." name="capa_type">
                                                     <option value="">Select a value</option>
+                                                    <option value="1">Amit Guru</option>
+                                                    <option value="2">Esra'a Hyasat</option>
+                                                    <option value="3">Sondos</option>
+                                                    <option value="4">User 1</option>
+                                                    <option value="5">User 2</option>
+                                                    <option value="6">User 3</option>
+                                                    <option value="7">User 4</option>
+                                                    <option value="8">User 5</option>
+                                                    <option value="9">Shaleen Mishra</option>
+                                                    <option value="10">User 1</option>
+                                                    <option value="11">User 2</option>
+                                                    <option value="12">User 3</option>
+                                                    <option value="13">User 4</option>
+                                                    <option value="14">User 5</option>
+                                                    <option value="15">Vikas Prajapati</option>
+                                                    <option value="16">User 1</option>
+                                                    <option value="17">User 2</option>
+                                                    <option value="18">User 3</option>
+                                                    <option value="19">User 4</option>
+                                                    <option value="20">User 5</option>
+                                                    <option value="21">Anshul Patel</option>
+                                                    <option value="22">User 1</option>
+                                                    <option value="23">User 2</option>
+                                                    <option value="24">User 3</option>
+                                                    <option value="25">User 4</option>
+                                                    <option value="26">User 5</option>
+                                                    <option value="27">Amit Patel</option>
+                                                    <option value="28">User 1</option>
+                                                    <option value="29">User 2</option>
+                                                    <option value="30">User 3</option>
+                                                    <option value="31">User 4</option>
+                                                    <option value="32">User 5</option>
+                                                    <option value="33">Madhulika Mishra</option>
+                                                    <option value="34">User 1</option>
+                                                    <option value="35">User 2</option>
+                                                    <option value="36">User 3</option>
+                                                    <option value="37">User 4</option>
+                                                    <option value="38">User 5</option>
+                                                    <option value="39">Jin Kim</option>
+                                                    <option value="40">Akash Asthana</option>
+                                                    <option value="41">manish</option>
                                                 </select></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="date" name=""></td>
@@ -587,11 +628,55 @@
                                             <td>
                                                 <select id="" placeholder="Select..." name="capa_type">
                                                     <option value="">Select a value</option>
+                                                    <option value="corrective">Corrective Action</option>
+                                                    <option value="preventive">Preventive Action</option>
+                                                    <option value="corrective_preventive">Corrective &amp; Preventive Action</option>
                                                 </select>
                                             </td>
                                             <td><input type="text" name=""></td>
                                             <td> <select id="" placeholder="Select..." name="capa_type">
                                                     <option value="">Select a value</option>
+                                                    <option value="1">Amit Guru</option>
+                                                    <option value="2">Esra'a Hyasat</option>
+                                                    <option value="3">Sondos</option>
+                                                    <option value="4">User 1</option>
+                                                    <option value="5">User 2</option>
+                                                    <option value="6">User 3</option>
+                                                    <option value="7">User 4</option>
+                                                    <option value="8">User 5</option>
+                                                    <option value="9">Shaleen Mishra</option>
+                                                    <option value="10">User 1</option>
+                                                    <option value="11">User 2</option>
+                                                    <option value="12">User 3</option>
+                                                    <option value="13">User 4</option>
+                                                    <option value="14">User 5</option>
+                                                    <option value="15">Vikas Prajapati</option>
+                                                    <option value="16">User 1</option>
+                                                    <option value="17">User 2</option>
+                                                    <option value="18">User 3</option>
+                                                    <option value="19">User 4</option>
+                                                    <option value="20">User 5</option>
+                                                    <option value="21">Anshul Patel</option>
+                                                    <option value="22">User 1</option>
+                                                    <option value="23">User 2</option>
+                                                    <option value="24">User 3</option>
+                                                    <option value="25">User 4</option>
+                                                    <option value="26">User 5</option>
+                                                    <option value="27">Amit Patel</option>
+                                                    <option value="28">User 1</option>
+                                                    <option value="29">User 2</option>
+                                                    <option value="30">User 3</option>
+                                                    <option value="31">User 4</option>
+                                                    <option value="32">User 5</option>
+                                                    <option value="33">Madhulika Mishra</option>
+                                                    <option value="34">User 1</option>
+                                                    <option value="35">User 2</option>
+                                                    <option value="36">User 3</option>
+                                                    <option value="37">User 4</option>
+                                                    <option value="38">User 5</option>
+                                                    <option value="39">Jin Kim</option>
+                                                    <option value="40">Akash Asthana</option>
+                                                    <option value="41">manish</option>
                                                 </select></td>
                                             <td><input type="text" name=""></td>
                                             <td><input type="date" name=""></td>
@@ -653,7 +738,7 @@
                         </div>
                     </div>
                 </div>
-
+                <!-- ==========================================Signatures============================================ -->
                 <div id="CCForm5" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -794,10 +879,52 @@
                     '<td><input type="text" name="[]"></td>' +
                     '<td><select id="select-state" placeholder="Select..." name="capa_type[]">' +
                     '<option value="">Select a value</option>' +
+                    '<option value="1">Amit Guru</option>' +
+                    '<option value="2">Esra Hyasat</option>' +
+                    '<option value="3">Sondos</option>' +
+                    '<option value="4">User 1</option>' +
+                    '<option value="5">User 2 </option>' +
+                    '<option value="6">User 3 < /option>' +
+                    '<option value="7">User 4 < /option>' +
+                    '<option value="8">User 5 < /option>' +
+                    '<option value="9">Shaleen Mishra < /option>' +
+                    '<option value="10">User 1 < /option>' +
+                    '<option value="11">User 2 < /option>' +
+                    '<option value="12">User 3 < /option>' +
+                    '<option value="13">User 4 < /option>' +
+                    '<option value="14">User 5 < /option>' +
+                    '<option value="15">Vikas Prajapati < /option>' +
+                    '<option value="16">User 1 < /option>' +
+                    '<option value="17">User 2 < /option>' +
+                    '<option value="18">User 3 < /option>' +
+                    '<option value="19">User 4 < /option>' +
+                    '<option value="20">User 5 < /option>' +
+                    '<option value="21">Anshul Patel < /option>' +
+                    '<option value="22">User 1 < /option>' +
+                    '<option value="23">User 2 < /option>' +
+                    '<option value="24">User 3 < /option>' +
+                    '<option value="25">User 4 < /option>' +
+                    '<option value="26">User 5 < /option>' +
+                    '<option value="27">Amit Patel < /option>' +
+                    '<option value="28">User 1 < /option>' +
+                    '<option value="29">User 2 < /option>' +
+                    '<option value="30">User 3 < /option>' +
+                    '<option value="31">User 4 < /option>' +
+                    '<option value="32">User 5 < /option>' +
+                    '<option value="33">Madhulika Mishra < /option>' +
+                    '<option value="34">User 1 < /option>' +
+                    '<option value="35">User 2 < /option>' +
+                    '<option value="36">User 3 < /option>' +
+                    '<option value="37">User 4 < /option>' +
+                    '<option value="38">User 5 < /option>' +
+                    '<option value="39">Jin Kim < /option>' +
+                    '<option value="40">Akash Asthana < /option>' +
+                    '<option value="41">manish < /option>' +
                     '</select></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="date" name="[]"></td>' +
                     '<td><input type="text" name="[]"></td>' +
+                    '</select></td>' +
                     '</tr>';
 
                 return html;
@@ -822,10 +949,54 @@
                     '<td><input type="text" name="[]"></td>' +
                     '<td><select id="select-state" placeholder="Select..." name="capa_type[]">' +
                     '<option value="">Select a value</option>' +
+                    '<option value="corrective">Corrective Action</option>' +
+                    '<option value="preventive">Preventive Action</option>' +
+                    '<option value="corrective_preventive">Corrective &amp; Preventive Action</option>' +
                     '</select></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><select id="select-state" placeholder="Select..." name="capa_type[]">' +
                     '<option value="">Select a value</option>' +
+                    '<option value="1">Amit Guru</option>' +
+                    '<option value="2">Esra Hyasat</option>' +
+                    '<option value="3">Sondos</option>' +
+                    '<option value="4">User 1</option>' +
+                    '<option value="5">User 2 </option>' +
+                    '<option value="6">User 3 < /option>' +
+                    '<option value="7">User 4 < /option>' +
+                    '<option value="8">User 5 < /option>' +
+                    '<option value="9">Shaleen Mishra < /option>' +
+                    '<option value="10">User 1 < /option>' +
+                    '<option value="11">User 2 < /option>' +
+                    '<option value="12">User 3 < /option>' +
+                    '<option value="13">User 4 < /option>' +
+                    '<option value="14">User 5 < /option>' +
+                    '<option value="15">Vikas Prajapati < /option>' +
+                    '<option value="16">User 1 < /option>' +
+                    '<option value="17">User 2 < /option>' +
+                    '<option value="18">User 3 < /option>' +
+                    '<option value="19">User 4 < /option>' +
+                    '<option value="20">User 5 < /option>' +
+                    '<option value="21">Anshul Patel < /option>' +
+                    '<option value="22">User 1 < /option>' +
+                    '<option value="23">User 2 < /option>' +
+                    '<option value="24">User 3 < /option>' +
+                    '<option value="25">User 4 < /option>' +
+                    '<option value="26">User 5 < /option>' +
+                    '<option value="27">Amit Patel < /option>' +
+                    '<option value="28">User 1 < /option>' +
+                    '<option value="29">User 2 < /option>' +
+                    '<option value="30">User 3 < /option>' +
+                    '<option value="31">User 4 < /option>' +
+                    '<option value="32">User 5 < /option>' +
+                    '<option value="33">Madhulika Mishra < /option>' +
+                    '<option value="34">User 1 < /option>' +
+                    '<option value="35">User 2 < /option>' +
+                    '<option value="36">User 3 < /option>' +
+                    '<option value="37">User 4 < /option>' +
+                    '<option value="38">User 5 < /option>' +
+                    '<option value="39">Jin Kim < /option>' +
+                    '<option value="40">Akash Asthana < /option>' +
+                    '<option value="41">manish < /option>' +
                     '</select></td>' +
                     '<td><input type="text" name="[]"></td>' +
                     '<td><input type="date" name="[]"></td>' +
