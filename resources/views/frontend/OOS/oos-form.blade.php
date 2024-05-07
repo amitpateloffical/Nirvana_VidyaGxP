@@ -480,17 +480,18 @@
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Initiator Group">Nature of Change</label>
-                            <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                            <select>
+                                <option>Enter Your Selection Here</option>
+                                <option></option>
+                                <!-- <option>Lab Incident</option>
+                                <option>Deviation</option>
+                                <option>Product Non-conformance</option>
+                                <option>Inspectional Observation</option>
+                                <option>Others</option> -->
 
-                            <div class="file-attachment-field">
-                                <div class="file-attachment-list" id=""></div>
-                                <div class="add-btn">
-                                    <div>Add</div>
-                                    <input type="file" id="myfile" name="" oninput="" multiple>
-                                </div>
-                            </div>
+                            </select>
+
+                           
                         </div>
                     </div>
 
@@ -509,11 +510,17 @@
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Initiator Group">Initial Attachment</label>
-                            <select>
-                                <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
-                            </select>
+                            <small class="text-primary">
+                                Please Attach all relevant or supporting documents
+                            </small>
+
+                            <div class="file-attachment-field">
+                                <div class="file-attachment-list" id=""></div>
+                                <div class="add-btn">
+                                    <div>Add</div>
+                                    <input type="file" id="myfile" name="" oninput="" multiple>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -521,8 +528,13 @@
                             <label for="Tnitiaror Grouo">Source Document Type</label>
                             <select>
                                 <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
+                                <option>OOT</option>
+                                <option>Lab Incident</option>
+                                <option>Deviation</option>
+                                <option>Product Non-conformance</option>
+                                <option>Inspectional Observation</option>
+                                <option>Others</option>
+
                             </select>
                         </div>
                     </div>
@@ -610,8 +622,9 @@
                                     <td><input type="text" name="Number[]"></td>
                                     <td><input type="text" name="Name[]"></td>
                                     <td><input type="text" name="Remarks[]"></td>
-                                    <td><input type="text" name="Number[]"></td>
-                                    <td><input type="text" name="Name[]"></td>
+                                     <td><select name="packingMaterialType[]"><option>Primary</option><option>Secondary</option><option>Tertiary</option><option>Not Applicable</option></select> </td>
+                                     <td><select name="stabilityfor[]"><option>Submission</option><option>Commercial</option><option>Pack Evaluation</option><option>Not Applicable</option></select> </td>
+
 
 
                                 </tbody>
@@ -749,8 +762,8 @@
                             <label for="Audit Schedule End Date"> Field Alert Required</label>
                             <select>
                                 <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
+                                <option>Yes</option>
+                                <option>No</option>
                             </select>
                         </div>
                     </div>
@@ -806,8 +819,8 @@
                             <label for="Product/Material Name"> Verification Analysis Required</label>
                             <select>
                                 <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
+                                <option>Yes</option>
+                                <option>No</option>
                             </select>
                         </div>
                     </div>
@@ -823,8 +836,8 @@
                             <label for="Product/Material Name">Analyst Interview Req.</label>
                             <select>
                                 <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
+                                <option>Yes</option>
+                                <option>No</option>
                             </select>
                         </div>
                     </div>
@@ -851,8 +864,8 @@
                             <label for="Product/Material Name">Phase I Investigation Required</label>
                             <select>
                                 <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
+                                <option>Yes</option>
+                                <option>No</option>
                             </select>
                         </div>
                     </div>
@@ -861,8 +874,11 @@
                             <label for="Product/Material Name">Phase I Investigation</label>
                             <select>
                                 <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
+                                <option>Phase I Micro</option>
+                                <option>Phase I Chemical</option>
+                                <option>Hypothesis</option>
+                                <option>Resampling</option>
+                                <option>Others</option>
                             </select>
                         </div>
                     </div>
@@ -923,8 +939,8 @@
                             <!-- <div class="text-primary">Please Choose the relevent units</div> -->
                             <select>
                                 <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
+                                <option>Yes</option>
+                                <option>No</option>
                             </select>
                         </div>
                     </div>
@@ -933,8 +949,11 @@
                             <label for="Audit Team"> OOS Category-Root Cause Ident.</label>
                             <select>
                                 <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
+                                <option>Analyst Error</option>
+                                <option>Instrument Error</option>
+                                <option>Product/Material Related Error</option>
+                                <option>Other Error</option>
+
                             </select>
                         </div>
                     </div>
@@ -968,8 +987,8 @@
                             <label for="Product/Material Name">Recommended Actions Required?</label>
                             <select>
                                 <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
+                                <option>Yes</option>
+                                <option>No</option>
                             </select>
                         </div>
                     </div>
@@ -984,8 +1003,8 @@
                             <label for="Product/Material Name">CAPA Required</label>
                             <select>
                                 <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
+                                <option>Yes</option>
+                                <option>No</option>
                             </select>
                         </div>
                     </div>
@@ -1088,7 +1107,8 @@
                                     <td><input type="text" name="Number[]"></td>
                                     <td><input type="text" name="Name[]"></td>
                                     <td><input type="text" name="Remarks[]"></td>
-                                    <td><input type="text" name="Number[]"></td>
+                                    <td><select name="CAPARequirement[]"><option>Yes</option>
+                                <option>No</option></select></td>
                                     <td><input type="text" name="Name[]"></td>
 
 
@@ -1105,8 +1125,8 @@
                             <label for="Audit Start Date"> Phase II Inv. Required?</label>
                             <select>
                                 <option>Enter Your Selection Here</option>
-                                <option></option>
-                                <option></option>
+                                <option>Yes</option>
+                                <option>No</option>
                             </select>
                         </div>
                     </div>
@@ -1159,8 +1179,8 @@
                         <label for="Report Attachments"> Manufact. Invest. Required? </label>
                         <select>
                             <option>Enter Your Selection Here</option>
-                            <option></option>
-                            <option></option>
+                            <option>Yes</option>
+                                <option>No</option>
                         </select>
                     </div>
                 </div>
@@ -1171,14 +1191,9 @@
 
                         <label for="Auditee"> Manufacturing Invest. Type </label>
                         <select multiple name="auditee" placeholder="Select Nature of Deviation" data-search="false" data-silent-initial-value-set="true" id="auditee">
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-
+                            <option value="">Chemical</option>
+                            <option value="">Microbiology</option>
+                          
                         </select>
                     </div>
                 </div>
@@ -1195,13 +1210,8 @@
                     <div class="group-input">
                         <label for="Audit Attachments"> Re-sampling Required? </label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Yes</option>
+                                <option>No</option>
 
                         </select>
                     </div>
@@ -1224,13 +1234,8 @@
                     <div class="group-input">
                         <label for="Audit Attachments"> Hypo/Exp. Required</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Yes</option>
+                                <option>No</option>
 
                         </select>
                     </div>
@@ -1297,13 +1302,8 @@
                     <div class="group-input">
                         <label for="Cancelled By"> Root Casue Identified. </label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Yes</option>
+                                <option>No</option>
 
                         </select>
                     </div>
@@ -1312,14 +1312,11 @@
                     <div class="group-input">
                         <label for="Cancelled By">OOS Category-Reason identified </label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-
+                        <option>Enter Your Selection Here</option>
+                                <option>Analyst Error</option>
+                                <option>Instrument Error</option>
+                                <option>Product/Material Related Error</option>
+                                <option>Other Error</option>
                         </select>
                     </div>
                 </div>
@@ -1349,14 +1346,8 @@
                     <div class="group-input">
                         <label for="Audit Mgr.more Info Reqd On">Recommended Action Required? </label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-
+                        <option>Yes</option>
+                                <option>No</option>
                         </select>
                     </div>
                 </div>
@@ -1370,11 +1361,8 @@
                     <div class="group-input">
                         <label for="Audit Observation Submitted On">Investi. Required</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-
+                        <option>Yes</option>
+                                <option>No</option>
                         </select>
                     </div>
                 </div>
@@ -1438,8 +1426,8 @@
                         <label for="Report Attachments"> Additional Test Proposal </label>
                         <select>
                             <option>Enter Your Selection Here</option>
-                            <option></option>
-                            <option></option>
+                            <option>Yes</option>
+                                <option>No</option>
                         </select>
                     </div>
                 </div>
@@ -1454,13 +1442,8 @@
                     <div class="group-input">
                         <label for="Audit Attachments"> Any Other Actions Required</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Yes</option>
+                                <option>No</option>
 
                         </select>
                     </div>
@@ -1575,14 +1558,9 @@
                     <div class="group-input">
                         <label for="Audit Attachments">Results to be Reported</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-
+                            <option value="">Initial</option>
+                            <option value="">Retested Result</option>
+                           
                         </select>
                     </div>
                 </div>
@@ -1604,9 +1582,9 @@
                     <div class="group-input">
                         <label for="Reference Recores">OOS Stands </label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                            <option value="">Valid</option>
+                            <option value="">Invalid</option>
+                            
 
 
                         </select>
@@ -1620,9 +1598,8 @@
                     <div class="group-input">
                         <label for="Audit Attachments">CAPA Req.</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Yes</option>
+                                <option>No</option>
 
 
                         </select>
@@ -1647,8 +1624,8 @@
                     <div class="group-input">
                         <label for="Audit Attachments">Action Plan Req.</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Yes</option>
+                                <option>No</option>
 
 
                         </select>
@@ -1776,8 +1753,8 @@
                     <div class="group-input">
                         <label for="Audit Attachments">CAPA Req?</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Yes</option>
+                                <option>No</option>
 
 
                         </select>
@@ -1792,7 +1769,11 @@
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="Report Attachments">Required Action Plan? </label>
-                        <input type="num" name="num">
+                        <select>
+                        <option>Yes</option>
+                                <option>No</option>
+
+                        </select>
                     </div>
                 </div>
 
@@ -1800,10 +1781,8 @@
                     <div class="group-input">
                         <label for="Reference Recores">Required Action Task?</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-
+                        <option>Yes</option>
+                                <option>No</option>
 
                         </select>
                     </div>
@@ -1821,10 +1800,8 @@
                     <div class="group-input">
                         <label for="Audit Attachments">Risk Assessment Req?</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-
+                        <option>Yes</option>
+                                <option>No</option>
 
                         </select>
                     </div>
@@ -1900,11 +1877,11 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="group-input">
-                        <label for="Report Attachments">Require CAPA </label>
+                        <label for="Report Attachments"> CAPA Required ?</label>
                         <select>
                             <option>Enter Your Selection Here</option>
-                            <option></option>
-                            <option></option>
+                            <option>Yes</option>
+                                <option>No</option>
                         </select>
                     </div>
                 </div>
@@ -1921,12 +1898,11 @@
                     <div class="group-input">
 
 
-                        <label for="Auditee"> Action plan requirement </label>
+                        <label for="Auditee"> Action plan requirement ? </label>
                         <select multiple name="auditee" placeholder="Select Nature of Deviation" data-search="false" data-silent-initial-value-set="true" id="auditee">
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-
-                            <option value="sandhya"></option>
+                        <option>Enter Your Selection Here</option>
+                            <option>Yes</option>
+                                <option>No</option>
 
                         </select>
                     </div>
@@ -1989,9 +1965,13 @@
                     <div class="group-input">
                         <label for="Audit Attachments">OOS Category</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-
+                        <option>Enter Your Selection Here</option>
+                            <option>Analyst Error</option>
+                            <option>Instrument Error</option>
+                                <option>Procedure Error</option>
+                          <option>Product Related Error</option>
+<option>Material Related Error</option>
+<option>Other Error</option>
 
                         </select>
                     </div>
@@ -2013,10 +1993,10 @@
                     <div class="group-input">
                         <label for="Reference Recores">Material/Batch Release</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
-
+                        <option>Enter Your Selection Here</option>
+                            <option>To Be Release</option>
+                                <option>To Be Rejected</option>
+<option>Other Action (Specify)</option>
 
                         </select>
                     </div>
@@ -2126,8 +2106,9 @@
                     <div class="group-input">
                         <label for="Reference Recores">Phase-III Inves. Required?</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Enter Your Selection Here</option>
+                            <option>Yes</option>
+                                <option>No</option>
 
 
                         </select>
@@ -2291,8 +2272,9 @@
                     <div class="group-input">
                         <label for="Reference Recores">Action Task Required?</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Enter Your Selection Here</option>
+                            <option>Yes</option>
+                                <option>No</option>
                         </select>
                     </div>
                 </div>
@@ -2308,8 +2290,9 @@
                     <div class="group-input">
                         <label for="Reference Recores">Addi.Testing Req?</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Enter Your Selection Here</option>
+                            <option>Yes</option>
+                                <option>No</option>
                         </select>
                     </div>
                 </div>
@@ -2325,8 +2308,9 @@
                     <div class="group-input">
                         <label for="Reference Recores">Investigation Req.?</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Enter Your Selection Here</option>
+                            <option>Yes</option>
+                                <option>No</option>
                         </select>
                     </div>
                 </div>
@@ -2341,8 +2325,9 @@
                     <div class="group-input">
                         <label for="Reference Recores">Hypo-Exp Req?</label>
                         <select>
-                            <option value="sandhya"></option>
-                            <option value="sandhya"></option>
+                        <option>Enter Your Selection Here</option>
+                            <option>Yes</option>
+                                <option>No</option>
                         </select>
                     </div>
                 </div>
