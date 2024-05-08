@@ -69,16 +69,16 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Record Number</b></label>
-                                    <input type="text">
+                                    <input type="text" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Short Description">Division Code<span class="text-danger"></span></label>
-                                    <select>
-                                        <option>---select---</option>
+                                    <select disabled>
+                                        {{-- <option>Enter Your Selection Here</option>
                                         <option>ABC-101</option>
-                                        <option>ABC-102</option>
+                                        <option>ABC-102</option> --}}
                                     </select>
                                 </div>
                             </div>
@@ -86,10 +86,10 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Short Description">Initiator <span class="text-danger"></span></label>
-                                    <select>
-                                        <option>---select---</option>
+                                    <select disabled>
+                                        {{-- <option>Enter Your Selection Here</option>
                                         <option>Shaleen mishra </option>
-                                        <option>Pankaj jat </option>
+                                        <option>Pankaj jat </option> --}}
                                     </select>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                             <div class="col-md-6 ">
                                 <div class="group-input ">
                                     <label for="due-date"> Date Of Initiation<span class="text-danger"></span></label>
-                                    <input type="date"/>
+                                    <input type="date"  disabled/>
                                     <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                             value="" name="due_date"> -->
                                     <!-- <div class="calenderauditee">
@@ -123,7 +123,7 @@
                                 <div class="group-input">
                                     <label for="Short Description">Severity Level <span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>20</option>
                                         <option>50 </option>
                                     </select>
@@ -135,7 +135,7 @@
                                 <div class="group-input">
                                     <label for="Short Description">Initiator Group <span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Shaleen mishra </option>
                                         <option>Pankaj jat </option>
                                     </select>
@@ -146,7 +146,7 @@
                                 <div class="group-input">
                                     <label for="Short Description">Initiator Group Code <span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>A1B2 </option>
                                         <option>A2B3 </option>
                                     </select>
@@ -164,9 +164,9 @@
                                 <div class="group-input">
                                     <label for="Short Description">If Others <span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
-                                        <option>ABC </option>
-                                        <option>ABCd </option>
+                                        <option>Enter Your Selection Here</option>
+                                        <option></option>
+                                        <option> </option>
                                     </select>
                                 </div>
                             </div>
@@ -175,8 +175,14 @@
 
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label class="mt-4" for="Audit Comments">Is Repeat?</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <label class="mt-4" for="Audit Comments">Is Repeat ?</label>
+                                    <select name="repeat" id="repeat">
+
+                                        <option>Enter Your Selection Here</option>
+                                        <option value="">Yes</option>
+                                        <option value="">No</option>
+                                    </select>
+                                   
                                 </div>
                             </div>
 
@@ -213,27 +219,25 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="closure attachment">Description </label>
-                                    <div><small class="text-primary">Please Attach all relevant or supporting
-                                            documents</small>
-                                    </div>
-                                    <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="closure_attachment"></div>
-                                        <div class="add-btn">
-                                            <div>Add</div>
-                                            <input type="file" id="myfile" name="closure_attachment[]" oninput="addMultipleFiles(this, 'closure_attachment')" multiple>
-                                        </div>
-                                    </div>
+                                   
+                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                      
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Short Description">Initial Attachment <span class="text-danger"></span></label>
-                                    <select>
-                                        <option>---select---</option>
-                                        <option>Pdf </option>
-                                        <option>Document </option>
-                                    </select>
+                                    <div><small class="text-primary">Please Attach all relevant or supporting
+                                        documents</small>
+                                </div>
+                                <div class="file-attachment-field">
+                                    <div class="file-attachment-list" id="closure_attachment"></div>
+                                    <div class="add-btn">
+                                        <div>Add</div>
+                                        <input type="file" id="myfile" name="closure_attachment[]" oninput="addMultipleFiles(this, 'closure_attachment')" multiple>
+                                    </div>
+                                </div>
                                 </div>
                             </div>
 
@@ -241,7 +245,7 @@
                                 <div class="group-input">
                                     <label for="Short Description">Source Document Type <span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>PDF </option>
                                         <option>Document </option>
                                     </select>
@@ -251,8 +255,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reference Recores">Reference Record</label>
-                                    <select multiple id="reference_record" name="refrence_record[]" id="">
-                                        <option value="">--Select---</option>
+                                    <select multiple id="reference_record" name="Reference_record[]" id="">
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                     </select>
@@ -333,8 +337,8 @@
                                             <td><input type="text" name="Item/ProductCode[]"></td>
                                             <td><input type="text" name="Lot/BatchNo[]"></td>
                                             <td><input type="text" name="A.R.Number[]"></td>
-                                            <td><input type="text" name="MfgDate[]"></td>
-                                            <td><input type="text" name="ExpiryDate[]"></td>
+                                            <td><input type="date" name="MfgDate[]"></td>
+                                            <td><input type="date" name="ExpiryDate[]"></td>
                                             <td><input type="text" name="LabelClaim[]"></td>
 
                                         </tbody>
@@ -355,7 +359,7 @@
                                 <div class="group-input">
                                     <label for="Reference Recores">Sample Type </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -374,7 +378,7 @@
                                 <div class="group-input">
                                     <label for="Reference Recores">Stability For </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -397,7 +401,7 @@
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">AR Number</th>
-                                                <th style="width: 16%"> Condition:Temprature &RH</th>
+                                                <th style="width: 16%"> Condition: Temperature & RH</th>
                                                 <th style="width: 15%">Interval</th>
                                                 <th style="width: 15%">Orientation</th>
                                                 <th style="width: 15%">Pack Details (if any) </th>
@@ -425,7 +429,7 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Specification Procedure Number <span class="text-danger"></span></label>
+                                    <label>Specification/Procedure Number <span class="text-danger"></span></label>
                                     <input />
                                 </div>
                             </div>
@@ -523,8 +527,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Short Description"> Verification Analysis Required<span class="text-danger"></span></label>
+                                    <label for="Short Description"> Verification Analysis Required ?<span class="text-danger"></span></label>
                                     <select>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes</option>
                                         <option>No</option>
                                     </select>
@@ -534,8 +539,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reference Recores">Verification Analysis Ref.</label>
-                                    <select multiple id="reference_record" name="refrence_record[]" id="">
-                                        <option value="">--Select---</option>
+                                    <select multiple id="reference_record" name="Reference_record[]" id="">
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                     </select>
@@ -546,8 +551,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Short Description"> Analyst Interview Request<span class="text-danger"></span></label>
+                                    <label for="Short Description"> Analyst Interview Request ?<span class="text-danger"></span></label>
                                     <select>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes</option>
                                         <option>No</option>
                                     </select>
@@ -557,8 +563,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reference Recores"> Analyst Interview Ref.</label>
-                                    <select multiple id="reference_record" name="refrence_record[]" id="">
-                                        <option value="">--Select---</option>
+                                    <select multiple id="reference_record" name="Reference_record[]" id="">
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                     </select>
@@ -567,15 +573,16 @@
 
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label class="mt-4" for="Audit Comments">Justification If No Analyst Interview</label>
+                                    <label class="mt-4" for="Audit Comments">Justification</label>
                                     <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Short Description">Phase-I Investigation Required<span class="text-danger"></span></label>
+                                    <label for="Short Description">Phase-I Investigation Required ?<span class="text-danger"></span></label>
                                     <select>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes</option>
                                         <option>No</option>
                                     </select>
@@ -584,8 +591,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Short Description"> Phase-I Investigation <span class="text-danger"></span></label>
+                                    <label for="Short Description"> Phase-I Investigation ?<span class="text-danger"></span></label>
                                     <select>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes</option>
                                         <option>No</option>
                                     </select>
@@ -595,8 +603,8 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Reference Recores"> Phase-I Investigation Ref.</label>
-                                    <select multiple id="reference_record" name="refrence_record[]" id="">
-                                        <option value="">--Select---</option>
+                                    <select multiple id="reference_record" name="Reference_record[]" id="">
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                     </select>
@@ -649,8 +657,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label> Root Cause Identified? <span class="text-danger"></span></label>
+                                    <label> Root Cause Identified ?<span class="text-danger"></span></label>
                                     <select>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes</option>
                                         <option>No</option>
                                     </select>
@@ -659,8 +668,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label> OOT Category-Root Cause Identified<span class="text-danger"></span></label>
+                                    <label> OOT Category-Root Cause Identified ?<span class="text-danger"></span></label>
                                     <select>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes</option>
                                         <option>No</option>
                                     </select>
@@ -670,7 +680,7 @@
 
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label class="mt-4" for="Audit Comments">SOOT Category (Others)</label>
+                                    <label class="mt-4" for="Audit Comments">OOT Category (Others)</label>
                                     <textarea class="summernote" name="SummaryOfPreliminaryInvestigation" id="summernote-16"></textarea>
                                 </div>
                             </div>
@@ -695,8 +705,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label> Recommended Action Required<span class="text-danger"></span></label>
+                                    <label> Recommended Action Required ?<span class="text-danger"></span></label>
                                     <select>
+                                        <option>Enter Your Selection Here </option>
                                         <option>Yes</option>
                                         <option>No</option>
                                     </select>
@@ -705,29 +716,31 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label> Recommended Action Refrence<span class="text-danger"></span></label>
-                                    <select>
-                                        <option>Yes</option>
-                                        <option>No</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label> CAPA Required<span class="text-danger"></span></label>
-                                    <select>
-                                        <option>Yes</option>
-                                        <option>No</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reference Recores"> CAPA Refrence Number</label>
+                                    <label> Recommended Action Reference<span class="text-danger"></span></label>
                                     <select multiple id="reference_record" name="PreliminaryLabInvestigationdoneBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label> CAPA Required ?<span class="text-danger"></span></label>
+                                    <select>
+                                        <option>Enter Your Selection Here</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reference Recores"> CAPA Reference Number</label>
+                                    <select multiple id="reference_record" name="PreliminaryLabInvestigationdoneBy[]" id="">
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                     </select>
@@ -804,7 +817,7 @@
                                                 <th style="width: 15%">Previous OOT Root Cause</th>
                                                 <th style="width: 15%">CAPA </th>
                                                 <th style="width: 15%">Closure Date Of CAPA</th>
-                                                <!-- <th style="width: 15%">CAPA Required</th>
+                                                <!-- <th style="width: 15%">CAPA Required ?</th>
                                                 <th style="width: 15%">CAPA Reference</th>
                                                 <th style="width: 15%">Phase II Inves. Req</th>
                                                 <th style="width: 15%">Supporting Attachment</th>
@@ -818,11 +831,11 @@
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
 
                                             <td><input type="text" name="OOTNo[]"></td>
-                                            <td><input type="text" name="OOTReportedDate[]"></td>
+                                            <td><input type="date" name="OOTReportedDate[]"></td>
                                             <td><input type="text" name="DescriptionOfOOT[]"></td>
                                             <td><input type="text" name="previousIntervalDetails[]"></td>
                                             <td><input type="text" name="CAPA[]"></td>
-                                            <td><input type="text" name="ClosureDateOfCAPA[]"></td>
+                                            <td><input type="date" name="ClosureDateOfCAPA[]"></td>
 
 
                                         </tbody>
@@ -832,9 +845,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>CAPA Required<span class="text-danger"></span></label>
+                                    <label>CAPA Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -845,7 +858,7 @@
                                 <div class="group-input">
                                     <label for="Reference Recores"> CAPA Reference </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -854,9 +867,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Phase II Inves. Req<span class="text-danger"></span></label>
+                                    <label>Phase II Investigation Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -908,9 +921,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Manufacturing Investigation Required <span class="text-danger"></span></label>
+                                    <label>Manufacturing Investigation Required ? <span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -922,7 +935,7 @@
                                 <div class="group-input">
                                     <label for="Reference Recores">Manufacturing Investigation Type</label>
                                     <select multiple id="reference_record" name="Manufacturing[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                     </select>
@@ -931,9 +944,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Manufacturing Investigation Refrence</label>
+                                    <label for="Reference Recores">Manufacturing Investigation Reference</label>
                                     <select multiple id="reference_record" name="Manufacturing[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                     </select>
@@ -944,9 +957,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Re-Sampling Required <span class="text-danger"></span></label>
+                                    <label>Re-Sampling Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -955,9 +968,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Re-Sampling Refrence No</label>
+                                    <label for="Reference Recores">Re-Sampling Reference No</label>
                                     <select multiple id="reference_record" name="Manufacturing[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                     </select>
@@ -968,9 +981,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Hypo/Exp Required <span class="text-danger"></span></label>
+                                    <label>Hypothetical/Experience Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -980,9 +993,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Hypo/Exp Refrence</label>
+                                    <label for="Reference Recores">Hypothetical/Experience Reference</label>
                                     <select multiple id="reference_record" name="Manufacturing[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                     </select>
@@ -1044,7 +1057,7 @@
                                 <div class="group-input">
                                     <label>Root Cause Identified <span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1055,7 +1068,7 @@
                                 <div class="group-input">
                                     <label>OOT Category-Reason Identified <span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1084,9 +1097,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Recommended Action Required<span class="text-danger"></span></label>
+                                    <label>Recommended Action Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1095,9 +1108,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Recommended Action Refrence</label>
+                                    <label for="Reference Recores">Recommended Action Reference</label>
                                     <select multiple id="reference_record" name="PhaseIIInvestigationProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                     </select>
@@ -1107,9 +1120,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Investigation Required<span class="text-danger"></span></label>
+                                    <label>Investigation Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1119,9 +1132,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Investigation Refrence</label>
+                                    <label for="Reference Recores">Investigation Reference</label>
                                     <select multiple id="reference_record" name="PhaseIIInvestigationProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
                                     </select>
@@ -1178,9 +1191,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Additional Test Proposal<span class="text-danger"></span></label>
+                                    <label>Additional Test Proposal ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1189,9 +1202,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Additional Test Refrence</label>
+                                    <label for="Reference Recores">Additional Test Reference</label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1201,9 +1214,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Any Other Actions Required<span class="text-danger"></span></label>
+                                    <label>Any Other Actions Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1212,9 +1225,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Action Task Refrence</label>
+                                    <label for="Reference Recores">Action Task Reference</label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1254,9 +1267,10 @@
                 <div id="CCForm8" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
+
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label class="mt-4" for="Audit Comments"> Summary Of OOT Test Results</label>
+                                    <label class="mt-4" for="Audit Comments"> Conclusion Comments</label>
                                     <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
                                 </div>
                             </div>
@@ -1264,7 +1278,7 @@
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                    Details Of Stability Study
+                                    Summary of OOT Test Results
                                     <button type="button" name="audit-agenda-grid" id="sumarryOfOotAdd">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
 
@@ -1280,7 +1294,7 @@
                                                 <th style="width: 15%">Retesting Results After Correction Of Assignable Cause</th>
                                                 <th style="width: 15%">Hypothesis/Experimentation Results</th>
                                                 <th style="width: 15%">Result Of additional Tessting </th>
-                                                <th style="width: 15%">Hypothesis Experiment Refrence/Additional Testing Refrence No</th>
+                                                <th style="width: 15%">Hypothesis Experiment Reference/Additional Testing Reference No</th>
                                                 <th style="width: 15%">Results </th>
                                                 <th style="width: 15%">Analyst Name </th>
                                                 <th style="width: 15%">Remarks </th>
@@ -1299,7 +1313,7 @@
                                             <td><input type="text" name="RetestingResultsAfterCorrectionOfAssignableCause[]"></td>
                                             <td><input type="text" name="Hypothesis/ExperimentationResults[]"></td>
                                             <td><input type="text" name="ResultOfadditionalTessting[]"></td>
-                                            <td><input type="text" name="HypothesisExperimentRefrence/AdditionalTestingRefrenceNo[]"></td>
+                                            <td><input type="text" name="HypothesisExperimentReference/AdditionalTestingReferenceNo[]"></td>
                                             <td><input type="text" name="Results[]"></td>
                                             <td><input type="text" name="AnalystName[]"></td>
                                             <td><input type="text" name="Remarks[]"></td>
@@ -1327,7 +1341,7 @@
                                 <div class="group-input">
                                     <label>OOT Stands<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1338,7 +1352,7 @@
                                 <div class="group-input">
                                     <label>Result To Be Reported<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1355,9 +1369,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>CAPA Required<span class="text-danger"></span></label>
+                                    <label>CAPA Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1368,7 +1382,7 @@
                                 <div class="group-input">
                                     <label for="Reference Recores"> CAPA Reference No </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1377,9 +1391,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Action Plan Required<span class="text-danger"></span></label>
+                                    <label>Action Plan Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1388,9 +1402,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores"> Action Plan Refrence </label>
+                                    <label for="Reference Recores"> Action Plan Reference </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1462,7 +1476,7 @@
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Material/Product Name</th>
-                                                <th style="width: 16%"> Batch No (s)/A.R.No (s)</th>
+                                                <th style="width: 16%"> Batch No (s) / A.R.No (s)</th>
                                                 <th style="width: 15%">Any Other Information </th>
                                                 <th style="width: 15%">Action Taken On Affected Batch</th>
 
@@ -1494,9 +1508,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>CAPA Required<span class="text-danger"></span></label>
+                                    <label>CAPA Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1508,7 +1522,7 @@
                                 <div class="group-input">
                                     <label for="Reference Recores"> CAPA Reference </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1520,9 +1534,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Required Action Plan<span class="text-danger"></span></label>
+                                    <label>Required Action Plan ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1532,9 +1546,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores"> Refrence Record Plan </label>
+                                    <label for="Reference Recores"> Reference Record Plan </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1544,9 +1558,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label> Action Task Required<span class="text-danger"></span></label>
+                                    <label> Action Task Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1556,9 +1570,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Action Task Refrence </label>
+                                    <label for="Reference Recores">Action Task Reference </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1567,9 +1581,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label> Risk Assessment Required<span class="text-danger"></span></label>
+                                    <label> Risk Assessment Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1579,9 +1593,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Risk Assessment Refrence </label>
+                                    <label for="Reference Recores">Risk Assessment Reference </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1609,7 +1623,7 @@
                                 <div class="group-input">
                                     <label for="Reference Recores"> CQ Approver </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1646,9 +1660,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>CAPA Requirement<span class="text-danger"></span></label>
+                                    <label>CAPA Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1660,7 +1674,7 @@
                                 <div class="group-input">
                                     <label for="Reference Recores"> Reference Of CAPA </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1672,9 +1686,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label> Action Plan Requirement<span class="text-danger"></span></label>
+                                    <label> Action Plan Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1684,9 +1698,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores"> Refrence Action Plan </label>
+                                    <label for="Reference Recores"> Reference Action Plan </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1743,9 +1757,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>OOT Category<span class="text-danger"></span></label>
+                                    <label>OOT Category ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1764,9 +1778,9 @@
 
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label> Material Batch Release<span class="text-danger"></span></label>
+                                    <label> Material Batch Release ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1791,7 +1805,8 @@
 
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="closure attachment">File Attachment </label>
+                                    <label for="closure attachment">Disposition Attachment
+                                    </label>
                                     <div><small class="text-primary">
                                         </small>
                                     </div>
@@ -1932,9 +1947,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label>Action Task Required<span class="text-danger"></span></label>
+                                    <label>Action Task Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1946,7 +1961,7 @@
                                 <div class="group-input">
                                     <label for="Reference Recores">Action Task Reference </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1958,9 +1973,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label> Add. Testing Required<span class="text-danger"></span></label>
+                                    <label> Add. Testing Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1970,9 +1985,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Add. Testing Refrence </label>
+                                    <label for="Reference Recores">Add. Testing Reference </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -1981,9 +1996,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label> Investigation Requirement<span class="text-danger"></span></label>
+                                    <label> Investigation Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -1993,9 +2008,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Investigation Refrence </label>
+                                    <label for="Reference Recores">Investigation Reference </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -2004,9 +2019,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label> Hypothesis Experiment Requirement<span class="text-danger"></span></label>
+                                    <label> Hypothesis Experiment Required ?<span class="text-danger"></span></label>
                                     <select>
-                                        <option>---select---</option>
+                                        <option>Enter Your Selection Here</option>
                                         <option>Yes </option>
                                         <option>No </option>
                                     </select>
@@ -2016,9 +2031,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reference Recores">Hypothesis Experiment Refrence </label>
+                                    <label for="Reference Recores">Hypothesis Experiment Reference </label>
                                     <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
+                                        <option value=""> Enter Your Selection Here</option>
                                         <option value="">Pankaj</option>
                                         <option value="">Gourav</option>
                                     </select>
@@ -2170,13 +2185,13 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reviewed by">Preliminary Lab Investigation done By</label>
+                                    <label for="Reviewed by">Preliminary Lab Investigation Done By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Approved on">Preliminary Lab Investigation done On</label>
+                                    <label for="Approved on">Preliminary Lab Investigation Done On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
@@ -2224,26 +2239,26 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reviewed by">Phase II QC Review Proposed By</label>
+                                    <label for="Reviewed by">Phase II QC Review by</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Approved on">Phase II QC Review Proposed  On</label>
+                                    <label for="Approved on">Phase II QC Review On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reviewed by">Additional TestProposed By</label>
+                                    <label for="Reviewed by">Additional Test Proposed By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Approved on">Additional TestProposed  On</label>
+                                    <label for="Approved on">Additional Test Proposed  On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
@@ -2644,7 +2659,7 @@
                     '<td><input type="text" name="RetestingResultsAfterCorrectionOfAssignableCause[]"></td>' +
                     '<td><input type="text" name="Hypothesis/ExperimentationResults[]"></td>' +
                     '<td><input type="text" name="ResultOfadditionalTessting[]"></td>' +
-                    '<td><input type="text" name="HypothesisExperimentRefrence/AdditionalTestingRefrenceNo[]"></td>' +
+                    '<td><input type="text" name="HypothesisExperimentReference/AdditionalTestingReferenceNo[]"></td>' +
                     '<td><input type="text" name="Results[]"></td>' +
                     '<td><input type="text" name="AnalystName[]"></td>' +
                     '<td><input type="text" name="Remarks[]"></td>' +
