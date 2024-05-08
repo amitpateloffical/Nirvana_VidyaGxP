@@ -522,20 +522,23 @@
                             <div class="group-input">
                                 <div class="why-why-chart">
                                     <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
+                                        <thead >
+                                            <tr >
                                                 <th style="width: 5%;">Sr.No.</th>
-                                                <th style="width: 30%;">Question</th>
-                                                <th>Response</th>
+                                                <th style="width: 40%;">Question</th>
+                                                <th style="width: 20%;">Response</th>
                                                 <th>Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td></td>
-                                                <td style="background: #DCD8D8">Status of calibration for other instrument(s) used for performing calibration of the referred instrument</td>
+                                                <td>1</td>
+                                                <td >Status of calibration for other instrument(s) used for performing calibration of the referred instrument</td>
                                                 <td>
-                                                    <textarea name="what_will_be"></textarea>
+
+                                                <textarea name="what_will_not_be"></textarea>
+                                                  
+                                           
                                                 </td>
                                                 <td>
                                                     <textarea name="what_will_not_be"></textarea>
@@ -543,8 +546,8 @@
 
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td style="background: #DCD8D8">Verification of calibration standards used Primary Standard: Physical apperance, validity, certificate. Secondary standard: Physical appearance, validity</td>
+                                                <td>2</td>
+                                                <td >Verification of calibration standards used Primary Standard: Physical apperance, validity, certificate. Secondary standard: Physical appearance, validity</td>
                                                 <td>
                                                     <textarea name="where_will_be"></textarea>
                                                 </td>
@@ -554,8 +557,8 @@
 
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td style="background: #DCD8D8">Verification of dilution, calculation, weighing, Titer values and readings</td>
+                                                <td>3</td>
+                                                <td >Verification of dilution, calculation, weighing, Titer values and readings</td>
                                                 <td>
                                                     <textarea name="when_will_be"></textarea>
                                                 </td>
@@ -565,8 +568,8 @@
 
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td style="background: #DCD8D8">Verification of glassware used</td>
+                                                <td>4</td>
+                                                <td >Verification of glassware used</td>
                                                 <td>
                                                     <textarea name="coverage_will_be"></textarea>
                                                 </td>
@@ -576,8 +579,8 @@
 
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td style="background: #DCD8D8">Verification of chromatograms/spectrums/other instrument</td>
+                                                <td>5</td>
+                                                <td >Verification of chromatograms/spectrums/other instrument</td>
                                                 <td>
                                                     <textarea name="who_will_be"></textarea>
                                                 </td>
@@ -587,8 +590,8 @@
 
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td style="background: #DCD8D8">Adequacy of system suitability checks</td>
+                                                <td>6</td>
+                                                <td >Adequacy of system suitability checks</td>
                                                 <td>
                                                     <textarea name="who_will_be"></textarea>
                                                 </td>
@@ -598,8 +601,8 @@
 
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td style="background: #DCD8D8">Instrument Malfunction</td>
+                                                <td>7</td>
+                                                <td >Instrument Malfunction</td>
                                                 <td>
                                                     <textarea name="who_will_be"></textarea>
                                                 </td>
@@ -609,8 +612,8 @@
 
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td style="background: #DCD8D8">Check for adherence to the calibration method</td>
+                                                <td>8</td>
+                                                <td >Check for adherence to the calibration method</td>
                                                 <td>
                                                     <textarea name="who_will_be"></textarea>
                                                 </td>
@@ -620,8 +623,8 @@
 
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td style="background: #DCD8D8">Previous History of instrument</td>
+                                                <td>9</td>
+                                                <td >Previous History of instrument</td>
                                                 <td>
                                                     <textarea name="who_will_be"></textarea>
                                                 </td>
@@ -631,8 +634,8 @@
 
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                                <td style="background: #DCD8D8">Others</td>
+                                                <td>10</td>
+                                                <td >Others</td>
                                                 <td>
                                                     <textarea name="who_will_be"></textarea>
                                                 </td>
