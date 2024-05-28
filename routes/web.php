@@ -17,8 +17,10 @@ use App\Http\Controllers\rcms\CCController;
 use App\Http\Controllers\rcms\EffectivenessCheckController;
 use App\Http\Controllers\rcms\ObservationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\demo\DemoValidationController;
 use App\Http\Controllers\DocumentContentController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\newForm\ValidationController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CapaController;
 use App\Http\Controllers\rcms\LabIncidentController;
@@ -137,9 +139,9 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     Route::get('data/{id}', [QuizeController::class, 'datag'])->name('data');
     Route::get('datag/{id}', [QuizeController::class, 'data'])->name('datag');
     //-----------------------QMS----------------
-    Route::get('qms-dashboard', [RcmsDashboardController::class, 'index']);
+    // Route::get('qms-dashboard', [RcmsDashboardController::class, 'index']);
 });
-
+       
 // ====================================Capa=======================
 Route::get('capa', [CapaController::class, 'capa']);
 Route::post('capastore', [CapaController::class, 'capastore'])->name('capastore');
@@ -294,9 +296,12 @@ Route::get("new-change-control", [CCController::class, "changecontrol"]);
 
 Route::view('audit-pdf', 'frontend.documents.audit-pdf');
 
+
+
 //! ============================================
 //!                    RCMS
 //! ============================================
+
 Route::get('chart-data',[DesktopController::class, 'fetchChartData']);
 Route::get('chart-data-releted',[DesktopController::class, 'fetchChartDataDepartmentReleted']);
 Route::get('chart-data-initialDeviationCategory',[DesktopController::class, 'fetchChartDataInitialDeviationCategory']);
@@ -401,7 +406,17 @@ Route::view('preventive-maintenance', 'frontend.new_forms.preventive-maintenance
 Route::view('equipment', 'frontend.new_forms.equipment');
 Route::view('production-line-audit', 'frontend.new_forms.production-line-audit');
 Route::view('renewal', 'frontend.new_forms.renewal');
-Route::view('validation', 'frontend.new_forms.validation');
+
+//! ============================================
+//!                    New Forms - Validation Form
+//! ============================================
+// Route::view('validation', 'frontend.new_forms.validation');
+//Validation form  route
+Route::get('/validation',[DemoValidationController::class,'validationIndex'])->name('create');
+Route::post('/validation-create', [DemoValidationController::class, 'store'])->name('validation_store');
+Route::get('/validation/{id}/edit', [DemoValidationController::class, 'validationEdit'])->name('validation.edit');
+Route::put('/validation/{id}', [DemoValidationController::class, 'validationUpdate'])->name('validation.update');
+
 Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
 Route::view('product-recall', 'frontend.new_forms.product-recall');
 Route::view('field-inquiry', 'frontend.new_forms.field-inquiry');
