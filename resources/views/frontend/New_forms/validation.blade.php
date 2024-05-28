@@ -35,7 +35,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('validation_store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -53,13 +53,21 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Originator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="Originator" value="">
+                                    <input type="text" name="validation" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="RLS Record Number">Record Number</label>
+                                        <input disabled type="text" name="record"
+                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/CAPA/{{ date('Y') }}/{{ $record_number }}">
+                                        {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
+                                    </div>
+                                </div>
+                            <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
-                                    <input type="date" name="Date Opened" value="">
+                                    <input type="date" name="intiation_date" value="">
 
                                 </div>
                             </div>
@@ -79,9 +87,9 @@
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
-                                        <option value="">Pankaj Jat</option>
-                                        <option value="">Gaurav</option>
-                                        <option value="">Manish</option>
+                                        <option value="Pankaj Jat">Pankaj Jat</option>
+                                        <option value="Gaurav">Gaurav</option>
+                                        <option value="Manish">Manish</option>
 
                                     </select>
 
@@ -92,8 +100,8 @@
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="text" id="assign_due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
                             </div>
@@ -101,7 +109,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Validation Type</label>
-                                    <select name="Type">
+                                    <select name="validation_type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -113,19 +121,19 @@
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <label for="validation_due_date">Date Due <span class="text-danger"></span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Type">Notify When Approved?</label>
-                                    <select name="Type">
+                                    <label for="notify_type">Notify When Approved?</label>
+                                    <select name="notify_type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">yes</option>
                                         <option value="2">No</option>
@@ -135,8 +143,8 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Type">Phase Level</label>
-                                    <select name="Type">
+                                    <label for="phase_type">Phase Level</label>
+                                    <select name="phase_type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -152,10 +160,10 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Type">Document Reason</label>
-                                    <select name="Type">
+                                    <select name="document_reason_type">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">yes</option>
-                                        <option value="2">No</option>
+                                        <option value="yes">yes</option>
+                                        <option value="No">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -163,7 +171,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Purpose</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="purpose" id="summernote-16"></textarea>
                                 </div>
                             </div>
 
@@ -173,7 +181,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Outcome">Validation Category</label>
-                                    <select name="Outcome">
+                                    <select name="validation_category">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -184,7 +192,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Patient_Involved">Validation Sub Category</label>
-                                    <select name="Patient_Involved">
+                                    <select name="validation_sub_category">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -204,7 +212,7 @@
                                         <div class="file-attachment-list" id="File_Attachment"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="Attachment[]" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                            <input type="file" id="myfile" name="file_attechment" oninput="addMultipleFiles(this, 'Attachment')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -213,10 +221,10 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reference Recores"> Related Records</label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
+                                    <select multiple id="reference_record" name="related_record" id="">
                                         <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
+                                        <option value="Pankaj">Pankaj</option>
+                                        <option value="Gourav">Gourav</option>
                                     </select>
                                 </div>
                             </div>
@@ -225,17 +233,17 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reporter">Document Link </label>
-                                    <input type="text" name="Document">
+                                    <input type="text" name="document_link">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Tests Required</label>
-                                    <select name="Type">
+                                    <select name="tests_required">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">yes</option>
-                                        <option value="2">No</option>
+                                        <option value="Yes">yes</option>
+                                        <option value="No">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -243,10 +251,10 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Refrence Document</label>
-                                    <select name="Type">
+                                    <select name="reference_document">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">yes</option>
-                                        <option value="2">No</option>
+                                        <option value="Yes">yes</option>
+                                        <option value="No">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -254,14 +262,14 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reporter">Refrence Link </label>
-                                    <input type="text" name="Document">
+                                    <input type="text" name="reference_link">
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Additional Refrences</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="additional_references" id="summernote-16"></textarea>
                                 </div>
                             </div>
 
@@ -273,7 +281,7 @@
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Affected Equipment(0)
-                                    <button type="button" name="audit-agenda-grid" id="Affected_equipment_add">+</button>
+                                    <button type="button" name="equipment" id="Affected_equipment_add">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
                                     </span>
@@ -293,10 +301,10 @@
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="EquipmentName/Code[]"></td>
-                                            <td><input type="text" name="EquipmentID[]"></td>
-                                            <td><input type="text" name="AssetNo[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
+                                            <td><input type="text" name="equipment_name_code[]"></td>
+                                            <td><input type="text" name="equipment_id[]"></td>
+                                            <td><input type="text" name="asset_no[]"></td>
+                                            <td><input type="text" name="remarks[]"></td>
 
                                         </tbody>
 
@@ -308,7 +316,7 @@
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Affected Item(0)
-                                    <button type="button" name="audit-agenda-grid" id="Affected_item_add">+</button>
+                                    <button type="button" name="affected_equipments" id="Affected_item_add">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
                                     </span>
@@ -326,10 +334,10 @@
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="ItemType[]"></td>
-                                            <td><input type="text" name="ItemName[]"></td>
-                                            <td><input type="text" name="ItemNo[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
+                                            <td><input type="text" name="item_type[]"></td>
+                                            <td><input type="text" name="item_name[]"></td>
+                                            <td><input type="text" name="item_no[]"></td>
+                                            <td><input type="text" name="item_remarks[]"></td>
 
 
                                         </tbody>
@@ -342,7 +350,7 @@
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Affected Facilities(0)
-                                    <button type="button" name="audit-agenda-grid" id="Affected_facilities_add">+</button>
+                                    <button type="button" name="affected_facilities" id="Affected_facilities_add">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
                                     </span>
@@ -362,12 +370,10 @@
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="Facility-Location[]"></td>
-                                            <td><input type="text" name="Facility-Type[]"></td>
-                                            <td><input type="text" name="Facility-Name[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
-
-
+                                            <td><input type="text" name="facility_location[]"></td>
+                                            <td><input type="text" name="facility_type[]"></td>
+                                            <td><input type="text" name="facility_name[]"></td>
+                                            <td><input type="text" name="facility_remarks[]"></td>
                                         </tbody>
 
                                     </table>
@@ -386,7 +392,7 @@
                                         <div class="file-attachment-list" id="File_Attachment"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="Attachment[]" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                            <input type="file" id="myfile" name="items_attachment" oninput="addMultipleFiles(this, 'Attachment')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -395,7 +401,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Additional Attachment Items</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="addition_attachment_items" id="summernote-16"></textarea>
                                 </div>
                             </div>
 
@@ -407,10 +413,10 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Type">Data Successfully Closed?</label>
-                                    <select name="Type">
+                                    <select name="data_successfully_type">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">yes</option>
-                                        <option value="2">No</option>
+                                        <option value="Yes">yes</option>
+                                        <option value="No">No</option>
                                     </select>
                                 </div>
                             </div>
@@ -419,7 +425,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Document Summary</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="documents_summary" id="summernote-16"></textarea>
                                 </div>
                             </div>
 
@@ -431,7 +437,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Document Comments</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="document_comments" id="summernote-16"></textarea>
                                 </div>
                             </div>
 
@@ -453,11 +459,11 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Patient_Involved">Test Required?</label>
-                                    <select name="Patient_Involved">
+                                    <select name="test_required">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -467,24 +473,24 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="date_of_birth">Test Start Date</label>
-                                    <input type="date" name="TestStartdate">
+                                    <input type="date" name="test_start_date">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="date_of_birth">Test End Date</label>
-                                    <input type="date" name="TestEnddate">
+                                    <input type="date" name="test_end_date">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="gender">Test Responsible</label>
-                                    <select name="gender">
+                                    <select name="test_responsible">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">pankaj</option>
-                                        <option value="">Gourav</option>
-                                        <option value="">Mayank</option>
+                                        <option value="No">pankaj</option>
+                                        <option value="Gourav">Gourav</option>
+                                        <option value="Mayank">Mayank</option>
                                     </select>
                                 </div>
                             </div>
@@ -499,7 +505,7 @@
                                         <div class="file-attachment-list" id="File_Attachment"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="Attachment[]" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                            <input type="file" id="myfile" name="result_attachment" oninput="addMultipleFiles(this, 'Attachment')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -532,13 +538,13 @@
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="DeviationOccured[]"></td>
-                                            <td><input type="text" name="Test-Name[]"></td>
-                                            <td><input type="text" name="Test-Number[]"></td>
-                                            <td><input type="text" name="Test-Method[]"></td>
-                                            <td><input type="text" name="Test-Result[]"></td>
-                                            <td><input type="text" name="Test-Accepted[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
+                                            <td><input type="text" name="deviation_occured[]"></td>
+                                            <td><input type="text" name="test_name[]"></td>
+                                            <td><input type="text" name="test_number[]"></td>
+                                            <td><input type="text" name="test_method[]"></td>
+                                            <td><input type="text" name="test_result[]"></td>
+                                            <td><input type="text" name="test_accepted[]"></td>
+                                            <td><input type="text" name="remarks[]"></td>
 
                                         </tbody>
 
@@ -549,7 +555,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Test Actions & Comments</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="test_action" id="summernote-16"></textarea>
                                 </div>
                             </div>
 
