@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('assign_to')->nullable();
             $table->string('phase_type')->nullable();
             $table->string('document_reason_type')->nullable();
-            $table->string('purpose')->nullable();
+            $table->longtext('purpose')->nullable();
             $table->string('validation_category')->nullable();
             $table->string('validation_sub_category')->nullable();
             $table->string('file_attechment')->nullable();
@@ -46,10 +46,10 @@ return new class extends Migration
             $table->string('related_record')->nullable();
 
             // Tests Required Section
-            $table->text('tests_required')->nullable();
-            $table->text('reference_document')->nullable();
-            $table->text('reference_link')->nullable();
-            $table->text('additional_references')->nullable();
+            $table->longtext('tests_required')->nullable();
+            $table->longtext('reference_document')->nullable();
+            $table->longtext('reference_link')->nullable();
+            $table->longtext('additional_references')->nullable();
              $table->integer('record')->nullable();
          
 
@@ -101,8 +101,8 @@ return new class extends Migration
 
             // Document Decision
             $table->boolean('data_successfully_closed')->nullable();
-            $table->text('document_summary')->nullable();
-            $table->text('document_comments')->nullable();
+            $table->longtext('document_summary')->nullable();
+            $table->longtext('document_comments')->nullable();
 
             // Test Information
             $table->boolean('test_required')->nullable();
@@ -117,7 +117,7 @@ return new class extends Migration
             // Summary of Results
             $table->json('summary_of_results')->nullable();
 
-            $table->text('test_actions_comments')->nullable();
+            $table->longtext('test_actions_comments')->nullable();
 
             // Record Type History
             $table->json('record_history')->nullable();

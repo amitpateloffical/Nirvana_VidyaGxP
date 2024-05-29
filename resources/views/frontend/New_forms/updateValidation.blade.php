@@ -55,231 +55,7 @@
 
     {{-- ---------------------- --}}
    
-    <div class="inner-block state-block">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="main-head">Record Workflow </div>
-
-                    <div class="d-flex" style="gap:20px;">
-                        {{-- @php
-                            $userRoles = DB::table('user_roles')
-                                ->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $data->division_id])
-                                ->get();
-                            $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
-                            $cftRolesAssignUsers = collect($userRoleIds); //->contains(fn ($roleId) => $roleId >= 22 && $roleId <= 33);
-                            $cftUsers = DB::table('deviationcfts')
-                                ->where(['deviation_id' => $data->id])
-                                ->first();
-
-
-
-
-                            // Define the column names
-                            $columns = [
-                                'Production_person',
-                                'Warehouse_notification',
-                                'Quality_Control_Person',
-                                'QualityAssurance_person',
-                                'Engineering_person',
-                                'Analytical_Development_person',
-                                'Kilo_Lab_person',
-                                'Technology_transfer_person',
-                                'Environment_Health_Safety_person',
-                                'Human_Resource_person',
-                                'Information_Technology_person',
-                                'Project_management_person',
-                            ];
-
-                            // Initialize an array to store the values
-                            $valuesArray = [];
-
-                            // Iterate over the columns and retrieve the values
-                            foreach ($columns as $column) {
-                                $value = $cftUsers->$column;
-                                // Check if the value is not null and not equal to 0
-                                if ($value !== null && $value != 0) {
-                                    $valuesArray[] = $value;
-                                }
-                            }
-                            $cftCompleteUser = DB::table('deviationcfts_response')
-                                ->whereIn('status', ['In-progress', 'Completed'])
-                                ->where('deviation_id', $data->id)
-                                ->where('cft_user_id', Auth::user()->id)
-                                ->whereNull('deleted_at')
-                                ->first();
-                            // dd($cftCompleteUser);
-                        @endphp --}}
-                        {{-- <button class="button_theme1" onclick="window.print();return false;"
-                            class="new-doc-btn">Print</button> --}}
-                        <button class="button_theme1"> <a class="text-white" href="">
-                                {{-- {{ url('DeviationAuditTrial', $data->id) }} --}}
-
-                                {{-- add here url for auditTrail i.e. href="{{ url('CapaAuditTrial', $data->id) }}" --}}
-                                Audit Trail </a> </button>
-
-                        {{-- @if ($data->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds))) --}}
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                            Submit
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                            Cancel
-                        </button>
-                        {{-- @elseif($data->stage == 2 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds))) --}}
-                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
-                            More Info Required
-                        </button> --}}
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                            HOD Review Complete
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                            Cancel
-                        </button>
-                        {{-- @elseif($data->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds))) --}}
-                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
-                            More Info Required
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                            QA Initial Review Complete
-                        </button>
-
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
-                            Child
-                        </button> --}}
-                        {{-- @elseif(
-                            $data->stage == 4 &&
-                                (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
-                            @if (!$cftCompleteUser) --}}
-                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
-                            More Info Required
-                        </button> --}}
-
-                        {{-- @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds))) --}}
-                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
-                            Send to Initiator
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
-                            Send to HOD
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
-                            Send to QA Initial Review
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                            QA Final Review Complete
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
-                            Child
-                        </button> --}}
-                        {{-- @elseif($data->stage == 6 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds))) --}}
-                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
-                            More Info Required
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                            Approved
-                        </button> --}}
-                        {{-- @elseif($data->stage == 7 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds))) --}}
-                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
-                            Send to Opened
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
-                            Send to HOD Review
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
-                            Send to QA Initial Review
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                            Initiator Updated Complete
-                        </button> --}}
-                        {{-- @elseif($data->stage == 8 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds))) --}}
-                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
-                            Send to Opened
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
-                            Send to HOD Review
-                        </button> --}}
-                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
-                            Send to QA Initial Review
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#pending-initiator-update">
-                            Send to Pending Initiator Update
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                            QA Final Review Complete
-                        </button> --}}
-                        {{-- @endif --}}
-                        {{-- <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
-                            </a> </button> --}}
-
-
-                    </div>
-
-                </div>
-
-
-                <div class="status">
-                    <div class="head">Current Status</div>
-                    {{-- @if ($data->stage == 0) --}}
-                    {{-- <div class="progress-bars ">
-                        <div class="bg-danger">Closed-Cancelled</div>
-                    </div> --}}
-                    {{-- @else --}}
-                    <div class="progress-bars d-flex" style="font-size: 15px;">
-                        {{-- @if ($data->stage >= 1) --}}
-                        <div class="active">Opened</div>
-                        {{-- @else --}}
-                        {{-- <div class="">Opened</div> --}}
-                        {{-- @endif --}}
-
-                        {{-- @if ($data->stage >= 2) --}}
-                        {{-- <div class="active">HOD Review </div> --}}
-                        {{-- @else --}}
-                        <div class="">HOD Review</div>
-                        {{-- @endif --}}
-
-                        {{-- @if ($data->stage >= 3) --}}
-                        {{-- <div class="active">QA Initial Review</div> --}}
-                        {{-- @else --}}
-                        <div class="">QA Initial Review</div>
-                        {{-- @endif --}}
-
-                        {{-- @if ($data->stage >= 4) --}}
-                        {{-- <div class="active">CFT Review</div> --}}
-                        {{-- @else --}}
-                        <div class="">CFT Review</div>
-                        {{-- @endif --}}
-
-
-                        {{-- @if ($data->stage >= 5) --}}
-                        {{-- <div class="active">QA Final Review</div> --}}
-                        {{-- @else --}}
-                        <div class="">QA Final Review</div>
-                        {{-- @endif --}}
-                        {{-- @if ($data->stage >= 6) --}}
-                        {{-- <div class="active">QA Head/Manager Designee Approval</div> --}}
-                        {{-- @else --}}
-                        <div class="">QA Head/Manager Designee Approval</div>
-                        {{-- @endif --}}
-                        {{-- @if ($data->stage >= 7) --}}
-                        {{-- <div class="active">Pending Initiator Update</div> --}}
-                        {{-- @else --}}
-                        <div class="">Pending Initiator Update</div>
-                        {{-- @endif --}}
-                        {{-- @if ($data->stage >= 8) --}}
-                        {{-- <div class="active">QA Final Approval</div> --}}
-                        {{-- @else --}}
-                        <div class="">QA Final Approval</div>
-                        {{-- @endif --}}
-                        {{-- @if ($data->stage >= 9) --}}
-                        {{-- <div class="bg-danger">Closed - Done</div> --}}
-                        {{-- @else --}}
-                        <div class="">Closed - Done</div>
-                        {{-- @endif --}}
-                        {{-- @endif --}}
-
-
-                    </div>
-                    {{-- @endif --}}
-                    {{-- ---------------------------------------------------------------------------------------- --}}
-                </div>
-            </div>
+  
 
 
 
@@ -288,7 +64,229 @@
 {{-- ! ========================================= --}}
 <div id="change-control-fields">
     <div class="container-fluid">
+    <div class="inner-block state-block">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="main-head">Record Workflow </div>
 
+                    <div class="d-flex" style="gap:20px;">
+                        @php
+                        $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $data->division_id])->get();
+                        $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                    @endphp
+                        {{-- <button class="button_theme1" onclick="window.print();return false;" class="new-doc-btn">Print</button> --}}
+                        {{--  <button class="button_theme1"> <a class="text-white" href="{{ url('send-notification', $data->id) }}"> Send Notification </a> </button>  --}}
+
+                        <button class="button_theme1"> <a class="text-white"
+                                href="{{ url('rcms/audit-trial', $validation->id) }}"> Audit Trail </a> </button>
+                        {{-- @if ($data->stage >= 9)
+                            <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/eCheck', $data->id) }}">
+                                    Close Done </a> </button>
+                        @endif --}}
+                        @if ($validation->stage == 1  && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Submit
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#rejection-modal">
+                                Cancel
+                            </button>
+                        @elseif($validation->stage == 2  && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                                Child
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                HOD Review Complete
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#rejection-modal">
+                                More Info-required
+                            </button>
+                        @elseif($validation->stage == 3  && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Send to CFT/SME/QA Reviewers
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cft-modal">
+                                CFT/SME/QA Review Not Required
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#rejection-modal">
+                                More Information required
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
+                                Child
+                            </button>
+                        @elseif($validation->stage == 4  && (in_array(5, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Review Complete
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#rejection-modal">
+                                Request More Info
+                            </button>
+                        @elseif($validation->stage == 6  && (in_array(6, $userRoleIds) || in_array(18, $userRoleIds)))
+                            @if ($evaluation->training_required == 'yes')
+                                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                    Training Completed
+                                </button>
+                            @endif
+                        @elseif($validation->stage == 7  && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Implemented
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
+                                Child
+                            </button>
+                        @elseif($validation->stage == 8)
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Final Review Complete
+                            </button>
+                        @endif
+                        <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                            </a> </button>
+
+
+                    </div>
+
+                </div>
+                <div class="status">
+                    <div class="head">Current Status</div>
+                    {{-- @if ($data->stage == 0)
+                        <div class="progress-bars">
+                            <div class="bg-danger">Closed-Cancelled</div>
+                        </div>
+                    @else
+                        <div class="progress-bars">
+                            @if ($data->stage >= 1)
+                                <div class="active">Opened</div>
+                            @else
+                                <div class="">Opened</div>
+                            @endif
+                            {{--  @if ($data->stage >= 2)
+                            <div class="active">Superviser Review</div>
+                        @else
+                            <div class="">Superviser Review</div>
+                        @endif  --}}
+                    {{-- @if ($data->stage >= 2)
+                                <div class="active">Under Superviser Review </div>
+                            @else
+                                <div class="">Under Superviser Review </div>
+                            @endif
+                            @if ($info->Quality_Approver == 'yes')
+                            @if ($data->stage >= 3)
+                                <div class="active">QA Review</div>
+                            @else
+                                <div class="">QA Review</div>
+                            @endif
+                            @endif
+                            @if ($info->Microbiology == 'yes')
+                            @if ($data->stage >= 4)
+                                <div class="active">Pending CFT Review</div>
+                            @else
+                                <div class="">Pending CFT Review</div>
+                            @endif
+
+
+                            @if ($data->stage >= 5)
+                                <div class="active">CFT Review Completed</div>
+                            @else
+                                <div class="">CFT Review Completed</div>
+                            @endif
+                            @endif
+                            @if ($evaluation->training_required == 'yes')
+                                @if ($data->stage >= 6)
+                                    <div class="active">Pending Training Completion</div>
+                                @else
+                                    <div class="">Pending Training Completion</div>
+                                @endif
+                            @endif
+
+                            @if ($data->stage >= 7)
+                                <div class="active">Pending Change Implementation</div>
+                            @else
+                                <div class="">Pending Change Implementation</div>
+                            @endif
+                            @if ($info->Quality_Approver == 'yes')
+                            @if ($data->stage >= 8)
+                                <div class="active">QA Final Review</div>
+                            @else
+                                <div class="">QA Final Review</div>
+                            @endif
+                            @endif
+
+                            @if ($data->stage >= 9)
+                                <div class="active">Closed - Done</div>
+                            @else
+                                <div class="">Closed - Done</div>
+                            @endif
+
+
+                        </div>
+                    @endif --}}
+
+                    {{-- ------------------------------By Pankaj-------------------------------- --}}
+                    @if ($data->stage == 0)
+                        <div class="progress-bars">
+                            <div class="bg-danger">Closed-Cancelled</div>
+                        </div>
+                    @else
+                        <div class="progress-bars">
+                            @if ($data->stage >= 1)
+                                <div class="active">Opened</div>
+                            @else
+                                <div class="">Opened</div>
+                            @endif
+                            {{--  @if ($data->stage >= 2)
+                        <div class="active">Superviser Review</div>
+                    @else
+                        <div class="">Superviser Review</div>
+                    @endif  --}}
+                            @if ($data->stage >= 2)
+                                <div class="active">Under HOD Review </div>
+                            @else
+                                <div class="">Under HOD Review </div>
+                            @endif
+                            {{-- @if ($info->Quality_Approver == 'yes') --}}
+                            @if ($data->stage >= 3)
+                                <div class="active">Pending CFT/SME/QA Review</div>
+                            @else
+                                <div class="">Pending CFT/SME/QA Review</div>
+                            @endif
+                            {{-- @endif
+                            @if ($info->Microbiology == 'yes') --}}
+                            @if ($data->stage >= 4)
+                                <div class="active"> CFT/SME/QA Review</div>
+                            @else
+                                <div class=""> CFT/SME/QA Review</div>
+                            @endif
+
+
+                            {{-- @if ($data->stage >= 5)
+                            <div class="active">CFT Review Completed</div>
+                        @else
+                            <div class="">CFT Review Completed</div>
+                        {{-- @endif --}}
+                            {{-- @endif --}}
+                            {{-- @if ($evaluation->training_required == 'yes')
+                            @if ($data->stage >= 6)
+                                <div class="active">Pending Training Completion</div>
+                            @else
+                                <div class="">Pending Training Completion</div>
+                            @endif
+                        @endif --}}
+
+                            @if ($data->stage >= 7)
+                                <div class="active">Pending Change Implementation</div>
+                            @else
+                                <div class="">Pending Change Implementation</div>
+                            @endif
+                            @if ($data->stage >= 8)
+                                <div class="bg-danger">Closed - Done</div>
+                            @else
+                                <div class="">Closed - Done</div>
+                            @endif
+
+
+                        </div>
+                    @endif
+                    {{-- ---------------------------------------------------------------------------------------- --}}
+                </div>
+            </div>
         <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Validation Document</button>
@@ -321,7 +319,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
-                                    <input type="date" name="initiation_date" value="{{ $validation->initiation_date }}">
+                                    <!-- <input type="date" name="initiation_date" value="{{ $validation->initiation_date }}"> -->
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
                                 </div>
                             </div>
 
@@ -338,10 +337,13 @@
                                     <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                    <select id="select-state" placeholder="Select..." name="assigned_user_id">
+                                    <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
+                                        <!-- <option value="Pankaj">Pankaj</option>
+                                        <option value="Manish">Manish</option>
+                                        <option value="Gourav">Gourav</option> -->
                                         @foreach ($users as $key => $value)
-                                            <option value="{{ $value->id }}" @if ($validation->assigned_user_id == $value->id) selected @endif>
+                                            <option value="{{ $value->id }}" @if ($validation->assign_to == $value->id) selected @endif>
                                                 {{ $value->name }}
                                             </option>
                                         @endforeach
@@ -399,7 +401,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="phase_type">Phase Level</label>
-                                    <select name="Type">
+                                    <select name="phase_type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if ($validation->phase_type == 1) selected @endif>1</option>
                                         <option value="2" @if ($validation->phase_type == 2) selected @endif>2</option>
@@ -426,7 +428,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Purpose</label>
-                                    <textarea class="summernote" name="purpose" id="summernote-16">{{ $validation->purpose }}</textarea>
+                                    <textarea class="summernote" name="purpose" id="summernote-16" {{ $validation->stage == 0 || $validation->stage == 6 ? "disabled" : "" }}>{{ old('purpose', $validation->purpose) }}</textarea>
                                 </div>
                             </div>
 
@@ -460,10 +462,20 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="file-attachment-list" id="file_attechment">
+                                        @if ($validation->file_attechment)
+                                                @foreach(json_decode($validation->file_attechment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                        </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attechment" value="{{$validation->file_attechment }}" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                            <input type="file" id="myfile" name="file_attechment[]" value="{{$validation->file_attechment }}" oninput="addMultipleFiles(this, 'file_attechment')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -527,7 +539,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Additional Refrences</label>
-                                    <textarea class="summernote" name="additional_references" value="{{$validation->additional_references}}" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="additional_references"  id="summernote-16" >{{ $validation->additional_references }}</textarea>
                                 </div>
                             </div>
 
@@ -646,10 +658,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="file-attachment-list" id="items_attachment"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="items_attachment" value="{{$validation->items_attachment}}" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                            <input type="file" id="myfile" name="items_attachment[]" value="{{$validation->items_attachment}}" oninput="addMultipleFiles(this, 'items_attachment')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -658,7 +670,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Additional Attachment Items</label>
-                                    <textarea class="summernote" name="addition_attachment_items" value="{{$validation->addition_attachment_items}}" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="addition_attachment_items" id="summernote-16" {{ $validation->stage == 0 || $validation->stage == 6 ? "disabled" : "" }}>{{ $validation->addition_attachment_items }}</textarea>
                                 </div>
                             </div>
 
@@ -684,7 +696,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Document Summary</label>
-                                    <textarea class="summernote" name="documents_summary" value="{{$validation->documents_summary}}" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="documents_summary" id="summernote-16" {{ $validation->stage == 0 || $validation->stage == 6 ? "disabled" : "" }}>{{ $validation->documents_summary }}</textarea>
                                 </div>
                             </div>
 
@@ -696,7 +708,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Document Comments</label>
-                                    <textarea class="summernote" name="document_comments" value="{{$validation->document_comments}}" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="document_comments"  id="summernote-16"  {{ $validation->stage == 0 || $validation->stage == 6 ? "disabled" : "" }}>{{ $validation->document_comments }}</textarea>
                                 </div>
                             </div>
 
@@ -766,10 +778,20 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="file-attachment-list" id="result_attachment">
+                                        @if ($validation->result_attachment)
+                                                @foreach(json_decode($validation->result_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif
+                                        </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="result_attachment" value="{{$validation->result_attachment}}" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                            <input type="file" id="myfile" name="result_attachment[]" value="{{$validation->result_attachment}}" oninput="addMultipleFiles(this, 'result_attachment')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -819,7 +841,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Test Actions & Comments</label>
-                                    <textarea class="summernote" name="test_action" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="test_action" id="summernote-16" {{ $validation->stage == 0 || $validation->stage == 6 ? "disabled" : "" }}>{{ $validation->test_action }}</textarea>
                                 </div>
                             </div>
 

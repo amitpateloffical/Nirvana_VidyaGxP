@@ -1,5 +1,8 @@
 @extends('frontend.layout.main')
 @section('container')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.js"></script>
 <style>
     textarea.note-codable {
         display: none !important;
@@ -10,13 +13,46 @@
     }
 </style>
 
+<script>
+    $(document).ready(function() {
+        // Calculate the due date 30 days from the initiation date
+        function calculateDueDate(initiationDate) {
+            let date = new Date(initiationDate);
+            date.setDate(date.getDate() + 30);
+            return date;
+        }
+
+        // Format date to DD-MMM-YYYY
+        function formatDateToDisplay(date) {
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
+        }
+
+        // Format date to YYYY-MM-DD
+        function formatDateToISO(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        // Get the initiation date value
+        let initiationDate = $('#initiation_date').val();
+        let dueDate = calculateDueDate(initiationDate);
+
+        // Set the due date in the appropriate fields
+        $('#assign_due_date_display').val(formatDateToDisplay(dueDate));
+        $('#assign_due_date').val(formatDateToISO(dueDate));
+    });
+</script>
+
+    @php
+        $users = DB::table('users')->get();
+    @endphp
 <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
         </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / Validation
+        {{ Helpers::getDivisionName(session()->get('division')) }} / Validation
     </div>
 </div>
 
@@ -53,24 +89,24 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Originator"><b>Initiator</b></label>
-                                    <input type="text" name="validation" value="">
+                                    <input disabled type="text" name="validation" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="RLS Record Number">Record Number</label>
                                         <input disabled type="text" name="record"
-                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/CAPA/{{ date('Y') }}/{{ $record_number }}">
-                                        {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
+                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/DEMOVALIDATION/{{ date('Y') }}/{{ $record_number }}">
+                                    
                                     </div>
                                 </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Division Code"><b>Date Of Initiation</b></label>
-                                    <input type="date" name="intiation_date" value="">
-
+                                        <div class="col-lg-6">
+                                        <div class="group-input">
+                                            <label for="Division Code"><b>Date Of Initiation</b></label>
+                                            <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
+                                            <input type="hidden" value="{{ date('Y-m-d') }}" id="initiation_date" name="initiation_date">
+                                        </div>
                                 </div>
-                            </div>
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -87,23 +123,29 @@
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
-                                        <option value="Pankaj Jat">Pankaj Jat</option>
-                                        <option value="Gaurav">Gaurav</option>
-                                        <option value="Manish">Manish</option>
-
+                                        @foreach ($users as $key => $value)
+                                            <option value="{{ $value->id }}">
+                                                {{ $value->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
-
+                                    @error('assigned_user_id')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="assign_due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
+                            <div class="group-input input-date">
+                                <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                <div>
+                                    <small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
                                 </div>
+                                <div class="calenderauditee">
+                                    <input type="text" id="assign_due_date_display" readonly placeholder="DD-MMM-YYYY">
+                                    <input type="hidden" name="assign_due_date" id="assign_due_date">
+                                </div>
+                            </div>
                             </div>
 
                             <div class="col-lg-6">
@@ -148,7 +190,6 @@
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
-                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -209,10 +250,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="file-attachment-list" id="file_attechment"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attechment" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                            <input type="file" id="myfile" name="file_attechment[]" oninput="addMultipleFiles(this, 'file_attechment')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -389,10 +430,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="file-attachment-list" id="items_attachment"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="items_attachment" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                            <input type="file" id="myfile" name="items_attachment[]" oninput="addMultipleFiles(this, 'items_attachment')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -502,10 +543,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="file-attachment-list" id="result_attachment"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="result_attachment" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                            <input type="file" id="myfile" name="result_attachment[]" oninput="addMultipleFiles(this, 'result_attachment')" multiple>
                                         </div>
                                     </div>
                                 </div>

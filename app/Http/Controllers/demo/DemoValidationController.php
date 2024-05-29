@@ -21,17 +21,28 @@ class DemoValidationController extends Controller
         $due_date = $formattedDate->format('Y-m-d');
         return view('frontend.New_forms.validation', compact('old_record','record_number','currentDate','formattedDate','due_date'));
        }
-    public function store(Request $request)
-{
-    // dd($request);
+    public function store(Request $request){
+
+        $request->validate([
+            'file_attachment.*' => 'required|mimes:jpg,png,pdf,doc,docx|max:2048',
+        ]);
+       
+        try {
+            $recordCounter = RecordNumber::first();
+            $newRecordNumber = $recordCounter->counter + 1;
+
+            $recordCounter->counter = $newRecordNumber;
+            $recordCounter->save();
+
+
     $validation = new DemoValidation();
 
     // General Information
-    $validation->parent_id = $request->input('parent_id');
-    $validation->parent_type = $request->input('parent_type');
-    $validation->record = ((RecordNumber::first()->value('counter')) + 1);
+    $validation->parent_id = $request->parent_id;
+    $validation->parent_type = $request->parent_type;
+    $validation->record = $newRecordNumber;
     $validation->initiator_id = Auth::user()->id;
-    $validation->initiation_date = $request->input('initiation_date');
+    $validation->initiation_date = $request->initiation_date;
     $validation->short_description = $request->input('short_description');
     $validation->assign_to= $request->input('assign_to');
     $validation->assign_due_date= $request->input('assign_due_date');
@@ -47,17 +58,21 @@ class DemoValidationController extends Controller
     // $validation->file_attechment = $request->input('file_attechment');
     $validation->related_record = $request->input('related_record');
     $validation->document_link = $request->input('document_link');
-    $validation->file_attechment = $request->input('file_attechment');
 
-    //file attachment
-    if ($request->hasFile('file_attechment')) {
-        $fileAttechmentPaths = [];
+
+
+
+if (!empty ($request->file_attechment)) {
+    $files = [];
+    if ($request->hasfile('file_attechment')) {
         foreach ($request->file('file_attechment') as $file) {
-            $path = $file->store('attachments', 'public');
-            $fileAttechmentPaths[] = $path;
+            $name = $request->name . 'file_attechment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+            $file->move('upload/', $name);
+            $files[] = $name;
         }
-        $validation->file_attechment = json_encode($fileAttechmentPaths);
     }
+    $validation->file_attechment = json_encode($files);
+}
 
     // Tests Required Section
     $validation->tests_required = $request->input('tests_required');
@@ -73,17 +88,20 @@ class DemoValidationController extends Controller
     ];
     $validation->affected_items = json_encode($affectedItems);
 
-    // Attachments
-    if ($request->hasFile('items_attachment')) {
-        $itemsAttachmentPaths = [];
-        foreach ($request->file('items_attachment') as $file) {
-            $path = $file->store('attachments', 'public');
-            $itemsAttachmentPaths[] = $path;
-        }
-        $validation->items_attachment = json_encode($itemsAttachmentPaths);
-    }
 
-    $validation->additional_attachment_items = $request->input('additional_attachment_items');
+
+    if (!empty ($request->items_attachment)) {
+        $files = [];
+        if ($request->hasfile('items_attachment')) {
+            foreach ($request->file('items_attachment') as $file) {
+                $name = $request->name . 'items_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                $file->move('upload/', $name);
+                $files[] = $name;
+            }
+        }
+        $validation->items_attachment = json_encode($files);
+    }
+  
 
 
     $equipmentNameCode = $request->input('equipment_name_code');
@@ -130,16 +148,22 @@ class DemoValidationController extends Controller
     $validation->test_end_date = $request->input('test_end_date');
     $validation->test_responsible = $request->input('test_responsible');
 
-    // Test Results Attachment
-    if ($request->hasFile('result_attachment')) {
-        $resultAttachmentPaths = [];
-        foreach ($request->file('result_attachment') as $file) {
-            $path = $file->store('attachments', 'public');
-            $resultAttachmentPaths[] = $path;
+
+
+
+    if (!empty ($request->items_attachment)) {
+        $files = [];
+        if ($request->hasfile('result_attachment')) {
+            foreach ($request->file('result_attachment') as $file) {
+                $name = $request->name . 'result_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                $file->move('upload/', $name);
+                $files[] = $name;
+            }
         }
-        $validation->result_attachment = json_encode($resultAttachmentPaths);
+        $validation->result_attachment = json_encode($files);
     }
 
+   
     $validation->deviation_occurred = json_encode($request->input('DeviationOccured'));
     $validation->test_name = json_encode($request->input('Test-Name'));
     $validation->test_number = json_encode($request->input('Test-Number'));
@@ -189,15 +213,20 @@ class DemoValidationController extends Controller
 
     $validation->save();
 
-    // return redirect()->back()->with('success', 'Validation saved successfully.');
     toastr()->success("Validation is created Successfully");
     return redirect(url('rcms/qms-dashboard'));
+} catch (\Exception $e) {
+   
+    return redirect()->back()->with('error', 'Failed to save validation: ' . $e->getMessage());
+}
 }
 
-public function edit($id) {
-    $data       = DemoValidation::findOrFail($id);
-    $data->id = Auth::user()->id;
-    return view('frontend.New_forms.updateValidation', compact('data'));
+
+
+public function validationEdit($id)
+{
+    $validation = DemoValidation::findOrFail($id);
+    return view('frontend.new_forms.updateValidation', compact('validation'));
 }
 
 public function validationUpdate(Request $request, $id){
@@ -228,14 +257,18 @@ public function validationUpdate(Request $request, $id){
     $validations->document_link = $request->input('document_link');
     $validations->file_attechment = $request->input('file_attechment');
 
+   
     //file attachment
-    if ($request->hasFile('file_attechment')) {
-        $fileAttechmentPaths = [];
-        foreach ($request->file('file_attechment') as $file) {
-            $path = $file->store('attachments', 'public');
-            $fileAttechmentPaths[] = $path;
+    if (!empty ($request->file_attechment)) {
+        $files = [];
+        if ($request->hasfile('file_attechment')) {
+            foreach ($request->file('file_attechment') as $file) {
+                $name = $request->name . 'file_attechment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                $file->move('upload/', $name);
+                $files[] = $name;
+            }
         }
-        $validations->file_attechment = json_encode($fileAttechmentPaths);
+        $validations->file_attechment = json_encode($files);
     }
 
     // Tests Required Section
@@ -253,16 +286,53 @@ public function validationUpdate(Request $request, $id){
     $validations->affected_items = json_encode($affectedItems);
 
     // Attachments
-    if ($request->hasFile('items_attachment')) {
-        $itemsAttachmentPaths = [];
-        foreach ($request->file('items_attachment') as $file) {
-            $path = $file->store('attachments', 'public');
-            $itemsAttachmentPaths[] = $path;
+    if (!empty ($request->items_attachment)) {
+        $files = [];
+        if ($request->hasfile('items_attachment')) {
+            foreach ($request->file('items_attachment') as $file) {
+                $name = $request->name . 'items_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                $file->move('upload/', $name);
+                $files[] = $name;
+            }
         }
-        $validations->items_attachment = json_encode($itemsAttachmentPaths);
+        $validations->items_attachment = json_encode($files);
     }
 
     $validations->additional_attachment_items = $request->input('additional_attachment_items');
+
+
+    $equipmentNameCode = $request->input('equipment_name_code');
+    $validations->equipment_name_code = is_array($equipmentNameCode) ? implode(', ', $equipmentNameCode) : $equipmentNameCode;
+    
+    $equipmentId = $request->input('equipment_id');
+    $validations->equipment_id = is_array($equipmentId) ? implode(', ', $equipmentId) : $equipmentId;
+    
+    $assetNo = $request->input('asset_no');
+    $validations->asset_no = is_array($assetNo) ? implode(', ', $assetNo) : $assetNo;
+    
+    $remarks = $request->input('remarks');
+    $validations->remarks = is_array($remarks) ? implode(', ', $remarks) : $remarks;
+    
+    // Handle Affected Items
+    $itemType = $request->input('item_type');
+    $validations->item_type = is_array($itemType) ? implode(', ', $itemType) : $itemType;
+    
+    $itemName = $request->input('item_name');
+    $validations->item_name = is_array($itemName) ? implode(', ', $itemName) : $itemName;
+    
+    $itemNo = $request->input('item_no');
+    $validations->item_no = is_array($itemNo) ? implode(', ', $itemNo) : $itemNo;
+    
+    // Handle Affected Facilities
+    $facilityLocation = $request->input('facility_location');
+    $validations->facility_location = is_array($facilityLocation) ? implode(', ', $facilityLocation) : $facilityLocation;
+    
+    $facilityType = $request->input('facility_type');
+    $validations->facility_type = is_array($facilityType) ? implode(', ', $facilityType) : $facilityType;
+    
+    $facilityName = $request->input('facility_name');
+    $validations->facility_name = is_array($facilityName) ? implode(', ', $facilityName) : $facilityName;
+    
 
     // Document Decision
     $validations->data_successfully_closed = $request->input('data_successfully_closed');
@@ -276,14 +346,25 @@ public function validationUpdate(Request $request, $id){
     $validations->test_responsible = $request->input('test_responsible');
 
     // Test Results Attachment
-    if ($request->hasFile('result_attachment')) {
-        $resultAttachmentPaths = [];
-        foreach ($request->file('result_attachment') as $file) {
-            $path = $file->store('attachments', 'public');
-            $resultAttachmentPaths[] = $path;
+    if (!empty ($request->items_attachment)) {
+        $files = [];
+        if ($request->hasfile('result_attachment')) {
+            foreach ($request->file('result_attachment') as $file) {
+                $name = $request->name . 'result_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                $file->move('upload/', $name);
+                $files[] = $name;
+            }
         }
-        $validations->result_attachment = json_encode($resultAttachmentPaths);
+        $validations->result_attachment = json_encode($files);
     }
+
+    $validations->deviation_occurred = json_encode($request->input('DeviationOccured'));
+    $validations->test_name = json_encode($request->input('Test-Name'));
+    $validations->test_number = json_encode($request->input('Test-Number'));
+    $validations->test_method = json_encode($request->input('Test-Method'));
+    $validations->test_result = json_encode($request->input('Test-Result'));
+    $validations->test_accepted = json_encode($request->input('Test-Accepted'));
+    $validations->remarks = json_encode($request->input('Remarks'));
 
     // Summary of Results
     $summaryOfResults = $request->input('summary_of_results');
@@ -329,28 +410,5 @@ public function validationUpdate(Request $request, $id){
 
   }
 
-
- 
-  public function validationEdit($id)
-  {
-      $validation = DemoValidation::findOrFail($id);
-      return view('frontend.new_forms.updateValidation', compact('validation'));
-  }
-// public function show($id)
-// {
-// $data = DemoValidation::find($id);
-// $old_record = DemoValidation::select('id', 'id')->get();
-// // $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
-// $data->assign_to_name = User::where('id', $data->assign_to)->value('name');
-// $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
-// // $validationEffectAnalysis = DemoValidation::where('validation_id',$id)->where('type',"effect_analysis")->first();
-// // $fishbone = DemoValidation::where('validation_id',$id)->where('type',"fishbone")->first();
-// // $whyChart = DemoValidation::where('validation_id',$id)->where('type',"why_chart")->first();
-// // $what_who_where = DemoValidation::where('validation_id',$id)->where('type',"what_who_where")->first();
-// // $action_plan = DemoValidation::where('validation_id',$id)->where('type',"Action_Plan")->first();
-// // $mitigation_plan_details = DemoValidation::where('validation_id',$id)->where('type',"Mitigation_Plan_Details")->first();
-
-// return view('frontend.new_forms.updateValidation',compact('data','old_record'));
-// }
 
 }
