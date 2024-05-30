@@ -417,6 +417,8 @@ Route::post('/validation-create', [DemoValidationController::class, 'store'])->n
 Route::get('/validation/{id}/edit', [DemoValidationController::class, 'validationEdit'])->name('validation.edit');
 Route::put('/validation/{id}', [DemoValidationController::class, 'validationUpdate'])->name('validation.update');
 
+// Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
+
 Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
 Route::view('product-recall', 'frontend.new_forms.product-recall');
 Route::view('field-inquiry', 'frontend.new_forms.field-inquiry');
