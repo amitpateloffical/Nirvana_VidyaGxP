@@ -55,9 +55,6 @@ $users = DB::table('users')->get();
 {{-- ---------------------- --}}
 
 
-
-
-
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
 {{-- ! ========================================= --}}
@@ -74,11 +71,6 @@ $users = DB::table('users')->get();
                     @endphp
 
                     <button class="button_theme1"> <a class="text-white" href="{{ url('auditValidation', $validation->id) }}"> Audit Trail </a> </button>
-                    <!-- <button class="button_theme1"> <a class="text-white" href="">
-                                {{-- {{ url('DeviationAuditTrial', $data->id) }} --}}
-
-                                {{-- add here url for auditTrail i.e. href="{{ url('CapaAuditTrial', $data->id) }}" --}}
-                                Audit Trail </a> </button> -->
 
                     @if ($validation->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -91,7 +83,7 @@ $users = DB::table('users')->get();
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Review Approval
                     </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target=" #more-info-required-modal">
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target=" #cancel-modal">
                         Corrections Needed
                     </button>
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
@@ -109,7 +101,7 @@ $users = DB::table('users')->get();
                     $validation->stage == 4 &&
                     (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
 
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                    <button class="button_theme1" data-bs-toggle="modal" name="test_not_required" data-bs-target="#signature-modal">
                         Tests Not Required
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
@@ -150,10 +142,10 @@ $users = DB::table('users')->get();
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Final Approval
                     </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                         Report Reject
                     </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Obsolete
                     </button>
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -165,8 +157,8 @@ $users = DB::table('users')->get();
                     </button>
 
                     @endif
-                    {{-- <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
-                    </a> </button> --}}
+                    <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                    </a> </button>
                 </div>
             </div>
 
@@ -196,13 +188,13 @@ $users = DB::table('users')->get();
                     @else
                     <div class="">Protocol Approval</div>
                     @endif
-
+               
                     @if ($validation->stage >= 4)
                     <div class="active">Test in Progress</div>
                     @else
                     <div class="">Test in Progress</div>
                     @endif
-
+                
 
                     @if ($validation->stage >= 5)
                     <div class="active">Deviation in Progress</div>
@@ -421,6 +413,8 @@ $users = DB::table('users')->get();
                                     <div><small class="text-primary">
                                         </small>
                                     </div>
+                                  
+
                                     <div class="file-attachment-field">
                                         <div class="file-attachment-list" id="file_attechment">
                                             @if ($validation->file_attechment)
@@ -435,7 +429,7 @@ $users = DB::table('users')->get();
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attechment[]" value="{{$validation->file_attechment }}" oninput="addMultipleFiles(this, 'file_attechment')" multiple>
+                                            <input type="file" id="myfile" name="file_attechment[]" value="{{$validation->file_attechment}}" oninput="addMultipleFiles(this, 'file_attechment')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -617,8 +611,26 @@ $users = DB::table('users')->get();
                                     <div><small class="text-primary">
                                         </small>
                                     </div>
-                                    <div class="file-attachment-field">
+                                    <!-- <div class="file-attachment-field">
                                         <div class="file-attachment-list" id="items_attachment"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="items_attachment[]" value="{{$validation->items_attachment}}" oninput="addMultipleFiles(this, 'items_attachment')" multiple>
+                                        </div>
+                                    </div> -->
+
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="items_attachment">
+                                            @if ($validation->items_attachment)
+                                            @foreach(json_decode($validation->items_attachment) as $file)
+                                            <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                <b>{{ $file }}</b>
+                                                <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                <a type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                            </h6>
+                                            @endforeach
+                                            @endif
+                                        </div>
                                         <div class="add-btn">
                                             <div>Add</div>
                                             <input type="file" id="myfile" name="items_attachment[]" value="{{$validation->items_attachment}}" oninput="addMultipleFiles(this, 'items_attachment')" multiple>
@@ -626,6 +638,8 @@ $users = DB::table('users')->get();
                                     </div>
                                 </div>
                             </div>
+
+
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -784,13 +798,13 @@ $users = DB::table('users')->get();
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="DeviationOccured[]"></td>
-                                            <td><input type="text" name="Test-Name[]"></td>
-                                            <td><input type="text" name="Test-Number[]"></td>
-                                            <td><input type="text" name="Test-Method[]"></td>
-                                            <td><input type="text" name="Test-Result[]"></td>
-                                            <td><input type="text" name="Test-Accepted[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
+                                            <td><input type="text" name="deviation_occured[]" value="{{$validation->deviation_occured }}"></td>
+                                            <td><input type="text" name="test_name[]" value="{{$validation->test_name }}"></td>
+                                            <td><input type="text" name="test_number[]" value="{{$validation->test_number }}"></td>
+                                            <td><input type="text" name="test_method[]" value="{{$validation->test_method }}"></td>
+                                            <td><input type="text" name="test_result[]" value="{{$validation->test_result }}"></td>
+                                            <td><input type="text" name="test_accepted[]" value="{{$validation->test_accepted }}"></td>
+                                            <td><input type="text" name="remarks[]" value="{{$validation->remarks }}"></td>
 
                                         </tbody>
 

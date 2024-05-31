@@ -21,10 +21,17 @@ return new class extends Migration
             $table->string('parent_type')->nullable();;
             $table->string('division_id')->nullable();
             $table->date('intiation_date')->nullable();;
-            $table->text('short_description')->nullable();;
+            $table->text('short_description')->nullable();
+
+            $table->string('divison_code')->nullable();
+            $table->string('general_initiator_group')->nullable();
+            $table->string('initiator_group_code')->nullable();
+      
+            $table->string('form_type')->nullable();
+            $table->text('due_date')->nullable();
 
             $table->integer('initiator_id')->nullable();
-            // $table->string('intiation_date')->nullable(); 
+          
             $table->string('validation_due_date')->nullable();
             $table->string('assign_due_date')->nullable();
 
@@ -69,14 +76,6 @@ return new class extends Migration
                        $table->string('facility_type')->nullable();
                        $table->string('facility_name')->nullable();
 
-                    //    $table->string('deviation_occured')->nullable();
-                    //    $table->string('test_name')->nullable();
-                    //    $table->string('test_number')->nullable();
-                    //    $table->string('test_method')->nullable();
-                    //    $table->string('test_result')->nullable();
-                    //    $table->string('test_accepted')->nullable();
-                    //    $table->string('remarks')->nullable();
-
                     $table->json('deviation_occurred')->nullable();
                     $table->json('test_name')->nullable();
                     $table->json('test_number')->nullable();
@@ -108,6 +107,7 @@ return new class extends Migration
             $table->date('test_end_date')->nullable();
             $table->string('test_responsible')->nullable();
 
+            $table->string('audit_type')->nullable();
             $table->string('stage')->nullable();
             $table->string('status')->nullable();
             // Test Results Attachment

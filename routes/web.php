@@ -362,8 +362,6 @@ Route::view('vendor-entity', 'frontend.forms.vendor-entity');
 Route::view('deviation_new', 'frontend.forms.deviation_new');
 
 
-
-
 // -------------------------------------ehs---------forms--------
 Route::view('recurring_commitment', 'frontend.ehs.recurring_commitment');
 Route::view('sanction', 'frontend.ehs.sanction');
@@ -417,7 +415,7 @@ Route::post('/validation-create', [DemoValidationController::class, 'store'])->n
 Route::get('/validation/{id}/edit', [DemoValidationController::class, 'validationEdit'])->name('validation.edit');
 Route::put('/validation/{id}', [DemoValidationController::class, 'validationUpdate'])->name('validation.update');
 
-// Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
+Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
 
 Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
 Route::view('product-recall', 'frontend.new_forms.product-recall');

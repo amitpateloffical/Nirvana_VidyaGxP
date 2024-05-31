@@ -11,6 +11,7 @@ use Helpers;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\App;
 use App\Models\User;
+
 use App\Models\RecordNumber;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -171,13 +172,13 @@ class DemoValidationController extends Controller
             }
 
 
-            $validation->deviation_occurred = json_encode($request->input('DeviationOccured'));
-            $validation->test_name = json_encode($request->input('Test-Name'));
-            $validation->test_number = json_encode($request->input('Test-Number'));
-            $validation->test_method = json_encode($request->input('Test-Method'));
-            $validation->test_result = json_encode($request->input('Test-Result'));
-            $validation->test_accepted = json_encode($request->input('Test-Accepted'));
-            $validation->remarks = json_encode($request->input('Remarks'));
+            $validation->deviation_occurred = json_encode($request->input('deviation_Occured'));
+            $validation->test_name = json_encode($request->input('test_name'));
+            $validation->test_number = json_encode($request->input('test_number'));
+            $validation->test_method = json_encode($request->input('test_method'));
+            $validation->test_result = json_encode($request->input('test_result'));
+            $validation->test_accepted = json_encode($request->input('test_accepted'));
+            $validation->remarks = json_encode($request->input('remarks'));
 
             // Summary of Results
             $summaryOfResults = $request->input('summary_of_results');
@@ -372,13 +373,33 @@ class DemoValidationController extends Controller
                 $validations->result_attachment = json_encode($files);
             }
 
-            $validations->deviation_occurred = json_encode($request->input('DeviationOccured'));
-            $validations->test_name = json_encode($request->input('Test-Name'));
-            $validations->test_number = json_encode($request->input('Test-Number'));
-            $validations->test_method = json_encode($request->input('Test-Method'));
-            $validations->test_result = json_encode($request->input('Test-Result'));
-            $validations->test_accepted = json_encode($request->input('Test-Accepted'));
-            $validations->remarks = json_encode($request->input('Remarks'));
+            $deviationOccurred = $request->input('deviation_occurred');
+            $validations->deviation_occurred = is_array($deviationOccurred) ? implode(', ', $deviationOccurred) : $deviationOccurred;
+
+            $testName = $request->input('test_name');
+            $validations->test_name = is_array($testName) ? implode(', ', $testName) : $testName;
+
+            $testNumber = $request->input('test_number');
+            $validations->test_number = is_array($testNumber) ? implode(', ', $testNumber) : $testNumber;
+
+            $testMethod = $request->input('test_method');
+            $validations->test_method = is_array($testMethod) ? implode(', ', $testMethod) : $testMethod;
+
+            $testResult = $request->input('test_result');
+            $validations->test_result = is_array($testResult) ? implode(', ', $testResult) : $testResult;
+
+            $testAccepted = $request->input('test_accepted');
+            $validations->test_accepted = is_array($testAccepted) ? implode(', ', $testAccepted) : $testAccepted;
+
+            $remarks = $request->input('remarks');
+            $validations->remarks = is_array($remarks) ? implode(', ', $remarks) : $remarks;
+            // $validations->deviation_occurred = json_encode($request->input('deviation_occurred'));
+            // $validations->test_name = json_encode($request->input('test_name'));
+            // $validations->test_number = json_encode($request->input('test_number'));
+            // $validations->test_method = json_encode($request->input('test_method'));
+            // $validations->test_result = json_encode($request->input('test_result'));
+            // $validations->test_accepted = json_encode($request->input('test_accepted'));
+            // $validations->remarks = json_encode($request->input('remarks'));
 
             // Summary of Results
             $summaryOfResults = $request->input('summary_of_results');
@@ -436,12 +457,8 @@ class DemoValidationController extends Controller
         $audit = Validation::where('initiator_id', $id)->orderByDESC('id')->get()->unique('activity_type');
         $today = Carbon::now()->format('d-m-y');
         $validation = Validation::where('id', $id)->first();
-        // $document->doctype = DocumentType::where('id', $document->document_type_id)->value('typecode');
-        // $document->division = Division::where('id', $document->division_id)->value('name');
-        // $document->process = Process::where('id', $document->process_id)->value('process_name');
-        // $validation->originator = User::where('id', $document->originator_id)->value('name');
-        // $validation['year'] = Carbon::parse($document->created_at)->format('Y');
-        // $validation['document_type_name'] = DocumentType::where('id', $document->document_type_id)->value('name');
+
+        $validation->initiator = User::where('id', $validation->initiator_id)->value('name');
         return view('frontend.new_forms.auditValidation', compact('audit', 'validation', 'today'));
     }
 
@@ -449,53 +466,20 @@ class DemoValidationController extends Controller
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $validation = Validation::find($id);
-            $lastDocument = Validation::find($id);
+    
+            if (!$validation) {
+                toastr()->error('Validation not found');
+                return back();
+            }
+    
             if ($validation->stage == 1) {
                 $validation->stage = "2";
                 $validation->status = "Review";
                 $validation->update();
-                // $validation->submitted_by=Auth::user()->name;
-                // $validation->submitted_on=Carbon::now()->format('d-M-Y');
                 toastr()->success('Document Sent');
                 return back();
-
-
-                // $validation->submit_by = Auth::user()->name;
-                //     $validation->submit_on = Carbon::now()->format('d-M-Y');
-                //     $validation->submit_comment = $request->comment;
-                //     $validation = new Validation();
-                //     $validation->deviation_id = $id;
-                //     $validation->activity_type = 'Activity Log';
-                //     $validation->previous = "";
-                //     $validation->current = $validation->submit_by;
-                //     $validation->comment = $request->comment;
-                //     $validation->user_id = Auth::user()->id;
-                //     $validation->user_name = Auth::user()->name;
-                //     // $validation->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                //     $validation->origin_state = $lastDocument->status;
-                //     $validation->stage = 'Plan Proposed';
-                //     $validation->save();
-
-                //     $list = Helpers::getHodUserList();
-                //     foreach ($list as $u) {
-                //         if ($u->q_m_s_divisions_id == $validation->division_id) {
-                //             $email = Helpers::getInitiatorEmail($u->user_id);
-                //             if ($email !== null) {
-
-                //                 Mail::send(
-                //                     'mail.view-mail',
-                //                     ['data' => $validation],
-                //                     function ($message) use ($email) {
-                //                         $message->to($email)
-                //                             ->subject("Document is Submitted By " . Auth::user()->name);
-                //                     }
-                //                 );
-                //             }
-                //         }
-                //     }
-
-
-            }
+            } 
+    
             if ($validation->stage == 2) {
                 $validation->stage = "3";
                 $validation->status = "Protocol Approval";
@@ -503,6 +487,7 @@ class DemoValidationController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
+    
             if ($validation->stage == 3) {
                 $validation->stage = "4";
                 $validation->status = "Test in Progress";
@@ -510,15 +495,23 @@ class DemoValidationController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
+    
             if ($validation->stage == 4) {
-                $validation->stage = "5";
-                $validation->status = "Deviation in Progress";
-                $validation->update();
-                toastr()->success('Document Sent');
-                return back();
+                if ($validation->test_required == "yes") {
+                    $validation->stage = "5";
+                    $validation->status = "Deviation in Progress";
+                    $validation->update();
+                    toastr()->success('Document Sent');
+                    return back();
+                } else {
+                    $validation->stage = "6";
+                    $validation->status = "Pending Completion";
+                    $validation->update();
+                    toastr()->success('Document Sent');
+                    return back();
+                }
             }
-
-            // if($validation->training_required =="yes"){
+    
             if ($validation->stage == 5) {
                 $validation->stage = "6";
                 $validation->status = "Pending Completion";
@@ -526,18 +519,7 @@ class DemoValidationController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
-
-            // }
-            // else{
-            //     if($validation->stage == 5){
-            //         $validation->stage = "7";
-            //         $validation->status = "Pending Approval";
-            //         $validation->update();
-            //         toastr()->success('Document Sent');
-            //         return back();
-            //     }
-
-
+    
             if ($validation->stage == 6) {
                 $validation->stage = "7";
                 $validation->status = "Pending Approval";
@@ -545,8 +527,7 @@ class DemoValidationController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
-
-
+    
             if ($validation->stage == 7) {
                 $validation->stage = "8";
                 $validation->status = "Active Document";
@@ -554,6 +535,7 @@ class DemoValidationController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
+    
             if ($validation->stage == 8) {
                 $validation->stage = "9";
                 $validation->status = "Closed – Done";
@@ -566,4 +548,113 @@ class DemoValidationController extends Controller
             return back();
         }
     }
+
+    public function validationCancel(Request $request, $id){
+        if($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password))
+        {
+            $validation = Validation::find($id);
+
+            
+
+            if($validation->stage == 2){
+                $validation->stage = "1";
+                $validation->status = "Opened";
+                $validation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+
+            
+
+            if($validation->stage == 3){
+                $validation->stage = "1";
+                $validation->status = "Opened";
+                $validation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if($validation->stage == 4){
+                $validation->stage = "3";
+                $validation->status = "Protocol Approval";
+                $validation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if($validation->stage == 5){
+                $validation->stage = "4";
+                $validation->status = "Test in Progress";
+                $validation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if($validation->stage == 6){
+                $validation->stage = "5";
+                $validation->status = "Deviation in Progress";
+                $validation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if($validation->stage == 7){
+                $validation->stage = "6";
+                $validation->status = "Pending Completion";
+                $validation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+
+            if($validation->stage == 7){
+                $validation->stage = "9";
+                $validation->status = "Closed – Done";
+                $validation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if($validation->stage == 8){
+                $validation->stage = "7";
+                $validation->status = "Pending Approval";
+                $validation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if($validation->stage == 9){
+                $validation->stage = "8";
+                $validation->status = "Active Document";
+                $validation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            toastr()->error('States not Defined');
+            return back();
+        }
+        else{
+            toastr()->error('E-signature Not match');
+            return back();
+        }
+    }
+
+    public static function singleReport($id)
+    {
+        $data = Validation::find($id);
+        if (!empty ($data)) {
+            $data->originator = User::where('id', $data->initiator_id)->value('name');
+            $pdf = App::make('dompdf.wrapper');
+            $time = Carbon::now();
+            $pdf = PDF::loadview('frontend.forms.singleValidationReport', compact('data'))
+                ->setOptions([
+                'defaultFont' => 'sans-serif',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isPhpEnabled' => true,
+            ]);
+            $pdf->setPaper('A4');
+            $pdf->render();
+            $canvas = $pdf->getDomPDF()->getCanvas();
+            $height = $canvas->get_height();
+            $width = $canvas->get_width();
+            $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+            $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
+            return $pdf->stream('Validation' . $id . '.pdf');
+        }
+    }
+    
 }

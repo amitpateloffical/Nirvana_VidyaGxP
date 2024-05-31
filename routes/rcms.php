@@ -179,15 +179,15 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
-             Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
+            // Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
              Route::post('send-vali/{id}',[DemoValidationController::class,'stageChange'])->name('stageChange');
              Route::post('validation/stage/{id}', [DemoValidationController::class, 'validation_send_stage'])->name('validation_send_stage');
              Route::post('validation_rejects',[DemoValidationController::class,'validation_reject'])->name('validation_reject');
              Route::post('validation/cancel/{id}', [DemoValidationController::class, 'validationCancel'])->name('validationCancel');
              Route::post('validation/check/{id}', [DemoValidationController::class, 'check'])->name('validation_check');
-             Route::post('validation/check2/{id}', [DeviationController::class, 'check2'])->name('validation_check2');
-             Route::post('validation/check3/{id}', [DeviationController::class, 'check3'])->name('validation_check3');
-
+             Route::post('validation/check2/{id}', [DemoValidationController::class, 'check2'])->name('validation_check2');
+             Route::post('validation/check3/{id}', [DemoValidationController::class, 'check3'])->name('validation_check3');
+             Route::get('validationSingleReport/{id}', [DemoValidationController::class, 'singleReport'])->name('validationSingleReport');
         }
     );
 });
