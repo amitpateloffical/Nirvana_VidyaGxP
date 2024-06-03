@@ -34,6 +34,7 @@ use App\Http\Controllers\rcms\DeviationController;
 use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\newForm\MedicalRegistrationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,8 +138,21 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     Route::get('data/{id}', [QuizeController::class, 'datag'])->name('data');
     Route::get('datag/{id}', [QuizeController::class, 'data'])->name('datag');
     //-----------------------QMS----------------
-    Route::get('qms-dashboard', [RcmsDashboardController::class, 'index']);
+    // Route::get('qms-dashboard', [RcmsDashboardController::class, 'index']);
 });
+
+
+// =======================medicsl device //==============================
+
+Route::middleware(['auth'])->group(function () {
+    
+Route::get('/medical_device_registration', [MedicalRegistrationController::class, 'index'])->name('auth');
+Route::post('medicalstore',[MedicalRegistrationController::class,'medicalCreate'])->name('medical.store');
+Route::get('medicalupdate/{id}/edit',[MedicalRegistrationController::class,'medicalEdit'])->name('medical_edit');
+Route::put('medicalupdated/{id}',[MedicalRegistrationController::class,'medicalUpdate'])->name('medical.update');
+    // Route::get('/your-route', [YourController::class, 'yourMethod']);
+});
+
 
 // ====================================Capa=======================
 Route::get('capa', [CapaController::class, 'capa']);
@@ -423,7 +437,8 @@ Route::view('national-approval', 'frontend.Registration-Tracking.national-approv
 Route::view('variation', 'frontend.Registration-Tracking.variation');
 Route::view('PSUR', 'frontend.Registration-Tracking.PSUR');
 Route::view('dosier-documents', 'frontend.Registration-Tracking.dosier-documents');
-Route::view('commitment', 'frontend.Registration-Tracking.commitment');
+Route::view('commit
+ment', 'frontend.Registration-Tracking.commitment');
 
 
 //--------------------------------ERRATA-----form---------------//
@@ -454,7 +469,7 @@ Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');
 Route::view('correspondence', 'frontend.New_forms.correspondence');
 Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
 Route::view('read_and_understand', 'frontend.New_forms.read_and_understand');
-Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
+// Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
 
