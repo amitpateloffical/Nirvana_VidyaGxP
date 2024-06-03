@@ -188,6 +188,9 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::post('validation/check2/{id}', [DemoValidationController::class, 'check2'])->name('validation_check2');
              Route::post('validation/check3/{id}', [DemoValidationController::class, 'check3'])->name('validation_check3');
              Route::get('validationSingleReport/{id}', [DemoValidationController::class, 'singleReport'])->name('validationSingleReport');
+
+             Route::get('vali_summary/{id}', [DemoValidationController::class, 'valiSummery_pdf']);
+             Route::get('vali_audit/{id}', [DemoValidationController::class, 'valiAudit_pdf']);
         }
     );
 });

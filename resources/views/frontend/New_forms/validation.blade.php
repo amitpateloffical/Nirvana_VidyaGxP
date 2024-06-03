@@ -34,12 +34,64 @@
         }
 
         // Get the initiation date value
-        let initiationDate = $('#initiation_date').val();
+        let initiationDate = $('#intiation_date').val();
         let dueDate = calculateDueDate(initiationDate);
 
         // Set the due date in the appropriate fields
         $('#assign_due_date_display').val(formatDateToDisplay(dueDate));
         $('#assign_due_date').val(formatDateToISO(dueDate));
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to format a date to DD-MMM-YYYY
+        function formatDate(date) {
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            return new Date(date).toLocaleDateString('en-GB', options).replace(/ /g, '-');
+        }
+
+        // Set the initiation date display
+        const initiationDate = document.getElementById('initiation_date').value;
+        const formattedInitiationDate = formatDate(initiationDate);
+        document.getElementById('initiation_date_display').value = formattedInitiationDate;
+
+        // Set a sample due date for demonstration (you can modify this as per your requirements)
+        const dueDate = new Date(); // You can set this to any date you want
+        dueDate.setDate(dueDate.getDate() + 30); // Example: setting due date 30 days from today
+        const formattedDueDate = formatDate(dueDate.toISOString().split('T')[0]);
+        document.getElementById('assign_due_date_display').value = formattedDueDate;
+        document.getElementById('assign_due_date').value = dueDate.toISOString().split('T')[0];
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Calculate the due date 30 days from the initiation date
+        function calculateDueDate(initiationDate) {
+            let date = new Date(initiationDate);
+            date.setDate(date.getDate() + 30);
+            return date;
+        }
+
+        // Format date to DD-MMM-YYYY
+        function formatDateToDisplay(date) {
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
+        }
+
+        // Format date to YYYY-MM-DD
+        function formatDateToISO(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        // Get the initiation date value
+        let initiationDate = $('#validation_due_date').val();
+        let dueDate = calculateDueDate(initiationDate);
+
+        // Set the due date in the appropriate fields
+        $('#due_date').val(formatDateToDisplay(dueDate));
+        $('#validation_due_date').val(formatDateToISO(dueDate));
     });
 </script>
 
@@ -96,7 +148,7 @@
                                     <div class="group-input">
                                         <label for="RLS Record Number">Record Number</label>
                                         <input disabled type="text" name="record"
-                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/DEMOVALIDATION/{{ date('Y') }}/{{ $record_number }}">
+                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/VALIDATION/{{ date('Y') }}/{{ $record_number }}">
                                     
                                     </div>
                                 </div>
@@ -104,9 +156,9 @@
                                         <div class="group-input">
                                             <label for="Division Code"><b>Date Of Initiation</b></label>
                                             <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
-                                            <input type="hidden" value="{{ date('Y-m-d') }}" id="initiation_date" name="initiation_date">
+                                            <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="intiation_date">
                                         </div>
-                                </div>
+                                       </div>
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -136,16 +188,19 @@
                             </div>
 
                             <div class="col-md-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                <div>
-                                    <small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
-                                </div>
-                                <div class="calenderauditee">
-                                    <input type="text" id="assign_due_date_display" readonly placeholder="DD-MMM-YYYY">
-                                    <input type="hidden" name="assign_due_date" id="assign_due_date">
+                            <div class="col-md-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <div>
+                                        <small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
+                                    </div>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="assign_due_date_display" readonly placeholder="DD-MMM-YYYY">
+                                        <input type="hidden" name="assign_due_date" id="assign_due_date">
+                                    </div>
                                 </div>
                             </div>
+
                             </div>
 
                             <div class="col-lg-6">
@@ -168,6 +223,7 @@
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                   
                                     </div>
                                 </div>
                             </div>
@@ -241,6 +297,24 @@
                                     </select>
                                 </div>
                             </div>
+
+
+                            <!-- <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="closure attachment">Download Templates </label>
+                                    <div><small class="text-primary">
+                                        </small>
+                                    </div>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="file_attechment"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="file_attechment[]" oninput="addMultipleFiles(this, 'file_attechment')" multiple>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
 
 
                             <div class="col-lg-6">
@@ -405,8 +479,6 @@
                                                 <th style="width: 16%">Facility-Type</th>
                                                 <th style="width: 16%">Facility-Name</th>
                                                 <th style="width: 16%">Remarks</th>
-
-
                                             </tr>
                                         </thead>
                                         <tbody>

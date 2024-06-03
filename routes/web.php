@@ -20,6 +20,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\demo\DemoValidationController;
 use App\Http\Controllers\DocumentContentController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\newForm\EquipmentController;
 use App\Http\Controllers\newForm\ValidationController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CapaController;
@@ -401,7 +402,7 @@ Route::view('regulatory_notification', 'frontend.ctms.regulatory_notification');
 Route::view('complaint', 'frontend.new_forms.complaint');
 Route::view('supplier-observation', 'frontend.new_forms.supplier-observation');
 Route::view('preventive-maintenance', 'frontend.new_forms.preventive-maintenance');
-Route::view('equipment', 'frontend.new_forms.equipment');
+// Route::view('equipment', 'frontend.new_forms.equipment');
 Route::view('production-line-audit', 'frontend.new_forms.production-line-audit');
 Route::view('renewal', 'frontend.new_forms.renewal');
 
@@ -414,8 +415,16 @@ Route::get('/validation',[DemoValidationController::class,'validationIndex'])->n
 Route::post('/validation-create', [DemoValidationController::class, 'store'])->name('validation_store');
 Route::get('/validation/{id}/edit', [DemoValidationController::class, 'validationEdit'])->name('validation.edit');
 Route::put('/validation/{id}', [DemoValidationController::class, 'validationUpdate'])->name('validation.update');
+Route::get('validationAuditTrialDetails/{id}', [DemoValidationController::class, 'ValidationAuditTrialDetails']);
 
 Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
+
+//=============================
+//              New Forms - Equipment
+//=============================
+Route::get('equipmentCreate', [EquipmentController::class,'equipmentIndex'])->name('create');
+
+
 
 Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
 Route::view('product-recall', 'frontend.new_forms.product-recall');

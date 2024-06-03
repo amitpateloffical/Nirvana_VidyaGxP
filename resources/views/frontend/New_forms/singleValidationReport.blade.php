@@ -161,7 +161,7 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                   Deviation Single Report
+                   Validation Single Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -199,34 +199,34 @@
                         <td class="w-30">{{ Helpers::getdateFormat($data->intiation_date) }}</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Department</th>
-                        <td class="w-30">  @if($data->Initiator_Group){{ \Helpers::getInitiatorGroupFullName($data->Initiator_Group) }} @else Not Applicable @endif</td>
-                        <th class="w-20">Department Code</th>
-                        <td class="w-30">@if($data->initiator_group_code){{ $data->initiator_group_code }} @else Not Applicable @endif</td>
+                        <th class="w-20">Assign To </th>
+                        <td class="w-30">  @if($data->assign_to){{ \Helpers::getInitiatorGroupFullName($data->assign_to) }} @else Not Applicable @endif</td>
+                        <th class="w-20">Date Due</th>
+                        <td class="w-30">@if($data->assign_due_date){{ $data->assign_due_date }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">Site/Location Code</th>
                         <td class="w-30">@if($data->division_code){{ $data->division_code }} @else Not Applicable @endif</td>
-                        <th class="w-20"> Deviation Observed<</th>
-                        <td class="w-30">@if($data->Deviation_date){{ $data->Deviation_date }} @else Not Applicable @endif</td>
+                        <!-- <th class="w-20"> Deviation Observed<</th>
+                        <td class="w-30">@if($data->Deviation_date){{ $data->Deviation_date }} @else Not Applicable @endif</td> -->
                     </tr>
                     <tr>
-                        <th class="w-20">Observed by</th>
-                        <td class="w-30">@if($data->Facility){{ $data->Facility }} @else Not Applicable @endif</td>
-                        <th class="w-20">Deviation Reported On </th>
-                        <td class="w-30">@if($data->Deviation_reported_date){{ $data->Deviation_reported_date }} @else Not Applicable @endif</td>
+                        <th class="w-20">Validation Type</th>
+                        <td class="w-30">@if($data->validation_type == 1){{ $data->validation_type == 1}} @else Not Applicable @endif</td>
+                        <th class="w-20">Validation Date Due </th>
+                        <td class="w-30">@if($data->validation_due_date){{ $data->validation_due_date }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Deviation Related To</th>
-                        <td class="w-30">@if($data->audit_type){{ $data->audit_type }} @else Not Applicable @endif</td>
-                        <th class="w-20"> Others</th>
-                        <td class="w-30">@if($data->others){{ $data->others }}@else Not Applicable @endif</td>                       
+                        <th class="w-20">Notify When Approved?</th>
+                        <td class="w-30">@if($data->notify_type){{ $data->notify_type }} @else Not Applicable @endif</td>
+                        <th class="w-20"> Phase Level</th>
+                        <td class="w-30">@if($data->phase_type){{ $data->phase_type }}@else Not Applicable @endif</td>                       
                     </tr>
                     <tr>
-                        <th class="w-20">Name of Product & Batch No</th>
-                        <td class="w-30">@if($data->Product_Batch){{ ($data->Product_Batch) }} @else Not Applicable @endif</td>
-                        <th class="w-20">Description of Deviation</th>
-                        <td class="w-30">@if($data->Description_Deviation){{ $data->Description_Deviation }} @else Not Applicable @endif</td>
+                        <th class="w-20">Document Reason</th>
+                        <td class="w-30">@if($data->document_reason_type){{ ($data->document_reason_type) }} @else Not Applicable @endif</td>
+                        <th class="w-20">Purpose</th>
+                        <td class="w-30">@if($data->purpose){{ $data->purpose }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">Short Description</th>
@@ -235,31 +235,117 @@
                         <td class="w-30"> @if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Immediate Action (if any)</th>
-                        <td class="w-30">@if($data->Immediate_Action){{ $data->Immediate_Action }}@else Not Applicable @endif</td>
-                        <th class="w-20">Preliminary Impact of Deviation</th>
-                        <td class="w-30">@if($data->Preliminary_Impact){{ $data->Preliminary_Impact }}@else Not Applicable @endif</td>
+                        <th class="w-20">Validation Category</th>
+                        <td class="w-30">@if($data->validation_category){{ $data->validation_category }}@else Not Applicable @endif</td>
+                        <th class="w-20">Validation Sub Category</th>
+                        <td class="w-30">@if($data->validation_sub_category){{ $data->validation_sub_category }}@else Not Applicable @endif</td>
                     </tr>
+
+                    <tr>
+                        <th class="w-20">Download Templates</th>
+                        <td class="w-30">@if($data->file_attechment){{ $data->file_attechment }}@else Not Applicable @endif</td>
+                        <th class="w-20">Related Records</th>
+                        <td class="w-30">@if($data->related_record){{ $data->related_record }}@else Not Applicable @endif</td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Document Link</th>
+                        <td class="w-30">@if($data->document_link){{ $data->document_link }}@else Not Applicable @endif</td>
+                        <th class="w-20">Validation Sub Category</th>
+                        <td class="w-30">@if($data->validation_sub_category){{ $data->validation_sub_category }}@else Not Applicable @endif</td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Tests Required</th>
+                        <td class="w-30">@if($data->tests_required){{ $data->tests_required }}@else Not Applicable @endif</td>
+                        <th class="w-20">Validation Sub Category</th>
+                        <td class="w-30">@if($data->validation_sub_category){{ $data->validation_sub_category }}@else Not Applicable @endif</td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Refrence Document</th>
+                        <td class="w-30">@if($data->reference_document){{ $data->reference_document }}@else Not Applicable @endif</td>
+                        <th class="w-20">Refrence Link</th>
+                        <td class="w-30">@if($data->reference_link){{ $data->reference_link }}@else Not Applicable @endif</td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Additional Refrences</th>
+                        <td class="w-30">@if($data->additional_references){{ $data->additional_references }}@else Not Applicable @endif</td>
+                        <th class="w-20">Items Attachment</th>
+                        <td class="w-30">@if($data->items_attachment){{ $data->items_attachment }}@else Not Applicable @endif</td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Additional Attachment Items</th>
+                        <td class="w-30">@if($data->addition_attachment_items){{ $data->addition_attachment_items }}@else Not Applicable @endif</td>
+                        <th class="w-20">Data Successfully Closed?</th>
+                        <td class="w-30">@if($data->data_successfully_type){{ $data->data_successfully_type }}@else Not Applicable @endif</td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Document Summary</th>
+                        <td class="w-30">@if($data->documents_summary){{ $data->additional_references }}@else Not Applicable @endif</td>
+                        <th class="w-20">Document Comments</th>
+                        <td class="w-30">@if($data->document_comments){{ $data->document_comments }}@else Not Applicable @endif</td>
+                    </tr>
+
+                    <!-- <tr>
+                        <th class="w-20">Additional Refrences</th>
+                        <td class="w-30">@if($data->additional_references){{ $data->additional_references }}@else Not Applicable @endif</td>
+                        <th class="w-20">Items Attachment</th>
+                        <td class="w-30">@if($data->items_attachment){{ $data->items_attachment }}@else Not Applicable @endif</td>
+                    </tr> -->
         
 
                 </table>            
-         <
+    
             <div class="block">
                     <div class="block-head">
-                        HOD Review
+                        Test Results
                     </div>
                     <table>
                         <tr>
-                            <th class="w-30">HOD Remarks</th>
-                            <td class="w-20">@if($data->HOD_Remarks){{ $data->HOD_Remarks }}@else Not Applicable @endif</td>
+                            <th class="w-30">Test Required?</th>
+                            <td class="w-20">@if($data->test_required){{ $data->test_required }}@else Not Applicable @endif</td>
                         </tr>
+
+                        <tr>
+                            <th class="w-30">Test Start Date</th>
+                            <td class="w-20">@if($data->test_start_date){{ $data->test_start_date }}@else Not Applicable @endif</td>
+                        </tr>
+
+                        <tr>
+                            <th class="w-30">Test End Date</th>
+                            <td class="w-20">@if($data->test_end_date){{ $data->test_end_date }}@else Not Applicable @endif</td>
+                        </tr>
+
+                        <tr>
+                            <th class="w-30">Test Responsible</th>
+                            <td class="w-20">@if($data->test_responsible){{ $data->test_responsible }}@else Not Applicable @endif</td>
+                        </tr>
+
+                        <tr>
+                            <th class="w-30">Results Attachment</th>
+                            <td class="w-20">@if($data->result_attachment){{ $data->result_attachment }}@else Not Applicable @endif</td>
+                        </tr>
+
+                        <tr>
+                            <th class="w-30">Test Actions & Comments</th>
+                            <td class="w-20">@if($data->test_action){{ $data->test_action }}@else Not Applicable @endif</td>
+                        </tr>
+
+                        <!-- <tr>
+                            <th class="w-30">Results Attachment</th>
+                            <td class="w-20">@if($data->result_attachment){{ $data->result_attachment }}@else Not Applicable @endif</td>
+                        </tr> -->
                     </table>   
                        
                              
                 </div>
             </div>
  
-            <div class="block">
+            <!-- <div class="block">
                 <div class="block-head">
                     QA Initial Review
                 </div>
@@ -1986,38 +2072,47 @@
                 </div>
             </div>  
         </div>          
-                
+                 -->
 
             <div class="block">
                 <div class="block-head">
-                    Activity Log
+                Signatures
                 </div>
                 <table>
                     <tr>
-                        <th class="w-20">Submit By</th>
+                        <th class="w-20">Submitted Protocol By</th>
                         <td class="w-30">{{ $data->audit_schedule_by }}</td>
-                        <th class="w-20">Submit On</th>
+                        <th class="w-20">Submitted Protocol On</th>
                         <td class="w-30">{{ Helpers::getdateFormat($data->created_at) }}</td>
-                        <th class="w-20">Submit Comments</th>
+                        <th class="w-20">Cancelled By</th>
+                        {{-- <td class="w-30">{{ $data }}</td> --}}
+                        <th class="w-20">Cancelled On</th>
+                        <td class="w-30">{{ Helpers::getdateFormat($data->cancelled_on) }}</td>
                         {{-- <td class="w-30">{{ $data }}</td> --}}
                     </tr>
                     <tr>
-                        <th class="w-20">HOD Review Complete By</th>
+                        <th class="w-20">Review By</th>
                         <td class="w-30">{{ $data->cancelled_by}}</td>
-                        <th class="w-20">HOD Review Complete On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->cancelled_on) }}</td>
-                        <th class="w-20">HOD Review Comments</th>
+                        <th class="w-20">Review On</th>
+                        <!-- <td class="w-30">{{ Helpers::getdateFormat($data->cancelled_on) }}</td>
+                        <th class="w-20">HOD Review Comments</th> -->
                         {{-- <td class="w-30">{{ $data-> }}</td> --}}
                     </tr>
                     <tr>
-                        <th class="w-20">QA Initial Review Complete by</th>
-                        <td class="w-30">{{ $data->audit_preparation_completed_by }}</td>
-                        <th class="w-20">QA Initial Review Complete On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_preparation_completed_on) }}</td>
-                        <th class="w-20">QA Initial Review Comments</th>
+                        <th class="w-20">1st Final Approval By</th>
+                        <td class="w-30">{{ $data->audit_observation_submitted_by }}</td>
+                        <th class="w-20">1st Final Approval On</th>
+                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_observation_submitted_on)  }}</td>
+                        <th class="w-20">2nd Final Approval By</th>
+                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
+                        <th class="w-20">2nd Final Approval On</th>
+                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
+                        <th class="w-20">Report Reject By</th>
+                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
+                        <th class="w-20">Report Reject On</th>
                         {{-- <td class="w-30">{{ $data-> }}</td> --}}
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th class="w-20">QA Final Review Complete By</th>
                         <td class="w-30">{{ $data->audit_mgr_more_info_reqd_by }}</td>
                         <th class="w-20">QA Final Review Complete On</th>
@@ -2033,7 +2128,7 @@
                         <th class="w-20">Approved Comments</th>
                         {{-- <td class="w-30">{{ $data-> }}</td> --}}
                    
-
+ -->
 
                 </table>
             </div>

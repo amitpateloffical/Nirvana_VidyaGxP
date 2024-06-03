@@ -1,360 +1,320 @@
 @extends('frontend.layout.main')
 @section('container')
-    {{-- ======================================
-                    DASHBOARD
-    ======================================= --}}
     <div id="audit-trial">
         <div class="container-fluid">
             <!DOCTYPE html>
-<html lang="en">
+            <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>VidyaGxP - Software</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-</head>
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <title>VidyaGxP - Software</title>
+                <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+            </head>
 
-<style>
-    body {
-        font-family: 'Roboto', sans-serif;
-        margin: 0;
-        padding: 0;
-        /* min-width: 100vw; */
-        min-height: 100vh;
-    }
+            <style>
+                body {
+                    font-family: 'Roboto', sans-serif;
+                    margin: 0;
+                    padding: 0;
+                    /* min-width: 100vw; */
+                    min-height: 100vh;
+                }
 
-    .w-10 {
-        width: 10%;
-    }
-  
-    .w-20 {
-        width: 20%;
-    }
+                .w-10 {
+                    width: 10%;
+                }
 
-    .w-30 {
-        width: 30%;
-    }
+                .w-20 {
+                    width: 20%;
+                }
 
-    .w-40 {
-        width: 40%;
-    }
+                .w-30 {
+                    width: 30%;
+                }
 
-    .w-50 {
-        width: 50%;
-    }
+                .w-40 {
+                    width: 40%;
+                }
 
-    .w-60 {
-        width: 60%;
-    }
+                .w-50 {
+                    width: 50%;
+                }
 
-    .w-70 {
-        width: 70%;
-    }
+                .w-60 {
+                    width: 60%;
+                }
 
-    .w-80 {
-        width: 80%;
-    }
+                .w-70 {
+                    width: 70%;
+                }
 
-    .w-90 {
-        width: 90%;
-    }
+                .w-80 {
+                    width: 80%;
+                }
 
-    .w-100 {
-        width: 100%;
-    }
+                .w-90 {
+                    width: 90%;
+                }
 
-    .h-100 {
-        height: 100%;
-    }
+                .w-100 {
+                    width: 100%;
+                }
 
-    table,
-    th,
-    td {
-        border: 1px solid black;
-        border-collapse: collapse;
-        font-size: 0.9rem;
-    }
+                .h-100 {
+                    height: 100%;
+                }
 
-    table {
-        width: 100%;
-    }
+                table,
+                th,
+                td {
+                    border: 1px solid black;
+                    border-collapse: collapse;
+                    font-size: 0.9rem;
+                }
 
-    th,
-    td {
-        padding: 10px;
-        text-align: left;
-    }
+                table {
+                    width: 100%;
+                }
 
-    header .head {
-        font-weight: bold;
-        text-align: center;
-        font-size: 1.2rem;
-    }
+                th,
+                td {
+                    padding: 10px;
+                    text-align: left;
+                }
 
-    @page {
-        size: A4;
-        margin-top: 160px;
-        margin-bottom: 60px;
-    }
+                header .head {
+                    font-weight: bold;
+                    text-align: center;
+                    font-size: 1.2rem;
+                }
 
-    header {
-        /* position: fixed; */
-        top: -140px;
-        left: 0;
-        width: 100%;
-        display: block;
-    }
+                @page {
+                    size: A4;
+                    margin-top: 160px;
+                    margin-bottom: 60px;
+                }
 
-    footer {
-        /* position: fixed; */
-        bottom: -40px;
-        left: 0;
-        width: 100%;
-    }
+                header {
+                    /* position: fixed; */
+                    top: -140px;
+                    left: 0;
+                    width: 100%;
+                    display: block;
+                }
 
-    .inner-block {
-        padding: 10px;
-    }
+                footer {
+                    /* position: fixed; */
+                    bottom: -40px;
+                    left: 0;
+                    width: 100%;
+                }
 
-    .inner-block .head {
-        font-weight: bold;
-        font-size: 1.2rem;
-        margin-bottom: 5px;
-    }
+                .inner-block {
+                    padding: 10px;
+                }
 
-    .inner-block .division {
-        margin-bottom: 10px;
-    }
+                .inner-block .head {
+                    font-weight: bold;
+                    font-size: 1.2rem;
+                    margin-bottom: 5px;
+                }
 
-    .first-table {
-        border-top: 1px solid black;
-        margin-bottom: 20px;
-    }
+                .inner-block .division {
+                    margin-bottom: 10px;
+                }
 
-    .first-table table td,
-    .first-table table th,
-    .first-table table {
-        border: 0;
-    }
+                .first-table {
+                    border-top: 1px solid black;
+                    margin-bottom: 20px;
+                }
 
-    .second-table td:nth-child(1)>div {
-        margin-bottom: 10px;
-    }
+                .first-table table td,
+                .first-table table th,
+                .first-table table {
+                    border: 0;
+                }
 
-    .second-table td:nth-child(1)>div:nth-last-child(1) {
-        margin-bottom: 0px;
-    }
+                .second-table td:nth-child(1)>div {
+                    margin-bottom: 10px;
+                }
 
-    .table_bg {
-        background: #4274da57;
-    }
-    .heading{
-        border: 1px solid black;
-    padding: 10px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    background: #e6a226ba;
-    }
-</style>
+                .second-table td:nth-child(1)>div:nth-last-child(1) {
+                    margin-bottom: 0px;
+                }
 
-<body>
+                .table_bg {
+                    background: #4274da57;
+                }
 
-    <header>
-        <table>
-            <tr>
-                <td class="w-70 head">
-                Validation Audit Trail
-                </td>
-                <td class="w-30">
-                    <div class="logo">
-                        <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <table style="margin-top: 5px;">
-            <tr>
-                <td class="w-30">
-                    <strong>Validation Audit No.</strong>
-                </td>
-                <td class="w-40">
-                   
-                </td>
-                <td class="w-30">
-                    <strong>Record No. 000{{$validation->record}}</strong> 
-                </td>
-            </tr>
-        </table>
-        <table>
-        <div class="heading">
-       <div style="margin-bottom: 5px;  font-weight: bold;"> Originator :{{ Auth::user()->id }}</div>
-       <div style="margin-bottom: 5px; font-weight: bold;">Short Description : {{$validation->short_description}}</div>
-       <div style="margin-bottom: 5px;  font-weight: bold;">Due Status :  {{$validation->due_date}}</div>
-      
-       </div>
-        </div>
-        </table>
-        
-    </header>
+                .heading {
+                    border: 1px solid black;
+                    padding: 10px;
+                    margin-bottom: 10px;
+                    margin-top: 10px;
+                    background: #4274da;
+                }
 
-    <div class="inner-block">
+                .heading-new {
+                    font-size: 27px;
+                    color: #2f2f58;
+                }
 
-        <!-- <div class="head">Extension Audit Trial Report</div> -->
+                .buttons-new {
+                    display: flex;
+                    justify-content: end;
+                    gap: 10px;
+                }
+            </style>
 
-        <div class="division">
-        </div>
+            <body>
 
-        
-        <div class="second-table">
-            <table>
-                <tr class="table_bg">
-                    <th>S.No</th>
-                    <th>Changed From</th>
-                    <th>Changed To</th>
-                    <th>Data Field</th>
-                    <th>Action Type</th>
-                    <th>Performer</th>
-                </tr>
-                
-                    <tr>
-                        @foreach ($audit as $audits)
-                        <td>1</td>
-                        <!-- --------- -->
-                        <td>
-                       
-                         <div><strong>Changed From :</strong>{{$audits->origin_state}}</div>
-                         <!-- <div><strong>Changed From :</strong>origin_state</div> -->
-                 </td>
-                 <!-- ----------------------- -->
-                        <td>
-                        <!-- <div><strong>Changed To :</strong>current</div> -->
-                         <div><strong>Changed To :</strong>{{$audits->current}}</div>
-                         <div style="margin-top: 5px;"><strong>Comments :</strong> {{$audits->comment}}</div>Record Is send by Hod Review-
-                         <!-- <div style="margin-top: 5px;"><strong>Comments :</strong>comment</div> -->
-
-                        </td>
-                        <!-- ------Record Is send by Hod Review----------- -->
-                        <td>
-                        <div>
-                     <strong> Data Field Name :</strong><a href="">activity_type</a> </div>
-                      <div style="margin-top: 5px;">
-                      <strong>Change From :</strong>origin_state</div>
-                            <br>
-                            <!--  -->
-                      <div ><strong>Changed To :</strong>current</div> 
-                            <div style="margin-top: 5px;"><strong>Change Type :</strong>action_name
+                <header>
+                    <table>
+                        <tr>
+                            <div class="logo">
+                                <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt=""
+                                    class="w-100">
                             </div>
-                            <div style="margin-top: 5px;"><strong>Comments :</strong>comment</div>
-                        </td>
-                        <!--  -->
-                        <td>
-                        <div>
-                       <strong> Action Name :</strong>action_name
+                        </tr>
+                    </table>
+
+
+                    <table>
+                        <div class="heading">
+
+                            <div class="heading-new">
+                                Audit Trail
+                            </div>
+
+                            <div> <strong>Record ID. </strong> {{ str_pad($validation->record, 4, '0', STR_PAD_LEFT) }}</div>
+                            <div style="margin-bottom: 5px;  font-weight: bold;"> Originator
+                                : {{ $validation->user_name ? $validation->user_name : '' }}</div>
+                            <div style="margin-bottom: 5px; font-weight: bold;">Short Description :
+                                {{ $validation->short_description }}</div>
+                            <div style="margin-bottom: 5px;  font-weight: bold;">Due Date : {{ $validation->assign_due_date }}</div>
 
                         </div>
+        </div>
+        </table>
 
-                        </td>
-                        <td>
-                       <div ><strong> Peformed By :</strong>user_name</div>
-                      <div style="margin-top: 5px;">  <strong>Performed On :</strong>created_at</div>
-                       <div style="margin-top: 5px;"><strong> Comments :</strong>comment</div>
+        </header>
 
-                        </td>
+        <div class="inner-block">
+            <div class="division">
+            </div>
+            <div class="second-table">
+                <table>
+                    <tr class="table_bg">
+                        <th>S.No</th>
+                        <th>Flow Changed From</th>
+                        <th>Flow Changed To</th>
+                        <th>Data Field</th>
+                        <th>Action Type</th>
+                        <th>Performer</th>
+                    </tr>
+
+                    <tr>
+                        @php
+                            $previousItem = null;
+                        @endphp
+
+                        @foreach ($audit as $audits => $dataDemo)
+                            <td>
+                            </td>
+
+                            <td>
+                                <div><strong>Changed From :</strong>{{ $dataDemo->change_from}}</div>
+                            </td>
+
+                            <td>
+                                <div><strong>Changed To :</strong>{{ $dataDemo->change_to }}</div>
+                            </td>
+                            <td>
+                                <div>
+                                    <strong> Data Field Name :</strong><a
+                                        href="{{ url('validationAuditTrialDetails', $validation->id) }}">{{  $dataDemo->activity_type  ? : 'Not Applicable' }}</a>
+                                </div>
+                                <div style="margin-top: 5px;">
+                                    @if ($dataDemo->activity_type == 'Activity Log')
+                                        <strong>Change From
+                                            :</strong>{{ $dataDemo->change_from ? $dataDemo->change_from : 'Not Applicable' }}
+                                    @else
+                                        <strong>Change From
+                                            :</strong>{{ $dataDemo->previous ? $dataDemo->previous : 'Not Applicable' }}
+                                    @endif
+                                </div>
+                                <br>
+                                <div>
+                                    @if ($dataDemo->activity_type == 'Activity Log')
+                                        <strong>Change To
+                                            :</strong>{{ $dataDemo->change_to ? $dataDemo->change_to : 'Not Applicable' }}
+                                    @else
+                                        <strong>Change To
+                                            :</strong>{{ $dataDemo->current ? $dataDemo->current : 'Not Applicable' }}
+                                    @endif
+                                </div>
+                                <div style="margin-top: 5px;">
+                                    <strong>Change Type
+                                        :</strong>{{ $dataDemo->action_name ? $dataDemo->action_name : 'Not Applicable' }}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <strong> Action Name
+                                        :</strong>{{ $dataDemo->action_name ? $dataDemo->action_name : 'Not Applicable' }}
+
+                                </div>
+                            </td>
+                            <td>
+                                <div><strong> Peformed By
+                                        :</strong>{{ $dataDemo->user_name ? $dataDemo->user_name : 'Not Applicable' }}
+                                </div>
+                                <div style="margin-top: 5px;"> <strong>Performed On
+                                        :</strong>{{ $dataDemo->created_at ? $dataDemo->created_at : 'Not Applicable' }}
+                                </div>
+                                <div style="margin-top: 5px;"><strong> Comments
+                                        :</strong>{{ $dataDemo->comment ? $dataDemo->comment : 'Not Applicable' }}</div>
+
+                            </td>
                     </tr>
                     @endforeach
-<!-- ------------------------------------------------- -->
-                    {{-- <tr>
-                       
-                        <td>2</td>
-                        <td>
-                       
-                        <div><strong>Changed From :</strong>{{$audits->origin_state}}</div>
-
-                 </td>
-                        <td>
-                        <div ><strong>Changed To :</strong>{{$audits->current}}</div>
-                         <div style="margin-top: 5px;"><strong>Comments : {{$audits->comment}}</strong> Not Applicable</div>
-                        </td>
-                        <td>
-                        <div style="margin-top: 5px;"><strong>Data Field Name :</strong>{{$audits->activity_type}}</div>
-                       <div style="margin-top: 5px;"> <strong>Change From :</strong>{{$audits->origin_state}}</div>
-                       <div style="margin-top: 5px;"> <strong>Changed To : </strong>{{$audits->current}}</div>
-                        <div ><strong>Change Type :</strong>{{$audits->action_name}}</div>
-
-
-                        </td>
-                        <td>
-                          <div><strong>Action Name :</strong>{{$audits->action_name}}</div> 
-                        </td>
-                        <td>
-                        <div style="margin-top: 5px;"><strong> Peformed By :</strong>{{$audits->user_name}}</div>
-                      <div style="margin-top: 5px;">  <strong>Performed On :</strong>{{$audits->created_at}}</div>
-                       <div style="margin-top: 5px;"><strong> Comments :</strong>{{$audits->comment}}</div>
-
-                        </td>
-                    </tr>
-               <!-- ---------------------------------------- -->
-               <tr>
-                       
-                        <td>3</td>
-                        <td>
-                       
-                        <div style="margin-top: 5px;"><strong>Changed From :</strong> HOD Review</div>
-                        <div  style="margin-top: 5px;"><strong>Changed To :</strong> Hod REVIEW</div>
-                        <div  style="margin-top: 5px;"><strong>Comments :</strong> Not Applicable</div>
-
-                 </td>
-                        <td>
-                          <!-- <div><strong>Changed To :</strong> HOD Review</div> -->
-                         
-                        </td>
-                        <td>
-                        <div style="margin-top: 5px;"><strong>Data Field Name :</strong> Description</div>
-                       <div style="margin-top: 5px;"> <strong>Change From :</strong> This is a test record</div>
-                       <div style="margin-top: 5px;"> <strong>Changed To : </strong>This is a test record</div>
-                        <div style="margin-top: 5px;"><strong>Change Type :</strong> Update</div>
-
-
-                        </td>
-                        <td>
-                          <div><strong>Action Name :</strong> Remove </div> 
-                        </td>
-                        <td>
-                        <div style="margin-top: 5px;"><strong> Peformed By :</strong> David</div>
-                      <div style="margin-top: 5px;">  <strong>Performed On :</strong>16-Mar-2024</div>
-                       <div style="margin-top: 5px;"><strong> Comments :</strong> Record sent for QA Review</div>
-
-                        </td>
-                    </tr> --}}
-              
-            </table>
+                </table>
+            </div>
         </div>
+        <!-- Pagination links -->
+        <div style="float: inline-end; margin: 10px;">
+            <style>
+                .pagination>.active>span {
+                    background-color: #4274da !important;
+                    border-color: #4274da !important;
+                    color: #fff !important;
+                }
+
+                .pagination>.active>span:hover {
+                    background-color: #4274da !important;
+                    border-color: #4274da !important;
+                }
+
+                .pagination>li>a,
+                .pagination>li>span {
+                    color: #4274da !important;
+                }
+
+                .pagination>li>a:hover {
+                    background-color: #4274da !important;
+                    border-color: #4274da !important;
+                    color: #fff !important;
+                }
+            </style>
+        </div>
+
+        </body>
+
+        </html>
 
     </div>
-
-    <footer>
-        <table>
-            <tr>
-                <td class="w-30">
-                    <strong>Printed On :</strong> 
-                </td>
-                <td class="w-40">
-                    <strong>Printed By :</strong> 
-                </td>
-                {{-- <td class="w-30">
-                    <strong>Page :</strong> 1 of 1
-                </td> --}}
-            </tr>
-        </table>
-    </footer>
-
-</body>
-
-</html>
-
-        </div>
     </div>
 
     <div class="modal fade" id="activity-modal">

@@ -44,6 +44,58 @@ $users = DB::table('users')->get();
 @endphp
 
 
+<script>
+    $(document).ready(function() {
+        // Calculate the due date 30 days from the initiation date
+        function calculateDueDate(initiationDate) {
+            let date = new Date(initiationDate);
+            date.setDate(date.getDate() + 30);
+            return date;
+        }
+
+        // Format date to DD-MMM-YYYY
+        function formatDateToDisplay(date) {
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
+        }
+
+        // Format date to YYYY-MM-DD
+        function formatDateToISO(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        // Get the initiation date value
+        let initiationDate = $('#intiation_date').val();
+        let dueDate = calculateDueDate(initiationDate);
+
+        // Set the due date in the appropriate fields
+        $('#assign_due_date_display').val(formatDateToDisplay(dueDate));
+        $('#assign_due_date').val(formatDateToISO(dueDate));
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to format a date to DD-MMM-YYYY
+        function formatDate(date) {
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            return new Date(date).toLocaleDateString('en-GB', options).replace(/ /g, '-');
+        }
+
+        // Set the initiation date display
+        const initiationDate = document.getElementById('initiation_date').value;
+        const formattedInitiationDate = formatDate(initiationDate);
+        document.getElementById('initiation_date_display').value = formattedInitiationDate;
+
+        // Set a sample due date for demonstration (you can modify this as per your requirements)
+        const dueDate = new Date(); // You can set this to any date you want
+        dueDate.setDate(dueDate.getDate() + 30); // Example: setting due date 30 days from today
+        const formattedDueDate = formatDate(dueDate.toISOString().split('T')[0]);
+        document.getElementById('assign_due_date_display').value = formattedDueDate;
+        document.getElementById('assign_due_date').value = dueDate.toISOString().split('T')[0];
+    });
+</script>
+
 <div class="form-field-head">
 
     <div class="division-bar">
@@ -310,8 +362,12 @@ $users = DB::table('users')->get();
                                     <div class="calenderauditee">
                                         <!-- <input type="text" id="assign_due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ \Helpers::getdateFormat($validation->assign_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" /> -->
-                                        <input type="text" id="assign_due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $validation->assign_due_date }}" />
-                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $validation->assign_due_date }}" class="hide-input" oninput="handleDateInput(this)" />
+                                        <!-- <input type="text" id="assign_due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $validation->assign_due_date }}" />
+                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $validation->assign_due_date }}" class="hide-input" oninput="handleDateInput(this)" /> -->
+
+                                        <input type="text" id="assign_due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                         value="{{ \Helpers::getdateFormat($validation->assign_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'assign_due_date')" />
                                     </div>
                                 </div>
                             </div>
@@ -333,8 +389,13 @@ $users = DB::table('users')->get();
                                     <label for="validation_due_date">Date Due <span class="text-danger"></span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
+                                        <!-- <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" 
+                                        value="{{ \Helpers::getdateFormat($validation->validation_due_date) }}" 
+                                        class="hide-input" oninput="handleDateInput(this, 'due_date')" /> -->
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ \Helpers::getdateFormat($validation->validation_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                         value="{{ \Helpers::getdateFormat($validation->validation_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
                             </div>
@@ -413,8 +474,6 @@ $users = DB::table('users')->get();
                                     <div><small class="text-primary">
                                         </small>
                                     </div>
-                                  
-
                                     <div class="file-attachment-field">
                                         <div class="file-attachment-list" id="file_attechment">
                                             @if ($validation->file_attechment)
@@ -841,19 +900,19 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Submitted Protocol By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{ $validation->submit_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted on">Submitted Protocol On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{ $validation->submit_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reviewed by">Cancelled By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{ $validation->submit_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -883,26 +942,26 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Plan_Approved_by1">1st Final Approval By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{ $validation->final_approval_1_by}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Plan_Approved_on1">1st Final Approval On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{ $validation->final_approval_2_on }}</div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Plan_Approved_by2">2nd Final Approval By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{ $validation->final_approval_2_by}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Plan_Approved_on2">2nd Final Approval On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{$validation->final_approval_2_on }}</div>
                                 </div>
                             </div>
 
@@ -910,26 +969,26 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Report_by">Report Reject By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{$validation->report_reject_by}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Report_on">Report Reject On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{$validation->report_reject_on}}</div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Obsolete_by">Obsolete By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{$validation->obsolete_by}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Obsolete_on">Obsolete On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{$validation->obsolete_on}}</div>
                                 </div>
                             </div>
 
