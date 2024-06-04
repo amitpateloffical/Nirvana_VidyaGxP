@@ -423,6 +423,11 @@ Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValid
 //              New Forms - Equipment
 //=============================
 Route::get('equipmentCreate', [EquipmentController::class,'equipmentIndex'])->name('create');
+Route::post('/equipmentCreate', [EquipmentController::class, 'equipmentStore'])->name('equipment.store');
+Route::get('/equipment/{id}/edit', [EquipmentController::class, 'equipmentEdit'])->name('equipment.edit');
+Route::put('/equipment/{id}', [EquipmentController::class, 'equipmentUpdate'])->name('equipment.update');
+Route::get('equipmentAuditTrialDetails/{id}', [EquipmentController::class, 'EquipmentAuditTrialDetails']);
+Route::get('auditEquipment/{id}', [EquipmentController::class, 'auditEquipment']);
 
 
 

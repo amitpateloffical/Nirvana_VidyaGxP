@@ -10,13 +10,49 @@
     }
 </style>
 
+@php
+    $users = DB::table('users')->get();
+@endphp
+
+<script>
+    $(document).ready(function() {
+        // Calculate the due date 30 days from the initiation date
+        function calculateDueDate(initiationDate) {
+            let date = new Date(initiationDate);
+            date.setDate(date.getDate() + 30);
+            return date;
+        }
+
+        // Format date to DD-MMM-YYYY
+        function formatDateToDisplay(date) {
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
+        }
+
+        // Format date to YYYY-MM-DD
+        function formatDateToISO(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        // Get the initiation date value
+        let initiationDate = $('#intiation_date').val();
+        let dueDate = calculateDueDate(initiationDate);
+
+        // Set the due date in the appropriate fields
+        $('#assign_due_date_display').val(formatDateToDisplay(dueDate));
+        $('#assign_due_date').val(formatDateToISO(dueDate));
+    });
+</script>
+
+
+
 <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
         </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / Equipment
+        {{ Helpers::getDivisionName(session()->get('division')) }} / Equipment
     </div>
 </div>
 
@@ -33,7 +69,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Signatures</button>
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('equipment.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -51,11 +87,21 @@
                                     <input disabled type="text" name="Initiator" value="">
                                 </div>
                             </div>
+
+                            <div class="col-lg-6">
+                            <div class="group-input">
+                                        <label for="RLS Record Number">Record Number</label>
+                                        <input disabled type="text" name="record"
+                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/EQUIPMENT/{{ date('Y') }}/{{ $record_number }}">
+                                    </div>
+                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                    <input disabled type="date" name="Date_of_Initiation" value="">
-                                    <input type="hidden" name="division_id" value="">
+                                    <!-- <input disabled type="date" name="Date_of_Initiation" value=""> -->
+                                    <!-- <input type="hidden" name="division_id" value=""> -->
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
                                 </div>
                             </div>
 
@@ -73,26 +119,35 @@
                                         Type</label>
                                     <select id="select-state" placeholder="Select..." name="type">
                                         <option value="">Select a value</option>
-                                        <option value=""></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Number"><b>Number (ID)</b></label>
-                                    <input type="text" name="Number" value="">
+                                    <input type="text" name="number_id" value="">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="search">
+                                <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
-                                        <option value=""></option>
+                                        @foreach ($users as $key => $value)
+                                            <option value="{{ $value->id }}">
+                                                {{ $value->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
+                                    @error('assigned_user_id')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -101,8 +156,10 @@
                                     <label for="due-date">Date Due</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <!-- <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" /> -->
+                                        <input type="text" id="assign_due_date_display" readonly placeholder="DD-MMM-YYYY">
+                                        <input type="hidden" name="assign_due_date" id="assign_due_date">
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +168,9 @@
                                     <label for="site_name">Site Name</label>
                                     <select id="select-state" placeholder="Select..." name="site_name">
                                         <option value="">Select a value</option>
-                                        <option value=""></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -120,7 +179,9 @@
                                     <label for="building">Building</label>
                                     <select id="select-state" placeholder="Select..." name="building">
                                         <option value="">Select a value</option>
-                                        <option value=""></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -129,16 +190,20 @@
                                     <label for="floor">Floor</label>
                                     <select id="select-state" placeholder="Select..." name="floor">
                                         <option value="">Select a value</option>
-                                        <option value=""></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="room">Room</label>
-                                    <select id="select-state" placeholder="Select..." name="room">
+                                    <select id="select-state" placeholder="Select..." name="rooms">
                                         <option value="">Select a value</option>
-                                        <option value=""></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -151,14 +216,16 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="file_attachment"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="attached_file" oninput="" multiple>
+                                            <input type="file" id="myfile" name="file_attachment[]" oninput="addMultipleFiles(this, 'file_attachment')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="description">Description</label>
@@ -181,6 +248,9 @@
                                     <label for="pm_frequency">PM Frequency</label>
                                     <select name="pm_frequency">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -188,39 +258,42 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Calibration Frequency">Calibration Frequency</label>
-                                    <select name="Calibration_Frequency">
+                                    <select name="calibration_frequency">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Preventive Maintenance Plan">Preventive Maintenance Plan</label>
-                                    <textarea name="Preventive_Maintenance_Plan" id="" cols="30" rows="3"></textarea>
+                                    <textarea name="preventive_maintenance_plan" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Calibration Information">Calibration Information</label>
-                                    <textarea name="Calibration_Information" id="" cols="30" rows="3"></textarea>
+                                    <textarea name="calibration_information" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Next_PM_Date">Next PM Date</label>
-                                    <input type="date" name="Next_PM_Date" id="">
+                                    <input type="date" name="next_pm_date" id="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Next Calibration Date">Next Calibration Date</label>
-                                    <input type="date" name="Next_Calibration_Date" id="">
+                                    <input type="date" name="next_calibration_date" id="">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Next Calibration Date">Maintenance History</label>
-                                    <textarea name="Next_Calibration_Date" id="" cols="30" rows="3"></textarea>
+                                    <textarea name="maintenance_history" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
 

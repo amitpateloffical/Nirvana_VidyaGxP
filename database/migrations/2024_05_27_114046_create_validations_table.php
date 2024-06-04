@@ -31,7 +31,7 @@ return new class extends Migration
             $table->text('due_date')->nullable();
 
             $table->integer('initiator_id')->nullable();
-          
+            $table->string('user_name')->nullable();
             $table->string('validation_due_date')->nullable();
             $table->string('assign_due_date')->nullable();
 

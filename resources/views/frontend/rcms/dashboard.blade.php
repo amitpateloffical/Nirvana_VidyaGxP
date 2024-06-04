@@ -119,6 +119,26 @@
                 querySelect.options.add(new Option('Close - Done', '6'));
             }
 
+            else if (scopeValue === 'Validation') {
+                querySelect.options.add(new Option('Opened', '1'));
+                querySelect.options.add(new Option('Review', '2'));
+                querySelect.options.add(new Option('Protocol Approval', '3'));
+                querySelect.options.add(new Option('Test in Progress', '4'));
+                querySelect.options.add(new Option('Deviation in Progress', '5'));
+                querySelect.options.add(new Option('Pending Completion', '6'));
+                querySelect.options.add(new Option('Pending Approval', '7'));
+                querySelect.options.add(new Option('Active Document', '8'));
+                querySelect.options.add(new Option('Closed-Done', '9'));
+            }
+            else if (scopeValue === 'Equipment') {
+                querySelect.options.add(new Option('Opened', '1'));
+                querySelect.options.add(new Option('Under HOD Review', '2'));
+                querySelect.options.add(new Option('Pending QA Review', '3'));
+                querySelect.options.add(new Option('CFT Review', '4'));
+                querySelect.options.add(new Option('Pending Change Implementation', '5'));
+                querySelect.options.add(new Option('Close - Done', '6'));
+            }
+
             
         // Add more conditions based on other scope values
 
@@ -152,7 +172,7 @@
                                     <option value="Action Item">Action Item</option> --}}
                                     <option value="Effectiveness Check">Effectiveness Check</option>
                                     <option value="Deviation">Deviation</option>
-                                     {{-- <option value="tms">TMS</option>  --}}
+                                     <option value="Equipment">Equipment</option>
                                 </select>
                             </div>
                             <div class="group-input">
@@ -359,6 +379,20 @@
                                                             </div>
                                                         </a>
                                                     @endif
+                                                    @elseif($datas->type == 'Equipment')
+                                                    <a href="{{ route('equipment.edit', $datas->id) }}">
+                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/equipment">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+
                                                 @elseif($datas->type == 'Management-Review')
                                                     <a href="{{ route('manageshow', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}

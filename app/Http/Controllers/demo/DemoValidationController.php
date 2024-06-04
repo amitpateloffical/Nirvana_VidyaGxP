@@ -59,7 +59,7 @@ class DemoValidationController extends Controller
             $validation->intiation_date = $request->intiation_date;
             $validation->short_description = $request->input('short_description');
             $validation->assign_to = $request->input('assign_to');
-            $validation->assign_due_date = $request->input('assign_due_date');
+            $validation->assign_due_date = $request->assign_due_date;
             $validation->validation_type = $request->input('validation_type');
             $validation->validation_due_date = $request->input('validation_due_date');
             $validation->notify_type = $request->input('notify_type');
@@ -1215,7 +1215,7 @@ class DemoValidationController extends Controller
 
             if ($validation->stage == 8) {
                 $validation->stage = "9";
-                $validation->status = "Closed – Done";
+                $validation->status = "Closed - Done";
                 $validation->update();
                 toastr()->success('Document Sent');
                 return back();

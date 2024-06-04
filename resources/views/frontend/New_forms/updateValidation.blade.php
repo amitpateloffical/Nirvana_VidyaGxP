@@ -157,7 +157,7 @@ $users = DB::table('users')->get();
                         Tests Not Required
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
-                        Tests Performed – No Deviation
+                        Tests Performed - No Deviation
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Deviation Occurred
@@ -278,7 +278,9 @@ $users = DB::table('users')->get();
                 @endif
                 {{-- ---------------------------------------------------------------------------------------- --}}
             </div>
-        </div> <!-- Tab links -->
+        </div> 
+        
+        <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Validation Document</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Test Results</button>
@@ -341,14 +343,15 @@ $users = DB::table('users')->get();
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
-                                        <!-- <option value="Pankaj">Pankaj</option>
-                                        <option value="Manish">Manish</option>
-                                        <option value="Gourav">Gourav</option> -->
-                                        @foreach ($users as $key => $value)
-                                        <option value="{{ $value->id }}" @if ($validation->assign_to == $value->id) selected @endif>
-                                            {{ $value->name }}
-                                        </option>
-                                        @endforeach
+                                        @foreach ($users as $datas)
+                                                        @if(Helpers::checkUserRolesassign_to($datas))
+                                                            <option value="{{ $datas->id }}"
+                                                                {{ $validation->assign_to == $datas->id ? 'selected' : '' }}
+                                                                {{-- @if ($data->assign_to == $datas->id) selected @endif --}}>
+                                                                {{ $datas->name }}
+                                                            </option>
+                                                        @endif    
+                                            @endforeach
                                     </select>
                                     @error('assigned_user_id')
                                     <p class="text-danger">{{ $message }}</p>
@@ -522,7 +525,7 @@ $users = DB::table('users')->get();
                                     <select name="tests_required">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if ($validation->tests_required == 1) selected @endif>Yes</option>
-                                        <option value="2" @if ($validation->tests_required == 2) selected @endif>Yes</option>
+                                        <option value="2" @if ($validation->tests_required == 2) selected @endif>No</option>
                                         <!-- <option value="Yes">Yes</option>
                                         <option value="No">No</option> -->
                                     </select>
@@ -717,8 +720,8 @@ $users = DB::table('users')->get();
                                     <label for="Type">Data Successfully Closed?</label>
                                     <select name="data_successfully_type">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1" @if ($validation->reference_document == 1) selected @endif>Yes</option>
-                                        <option value="2" @if ($validation->reference_document == 2) selected @endif>No</option>
+                                        <option value="1" @if ($validation->data_successfully_type == 1) selected @endif>Yes</option>
+                                        <option value="2" @if ($validation->data_successfully_type == 2) selected @endif>No</option>
                                         <!-- <option value="Yes">yes</option>
                                         <option value="No">No</option> -->
                                     </select>
@@ -900,25 +903,25 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Submitted Protocol By</label>
-                                    <div class="static">{{ $validation->submit_by }}</div>
+                                    <div class="static">{{ Auth::user()->name}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted on">Submitted Protocol On</label>
-                                    <div class="Date">{{ $validation->submit_on }}</div>
+                                    <div class="Date">{{ $validation->intiation_date;}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reviewed by">Cancelled By</label>
-                                    <div class="static">{{ $validation->submit_comment }}</div>
+                                    <div class="static">{{ Auth::user()->name }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Cancelled on">Cancelled On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{$validation->assign_due_date}}</div>
                                 </div>
                             </div>
 
