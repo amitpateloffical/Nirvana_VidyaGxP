@@ -427,7 +427,8 @@ Route::post('/equipmentCreate', [EquipmentController::class, 'equipmentStore'])-
 Route::get('/equipment/{id}/edit', [EquipmentController::class, 'equipmentEdit'])->name('equipment.edit');
 Route::put('/equipment/{id}', [EquipmentController::class, 'equipmentUpdate'])->name('equipment.update');
 Route::get('equipmentAuditTrialDetails/{id}', [EquipmentController::class, 'EquipmentAuditTrialDetails']);
-Route::get('auditEquipment/{id}', [EquipmentController::class, 'auditEquipment']);
+Route::get('audit_trail_equipment/{id}', [EquipmentController::class, 'audit_Equipment']);
+Route::post('equipment_child/{id}', [EquipmentController::class, 'equipment_child_1'])->name('equipment_child_1');
 
 
 

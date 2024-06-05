@@ -1233,9 +1233,9 @@ class DemoValidationController extends Controller
 
 
 
-            if ($validation->stage == 2) {
-                $validation->stage = "1";
-                $validation->status = "Opened";
+            if ($validation->stage == 1) {
+                $validation->stage = "0";
+                $validation->status = "Closed-Cancelled";
                 $validation->update();
                 toastr()->success('Document Sent');
                 return back();

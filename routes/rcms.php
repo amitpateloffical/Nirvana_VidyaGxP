@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\demo\DemoValidationController;
+use App\Http\Controllers\newForm\EquipmentController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CCController;
@@ -191,6 +192,16 @@ Route::group(['prefix' => 'rcms'], function () {
 
              Route::get('vali_summary/{id}', [DemoValidationController::class, 'valiSummery_pdf']);
              Route::get('vali_audit/{id}', [DemoValidationController::class, 'valiAudit_pdf']);
+
+
+            //  Route::post('send-vali/{id}',[DemoValidationController::class,'stageChange'])->name('stageChange');
+             Route::post('equipment/stage/{id}', [EquipmentController::class, 'equipment_send_stage'])->name('equipment_send_stage');
+             Route::post('equipment_rejects',[EquipmentController::class,'equipment_reject'])->name('equipment_reject');
+             Route::post('equipment/cancel/{id}', [EquipmentController::class, 'equipmentCancel'])->name('equipmentCancel');
+             Route::post('equipment/check/{id}', [EquipmentController::class, 'check'])->name('equipment_check');
+             Route::post('equipment/check2/{id}', [EquipmentController::class, 'check2'])->name('equipment_check2');
+             Route::post('equipment/check3/{id}', [EquipmentController::class, 'check3'])->name('equipment_check3');
+             Route::get('equipmentSingleReport/{id}', [EquipmentController::class, 'singleReport'])->name('equipmentSingleReport');
         }
     );
 });

@@ -105,7 +105,7 @@
                     $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
                     @endphp
 
-                    <button class="button_theme1"> <a class="text-white" href="{{ url('auditValidation', $equipment->id) }}"> Audit Trail </a> </button>
+                    <button class="button_theme1"> <a class="text-white" href="{{ url('audit_trail_equipment', $equipment->id) }}"> Audit Trail </a> </button>
 
                     @if ($equipment->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -141,7 +141,7 @@
                     <button class="button_theme1" data-bs-toggle="modal" name="test_not_required" data-bs-target="#signature-modal">
                        QA Approval
                     </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                        Re-Validation
                     </button>
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -152,7 +152,7 @@
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Take Out of Service
                     </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                         Child
                     </button>
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
@@ -168,12 +168,12 @@
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                        Forward to Storage
                     </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                    <button class="button_theme1" data-bs-toggle="modal" name="re_active_not" data-bs-target="#cancel-modal">
                        Re-Activate
                     </button> 
-                                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
-                                    Obsolete
-                                    </button> -->
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                       Re-Validation
+                    </button>
 
                     @elseif($equipment->stage == 7 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -188,8 +188,8 @@
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                         Initiator Updated Complete
                                     </button> -->
-                    <!-- @elseif($equipment->stage == 8 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                    @elseif($equipment->stage == 8 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
+                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Obsolete
                     </button> -->
 
@@ -536,13 +536,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Submitted by">Submitted By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{Auth::user()->name}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Submitted on">Submitted On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{$equipment->assign_due_date}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -647,13 +647,16 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
+
+
+        
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">E-Signature</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form action="{{ route('validation_reject', $equipment->id) }}" method="POST">
+            <form action="{{ route('equipment_reject', $equipment->id) }}" method="POST">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -700,7 +703,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form action="{{ route('validationCancel', $equipment->id) }}" method="POST">
+            <form action="{{ route('equipmentCancel', $equipment->id) }}" method="POST">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -790,7 +793,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form action="{{ route('validation_check', $equipment->id) }}" method="POST">
+            <form action="{{ route('equipment_check', $equipment->id) }}" method="POST">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -836,7 +839,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form action="{{ route('validation_check2', $equipment->id) }}" method="POST">
+            <form action="{{ route('equipment_check2', $equipment->id) }}" method="POST">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -882,7 +885,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form action="{{ route('validation_check3', $equipment->id) }}" method="POST">
+            <form action="{{ route('equipment_check3', $equipment->id) }}" method="POST">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -920,6 +923,52 @@
 </div>
 
 
+<div class="modal fade" id="child-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Child</h4>
+            </div>
+            <form action="{{ route('equipment_child_1', $equipment->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        @if ($equipment->stage == 5)
+                        <label style="display: flex;" for="major">
+                            <input  type="radio" name="child_type" id="major" value="pm">
+                            Preventive Maintenance
+                        </label>
+
+                        <label style="display: flex;" for="major">
+                            <input  type="radio" name="child_type" id="major" value="calibration">
+                            Calibration
+                        </label>
+
+                        <label for="major">
+                            <input type="radio" name="child_type" id="major" value="deviation">
+                            Deviation
+                        </label>
+                        @endif
+
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                    <button type="submit">Continue</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="signature-modal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -929,7 +978,7 @@
                 <h4 class="modal-title">E-Signature</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="{{ route('validation_send_stage', $equipment->id) }}" method="POST">
+            <form action="{{ route('equipment_send_stage', $equipment->id) }}" method="POST">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">
