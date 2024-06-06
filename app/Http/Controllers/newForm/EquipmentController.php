@@ -73,7 +73,7 @@ class EquipmentController extends Controller
             $equipment->next_calibration_date = $request->next_calibration_date;
             $equipment->maintenance_history = $request->maintenance_history;
             
-;
+
 
             if (!empty($request->file_attachment)) {
                 $files = [];

@@ -20,6 +20,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\demo\DemoValidationController;
 use App\Http\Controllers\DocumentContentController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\newForm\CalibrationController;
 use App\Http\Controllers\newForm\EquipmentController;
 use App\Http\Controllers\newForm\ValidationController;
 use App\Http\Controllers\rcms\AuditeeController;
@@ -431,6 +432,16 @@ Route::get('audit_trail_equipment/{id}', [EquipmentController::class, 'audit_Equ
 Route::post('equipment_child/{id}', [EquipmentController::class, 'equipment_child_1'])->name('equipment_child_1');
 
 
+// =============== New forms - Calibration =================
+
+Route::get('calibration',[CalibrationController::class, 'calibrationIndex']);
+Route::post('/calibrationCreate', [CalibrationController::class, 'calibrationStore'])->name('calibration.store');
+Route::get('/calibration/{id}/edit', [CalibrationController::class, 'calibrationEdit'])->name('calibration.edit');
+Route::put('/calibration/{id}', [CalibrationController::class, 'calibrationUpdate'])->name('calibration.update');
+Route::get('calibrationAuditTrialDetails/{id}', [CalibrationController::class, 'CalibrationAuditTrialDetails']);
+Route::get('audit_trail_calibration/{id}', [CalibrationController::class, 'auditCalibration']);
+Route::post('calibration_child/{id}', [CalibrationController::class, 'calibration_child_1'])->name('calibration_child_1');
+
 
 Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
 Route::view('product-recall', 'frontend.new_forms.product-recall');
@@ -442,7 +453,7 @@ Route::view('lab_test', 'frontend.New_forms.lab_test');
 Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
 Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
 Route::view('GCP_study', 'frontend.new_forms.GCP_study');
-Route::view('calibration', 'frontend.new_forms.calibration');
+// Route::view('calibration', 'frontend.new_forms.calibration');
 Route::view('self-inspection', 'frontend.new_forms.self-inspection');
 Route::view('meeting-management', 'frontend.new_forms.meeting-management');
 

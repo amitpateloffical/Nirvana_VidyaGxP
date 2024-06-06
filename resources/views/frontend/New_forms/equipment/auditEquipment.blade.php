@@ -193,7 +193,7 @@
                                 : {{ $document->originator ? $document->originator : '' }}</div>
                             <div style="margin-bottom: 5px; font-weight: bold;">Short Description :
                                 {{ $document->short_description }}</div>
-                            <div style="margin-bottom: 5px;  font-weight: bold;">Due Date : {{ $document->due_date }}</div>
+                            <div style="margin-bottom: 5px;  font-weight: bold;">Due Date : {{ $document->assign_due_date}}</div>
 
                         </div>
         </div>

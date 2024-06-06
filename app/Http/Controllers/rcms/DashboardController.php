@@ -14,6 +14,7 @@ use App\Models\RiskManagement;
 use App\Models\LabIncident;
 use App\Models\Auditee;
 use App\Models\AuditProgram;
+use App\Models\Calibration;
 use App\Models\Validation;
 use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
@@ -70,6 +71,7 @@ class DashboardController extends Controller
         $datas13 = Deviation::orderByDesc('id')->get();
         $datas14 = Validation::orderByDesc('id')->get();
         $datas15 = Equipment::orderByDesc('id')->get();
+        $datas16 = Calibration::orderByDesc('id')->get();
 
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -366,6 +368,26 @@ class DashboardController extends Controller
                 "record" => $data->record,
                 "division_id" => $data->division_id,
                 "type" => "Equipment",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->initiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas16 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Calibration",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -800,6 +822,12 @@ class DashboardController extends Controller
             $single = "equipmentSingleReport/". $data->id;
             $audit = "#";
             $parent="equipmentparentchildReport/". $data->id;
+        }
+        elseif ($type == "Calibration") {
+            $data = Equipment::find($id);
+            $single = "calibrationSingleReport/". $data->id;
+            $audit = "#";
+            $parent="calibrationparentchildReport/". $data->id;
         }
 
 

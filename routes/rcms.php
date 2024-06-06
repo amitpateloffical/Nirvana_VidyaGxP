@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\demo\DemoValidationController;
+use App\Http\Controllers\newForm\CalibrationController;
 use App\Http\Controllers\newForm\EquipmentController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
@@ -202,6 +203,14 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::post('equipment/check2/{id}', [EquipmentController::class, 'check2'])->name('equipment_check2');
              Route::post('equipment/check3/{id}', [EquipmentController::class, 'check3'])->name('equipment_check3');
              Route::get('equipmentSingleReport/{id}', [EquipmentController::class, 'singleReport'])->name('equipmentSingleReport');
+
+             Route::post('calibration/stage/{id}', [CalibrationController::class, 'calibration_send_stage'])->name('calibration_send_stage');
+             Route::post('calibration_rejects',[CalibrationController::class,'calibration_reject'])->name('calibration_reject');
+             Route::post('calibration/cancel/{id}', [CalibrationController::class, 'calibrationCancel'])->name('calibrationCancel');
+             Route::post('calibration/check/{id}', [CalibrationController::class, 'check'])->name('calibration_check');
+             Route::post('calibration/check2/{id}', [CalibrationController::class, 'check2'])->name('calibration_check2');
+             Route::post('calibration/check3/{id}', [CalibrationController::class, 'check3'])->name('calibration_check3');
+             Route::get('calibrationSingleReport/{id}', [CalibrationController::class, 'singleReport'])->name('calibrationSingleReport');
         }
     );
 });
