@@ -161,7 +161,7 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                   Equipment Single Report
+                   Calibration Single Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -202,74 +202,74 @@
                         <th class="w-20">Assign To </th>
                         <td class="w-30">  @if($data->assign_to){{ \Helpers::getInitiatorGroupFullName($data->assign_to) }} @else Not Applicable @endif</td>
                         <th class="w-20">Date Due</th>
-                        <td class="w-30">@if($data->assign_due_date){{ $data->assign_due_date }} @else Not Applicable @endif</td>
+                        <td class="w-30">@if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">Site/Location Code</th>
                         <td class="w-30">@if($data->division_code){{ $data->division_code }} @else Not Applicable @endif</td>
-                        <!-- <th class="w-20"> Deviation Observed<</th>
-                        <td class="w-30">@if($data->Deviation_date){{ $data->Deviation_date }} @else Not Applicable @endif</td> -->
+                        <th class="w-20"> Short Description</th>
+                        <td class="w-30">@if($data->short_description){{ $data->short_description }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Type</th>
-                        <td class="w-30">@if($data->type == 1){{ $data->type == 1}} @else Not Applicable @endif</td>
-                        <th class="w-20">Number (ID) </th>
-                        <td class="w-30">@if($data->number_id){{ $data->number_id }} @else Not Applicable @endif</td>
+                        <th class="w-20">Originator</th>
+                        <td class="w-30">@if($data->originator == 1){{ $data->originator == 1}} @else Not Applicable @endif</td>
+                        <th class="w-20">Device Condition_M</th>
+                        <td class="w-30">@if($data->device_condition_m){{ $data->device_condition_m }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Site Name</th>
-                        <td class="w-30">@if($data->site_name){{ $data->notify_type }} @else Not Applicable @endif</td>
-                        <th class="w-20">Building</th>
-                        <td class="w-30">@if($data->building){{ $data->building }}@else Not Applicable @endif</td>                       
+                        <th class="w-20">Replace Parts?_M</th>
+                        <td class="w-30">@if($data->replace_parts_m){{ $data->replace_parts_m }} @else Not Applicable @endif</td>
+                        <th class="w-20">Calibration Rating_M</th>
+                        <td class="w-30">@if($data->calibration_rating_m){{ $data->calibration_rating_m }}@else Not Applicable @endif</td>                       
                     </tr>
                     <tr>
-                        <th class="w-20">Floor</th>
-                        <td class="w-30">@if($data->floor){{ ($data->floor) }} @else Not Applicable @endif</td>
-                        <th class="w-20">Attached Files</th>
-                        <td class="w-30">@if($data->file_attachment){{ $data->file_attachment }} @else Not Applicable @endif</td>
+                        <th class="w-20">Update Software?_M</th>
+                        <td class="w-30">@if($data->update_software_m){{ ($data->update_software_m) }} @else Not Applicable @endif</td>
+                        <th class="w-20">Replace Betteries?_M</th>
+                        <td class="w-30">@if($data->replace_betteries_m){{ $data->replace_betteries_m }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Room</th>
-                        <td class="w-30"> @if($data->rooms){{ $data->rooms }}@else Not Applicable @endif</td>
-                        <th class="w-20">Description</th>
-                        <td class="w-30"> @if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
+                        <th class="w-20">(Parent) Equipment Name_M</th>
+                        <td class="w-30"> @if($data->parent_equipment_name_m){{ $data->parent_equipment_name_m }}@else Not Applicable @endif</td>
+                        <th class="w-20">(Parent)Description</th>
+                        <td class="w-30"> @if($data->description){{ $data->description }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Attached Files</th>
-                        <td class="w-30">@if($data->file_attachment){{ $data->file_attachment }}@else Not Applicable @endif</td>
-                        <th class="w-20">Comments</th>
-                        <td class="w-30">@if($data->comments){{ $data->comments }}@else Not Applicable @endif</td>
-                    </tr>
-
-                    <tr>
-                        <th class="w-20">PM Frequency</th>
-                        <td class="w-30">@if($data->pm_frequency){{ $data->pm_frequency }}@else Not Applicable @endif</td>
-                        <th class="w-20">Calibration Frequency</th>
-                        <td class="w-30">@if($data->calibration_frequency){{ $data->calibration_frequency }}@else Not Applicable @endif</td>
-                    </tr>
-
-                    <tr>
-                        <th class="w-20">Preventive Maintenance Plan</th>
-                        <td class="w-30">@if($data->preventive_maintenance_plan){{ $data->preventive_maintenance_plan }}@else Not Applicable @endif</td>
-                        <th class="w-20">Calibration Information</th>
-                        <td class="w-30">@if($data->calibration_information){{ $data->calibration_information }}@else Not Applicable @endif</td>
-                    </tr>
-
-                    <tr>
-                        <th class="w-20">Next PM Date</th>
-                        <td class="w-30">@if($data->next_pm_date){{ $data->next_pm_date }}@else Not Applicable @endif</td>
-                        <th class="w-20">Next Calibration Date</th>
-                        <td class="w-30">@if($data->next_calibration_date){{ $data->next_calibration_date }}@else Not Applicable @endif</td>
-                    </tr>
-
-                    <tr>
-                        <th class="w-20">Maintenance History</th>
-                        <td class="w-30">@if($data->maintenance_history){{ $data->maintenance_history }}@else Not Applicable @endif</td>
-                        <!-- <th class="w-20">Refrence Link</th>
-                        <td class="w-30">@if($data->reference_link){{ $data->reference_link }}@else Not Applicable @endif</td> -->
+                        <th class="w-20">(Parent) Equipment Type_M</th>
+                        <td class="w-30">@if($data->parent_equipment_type_m){{ $data->parent_equipment_type_m }}@else Not Applicable @endif</td>
+                        <!-- <th class="w-20">Validation Sub Category</th>
+                        <td class="w-30">@if($data->validation_sub_category){{ $data->validation_sub_category }}@else Not Applicable @endif</td> -->
                     </tr>
 
                     <!-- <tr>
+                        <th class="w-20">Download Templates</th>
+                        <td class="w-30">@if($data->file_attechment){{ $data->file_attechment }}@else Not Applicable @endif</td>
+                        <th class="w-20">Related Records</th>
+                        <td class="w-30">@if($data->related_record){{ $data->related_record }}@else Not Applicable @endif</td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Document Link</th>
+                        <td class="w-30">@if($data->document_link){{ $data->document_link }}@else Not Applicable @endif</td>
+                        <th class="w-20">Validation Sub Category</th>
+                        <td class="w-30">@if($data->validation_sub_category){{ $data->validation_sub_category }}@else Not Applicable @endif</td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Tests Required</th>
+                        <td class="w-30">@if($data->tests_required){{ $data->tests_required }}@else Not Applicable @endif</td>
+                        <th class="w-20">Validation Sub Category</th>
+                        <td class="w-30">@if($data->validation_sub_category){{ $data->validation_sub_category }}@else Not Applicable @endif</td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Refrence Document</th>
+                        <td class="w-30">@if($data->reference_document){{ $data->reference_document }}@else Not Applicable @endif</td>
+                        <th class="w-20">Refrence Link</th>
+                        <td class="w-30">@if($data->reference_link){{ $data->reference_link }}@else Not Applicable @endif</td>
+                    </tr>
+
+                    <tr>
                         <th class="w-20">Additional Refrences</th>
                         <td class="w-30">@if($data->additional_references){{ $data->additional_references }}@else Not Applicable @endif</td>
                         <th class="w-20">Items Attachment</th>
@@ -308,9 +308,9 @@
                         <!-- <tr>
                             <th class="w-30">Test Required?</th>
                             <td class="w-20">@if($data->test_required){{ $data->test_required }}@else Not Applicable @endif</td>
-                        </tr>
+                        </tr> -->
 
-                        <tr>
+                        <!-- <tr>
                             <th class="w-30">Test Start Date</th>
                             <td class="w-20">@if($data->test_start_date){{ $data->test_start_date }}@else Not Applicable @endif</td>
                         </tr>
@@ -463,7 +463,8 @@
                                             @if($data->production_on){{ $data->production_on }}@else Not Applicable @endif
                                         </div>
                                     </td>
-                                </tr>                               
+                                </tr>
+                               
                     </table>
                  </div>  
             <div class="border-table">

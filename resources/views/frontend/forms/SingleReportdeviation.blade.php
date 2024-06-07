@@ -1482,7 +1482,7 @@
                     </div>  
                   <div class="border-table">
                     <div class="block-">
-                        Other's 2 Attachments 
+                        Other's 2 Attachments  
                     </div>                                   
                     <table>
     

@@ -190,6 +190,7 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::post('validation/check2/{id}', [DemoValidationController::class, 'check2'])->name('validation_check2');
              Route::post('validation/check3/{id}', [DemoValidationController::class, 'check3'])->name('validation_check3');
              Route::get('validationSingleReport/{id}', [DemoValidationController::class, 'singleReport'])->name('validationSingleReport');
+             Route::get('/audit_validationPdf/{id}', [DemoValidationController::class, 'audit_pdf2']);
 
              Route::get('vali_summary/{id}', [DemoValidationController::class, 'valiSummery_pdf']);
              Route::get('vali_audit/{id}', [DemoValidationController::class, 'valiAudit_pdf']);
@@ -203,6 +204,8 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::post('equipment/check2/{id}', [EquipmentController::class, 'check2'])->name('equipment_check2');
              Route::post('equipment/check3/{id}', [EquipmentController::class, 'check3'])->name('equipment_check3');
              Route::get('equipmentSingleReport/{id}', [EquipmentController::class, 'singleReport'])->name('equipmentSingleReport');
+             Route::get('/audit_pdf/{id}', [EquipmentController::class, 'audit_pdf1']);
+
 
              Route::post('calibration/stage/{id}', [CalibrationController::class, 'calibration_send_stage'])->name('calibration_send_stage');
              Route::post('calibration_rejects',[CalibrationController::class,'calibration_reject'])->name('calibration_reject');
@@ -211,6 +214,8 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::post('calibration/check2/{id}', [CalibrationController::class, 'check2'])->name('calibration_check2');
              Route::post('calibration/check3/{id}', [CalibrationController::class, 'check3'])->name('calibration_check3');
              Route::get('calibrationSingleReport/{id}', [CalibrationController::class, 'singleReport'])->name('calibrationSingleReport');
+             Route::get('/audit/{id}', [CalibrationController::class, 'audit_pdf']);
+
         }
     );
 });

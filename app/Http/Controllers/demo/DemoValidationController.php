@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\demo;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActionItem;
+use App\Models\Extension;
 use App\Models\Validation;
 use App\Models\ValidationAudit;
 use App\Models\UserRole;
@@ -1174,19 +1176,13 @@ class DemoValidationController extends Controller
             }
 
             if ($validation->stage == 4) {
-                if ($validation->test_required == "yes") {
+               
                     $validation->stage = "5";
                     $validation->status = "Deviation in Progress";
                     $validation->update();
                     toastr()->success('Document Sent');
                     return back();
-                } else {
-                    $validation->stage = "6";
-                    $validation->status = "Pending Completion";
-                    $validation->update();
-                    toastr()->success('Document Sent');
-                    return back();
-                }
+       
             }
 
             if ($validation->stage == 5) {
@@ -1241,8 +1237,6 @@ class DemoValidationController extends Controller
                 return back();
             }
 
-
-
             if ($validation->stage == 3) {
                 $validation->stage = "1";
                 $validation->status = "Opened";
@@ -1250,8 +1244,9 @@ class DemoValidationController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
+
             if ($validation->stage == 4) {
-                $validation->stage = "3";
+                $validation->stage = "6";
                 $validation->status = "Protocol Approval";
                 $validation->update();
                 toastr()->success('Document Sent');
@@ -1307,6 +1302,31 @@ class DemoValidationController extends Controller
             return back();
         }
     }
+
+
+    public function validation_reject(Request $request, $id)
+    {
+        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+            $validation = Validation::find($id);
+
+
+
+            if ($validation->stage == 7) {
+                $validation->stage = "9";
+                $validation->status = "Closed-Done";
+                $validation->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+
+            toastr()->error('States not Defined');
+            return back();
+        } else {
+            toastr()->error('E-signature Not match');
+            return back();
+        }
+    }
+
 
     public function singleReport($id)
     {
@@ -1367,9 +1387,6 @@ class DemoValidationController extends Controller
         return redirect()->back()->with('error', 'Validation not found.');
     }
     
-    
-
-
     public function ValidationAuditTrialDetails($id) {
     
         $detail = ValidationAudit::find($id);
@@ -1377,6 +1394,63 @@ class DemoValidationController extends Controller
         $doc = ValidationAudit::where('id', $detail->validation_id)->first();
         $doc->origiator_name = User::find($doc->initiator_id);
         return view('frontend.New_forms.auditDetails_validation', compact('detail', 'doc', 'detail_data'));
+    }
+
+    public function audit_pdf2($id)
+    {
+        $doc = Validation::findOrFail($id);
+        if (!empty($doc)) {
+            $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+        } 
+        else {
+             $datas = ActionItem::find($id);
+
+            if (empty($datas)) {
+                $datas = Extension::find($id);
+                $doc = Validation::find($datas->validation_id);
+                $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+                $doc->created_at = $datas->created_at;
+            } 
+        else {
+                $doc = Validation::find($datas->validation_id);
+                $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+                $doc->created_at = $datas->created_at;
+            }
+        }
+        $data = ValidationAudit::where('validation_id', $doc->id)->orderByDesc('id')->get();
+        // pdf related work
+        $pdf = App::make('dompdf.wrapper');
+        $time = Carbon::now();
+        $pdf = PDF::loadview('frontend.New_forms.validation_audit_trail_pdf', compact('data', 'doc'))
+            ->setOptions([
+                'defaultFont' => 'sans-serif',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isPhpEnabled' => true,
+            ]);
+        $pdf->setPaper('A4');
+        $pdf->render();
+        $canvas = $pdf->getDomPDF()->getCanvas();
+        $height = $canvas->get_height();
+        $width = $canvas->get_width();
+
+        $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+
+        $canvas->page_text(
+            $width / 3,
+            $height / 2,
+            $doc->status,
+            null,
+            60,
+            [0, 0, 0],
+            2,
+            6,
+            -20
+        );
+
+
+
+        return $pdf->stream('SOP' . $id . '.pdf');
     }
 
 }

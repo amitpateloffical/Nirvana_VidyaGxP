@@ -65,7 +65,7 @@
     });
 </script>
 
-<script>
+<!-- <script>
     $(document).ready(function() {
         // Calculate the due date 30 days from the initiation date
         function calculateDueDate(initiationDate) {
@@ -93,7 +93,7 @@
         $('#due_date').val(formatDateToDisplay(dueDate));
         $('#validation_due_date').val(formatDateToISO(dueDate));
     });
-</script>
+</script> -->
 
     @php
         $users = DB::table('users')->get();
@@ -221,8 +221,8 @@
                                     <label for="validation_due_date">Date Due <span class="text-danger"></span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                    <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                    
                                     </div>
                                 </div>

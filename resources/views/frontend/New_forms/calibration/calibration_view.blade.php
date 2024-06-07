@@ -84,23 +84,22 @@
                         Cancel
                     </button>
                     @elseif($calibration->stage == 2 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal" name="with">
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal" >
                       Within Limits 
                     </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal" name="out">
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                       Out of Limits
                     </button>
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                                Cancel
-                            </button> -->
+                      Cancel
+                    </button> -->
                     @elseif($calibration->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                       Complete Actions
 
-                    <!-- </button> -->
-                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                        Reject -->
-                    <!-- </button> -->
+                      <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                                        Child
+                      </button> 
 
                     @elseif(
                     $calibration->stage == 4 &&
@@ -412,10 +411,11 @@
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
+
                     </div>
                 </div>
             </div>
-
+        </form>
     </div>
 </div>
 <style>
@@ -878,13 +878,13 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="group-input">
-                        @if ($calibration->stage == 5)
+                        @if ($calibration->stage == 3)
                         <label style="display: flex;" for="major">
                             <input  type="radio" name="child_type" id="major" value="pm">
-                            Preventive Maintenance
+                            Action Item
                         </label>
 
-                        <label style="display: flex;" for="major">
+                        <!-- <label style="display: flex;" for="major">
                             <input  type="radio" name="child_type" id="major" value="calibration">
                             Calibration
                         </label>
@@ -892,7 +892,7 @@
                         <label for="major">
                             <input type="radio" name="child_type" id="major" value="deviation">
                             Deviation
-                        </label>
+                        </label> -->
                         @endif
 
                     </div>

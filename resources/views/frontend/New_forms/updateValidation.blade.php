@@ -55,7 +55,11 @@ $users = DB::table('users')->get();
 
         // Format date to DD-MMM-YYYY
         function formatDateToDisplay(date) {
-            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            const options = {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            };
             return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
         }
 
@@ -78,7 +82,11 @@ $users = DB::table('users')->get();
     document.addEventListener('DOMContentLoaded', function() {
         // Function to format a date to DD-MMM-YYYY
         function formatDate(date) {
-            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            const options = {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            };
             return new Date(date).toLocaleDateString('en-GB', options).replace(/ /g, '-');
         }
 
@@ -153,10 +161,10 @@ $users = DB::table('users')->get();
                     $validation->stage == 4 &&
                     (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
 
-                    <button class="button_theme1" data-bs-toggle="modal" name="test_not_required" data-bs-target="#signature-modal">
+                    <button class="button_theme1" data-bs-toggle="modal" name="test_not_required" data-bs-target="#cancel-modal">
                         Tests Not Required
                     </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                         Tests Performed - No Deviation
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -185,10 +193,10 @@ $users = DB::table('users')->get();
                     </button>
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                     Report Reject
-                                    </button> 
-                                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
-                                    Obsolete
-                                    </button> -->
+                                    </button>  -->
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                        Child
+                    </button>
 
                     @elseif($validation->stage == 7 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -210,7 +218,7 @@ $users = DB::table('users')->get();
 
                     @endif
                     <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
-                    </a> </button>
+                        </a> </button>
                 </div>
             </div>
 
@@ -240,13 +248,13 @@ $users = DB::table('users')->get();
                     @else
                     <div class="">Protocol Approval</div>
                     @endif
-               
+
                     @if ($validation->stage >= 4)
                     <div class="active">Test in Progress</div>
                     @else
                     <div class="">Test in Progress</div>
                     @endif
-                
+
 
                     @if ($validation->stage >= 5)
                     <div class="active">Deviation in Progress</div>
@@ -278,8 +286,8 @@ $users = DB::table('users')->get();
                 @endif
                 {{-- ---------------------------------------------------------------------------------------- --}}
             </div>
-        </div> 
-        
+        </div>
+
         <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Validation Document</button>
@@ -344,14 +352,12 @@ $users = DB::table('users')->get();
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         @foreach ($users as $datas)
-                                                        @if(Helpers::checkUserRolesassign_to($datas))
-                                                            <option value="{{ $datas->id }}"
-                                                                {{ $validation->assign_to == $datas->id ? 'selected' : '' }}
-                                                                {{-- @if ($data->assign_to == $datas->id) selected @endif --}}>
-                                                                {{ $datas->name }}
-                                                            </option>
-                                                        @endif    
-                                            @endforeach
+                                        @if(Helpers::checkUserRolesassign_to($datas))
+                                        <option value="{{ $datas->id }}" {{ $validation->assign_to == $datas->id ? 'selected' : '' }} {{-- @if ($data->assign_to == $datas->id) selected @endif --}}>
+                                            {{ $datas->name }}
+                                        </option>
+                                        @endif
+                                        @endforeach
                                     </select>
                                     @error('assigned_user_id')
                                     <p class="text-danger">{{ $message }}</p>
@@ -369,8 +375,7 @@ $users = DB::table('users')->get();
                                         <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $validation->assign_due_date }}" class="hide-input" oninput="handleDateInput(this)" /> -->
 
                                         <input type="text" id="assign_due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                         value="{{ \Helpers::getdateFormat($validation->assign_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'assign_due_date')" />
+                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ \Helpers::getdateFormat($validation->assign_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'assign_due_date')" />
                                     </div>
                                 </div>
                             </div>
@@ -379,7 +384,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Type">Validation Type</label>
                                     <select name="validation_type">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <!-- <option value="">Enter Your Selection Here</option> -->
                                         <option value="1" @if ($validation->validation_type == 1) selected @endif>1</option>
                                         <option value="2" @if ($validation->validation_type == 2) selected @endif>2</option>
                                         <option value="3" @if ($validation->validation_type == 3) selected @endif>3</option>
@@ -397,8 +402,7 @@ $users = DB::table('users')->get();
                                         value="{{ \Helpers::getdateFormat($validation->validation_due_date) }}" 
                                         class="hide-input" oninput="handleDateInput(this, 'due_date')" /> -->
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                         value="{{ \Helpers::getdateFormat($validation->validation_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ \Helpers::getdateFormat($validation->validation_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
                             </div>
@@ -407,7 +411,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="notify_type">Notify When Approved?</label>
                                     <select name="notify_type">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <!-- <option value="">Enter Your Selection Here</option> -->
                                         <option value="1" @if ($validation->notify_type == 1) selected @endif>yes</option>
                                         <option value="2" @if ($validation->notify_type == 2) selected @endif>No</option>
                                     </select>
@@ -418,7 +422,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="phase_type">Phase Level</label>
                                     <select name="phase_type">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <!-- <option value="">Enter Your Selection Here</option> -->
                                         <option value="1" @if ($validation->phase_type == 1) selected @endif>1</option>
                                         <option value="2" @if ($validation->phase_type == 2) selected @endif>2</option>
                                         <option value="3" @if ($validation->phase_type == 3) selected @endif>3</option>
@@ -434,7 +438,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Type">Document Reason</label>
                                     <select name="document_reason_type">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <!-- <option value="">Enter Your Selection Here</option> -->
                                         <option value="yes" @if ($validation->document_reason_type == 'yes') selected @endif>yes</option>
                                         <option value="No" @if ($validation->document_reason_type == 'No') selected @endif>No</option>
                                     </select>
@@ -452,7 +456,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Outcome">Validation Category</label>
                                     <select name="validation_category">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <!-- <option value="">Enter Your Selection Here</option> -->
                                         <option value="1" @if ($validation->validation_category == 1) selected @endif>1</option>
                                         <option value="2" @if ($validation->validation_category == 2) selected @endif>2</option>
                                         <option value="3" @if ($validation->validation_category == 3) selected @endif>3</option>
@@ -463,7 +467,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Patient_Involved">Validation Sub Category</label>
                                     <select name="validation_sub_category">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <!-- <option value="">Enter Your Selection Here</option> -->
                                         <option value="1" @if ($validation->validation_sub_category == 1) selected @endif>1</option>
                                         <option value="2" @if ($validation->validation_sub_category == 2) selected @endif>2</option>
                                         <option value="3" @if ($validation->validation_sub_category == 3) selected @endif>3</option>
@@ -501,7 +505,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Reference Recores"> Related Records</label>
                                     <select multiple id="reference_record" name="related_record" id="">
-                                        <option value="">--Select---</option>
+                                        <!-- <option value="">--Select---</option> -->
                                         <option value="1" @if ($validation->related_record==1 ) selected @endif>Pankaj</option>
                                         <option value="2" @if ($validation->related_record==2) selected @endif>Gourav</option>
 
@@ -523,7 +527,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Type">Tests Required</label>
                                     <select name="tests_required">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <!-- <option value="">Enter Your Selection Here</option> -->
                                         <option value="1" @if ($validation->tests_required == 1) selected @endif>Yes</option>
                                         <option value="2" @if ($validation->tests_required == 2) selected @endif>No</option>
                                         <!-- <option value="Yes">Yes</option>
@@ -536,7 +540,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Type">Refrence Document</label>
                                     <select name="reference_document">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <!-- <option value="">Enter Your Selection Here</option> -->
                                         <option value="1" @if ($validation->reference_document == 1) selected @endif>Yes</option>
                                         <option value="2" @if ($validation->reference_document == 2) selected @endif>Yes</option>
                                         <!-- <option value="Yes">yes</option>
@@ -767,7 +771,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Patient_Involved">Test Required?</label>
                                     <select name="test_required">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <!-- <option value="">Enter Your Selection Here</option> -->
                                         <option value="1" @if ($validation->reference_document == 1) selected @endif>1</option>
                                         <option value="2" @if ($validation->reference_document == 2) selected @endif>2</option>
                                         <!-- <option value="1">1</option>
@@ -796,7 +800,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="gender">Test Responsible</label>
                                     <select name="test_responsible">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <!-- <option value="">Enter Your Selection Here</option> -->
                                         <option value="1" @if ($validation->reference_document == 1) selected @endif>pankaj</option>
                                         <option value="2" @if ($validation->reference_document == 2) selected @endif>Gourav</option>
                                         <option value="2" @if ($validation->reference_document == 2) selected @endif>Mayank</option>
@@ -903,19 +907,19 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Submitted Protocol By</label>
-                                    <div class="static">{{ Auth::user()->name}}</div>
+                                    <div class="static">{{Auth::user()->name}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted on">Submitted Protocol On</label>
-                                    <div class="Date">{{ $validation->intiation_date;}}</div>
+                                    <div class="Date">{{$validation->intiation_date}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reviewed by">Cancelled By</label>
-                                    <div class="static">{{ Auth::user()->name }}</div>
+                                    <div class="static">{{Auth::user()->name}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -945,13 +949,13 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Plan_Approved_by1">1st Final Approval By</label>
-                                    <div class="static">{{ $validation->final_approval_1_by}}</div>
+                                    <div class="static">{{$validation->final_approval_1_by}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Plan_Approved_on1">1st Final Approval On</label>
-                                    <div class="Date">{{ $validation->final_approval_2_on }}</div>
+                                    <div class="Date">{{$validation->final_approval_2_on }}</div>
                                 </div>
                             </div>
 
@@ -1701,28 +1705,12 @@ console.error(xhr.responseText); // Log error response
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="group-input">
-                        @if ($validation->stage == 3)
+                        @if ($validation->stage == 6)
                         <label for="major">
-                            <input type="radio" name="child_type" id="major" value="rca">
-                            RCA
+                            <input type="radio" name="child_type" id="major" value="vd">
+                           Validation Deviation
                         </label>
-                        <br>
-                        <label for="major">
-                            <input type="radio" name="child_type" id="major" value="extension">
-                            Extension
-                        </label>
-                        @endif
-
-                        @if ($validation->stage == 5)
-                        <label for="major">
-                            <input type="radio" name="child_type" id="major" value="capa">
-                            CAPA
-                        </label>
-                        <br>
-                        <label for="major">
-                            <input type="radio" name="child_type" id="major" value="extension">
-                            Extension
-                        </label>
+                        
                         @endif
                     </div>
 

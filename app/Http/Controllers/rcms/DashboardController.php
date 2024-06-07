@@ -814,19 +814,19 @@ class DashboardController extends Controller
         } elseif ($type == "Validation") {
             $data = Validation::find($id);
             $single = "validationSingleReport/". $data->id;
-            $audit = "#";
+            $audit = "audit_validationPdf/". $data->id;
             $parent="validationparentchildReport/". $data->id;
         }
         elseif ($type == "Equipment") {
             $data = Equipment::find($id);
             $single = "equipmentSingleReport/". $data->id;
-            $audit = "#";
+            $audit = "audit_pdf/". $data->id;
             $parent="equipmentparentchildReport/". $data->id;
         }
         elseif ($type == "Calibration") {
-            $data = Equipment::find($id);
+            $data = Calibration::find($id);
             $single = "calibrationSingleReport/". $data->id;
-            $audit = "#";
+            $audit = "audit/". $data->id;
             $parent="calibrationparentchildReport/". $data->id;
         }
 

@@ -138,6 +138,14 @@
                 querySelect.options.add(new Option('Pending Change Implementation', '5'));
                 querySelect.options.add(new Option('Close - Done', '6'));
             }
+            else if (scopeValue === 'Calibration') {
+                querySelect.options.add(new Option('Opened', '1'));
+                querySelect.options.add(new Option('Under HOD Review', '2'));
+                querySelect.options.add(new Option('Pending QA Review', '3'));
+                querySelect.options.add(new Option('CFT Review', '4'));
+                querySelect.options.add(new Option('Pending Change Implementation', '5'));
+                querySelect.options.add(new Option('Close - Done', '6'));
+            }
 
             
         // Add more conditions based on other scope values
@@ -381,6 +389,20 @@
                                                     @endif
                                                     @elseif($datas->type == 'Equipment')
                                                     <a href="{{ route('equipment.edit', $datas->id) }}">
+                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/equipment">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+
+                                                    @elseif($datas->type == 'Calibration')
+                                                    <a href="{{ route('calibration.edit', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
