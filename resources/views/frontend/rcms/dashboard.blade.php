@@ -468,7 +468,7 @@
                                                         <td>
                                                             {{ $datas->parent }}
                                                         </td>
-                                                    @endif --}}
+                                                @endif --}}
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">

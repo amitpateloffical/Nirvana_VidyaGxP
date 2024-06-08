@@ -20,7 +20,8 @@ use App\Models\RecordNumber;
 
 class EquipmentController extends Controller
 {
-    public function equipmentIndex(){
+    public function equipmentIndex()
+    {
 
         $old_record = Equipment::select('id', 'division_id', 'record')->get();
         $record_number = ((RecordNumber::first()->value('counter')) + 1);
@@ -28,11 +29,12 @@ class EquipmentController extends Controller
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
-        return view('frontend.New_forms.equipment.equipment' , compact('old_record', 'record_number', 'currentDate', 'formattedDate', 'due_date'));
-    }   
+        return view('frontend.New_forms.equipment.equipment', compact('old_record', 'record_number', 'currentDate', 'formattedDate', 'due_date'));
+    }
 
 
-    public function equipmentStore(Request $request){
+    public function equipmentStore(Request $request)
+    {
 
         try {
             $recordCounter = RecordNumber::first();
@@ -50,8 +52,6 @@ class EquipmentController extends Controller
             $equipment->parent_id = $request->parent_id;
             $equipment->parent_type = $request->parent_type;
             $equipment->record = $newRecordNumber;
-
-            // $equipment->record = DB::table('record_numbers')->value('counter') + 1;
 
             $equipment->initiator_id = Auth::user()->id;
             $equipment->user_name = Auth::user()->name;
@@ -74,7 +74,6 @@ class EquipmentController extends Controller
             $equipment->next_pm_date = $request->next_pm_date;
             $equipment->next_calibration_date = $request->next_calibration_date;
             $equipment->maintenance_history = $request->maintenance_history;
-            
 
 
             if (!empty($request->file_attachment)) {
@@ -100,7 +99,7 @@ class EquipmentController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                
+
                 // dd($validation2->validation_id);
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "Initiator";
@@ -419,7 +418,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            
+
             if (!empty($request->maintenance_history)) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
@@ -444,22 +443,24 @@ class EquipmentController extends Controller
 
             return redirect()->back()->with('error', 'Failed to save equipment: ' . $e->getMessage());
         }
-}
+    }
 
 
-    public function equipmentEdit($id){
+    public function equipmentEdit($id)
+    {
         $equipment = Equipment::findOrFail($id);
         return view('frontend.New_forms.equipment.equipment_view', compact('equipment'));
     }
 
-    public function equipmentUpdate(Request $request, $id){
-     
+    public function equipmentUpdate(Request $request, $id)
+    {
+
         if (!$request->short_description) {
             toastr()->info("Short Description is required");
             return redirect()->back()->withInput();
         }
         try {
-    
+
             $equipment =  Equipment::findOrFail($id);
 
             // $equipment = new Equipment();
@@ -469,7 +470,7 @@ class EquipmentController extends Controller
             // $equipment->status = 'Opened';
             $equipment->parent_id = $request->parent_id;
             $equipment->parent_type = $request->parent_type;
-        
+
             $equipment->initiator_id = Auth::user()->id;
             $equipment->user_name = Auth::user()->name;
             $equipment->initiation_date = $request->initiation_date;
@@ -490,7 +491,7 @@ class EquipmentController extends Controller
             $equipment->next_pm_date = $request->next_pm_date;
             $equipment->next_calibration_date = $request->next_calibration_date;
             $equipment->maintenance_history = $request->maintenance_history;
-            
+
 
             if (!empty($request->file_attachment)) {
                 $files = [];
@@ -516,7 +517,7 @@ class EquipmentController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                
+
                 // $validation2->change_to =   "Opened";
                 // $validation2->change_from = "Initiator";
                 $validation2->action_name = 'Update';
@@ -535,7 +536,7 @@ class EquipmentController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-  
+
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -830,7 +831,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            
+
             if (!empty($request->maintenance_history)) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
@@ -856,7 +857,6 @@ class EquipmentController extends Controller
 
             return redirect()->back()->with('error', 'Failed to save equipment: ' . $e->getMessage());
         }
-
     }
 
 
@@ -874,7 +874,7 @@ class EquipmentController extends Controller
             if ($equipment->stage == 1) {
                 $equipment->stage = "2";
                 $equipment->status = "Supervisor Review";
-              
+
                 $equipment->update();
 
                 $equipment->update();
@@ -899,19 +899,19 @@ class EquipmentController extends Controller
             }
 
             // if ($equipment->stage == 4) {
-                // if ($equipment->test_required == "yes") {
-                //     $equipment->stage = "5";
-                //     $equipment->status = "Deviation in Progress";
-                //     $equipment->update();
-                //     toastr()->success('Document Sent');
-                //     return back();
-                // } else {
-                //     $equipment->stage = "6";
-                //     $equipment->status = "Pending Completion";
-                //     $equipment->update();
-                //     toastr()->success('Document Sent');
-                //     return back();
-                // // }
+            // if ($equipment->test_required == "yes") {
+            //     $equipment->stage = "5";
+            //     $equipment->status = "Deviation in Progress";
+            //     $equipment->update();
+            //     toastr()->success('Document Sent');
+            //     return back();
+            // } else {
+            //     $equipment->stage = "6";
+            //     $equipment->status = "Pending Completion";
+            //     $equipment->update();
+            //     toastr()->success('Document Sent');
+            //     return back();
+            // // }
             // }
 
             if ($equipment->stage == 4) {
@@ -960,103 +960,103 @@ class EquipmentController extends Controller
     }
 
 
-    public function equipmentCancel(Request $request, $id){
-    
-            if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
-                $equipment = Equipment::find($id);
-    
-                if ($equipment->stage == 1) {
-                    $equipment->stage = "0";
-                    $equipment->status = "Closed-Cancelled";
-                    $equipment->update();
-                    toastr()->success('Document Sent');
-                    return back();
-                }
+    public function equipmentCancel(Request $request, $id)
+    {
 
-                if ($equipment->stage == 3) {
-                    $equipment->stage = "1";
-                    $equipment->status = "Opened";
+        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+            $equipment = Equipment::find($id);
+
+            if ($equipment->stage == 1) {
+                $equipment->stage = "0";
+                $equipment->status = "Closed-Cancelled";
+                $equipment->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+
+            if ($equipment->stage == 3) {
+                $equipment->stage = "1";
+                $equipment->status = "Opened";
+                $equipment->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if ($equipment->stage == 4) {
+                $equipment->stage = "3";
+                $equipment->status = "Pending Validation";
+                $equipment->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if ($equipment->stage == 5) {
+                $equipment->stage = "4";
+                $equipment->status = "Test in Progress";
+                $equipment->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            // if ($equipment->stage == 6) {
+            //     $equipment->stage = "5";
+            //     $equipment->status = "Approved Equipment";
+            //     $equipment->update();
+            //     toastr()->success('Document Sent');
+            //     return back();
+            // }
+
+            if ($equipment->stage == 6) {
+                if ($equipment->re_active_not == "yes") {
+                    $equipment->stage = "5";
+                    $equipment->status = "Approved Equipment";
                     $equipment->update();
                     toastr()->success('Document Sent');
                     return back();
-                }
-                if ($equipment->stage == 4) {
+                } else {
                     $equipment->stage = "3";
                     $equipment->status = "Pending Validation";
                     $equipment->update();
                     toastr()->success('Document Sent');
                     return back();
                 }
-                if ($equipment->stage == 5) {
-                    $equipment->stage = "4";
-                    $equipment->status = "Test in Progress";
-                    $equipment->update();
-                    toastr()->success('Document Sent');
-                    return back();
-                }
-                // if ($equipment->stage == 6) {
-                //     $equipment->stage = "5";
-                //     $equipment->status = "Approved Equipment";
-                //     $equipment->update();
-                //     toastr()->success('Document Sent');
-                //     return back();
-                // }
-                
-                if ($equipment->stage == 6) {
-                    if ($equipment->re_active_not == "yes") {
-                        $equipment->stage = "5";
-                        $equipment->status = "Approved Equipment";
-                        $equipment->update();
-                        toastr()->success('Document Sent');
-                        return back();
-                    } else {
-                        $equipment->stage = "3";
-                        $equipment->status = "Pending Validation";
-                        $equipment->update();
-                        toastr()->success('Document Sent');
-                        return back();
-                    }
-                }
-                if ($equipment->stage == 7) {
-                    $equipment->stage = "6";
-                    $equipment->status = "Pending Completion";
-                    $equipment->update();
-                    toastr()->success('Document Sent');
-                    return back();
-                }
-    
-                if ($equipment->stage == 7) {
-                    $equipment->stage = "9";
-                    $equipment->status = "Closed - Done";
-                    $equipment->update();
-                    toastr()->success('Document Sent');
-                    return back();
-                }
-                if ($equipment->stage == 8) {
-                    $equipment->stage = "7";
-                    $equipment->status = "Pending Approval";
-                    $equipment->update();
-                    toastr()->success('Document Sent');
-                    return back();
-                }
-                if ($equipment->stage == 9) {
-                    $equipment->stage = "8";
-                    $equipment->status = "Active Document";
-                    $equipment->update();
-                    toastr()->success('Document Sent');
-                    return back();
-                }
-                toastr()->error('States not Defined');
-                return back();
-            } else {
-                toastr()->error('E-signature Not match');
+            }
+            if ($equipment->stage == 7) {
+                $equipment->stage = "6";
+                $equipment->status = "Pending Completion";
+                $equipment->update();
+                toastr()->success('Document Sent');
                 return back();
             }
-        
+
+            if ($equipment->stage == 7) {
+                $equipment->stage = "9";
+                $equipment->status = "Closed - Done";
+                $equipment->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if ($equipment->stage == 8) {
+                $equipment->stage = "7";
+                $equipment->status = "Pending Approval";
+                $equipment->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if ($equipment->stage == 9) {
+                $equipment->stage = "8";
+                $equipment->status = "Active Document";
+                $equipment->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            toastr()->error('States not Defined');
+            return back();
+        } else {
+            toastr()->error('E-signature Not match');
+            return back();
+        }
     }
 
 
-// <------------------equipment child start--------------------->
+    // <------------------equipment child start--------------------->
     public function equipment_child_1(Request $request, $id)
     {
 
@@ -1112,27 +1112,28 @@ class EquipmentController extends Controller
             $pre = Deviation::all();
             // $Capachild->record = $record_number;
             $Capachild->save();
-            return view('frontend.forms.deviation_new', compact('record_number', 'due_date','Capachild', 'parent_short_description', 'parent_initiator_id', 'parent_initiation_date', 'parent_name', 'parent_division_id', 'parent_record', 'old_record','pre'));
+            return view('frontend.forms.deviation_new', compact('record_number', 'due_date', 'Capachild', 'parent_short_description', 'parent_initiator_id', 'parent_initiation_date', 'parent_name', 'parent_division_id', 'parent_record', 'old_record', 'pre'));
         } else {
             $parent_name = "Root";
             $Rootchild = Equipment::find($id);
             $Rootchild->Rootchild = $record_number;
             $Rootchild->save();
-            return view('frontend.forms.root-cause-analysis', compact('parent_id', 'parent_type', 'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record', ));
+            return view('frontend.forms.root-cause-analysis', compact('parent_id', 'parent_type', 'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record',));
         }
     }
 
 
-    public function audit_Equipment($id){
+    public function audit_Equipment($id)
+    {
         // dd('requ');
-        $audit = EquipmentAudit::where('equipment_id', $id)->orderByDESC('id')->paginate(5);
+        $audit = EquipmentAudit::where('equipment_id', $id)->orderByDESC('id')->paginate(10);
         // dd($audit);
         $today = Carbon::now()->format('d-m-y');
         $document = Equipment::where('id', $id)->first();
         $document->originator = User::where('id', $document->initiator_id)->value('name');
         // dd($document);
 
-        return view('frontend.new_forms.equipment.auditEquipment',compact('document','audit','today'));
+        return view('frontend.new_forms.equipment.auditEquipment', compact('document', 'audit', 'today'));
     }
 
     public function singleReport($id)
@@ -1140,13 +1141,13 @@ class EquipmentController extends Controller
         $data = Equipment::find($id);
         if (!empty($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
-    
+
             $doc = EquipmentAudit::where('equipment_id', $data->id)->first();
             $detail_data = EquipmentAudit::where('activity_type', $data->activity_type)
-                                          ->where('equipment_id', $data->equipment_id)
-                                          ->latest()
-                                          ->get();
-    
+                ->where('equipment_id', $data->equipment_id)
+                ->latest()
+                ->get();
+
             // pdf related work
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
@@ -1155,41 +1156,51 @@ class EquipmentController extends Controller
                 'doc',
                 'data'
             ))
-            ->setOptions([
-                'defaultFont' => 'sans-serif',
-                'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled' => true,
-                'isPhpEnabled' => true, 
-            ]);
-    
-            $pdf->setPaper('A4');
-            $pdf->render();
-            $canvas = $pdf->getDomPDF()->getCanvas();
-            $height = $canvas->get_height();
-            $width = $canvas->get_width();
-    
-            $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
-    
-            // Ensure that the text parameter is a string
-            $text = 'Sample Watermark';  // Replace with actual text if needed
-            // Ensure the color is an array of three integers
-            $color = [0, 0, 0];  // RGB color array
-    
-            $canvas->page_text(
-                $width / 4,
-                $height / 2,
-                $text,
-                null, // Font
-                25,   // Font size
-                $color, // Color array
-                2, // Word spacing
-                6, // Character spacing
-                -20 // Angle
-            );
-    
-            return $pdf->stream('SOP' . $id . '.pdf');
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                ]);
+
+                $pdf->setPaper('A4');
+                $pdf->render();
+                $canvas = $pdf->getDomPDF()->getCanvas();
+                $height = $canvas->get_height();
+                $width = $canvas->get_width();
+                $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+                $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
+                return $pdf->stream('Equipment' . $id . '.pdf');
+
+
+            // $pdf->setPaper('A4');
+            // $pdf->render();
+            // $canvas = $pdf->getDomPDF()->getCanvas();
+            // $height = $canvas->get_height();
+            // $width = $canvas->get_width();
+
+            // $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+
+            // // Ensure that the text parameter is a string
+            // $text = 'Sample Watermark';  // Replace with actual text if needed
+            // // Ensure the color is an array of three integers
+            // $color = [0, 0, 0];  // RGB color array
+
+            // $canvas->page_text(
+            //     $width / 4,
+            //     $height / 2,
+            //     $text,
+            //     null, // Font
+            //     25,   // Font size
+            //     $color, // Color array
+            //     2, // Word spacing
+            //     6, // Character spacing
+            //     -20 // Angle
+            // );
+
+            // return $pdf->stream('SOP' . $id . '.pdf');
         }
-    
+
         // Handle the case where the $data is empty or not found
         return redirect()->back()->with('error', 'Equipment not found.');
     }
@@ -1208,17 +1219,15 @@ class EquipmentController extends Controller
         $doc = Equipment::find($id);
         if (!empty($doc)) {
             $doc->originator = User::where('id', $doc->initiator_id)->value('name');
-        } 
-        else {
-             $datas = ActionItem::find($id);
+        } else {
+            $datas = ActionItem::find($id);
 
             if (empty($datas)) {
                 $datas = Extension::find($id);
                 $doc = Equipment::find($datas->equipment_id);
                 $doc->originator = User::where('id', $doc->initiator_id)->value('name');
                 $doc->created_at = $datas->created_at;
-            } 
-        else {
+            } else {
                 $doc = Equipment::find($datas->equipment_id);
                 $doc->originator = User::where('id', $doc->initiator_id)->value('name');
                 $doc->created_at = $datas->created_at;

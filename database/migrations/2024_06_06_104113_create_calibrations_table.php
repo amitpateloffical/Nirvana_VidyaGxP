@@ -46,8 +46,8 @@ return new class extends Migration
             $table->string('calibration_rating_m')->nullable();
             $table->string('update_software_m')->nullable();
             $table->string('replace_betteries_m')->nullable();
-            $table->date('parent_equipment_name_m')->nullable();
-            $table->date('parent_equipment_type_m')->nullable();
+            $table->string('parent_equipment_name_m')->nullable();
+            $table->string('parent_equipment_type_m')->nullable();
 
             $table->string('stage')->nullable();
             $table->string('status')->nullable();

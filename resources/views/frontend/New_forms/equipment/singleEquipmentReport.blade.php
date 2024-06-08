@@ -165,7 +165,7 @@
                 </td>
                 <td class="w-30">
                     <div class="logo">
-                        <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
+                        <img src="{{('user/images/vidhyagxp.png')}}" alt="" class="w-100">
                     </div>
                 </td>
             </tr>
@@ -232,7 +232,7 @@
                         <th class="w-20">Room</th>
                         <td class="w-30"> @if($data->rooms){{ $data->rooms }}@else Not Applicable @endif</td>
                         <th class="w-20">Description</th>
-                        <td class="w-30"> @if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
+                        <td class="w-30"> @if($data->description){{ $data->description }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">Attached Files</th>

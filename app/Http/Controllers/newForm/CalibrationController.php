@@ -296,7 +296,6 @@ class CalibrationController extends Controller
                 $validation2->save();
             }
 
-
             toastr()->success("Calibration is created Successfully");
             return redirect(url('rcms/qms-dashboard'));
         } catch (\Exception $e) {
@@ -305,14 +304,12 @@ class CalibrationController extends Controller
         }
     }
 
-    public function calibrationEdit($id)
-    {
+    public function calibrationEdit($id){
         $calibration = Calibration::findOrFail($id);
         return view('frontend.New_forms.calibration.calibration_view', compact('calibration'));
     }
 
-    public function calibrationUpdate(Request $request, $id)
-    {
+    public function calibrationUpdate(Request $request, $id){
         if (!$request->short_description) {
             toastr()->info("Short Description is required");
             return redirect()->back()->withInput();
@@ -582,8 +579,7 @@ class CalibrationController extends Controller
         }
     }
 
-    public function calibration_send_stage(Request $request, $id)
-    {
+    public function calibration_send_stage(Request $request, $id){
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $equipment = Calibration::find($id);
 
@@ -740,7 +736,7 @@ class CalibrationController extends Controller
 
     public function auditCalibration($id)
     {
-        $audit = CalibrationAudit::where('calibration_id', $id)->orderByDESC('id')->paginate(5);
+        $audit = CalibrationAudit::where('calibration_id', $id)->orderByDESC('id')->paginate();
         // dd($audit);
         $today = Carbon::now()->format('d-m-y');
         $document = Calibration::where('id', $id)->first();

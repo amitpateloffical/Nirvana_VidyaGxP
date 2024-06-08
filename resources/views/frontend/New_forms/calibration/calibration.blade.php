@@ -63,7 +63,7 @@
                             <div class="group-input">
                                         <label for="RLS Record Number">Record Number</label>
                                         <input disabled type="text" name="record"
-                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/CALIBRATION/{{ date('Y') }}/{{ $record_number }}">
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/CALIBRATION/{{ date('Y') }}/{{ $record_number }}">
                             </div>
 
                             <div class="col-lg-6">
@@ -74,6 +74,7 @@
                                     <input type="hidden" name="initiation_date" value="">
                                 </div>
                             </div>
+
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
@@ -85,6 +86,7 @@
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="col-md-6">
                                 <div class="group-input">
@@ -118,8 +120,7 @@
 
                                 </div>
                             </div>
-                          
-                            
+
                             <div class="col-md-12">
                                 <div class="group-input">
                                     <label for="Description">(Parent)Description</label>
@@ -270,7 +271,7 @@
                     </div>
                 </div>
             </div>
-
+        </form>
     </div>
 </div>
 <style>
