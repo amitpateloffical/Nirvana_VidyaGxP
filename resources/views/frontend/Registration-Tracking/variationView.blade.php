@@ -9,6 +9,36 @@
         display: none;
     }
 </style>
+<style>
+    .progress-bars div {
+        flex: 1 1 auto;
+        border: 1px solid grey;
+        padding: 5px;
+        text-align: center;
+        position: relative;
+        /* border-right: none; */
+        background: white;
+    }
+
+    .state-block {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .progress-bars div.active {
+        background: green;
+        font-weight: bold;
+    }
+
+    #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(1) {
+        border-radius: 20px 0px 0px 20px;
+    }
+
+    #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(6) {
+        border-radius: 0px 20px 20px 0px;
+
+    }
+</style>
 
 <div class="form-field-head">
     {{-- <div class="pr-id">
@@ -27,7 +57,113 @@
 {{-- ! ========================================= --}}
 <div id="change-control-fields">
     <div class="container-fluid">
+        <div class="inner-block state-block">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="main-head">Record Workflow </div>
+                @php
+                    $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $data->division_id])->get();
+                    $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                @endphp
+                <div class="d-flex" style="gap:20px;">
+                    {{-- <button class="button_theme1" onclick="window.print();return false;"
+                        class="new-doc-btn">Print</button> --}}
+                    <button class="button_theme1"> <a class="text-white"
+                            href="{{ route('showAuditProgramTrial', $data->id) }}"> Audit Trail </a> </button>
 
+                    @if ($data->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Submit
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            Cancel
+                        </button>
+                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
+                            Child
+                        </button> --}}
+                    @elseif($data->stage == 2 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds) || in_array(13, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Approve
+                        </button>
+
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#rejection-modal">
+                            Reject
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            Cancel
+                        </button>
+                    @elseif($data->stage == 3 && (in_array(10, $userRoleIds) || in_array(18, $userRoleIds) || in_array(13, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                            Child
+                        </button>
+                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
+                            Child
+                        </button> --}}
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Audit Completed
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            Cancel
+                        </button>
+                    @endif
+                    <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                        </a> </button>
+
+
+                </div>
+
+            </div>
+            <div class="status">
+                <div class="head">Current Status</div>
+                {{-- ------------------------------By Pankaj-------------------------------- --}}
+                @if ($data->stage == 0)
+                    <div class="progress-bars">
+                        <div class="bg-danger">Closed-Cancelled</div>
+                    </div>
+                @else
+                    <div class="progress-bars d-flex">
+                        @if ($data->stage >= 1)
+                            <div class="active">Opened</div>
+                        @else
+                            <div class="">Opened</div>
+                        @endif
+
+                        @if ($data->stage >= 2)
+                            <div class="active">Submission Preparation</div>
+                        @else
+                            <div class="">Submission Preparation</div>
+                        @endif
+
+                        @if ($data->stage >= 3)
+                            <div class="active">Pending Submission Review</div>
+                        @else
+                            <div class="">Pending Submission Review</div>
+                        @endif
+
+                        @if ($data->stage >= 4)
+                            <div class="bg-danger">Authority Assessment</div>
+                        @else
+                            <div class="">Authority Assessment</div>
+                        @endif
+
+                        @if ($data->stage >= 5)
+                            <div class="bg-danger">Pending Registration Update</div>
+                        @else
+                            <div class="">Pending Registration Update</div>
+                        @endif
+
+                        @if ($data->stage >= 6)
+                            <div class="bg-danger">Approved</div>
+                        @else
+                            <div class="">Approved</div>
+                        @endif
+                    </div>
+                @endif
+
+
+            </div>
+            {{-- @endif --}}
+            {{-- ---------------------------------------------------------------------------------------- --}}
+        </div>
         <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Variation</button>
@@ -38,7 +174,7 @@
 
         </div>
 
-        <form action="{{ route('variation-store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('variation-store', $data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -241,7 +377,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Registration Status </label>
-                                    <select disabled name="Type">
+                                    <select name="Type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">Done</option>
                                         <option value="2">Progress</option>
@@ -253,7 +389,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Registration Number</label>
-                                    <input disabled type="text">
+                                    <input />
                                 </div>
                             </div>
 
@@ -262,42 +398,42 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Planned Submission Date</label>
-                                    <input disabled type="date" />
+                                    <input type="date" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Actual Submission Date</label>
-                                    <input disabled type="date" />
+                                    <input type="date" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Planned Approval Date</label>
-                                    <input disabled type="date" />
+                                    <input type="date" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Actual Approval Date</label>
-                                    <input disabled type="date" />
+                                    <input type="date" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Actual Withdrawn Date</label>
-                                    <input disabled type="date" />
+                                    <input type="date" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Actual Rejection Date</label>
-                                    <input disabled type="date" />
+                                    <input type="date" />
                                 </div>
                             </div>
 
@@ -307,14 +443,14 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Comments<span class="text-danger"></span></label>
-                                    <textarea disabled placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="description"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reference Recores"> Related Countries</label>
-                                    <select disabled multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
+                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
                                         <option value="">--Select---</option>
                                         <option value="">India</option>
                                         <option value="">UsA</option>
@@ -323,12 +459,12 @@
                             </div>
 
                             <div class="button-block">
-                                <button disabled type="submit" class="saveButton">Save</button>
+                                <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
 
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
 
-                                <button  type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
+                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>
                             </div>
                         </div>
@@ -343,28 +479,28 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">(Root Parent ) Trade Name</label>
-                                    <input disabled type="text" />
+                                    <input type="text" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">(Parent) Local Trade Name</label>
-                                    <input disabled type="text" />
+                                    <input type="text" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">(Parent) Manufacturer </label>
-                                    <input disabled type="text" />
+                                    <input type="text" />
                                 </div>
                             </div>
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Packaging Information (0)
-                                    <button disabled type="button" name="audit-agenda-grid" id="PackagingAdd">+</button>
+                                    <button type="button" name="audit-agenda-grid" id="PackagingAdd">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
                                     </span>
@@ -387,13 +523,13 @@
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
 
-                                            <td><input disabled type="text" name="PrimaryPackaging[]"></td>
-                                            <td><input disabled type="text" name="Material[]"></td>
-                                            <td><input disabled type="text" name="PackSize[]"></td>
-                                            <td><input disabled type="text" name="ShelfLife[]"></td>
-                                            <td><input disabled type="text" name="StorageCondition[]"></td>
-                                            <td><input disabled type="text" name="SecondaryPackaging[]"></td>
-                                            <td><input disabled type="text" name="Remarks[]"></td>
+                                            <td><input type="text" name="PrimaryPackaging[]"></td>
+                                            <td><input type="text" name="Material[]"></td>
+                                            <td><input type="text" name="PackSize[]"></td>
+                                            <td><input type="text" name="ShelfLife[]"></td>
+                                            <td><input type="text" name="StorageCondition[]"></td>
+                                            <td><input type="text" name="SecondaryPackaging[]"></td>
+                                            <td><input type="text" name="Remarks[]"></td>
 
                                         </tbody>
                                     </table>
@@ -401,7 +537,7 @@
                             </div>
 
                             <div class="button-block">
-                                <button disabled type="submit" class="saveButton">Save</button>
+                                <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
 
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -417,7 +553,7 @@
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="button-block">
-                                <button disabled type="submit" class="saveButton">Save</button>
+                                <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
 
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
