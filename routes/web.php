@@ -88,9 +88,9 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     //Route::post('set/division', [DocumentController::class, 'division'])->name('division_submit');
     Route::post('dcrDivision', [DocumentController::class, 'dcrDivision'])->name('dcrDivision_submit');
     Route::get('documents/generatePdf/{id}', [DocumentController::class, 'createPDF']);
-    
+
     Route::get('documents/reviseCreate/{id}', [DocumentController::class, 'revise_create']);
-    
+
     Route::get('documents/printPDF/{id}', [DocumentController::class, 'printPDF']);
     Route::get('documents/viewpdf/{id}', [DocumentController::class, 'viewPdf']);
     Route::resource('documentsContent', DocumentContentController::class);
@@ -145,7 +145,7 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
 // =======================medicsl device //==============================
 
 Route::middleware(['auth'])->group(function () {
-    
+
 Route::get('/medical_device_registration', [MedicalRegistrationController::class, 'index'])->name('auth');
 Route::post('medicalstore',[MedicalRegistrationController::class,'medicalCreate'])->name('medical.store');
 Route::get('medicalupdate/{id}/edit',[MedicalRegistrationController::class,'medicalEdit'])->name('medical_edit');
@@ -339,7 +339,7 @@ Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 
 //! ============================================
 //!                    FORMS
-//! ============================================ 
+//! ============================================
 
 
 Route::view('deviation', 'frontend.forms.deviation');
@@ -534,3 +534,12 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 
 // ===============OOt form==========================\
 Route::view('OOT_form', 'frontend.OOT.OOT_form');
+
+//====-------------- Resampling Form------------=========
+
+Route::view('resampling_new','frontend.OOS.resampling_new');
+
+
+
+
+
