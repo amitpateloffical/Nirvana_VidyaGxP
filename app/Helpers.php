@@ -17,6 +17,16 @@ class Helpers
     //     $formatted_date = $date->format("d-M-Y");
     //     return $formatted_date;
     // }
+    public static function getDefaultResponse()
+    {
+        $res = [
+            'status' => 'ok',
+            'message' => 'success',
+            'body' => []
+        ];
+
+        return $res;
+    }
     public static function getdateFormat($date)
 {
     if(empty($date)) {

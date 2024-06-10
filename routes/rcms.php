@@ -17,6 +17,8 @@ use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\rcms\DosierDocumentsController;
+
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +35,7 @@ Route::group(['prefix' => 'rcms'], function () {
 
     Route::middleware(['rcms'])->group(
         function () {
+            
             Route::resource('CC', CCController::class);
             Route::resource('actionItem', ActionItemController::class);
             Route::post('action-stage-cancel/{id}', [ActionItemController::class, 'actionStageCancel']);
@@ -175,9 +178,29 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
-
-             
-
+              /**
+             *DosierDocumentsController
+             */
+         Route::group(['prefix' => 'dosierdocuments', 'as' => 'dosierdocuments.'], function() {
+                
+                Route::get('/',[DosierDocumentsController::class, 'index'])->name('index');
+                Route::post('/store', [DosierDocumentsController::class, 'store'])->name('store');
+                Route::get('view/{id}', [DosierDocumentsController::class, 'show'])->name('view');
+                Route::post('update/{id}', [DosierDocumentsController::class, 'update'])->name('update');
+    
+                // Route::post('sendstage/{id}',[DosierDocumentsController::class,'send_stage'])->name('send_stage');
+                // Route::post('requestmoreinfo_back_stage/{id}',[DosierDocumentsController::class,'requestmoreinfo_back_stage'])->name('requestmoreinfo_back_stage');
+                // Route::post('assignable_send_stage/{id}',[DosierDocumentsController::class,'assignable_send_stage'])->name('assignable_send_stage');
+                // Route::post('cancel_stage/{id}', [DosierDocumentsController::class, 'cancel_stage'])->name('cancel_stage');;
+                // Route::post('thirdStage/{id}', [DosierDocumentsController::class, 'stageChange'])->name('thirdStage');
+                // Route::post('reject_stage/{id}', [DosierDocumentsController::class, 'reject_stage'])->name('reject_stage');
+                
+                // Route::get('AuditTrial/{id}', [DosierDocumentsController::class, 'AuditTrial'])->name('audit_trial');
+                // Route::get('auditDetails/{id}', [DosierDocumentsController::class, 'auditDetails'])->name('audit_details');
+                // Route::get('audit_report/{id}', [DosierDocumentsController::class, 'auditReport'])->name('audit_report');
+                // Route::get('single_report/{id}', [DosierDocumentsController::class, 'singleReport'])->name('single_report');
+            });
+            
         }
     );
 });
