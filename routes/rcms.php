@@ -188,17 +188,17 @@ Route::group(['prefix' => 'rcms'], function () {
                 Route::get('view/{id}', [DosierDocumentsController::class, 'show'])->name('view');
                 Route::post('update/{id}', [DosierDocumentsController::class, 'update'])->name('update');
     
-                // Route::post('sendstage/{id}',[DosierDocumentsController::class,'send_stage'])->name('send_stage');
-                // Route::post('requestmoreinfo_back_stage/{id}',[DosierDocumentsController::class,'requestmoreinfo_back_stage'])->name('requestmoreinfo_back_stage');
-                // Route::post('assignable_send_stage/{id}',[DosierDocumentsController::class,'assignable_send_stage'])->name('assignable_send_stage');
-                // Route::post('cancel_stage/{id}', [DosierDocumentsController::class, 'cancel_stage'])->name('cancel_stage');;
-                // Route::post('thirdStage/{id}', [DosierDocumentsController::class, 'stageChange'])->name('thirdStage');
-                // Route::post('reject_stage/{id}', [DosierDocumentsController::class, 'reject_stage'])->name('reject_stage');
+                Route::post('sendstage/{id}',[DosierDocumentsController::class,'send_stage'])->name('send_stage');
+                Route::post('requestmoreinfo_back_stage/{id}',[DosierDocumentsController::class,'requestmoreinfo_back_stage'])->name('requestmoreinfo_back_stage');
+                Route::post('cancel_stage/{id}', [DosierDocumentsController::class, 'cancel_stage'])->name('cancel_stage');;
+                Route::post('thirdStage/{id}', [DosierDocumentsController::class, 'stageChange'])->name('thirdStage');
+                Route::get('AuditTrial/{id}', [DosierDocumentsController::class, 'AuditTrial'])->name('audit_trial');
+                Route::post('AuditTrial/{id}', [DosierDocumentsController::class, 'store_audit_review'])->name('store_audit_review');
+                Route::get('auditDetails/{id}', [DosierDocumentsController::class, 'auditDetails'])->name('audit_details');
                 
-                // Route::get('AuditTrial/{id}', [DosierDocumentsController::class, 'AuditTrial'])->name('audit_trial');
-                // Route::get('auditDetails/{id}', [DosierDocumentsController::class, 'auditDetails'])->name('audit_details');
-                // Route::get('audit_report/{id}', [DosierDocumentsController::class, 'auditReport'])->name('audit_report');
-                // Route::get('single_report/{id}', [DosierDocumentsController::class, 'singleReport'])->name('single_report');
+                Route::get('audit_report/{id}', [DosierDocumentsController::class, 'auditReport'])->name('audit_report');
+                Route::get('single_report/{id}', [DosierDocumentsController::class, 'singleReport'])->name('single_report');
+
             });
             
         }

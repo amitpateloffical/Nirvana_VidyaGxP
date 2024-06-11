@@ -56,13 +56,12 @@
     </div>
 </div>
 
-
-
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
 {{-- ! ========================================= --}}
 <div id="change-control-fields">
     <div class="container-fluid">
+    @include('frontend.Registration-Tracking.dosier-documents.stage')
 
         <!-- Tab links -->
         <div class="cctab">
@@ -97,7 +96,7 @@
                        </div>
                        <div class="col-lg-6">
                             <div class="group-input">
-                                <label disabled for="Short Description">Division Code<span
+                                <label disabled for="Division Code">Division Code<span
                                         class="text-danger"></span></label>
                                 <input disabled type="text" name="division_code"
                                     value="{{ Helpers::getDivisionName(session()->get('division')) }}">
@@ -119,26 +118,26 @@
                             <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
                             </div>
                         </div>
+                        <div class="col-md-6 pt-3">
+                            <div class="group-input">
+                                <label for="Short Description">Short Description<span class="text-danger">*</span>
+                                    <p>255 characters remaining </p>
+                                    <textarea id="docname" maxlength="255" name="short_description" required>{{ $data->short_description }}</textarea>
+                            </div>
+                        </div>
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="assign to"> Assigned To</label>
                                 <select name="assign_to" >
                                     <option>Enter Your Selection Here</option>
-                                    <option value="User1" {{ $data->severity_level_gi == 'User1' ? 'selected' :
+                                    <option value="User1" {{ $data->assign_to == 'User1' ? 'selected' :
                                         '' }}>User1</option>
-                                    <option value="User2" {{ $data->severity_level_gi == 'User2' ? 'selected' :
+                                    <option value="User2" {{ $data->assign_to == 'User2' ? 'selected' :
                                         '' }}>User2</option>
-                                    <option value="User3" {{ $data->severity_level_gi == 'User3' ? 'selected' :
+                                    <option value="User3" {{ $data->assign_to == 'User3' ? 'selected' :
                                     '' }}>User3</option>
                                 </select>
                             </div>
-                        </div>
-                            <div class="col-md-6 pt-3">
-                                <div class="group-input">
-                                    <label for="Short Description">Short Description<span class="text-danger">*</span>
-                                        <p>255 characters remaining </p>
-                                        <textarea id="docname" maxlength="255" name="short_description" required>{{ $data->short_description }}</textarea>
-                                </div>
                             </div>
                             <div class="col-lg-6">
                             <div class="group-input">
@@ -154,7 +153,7 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Reference Recores">Dosier Documents Type</label>
-                                <select multiple id="dosier_documents_type" name="dosier_documents_type" id="">
+                                <select id="dosier_documents_type" name="dosier_documents_type" id="">
                                     <option value="">--Select---</option>
                                     <option value="1" {{ $data->dosier_documents_type == '1' ? 'selected' : '' }}>1</option>
                                     <option value="2" {{ $data->dosier_documents_type == '2' ? 'selected' : '' }}>2</option>
@@ -228,7 +227,6 @@
                                 <option value="">Enter Your Selection Here</option>
                                 <option value="1" {{ $data->root_parent_manufacture == '1' ? 'selected' : '' }}>1</option>
                                 <option value="2" {{ $data->root_parent_manufacture == '2' ? 'selected' : '' }}>2</option>
-                    
                             </select>
                         </div>
                     </div>

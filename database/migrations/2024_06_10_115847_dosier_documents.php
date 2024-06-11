@@ -40,16 +40,19 @@ return new class extends Migration
             $table->text('type')->nullable();
             $table->text('parent_record')->nullable();
 
-            // workflow start stage 
-            $table->text('cancelled_by')->nullable();
-            $table->text('cancelled_on')->nullable();
-            $table->text('comment_cancle')->nullable();
-            $table->text('completed_by_pending_initial_assessment')->nullable();
-            $table->text('completed_on_pending_initial_assessment')->nullable();
-            $table->text('comment_pending_initial_assessment')->nullable();
+            // workflow start stage
+            $table->text('completed_by_opened')->nullable();
+            $table->text('completed_on_opened')->nullable();
+            $table->text('comment_opened')->nullable(); 
+            $table->text('completed_by_dossier_review')->nullable();
+            $table->text('completed_on_dossier_review')->nullable();
+            $table->text('comment_dossier_review')->nullable();
             $table->text('completed_by_approval_completed')->nullable();
             $table->text('completed_on_approval_completed')->nullable();
             $table->text('comment_approval_completed')->nullable();
+            $table->text('cancelled_by')->nullable();
+            $table->text('cancelled_on')->nullable();
+            $table->text('comment_cancle')->nullable();
             $table->text('completed_by_close_done')->nullable();
             $table->text('completed_on_close_done')->nullable();
             $table->text('comment_close_done')->nullable();

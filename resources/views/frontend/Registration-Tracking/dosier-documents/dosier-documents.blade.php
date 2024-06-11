@@ -96,20 +96,21 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label disabled for="division_code">Division Code<span class="text-danger"></span></label>
-                                <input disabled type="text" name="division_code"
-                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}">
-                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
                                 <label for="Short Description">Initiator <span class="text-danger"></span></label>
                                 <input type="hidden" name="initiator_id" value="{{ Auth::user()->id }}">
                                 <input disabled type="text" name="initiator"
                                         value="{{ Auth::user()->name }}">
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label disabled for="division_code">Division Code<span class="text-danger"></span></label>
+                                <input disabled type="text" name="division_code"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                            </div>
+                        </div>
+                        
                         <div class="col-md-6 ">
                             <div class="group-input ">
                                 <label for="intiation-date"> Date Of Initiation<span class="text-danger"></span></label>
@@ -150,7 +151,7 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Reference Recores">Dosier Documents Type</label>
-                                <select multiple id="dosier_documents_type" name="dosier_documents_type" id="">
+                                <select  id="dosier_documents_type" name="dosier_documents_type" id="">
                                     <option value="">--Select---</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
