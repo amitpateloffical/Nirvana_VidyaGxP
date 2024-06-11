@@ -15,6 +15,7 @@ use App\Models\LabIncident;
 use App\Models\Auditee;
 use App\Models\AuditProgram;
 use App\Models\Calibration;
+use App\Models\Sanction;
 use App\Models\Validation;
 use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
@@ -74,6 +75,7 @@ class DashboardController extends Controller
         $datas15 = Equipment::orderByDesc('id')->get();
         $datas16 = Calibration::orderByDesc('id')->get();
         $datas17 = NationalApproval::orderByDesc('id')->get();
+        $datas18 = Sanction::orderByDesc('id')->get();
 
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -421,6 +423,25 @@ class DashboardController extends Controller
             ]);
         }
 
+        foreach ($datas18 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Sanction",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->initiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
 
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
         // return $table;
@@ -857,6 +878,12 @@ class DashboardController extends Controller
             $single = "national_approvalSingleReport/". $data->id;
             $audit = "audit/". $data->id;
             $parent="calibrationparentchildReport/". $data->id;
+        }     
+        elseif ($type == "Sanction") {
+            $data = Sanction::find($id);
+            $single = "sanctionSingleReport/". $data->id;
+            $audit = "audit/". $data->id;
+            $parent="sanctionparentchildReport/". $data->id;
         }
 
 

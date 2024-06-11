@@ -341,15 +341,23 @@ $users = DB::table('users')->get();
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Auditee">Approval Status</label>
-                                    <select multiple name="approval_status" placeholder="Select Auditee" data-search="false" data-silent-initial-value-set="true" id="Auditee">
+                                    <!-- <select multiple name="approval_status" placeholder="Select Auditee" data-search="false" data-silent-initial-value-set="true" id="Auditee">
                                         <option value="">cfgg</option>
                                         <option value="">cfggsd</option>
                                         <option value="">cfgsdg</option>
                                         <option value="">cfgasasg</option>
                                         <option value="">cdsfgg</option>
+                                    </select> -->
+
+                                    <select name="approval_status">
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="status-1">status-1</option>
+                                        <option value="status-2">status-2</option>
+                                        <option value="status-3">status-3</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Marketing Authorization Holder">Marketing Authorization Holder</label>
@@ -370,6 +378,7 @@ $users = DB::table('users')->get();
                                     <input type="date" name="actual_submission_date">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Planned Approval Date">Planned Approval Date</label>
@@ -383,6 +392,7 @@ $users = DB::table('users')->get();
                                     <input type="date" name="actual_approval_date">
                                 </div>
                             </div>
+                            
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actual Withdrawn Date">Actual Withdrawn Date</label>

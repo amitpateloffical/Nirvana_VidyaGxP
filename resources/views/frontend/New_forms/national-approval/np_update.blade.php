@@ -41,7 +41,7 @@
 </style>
 
 @php
-    $users = DB::table('users')->get();
+$users = DB::table('users')->get();
 @endphp
 
 <div class="form-field-head">
@@ -60,7 +60,7 @@
 <div id="change-control-fields">
     <div class="container-fluid">
 
-    <div class="inner-block state-block">
+        <div class="inner-block state-block">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="main-head">Record Workflow </div>
 
@@ -74,35 +74,35 @@
 
                     @if ($national->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                    Send Translation
+                        Send Translation
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                         Cancel
                     </button>
                     @elseif($national->stage == 2 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                    Approval Received 
+                        Approval Received
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target=" #cancel-modal">
-                    Refused
+                        Refused
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#modal1">
-                    Withdraw
+                        Withdraw
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
-                    Child
-                    </button> 
+                        Child
+                    </button>
                     @elseif($national->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                    Retire 
+                        Retire
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                    Add Updates
+                        Add Updates
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
-                    Child
+                        Child
                     </button>
-                    
+
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                     Update Done
                     </button> -->
@@ -111,7 +111,7 @@
                     (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
 
                     <button class="button_theme1" data-bs-toggle="modal" name="test_not_required" data-bs-target="#signature-modal">
-                    Update Done
+                        Update Done
                     </button>
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                        Re-Validation
@@ -124,7 +124,7 @@
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Take Out of Service
                     </button> -->
-<!-- 
+                    <!-- 
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
                                         Document Completed
                                     </button>
@@ -165,7 +165,7 @@
 
                     @endif
                     <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
-                    </a> </button>
+                        </a> </button>
                 </div>
             </div>
 
@@ -203,13 +203,13 @@
                     @else
                     <div class="">Approved</div>
                     @endif
-               
+
                     @if ($national->stage >= 4)
                     <div class="active">Update Ongoing</div>
                     @else
                     <div class="">Update Ongoing</div>
                     @endif
-          
+
 
                     <!-- @if ($national->stage >= 5)
                     <div class="active">Closed - Retired
@@ -233,7 +233,7 @@
                     @else
                     <div class="">Active Document</div>
                     @endif -->
-                    
+
                     @if ($national->stage >= 5)
                     <div class="bg-danger">Closed - Retired</div>
                     @else
@@ -244,7 +244,7 @@
                 @endif
                 {{-- ---------------------------------------------------------------------------------------- --}}
             </div>
-        </div> 
+        </div>
 
         <!-- Tab links -->
         <div class="cctab">
@@ -255,7 +255,15 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signatures</button>
         </div>
 
-        <form action="{{ route('national_approval.update', $national->id) }}" method="POST" enctype="multipart/form-data">
+        <script>
+                $(document).ready(function() {
+                    <?php if ($national->stage == 5): ?>
+                        $("#target :input").prop("disabled", true);
+                    <?php endif; ?>
+                });
+            </script>
+
+        <form id="target" action="{{ route('national_approval.update', $national->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -299,11 +307,11 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                            <div class="group-input">
-                                        <!-- <label for="RLS Record Number">Record Number</label> -->
-                                        <label for="RLS Record Number">Record Number</label>
-                                        <input disabled type="text" name="record" value="{{ Helpers::getDivisionName($national->division_id) }}/NP/{{ Helpers::year($national->created_at) }}/{{ $national->record }}">
-                            </div>
+                                <div class="group-input">
+                                    <!-- <label for="RLS Record Number">Record Number</label> -->
+                                    <label for="RLS Record Number">Record Number</label>
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName($national->division_id) }}/NP/{{ Helpers::year($national->created_at) }}/{{ $national->record }}">
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="group-input">
@@ -311,15 +319,14 @@
                                         Assigned To <span class="text-danger"></span>
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
-                                            <option value="assign_to">Select a value</option>
-                                            @foreach ($users as $datas)
-                                                        @if(Helpers::checkUserRolesassign_to($datas))
-                                                            <option value="{{ $datas->id }}"
-                                                                {{ $national->assign_to == $datas->id ? 'selected' : '' }}>
-                                                                {{ $datas->name }}
-                                                            </option>
-                                                        @endif    
-                                            @endforeach
+                                        <option value="assign_to">Select a value</option>
+                                        @foreach ($users as $datas)
+                                        @if(Helpers::checkUserRolesassign_to($datas))
+                                        <option value="{{ $datas->id }}" {{ $national->assign_to == $datas->id ? 'selected' : '' }}>
+                                            {{ $datas->name }}
+                                        </option>
+                                        @endif
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -336,11 +343,12 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Procedure Type">(Parent) Procedure Type</label>
-                                    <select name="procedure_type" id="select-state" placeholder="Select...">
-                                        <!-- <option value="">Enter Your Selection Here</option> -->
-                                        <option @if ($national->procedure_type==1) select @endif value="1">1</option>
-                                        <option @if ($national->procedure_type==2) select @endif value="2">2</option>
-                                        <option @if ($national->procedure_type==3) select @endif value="3">3</option>
+                                    <select name="procedure_type">
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="1" @if ($national->procedure_type == 1) selected @endif>1</option>
+                                        <option value="2" @if ($national->procedure_type == 2) selected @endif>2</option>
+                                        <option value="3" @if ($national->procedure_type == 3) selected @endif>3</option>
+                                        <option value="4" @if ($national->procedure_type == 4) selected @endif>4</option>
                                     </select>
                                 </div>
                             </div>
@@ -381,11 +389,12 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Renewal Rule">Renewal Rule</label>
-                                    <select id="select-state" placeholder="Select..." name="renewal_rule">
-                                        <!-- <option value="">Enter Your Selection Here</option> -->
-                                        <option @if ($national->renewal_rule==1) select @endif value="1">1</option>
-                                        <option @if ($national->renewal_rule==2) select @endif value="2">2</option>
-                                        <option @if ($national->renewal_rule==3) select @endif value="3">3</option>
+                                    <select name="renewal_rule">
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="1" @if ($national->renewal_rule == 1) selected @endif>1</option>
+                                        <option value="2" @if ($national->renewal_rule == 2) selected @endif>2</option>
+                                        <option value="3" @if ($national->renewal_rule == 3) selected @endif>3</option>
+                                        <option value="4" @if ($national->renewal_rule == 4) selected @endif>4</option>
                                     </select>
                                 </div>
                             </div>
@@ -398,11 +407,12 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Related Dossier Documents">Related Dossier Documents</label>
-                                    <select name="related_dossier_documents" value="{{$national->related_dossier_documents}}">
+                                    <select name="related_dossier_documents">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="1" @if ($national->related_dossier_documents == 1) selected @endif>1</option>
+                                        <option value="2" @if ($national->related_dossier_documents == 2) selected @endif>2</option>
+                                        <option value="3" @if ($national->related_dossier_documents == 3) selected @endif>3</option>
+                                        <option value="4" @if ($national->related_dossier_documents == 4) selected @endif>4</option>
                                     </select>
                                 </div>
                             </div>
@@ -415,25 +425,28 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Shelf Life">Shelf Life</label>
-                                    <select name="shelf_life" value="{{$national->shelf_life}}">
+                                    <select name="shelf_life">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="1" @if ($national->shelf_life == 1) selected @endif>1</option>
+                                        <option value="2" @if ($national->shelf_life == 2) selected @endif>2</option>
+                                        <option value="3" @if ($national->shelf_life == 3) selected @endif>3</option>
+                                        <option value="4" @if ($national->shelf_life == 4) selected @endif>4</option>
                                     </select>
                                 </div>
                             </div>
 
+
+
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                    Packaging Information(0)
-                                    <button type="button" name="audit-agenda-grid" id="Packaging_Information">+</button>
+                                    Packaging Information({{ is_array($details) ? count($details) : 0 }})
+                                    <button type="button" name="details" id="Details-add">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Packaging_Information-field-instruction-modal">
+                                    <table class="table table-bordered" id="Details-table">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -447,28 +460,53 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="IDnumber[]"></td>
-                                            <td><input type="text" name="" ></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                            @if (is_array($details))
+                                            @foreach($details as $index => $detail)
+                                            <tr>
+                                                <td><input disabled type="text" name="details[{{ $index }}][serial]" value="{{ $index + 1 }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][primary_packaging]" value="{{ $detail['primary_packaging'] }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][material]" value="{{ $detail['material'] }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][pack_size]" value="{{ $detail['pack_size'] }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][shelf_life]" value="{{ $detail['shelf_life'] }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][storage_condition]" value="{{ $detail['storage_condition'] }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][secondary_packaging]" value="{{ $detail['secondary_packaging'] }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][remarks]" value="{{ $detail['remarks'] }}"></td>
+                                            </tr>
+                                            @endforeach
+                                            @endif
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
 
+
+                            <script>
+                                document.getElementById('Details-add').addEventListener('click', function() {
+                                    var table = document.getElementById('Details-table').getElementsByTagName('tbody')[0];
+                                    var rowCount = table.rows.length;
+                                    var row = table.insertRow(rowCount);
+
+                                    row.innerHTML = `
+            <td><input disabled type="text" name="details[${rowCount}][serial]" value="${rowCount + 1}"></td>
+            <td><input type="text" name="details[${rowCount}][primary_packaging]"></td>
+            <td><input type="text" name="details[${rowCount}][material]"></td>
+            <td><input type="text" name="details[${rowCount}][pack_size]"></td>
+            <td><input type="text" name="details[${rowCount}][shelf_life]"></td>
+            <td><input type="text" name="details[${rowCount}][storage_condition]"></td>
+            <td><input type="text" name="details[${rowCount}][secondary_packaging]"></td>
+            <td><input type="text" name="details[${rowCount}][remarks]"></td>
+        `;
+                                });
+                            </script>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="PSUP Cycle">PSUP Cycle</label>
-                                    <select name="psup_cycle" value="{{$national->psup_cycle}}">
+                                    <select name="psup_cycle">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="1" @if ($national->psup_cycle == 1) selected @endif>1</option>
+                                        <option value="2" @if ($national->psup_cycle == 2) selected @endif>2</option>
+                                        <option value="3" @if ($national->psup_cycle == 3) selected @endif>3</option>
+                                        <option value="4" @if ($national->psup_cycle == 4) selected @endif>4</option>
                                     </select>
                                 </div>
                             </div>
@@ -496,7 +534,7 @@
                             <div class="sub-head">
                                 Approval Plan
                             </div>
-                            <div class="col-lg-6">
+                            <!-- <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Patient_Involved">Assigned To</label>
                                     <input type="text" name="ap_assigned_to" id="" value="{{$national->ap_assigned_to}}">
@@ -508,13 +546,19 @@
                                     <label for="Date Due">Date Due</label>
                                     <input type="date" name="ap_date_due" value="{{$national->ap_date_due}}">
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Auditee">Approval Status</label>
-                                    <select multiple name="approval_status" placeholder="Select Auditee" data-search="false" data-silent-initial-value-set="true" id="Auditee">
+                                    <!-- <select multiple name="approval_status" placeholder="Select Auditee" data-search="false" data-silent-initial-value-set="true" id="Auditee">
                                         <option value="">cfgg</option> 
+                                    </select> -->
+                                    <select name="approval_status" value="{{$national->approval_status}}">
+                                        <!-- <option value="">Enter Your Selection Here</option> -->
+                                        <option value="status-1">status-1</option>
+                                        <option value="status-2">status-2</option>
+                                        <option value="status-3">status-3</option>
                                     </select>
                                 </div>
                             </div>
@@ -863,6 +907,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
+            
             <form action="{{ url('deviationIsCFTRequired', $national->id) }}" method="POST">
                 @csrf
                 <!-- Modal body -->
@@ -1050,13 +1095,13 @@
                     <div class="group-input">
                         @if ($national->stage == 2)
                         <label style="display: flex;" for="major">
-                            <input  type="radio" name="child_type" id="major" value="correspondence">
+                            <input type="radio" name="child_type" id="major" value="correspondence">
                             Correspondence
                         </label>
                         @else($national->stage == 3)
 
                         <label style="display: flex;" for="major">
-                            <input  type="radio" name="child_type" id="major" value="variation">
+                            <input type="radio" name="child_type" id="major" value="variation">
                             Variation
                         </label>
 

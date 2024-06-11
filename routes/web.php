@@ -22,6 +22,8 @@ use App\Http\Controllers\DocumentContentController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\newForm\CalibrationController;
 use App\Http\Controllers\newForm\EquipmentController;
+use App\Http\Controllers\newForm\NationalApprovalController;
+use App\Http\Controllers\newForm\SanctionController;
 use App\Http\Controllers\newForm\ValidationController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CapaController;
@@ -332,7 +334,7 @@ Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 
 //! ============================================
 //!                    FORMS
-//! ============================================ 
+//! ============================================
 
 
 Route::view('deviation', 'frontend.forms.deviation');
@@ -366,7 +368,7 @@ Route::view('deviation_new', 'frontend.forms.deviation_new');
 
 // -------------------------------------ehs---------forms--------
 Route::view('recurring_commitment', 'frontend.ehs.recurring_commitment');
-Route::view('sanction', 'frontend.ehs.sanction');
+
 Route::view('monthly_working', 'frontend.ehs.monthly_working');
 
 Route::view('investigation', 'frontend.ehs.investigation');
@@ -460,11 +462,33 @@ Route::view('meeting-management', 'frontend.new_forms.meeting-management');
 
 
 // ------------------------------R T Form--------------------//
-Route::view('national-approval', 'frontend.Registration-Tracking.national-approval');
+// Route::view('national-approval', 'frontend.Registration-Tracking.national-approval');
 Route::view('variation', 'frontend.Registration-Tracking.variation');
 Route::view('PSUR', 'frontend.Registration-Tracking.PSUR');
 Route::view('dosier-documents', 'frontend.Registration-Tracking.dosier-documents');
 Route::view('commitment', 'frontend.Registration-Tracking.commitment');
+
+
+//=================== National  Approval ====================//
+Route::get('national-approval', [NationalApprovalController::class, 'index']);
+Route::post('/nationalApproval', [NationalApprovalController::class, 'npStore'])->name('national_approval.store');
+Route::get('/national_approval/{id}/edit',[NationalApprovalController::class, 'npEdit'])->name('national_approval.edit');
+Route::put('/np_update/{id}', [NationalApprovalController::class, 'npUpdate'])->name('national_approval.update');
+Route::post('np_child/{id}', [NationalApprovalController::class, 'np_child_1'])->name('np_child_1');
+Route::get('audit_trail_np/{id}', [NationalApprovalController::class, 'audit_NationalApproval']);
+Route::get('npAuditTrialDetails/{id}', [NationalApprovalController::class, 'nationalAuditTrialDetails']);
+
+
+//=================== Sanction  Approval ====================//
+// Route::view('sanction', 'frontend.ehs.sanction');
+Route::get('sanction', [SanctionController::class, 'index']);
+Route::post('/sanction', [SanctionController::class, 'sanctionStore'])->name('sanction.store');
+Route::get('/sanction/{id}/edit',[SanctionController::class, 'sanctionEdit'])->name('sanction.edit');
+Route::put('/sanction_update/{id}', [SanctionController::class, 'sanctionUpdate'])->name('sanction.update');
+Route::post('sanction_child/{id}', [SanctionController::class, 'sanction_child_1'])->name('sanction_child_1');
+Route::get('audit_trail_sanction/{id}', [SanctionController::class, 'audit_Sanction']);
+Route::get('sanctionAuditTrialDetails/{id}', [SanctionController::class, 'sanctionAuditTrialDetails']);
+
 
 
 //--------------------------------ERRATA-----form---------------//

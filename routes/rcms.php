@@ -3,6 +3,8 @@
 use App\Http\Controllers\demo\DemoValidationController;
 use App\Http\Controllers\newForm\CalibrationController;
 use App\Http\Controllers\newForm\EquipmentController;
+use App\Http\Controllers\newForm\NationalApprovalController;
+use App\Http\Controllers\newForm\SanctionController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CCController;
@@ -215,6 +217,29 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::post('calibration/check3/{id}', [CalibrationController::class, 'check3'])->name('calibration_check3');
              Route::get('calibrationSingleReport/{id}', [CalibrationController::class, 'singleReport'])->name('calibrationSingleReport');
              Route::get('/audit/{id}', [CalibrationController::class, 'audit_pdf']);
+             
+             //============National Approval ============
+             Route::post('national_approval/stage/{id}', [NationalApprovalController::class, 'nationalApproval_send_stage'])->name('national_approval_send_stage');
+             Route::post('national_approval_rejects',[NationalApprovalController::class,'nationalApproval_reject'])->name('nationalApprovalReject');
+             Route::post('national_approval/cancel/{id}', [NationalApprovalController::class, 'national_approvalCancel'])->name('nationalApprovalCancel');
+             Route::post('national_approval/check/{id}', [NationalApprovalController::class, 'check'])->name('national_approval_check');
+             Route::post('np_qa_more_info/{id}', [NationalApprovalController::class, 'np_qa_more_info'])->name('np_qa_more_info');
+             Route::post('national_approval/check2/{id}', [NationalApprovalController::class, 'check2'])->name('national_approval_check2');
+             Route::post('national_approval/check3/{id}', [NationalApprovalController::class, 'check3'])->name('national_approval_check3');
+             Route::get('national_approvalSingleReport/{id}', [NationalApprovalController::class, 'singleReport'])->name('national_approvalSingleReport');
+             Route::get('/audit/{id}', [NationalApprovalController::class, 'audit2_pdf']);
+
+
+             //============ Sanction =============
+             Route::post('sanction/stage/{id}', [SanctionController::class, 'sanction_send_stage'])->name('sanction_send_stage');
+             Route::post('sanction',[SanctionController::class,'sanction_reject'])->name('sanctionReject');
+             Route::post('sanction/cancel/{id}', [SanctionController::class, 'sanctionCancel'])->name('sanctionCancel');
+             Route::post('sanction/check/{id}', [SanctionController::class, 'check'])->name('sanction_check');
+             Route::post('np_qa_more_info/{id}', [SanctionController::class, 'np_qa_more_info'])->name('np_qa_more_info');
+             Route::post('sanction/check2/{id}', [SanctionController::class, 'check2'])->name('sanction_check2');
+             Route::post('sanction/check3/{id}', [SanctionController::class, 'check3'])->name('sanction_check3');
+             Route::get('sanctionSingleReport/{id}', [SanctionController::class, 'singleReport'])->name('sanctionSingleReport');
+             Route::get('/audit/{id}', [SanctionController::class, 'audit2_pdf']);
 
         }
     );

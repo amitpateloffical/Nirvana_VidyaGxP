@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\newForm;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActionItem;
+use App\Models\Extension;
 use App\Models\NationalApproval;
 use App\Models\NationalApprovalAudit;
 use App\Models\NationalApprovalGrid;
@@ -10,7 +12,9 @@ use App\Models\RecordNumber;
 use App\Models\RoleGroup;
 use App\Models\User;
 use Carbon\Carbon;
+use PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -414,7 +418,11 @@ if (!empty($request->expiration_date)) {
 
     public function npEdit($id){
         $national = NationalApproval::findOrFail($id);
-        return view('frontend.New_forms.national-approval.np_update', compact('national'));
+        $packagingDetails = NationalApprovalGrid::where('national_id', $id)->where('identifier', 'details')->first();
+    
+        $details = $packagingDetails ? json_decode($packagingDetails->data, true) : [];
+    
+        return view('frontend.New_forms.national-approval.np_update', compact('national', 'details'));
     }
 
     public function npUpdate(Request $request, $id){
@@ -963,5 +971,99 @@ if (!empty($request->expiration_date)) {
         $doc = NationalApproval::where('id', $detail->national_id)->first();
         // $doc->origiator_name =  User::where('id', $document->initiator_id)->value('name');
         return view('frontend.New_forms.national-approval.np_audit_details', compact('detail', 'doc', 'detail_data'));
+    }
+
+    public function singleReport($id)
+    {
+        $data = NationalApproval::find($id);
+        if (!empty($data)) {
+            $data->originator = User::where('id', $data->initiator_id)->value('name');
+
+            $doc = NationalApprovalAudit::where('nationalApproval_id', $data->id)->first();
+            $detail_data = NationalApprovalAudit::where('activity_type', $data->activity_type)
+                ->where('nationalApproval_id', $data->nationalApproval_id)
+                ->latest()
+                ->get();
+
+            // pdf related work
+            $pdf = App::make('dompdf.wrapper');
+            $time = Carbon::now();
+            $pdf = PDF::loadview('frontend.New_forms.national-approval.singleNationalApprovalReport', compact(
+                'detail_data',
+                'doc',
+                'data'
+            ))
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                ]);
+
+                $pdf->setPaper('A4');
+                $pdf->render();
+                $canvas = $pdf->getDomPDF()->getCanvas();
+                $height = $canvas->get_height();
+                $width = $canvas->get_width();
+                $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+                $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
+                return $pdf->stream('National Approval' . $id . '.pdf');
+
+        }
+
+        return redirect()->back()->with('error', 'National Approval not found.');
+    }
+
+    public function audit2_pdf($id)
+    {
+        $doc = NationalApproval::find($id);
+        if (!empty($doc)) {
+            $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+        } else {
+            $datas = ActionItem::find($id);
+
+            if (empty($datas)) {
+                $datas = Extension::find($id);
+                $doc = NationalApproval::find($datas->national_id);
+                $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+                $doc->created_at = $datas->created_at;
+            } else {
+                $doc = NationalApproval::find($datas->national_id);
+                $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+                $doc->created_at = $datas->created_at;
+            }
+        }
+        $data = NationalApprovalAudit::where('nationalApproval_id', $doc->id)->orderByDesc('id')->get();
+        // pdf related work
+        $pdf = App::make('dompdf.wrapper');
+        $time = Carbon::now();
+        $pdf = PDF::loadview('frontend.New_forms.national-approval.np_audit_trail_pdf', compact('data', 'doc'))
+            ->setOptions([
+                'defaultFont' => 'sans-serif',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isPhpEnabled' => true,
+            ]);
+        $pdf->setPaper('A4');
+        $pdf->render();
+        $canvas = $pdf->getDomPDF()->getCanvas();
+        $height = $canvas->get_height();
+        $width = $canvas->get_width();
+
+        $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+
+        $canvas->page_text(
+            $width / 3,
+            $height / 2,
+            $doc->status,
+            null,
+            60,
+            [0, 0, 0],
+            2,
+            6,
+            -20
+        );
+
+        return $pdf->stream('National Approval' . $id . '.pdf');
     }
 }
