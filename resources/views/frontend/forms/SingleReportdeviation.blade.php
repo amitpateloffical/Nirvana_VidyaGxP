@@ -207,7 +207,7 @@
                     <tr>
                         <th class="w-20">Site/Location Code</th>
                         <td class="w-30">@if($data->division_code){{ $data->division_code }} @else Not Applicable @endif</td>
-                        <th class="w-20"> Deviation Observed<</th>
+                        <th class="w-20"> Deviation Observed</th>
                         <td class="w-30">@if($data->Deviation_date){{ $data->Deviation_date }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
@@ -220,7 +220,7 @@
                         <th class="w-20">Deviation Related To</th>
                         <td class="w-30">@if($data->audit_type){{ $data->audit_type }} @else Not Applicable @endif</td>
                         <th class="w-20"> Others</th>
-                        <td class="w-30">@if($data->others){{ $data->others }}@else Not Applicable @endif</td>                       
+                        <td class="w-30">@if($data->others){{ $data->others }}@else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">Name of Product & Batch No</th>
@@ -240,10 +240,9 @@
                         <th class="w-20">Preliminary Impact of Deviation</th>
                         <td class="w-30">@if($data->Preliminary_Impact){{ $data->Preliminary_Impact }}@else Not Applicable @endif</td>
                     </tr>
-        
 
-                </table>            
-         <
+
+                </table>
             <div class="block">
                     <div class="block-head">
                         HOD Review
@@ -253,18 +252,18 @@
                             <th class="w-30">HOD Remarks</th>
                             <td class="w-20">@if($data->HOD_Remarks){{ $data->HOD_Remarks }}@else Not Applicable @endif</td>
                         </tr>
-                    </table>   
-                       
-                             
+                    </table>
+
+
                 </div>
             </div>
- 
+
             <div class="block">
                 <div class="block-head">
                     QA Initial Review
                 </div>
                 <table>
-                   
+
                     <tr>
                         <th class="w-20">Initial Deviation category</th>
                         <td class="w-30">@if($data->Deviation_category){{ ($data->Deviation_category) }}@else Not Applicable @endif</td>
@@ -287,12 +286,12 @@
                     <tr>
                         <th class="w-20">QA Initial Remarks</th>
                         <td class="w-30">@if($data->QAInitialRemark){{$data->QAInitialRemark }}@else Not Applicable @endif</td>
-                        
+
                     </tr>
 
                 </table>
-            </div>    
-            
+            </div>
+
             <div class="border-table">
                 <div class="block-head">
                     QA Initial Attachments
@@ -331,7 +330,7 @@
                      <table>
 
                                 <tr>
-                            
+
                                     <th class="w-20">Production Review Required ?
                                     </th>
                                     <td class="w-30">
@@ -346,10 +345,10 @@
                                         </div>
                                     </td>
                                 </tr>
-                                
-                                
+
+
                                 <tr>
-                            
+
                                     <th class="w-20">Impact Assessment (By Production)</</th>
                                     <td class="w-30">
                                         <div>
@@ -364,7 +363,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                            
+
                                     <th class="w-20">Production Review Completed By</th>
                                     <td class="w-30">
                                         <div>
@@ -378,13 +377,13 @@
                                         </div>
                                     </td>
                                 </tr>
-                               
+
                     </table>
-                 </div>  
+                 </div>
             <div class="border-table">
                 <div class="block-">
-                    Production Attachments 
-                </div>                                     
+                    Production Attachments
+                </div>
                 <table>
 
                     <tr class="table_bg">
@@ -407,7 +406,7 @@
 
                 </table>
             </div>
-            
+
             <div class="block">
                 <div class="head">
                     <div class="block-head">
@@ -416,7 +415,7 @@
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Warehouse Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -431,9 +430,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Warehouse)</</th>
                                 <td class="w-30">
                                     <div>
@@ -448,7 +447,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Warehouse Review Completed By</th>
                                 <td class="w-30">
                                     <div>
@@ -463,13 +462,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
                         Production Attachments 2
-                    </div>                                    
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -487,10 +486,10 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div>    
+            </div>
             <div class="block">
                 <div class="head">
                     <div class="block-head">
@@ -499,7 +498,7 @@
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Quality Control Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -514,9 +513,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Quality Control)</</th>
                                 <td class="w-30">
                                     <div>
@@ -531,7 +530,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Quality Review Completed By</th>
                                 <td class="w-30">
                                     <div>
@@ -546,13 +545,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Quality_Control_feedback Attachments 
-                    </div>                                   
+                        Quality_Control_feedback Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -570,12 +569,12 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div>  
-           
-            
+            </div>
+
+
             <div class="block">
                 <div class="head">
                     <div class="block-head">
@@ -584,7 +583,7 @@
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Quality Assurance Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -599,9 +598,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Quality Assurance)</</th>
                                 <td class="w-30">
                                     <div>
@@ -616,7 +615,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Quality Assurance Review Completed By</th>
                                 <td class="w-30">
                                     <div>
@@ -631,13 +630,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Quality Assurance Attachments 
-                    </div>                                   
+                        Quality Assurance Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -655,19 +654,19 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div>   
+            </div>
             <div class="block">
                 <div class="head">
                     <div class="block-head">
-                        Engineering 
+                        Engineering
                     </div>
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Engineering Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -682,9 +681,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Engineering)</</th>
                                 <td class="w-30">
                                     <div>
@@ -699,7 +698,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Engineering Review Completed  By</th>
                                 <td class="w-30">
                                     <div>
@@ -714,13 +713,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Engineering Attachments 
-                    </div>                                   
+                        Engineering Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -738,10 +737,10 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div> 
+            </div>
             <div class="block">
                 <div class="head">
                     <div class="block-head">
@@ -750,7 +749,7 @@
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Analytical Development Laboratory Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -765,9 +764,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Analytical Development Laboratory)</</th>
                                 <td class="w-30">
                                     <div>
@@ -782,7 +781,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Analytical Development Laboratory Review Completed By</th>
                                 <td class="w-30">
                                     <div>
@@ -797,13 +796,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Analytical Development Laboratory Attachments 
-                    </div>                                   
+                        Analytical Development Laboratory Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -821,7 +820,7 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
             </div>
@@ -833,7 +832,7 @@
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Process Development Laboratory / Kilo Lab Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -848,9 +847,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Process Development Laboratory / Kilo Lab)</</th>
                                 <td class="w-30">
                                     <div>
@@ -865,7 +864,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Process Development Laboratory / Kilo Lab Review Completed By</th>
                                 <td class="w-30">
                                     <div>
@@ -880,13 +879,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
                         Process Developmen
-                    </div>                                   
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -904,20 +903,20 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
             </div>
-            
+
             <div class="block">
                 <div class="head">
                     <div class="block-head">
-                        Technology Transfer / Design 
+                        Technology Transfer / Design
                     </div>
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Technology Transfer / Design Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -932,9 +931,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Technology Transfer / Design)</</th>
                                 <td class="w-30">
                                     <div>
@@ -949,7 +948,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Technology Transfer / Design Review Completed  By</th>
                                 <td class="w-30">
                                     <div>
@@ -964,13 +963,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Technology Transfer / Design Attachments 
-                    </div>                                   
+                        Technology Transfer / Design Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -988,20 +987,20 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div> 
-        
+            </div>
+
             <div class="block">
                 <div class="head">
                     <div class="block-head">
-                        Environment, Health & Safety 
+                        Environment, Health & Safety
                     </div>
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Environment, Health & Safety Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -1016,9 +1015,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By  Environment, Health & Safety)</</th>
                                 <td class="w-30">
                                     <div>
@@ -1033,7 +1032,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Environment, Health & Safety Review Completed  By</th>
                                 <td class="w-30">
                                     <div>
@@ -1048,13 +1047,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Environment, Health & Safety Attachments 
-                    </div>                                   
+                        Environment, Health & Safety Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -1072,19 +1071,19 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div> 
+            </div>
             <div class="block">
                 <div class="head">
                     <div class="block-head">
-                        Human Resource & Administration 
+                        Human Resource & Administration
                     </div>
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Human Resource & Administration Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -1099,9 +1098,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Human Resource & Administration)</</th>
                                 <td class="w-30">
                                     <div>
@@ -1116,7 +1115,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Human Resource & Administration Review Completed  By</th>
                                 <td class="w-30">
                                     <div>
@@ -1131,13 +1130,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Human Resource & Administration Attachments 
-                    </div>                                   
+                        Human Resource & Administration Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -1155,21 +1154,21 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div> 
+            </div>
             ---
             <div class="block">
                 <div class="head">
                     <div class="block-head">
                         Information Technology
- 
+
                     </div>
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Information Technology Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -1184,9 +1183,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Information Technology)</</th>
                                 <td class="w-30">
                                     <div>
@@ -1201,7 +1200,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Information Technology Review Completed  By</th>
                                 <td class="w-30">
                                     <div>
@@ -1216,13 +1215,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Information Technology Attachments 
-                     </div>                                   
+                        Information Technology Attachments
+                     </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -1240,21 +1239,21 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div> 
-            
+            </div>
+
             <div class="block">
                 <div class="head">
                     <div class="block-head">
                         Project Management
- 
+
                     </div>
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Project Management Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -1269,9 +1268,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Project Management)</</th>
                                 <td class="w-30">
                                     <div>
@@ -1286,7 +1285,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Project Management Review Completed  By</th>
                                 <td class="w-30">
                                     <div>
@@ -1301,13 +1300,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Project Management Attachments 
-                    </div>                                   
+                        Project Management Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -1325,7 +1324,7 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
             </div>
@@ -1337,7 +1336,7 @@
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Other's 1 Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -1358,9 +1357,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Other's 1)</</th>
                                 <td class="w-30">
                                     <div>
@@ -1375,7 +1374,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Other's 1 Review Completed  By</th>
                                 <td class="w-30">
                                     <div>
@@ -1390,13 +1389,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Other's 1 Attachments 
-                    </div>                                   
+                        Other's 1 Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -1414,10 +1413,10 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div> 
+            </div>
             <div class="block">
                 <div class="head">
                     <div class="block-head">
@@ -1426,7 +1425,7 @@
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Other's 2 Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -1447,9 +1446,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Other's 2)</</th>
                                 <td class="w-30">
                                     <div>
@@ -1464,7 +1463,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Other's 2 Review Completed  By</th>
                                 <td class="w-30">
                                     <div>
@@ -1479,13 +1478,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Other's 2 Attachments 
-                    </div>                                   
+                        Other's 2 Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -1503,10 +1502,10 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div> 
+            </div>
             <div class="block">
                 <div class="head">
                     <div class="block-head">
@@ -1515,7 +1514,7 @@
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Other's 3 Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -1536,9 +1535,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Other's 3)</</th>
                                 <td class="w-30">
                                     <div>
@@ -1553,7 +1552,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Other's 3 Review Completed  By</th>
                                 <td class="w-30">
                                     <div>
@@ -1568,13 +1567,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Other's 3 Attachments 
-                    </div>                                   
+                        Other's 3 Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -1592,10 +1591,10 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div> 
+            </div>
             <div class="block">
                 <div class="head">
                     <div class="block-head">
@@ -1604,7 +1603,7 @@
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Other's 4 Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -1625,9 +1624,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Other's 4)</</th>
                                 <td class="w-30">
                                     <div>
@@ -1642,7 +1641,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Other's 4 Review Completed  By</th>
                                 <td class="w-30">
                                     <div>
@@ -1657,13 +1656,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Other's 4 Attachments 
-                    </div>                                   
+                        Other's 4 Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -1681,10 +1680,10 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div> 
+            </div>
             <div class="block">
                 <div class="head">
                     <div class="block-head">
@@ -1693,7 +1692,7 @@
                     <table>
 
                             <tr>
-                        
+
                                 <th class="w-20">Other's 5 Review Required ?
                                 </th>
                                 <td class="w-30">
@@ -1714,9 +1713,9 @@
                                     </div>
                                 </td>
                             </tr>
-                            
+
                             <tr>
-                        
+
                                 <th class="w-20">Impact Assessment (By Other's 5)</</th>
                                 <td class="w-30">
                                     <div>
@@ -1731,7 +1730,7 @@
                                 </td>
                             </tr>
                             <tr>
-                        
+
                                 <th class="w-20">Other's 5 Review Completed  By</th>
                                 <td class="w-30">
                                     <div>
@@ -1746,13 +1745,13 @@
                                 </td>
                             </tr>
                     </table>
-                    </div>  
+                    </div>
                   <div class="border-table">
                     <div class="block-">
-                        Other's 5 Attachments 
-                    </div>                                   
+                        Other's 5 Attachments
+                    </div>
                     <table>
-    
+
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th>
                             <th class="w-60">Batch No</th>
@@ -1770,12 +1769,12 @@
                             <td class="w-20">Not Applicable</td>
                         </tr>
                         @endif
-    
+
                     </table>
                 </div>
-            </div> 
-    
-   
+            </div>
+
+
             <div class="block">
                 <div class="head">
                     <div class="block-head">
@@ -1784,7 +1783,7 @@
                     <table>
 
                                 <tr>
-                            
+
                                     <th class="w-20">Investigation Summary
                                     </th>
                                     <td class="w-30">
@@ -1808,9 +1807,9 @@
                                         </div>
                                     </td>
                                 </tr>
-                                
+
                                 <tr>
-                            
+
                                     <th class="w-20">CAPA Required ?</th>
                                     <td class="w-30">
                                         <div>
@@ -1825,7 +1824,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                            
+
                                     <th class="w-20">CAPA Description</th>
                                     <td class="w-30">
                                         <div>
@@ -1840,7 +1839,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                            
+
                                     <th class="w-20">Revised Categorization Justification
                                     </th>
                                     <td class="w-30">
@@ -1848,10 +1847,10 @@
                                             @if($data->Investigation_Of_Review){{ $data->Investigation_Of_Review }}@else Not Applicable @endif
                                         </div>
                                     </td>
-                                    
+
                                 </tr>
                  </table>
-            </div>  
+            </div>
             <div class="border-table">
                 <div class="block-head">
                     Investigation Attachment
@@ -1904,7 +1903,7 @@
 
                 </table>
             </div>
-                
+
             <div class="block">
                 <div class="block-head">
                     QA Final Review
@@ -1914,7 +1913,7 @@
                         <tr>
                         <th class="w-20">QA Feedbacks</th>
                         <td class="w-30">@if($data->QA_Feedbacks){{ $data->QA_Feedbacks }}@else Not Applicable @endif</td>
-                        
+
                     </table>
                 </div>
                 <div class="border-table">
@@ -1955,7 +1954,7 @@
                         <td class="w-30">@if($data->Closure_Comments){{ $data->Closure_Comments }}@else Not Applicable @endif</td>
                         <th class="w-20">Disposition of Batch</th>
                         <td class="w-30">@if($data->Disposition_Batch){{ $data->Disposition_Batch }}@else Not Applicable @endif</td>
-                        
+
                     </table>
                 </div>
                 <div class="border-table">
@@ -1984,9 +1983,9 @@
 
                     </table>
                 </div>
-            </div>  
-        </div>          
-                
+            </div>
+        </div>
+
 
             <div class="block">
                 <div class="block-head">
@@ -2032,13 +2031,13 @@
                         <td class="w-30">{{ Helpers::getdateFormat($data->audit_observation_submitted_on) }}</td>
                         <th class="w-20">Approved Comments</th>
                         {{-- <td class="w-30">{{ $data-> }}</td> --}}
-                   
+
 
 
                 </table>
             </div>
         </div>
-    
+
     </div>
 
     <footer>

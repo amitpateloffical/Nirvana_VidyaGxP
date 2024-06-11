@@ -19,7 +19,6 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-
                     '<td><input type="text" name="financial_transaction[' + serialNumber + '][Transaction]"></td>' +
                     '<td><input type="text" name="financial_transaction[' + serialNumber + '][TransactionType]"></td>' +
                     '<td><input type="date" name="financial_transaction[' + serialNumber + '][Date]"></td>' +
@@ -50,7 +49,6 @@
 </script>
 
 
-
 <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
@@ -62,6 +60,379 @@
 </div>
 
 
+
+{{--workflow css start--}}
+<style>
+    .progress-bars div {
+        flex: 1 1 auto;
+        border: 1px solid grey;
+        padding: 5px;
+        text-align: center;
+        position: relative;
+        /* border-right: none; */
+        background: white;
+    }
+
+    .state-block {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .progress-bars div.active {
+        background: green;
+        font-weight: bold;
+
+    }
+
+    #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(1) {
+        border-radius: 20px 0px 0px 20px;
+    }
+
+    #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(6) {
+        border-radius: 0px 20px 20px 0px;
+
+    }
+
+    .new_style{
+        width: 100%;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+   #change-control-view > div.container-fluid > div.inner-block.state-block > div.status > div.progress-bars > div.canceled{
+border-radius:20px;
+}
+/*element.style{
+border-radius:10px;
+}*/
+</style>
+
+{{--workflow css end--}}
+
+{{--workflow--}}
+
+<div id="change-control-view">
+  <div class="container-fluid">
+        <div class="inner-block state-block">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="main-head">Record Workflow</div>
+
+                <div class="d-flex" style="gap:20px;">
+                    @php
+                        $userRoles = DB::table('user_roles')
+                            ->where(['user_id' => auth()->id(), 'q_m_s_divisions_id' => $contract_data->division_id])
+                            ->get();
+                        $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                    @endphp
+                    <button class="button_theme1"> <a class="text-white"
+                            href="{{ route('Supplier_contract.audit_trail', $contract_data->id) }}">
+                            Audit Trail </a>
+                    </button>
+
+                    @if ($contract_data->stage == 1 && (in_array(3, $userRoleIds) || in_array(3, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Submit Supplier Details
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            Cancel
+                        </button>
+
+                    @elseif($contract_data->stage == 2 && (in_array(3, $userRoleIds) || in_array(3, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Qualification Complete
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            Cancel
+                        </button>
+
+                    @elseif($contract_data->stage == 3 && (in_array(3, $userRoleIds) || in_array(3, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal_audit_passed">
+                            Audit Passed
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Audit Failed
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                            Supplier Audit
+                         </button>
+                        @elseif($contract_data->stage == 4 && (in_array(3, $userRoleIds) || in_array(3, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Supplier Obsolete
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#reject_due_to_quality_issues">
+                            Reject Due To Quality Issues
+                        </button>
+
+                        @elseif($contract_data->stage == 5 && (in_array(3, $userRoleIds) || in_array(3, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Supplier Obsolete
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#reject_due_to_quality_issues">
+                            Re-Audit
+                        </button>
+
+                    @endif
+                    <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                        </a> </button>
+                </div>
+
+            </div>
+
+
+            <div class="status">
+                <div class="head">Current Status</div>
+                @if ($contract_data->stage == 0)
+                    <div class="progress-bars">
+                        <div class="bg-danger canceled">Closed-Cancelled</div>
+                    </div>
+                @else
+                    <div class="progress-bars d-flex" style="font-size: 15px;">
+                        @if ($contract_data->stage >= 1)
+                            <div class="active">Opened</div>
+                        @else
+                            <div class="">Opened</div>
+                        @endif
+
+                        @if ($contract_data->stage >= 2)
+                            <div class="active">Qualification In Progress</div>
+                        @else
+                            <div class="">Qualification In Progress</div>
+                        @endif
+
+                        @if ($contract_data->stage >= 3)
+                            <div class="active">Pending Supplier Audit</div>
+                        @else
+                            <div class="">Pending Supplier Audit</div>
+                        @endif
+
+                        @if($contract_data->stage != 5)
+                            @if ($contract_data->stage >= 4)
+                                <div class="active">Supplier Approved</div>
+                            @else
+                                <div class="">Supplier Approved</div>
+                            @endif
+                        @endif
+
+                       @if($contract_data->stage != 4)
+                        @if ($contract_data->stage >= 5)
+                            <div class="active">Pending Rejection</div>
+                        @else
+                            <div class="">Pending Rejection</div>
+                        @endif
+                      @endif
+
+                        @if ($contract_data->stage >= 6)
+                            <div class="bg-danger">Obselete</div>
+                        @else
+                            <div class="">Obselete</div>
+                       @endif
+
+                    </div>
+                @endif
+            </div>
+        </div>
+
+
+{{--workflow end--}}
+
+
+{{--Submit Supplier Details button Model Open--}}
+<div class="modal fade" id="signature-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('Supplier_contract.send_stage', $contract_data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+
+                    <div class="group-input">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input type="comment" name="comment">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{--Submit audit passed button Model Open--}}
+
+
+{{--Submit Supplier Details button Model Open--}}
+<div class="modal fade" id="signature-modal_audit_passed">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('Supplier_contract.send_stage', $contract_data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <input type="hidden" value="audit_passed" id="type" name="type" >
+                    <div class="group-input">
+                        <label for="username">Username</label>
+                        <input type="text" class="new_style" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password</label>
+                        <input type="password" class="new_style" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input type="comment" class="new_style" name="comment">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{--cancel button Model Open--}}
+<div class="modal fade" id="cancel-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('Supplier_contract.cancel', $contract_data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input type="comment" name="comment">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{--E-Signature cancel botton Model Close--}}
+
+{{--Submit Reject Due To Quality Issues button Model Open--}}
+<div class="modal fade" id="reject_due_to_quality_issues">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('Supplier_contract.reject', $contract_data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+
+                    <div class="group-input">
+                        <label for="username">Username</label>
+                        <input type="text" class="new_style" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password</label>
+                        <input type="password" class="new_style" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input type="comment" class="new_style" name="comment">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{--Submit Reject Due To Quality Issues button Model Open--}}
 
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
@@ -76,7 +447,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
         </div>
 
-        <form action="{{ route('supplier_contract.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('supplier_contract.update', $contract_data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -127,9 +498,44 @@
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span>
                                         <p>255 Characters remaining</p>
-                                        <input id="docname" type="text" name="short_description_gi" maxlength="255" required>
+                                        <input id="docname" type="text" name="short_description_gi" maxlength="255" required value="{{ $contract_data->short_description_gi }}">
                                 </div>
                             </div>
+
+                            <?php
+                            // Calculate the due date (30 days from the initiation date)
+                            $initiationDate = date('Y-m-d'); // Current date as initiation date
+                            $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date
+                            ?>
+
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Due Date">Due Date</label>
+                                    <div><small class="text-primary">If revising Due Date, kindly mention revision
+                                            reason in "Due Date Extension Justification" data field.</small></div>
+                                    <div class="calenderauditee">
+                                        <input readonly type="text"
+                                            value="{{ Helpers::getdateFormat($contract_data->due_date) }}"
+                                            name="due_date" />
+                                        <input type="date" name="due_date"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                            oninput="handleDateInput(this, 'due_date')" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                // Format the due date to DD-MM-YYYY
+
+                                var dueDateFormatted = new Date("{{ $dueDate }}").toLocaleDateString('en-GB', {
+                                    day: '2-digit',
+                                    month: '2-digit',
+                                    year: 'numeric'
+                                }).split('/').join('-');
+
+                                // Set the formatted due date value to the input field
+                                document.getElementById('due_date').value = dueDateFormatted;
+                            </script>
 
                             <div class="col-md-6">
                                 <div class="group-input">
@@ -141,81 +547,24 @@
                                         <option value="">Select a value</option>
                                             @if(!empty($users))
                                                 @foreach ($users as $user)
-                                                  <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                <option value="{{ $user->id }}" {{ $user->id == $contract_data->assign_to_gi ? 'selected' : '' }}>{{ $user->name }}</option>
                                                 @endforeach
                                             @endif
 
-                                    </select>
+                                        </select>
 
                                 </div>
                             </div>
-                            {{--<div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-primary">Please mention expected date of completion</p>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-                                </div>
-                            </div>--}}
-
-
-                                @php
-                                    // Calculate the due date (30 days from the initiation date)
-                                    $initiationDate = date('Y-m-d'); // Current date as initiation date
-                                    $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date
-                                @endphp
-
-                            <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="Due Date">Due Date</label>
-                                    {{--<div><small class="text-primary">If revising Due Date, kindly mention revision
-                                            reason in "Due Date Extension Justification" data field.</small></div>--}}
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
-                                        <input type="date" name="due_date"id="due_date"
-                                            min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <script>
-                           // Format the due date to DD-MM-YYYY
-                                    // Your input date
-                                    var dueDate = "{{ $dueDate }}"; // Replace {{ $dueDate }} with your actual date variable
-
-                                    // Create a Date object
-                                    var date = new Date(dueDate);
-
-                                    // Array of month names
-                                    var monthNames = [
-                                        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-                                    ];
-
-                                    // Extracting day, month, and year from the date
-                                    var day = date.getDate().toString().padStart(2, '0'); // Ensuring two digits
-                                    var monthIndex = date.getMonth();
-                                    var year = date.getFullYear();
-
-                                    // Formatting the date in "dd-MMM-yyyy" format
-                                    var dueDateFormatted = `${day}-${monthNames[monthIndex]}-${year}`;
-
-                                    // Set the formatted due date value to the input field
-                                    document.getElementById('due_date').value = dueDateFormatted;
-                            </script>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Supplier List</label>
                                     <select name="supplier_list_gi">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="supplier-performance-metrics">Supplier Performance Metrics</option>
-                                        <option value="contractual-terms-and-conditions">Contractual Terms and Conditions</option>
-                                        <option value="supplier-risk-assessment">Supplier Risk Assessment</option>
-                                        <option value="products/services-provided">Products/Services Provided</option>
+                                        <option value="supplier-performance-metrics" @if($contract_data->supplier_list_gi == 'supplier-performance-metrics') selected @endif>Supplier Performance Metrics</option>
+                                        <option value="contractual-terms-and-conditions" @if($contract_data->supplier_list_gi == 'contractual-terms-and-conditions') selected @endif>Contractual Terms and Conditions</option>
+                                        <option value="supplier-risk-assessment" @if($contract_data->supplier_list_gi == 'supplier-risk-assessment') selected @endif>Supplier Risk Assessment</option>
+                                        <option value="products/services-provided" @if($contract_data->supplier_list_gi == 'products/services-provided') selected @endif>Products/Services Provided</option>
                                     </select>
                                 </div>
                             </div>
@@ -223,7 +572,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Distribution List<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="distribution_list_gi"></textarea>
+                                    <textarea placeholder="" name="distribution_list_gi">{{ $contract_data->distribution_list_gi }}</textarea>
                                 </div>
                             </div>
 
@@ -234,7 +583,7 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Description<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description_gi"></textarea>
+                                    <textarea placeholder="" name="description_gi">{{ $contract_data->description_gi }}</textarea>
                                 </div>
                             </div>
 
@@ -243,7 +592,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Manufacturer</b></label>
-                                    <input type="text" name="manufacturer_gi" value="">
+                                    <input type="text" name="manufacturer_gi" value="{{ $contract_data->manufacturer_gi }}">
 
                                 </div>
                             </div>
@@ -252,9 +601,9 @@
                                     <label for="Responsible Department">Priority level</label>
                                     <select name="priority_level_gi">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="high-priority">High Priority</option>
-                                        <option value="medium-priority">Medium Priority</option>
-                                        <option value="low-priority">Low Priority</option>
+                                        <option value="high-priority" @if($contract_data->priority_level_gi == 'high-priority') selected @endif>High Priority</option>
+                                        <option value="medium-priority" @if($contract_data->priority_level_gi == 'medium-priority') selected @endif>Medium Priority</option>
+                                        <option value="low-priority" @if($contract_data->priority_level_gi == 'low-priority') selected @endif>Low Priority</option>
                                     </select>
                                 </div>
                             </div>
@@ -264,10 +613,10 @@
                                     <label  for="Responsible Department">Zone </label>
                                     <select name="zone_gi">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="geographic-zones">Geographic Zones</option>
-                                        <option value="operational-zones">Operational Zones</option>
-                                        <option value="distribution-zones">Distribution Zones</option>
-                                        <option value="custom-zones">Custom Zones</option>
+                                        <option value="geographic-zones" @if($contract_data->zone_gi == 'geographic-zones') selected @endif>Geographic Zones</option>
+                                        <option value="operational-zones" @if($contract_data->zone_gi == 'operational-zones') selected @endif>Operational Zones</option>
+                                        <option value="distribution-zones" @if($contract_data->zone_gi == 'distribution-zones') selected @endif>Distribution Zones</option>
+                                        <option value="custom-zones" @if($contract_data->zone_gi == 'custom-zones') selected @endif>Custom Zones</option>
                                     </select>
                                 </div>
                             </div>
@@ -288,8 +637,8 @@
                                     <p class="text-primary">Auto selected according to country</p>
                                     <select name="state_id">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
                                     </select>
                                 </div>
                             </div>
@@ -311,11 +660,11 @@
                                     <label  for="Responsible Department">Type </label>
                                     <select name="type_gi">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="supplier-type">Supplier Type</option>
-                                        <option value="payment-type">Payment Type</option>
-                                        <option value="risk-type">Risk Type</option>
-                                        <option value="quality-assurance-type">Quality Assurance Type</option>
-                                        <option value="relationship-type">Relationship Type</option>
+                                        <option value="supplier-type" @if($contract_data->type_gi == 'supplier-type') selected @endif>Supplier Type</option>
+                                        <option value="payment-type" @if($contract_data->type_gi == 'payment-type') selected @endif>Payment Type</option>
+                                        <option value="risk-type" @if($contract_data->type_gi == 'risk-type') selected @endif>Risk Type</option>
+                                        <option value="quality-assurance-type" @if($contract_data->type_gi == 'quality-assurance-type') selected @endif>Quality Assurance Type</option>
+                                        <option value="relationship-type" @if($contract_data->type_gi == 'relationship-type') selected @endif>Relationship Type</option>
                                     </select>
                                 </div>
                             </div>
@@ -323,7 +672,7 @@
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Other type</b></label>
                                     <p class="text-primary">If you choose "other" -please specify</p>
-                                    <input type="text" name="other_type" value="">
+                                    <input type="text" name="other_type" value="{{ $contract_data->other_type }}">
 
                                 </div>
                             </div>
@@ -332,7 +681,17 @@
                                 <div class="group-input">
                                     <label for="file_attach">File Attachments</label>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="file_attach">
+                                            @if ($contract_data->file_attachments_gi)
+                                                @foreach($contract_data->file_attachments_gi as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                                @endforeach
+                                            @endif
+                                        </div>
                                         <div class="add-btn">
                                             <div>Add</div>
                                             <input type="file" id="myfile" name="file_attachments_gi[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
@@ -360,19 +719,19 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="start_date">Actual start Date</label>
+                                    <label for="actual_start_date_cd">Actual start Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="actual_start_date_cd" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="text" id="actual_start_date_cd" value="{{ $contract_data->actual_start_date_cd }}" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="actual_start_date_cd" name="actual_start_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_start_date_cd');" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="start_date">Actual end Date</label>
+                                    <label for="actual_end_date_cd">Actual end Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="actual_end_date_cd" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="text" id="actual_end_date_cd" value="{{ $contract_data->actual_end_date_cd }}" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="actual_end_date_cd" name="actual_end_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_end_date_cd');" />
                                     </div>
                                 </div>
                             </div>
@@ -381,9 +740,9 @@
                                     <label for="Responsible Department">Suppplier List</label>
                                     <select name="suppplier_list_cd">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="risk-and-compliance">Risk and Compliance</option>
-                                        <option value="contractual-details">Contractual Details</option>
-                                        <option value="supplier-classification">Supplier Classification</option>
+                                        <option value="risk-and-compliance" @if($contract_data->suppplier_list_cd == 'risk-and-compliance') selected @endif>Risk and Compliance</option>
+                                        <option value="contractual-details" @if($contract_data->suppplier_list_cd == 'contractual-details') selected @endif>Contractual Details</option>
+                                        <option value="supplier-classification" @if($contract_data->suppplier_list_cd == 'supplier-classification') selected @endif>Supplier Classification</option>
                                     </select>
                                 </div>
                             </div>
@@ -391,7 +750,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Negotiation Team<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="negotiation_team_cd"></textarea>
+                                    <textarea placeholder="" name="negotiation_team_cd">{{ $contract_data->negotiation_team_cd }}</textarea>
                                 </div>
                             </div>
 
@@ -425,25 +784,34 @@
                                     </thead>
 
                                     <tbody>
-                                        <td><input disabled type="text" name="financial_transaction[0][serial]" value="1"></td>
-                                        <td><input type="text" name="financial_transaction[0][Transaction]"></td>
-                                        <td><input type="text" name="financial_transaction[0][TransactionType]"></td>
-                                        <td><input type="date" name="financial_transaction[0][Date]"></td>
-                                        <td><input type="number" name="financial_transaction[0][Amount]"></td>
-                                        <td><input type="text" name="financial_transaction[0][CurrencyUsed]"></td>
-                                        <td><input type="text" name="financial_transaction[0][Remarks]"></td>
-                                        <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                        @php
+                                            $data = isset($grid_Data) && $grid_Data->data ? json_decode($grid_Data->data, true) : null;
+                                        @endphp
+
+                                      @if ($data && is_array($data))
+                                        @foreach ($data as $index => $item)
+                                            <tr>
+                                                <td><input disabled type="text" name="[{{ $index }}][serial]" value="{{ $index + 1 }}"></td>
+                                                <td><input type="text" name="financial_transaction[{{ $index }}][Transaction]" value="{{ isset($item['Transaction']) ? $item['Transaction'] : '' }}"></td>
+                                                <td><input type="text" name="financial_transaction[{{ $index }}][TransactionType]" value="{{ isset($item['TransactionType']) ? $item['TransactionType'] : '' }}"></td>
+                                                <td><input type="date" name="financial_transaction[{{ $index }}][Date]" value="{{ isset($item['Date']) ? $item['Date'] : '' }}"></td>
+                                                <td><input type="number" name="financial_transaction[{{ $index }}][Amount]" value="{{ isset($item['Amount']) ? $item['Amount'] : '' }}"></td>
+                                                <td><input type="text" name="financial_transaction[{{ $index }}][CurrencyUsed]" value="{{ isset($item['CurrencyUsed']) ? $item['CurrencyUsed'] : '' }}"></td>
+                                                <td><input type="text" name="financial_transaction[{{ $index }}][Remarks]" value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}"></td>
+                                                <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                            </tr>
+                                        @endforeach
+                                     @endif
                                     </tbody>
                                 </table>
                             </div>
-
 
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Comments <span class="text-danger"></span></label>
-                                    <textarea name="comments_cd"></textarea>
+                                    <textarea name="comments_cd">{{ $contract_data->comments_cd }}</textarea>
                                 </div>
                             </div>
 
@@ -459,27 +827,280 @@
                     </div>
                 </div>
 
+              {{--Signatures start--}}
+
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="sub-head">Victim Information</div>
-                            <div class="col-6">
+                            <div class="sub-head">Supplier Details</div>
+                            <div class="col-4">
                                 <div class="group-input">
-                                    <label for="Victim">Signed By :</label>
-                                    <div class="static"></div>
+                                    <label for="Victim"><b>Supplier Details By :</b></label>
+                                    <div class="">{{ $contract_data->supplier_details_submit_by }}</div>
 
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="group-input">
 
-                                    <label for="Division Code"><b>Signed On :</b></label>
-                                    <div class="date"></div>
-
-                               </div>
+                                    <label for="Division Code"><b>Supplier Details On : </b></label>
+                                    <div class="date">{{ $contract_data->supplier_details_submit_on }}</div>
+                                </div>
                             </div>
+                            <div class="col-4">
+                                <div class="group-input">
 
+                                    <label for="Division Code"><b>Supplier Details Comments : </b></label>
+                                    <div class="date">{{ $contract_data->supplier_details_submit_comment }}</div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="inner-block-content">
+                        <div class="row">
+                            <div class="sub-head">Supplier Cancel</div>
+                            <div class="col-4">
+                                <div class="group-input">
+                                    <label for="Victim"><b>Supplier Cancelled By :</b></label>
+                                    <div class="">{{ $contract_data->open_cancel_by }}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Supplier Cancelled On : </b></label>
+                                    <div class="date">{{ $contract_data->open_cancel_on }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Supplier Cancelled Comments : </b></label>
+                                    <div class="date">{{ $contract_data->open_cancel_comment }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inner-block-content">
+                        <div class="row">
+                            <div class="sub-head">Qualification Complete</div>
+                            <div class="col-4">
+                                <div class="group-input">
+                                    <label for="Victim"><b>Qualification Completed By :</b></label>
+                                    <div class="">{{ $contract_data->qualification_complete_by }}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Qualification Completed On : </b></label>
+                                    <div class="date">{{ $contract_data->qualification_complete_on }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Qualification Completed Comments : </b></label>
+                                    <div class="date">{{ $contract_data->qualification_complete_comment }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inner-block-content">
+                        <div class="row">
+                            <div class="sub-head">Qualification Cancel</div>
+                            <div class="col-4">
+                                <div class="group-input">
+                                    <label for="Victim"><b>Qualification Cancelled By :</b></label>
+                                    <div class="">{{ $contract_data->qualification_cancel_by }}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Qualification Cancelled On : </b></label>
+                                    <div class="date">{{ $contract_data->qualification_cancel_on }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Qualification Cancelled Comments : </b></label>
+                                    <div class="date">{{ $contract_data->qualification_cancel_comment }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inner-block-content">
+                        <div class="row">
+                            <div class="sub-head">Audit Passed</div>
+                            <div class="col-4">
+                                <div class="group-input">
+                                    <label for="Victim"><b>Audit Passed By :</b></label>
+                                    <div class="">{{ $contract_data->audit_passed_by }}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Audit Passed On : </b></label>
+                                    <div class="date">{{ $contract_data->audit_passed_on }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Audit Passed Comments : </b></label>
+                                    <div class="date">{{ $contract_data->audit_passed_comment }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inner-block-content">
+                        <div class="row">
+                            <div class="sub-head">Audit Failed</div>
+                            <div class="col-4">
+                                <div class="group-input">
+                                    <label for="Victim"><b>Audit Failed By :</b></label>
+                                    <div class="">{{ $contract_data->audit_failed_by }}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Audit Failed On : </b></label>
+                                    <div class="date">{{ $contract_data->audit_failed_on }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Audit Failed Comments : </b></label>
+                                    <div class="date">{{ $contract_data->audit_failed_comment }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="inner-block-content">
+                        <div class="row">
+                            <div class="sub-head">Reject Due To Quality Issues</div>
+                            <div class="col-4">
+                                <div class="group-input">
+                                    <label for="Victim"><b>Quality Issues By :</b></label>
+                                    <div class="">{{ $contract_data->quality_issues_by }}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Quality Issues On : </b></label>
+                                    <div class="date">{{ $contract_data->quality_issues_on }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Quality Issues Comments : </b></label>
+                                    <div class="date">{{ $contract_data->quality_issues_comment }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inner-block-content">
+                        <div class="row">
+                            <div class="sub-head">Approved Supplier Obsolete</div>
+                            <div class="col-4">
+                                <div class="group-input">
+                                    <label for="Victim"><b>Supplier Obsoleted By :</b></label>
+                                    <div class="">{{ $contract_data->approve_supplier_obsolete_by }}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Supplier Obsoleted On : </b></label>
+                                    <div class="date">{{ $contract_data->approve_supplier_obsolete_on }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Supplier Obsoleted Comments : </b></label>
+                                    <div class="date">{{ $contract_data->approve_supplier_obsolete_comment }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inner-block-content">
+                        <div class="row">
+                            <div class="sub-head">Re-Audit</div>
+                            <div class="col-4">
+                                <div class="group-input">
+                                    <label for="Victim"><b>Re-Audited By :</b></label>
+                                    <div class="">{{ $contract_data->re_audit_by }}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Re-Audited On : </b></label>
+                                    <div class="date">{{ $contract_data->re_audit_on }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Re-Audited Comments : </b></label>
+                                    <div class="date">{{ $contract_data->re_audit_comment }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inner-block-content">
+                        <div class="row">
+                            <div class="sub-head">Pending Supplier Obsolete</div>
+                            <div class="col-4">
+                                <div class="group-input">
+                                    <label for="Victim"><b>Pending Supplier Obsoleted By :</b></label>
+                                    <div class="">{{ $contract_data->reject_supplier_obsolete_by }}</div>
+
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Pending Supplier Obsoleted On : </b></label>
+                                    <div class="date">{{ $contract_data->reject_supplier_obsolete_on }}</div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="group-input">
+
+                                    <label for="Division Code"><b>Pending Supplier Obsoleted Comments : </b></label>
+                                    <div class="date">{{ $contract_data->reject_supplier_obsolete_comment }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -489,6 +1110,8 @@
                         </div>
                     </div>
                 </div>
+
+                  {{--Signatures end--}}
 
                 <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
@@ -1148,10 +1771,10 @@
     });
 </script>
 
+
 <script>
     $(document).on('click', '.removeRowBtn', function() {
         $(this).closest('tr').remove();
     })
 </script>
-
 @endsection

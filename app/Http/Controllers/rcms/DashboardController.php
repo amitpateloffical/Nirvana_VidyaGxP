@@ -19,6 +19,9 @@ use App\Models\Observation;
 use App\Models\Deviation;
 use Helpers;
 use App\Models\User;
+use App\Models\GcpStudy;
+use App\Models\SupplierContract;
+use App\Models\SubjectActionItem;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -65,6 +68,9 @@ class DashboardController extends Controller
         $datas11 = RootCauseAnalysis::orderByDesc('id')->get();
         $datas12 = Observation::orderByDesc('id')->get();
         $datas13 = Deviation::orderByDesc('id')->get();
+        $datas14 = GcpStudy::orderByDesc('id')->get();
+        $datas16 = SupplierContract::orderByDesc('id')->get();
+        $datas17 = SubjectActionItem::orderByDesc('id')->get();
 
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -325,6 +331,65 @@ class DashboardController extends Controller
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas14 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Gcp_study",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description_gi ? $data->short_description_gi : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas16 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Supplier_contract",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description_gi ? $data->short_description_gi : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas17 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Subject_action_item",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description_ti ? $data->short_description_ti : "-",
                 "initiator_id" => $data->initiator_id,
                 "intiation_date" => $data->intiation_date,
                 "stage" => $data->status,
@@ -721,7 +786,24 @@ class DashboardController extends Controller
             $audit = "#";
             $parent="deviationparentchildReport/". $data->id;
         }
-
+        elseif ($type == "Gcp_study") {
+            $data = GcpStudy::find($id);
+            $single = "GCP_study/SingleReport/" . $data->id;
+            $audit = "GCP_study/AuditTrailPdf/". $data->id;
+            $parent="/". $data->id;
+        }
+        elseif ($type == "Supplier_contract") {
+            $data = SupplierContract::find($id);
+            $single = "supplier_contract/SingleReport/" . $data->id;
+            $audit = "supplier_contract/AuditTrailPdf/". $data->id;
+            $parent="/". $data->id;
+        }
+        elseif ($type == "Subject_action_item") {
+            $data = SubjectActionItem::find($id);
+            $single = "subject_action_item/SingleReport/" . $data->id;
+            $audit = "subject_action_item/AuditTrailPdf/". $data->id;
+            $parent="/". $data->id;
+        }
 
         $html = '';
         $html = '<div class="block">

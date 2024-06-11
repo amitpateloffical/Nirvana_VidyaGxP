@@ -31,6 +31,7 @@ use App\Http\Controllers\tms\QuestionBankController;
 use App\Http\Controllers\tms\QuestionController;
 use App\Http\Controllers\tms\QuizeController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\GcpStudyController;
 use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -87,9 +88,9 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     //Route::post('set/division', [DocumentController::class, 'division'])->name('division_submit');
     Route::post('dcrDivision', [DocumentController::class, 'dcrDivision'])->name('dcrDivision_submit');
     Route::get('documents/generatePdf/{id}', [DocumentController::class, 'createPDF']);
-    
+
     Route::get('documents/reviseCreate/{id}', [DocumentController::class, 'revise_create']);
-    
+
     Route::get('documents/printPDF/{id}', [DocumentController::class, 'printPDF']);
     Route::get('documents/viewpdf/{id}', [DocumentController::class, 'viewPdf']);
     Route::resource('documentsContent', DocumentContentController::class);
@@ -325,7 +326,7 @@ Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 
 //! ============================================
 //!                    FORMS
-//! ============================================ 
+//! ============================================
 
 
 Route::view('deviation', 'frontend.forms.deviation');
@@ -377,7 +378,7 @@ Route::view('action_item', 'frontend.ehs.action_item');
 
 Route::view('violation', 'frontend.ctms.violation');
 Route::view('subject', 'frontend.ctms.subject');
-Route::view('subject_action_item', 'frontend.ctms.subject_action_item');
+//Route::view('subject_action_item', 'frontend.ctms.subject_action_item');
 
 Route::view('study', 'frontend.ctms.study');
 
@@ -411,11 +412,10 @@ Route::view('training_course', 'frontend.New_forms.training_course');
 Route::view('lab_test', 'frontend.New_forms.lab_test');
 Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
 Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
-Route::view('GCP_study', 'frontend.new_forms.GCP_study');
+//Route::view('GCP_study', 'frontend.new_forms.GCP_study');
 Route::view('calibration', 'frontend.new_forms.calibration');
 Route::view('self-inspection', 'frontend.new_forms.self-inspection');
 Route::view('meeting-management', 'frontend.new_forms.meeting-management');
-
 
 
 // ------------------------------R T Form--------------------//
@@ -449,7 +449,7 @@ Route::view('oos-form', 'frontend.OOS.oos-form');
 
 
 
-Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
+//Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
 Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');
 Route::view('correspondence', 'frontend.New_forms.correspondence');
 Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');

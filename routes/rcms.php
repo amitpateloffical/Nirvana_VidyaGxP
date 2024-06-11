@@ -17,6 +17,9 @@ use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\GcpStudyController;
+use App\Http\Controllers\SupplierContractController;
+use App\Http\Controllers\SubjectActionItemController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -114,7 +117,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('LabIncidentAuditReport/{id}', [LabIncidentController::class, 'auditReport'])->name('LabIncidentAuditReport');
             //------------------------------------
 
-            
+
             Route::post('create', [AuditProgramController::class, 'create'])->name('createAuditProgram');
             Route::get('AuditProgramShow/{id}', [AuditProgramController::class, 'AuditProgramShow'])->name('ShowAuditProgram');
             Route::post('AuditStateChange/{id}', [AuditProgramController::class, 'AuditStateChange'])->name('StateChangeAuditProgram');
@@ -175,9 +178,77 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
+        //--------------------GCP Study Route Start-------------------//
 
-             
+        //form
+        Route::get('/GCP_study', [GcpStudyController::class, 'index'])->name('GCP_study.index')->middleware('auth');
+        Route::post('/GCP_study_store', [GcpStudyController::class, 'store'])->name('GCP_study.store')->middleware('auth');;
+        Route::get('/GCP_study_edit/{id}', [GcpStudyController::class, 'edit'])->name('GCP_study.edit')->middleware('auth');;
+        Route::post('/GCP_study_update/{id}', [GcpStudyController::class, 'update'])->name('GCP_study.update')->middleware('auth');;
 
+        //workflow
+        Route::post('/GCP_study_stage/{id}', [GcpStudyController::class, 'GCP_study_send_stage'])->name('GCP_study_send_stage');
+        Route::post('/GCP_study_cancel/{id}', [GcpStudyController::class, 'GCP_study_cancel'])->name('GCP_study_cancel');
+        Route::post('/GCP_study_child/{id}', [GcpStudyController::class, 'GCP_study_child'])->name('GCP_child');
+
+        //singlereport
+        Route::get('GCP_study/SingleReport/{id}', [GcpStudyController::class, 'GCP_studySingleReport'])->name('GCP_studySingleReport');
+
+        //audittrail
+        Route::get('GCP_study/AuditTrail/{id}',[GcpStudyController::class, 'GCP_studyAuditTrial'])->name('GCP_study_audit_trail');
+        Route::get('GCP_study/AuditTrailPdf/{id}', [GcpStudyController::class, 'GCP_study_AuditTrailPdf'])->name('GCP_study_AuditTrailPdf');
+
+
+        //--------------------GCP Study Route End-------------------//
+
+        //--------------------Supplier Contract Route Start-------------------//
+
+        //form
+        Route::get('/supplier_contract', [SupplierContractController::class, 'index'])->name('supplier_contract.index')->middleware('auth');
+        Route::post('/supplier_contract_store', [SupplierContractController::class, 'store'])->name('supplier_contract.store')->middleware('auth');
+        Route::get('/supplier_contract_edit/{id}', [SupplierContractController::class, 'edit'])->name('supplier_contract.edit')->middleware('auth');
+        Route::post('/supplier_contract_update/{id}', [SupplierContractController::class, 'update'])->name('supplier_contract.update')->middleware('auth');
+
+        ////workflow
+        Route::post('/supplier_send_stage/{id}', [SupplierContractController::class, 'Supplier_contract_send_stage'])->name('Supplier_contract.send_stage');
+        Route::post('/supplier_contract_cancel/{id}', [SupplierContractController::class, 'Supplier_contract_cancel'])->name('Supplier_contract.cancel');
+        Route::post('/supplier_contract_reject/{id}', [SupplierContractController::class, 'Reject_stage'])->name('Supplier_contract.reject');
+
+        //singlereport
+        Route::get('supplier_contract/SingleReport/{id}', [SupplierContractController::class, 'Supplier_Contract_SingleReport'])->name('Supplier_Contract.SingleReport');
+
+        ////audittrail
+        Route::get('supplier_contract/AuditTrail/{id}', [SupplierContractController::class, 'Supplier_ContractAuditTrial'])->name('Supplier_contract.audit_trail');
+        Route::get('supplier_contract/AuditTrailPdf/{id}', [SupplierContractController::class, 'Supplier_Contract_AuditTrailPdf'])->name('Supplier_contract.auditTrailPdf');
+
+
+        //--------------------Supplier Contract Route End-------------------//
+
+
+        //-------------------------------- Subject Action Item Route Strat ---------------------------------------
+
+        //form
+        Route::get('/subject_action_item', [SubjectActionItemController::class,'index'])->name('subject_action_item.index');
+        Route::post('/subject_action_item_store', [SubjectActionItemController::class,'store'])->name('subject_action_item.store');
+        Route::get('/subject_action_item_edit/{id}', [SubjectActionItemController::class, 'edit'])->name('subject_action_item.edit')->middleware('auth');;
+        Route::post('/subject_action_item_update/{id}', [SubjectActionItemController::class, 'update'])->name('subject_action_item.update')->middleware('auth');
+
+
+        ////workflow
+        Route::post('/subject_action_item_stage_send/{id}', [SubjectActionItemController::class, 'Subject_action_item_send_stage'])->name('subject_action_item.send_stage');
+        Route::post('/subject_action_item_cancel/{id}', [SubjectActionItemController::class, 'Subject_action_item_cancel'])->name('subject_action_item.cancel');
+        //Route::post('/supplier_contract_reject/{id}', [SubjectActionItemController::class, 'Reject_stage'])->name('Supplier_contract.reject');
+
+        //singlereport
+        Route::get('subject_action_item/SingleReport/{id}', [SubjectActionItemController::class, 'Suject_Action_ItemSingleReport'])->name('subject_action_item.SingleReport');
+
+        ////audittrail
+        Route::get('subject_action_item/AuditTrail/{id}', [SubjectActionItemController::class, 'Subject_Action_ItemAuditTrial'])->name('subject_action_item.audit_trail');
+        Route::get('subject_action_item/AuditTrailPdf/{id}', [SubjectActionItemController::class, 'Subject_Action_ItemAuditTrailPdf'])->name('subject_action_item.auditTrailPdf');
+
+
+
+       //-------------------------------- Subject Action Item Route End ---------------------------------------
         }
     );
 });
