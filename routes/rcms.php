@@ -16,6 +16,7 @@ use App\Http\Controllers\rcms\FormDivisionController;
 use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
+use App\Http\Controllers\LabInvestigationController;
 use App\Http\Controllers\rcms\DeviationController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
@@ -176,7 +177,17 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
 
-             
+        //----------------------------------------------lab investigation------------------
+       
+     
+        Route::get('lab_investigation', [LabInvestigationController::class, 'index'])->name('index');
+        Route::post('lab_invest_store', [LabInvestigationController::class, 'store'])->name('lab_invest_store');
+        Route::get('lab_invest_edit/{id}', [LabInvestigationController::class, 'edit'])->name('lab_invest_edit');
+
+
+
+        //----------------------------------------------lab investigation------------------
+       
 
         }
     );
