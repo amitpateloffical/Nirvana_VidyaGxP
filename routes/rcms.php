@@ -178,9 +178,17 @@ Route::group(['prefix' => 'rcms'], function () {
 
             // Variation Routes
             Route::get('variation', [VariationController::class, 'index']);
-            Route::post('variation-store', [VariationController::class, 'store'])->name('variation-store');
             Route::get('variation/{id}', [VariationController::class, 'show'])->name('variation-show');
-
+            Route::post('variation-store', [VariationController::class, 'store'])->name('variation-store');
+            Route::post('variation-update/{id}', [VariationController::class, 'update'])->name('variation-update');
+            Route::post('variation-sendStage/{id}', [VariationController::class, 'sendStage'])->name('variation-sendStage');
+            Route::post('variation-cancel/{id}', [VariationController::class, 'cancel'])->name('variation-cancel');
+            Route::post('variation-withdraw/{id}', [VariationController::class, 'withdraw'])->name('variation-withdraw');
+            Route::post('variation-refused/{id}', [VariationController::class, 'refused'])->name('variation-refused');
+            Route::post('variation-retired/{id}', [VariationController::class, 'retired'])->name('variation-retired');
+            Route::post('variation-moreinfo/{id}', [VariationController::class, 'moreInfo'])->name('variation-moreinfo');
+            Route::get('variation-audittrail/{id}', [VariationController::class, 'auditTrail'])->name('variation-audittrail');
+            Route::get('variation-audittrail/', [VariationController::class, 'auditTrail'])->name('store-audit-reviewer');
 
         }
     );

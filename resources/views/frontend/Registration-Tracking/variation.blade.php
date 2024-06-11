@@ -104,9 +104,9 @@
                             <div class="col-md-6 pt-3">
                                 <div class="group-input">
                                     <label for="search">
-                                        Assigned To <span class="text-danger"></span>
+                                        Assigned To <span class="text-danger">*</span>
                                     </label>
-                                    <select id="assigned_to" placeholder="Select..." name="assigned_to">
+                                    <select required id="assigned_to" placeholder="Select..." name="assigned_to">
                                         <option value="">--Select--</option>
                                         @foreach ($users as $user)
                                             <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -118,12 +118,12 @@
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="date_due">Date Due <span class="text-danger"></span></label>
+                                    <label for="date_due">Date Due <span class="text-danger">*</span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
 
                                     <div class="calenderauditee">
-                                        <input type="text" id="date_due" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="date_due" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'date_due')" />
+                                        <input type="text" required id="date_due" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" required name="date_due" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'date_due')" />
                                     </div>
                                 </div>
                             </div>
