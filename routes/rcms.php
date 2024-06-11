@@ -176,6 +176,8 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
 
+            //  Route::view('supplier-observation-data/', 'frontend.New_forms.supplier-observation')->name('supplier.view');
+
              
 
         }

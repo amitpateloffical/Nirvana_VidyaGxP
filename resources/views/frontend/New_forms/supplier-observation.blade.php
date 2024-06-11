@@ -32,7 +32,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('supplier_store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -49,34 +49,45 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="Initiator" value="">
+                                    <label for="RLS Record Number"><b>Record Number</b></label>
+                                    <input disabled type="text" name="record_number" value="{{ Helpers::getDivisionName(session()->get('division')) }}/SO/{{ date('Y') }}/">
+
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                    <input disabled type="date" name="Date_of_Initiation" value="">
-                                    <input type="hidden" name="division_id" value="">
+                                    <label for="initiator"><b>Initiator</b></label>
+                                    <input disabled type="text" name="initiator" value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier/{{ date('Y') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Date Due">Date of Initiation</label>
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="date_of_initiation">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="date_of_initiation">
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short_Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
+                                    <label for="short_description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
                                     characters remaining
-                                    <input id="docname" type="text" name="Short_Description" maxlength="255" required>
+                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="search">
+                                    <label for="assigned_to">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
+                                    <select id="select-state" placeholder="Select..." name="assigned_to">
                                         <option value="">Select a value</option>
-                                        <option value=""></option>
+                                        <option value="a">a</option>
+                                        <option value="b">b</option>
+                                        <option value="c">c</option>
                                     </select>
 
                                 </div>
@@ -84,7 +95,7 @@
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Date Due</label>
+                                    <label for="due-date">Due Date</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
@@ -95,60 +106,66 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Criticality"><b>Criticality</b></label>
-                                    <select name="Criticality">
+                                    <label for="criticality"><b>Criticality</b></label>
+                                    <select name="criticality">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="e">e</option>
+                                        <option value="f">f</option>
+                                        <option value="g">g</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="PriorityLevel"><b>Priority Level</b></label>
-                                    <select name="PriorityLevel">
+                                    <label for="priority_level"><b>Priority Level</b></label>
+                                    <select name="priority_level">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="h">h</option>
+                                        <option value="i">i</option>
+                                        <option value="j">j</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Auditee_Supplier">Auditee/Supplier</label>
-                                    <input type="text" name="Auditee_Supplier">
+                                    <label for="auditee">Auditee/Supplier</label>
+                                    <input type="text" name="auditee">
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Contact_Person">Contact Person</label>
-                                    <input type="text" name="Contact_Person">
+                                    <label for="contact_person">Contact Person</label>
+                                    <input type="text" name="contact_person">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Descriptions">Descriptions</label>
-                                    <textarea name="Descriptions" id="" cols="30" rows="3"></textarea>
+                                    <label for="descriptions">Descriptions</label>
+                                    <textarea name="descriptions" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Attached_File">Attached File</label>
+                                    <label for="attached_file">Attached File</label>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="attached_file"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="Attached_File[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="attached_file[]" oninput="addMultipleFiles(this, 'attached_file')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Attached_Picture">Attached Picture</label>
+                                    <label for="attached_picture">Attached Picture</label>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="attached_picture"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="Attached_Picture[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="attached_picture[]" oninput="addMultipleFiles(this, 'attached_picture')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -156,22 +173,25 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Manufacturer">Manufacturer</label>
-                                    <input type="text" name="Manufacturer">
+                                    <label for="manufacturer">Manufacturer</label>
+                                    <input type="text" name="manufacturer">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Trade_name">Type</label>
-                                    <select name="Trade_name">
+                                    <label for="type">Type</label>
+                                    <select name="type">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="aa">aa</option>
+                                        <option value="bb">bb</option>
+                                        <option value="cc">cc</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Product">Product/Materials(0)</label>
-                                    <input type="text" name="Product" id="">
+                                    <label for="product">Product/Materials(0)</label>
+                                    <input type="text" name="product" id="">
                                 </div>
                             </div>
 
@@ -181,14 +201,14 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Proposed_Actions">Proposed Actions</label>
-                                    <textarea name="Proposed_Actions" id="" cols="30" rows="3"></textarea>
+                                    <label for="proposed_actions">Proposed Actions</label>
+                                    <textarea name="proposed_actions" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Comments">Comments</label>
-                                    <textarea name="Proposed_Actions" id="" cols="30" rows="3"></textarea>
+                                    <label for="comments">Comments</label>
+                                    <textarea name="comments" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -207,49 +227,64 @@
                             <div class="sub-head col-12">Impact Analysis</div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Impact">Impact</label>
-                                    <select name="Impact">
+                                    <label for="impact">Impact</label>
+                                    <select name="impact">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="aaa">aaa</option>
+                                        <option value="bbb">bbb</option>
+                                        <option value="ccc">ccc</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Impact_Analysis">Impact Analysis </label>
-                                    <textarea name="Impact_Analysis" id="" cols="30" rows="3"></textarea>
+                                    <label for="impact_analysis">Impact Analysis </label>
+                                    <textarea name="impact_analysis" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="sub-head col-12">Risk Analysis</div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Severity_Rate">Severity Rate</label>
-                                    <select name="Severity_Rate">
+                                    <label for="severity_rate">Severity Rate</label>
+                                    <select name="severity_rate">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="qqq">qqq</option>
+                                        <option value="www">www</option>
+                                        <option value="ttt">ttt</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Occurence">Occurence</label>
-                                    <select name="Occurence">
+                                    <label for="occurence">Occurence</label>
+                                    <select name="occurence">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="eee">eee</option>
+                                        <option value="rrr">rrr</option>
+                                        <option value="tttt">tttt</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Occurence">Detection</label>
-                                    <select name="Occurence">
+                                    <label for="detection">Detection</label>
+                                    <select name="detection">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="ooo">ooo</option>
+                                        <option value="uuu">uuu</option>
+                                        <option value="yyy">yyy</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RPN">RPN</label>
-                                    <select name="RPN">
+                                    <label for="rpn">RPN</label>
+                                    <select name="rpn">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="dd">dd</option>
+                                        <option value="ff">ff</option>
+                                        <option value="gg">gg</option>
                                     </select>
                                 </div>
                             </div>

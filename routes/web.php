@@ -4,6 +4,7 @@ use App\Http\Controllers\ActionItemController;
 use App\Http\Controllers\OpenStageController;
 use App\Http\Controllers\rcms\InternalauditController;
 use App\Http\Controllers\rcms\RootCauseController;
+use App\Http\Controllers\rcms\SupplierController;
 use App\Http\Controllers\TMSController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\ChangeControlController;
@@ -184,6 +185,17 @@ Route::post('child/{id}',[RiskManagementController::class,'child'])->name('riskA
 
 
 // ======================================================
+//============================Supplier Observation=======================================
+Route::get('supplier-observation',[SupplierController::class,'supplier']);
+Route::post('supplierstore',[SupplierController::class,'supplier_store'])->name('supplier_store');
+Route::put('supplierUpdate/{id}',[SupplierController::class,'supplier_update'])->name('supplier_update');
+Route::get('suppliershow/{id}',[SupplierController::class,'supplier_show'])->name('supplier_show');
+Route::post('supplier/stage/{id}',[SupplierController::class,'supplier_send_stage'])->name('supplier_send_stage');
+Route::post('supplier/cancle/{id}',[SupplierController::class,'supplier_Cancle'])->name('supplier_Cancle');
+Route::post('supplier/reject/{id}',[SupplierController::class,'supplier_reject'])->name('supplier_reject');
+Route::get('supplierAuditTrail/{id}',[SupplierController::class,'supplierAuditTrail']);
+Route::get('auditDetailsSupplier/{id}',[SupplierController::class,'auditDetailsSupplier'])->name('showsupplierAuditDetails');
+
 // =================QRM fORM=====================================
 Route::view('qrm', 'frontend.QRM.qrm');
 
