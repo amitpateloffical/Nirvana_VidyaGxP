@@ -18,7 +18,7 @@ use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
 use App\Http\Controllers\rcms\DosierDocumentsController;
-
+use App\Http\Controllers\rcms\PreventiveMaintenanceController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -200,6 +200,28 @@ Route::group(['prefix' => 'rcms'], function () {
                 Route::get('single_report/{id}', [DosierDocumentsController::class, 'singleReport'])->name('single_report');
 
             });
+
+            /**
+             *PreventiveMaintenanceController
+             */
+         Route::group(['prefix' => 'preventivemaintenance', 'as' => 'preventivemaintenance.'], function() {
+                
+            Route::get('/',[PreventiveMaintenanceController::class, 'index'])->name('index');
+            Route::post('/store', [PreventiveMaintenanceController::class, 'store'])->name('store');
+            Route::get('view/{id}', [PreventiveMaintenanceController::class, 'show'])->name('view');
+            Route::post('update/{id}', [PreventiveMaintenanceController::class, 'update'])->name('update');
+            
+            Route::post('sendstage/{id}',[PreventiveMaintenanceController::class,'send_stage'])->name('send_stage');
+            Route::post('requestmoreinfo_back_stage/{id}',[PreventiveMaintenanceController::class,'requestmoreinfo_back_stage'])->name('requestmoreinfo_back_stage');
+            Route::post('cancel_stage/{id}', [PreventiveMaintenanceController::class, 'cancel_stage'])->name('cancel_stage');;
+            Route::post('thirdStage/{id}', [PreventiveMaintenanceController::class, 'stageChange'])->name('thirdStage');
+            Route::get('AuditTrial/{id}', [PreventiveMaintenanceController::class, 'AuditTrial'])->name('audit_trial');
+            Route::post('AuditTrial/{id}', [PreventiveMaintenanceController::class, 'store_audit_review'])->name('store_audit_review');
+            Route::get('auditDetails/{id}', [PreventiveMaintenanceController::class, 'auditDetails'])->name('audit_details');
+            Route::get('audit_report/{id}', [PreventiveMaintenanceController::class, 'auditReport'])->name('audit_report');
+            Route::get('single_report/{id}', [PreventiveMaintenanceController::class, 'singleReport'])->name('single_report');
+
+        });
             
         }
     );
