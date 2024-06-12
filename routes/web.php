@@ -37,6 +37,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\newForm\MedicalRegistrationController;
 use App\Http\Controllers\ResamplingController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -563,4 +564,8 @@ Route::post('resampling_updated/{id}',[ResamplingController::class,'update'])->n
 
 
 
+
+
+// ===============Additional Testing==========================\
+Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
 
