@@ -31,6 +31,7 @@ use App\Http\Controllers\tms\QuestionBankController;
 use App\Http\Controllers\tms\QuestionController;
 use App\Http\Controllers\tms\QuizeController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\SeriousController;
 use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -88,9 +89,9 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     //Route::post('set/division', [DocumentController::class, 'division'])->name('division_submit');
     Route::post('dcrDivision', [DocumentController::class, 'dcrDivision'])->name('dcrDivision_submit');
     Route::get('documents/generatePdf/{id}', [DocumentController::class, 'createPDF']);
-    
+
     Route::get('documents/reviseCreate/{id}', [DocumentController::class, 'revise_create']);
-    
+
     Route::get('documents/printPDF/{id}', [DocumentController::class, 'printPDF']);
     Route::get('documents/viewpdf/{id}', [DocumentController::class, 'viewPdf']);
     Route::resource('documentsContent', DocumentContentController::class);
@@ -145,7 +146,7 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
 // =======================medicsl device //==============================
 
 Route::middleware(['auth'])->group(function () {
-    
+
 Route::get('/medical_device_registration', [MedicalRegistrationController::class, 'index'])->name('auth');
 Route::post('medicalstore',[MedicalRegistrationController::class,'medicalCreate'])->name('medical.store');
 Route::get('medicalupdate/{id}/edit',[MedicalRegistrationController::class,'medicalEdit'])->name('medical_edit');
@@ -339,7 +340,7 @@ Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 
 //! ============================================
 //!                    FORMS
-//! ============================================ 
+//! ============================================
 
 
 Route::view('deviation', 'frontend.forms.deviation');
@@ -395,7 +396,7 @@ Route::view('subject_action_item', 'frontend.ctms.subject_action_item');
 
 Route::view('study', 'frontend.ctms.study');
 
-Route::view('serious_adverse_event', 'frontend.ctms.serious_adverse_event');
+// Route::view('serious_adverse_event', 'frontend.ctms.serious_adverse_event');
 Route::view('monitoring_visit', 'frontend.ctms.monitoring_visit');
 Route::view('investigational_nda_anda', 'frontend.ctms.investigational_nda_anda');
 Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
@@ -532,5 +533,17 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 //! ============================================
 
 
-// ===============OOt form==========================\
+// ===============OOt form==========================
 Route::view('OOT_form', 'frontend.OOT.OOT_form');
+
+
+// ===============Serious_Adverse_Event===========
+Route::get('serious_adverse_event',[SeriousController::class, 'index'])->name('serious_index');
+Route::post('serious_adverse_event/store',[SeriousController::class,'SeriousStore'])->name('serious_store');
+Route::get('serious_adverse_event/{id}',[SeriousController::class,'SeriousShow'])->name('serious.show');
+Route::put('serious_adverse_event/update/{id}',[SeriousController::class,'SeriousUpdate'])->name('serious_update');
+Route::post('serious_adverse_event/changestages/{id}',[SeriousController::class,'stagechange'])->name('serious.stage');
+Route::post('serious_adverse_event/directchange/{id}',[SeriousController::class,'DirectStage'])->name('direct.stage');
+Route::post('serious_adverse_event/back_stage/{id}',[SeriousController::class,'BackStage'])->name('back.stage');
+Route::get('serious_adverse/AuditTrail/{id}',[SeriousController::class,'AuditTrial'])->name('serious_audit_trail');
+Route::get('SeriousAuditReport/{id}',[SeriousController::class,'auditTrailPdf'])->name('SeriousAuditReport');

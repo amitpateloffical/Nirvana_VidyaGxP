@@ -2738,7 +2738,7 @@ section#pdf-page .watermark {
 #tms-dashboard .tms-dashboard-tabs .tab-btn.active {
     background-image: linear-gradient(120deg, #4f4d4b 0%, #2b2c2c 100%);
     color: #fff;
-}   
+}
 
 #tms-dashboard .tms-block {
     display: none;
@@ -3531,7 +3531,7 @@ section#pdf-page .watermark {
 #change-control-view .inner-block .block-list .block .bar {
     margin-bottom: 5px;
 }
-    
+
 #change-control-view .state-block .progress-bars {
     display: flex;
 }
@@ -4248,8 +4248,8 @@ section#pdf-page .watermark {
 
 #change-control-fields .inner-block .main-head {
     padding: 15px;
-    color: white;
-    background: #4274da;
+    color: black;
+    /* background: #4274da; */
     margin-bottom: 0;
     font-weight: bold;
     font-size: 1.2rem;
@@ -6147,9 +6147,9 @@ section#pdf-page .watermark {
     background-color: gray;
     border: 1px solid black;
     /* border-radius: 50%; */
-    
+
 }
 #new-button-icon:hover{
     background-color: gray;
-    
+
 }

@@ -17,6 +17,7 @@ use App\Models\AuditProgram;
 use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 use App\Models\Deviation;
+use App\Models\Serious;
 use App\Models\MedicalDeviceRegistration;
 use Helpers;
 use App\Models\User;
@@ -67,6 +68,7 @@ class DashboardController extends Controller
         $datas12 = Observation::orderByDesc('id')->get();
         $datas13 = Deviation::orderByDesc('id')->get();
         $datas15 = MedicalDeviceRegistration::orderByDesc('id')->get();
+        $datas16 = Serious::orderByDesc('id')->get();
 
 
         foreach ($datas as $data) {
@@ -344,6 +346,25 @@ class DashboardController extends Controller
                 "record" => $data->record,
                 "division_id" => $data->division_id,
                 "type" => "MedicalDeviceRegistration",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas16 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "SeriousAdverseEvent",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -645,6 +666,28 @@ class DashboardController extends Controller
                     ]
                 );
             }
+            if ($data->parent_type == "SeriousAdverseEvent") {
+                $data2 = Serious::where('id', $data->parent_id)->first();
+                $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
+                array_push(
+                    $table,
+                    [
+                        "id" => $data2->id,
+                        "parent" => $data2->parent_record ? $data2->parent_record : "-",
+                        "record" => $data2->record,
+                        "type" => "SeriousAdverseEvent",
+                        "parent_id" => $data2->parent_id,
+                        "parent_type" => $data2->parent_type,
+                        "division_id" => $data2->division_id,
+                        "short_description" => $data2->short_description ? $data2->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "intiation_date" => $data2->intiation_date,
+                        "stage" => $data2->status,
+                        "date_open" => $data2->create,
+                        "date_close" => $data2->updated_at,
+                    ]
+                );
+            }
             if ($data->parent_type == "Change_control") {
                 $data2 = CC::where('id', $data->parent_id)->first();
                 $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
@@ -742,6 +785,12 @@ class DashboardController extends Controller
             $single = "deviationSingleReport/". $data->id;
             $audit = "#";
             $parent="deviationparentchildReport/". $data->id;
+        }
+        elseif ($type == "SeriousAdverseEvent") {
+            $data = Serious::find($id);
+            $single = "SeriousSingleReport/". $data->id;
+            $audit = "SeriousAuditReport/" .$data->id;
+            // $parent="deviationparentchildReport/". $data->id;
         }
 
 

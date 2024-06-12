@@ -119,7 +119,7 @@
                 querySelect.options.add(new Option('Close - Done', '6'));
             }
 
-            
+
         // Add more conditions based on other scope values
 
     }
@@ -128,10 +128,10 @@
     <div id="rcms-dashboard">
         <div class="container-fluid">
             <div class="dash-grid">
-                
+
                 <div>
                     <div class="inner-block scope-table" style="height: calc(100vh - 170px); padding: 0;">
-                        
+
                        <div class="grid-block">
                             <div class="group-input">
                                 <label for="scope">Process</label>
@@ -261,7 +261,7 @@
                                                             </div>
                                                         </a>
                                                     @endif
-                                                    
+
                                                 @elseif ($datas->type == 'Audit-Program')
                                                     <a href="{{ route('ShowAuditProgram', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
@@ -298,6 +298,20 @@
                                                     @if (!empty($datas->parent_id))
                                                         <a
                                                             href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/action_item">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+                                                @elseif($datas->type == 'SeriousAdverseEvent')
+                                                    <a href="{{ route('serious.show', $datas->id) }}">
+                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/SeriousAdverseEvent">
                                                             <div class="icon" onclick="showChild()"
                                                                 data-bs-toggle="tooltip" title="Related Records">
                                                                 {{-- <img src="{{ asset('user/images/parent.png') }}"
@@ -403,7 +417,7 @@
                                                             </div>
                                                         </a>
                                                     @endif
-                                                
+
                                                 @endif
                                             </td>
                                             {{-- @if ($datas->parent != '-')
