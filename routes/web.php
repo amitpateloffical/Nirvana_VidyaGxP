@@ -547,6 +547,9 @@ Route::post('clinicalsitestore',[ClinicalSiteController::class,'store'])->name('
 Route::get('clinicalsiteshow/{id}',[ClinicalSiteController::class,'show'])->name('clinicshow');
 Route::put('clinicalsiteupdate/{id}',[ClinicalSiteController::class,'update'])->name('clinicupdate');
 Route::get('clinicalsiteAuditReport/{id}', [ClinicalSiteController::class, 'clinicalsiteAuditTrial'])->name('clinicalsiteAuditReport');
+Route::post('clinicalsitestagechange/{id}',[ClinicalSiteController::class,'ClinicalSiteStateChange'])->name('clin_site_stagechange');
+Route::post('clinicalsiteCansilstagechange/{id}',[ClinicalSiteController::class,'ClinicalSiteCancel'])->name('cansilstagechange');
+
 
 
 // ========================================ClinicalSite end===============================

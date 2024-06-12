@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('site_name')->nullable();
             $table->string('source_documents')->nullable();
             $table->string('sponsor')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('attached_files')->nullable();
             $table->text('comments')->nullable();
             $table->string('version_no')->nullable();
@@ -77,7 +77,7 @@ return new class extends Migration
             $table->decimal('budget', 15, 2)->nullable();
             $table->string('proj_sites_si')->nullable();
             $table->string('proj_subject_si')->nullable();
-            $table->boolean('auto_calculation')->default(false);
+            $table->string('auto_calculation')->nullable();
             $table->string('currency_si')->nullable();
             $table->string('attached_payments')->nullable();
             $table->string('cra')->nullable();

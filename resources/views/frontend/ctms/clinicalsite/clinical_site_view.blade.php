@@ -34,7 +34,7 @@
         border-radius: 20px 0px 0px 20px;
     }
 
-    #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(5) {
+    #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(6) {
         border-radius: 0px 20px 20px 0px;
 
     }
@@ -161,23 +161,45 @@
                         </button>
         
                         @if ($data->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
-                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">To Implementation Phase</button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#direct-modal">Archive</button> --}}
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#direct-modal">Archive</button>
+                          
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                To Implementation Phase
+                            </button>
 
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                Cancel
+                            </button>
+                            
                         @elseif($data->stage == 2 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#back-modal">Return</button>
-                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">Child</button> --}}
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">Received SR Approval</button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            To Pending
+                        </button>
+                        
+                           
                         @elseif($data->stage == 3 && (in_array(18, $userRoleIds) || in_array(18, $userRoleIds)))
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">Received Confirmation</button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            To In Effect
+                        </button>
                         @elseif($data->stage == 4 && (in_array(18, $userRoleIds) || in_array(18, $userRoleIds)))
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">To SAE Storage</button>
+
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Hold Clinical Site
+
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Close Protocol
+                        </button>   
                         @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#back-modal">Return</button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">Close</button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            Cancel
+                        </button>
+                           
+                        @elseif($data->stage == 6 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            Close Protocol
+                        </button> --}}
                         @endif
-                        <button class="button_theme1">
+                        <button class="button_theme1"> 
                             <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit</a>
                         </button>
                     {{-- @else
@@ -217,9 +239,12 @@
                         @else
                             <div class="">In Effect</div>
                         @endif
-
-        
                         @if ($data->stage >= 5)
+                        <div class="active">Clinical Site on Hold</div>
+                    @else
+                        <div class="">Clinical Site on Hold</div>
+                    @endif
+                        @if ($data->stage >= 6)
                             <div class="bg-danger">Closed - Done</div>
                         @else
                             <div class="">Closed - Done</div>
@@ -229,7 +254,101 @@
                 {{-- ---------------------------------------------------------------------------------------- --}}
             </div>
         </div>
-        
+        {{-- =============================signature model================= --}}
+
+        <div class="modal fade" id="signature-modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">E-Signature</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form action="{{ route('clin_site_stagechange', $data->id) }}" method="POST">
+                        @csrf
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="mb-3 text-justify">
+                                Please select a meaning and a outcome for this task and enter your username
+                                and password for this task. You are performing an electronic signature,
+                                which is legally binding equivalent of a hand written signature.
+                            </div>
+                            <div class="group-input">
+                                <label for="username">Username <span class="text-danger">*</span></label>
+                                <input type="text" name="username" required>
+                            </div>
+                            <div class="group-input">
+                                <label for="password">Password <span class="text-danger">*</span></label>
+                                <input type="password" name="password" required>
+                            </div>
+                            <div class="group-input">
+                                <label for="comment">Comment</label>
+                                <input type="comment" name="comment">
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <!-- <div class="modal-footer">
+                                <button type="submit" data-bs-dismiss="modal">Submit</button>
+                                <button>Close</button>
+                            </div> -->
+                        <div class="modal-footer">
+                            <button type="submit">Submit</button>
+                            <button type="button" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+{{-- ========================================cansil  model ========================== --}}
+
+<div class="modal fade" id="cancel-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('cansilstagechange', $data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                <div class="modal-footer">
+                    <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 

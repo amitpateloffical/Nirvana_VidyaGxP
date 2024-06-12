@@ -28,7 +28,13 @@ class ClinicalSiteController extends Controller
 {
     public function index()
     {
-        return view('frontend.ctms.clinicalsite.clinical_site');
+        $record = ((RecordNumber::first()->value('counter')) + 1);
+        $record = str_pad($record, 4, '0', STR_PAD_LEFT);
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->addDays(30);
+        $due_date = $formattedDate->format('Y-m-d');
+
+        return view('frontend.ctms.clinicalsite.clinical_site',compact('due_date', 'record'));
 
     }
 
@@ -38,7 +44,7 @@ class ClinicalSiteController extends Controller
         $clinicalSite = new ClinicalSite;
         $clinicalSite->stage = 1;
         $clinicalSite->status = 'Opened';
-        $clinicalSite->record = $request->input('record');
+        $clinicalSite->record = ((RecordNumber::first()->value('counter')) + 1);
         $clinicalSite->division_code = $request->input('division_code');
         $clinicalSite->initiator = $request->input('initiator');
         $clinicalSite->initiation_date = $request->input('initiation_date');
@@ -160,12 +166,110 @@ class ClinicalSiteController extends Controller
 
         // ====================================aduit trail show=============
 
-        if (!empty($clinicalSite->description)) {
+        if (!empty($clinicalSite->short_description)) {
             $history = new ClinicalSiteAudittrail();
             $history->clinical_id = $clinicalSite->id;
-            $history->activity_type = 'Description';
+            $history->activity_type = 'Short Description';
             $history->previous = "NA";
-            $history->current = $clinicalSite->description;
+            $history->current = $clinicalSite->short_description;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $clinicalSite->status;
+            $history->change_to = "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = "store";
+            $history->save();
+        }
+        if (!empty($clinicalSite->assign_to)) {
+            $history = new ClinicalSiteAudittrail();
+            $history->clinical_id = $clinicalSite->id;
+            $history->activity_type = 'Assign To';
+            $history->previous = "NA";
+            $history->current = $clinicalSite->assign_to;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $clinicalSite->status;
+            $history->change_to = "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = "store";
+            $history->save();
+        }
+
+        if (!empty($clinicalSite->due_date)) {
+            $history = new ClinicalSiteAudittrail();
+            $history->clinical_id = $clinicalSite->id;
+            $history->activity_type = 'Due Date';
+            $history->previous = "NA";
+            $history->current = $clinicalSite->due_date;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $clinicalSite->status;
+            $history->change_to = "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = "store";
+            $history->save();
+        }
+
+        if (!empty($clinicalSite->type)) {
+            $history = new ClinicalSiteAudittrail();
+            $history->clinical_id = $clinicalSite->id;
+            $history->activity_type = 'Type';
+            $history->previous = "NA";
+            $history->current = $clinicalSite->type;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $clinicalSite->status;
+            $history->change_to = "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = "store";
+            $history->save();
+        }
+         if (!empty($clinicalSite->site_name)) {
+            $history = new ClinicalSiteAudittrail();
+            $history->clinical_id = $clinicalSite->id;
+            $history->activity_type = 'Site Name';
+            $history->previous = "NA";
+            $history->current = $clinicalSite->site_name;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $clinicalSite->status;
+            $history->change_to = "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = "store";
+            $history->save();
+        }
+        if (!empty($clinicalSite->version_no)) {
+            $history = new ClinicalSiteAudittrail();
+            $history->clinical_id = $clinicalSite->id;
+            $history->activity_type = 'Version No.';
+            $history->previous = "NA";
+            $history->current = $clinicalSite->version_no;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $clinicalSite->status;
+            $history->change_to = "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = "store";
+            $history->save();
+        }
+        if (!empty($clinicalSite->admission_criteria)) {
+            $history = new ClinicalSiteAudittrail();
+            $history->clinical_id = $clinicalSite->id;
+            $history->activity_type = 'Admission Criteria';
+            $history->previous = "NA";
+            $history->current = $clinicalSite->admission_criteria;
             $history->comment = "Not Applicable";
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -197,6 +301,7 @@ class ClinicalSiteController extends Controller
         $finan_transa->identifiers = 'Financial Transactions';
         $finan_transa->data = $request->financialTransactions;
         $finan_transa->save();
+        return redirect()->to('rcms/qms-dashboard')->with('success','record succesfull');
 
 
     }
@@ -219,7 +324,8 @@ class ClinicalSiteController extends Controller
         $clinicalSite = ClinicalSite::findOrFail($id);
 
         // Update the instance with request data
-        $clinicalSite->record = $request->input('record');
+        $clinicalSite->record = ((RecordNumber::first()->value('counter')) + 1);
+
         $clinicalSite->division_code = $request->input('division_code');
         $clinicalSite->initiator = $request->input('initiator');
         $clinicalSite->initiation_date = $request->input('initiation_date');
@@ -339,13 +445,80 @@ class ClinicalSiteController extends Controller
         $clinicalSite->save();
 
 // ==================================aduit trail show update======================
-if ( $lastclinical->description_gi != $clinicalSite->description_gi) {
+if ( $lastclinical->description != $clinicalSite->description) {
     $history = new ClinicalSiteAudittrail();
-    $history->market_id = $clinicalSite->id;
-    $history->activity_type = 'Description';
-    $history->previous = $lastclinical->description_gi;
-    $history->current = $clinicalSite->description_gi;
-    $history->comment = $request->description_gi_comment;
+    $history->clinical_id = $clinicalSite->id;
+    $history->activity_type ='Description';
+    $history->previous = $lastclinical->description;
+    $history->current = $clinicalSite->description;
+    $history->comment = $request->description_comment;
+    $history->user_id = Auth::user()->id;
+    $history->user_name = Auth::user()->name;
+    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+    $history->origin_state = $clinicalSite->status;
+    $history->change_to = "Not Applicable";
+    $history->change_from = $clinicalSite->status;
+    $history->action_name = "Update";
+    $history->save();
+}
+if ( $lastclinical->assign_to != $clinicalSite->assign_to) {
+    $history = new ClinicalSiteAudittrail();
+    $history->clinical_id = $clinicalSite->id;
+    $history->activity_type ='Assign To';
+    $history->previous = $lastclinical->assign_to;
+    $history->current = $clinicalSite->assign_to;
+    $history->comment = $request->assign_to_comment;
+    $history->user_id = Auth::user()->id;
+    $history->user_name = Auth::user()->name;
+    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+    $history->origin_state = $clinicalSite->status;
+    $history->change_to = "Not Applicable";
+    $history->change_from = $clinicalSite->status;
+    $history->action_name = "Update";
+    $history->save();
+}
+
+if ( $lastclinical->due_date != $clinicalSite->due_date) {
+    $history = new ClinicalSiteAudittrail();
+    $history->clinical_id = $clinicalSite->id;
+    $history->activity_type ='Assign To';
+    $history->previous = $lastclinical->due_date;
+    $history->current = $clinicalSite->due_date;
+    $history->comment = $request->due_date_comment;
+    $history->user_id = Auth::user()->id;
+    $history->user_name = Auth::user()->name;
+    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+    $history->origin_state = $clinicalSite->status;
+    $history->change_to = "Not Applicable";
+    $history->change_from = $clinicalSite->status;
+    $history->action_name = "Update";
+    $history->save();
+}
+
+if ( $lastclinical->type != $clinicalSite->type) {
+    $history = new ClinicalSiteAudittrail();
+    $history->clinical_id = $clinicalSite->id;
+    $history->activity_type ='Assign To';
+    $history->previous = $lastclinical->type;
+    $history->current = $clinicalSite->type;
+    $history->comment = $request->type_comment;
+    $history->user_id = Auth::user()->id;
+    $history->user_name = Auth::user()->name;
+    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+    $history->origin_state = $clinicalSite->status;
+    $history->change_to = "Not Applicable";
+    $history->change_from = $clinicalSite->status;
+    $history->action_name = "Update";
+    $history->save();
+}
+
+if ( $lastclinical->site_name != $clinicalSite->site_name) {
+    $history = new ClinicalSiteAudittrail();
+    $history->clinical_id = $clinicalSite->id;
+    $history->activity_type ='Assign To';
+    $history->previous = $lastclinical->site_name;
+    $history->current = $clinicalSite->site_name;
+    $history->comment = $request->type_comment;
     $history->user_id = Auth::user()->id;
     $history->user_name = Auth::user()->name;
     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -394,7 +567,7 @@ if ( $lastclinical->description_gi != $clinicalSite->description_gi) {
         $today = Carbon::now()->format('d-m-y');
         $document = ClinicalSite::where('id', $id)->first();
         $document->initiator = User::where('id', $document->initiator_id)->value('name');
-
+// dd($document);
       
         return view('frontend.ctms.clinicalsite.audit-trial',compact('audit', 'document', 'today'));
 
@@ -413,14 +586,14 @@ if ( $lastclinical->description_gi != $clinicalSite->description_gi) {
 
            if( $clinicalstag->stage == 1){
             $clinicalstag->stage = "2";
-            $clinicalstag->submitted_by = Auth::user()->name;
-            $clinicalstag->submitted_on = Carbon::now()->format('d-M-Y');
-            $clinicalstag->submitted_comment = $request->comment;
+            $clinicalstag->to_Imp_phase_ny = Auth::user()->name;
+            $clinicalstag->to_Imp_phase_on = Carbon::now()->format('d-M-Y');
+            // $clinicalstag->submitted_comment = $request->comment;
 
 
             $clinicalstag->status = "Opened";
-            $history = new ClinicalSiteGrids();
-            $history->market_id = $id;
+            $history = new ClinicalSiteAudittrail();
+            $history->clinical_id = $id;
             $history->activity_type = 'Activity Log';
             $history->current = $clinicalstag->submitted_by;
             $history->comment = $request->comment;
@@ -430,13 +603,150 @@ if ( $lastclinical->description_gi != $clinicalSite->description_gi) {
             $history->origin_state = $lastDocument->status;
             $history->change_to = "Opened";
             $history->change_from = $lastDocument->status;
-            $history->stage='Submited';
+            $history->stage='To Implementation Phase';
             $history->save();
 
             $clinicalstag->update();
 
             return redirect()->back();
            }
+
+
+
+           if( $clinicalstag->stage == 2){
+            $clinicalstag->stage = "3";
+            $clinicalstag->to_pending_by = Auth::user()->name;
+            $clinicalstag->	to_Pending_on = Carbon::now()->format('d-M-Y');
+            // $clinicalstag->submitted_comment = $request->comment;
+
+
+            $clinicalstag->status = "Implementation Phase";
+            $history = new ClinicalSiteAudittrail();
+            $history->clinical_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->current = $clinicalstag->submitted_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to = "Implementation Phase";
+            $history->change_from = $lastDocument->status;
+            $history->stage='To Pending';
+            $history->save();
+
+            $clinicalstag->update();
+
+            return redirect()->back();
+           }
+           if( $clinicalstag->stage == 3){
+            $clinicalstag->stage = "4";
+            $clinicalstag->to_In_Effect_by = Auth::user()->name;
+            $clinicalstag->to_In_Effect_on= Carbon::now()->format('d-M-Y');
+            // $clinicalstag->submitted_comment = $request->comment;
+
+
+            $clinicalstag->status = "Pending";
+            $history = new ClinicalSiteAudittrail();
+            $history->clinical_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->current = $clinicalstag->submitted_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to = "Pending";
+            $history->change_from = $lastDocument->status;
+            $history->stage='To In Effect';
+            $history->save();
+
+            $clinicalstag->update();
+
+            return redirect()->back();
+           }
+
+           if( $clinicalstag->stage == 4){
+            $clinicalstag->stage = "6";
+            $clinicalstag->Hold_Clinical_site_by = Auth::user()->name;
+            $clinicalstag->Hold_Clinical_site_on = Carbon::now()->format('d-M-Y');
+            // $clinicalstag->submitted_comment = $request->comment;
+
+
+            $clinicalstag->status = "In Effect";
+            $history = new ClinicalSiteAudittrail();
+            $history->clinical_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->current = $clinicalstag->submitted_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to = "In Effect";
+            $history->change_from = $lastDocument->status;
+            $history->stage='To In Effect';
+            $history->save();
+
+            $clinicalstag->update();
+
+            return redirect()->back();
+           }
+
+        //    if( $clinicalstag->stage == 5){
+        //     $clinicalstag->stage = "6";
+        //     $clinicalstag->to_Imp_phase_ny = Auth::user()->name;
+        //     $clinicalstag->to_Imp_phase_on = Carbon::now()->format('d-M-Y');
+        //     // $clinicalstag->submitted_comment = $request->comment;
+
+
+        //     $clinicalstag->status = "Clinical Site on Hold";
+        //     $history = new ClinicalSiteAudittrail();
+        //     $history->clinical_id = $id;
+        //     $history->activity_type = 'Activity Log';
+        //     $history->current = $clinicalstag->submitted_by;
+        //     $history->comment = $request->comment;
+        //     $history->user_id = Auth::user()->id;
+        //     $history->user_name = Auth::user()->name;
+        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        //     $history->origin_state = $lastDocument->status;
+        //     $history->change_to = "Clinical Site on Hold";
+        //     $history->change_from = $lastDocument->status;
+        //     $history->stage='Cancel';
+        //     $history->save();
+
+        //     $clinicalstag->update();
+
+        //     return redirect()->back();
+        //    }
+
+           if( $clinicalstag->stage == 6){
+            $clinicalstag->stage = "7";
+            $clinicalstag->to_Imp_phase_ny = Auth::user()->name;
+            $clinicalstag->to_Imp_phase_on = Carbon::now()->format('d-M-Y');
+            // $clinicalstag->submitted_comment = $request->comment;
+
+
+            $clinicalstag->status = "In Effect";
+            $history = new ClinicalSiteAudittrail();
+            $history->clinical_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->current = $clinicalstag->submitted_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to = "In Effect";
+            $history->change_from = $lastDocument->status;
+            $history->stage='To In Effect';
+            $history->save();
+
+            $clinicalstag->update();
+
+            return redirect()->back();
+           }
+
 
         }else 
         {
@@ -447,6 +757,40 @@ if ( $lastclinical->description_gi != $clinicalSite->description_gi) {
 
     }
 
+    public function ClinicalSiteCancel(Request $request, $id)
+    {
+        if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+            $changeControl = ClinicalSite::find($id);
+
+            if ($changeControl->stage == 1) {
+                $changeControl->stage = "0";
+                $changeControl->status = "Closed - Cancelled";
+                $changeControl->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if ($changeControl->stage == 5) {
+                $changeControl->stage = "0";
+                $changeControl->status = "Closed - Cancelled";
+                $changeControl->update();
+                
+                toastr()->success('Document Sent');
+                return back();
+            }
+
+
+            // $changeControl->stage = "2";
+            // // $changeControl->status = "Closed - Cancelled";
+            // $changeControl->cancelled_by = Auth::user()->name;
+            // $changeControl->cancelled_on = Carbon::now()->format('d-M-Y');
+            // $changeControl->update();
+            // toastr()->success('Document Sent');
+            // return back();
+        } else {
+            toastr()->error('E-signature Not match');
+            return back();
+        }
+    }
 
 
 

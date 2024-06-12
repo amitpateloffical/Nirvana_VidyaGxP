@@ -128,9 +128,9 @@
                         <div class="group-input">
                             <label for="RLS Record Number"><b>Record Number</b></label>
                             {{-- <input disabled type="text" name="record" value=""> --}}
-                            {{-- <input disabled type="text" name="record" value=" {{ Helpers::getDivisionName(session()->get('division')) }}/LI/{{ date('Y') }}/{{ $record}}"> --}}
-                            <input disabled type="text" name="record" id="record" 
-                            value="">
+                            <input disabled type="text" name="record" value=" {{ Helpers::getDivisionName(session()->get('division')) }}/LI/{{ date('Y') }}/{{ $record}}">
+                            {{-- <input disabled type="text" name="record" id="record" 
+                            value=""> --}}
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -147,16 +147,23 @@
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="CTMS originator"><b>Initiator</b></label>
-                            <input type="text" disabled name="initiator" value="">
+                            <input type="text" disabled name="initiator"  value="{{ Auth::user()->name }}">
                         </div>
                     </div>
-                    <div class="col-md-6 new-date-data-field">
+                    {{-- <div class="col-md-6 new-date-data-field">
                         <div class="group-input input-date">
                             <label for="opened-date">Date of Initiation<span class="text-danger"></span></label>
                             <div class="calenderauditee">
                                 <input type="text" disabled id="opened_date" placeholder="DD-MMM-YYYY" />
                                 <input type="date" disabled name="intiation_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'opened_date')" />
                             </div>
+                        </div>
+                    </div> --}}
+                    <div class="col-md-6 ">
+                        <div class="group-input ">
+                            <label for="due-date"> Date Of Initiation<span class="text-danger"></span></label>
+                            <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                            <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
                         </div>
                     </div>
                    
@@ -199,9 +206,9 @@
                             <!-- <div><small class="text-primary">Select type of site</small></div> -->
                             <select id="select-state" placeholder="Select..." name="type">
                                 <option value="">Enter your selection here</option>
-                                <option value="">$1</option>
-                                <option value="">$2</option>
-                                <option value="">$3</option>
+                                <option value="$1">$1</option>
+                                <option value="$2">$2</option>
+                                <option value="$3">$3</option>
                             </select>
                         </div>
                     </div>
@@ -283,9 +290,9 @@
                             </label>
                             <select id="select-state" placeholder="Select..." name="version_no">
                                 <option value="">Enter your selection here</option>
-                                <option value="">$1</option>
-                                <option value="">$2</option>
-                                <option value="">$3</option>
+                                <option value="$1">$1</option>
+                                <option value="$2">$2</option>
+                                <option value="$3">$3</option>
                             </select>
                         </div>
                     </div>
