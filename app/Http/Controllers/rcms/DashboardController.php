@@ -19,6 +19,8 @@ use App\Models\Observation;
 use App\Models\Deviation;
 use App\Models\MedicalDeviceRegistration;
 use App\Models\ClinicalSite;
+use App\Models\QMSDivision;
+
 
 use Helpers;
 use App\Models\User;
@@ -765,6 +767,15 @@ class DashboardController extends Controller
             $single = "deviationSingleReport/". $data->id;
             $audit = "#";
             $parent="deviationparentchildReport/". $data->id;
+        } elseif ($type == "ClinicalSite") {
+            $data = ClinicalSite::find($id);
+            $audit ="pdf/" . $data->id;
+            $single = "pdf-report/" . $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+           
+            // $division = QMSDivision::find($data->division_id);
+            // $division_name = $division->name;
+
         }
 
 

@@ -42,6 +42,7 @@ class ClinicalSiteController extends Controller
     {
         // Create a new ClinicalSite instance and fill it with request data
         $clinicalSite = new ClinicalSite;
+        $clinicalSite->form_type ="ClinicalSite";
         $clinicalSite->stage = 1;
         $clinicalSite->status = 'Opened';
         $clinicalSite->record = ((RecordNumber::first()->value('counter')) + 1);
@@ -113,6 +114,7 @@ class ClinicalSiteController extends Controller
         $clinicalSite->comments_si = $request->input('comments_si');
         $clinicalSite->budget_ut = $request->input('budget_ut');
         $clinicalSite->currency_ut = $request->input('currency_ut');
+        
        
         // Save the ClinicalSite instance to the database
         if (!empty($request->source_documents)) {
@@ -394,7 +396,7 @@ class ClinicalSiteController extends Controller
         $clinicalSite->comments_si = $request->input('comments_si');
         $clinicalSite->budget_ut = $request->input('budget_ut');
         $clinicalSite->currency_ut = $request->input('currency_ut');
-       
+       $clinicalSite->form_type ="ClinicalSite";
 
     //  ===========================file attachemnt======
 
@@ -794,4 +796,113 @@ if ( $lastclinical->site_name != $clinicalSite->site_name) {
 
 
 
-}
+    public function singleReport(Request $request, $id)
+    {
+
+        $data = ClinicalSite::find($id);
+        // $prductgigrid =ClinicalSiteGrids::where(['cs_id' => $id,'identifer' => 'ProductDetails'])->first();
+        // $martab_grid =MarketComplaintGrids::where(['mc_id' => $id,'identifer'=> 'Sutability'])->first();
+
+
+
+
+        if (!empty($data)) {
+            $data->originator = User::where('id', $data->initiator_id)->value('name');
+            $pdf = App::make('dompdf.wrapper');
+            $time = Carbon::now();
+            $pdf = PDF::loadview('frontend.ctms.clinicalsite.singleReport', compact('data'))
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                ]);
+            $pdf->setPaper('A4');
+            $pdf->render();
+            $canvas = $pdf->getDomPDF()->getCanvas();
+            $height = $canvas->get_height();
+            $width = $canvas->get_width();
+            $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+            $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
+            return $pdf->stream('Clinical Site' . $id . '.pdf');
+        }
+
+
+        return view('frontend.ctms.clinicalsite.singleReport',compact('data'));
+
+    }
+    // public function auditTrailPdf($id)
+    // {
+    
+    //     $doc = ClinicalSite::find($id);
+    //     $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+    //     $data = ClinicalSiteAudittrail::where('market_id', $doc->id)->orderByDesc('id')->paginate();
+    //     $pdf = App::make('dompdf.wrapper');
+    //     $time = Carbon::now();
+    //     $pdf = PDF::loadview('frontend.ctms.clinicalsite.clinicalsite_audit_trail_pdf', compact('data', 'doc'))
+    //         ->setOptions([
+    //             'defaultFont' => 'sans-serif',
+    //             'isHtml5ParserEnabled' => true,
+    //             'isRemoteEnabled' => true,
+    //             'isPhpEnabled' => true,
+    //         ]);
+    //     $pdf->setPaper('A4');
+    //     $pdf->render();
+    //     $canvas = $pdf->getDomPDF()->getCanvas();
+    //     $height = $canvas->get_height();
+    //     $width = $canvas->get_width();
+
+    //     $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+
+    //     $canvas->page_text(
+    //         $width / 3,
+    //         $height / 2,
+    //         $doc->status,
+    //         null,
+    //         60,
+    //         [0, 0, 0],
+    //         2,
+    //         6,
+    //         -20
+    //     );
+    //     return $pdf->stream('Market-Audit_Trail' . $id . '.pdf');
+    // }
+
+    public function pdf($id){
+            $doc = ClinicalSite::find($id);
+            $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+        $data = ClinicalSiteAudittrail::where('clinical_id', $doc->id)->orderByDesc('id')->paginate();
+        $pdf = App::make('dompdf.wrapper');
+        $time = Carbon::now();
+        $pdf = PDF::loadview('frontend.ctms.clinicalsite.clinicalsite_audit_trail_pdf', compact('data', 'doc'))
+            ->setOptions([
+                'defaultFont' => 'sans-serif',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isPhpEnabled' => true,
+            ]);
+        $pdf->setPaper('A4');
+        $pdf->render();
+        $canvas = $pdf->getDomPDF()->getCanvas();
+        $height = $canvas->get_height();
+        $width = $canvas->get_width();
+
+        $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+
+        $canvas->page_text(
+            $width / 3,
+            $height / 2,
+            $doc->status,
+            null,
+            60,
+            [0, 0, 0],
+            2,
+            6,
+            -20
+        );
+        return $pdf->stream('Market-Audit_Trail' . $id . '.pdf');
+    }
+
+    }
+
+

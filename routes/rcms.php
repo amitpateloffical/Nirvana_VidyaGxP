@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ctms\ClinicalSiteController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CCController;
@@ -176,7 +177,10 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
 
-             
+            //  Route::get('clinetauditTrailPdf/{id}', [ClinicalSiteController::class, 'auditTrailPdf'])->name('clinicalsiteTrailPdf');
+            Route::get('pdf/{id}',[ClinicalSiteController::class, 'pdf']);
+            Route::get('pdf-report/{id}', [ClinicalSiteController::class, 'singleReport']);
+
 
         }
     );
