@@ -27,7 +27,7 @@ $users = DB::table('users')
         .sub-main-head {
         display: flex;
         justify-content: space-evenly;
-    } 
+    }
 
     .Activity-type {
         margin-bottom: 7px;
@@ -166,7 +166,7 @@ $users = DB::table('users')
             $('#ObservationAdd').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
@@ -179,8 +179,8 @@ $users = DB::table('users')
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -193,28 +193,28 @@ $users = DB::table('users')
             });
         });
     </script>
-    
+
 <script>
         $(document).ready(function() {
             $('#ReferenceDocument').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
                         '<td><input type="text" name="Number[]"></td>'+
                         '<td><input type="text" name="ReferenceDocumentName[]"></td>'+
                         '<td><input type="text" name="Remarks[]"></td>'+
-                        
+
                         '</tr>';
 
                     for (var i = 0; i < users.length; i++) {
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -232,7 +232,7 @@ $users = DB::table('users')
             $('#ProductDetails').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var users = @json($users);
-                    
+
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
@@ -245,8 +245,8 @@ $users = DB::table('users')
                         html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     }
 
-                    html += '</select></td>' + 
-                  
+                    html += '</select></td>' +
+
                         '</tr>';
 
                     return html;
@@ -278,7 +278,7 @@ $users = DB::table('users')
         <div class="container-fluid">
 
             <div class="inner-block state-block">
-                <div class="d-flex justify-content-between align-items-center"> 
+                <div class="d-flex justify-content-between align-items-center">
                     <div class="main-head">Record Workflow </div>
 
                     <div class="d-flex" style="gap:20px;">
@@ -353,7 +353,7 @@ $users = DB::table('users')
                                 <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                     CFT Review Complete
                                 </button>
-                            @endif 
+                            @endif
                         @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
                                 Send to Initiator
@@ -377,7 +377,7 @@ $users = DB::table('users')
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 Approved
                             </button>
-                        @endif 
+                        @endif
                         <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
                             </a> </button>
 
@@ -460,7 +460,7 @@ $users = DB::table('users')
 
             <form  action="{{ route('deviationupdate', $data->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
-                
+
                 <div id="step-form">
 
                     <!-- General information content -->
@@ -476,7 +476,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
                                         <input disabled type="text" name="record_number"
-                                        value="{{ Helpers::getDivisionName($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ $data->record }}"> 
+                                        value="{{ Helpers::getDivisionName($data->division_id) }}/DEV/{{ Helpers::year($data->created_at) }}/{{ $data->record }}">
                                         {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
                                     </div>
                                 </div>
@@ -497,7 +497,7 @@ $users = DB::table('users')
 
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-6">
                                     <div class="group-input ">
                                         <label for="Date Due"><b>Date of Initiation</b></label>
@@ -516,13 +516,13 @@ $users = DB::table('users')
                                                 <option {{ $data->assign_to == $value->id ? 'selected' : '' }}
                                                     value="{{ $value->id }}">{{ $value->name }}</option>
                                             @endforeach
-                                        </select> 
-                                     
+                                        </select>
+
                                             <p class="text-danger"></p>
-                                      
+
                                     </div>
                                 </div> --}}
-                                
+
                                 <div class="col-lg-12 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Date Due">Due Date</label>
@@ -607,14 +607,14 @@ $users = DB::table('users')
 
                                     </div>
                                 </div>
-                            
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
                                             class="text-danger">*</span></label><span id="rchars">255</span>characters remaining
                                     <textarea name="short_description"   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->short_description }}</textarea>
                                  </div>
-                                </div>  
+                                </div>
                                 <div class="col-lg-6 new-date-data-field ">
                                     <div class="group-input input-date">
                                         <label for="Short Description required">Nature of Repeat?</label>
@@ -652,7 +652,7 @@ $users = DB::table('users')
                                             data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}" @if (in_array($user->id, explode(',', $data->Facility))) selected @endif>{{ $user->name }}</option>
-                                            @endforeach                                           
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div> --}}
@@ -704,7 +704,7 @@ $users = DB::table('users')
                                         <label for="others">Others</label>
                                         <input type="text" id="others" name="others">
                                     </div>
-                                </div> 
+                                </div>
                                <div>  --}}
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -716,10 +716,10 @@ $users = DB::table('users')
                                         <select multiple name="Facility[]" placeholder="Select Facility Name" data-search="false" data-silent-initial-value-set="true" id="Facility">
                                             @foreach ($users as $user)
                                                 <option {{ in_array($user->id, $selectedFacilities) ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
-                                            @endforeach                                           
+                                            @endforeach
                                         </select>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Initiator Group">Deviation Reported On</label>
@@ -727,8 +727,8 @@ $users = DB::table('users')
                                         <input type="date"id="Deviation_reported_date" name="Deviation_reported_date" value="{{ $data->Deviation_reported_date }}" >
                                     </div>
                                 </div>
-                                
-                             
+
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="audit type">Deviation Related To </label>
@@ -761,7 +761,7 @@ $users = DB::table('users')
                                         </select>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="others">Others </label>
@@ -769,7 +769,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
 
-                                
+
                                 <div class="group-input">
                                         <label for="audit-agenda-grid">
                                             Facility/ Equipment/ Instrument/ System Details
@@ -789,7 +789,7 @@ $users = DB::table('users')
                                                         <th style="width: 5%">Row#</th>
                                                         <th style="width: 12%">Name</th>
                                                         <th style="width: 16%"> ID Number</th>
-                                                         <th style="width: 15%">Remarks</th>                                                  
+                                                         <th style="width: 15%">Remarks</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -820,10 +820,10 @@ $users = DB::table('users')
                                                     <tr>
                                                         <th style="width: 4%">Row#</th>
                                                         <th style="width: 12%">Number</th>
-                                                        
+
                                                         <th style="width: 16%"> Reference Document Name</th>
                                                         <th style="width: 16%"> Remarks</th>
-                                                                                                         
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -831,24 +831,24 @@ $users = DB::table('users')
                                         <td><input type="text" name="Number[]"></td>
                                         <td><input type="text" name="ReferenceDocumentName[]"></td>
                                         <td><input type="text" name="Remarks[]"></td>
-                                                  
-                                              
+
+
                                                 </tbody>
 
                                             </table>
                                         </div>
                                     </div>
-                                  
+
                                 <div class="col-lg-12">
                                     <div class="group-input" id="external_agencies_req">
                                         <label for="others">Name of Product & Batch No<span class="text-danger d-none">*</span></label>
                                         <input type="text" value="{{$data->Product_Batch}}" name="Product_Batch">
-                                        
+
                                             <!-- <p class="text-danger">this field is required</p> -->
-                                    
+
                                     </div>
                       </div>
-                               
+
                                 {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="Description Deviation">Description of Deviation</label>
@@ -883,7 +883,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Immediate_Action[]" id="summernote-2">{{ $data->Immediate_Action }}</textarea>
                                     </div>
                                 </div>
-                               
+
                                 {{-- <div class="col-6">
                                 <div class="group-input">
                                         <label for="Initial Comments">Preliminary Impact of Deviation</label>
@@ -897,7 +897,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Preliminary_Impact[]" id="summernote-3">{{ $data->Preliminary_Impact }}</textarea>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="button-block">
                                 <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
@@ -911,13 +911,13 @@ $users = DB::table('users')
                     <div id="CCForm8" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                
 
-                                
-                                
+
+
+
                                 {{-- <div class="group-input">
                                         <label for="audit-agenda-grid">
-                                       Product Details 
+                                       Product Details
                                             <button type="button" name="audit-agenda-grid"
                                                 id="ProductDetails">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
@@ -933,10 +933,10 @@ $users = DB::table('users')
                                                     <tr>
                                                     <th style="width: 4%">Row#</th>
                                                         <th style="width: 12%"> Product Name</th>
-                                                        
+
                                                         <th style="width: 16%"> Batch No</th>
                                                         <th style="width: 16%"> Remarks</th>
-                                                                                                         
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -944,15 +944,15 @@ $users = DB::table('users')
                                               <td><input type="text" name="Product_Name[]"></td>
                                                     <td><input type="text" name=" Batch_No[]"></td>
                                                     <td><input type="text" name="Remarks[]"></td>
-                       
-                                                  
-                                              
+
+
+
                                                 </tbody>
 
                                             </table>
                                         </div>
                                     </div> --}}
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="HOD Remarks">HOD Remarks</label>
@@ -985,8 +985,8 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div>
-                                
-                               
+
+
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -1007,7 +1007,7 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data->Deviation_category == 'minor') selected @endif
                                              value="minor">Minor</option>
-                                            <option  @if ($data->Deviation_category == 'major') selected @endif 
+                                            <option  @if ($data->Deviation_category == 'major') selected @endif
                                             value="major">Major</option>
                                             <option @if ($data->Deviation_category == 'critical') selected @endif
                                             value="critical">Critical</option>
@@ -1029,7 +1029,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Justification_for_categorization" id="summernote-5">{{ $data->Justification_for_categorization }}</textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Investigation required">Investigation  Required ?</label>
@@ -1037,17 +1037,17 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data->Investigation_required == 'yes') selected @endif
                                              value="yes">Yes</option>
-                                            <option  @if ($data->Investigation_required == 'no') selected @endif 
+                                            <option  @if ($data->Investigation_required == 'no') selected @endif
                                             value="no">No</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
 
                                 {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name">Investigation Details </label>
-                                        <textarea name="Investigation_Details" value="Investigation_Details" id="" cols="30" ></textarea>                
+                                        <textarea name="Investigation_Details" value="Investigation_Details" id="" cols="30" ></textarea>
                                     </div>
                                 </div> --}}
                                 <div class="col-md-12">
@@ -1065,12 +1065,12 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option  @if ($data->Customer_notification == 'yes') selected @endif
                                              value="yes">Yes</option>
-                                            <option  @if ($data->Customer_notification == 'no') selected @endif 
+                                            <option  @if ($data->Customer_notification == 'no') selected @endif
                                             value="no">No</option>
-                                            <option  @if ($data->Customer_notification == 'na') selected @endif 
+                                            <option  @if ($data->Customer_notification == 'na') selected @endif
                                                 value="na">Na</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-5">
@@ -1107,13 +1107,13 @@ $users = DB::table('users')
                                                     <option value="{{ $prix->id }}">
                                                         {{ Helpers::getDivisionName($prix->division_id) }}/Deviation/{{ Helpers::year($prix->created_at) }}/{{ Helpers::record($prix->record) }}
                                                     </option>
-                                                @endforeach                                         
+                                                @endforeach
                                             </select>
                                         </div>
                                 </div>
 
                                 {{-- <div class="col-12">
-                                    <div class="group-input"> 
+                                    <div class="group-input">
                                         <label for="related_records">Related Records</label>
 
                                         <select multiple name="related_records[]" placeholder="Select Reference Records"
@@ -1220,7 +1220,7 @@ $users = DB::table('users')
                                     $('.error-message').hide();
                                 }
                             });
-                    
+
                             // Event listener for Investigation_Details field
                             $('.Investigation_Details').blur(function () {
                                 // Check if the field is empty and required
@@ -1232,7 +1232,7 @@ $users = DB::table('users')
                                     $('.error-message').hide();
                                 }
                             });
-                    
+
                             // Initial check when page loads
                             if ($('#Investigation_required').val() === 'yes') {
                                 $('.Investigation_Details').prop('required', true);
@@ -1253,7 +1253,7 @@ $users = DB::table('users')
                                     $('.error-message').hide();
                                 }
                             });
-                    
+
                             // Event listener for Investigation_Details field
                             $('#customers').blur(function () {
                                 // Check if the field is empty and required
@@ -1265,14 +1265,14 @@ $users = DB::table('users')
                                     $('.error-message').hide();
                                 }
                             });
-                    
+
                             // Initial check when page loads
                             if ($('#Customer_notification').val() === 'yes') {
                                 $('#customers').prop('required', true);
                             }
                         });
                     </script> --}}
-                    
+
                     <!-- CFT -->
                     {{-- @php
                     $deviationsCFTs = DB::table('deviationcfts')->where('deviation_id', $id)->first();
@@ -1293,12 +1293,12 @@ $users = DB::table('users')
                                             <option value="">-- Select --</option>
                                             <option @if ($data1->Production_Review == 'yes') selected @endif
                                              value="yes">Yes</option>
-                                            <option  @if ($data1->Production_Review == 'no') selected @endif 
+                                            <option  @if ($data1->Production_Review == 'no') selected @endif
                                             value="no">No</option>
-                                            <option  @if ($data1->Production_Review == 'na') selected @endif 
+                                            <option  @if ($data1->Production_Review == 'na') selected @endif
                                                 value="na">NA</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -1316,7 +1316,7 @@ $users = DB::table('users')
                                             @endforeach
                                         </select>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Production assessment">Impact Assessment (By Production)</label>
@@ -1361,7 +1361,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Production Review Completed By">Production Review Completed By</label>
                                         <input type="text" name="production_by" id="production_by" value={{ $data1->Production_by }} disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1381,13 +1381,13 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Warehouse_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Warehouse_review == 'no') selected @endif 
+                                               <option  @if ($data1->Warehouse_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Warehouse_review == 'na') selected @endif 
+                                               <option  @if ($data1->Warehouse_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -1405,7 +1405,7 @@ $users = DB::table('users')
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -1453,7 +1453,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Warehouse Review Completed By">Warehouse Review Completed By</label>
                                         <input type="text" name="Warehouse_by" id="Warehouse_by" value={{ $data1->Warehouse_by }} disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1473,13 +1473,13 @@ $users = DB::table('users')
                                             <option value="">-- Select --</option>
                                             <option @if ($data1->Quality_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Quality_review == 'no') selected @endif 
+                                               <option  @if ($data1->Quality_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Quality_review == 'na') selected @endif 
+                                               <option  @if ($data1->Quality_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -1498,7 +1498,7 @@ $users = DB::table('users')
                                             @endforeach
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -1546,7 +1546,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Quality Control Review Completed By">Quality Control Review Completed By</label>
                                         <input type="text" name="Quality_Control_by" id="Quality_Control_by" value="{{ $data1->Quality_Control_by }}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1565,9 +1565,9 @@ $users = DB::table('users')
                                         <select name="Quality_Assurance_Review" id="Quality_Assurance_Review">
                                             <option @if ($data1->Quality_Assurance_Review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Quality_Assurance_Review == 'no') selected @endif 
+                                               <option  @if ($data1->Quality_Assurance_Review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Quality_Assurance_Review == 'na') selected @endif 
+                                               <option  @if ($data1->Quality_Assurance_Review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
                                     </div>
@@ -1596,7 +1596,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="QualityAssurance_assessment" id="summernote-23">{{ $data1->QualityAssurance_assessment }}
                                     </textarea>
                                     </div>
-                                </div>   
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Quality Assurance Feedback">Quality Assurance Feedback</label>
@@ -1648,7 +1648,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Quality Assurance Review Completed By">Quality Assurance Review Completed By</label>
                                         <input type="text" name="QualityAssurance_by" id="QualityAssurance_by" value="{{$data1->QualityAssurance_by}}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1668,12 +1668,12 @@ $users = DB::table('users')
                                             <option value="">-- Select --</option>
                                             <option @if ($data1->Engineering_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Engineering_review == 'no') selected @endif 
+                                               <option  @if ($data1->Engineering_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Engineering_review == 'na') selected @endif 
+                                               <option  @if ($data1->Engineering_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -1700,7 +1700,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Engineering_assessment" id="summernote-25" >{{$data1->Engineering_assessment}}
                                     </textarea>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Engineering Feedback">Engineering  Feedback</label>
@@ -1738,7 +1738,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Engineering Review Completed By">Engineering Review Completed By</label>
                                         <input type="text" name="Engineering_by" id="Engineering_by" value="Engineering_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1758,13 +1758,13 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Analytical_Development_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Analytical_Development_review == 'no') selected @endif 
+                                               <option  @if ($data1->Analytical_Development_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Analytical_Development_review == 'na') selected @endif 
+                                               <option  @if ($data1->Analytical_Development_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -1782,7 +1782,7 @@ $users = DB::table('users')
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -1842,7 +1842,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Analytical Development Laboratory Review Completed By">Analytical Development Laboratory Review Completed By</label>
                                         <input type="text" name="Analytical_Development_by" id="Analytical_Development_by" value="Analytical_Development_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -1862,13 +1862,13 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Kilo_Lab_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Kilo_Lab_review == 'no') selected @endif 
+                                               <option  @if ($data1->Kilo_Lab_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Kilo_Lab_review == 'na') selected @endif 
+                                               <option  @if ($data1->Kilo_Lab_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -1886,7 +1886,7 @@ $users = DB::table('users')
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -1895,7 +1895,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Kilo_Lab_assessment" id="summernote-29">{{$data1->Kilo_Lab_assessment}}
                                     </textarea>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Kilo Lab Feedback"> Process Development Laboratory / Kilo Lab  Feedback</label>
@@ -1946,14 +1946,14 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed By">Process Development Laboratory / Kilo Lab Review Completed By</label>
                                         <input type="text" name="Kilo_Lab_attachment_by" id="Kilo_Lab_attachment_by" value="Kilo_Lab_attachment_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Kilo Lab Review Completed On">Process Development Laboratory / Kilo Lab Review Completed On</label>
                                         <input type="date" id="Kilo_Lab_attachment_on" name="Kilo_Lab_attachment_on" value="{{ $data1->Kilo_Lab_attachment_on }}" >
-                                    
+
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -1966,13 +1966,13 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Technology_transfer_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Technology_transfer_review == 'no') selected @endif 
+                                               <option  @if ($data1->Technology_transfer_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Technology_transfer_review == 'na') selected @endif 
+                                               <option  @if ($data1->Technology_transfer_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -1991,7 +1991,7 @@ $users = DB::table('users')
                                             @endforeach
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2051,7 +2051,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="productionfeedback">Technology Transfer / Design Review Completed By</label>
                                         <input type="text" name="Technology_transfer_by" id="Technology_transfer_by" value="Technology_transfer_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -2070,13 +2070,13 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Environment_Health_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Environment_Health_review == 'no') selected @endif 
+                                               <option  @if ($data1->Environment_Health_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Environment_Health_review == 'na') selected @endif 
+                                               <option  @if ($data1->Environment_Health_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2094,7 +2094,7 @@ $users = DB::table('users')
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2140,14 +2140,14 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Safety Review Completed By">Environment, Health & Safety Review Completed By</label>
                                         <input type="text" name="Environment_Health_Safety_by" id="Environment_Health_Safety_by" value="Environment_Health_Safety_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Safety Review Completed On">Environment, Health & Safety Review Completed On</label>
                                         <input type="date" id="Environment_Health_Safety_on" name="Environment_Health_Safety_on" value="{{ $data1->Environment_Health_Safety_on }}">
-                                    
+
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -2160,12 +2160,12 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Human_Resource_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Human_Resource_review == 'no') selected @endif 
+                                               <option  @if ($data1->Human_Resource_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Human_Resource_review == 'na') selected @endif 
+                                               <option  @if ($data1->Human_Resource_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2183,7 +2183,7 @@ $users = DB::table('users')
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2192,7 +2192,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Human_Resource_assessment" id="summernote-35">{{$data1->Human_Resource_assessment}}
                                     </textarea>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="productionfeedback">Human Resource & Administration  Feedback</label>
@@ -2200,7 +2200,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Human Resource & Administration Attachments</label>
@@ -2230,14 +2230,14 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Administration Review Completed By"> Human Resource & Administration Review Completed By</label>
                                         <input type="text" name="Human_Resource_by" id="Human_Resource_by" value="Human_Resource_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Administration Review Completed On"> Human Resource & Administration Review Completed On</label>
                                         <input type="date" id="Environment_Health_Safety_on" name="Environment_Health_Safety_on" value="{{ $data1->Environment_Health_Safety_on }}">
-                                    
+
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -2250,14 +2250,14 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Information_Technology_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Information_Technology_review == 'no') selected @endif 
+                                               <option  @if ($data1->Information_Technology_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Information_Technology_review == 'na') selected @endif 
+                                               <option  @if ($data1->Information_Technology_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2275,7 +2275,7 @@ $users = DB::table('users')
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2284,7 +2284,7 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Information_Technology_assessment" id="summernote-37">{{$data1->Information_Technology_assessment}}
                                     </textarea>
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="col-md-12 mb-3">
                                     <div class="group-input">
                                         <label for="Information Technology Feedback">Information Technology Feedback</label>
@@ -2292,7 +2292,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Information Technology Attachments</label>
@@ -2341,9 +2341,9 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Project_management_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Project_management_review == 'no') selected @endif 
+                                               <option  @if ($data1->Project_management_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Project_management_review == 'na') selected @endif 
+                                               <option  @if ($data1->Project_management_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
                                     </div>
@@ -2362,7 +2362,7 @@ $users = DB::table('users')
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2379,7 +2379,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Project management Attachments</label>
@@ -2409,7 +2409,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Project management Review Completed By"> Project management Review Completed By</label>
                                         <input type="text" name="Project_management_by" id="Project_management_by" value="Project_management_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -2417,7 +2417,7 @@ $users = DB::table('users')
                                         <label for="Project management Review Completed On">Project management Review Completed On</label>
                                         <input type="date" name="Project_management_on" id="Project_management_on" value={{$data1->Project_management_on}} >
 
-                                    
+
                                     </div>
                                 </div>
                                 <div class="sub-head">
@@ -2430,13 +2430,13 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other1_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other1_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other1_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other1_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other1_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2455,7 +2455,7 @@ $users = DB::table('users')
                                             @endforeach
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -2465,28 +2465,28 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data->Other1_Department_person == 'Production') selected @endif
                                                 value="Production">Production</option>
-                                            <option  @if ($data->Other1_Department_person == 'Warehouse') selected @endif 
+                                            <option  @if ($data->Other1_Department_person == 'Warehouse') selected @endif
                                                value="Warehouse"> Warehouse</option>
-                                            <option  @if ($data->Other1_Department_person == 'Quality_Control') selected @endif 
-                                                value="Quality_Control">Quality Control</option>  
+                                            <option  @if ($data->Other1_Department_person == 'Quality_Control') selected @endif
+                                                value="Quality_Control">Quality Control</option>
                                                 <option @if ($data->Other1_Department_person == 'Quality_Assurance') selected @endif
                                                     value="Quality_Assurance">Quality Assurance</option>
-                                                <option  @if ($data->Other1_Department_person == 'Engineering') selected @endif 
+                                                <option  @if ($data->Other1_Department_person == 'Engineering') selected @endif
                                                    value="Engineering">Engineering</option>
-                                                <option  @if ($data->Other1_Department_person == 'Analytical_Development_Laboratory') selected @endif 
-                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option> 
+                                                <option  @if ($data->Other1_Department_person == 'Analytical_Development_Laboratory') selected @endif
+                                                    value="Analytical_Development_Laboratory">Analytical Development Laboratory</option>
                                                     <option @if ($data->Other1_Department_person == 'Process_Development_Lab') selected @endif
                                                         value="Process_Development_Lab">Process Development Laboratory / Kilo Lab</option>
-                                                    <option  @if ($data->Other1_Department_person == 'Technology transfer/Design') selected @endif 
+                                                    <option  @if ($data->Other1_Department_person == 'Technology transfer/Design') selected @endif
                                                        value="Technology transfer/Design"> Technology Transfer/Design</option>
-                                                    <option  @if ($data->Other1_Department_person == 'Environment, Health & Safety') selected @endif 
-                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>   
+                                                    <option  @if ($data->Other1_Department_person == 'Environment, Health & Safety') selected @endif
+                                                        value="Environment, Health & Safety">Environment, Health & Safety</option>
                                                         <option @if ($data->Other1_Department_person == 'Human Resource & Administration') selected @endif
                                                             value="Human Resource & Administration">Human Resource & Administration</option>
-                                                        <option  @if ($data->Other1_Department_person == 'Information Technology') selected @endif 
+                                                        <option  @if ($data->Other1_Department_person == 'Information Technology') selected @endif
                                                            value="Information Technology">Information Technology</option>
-                                                        <option  @if ($data->Other1_Department_person == 'Project management') selected @endif 
-                                                            value="Project management">Project management</option>  
+                                                        <option  @if ($data->Other1_Department_person == 'Project management') selected @endif
+                                                            value="Project management">Project management</option>
 
                                             {{-- <option value="Production">Production</option>
                                             <option value="Warehouse">Warehouse</option>
@@ -2500,11 +2500,11 @@ $users = DB::table('users')
                                             {{-- <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Project management">Project management</option> --}}
-                                            
+
 
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2550,14 +2550,14 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Review Completed By1"> Other's 1 Review Completed By</label>
                                         <input type="text" name="Other1_by" id="Other1_by" value="Other1_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On1">Other's 1 Review Completed On</label>
                                         <input type="date" name="Other1_on" id="Other1_on" value={{$data1->Other1_on}}  disabled>
-                                    
+
                                     </div>
                                 </div>
 
@@ -2571,12 +2571,12 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other2_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other2_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other2_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other2_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other2_review == 'na') selected @endif
                                                    value="na">NA</option>
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2594,7 +2594,7 @@ $users = DB::table('users')
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -2614,9 +2614,9 @@ $users = DB::table('users')
                                             <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Project management">Project management</option>
-                                        
+
                                         </select>
-                                  
+
                                     </div>
                                 </div>
 
@@ -2663,7 +2663,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Review Completed By2"> Other's 2 Review Completed By</label>
                                         <input type="text" name="Other2_by" id="Other2_by" value="Other2_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -2683,14 +2683,14 @@ $users = DB::table('users')
                                                 <option value="0">-- Select --</option>
                                                 <option @if ($data1->Other3_review == 'yes') selected @endif
                                                     value="yes">Yes</option>
-                                                   <option  @if ($data1->Other3_review == 'no') selected @endif 
+                                                   <option  @if ($data1->Other3_review == 'no') selected @endif
                                                    value="no">No</option>
-                                                   <option  @if ($data1->Other3_review == 'na') selected @endif 
+                                                   <option  @if ($data1->Other3_review == 'na') selected @endif
                                                        value="na">NA</option>
                                             </select>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2709,7 +2709,7 @@ $users = DB::table('users')
                                             @endforeach
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -2729,11 +2729,11 @@ $users = DB::table('users')
                                             <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Project management">Project management</option>
-                                            
+
 
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2779,7 +2779,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="productionfeedback"> Other's 3 Review Completed By</label>
                                         <input type="text" name="Other3_by" id="Other3_by" value="{{ $data1->Other3_by }}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -2798,13 +2798,13 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other4_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other4_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other4_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other4_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other4_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2822,7 +2822,7 @@ $users = DB::table('users')
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -2842,11 +2842,11 @@ $users = DB::table('users')
                                             <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Project management">Project management</option>
-                                            
+
 
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2892,14 +2892,14 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Review Completed By4"> Other's 4 Review Completed By</label>
                                         <input type="text" name="Other4_by" id="Other4_by" value="{{$data1->Other4_by}}" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <div class="group-input">
                                         <label for="Review Completed On4">Other's 4 Review Completed On</label>
                                         <input type="date" name="Other4_on" id="Other4_on" value="{{$data1->Other4_on}}">
-                                    
+
                                     </div>
                                 </div>
 
@@ -2915,13 +2915,13 @@ $users = DB::table('users')
                                             <option value="0">-- Select --</option>
                                             <option @if ($data1->Other5_review == 'yes') selected @endif
                                                 value="yes">Yes</option>
-                                               <option  @if ($data1->Other5_review == 'no') selected @endif 
+                                               <option  @if ($data1->Other5_review == 'no') selected @endif
                                                value="no">No</option>
-                                               <option  @if ($data1->Other5_review == 'na') selected @endif 
+                                               <option  @if ($data1->Other5_review == 'na') selected @endif
                                                    value="na">NA</option>
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 @php
@@ -2939,7 +2939,7 @@ $users = DB::table('users')
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -2959,11 +2959,11 @@ $users = DB::table('users')
                                             <option value="Human Resource & Administration">Human Resource & Administration</option>
                                             <option value="Information Technology">Information Technology</option>
                                             <option value="Project management">Project management</option>
-                                            
+
 
 
                                         </select>
-                                  
+
                                     </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
@@ -2980,7 +2980,7 @@ $users = DB::table('users')
                                     </textarea>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Audit Attachments">Other's 5 Attachments</label>
@@ -3010,7 +3010,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Review Completed By5"> Other's 5 Review Completed By</label>
                                         <input type="text" name="Other5_by" id="Other5_by" value="Other5_by" disabled>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -3019,9 +3019,9 @@ $users = DB::table('users')
                                         <input type="date" name="Other5_on" id="Other5_on" value="{{$data1->Other5_on}}">
                                     </div>
                                 </div>
-                                
-                                
- 
+
+
+
                             </div>
                             <div class="button-block">
                                 <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
@@ -3075,8 +3075,8 @@ $users = DB::table('users')
                                         <textarea class="summernote" name="Root_cause" id="summernote-10">{{ $data->Root_cause }}</textarea>
                                     </div>
                                 </div>
-                                
-                                
+
+
                                 <div class="col-6">
                                     <div class="group-input">
                                         <label for="CAPA Rquired">CAPA Required ? </label>
@@ -3084,7 +3084,7 @@ $users = DB::table('users')
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->CAPA_Rquired == 'yes') selected @endif
                                             value="yes">Yes</option>
-                                        <option  @if ($data->CAPA_Rquired == 'no') selected @endif 
+                                        <option  @if ($data->CAPA_Rquired == 'no') selected @endif
                                            value="no">No</option>
                                       </select>
                                     </div>
@@ -3096,10 +3096,10 @@ $users = DB::table('users')
                                         <option value="0"> -- Select --</option>
                                         <option @if ($data->capa_type == 'Corrective_Action') selected @endif
                                             value="Corrective_Action">Corrective Action</option>
-                                        <option  @if ($data->capa_type == 'Preventive_Action') selected @endif 
+                                        <option  @if ($data->capa_type == 'Preventive_Action') selected @endif
                                            value="Preventive_Action"> Preventive Action</option>
-                                        <option  @if ($data->capa_type == 'Corrective&Preventive') selected @endif 
-                                            value="Corrective&Preventive">Corrective & Preventive Action both</option>   
+                                        <option  @if ($data->capa_type == 'Corrective&Preventive') selected @endif
+                                            value="Corrective&Preventive">Corrective & Preventive Action both</option>
                                       </select>
                                     </div>
                                 </div>
@@ -3130,9 +3130,9 @@ $users = DB::table('users')
                                         <option value=""> -- Select --</option>
                                         <option @if ($data->Post_Categorization == 'major') selected @endif
                                             value="major">Major</option>
-                                        <option  @if ($data->Post_Categorization == 'minor') selected @endif 
+                                        <option  @if ($data->Post_Categorization == 'minor') selected @endif
                                            value="minor">Minor</option>
-                                           <option  @if ($data->Post_Categorization == 'critical') selected @endif 
+                                           <option  @if ($data->Post_Categorization == 'critical') selected @endif
                                             value="critical">Critical</option>
                                       </select>
                                     </div>
@@ -3155,10 +3155,10 @@ $users = DB::table('users')
                                         <label for="Investigatiom Attachment">Investigatiom Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
-                                            
-                                            
+
+
                                             </div>
-                                       
+
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="file_attachment"></div>
                                             <div class="add-btn">
@@ -3200,10 +3200,10 @@ $users = DB::table('users')
                                         <label for="capa_Attachments">CAPA Attachment </label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small>
-                                            
-                                            
+
+
                                             </div>
-                                       
+
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="file_attachment"></div>
                                             <div class="add-btn">
@@ -3214,7 +3214,7 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div> --}}
-                            
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="capa_Attachments">CAPA Attachment</label>
@@ -3255,8 +3255,8 @@ $users = DB::table('users')
                     <div id="CCForm4" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                
-                                
+
+
                             {{-- <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA Feedbacks">QA Feedbacks</label>
@@ -3285,7 +3285,7 @@ $users = DB::table('users')
                                         </div>
                                     </div>
                                 </div> --}}
-                                
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="QA attachments">QA Attachments</label>
@@ -3327,14 +3327,14 @@ $users = DB::table('users')
                     <div id="CCForm5" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
-                                
+
                                 {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="Remarks">Closure Comments</label>
                                         <textarea class="summernote" name="Closure_Comments" value="Closure_Comments"></textarea>
                                     </div>
                                 </div> --}}
-                                
+
                                 <div class="col-md-12">
                                     <div class="group-input">
                                         <label for="Closure Comments">Closure Comments</label>
@@ -3343,7 +3343,7 @@ $users = DB::table('users')
                                     </div>
                                 </div>
 
-                                
+
                                 {{-- <div class="col-6">
                                     <div class="group-input">
                                         <label for="Audit Comments">Disposition of Batch</label>
@@ -3361,8 +3361,8 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="QAH assessment ">Closure Attachments</label>
                                         <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small>                                        
-                                            </div>                                   
+                                                documents</small>
+                                            </div>
                                         <div class="file-attachment-field">
                                             <div class="file-attachment-list" id="file_attachment"></div>
                                             <div class="add-btn">
@@ -3431,10 +3431,10 @@ $users = DB::table('users')
                                 <div class="col-lg-6">
                                 <div class="group-input" style="width:1620px; height:100px; line-height:3em; overflow:scroll; `padding:5px;">
                                     <label for="submit comment">Submit Comments :-</label>
-                                    <div class="">{{ $data->submit_comment }}</div> 
-                                </div>    
+                                    <div class="">{{ $data->submit_comment }}</div>
                                 </div>
-                                    
+                                </div>
+
                                 <div class="sub-head">HOD Review Completed</div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -3454,7 +3454,7 @@ $users = DB::table('users')
                                         <div class="">{{ $data->HOD_Review_Comments }}</div>
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="sub-head">QA Initial Review Completed</div>
                                 <div class="col-lg-6">
@@ -3533,11 +3533,11 @@ $users = DB::table('users')
                                         <div class="">{{ $data->Approved_Comments }}</div>
                                     </div>
                                 </div>
-                                
-                                
-                                
-                               
-                                
+
+
+
+
+
 
                             </div>
                             <div class="button-block">
@@ -3576,56 +3576,56 @@ $users = DB::table('users')
 
                 <div class="Activity-type">
                     <label style="font-weight: bold;" for="">Customer ID :</label>
-                    
+
                     <input type="text">
                 </div>
                 <div class="Activity-type ">
                     <label style="font-weight: bold;     margin-left: 30px;" for=""> Email ID :</label>
-                    
+
                     <input type="text">
                 </div>
                 <div class="Activity-type ">
                     <label style="font-weight: bold;     margin-left: -20px;" for=""> Customer Type :</label>
-                
+
                     <input type="text">
                 </div>
                 <div class="Activity-type ">
                     <label style="font-weight: bold;     margin-left: 42px;" for=""> Status :</label>
-                    
+
                     <input type="text">
                 </div>
             </div>
 
 
             <div class="right-box">
-                
+
                 <div class="Activity-type">
                     <label style="font-weight: bold; " for="">Customer Name :</label>
-                    
+
                     <input type="text">
-                    
+
                 </div>
-                
+
                 <div class="Activity-type">
                     <label style="font-weight: bold;  margin-left: 36px;" for="">Contact No :</label>
-                    
+
                     <input type="text">
-                    
+
                 </div>
                 <div class="Activity-type">
                     <label style="font-weight: bold;     margin-left: 57px;" for="">Industry :</label>
-                    
+
                     <input type="text">
-                    
+
                 </div>
                 <div class="Activity-type">
                     <label style="font-weight: bold;     margin-left: 66px; " for="">Region :</label>
-                    
+
                     <input type="text">
-                    
+
                 </div>
             </div>
-            
+
             </div>
             </div>
             <div class="Activity-type">
@@ -3689,7 +3689,7 @@ $users = DB::table('users')
     $(document).ready(function(){
         $('#customerForm').submit(function(e){
             e.preventDefault(); // Prevent default form submission
-            
+
             // Create data object from form fields
             var formData = {
                 customer_id: $('#customer_id').val(),
@@ -3717,7 +3717,7 @@ $users = DB::table('users')
 </script> --}}
 
 <!-- -----------------------------------------------------end---------------------- -->
-   
+
     <style>
         #step-form>div {
             display: none
@@ -3883,7 +3883,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const addRowButton = document.getElementById('new-button-icon');
     addRowButton.addEventListener('click', function() {
         const department = this.parentNode.innerText.trim(); // Get the department name
-            
+
         // Create a new row and insert it after the current row
         const newRow = document.createElement('tr');
         newRow.innerHTML = `<td style="background: #e1d8d8">${department}</td>
@@ -3892,7 +3892,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <td><textarea name="Comments"></textarea></td>
                             <td><textarea name="sign&date"></textarea></td>
                             <td><textarea name="Remarks"></textarea></td>`;
-                
+
         // Insert the new row after the current row
         const currentRow = this.parentNode.parentNode;
         currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
@@ -3941,7 +3941,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="modal fade" id="child-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Child</h4>
@@ -3964,7 +3964,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         Extension
                                 </label>
                             @endif
-                            
+
                             @if ($data->stage == 5)
                                 <label for="major">
                                     <input type="radio" name="child_type" id="major"
@@ -3979,23 +3979,23 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </label>
                             @endif
                         </div>
-    
+
                     </div>
-    
+
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" data-bs-dismiss="modal">Close</button>
                         <button type="submit">Continue</button>
                     </div>
                 </form>
-    
+
             </div>
         </div>
     </div>
     {{-- <div class="modal fade" id="child-modal1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">Child</h4>
@@ -4017,30 +4017,30 @@ document.addEventListener('DOMContentLoaded', function() {
                                     Extension
                             </label>
                         </div>
-    
+
                     </div>
-    
+
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" data-bs-dismiss="modal">Close</button>
                         <button type="submit">Continue</button>
                     </div>
                 </form>
-    
+
             </div>
         </div>
     </div> --}}
-    
+
     <div class="modal fade" id="more-info-required-modal">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-    
+            <div class="modal-content">
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ route('deviation_reject', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -4063,7 +4063,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -4077,17 +4077,17 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </div>
-    
+
     <div class="modal fade" id="cancel-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ route('deviationCancel', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -4110,7 +4110,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -4125,17 +4125,17 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 
-    
+
     <div class="modal fade" id="deviationIsCFTRequired">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-    
+            <div class="modal-content">
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ url('deviationIsCFTRequired', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -4158,7 +4158,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -4174,14 +4174,14 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="modal fade" id="sendToInitiator">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-    
+            <div class="modal-content">
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ route('check', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -4204,7 +4204,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -4220,14 +4220,14 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="modal fade" id="hodsend">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-    
+            <div class="modal-content">
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ route('check2', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -4250,7 +4250,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -4266,14 +4266,14 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     <div class="modal fade" id="qasend">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content"> 
-    
+            <div class="modal-content">
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-    
+
                 <form action="{{ route('check3', $data->id) }}" method="POST">
                     @csrf
                     <!-- Modal body -->
@@ -4296,7 +4296,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment" required>
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -4315,7 +4315,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="modal fade" id="signature-modal">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
@@ -4343,7 +4343,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment">
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -4360,7 +4360,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="modal fade" id="cft-not-reqired">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
@@ -4388,7 +4388,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment">
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -4405,7 +4405,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="modal fade" id="modal1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-    
+
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">E-Signature</h4>
@@ -4433,7 +4433,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <input type="comment" name="comment">
                         </div>
                     </div>
-    
+
                     <!-- Modal footer -->
                     <!-- <div class="modal-footer">
                         <button type="submit" data-bs-dismiss="modal">Submit</button>
@@ -4447,22 +4447,22 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
     </div>
-    
+
     <style>
         #step-form>div {
             display: none
         }
-    
+
         #step-form>div:nth-child(1) {
             display: block;
         }
     </style>
-    
+
     <script>
         VirtualSelect.init({
             ele: '#Facility, #Group, #Audit, #Auditee ,#capa_related_record'
         });
-    
+
         function openCity(evt, cityName) {
             var i, cctabcontent, cctablinks;
             cctabcontent = document.getElementsByClassName("cctabcontent");
@@ -4476,9 +4476,9 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
         }
-    
-    
-    
+
+
+
         function openCity(evt, cityName) {
             var i, cctabcontent, cctablinks;
             cctabcontent = document.getElementsByClassName("cctabcontent");
@@ -4491,56 +4491,56 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             document.getElementById(cityName).style.display = "block";
             evt.currentTarget.className += " active";
-    
+
             // Find the index of the clicked tab button
             const index = Array.from(cctablinks).findIndex(button => button === evt.currentTarget);
-    
+
             // Update the currentStep to the index of the clicked tab
             currentStep = index;
         }
-    
+
         const saveButtons = document.querySelectorAll(".saveButton");
         const nextButtons = document.querySelectorAll(".nextButton");
         const form = document.getElementById("step-form");
         const stepButtons = document.querySelectorAll(".cctablinks");
         const steps = document.querySelectorAll(".cctabcontent");
         let currentStep = 0;
-    
+
         function nextStep() {
             // Check if there is a next step
             if (currentStep < steps.length - 1) {
                 // Hide current step
                 steps[currentStep].style.display = "none";
-    
+
                 // Show next step
                 steps[currentStep + 1].style.display = "block";
-    
+
                 // Add active class to next button
                 stepButtons[currentStep + 1].classList.add("active");
-    
+
                 // Remove active class from current button
                 stepButtons[currentStep].classList.remove("active");
-    
+
                 // Update current step
                 currentStep++;
             }
         }
-    
+
         function previousStep() {
             // Check if there is a previous step
             if (currentStep > 0) {
                 // Hide current step
                 steps[currentStep].style.display = "none";
-    
+
                 // Show previous step
                 steps[currentStep - 1].style.display = "block";
-    
+
                 // Add active class to previous button
                 stepButtons[currentStep - 1].classList.add("active");
-    
+
                 // Remove active class from current button
                 stepButtons[currentStep].classList.remove("active");
-    
+
                 // Update current step
                 currentStep--;
             }
@@ -4555,12 +4555,12 @@ document.addEventListener('DOMContentLoaded', function() {
          <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const removeButtons = document.querySelectorAll('.remove-file');
-    
+
                 removeButtons.forEach(button => {
                     button.addEventListener('click', function () {
                         const fileName = this.getAttribute('data-file-name');
                         const fileContainer = this.closest('.file-container');
-    
+
                         // Hide the file container
                         if (fileContainer) {
                             fileContainer.style.display = 'none';
@@ -4568,7 +4568,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 });
             });
-        </script> 
+        </script>
         <script>
             var maxLength = 255;
             $('#docname').keyup(function() {

@@ -36,7 +36,7 @@
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Activity Log</button>
             </div>
 
-            <form action="{{ route('managestore') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('resampling_store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div id="step-form">
                     <div id="CCForm1" class="inner-block cctabcontent">
@@ -63,7 +63,9 @@
                                         <label for="Initiator"><b>Initiator</b></label>
                                         {{-- <div class="static">{{ Auth::user()->name }}</div> --}}
                                         {{-- <input disabled type="text" value="{{ Auth::user()->name }}"> --}}
-                                        <input disabled type="text" value="">
+                                    <input readonly type="text" name="initiator_id" value="" />
+
+                                        {{-- <input disabled type="text" value=""> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -196,25 +198,25 @@
                                   <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for=" AR Number"><b>AR Number</b></label>
-                                    <input type="text" name="ar_Number">
+                                    <input type="text" name="ar_Number_GI">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Test Name"><b>Test Name</b></label>
-                                    <input type="text" name="test_Name">
+                                    <input type="text" name="test_Name_GI">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="justification_for_resampling">Justification For Resampling</label>
-                                    <textarea name="justification_for_resampling"></textarea>
+                                    <textarea name="justification_for_resampling_GI"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Description">Predetermined Sampling Strategies</label>
-                                    <textarea name="predetermined_Sampling_Strategies"></textarea>
+                                    <textarea name="predetermined_Sampling_Strategies_GI"></textarea>
                                 </div>
                             </div>
 
@@ -297,9 +299,9 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent)Target Closure Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="start_date_checkdate"  name="parent_target_closure_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')"/>
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate"  name="parent_target_closure_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('end_date_checkdate','end_date_checkdate')"/>
                                     </div>
                                 </div>
                             </div>
@@ -358,11 +360,10 @@
                                     </div>
                                 </div> --}}
 
-
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
-                                            Product/Material Information<button type="button" name="product_material_information[]" id="product_material">+</button>
+                                            Product/Material Information<button type="button" name="product_material_information" id="product_material">+</button>
                                         </label>
                                         <table class="table table-bordered" id="product_material_body">
                                             <thead>
@@ -378,17 +379,18 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+
                                                 <tr>
-                                                    <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="product/material[]"></td>
-                                                    <td><input type="text" name="batch_no.[]"></td>
-                                                    <td><input type="text" name="ar_no[]"></td>
-                                                    <td><input type="text" name="test_name[]"></td>
-                                                    <td><input type="text" name="instrument_name[]"></td>
-                                                    <td><input type="text" name="instrument_no[]"></td>
+                                                    <td><input  type="text" name="serial_number[]" value="1"></td>
+                                                    <td><input type="text" name="product_material_information[0][product_material]"></td>
+                                                    <td><input type="text" name="product_material_information[0][batch_no]"></td>
+                                                    <td><input type="text" name="product_material_information[0][ar_no]"></td>
+                                                    <td><input type="text" name="product_material_information[0][test_name]"></td>
+                                                    <td><input type="text" name="product_material_information[0][instrument_name]"></td>
+                                                    <td><input type="text" name="product_material_information[0][instrument_no]"></td>
                                                     <td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee">
                                                         <input type="text" id="agenda_date0" readonly placeholder="DD-MMM-YYYY" />
-                                                        <input type="date" name="date[]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                        <input type="date" name="product_material_information[0][date]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                         oninput="handleDateInput(this, `agenda_date0`);" /></div></div></div></td>
                                                 </tr>
                                             </tbody>
@@ -412,25 +414,27 @@
                                                     <th>Expiry Date</th>
                                                     <th>Label Claim </th>
                                                     <th>Pack Size </th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            @php
+                                                $serialNumber = 1;
+                                            @endphp
                                                 <tr>
                                                     <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="item_product_code[]"></td>
-                                                    <td><input type="text" name="lot_batch_no.[]"></td>
-                                                    <td><input type="text" name="ar_no[]"></td>
+                                                    <td><input type="text" name="info_on_product_mat[0][item_product_code]"></td>
+                                                    <td><input type="text" name="info_on_product_mat[0][lot_batch_no]"></td>
+                                                    <td><input type="text" name="info_on_product_mat[0][ar_no]"></td>
                                                     <td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee">
                                                         <input type="text" id="agenda_date01" readonly placeholder="DD-MMM-YYYY" />
-                                                        <input type="date" name="date[]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                        <input type="date" name="info_on_product_mat[0][date01]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                         oninput="handleDateInput(this, `agenda_date01`);" /></div></div></div></td>
                                                      <td><div class="group-input new-date-data-field mb-02"><div class="input-date "><div class="calenderauditee">
                                                      <input type="text" id="agenda_date02" readonly placeholder="DD-MMM-YYYY" />
-                                                         <input type="date" name="date[]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                         <input type="date" name="info_on_product_mat[0][date02]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                         oninput="handleDateInput(this, `agenda_date0`);" /></div></div></div></td>
-                                                    <td><input type="text" name="label_claim[]"></td>
-                                                    <td><input type="text" name="pack_size[]"></td>
+                                                    <td><input type="text" name="info_on_product_mat[0][label_claim]"></td>
+                                                    <td><input type="text" name="info_on_product_mat[0][pack_size]"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -458,10 +462,10 @@
                                             <tbody>
                                                 <tr>
                                                     <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="ar_no[]"></td>
-                                                    <td><input type="text" name="test_name_of_OOS[]"></td>
-                                                    <td><input type="text" name="results_obtained[]"></td>
-                                                    <td><input type="text" name="specification_limit[]"></td>
+                                                    <td><input type="text" name="oos_details[0][ar_no]"></td>
+                                                    <td><input type="text" name="oos_details[0][test_name_of_OOS]"></td>
+                                                    <td><input type="text" name="oos_details[0][results_obtained]"></td>
+                                                    <td><input type="text" name="oos_details[0][specification_limit]"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -491,14 +495,14 @@
                                             <tbody>
                                                 <tr>
                                                     <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="ar_no_oot[]"></td>
-                                                    <td><input type="text" name="test_name_oot[]"></td>
-                                                    <td><input type="text" name="results_obtained_oot[]"></td>
-                                                    <td><input type="text" name="initial_Interval_Details_oot[]"></td>
-                                                    <td><input type="text" name="previous_Interval_Details_oot[]"></td>
-                                                    <td><input type="text" name="difference_of_Results_oot[]"></td>
-                                                    <td><input type="text" name="initial_interview_Details_oot[]"></td>
-                                                    <td><input type="text" name="trend_Limit_oot[]"></td>
+                                                    <td><input type="text" name="oot_detail[0][ar_no_oot]"></td>
+                                                    <td><input type="text" name="oot_detail[0][test_name_oot]"></td>
+                                                    <td><input type="text" name="oot_detail[0][results_obtained_oot]"></td>
+                                                    <td><input type="text" name="oot_detail[0][initial_Interval_Details_oot]"></td>
+                                                    <td><input type="text" name="oot_detail[0][previous_Interval_Details_oot]"></td>
+                                                    <td><input type="text" name="oot_detail[0][difference_of_Results_oot]"></td>
+                                                    <td><input type="text" name="oot_detail[0][initial_interview_Details_oot]"></td>
+                                                    <td><input type="text" name="oot_detail[0][trend_Limit_oot]"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -509,7 +513,7 @@
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
-                                          Details of Stability Study<button type="button" name="stability_study" id="stability_study">+</button>
+                                          Details of Stability Study<button type="button" name="stability_study[]" id="stability_study">+</button>
                                         </label>
                                         <table class="table table-bordered" id="stability_study_body">
                                             <thead>
@@ -525,11 +529,11 @@
                                             <tbody>
                                                 <tr>
                                                     <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="ar_no_stability_stdy[]"></td>
-                                                    <td><input type="text" name="condition_temp_stability_stdy[]"></td>
-                                                    <td><input type="text" name="interval_stability_stdy[]"></td>
-                                                    <td><input type="text" name="orientation_stability_stdy[]"></td>
-                                                    <td><input type="text" name="pack_details_if_any_stability_stdy[]"></td>
+                                                    <td><input type="text" name="stability_study[0][ar_no_stability_stdy]"></td>
+                                                    <td><input type="text" name="stability_study[0][condition_temp_stability_stdy]"></td>
+                                                    <td><input type="text" name="stability_study[0][interval_stability_stdy]"></td>
+                                                    <td><input type="text" name="stability_study[0][orientation_stability_stdy]"></td>
+                                                    <td><input type="text" name="stability_study[0][pack_details_if_any_stability_stdy]"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -558,11 +562,11 @@
                                             <tbody>
                                                 <tr>
                                                     <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="ar_no_stability_stdy2[]"></td>
-                                                    <td><input type="text" name="stability_condition_stability_stdy2[]"></td>
-                                                    <td><input type="text" name="stability_interval_stability_stdy2[]"></td>
-                                                    <td><input type="text" name="pack_details_if_any_stability_stdy2[]"></td>
-                                                    <td><input type="text" name="orientation_stability_stdy2[]"></td>
+                                                    <td><input type="text" name="stability_study2[0][ar_no_stability_stdy2]"></td>
+                                                    <td><input type="text" name="stability_study2[0][stability_condition_stability_stdy2]"></td>
+                                                    <td><input type="text" name="stability_study2[0][stability_interval_stability_stdy2]"></td>
+                                                    <td><input type="text" name="stability_study2[0][pack_details_if_any_stability_stdy2]"></td>
+                                                    <td><input type="text" name="stability_study2[0][orientation_stability_stdy2]"></td>
 
                                                 </tr>
                                             </tbody>
@@ -589,590 +593,7 @@
 
                     <div id="CCForm2" class="inner-block cctabcontent">
                         <div class="inner-block-content">
-                            {{-- <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Actual Start Date">Actual Start Date</label>
-                                        <input type="date" name="actual_start_date">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Actual End Date">Actual End Date</label>
-                                        <input type="date" name="actual_end_date">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Meeting minutes">Meeting minutes</label>
-                                        <textarea name="meeting_minute"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="Decisions">Decisions</label>
-                                        <textarea name="decision"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12 sub-head">
-                                    Geographic Information
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Zone">Zone</label>
-                                        <input type="text" name="zone">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Country">Country</label>
-                                        <input type="text" name="country">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="City">City</label>
-                                        <input type="text" name="city">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="State/District">State/District</label>
-                                        <input type="text" name="state/district">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Site Name">Site Name</label>
-                                        <input type="text" name="site_name">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Building">Building</label>
-                                        <input type="text" name="building">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Floor">Floor</label>
-                                        <input type="text" name="floor">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Room">Room</label>
-                                        <input type="text" name="room">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="action-item-details">
-                                            Action Item Details<button type="button" name="action-item-details"
-                                                id="action_item">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="action_item_details">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Record Number</th>
-                                                    <th>Short Description</th>
-                                                    <th>CAPA Type (Corrective Action / Preventive Action)</th>
-                                                    <th>Date Opened</th>
-                                                    <th>Site / Division</th>
-                                                    <th>Date Due</th>
-                                                    <th>Current Status</th>
-                                                    <th>Person Responsible</th>
-                                                    <th>Date Closed</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td><input disabled type="text" name="serial_number[]" value="1">
-                                                </td>
-                                                <td><input type="text" name="record[]"></td>
-                                                <td><input type="text" name="short_desc[]"></td>
-                                                <td><input type="text" name="capa_type[]"></td>
-                                                <td><input type="date" name="date_opened[]"></td>
-                                                <td><input type="text" name="site[]"></td>
-                                                <td><input type="date" name="date_due[]"></td>
-                                                <td><input type="text" name="current_status[]"></td>
-                                                <td> <select id="select-state" placeholder="Select..."
-                                                        name="responsible_person[]">
-                                                        <option value="">Select a value</option>
-                                                        @foreach ($users as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select></td>
-                                                <td><input type="date" name="date_closed[]"></td>
 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="policies-procedure">Suitability of Policies and Procedure</label>
-                                        <textarea name="policies-procedure"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="prevent-management-reviews">
-                                            Status of Actions from Previous Management Reviews
-                                            <button type="button" name="prevent-management-reviews"
-                                                id="management_plan3">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="management_plan_details3">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Action Item Details</th>
-                                                    <th>Owner</th>
-                                                    <th>Due Date</th>
-                                                    <th>Status</th>
-                                                    <th>Remarks</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td><input disabled type="text" name="serial_number[]" value="1">
-                                                </td>
-                                                <td><input type="text" name="action_item_details[]"></td>
-                                                <td> <select id="select-state" placeholder="Select..." name="owner[]">
-                                                        <option value="">Select a value</option>
-                                                        @foreach ($users as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select></td>
-                                                <td><input type="date" name="due_date[]"></td>
-                                                <td><input type="text" name="status[]"></td>
-                                                <td><input type="text" name="remarks[]"></td>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="recent-internal-audits">
-                                            Outcome of Recent Internal Audits
-                                            <button type="button" name="recent-internal-audits"
-                                                id="external_plan4">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="external_plan_details4">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Month</th>
-                                                    <th>Sites Audited</th>
-                                                    <th>Critical</th>
-                                                    <th>Major</th>
-                                                    <th>Minor</th>
-                                                    <th>Recommendation</th>
-                                                    <th>CAPA Details if any</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="recent-external-audits">
-                                            Outcome of Recent External Audits
-                                            <button type="button" name="recent-external-audits"
-                                                onclick="add7Input('recent-external-audits')">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="recent-external-audits">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Month</th>
-                                                    <th>Sites Audited</th>
-                                                    <th>Critical</th>
-                                                    <th>Major</th>
-                                                    <th>Minor</th>
-                                                    <th>Recommendation</th>
-                                                    <th>CAPA Details if any</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="capa-details">
-                                            CAPA Details<button type="button" name="capa-details"
-                                                id="capa_detail"">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="capa_detail_details">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Record Number</th>
-                                                    <th>Short Description</th>
-                                                    <th>CAPA Type (Corrective Action / Preventive Action)</th>
-                                                    <th>Date Opened</th>
-                                                    <th>Site / Division</th>
-                                                    <th>Date Due</th>
-                                                    <th>Current Status</th>
-                                                    <th>Person Responsible</th>
-                                                    <th>Date Closed</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td><input disabled type="text" name="serial_number[]" value="1">
-                                                </td>
-                                                <td><input type="text" name="record[]"></td>
-                                                <td><input type="text" name="short_desc[]"></td>
-                                                <td><input type="text" name="capa_type[]"></td>
-                                                <td><input type="date" name="date_opened[]"></td>
-                                                <td><input type="text" name="site[]"></td>
-                                                <td><input type="date" name="date_due[]"></td>
-                                                <td><input type="text" name="current_status[]"></td>
-                                                <td> <select id="select-state" placeholder="Select..."
-                                                        name="responsible_person[]">
-                                                        <option value="">Select a value</option>
-                                                        @foreach ($users as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select></td>
-                                                <td><input type="date" name="date_closed[]"></td>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="root-cause-analysis-details">
-                                            Root Cause Analysis Details<button type="button"
-                                                name="root-cause-analysis-details" id="analysis_detail">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="analysis_detail_details">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Record Number</th>
-                                                    <th>Short Description</th>
-                                                    <th>Date Opened</th>
-                                                    <th>Site / Division</th>
-                                                    <th>Date Due</th>
-                                                    <th>Current Status</th>
-                                                    <th>Person Responsible</th>
-                                                    <th>Date Closed</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td><input disabled type="text" name="serial_number[]" value="1">
-                                                </td>
-                                                <td><input type="text" name="record[]"></td>
-                                                <td><input type="text" name="short_desc[]"></td>
-                                                <td><input type="date" name="date_opened[]"></td>
-                                                <td><input type="text" name="site[]"></td>
-                                                <td><input type="date" name="date_due[]"></td>
-                                                <td><input type="text" name="current_status[]"></td>
-                                                <td> <select id="select-state" placeholder="Select..."
-                                                        name="responsible_person[]">
-                                                        <option value="">Select a value</option>
-                                                        @foreach ($users as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select></td>
-                                                <td><input type="date" name="date_closed[]"></td>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="lab-incident-details">
-                                            Lab Incident Details<button type="button" name="lab-incident-details"
-                                                id="incident_detail">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="incident_detail_details">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Record Number</th>
-                                                    <th>Short Description</th>
-                                                    <th>Date Opened</th>
-                                                    <th>Site / Division</th>
-                                                    <th>Date Due</th>
-                                                    <th>Current Status</th>
-                                                    <th>Person Responsible</th>
-                                                    <th>Date Closed</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td><input disabled type="text" name="serial_number[]" value="1">
-                                                </td>
-                                                <td><input type="text" name="record[]"></td>
-                                                <td><input type="text" name="short_desc[]"></td>
-                                                <td><input type="date" name="date_opened[]"></td>
-                                                <td><input type="text" name="site[]"></td>
-                                                <td><input type="date" name="date_due[]"></td>
-                                                <td><input type="text" name="current_status[]"></td>
-                                                <td> <select id="select-state" placeholder="Select..."
-                                                        name="responsible_person[]">
-                                                        <option value="">Select a value</option>
-                                                        @foreach ($users as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select></td>
-                                                <td><input type="date" name="date_closed[]"></td>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="risk-assessment-details">
-                                            Risk Assessment Details<button type="button" name="risk-assessment-details"
-                                                id="assessment_detail">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="assessment_detail_details">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Record Number</th>
-                                                    <th>Short Description</th>
-                                                    <th>Risk Category</th>
-                                                    <th>Date Opened</th>
-                                                    <th>Site / Division</th>
-                                                    <th>Date Due</th>
-                                                    <th>Current Status</th>
-                                                    <th>Person Responsible</th>
-                                                    <th>Date Closed</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td><input disabled type="text" name="serial_number[]" value="1">
-                                                </td>
-                                                <td><input type="text" name="record[]"></td>
-                                                <td><input type="text" name="short_desc[]"></td>
-                                                <td><input type="text" name="risk_category[]"></td>
-                                                <td><input type="date" name="date_opened[]"></td>
-                                                <td><input type="text" name="site[]"></td>
-                                                <td><input type="date" name="date_due[]"></td>
-                                                <td><input type="text" name="current_status[]"></td>
-                                                <td> <select id="select-state" placeholder="Select..."
-                                                        name="responsible_person[]">
-                                                        <option value="">Select a value</option>
-                                                        @foreach ($users as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select></td>
-                                                <td><input type="date" name="date_closed[]"></td>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="change-control-details">
-                                            Change Control Details<button type="button" name="change-control-details"
-                                                id="control_detail">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="control_detail_details">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Record Number</th>
-                                                    <th>Short Description</th>
-                                                    <th>Change Type</th>
-                                                    <th>Date Opened</th>
-                                                    <th>Site / Division</th>
-                                                    <th>Date Due</th>
-                                                    <th>Current Status</th>
-                                                    <th>Person Responsible</th>
-                                                    <th>Date Closed</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td><input disabled type="text" name="serial_number[]" value="1">
-                                                </td>
-                                                <td><input type="text" name="record[]"></td>
-                                                <td><input type="text" name="short_desc[]"></td>
-                                                <td><input type="text" name="change_type[]"></td>
-                                                <td><input type="date" name="date_opened[]"></td>
-                                                <td><input type="text" name="site[]"></td>
-                                                <td><input type="date" name="date_due[]"></td>
-                                                <td><input type="text" name="current_status[]"></td>
-                                                <td> <select id="select-state" placeholder="Select..."
-                                                        name="responsible_person[]">
-                                                        <option value="">Select a value</option>
-                                                        @foreach ($users as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select></td>
-                                                <td><input type="date" name="date_closed[]"></td>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="issue-other-than-audits">
-                                            Issues other than Audits
-                                            <button type="button" name="issue-other-than-audits"
-                                                id="than_audit">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="than_audit_details">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Short Description</th>
-                                                    <th>Severity (Critical / Major / Minor)</th>
-                                                    <th>Site / Division</th>
-                                                    <th>Issue Reporting Date</th>
-                                                    <th>CAPA Details if any</th>
-                                                    <th>Date Due</th>
-                                                    <th>Current Status</th>
-                                                    <th>Person Responsible</th>
-                                                    <th>Date Closed</th>
-                                                    <th>Related Documents</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td><input disabled type="text" name="serial_number[]" value="1">
-                                                </td>
-                                                <td><input type="text" name="short_desc[]"></td>
-                                                <td><input type="text" name="severity[]"></td>
-                                                <td><input type="text" name="site[]"></td>
-                                                <td><input type="date" name="issue_reporting_date[]"></td>
-                                                <td><input type="text" name="capa_details[]"></td>
-                                                <td><input type="date" name="date_due[]"></td>
-                                                <td><input type="text" name="current_status[]"></td>
-                                                <td> <select id="select-state" placeholder="Select..."
-                                                        name="responsible_person[]">
-                                                        <option value="">Select a value</option>
-                                                        @foreach ($users as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select></td>
-                                                <td><input type="date" name="date_closed[]"></td>
-                                                <td><input type="text" name="related_documents[]"></td>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="customer-personnel-feedback">
-                                            Customer/Personnel Feedback
-                                            <button type="button" name="customer-personnel-feedback"
-                                                id="personnel_feedback">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="personnel_feedback_details">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Feedback From (Customer / Personnel)</th>
-                                                    <th>Feedback Reporting Date</th>
-                                                    <th>Site / Division</th>
-                                                    <th>Short Description</th>
-                                                    <th>Date Due</th>
-                                                    <th>Current Status</th>
-                                                    <th>Person Responsible</th>
-                                                    <th>Date Closed</th>
-                                                    <th>Related Documents</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td><input disabled type="text" name="serial_number[]" value="1">
-                                                </td>
-                                                <td><input type="text" name="feedback_from[]"></td>
-                                                <td><input type="text" name="feedback_reporting_date[]"></td>
-                                                <td><input type="text" name="site[]"></td>
-                                                <td><input type="text" name="short_description[]"></td>
-                                                <td><input type="date" name="date_due[]"></td>
-                                                <td><input type="text" name="current_status[]"></td>
-                                                <td> <select id="select-state" placeholder="Select..."
-                                                        name="responsible_person[]">
-                                                        <option value="">Select a value</option>
-                                                        @foreach ($users as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select></td>
-                                                <td><input type="date" name="date_closed[]"></td>
-                                                <td><input type="text" name="related_documents[]"></td>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="effectiveness-check-details">
-                                            Effectiveness Check Details
-                                            <button type="button" name="effectiveness-check-details"
-                                                id="check_detail">+</button>
-                                        </label>
-                                        <table class="table table-bordered" id="check_detail_details">
-                                            <thead>
-                                                <tr>
-                                                    <th>Row #</th>
-                                                    <th>Record Number</th>
-                                                    <th>Short Description</th>
-                                                    <th>Date Opened</th>
-                                                    <th>Site / Division</th>
-                                                    <th>Date Due</th>
-                                                    <th>Current Status</th>
-                                                    <th>Person Responsible</th>
-                                                    <th>Date Closed</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <td><input disabled type="text" name="serial_number[]" value="1">
-                                                </td>
-                                                <td><input type="text" name="record[]"></td>
-                                                <td><input type="text" name="short_description[]"></td>
-                                                <td><input type="date" name="date_opened[]"></td>
-                                                <td><input type="text" name="site[]"></td>
-                                                <td><input type="date" name="date_due[]"></td>
-                                                <td><input type="text" name="current_status[]"></td>
-                                                <td> <select id="select-state" placeholder="Select..."
-                                                        name="responsible_person[]">
-                                                        <option value="">Select a value</option>
-                                                        @foreach ($users as $data)
-                                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select></td>
-                                                <td><input type="date" name="date_closed[]"></td>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="comments">Comments</label>
-                                        <textarea name="comments"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="psummary-recommendations">Summary & Recommendations</label>
-                                        <textarea name="psummary-recommendations"></textarea>
-                                    </div>
-                                </div>
-                            </div> --}}
                             <div class="group-input">
                                 <label for="Operations">
                                     Sample Request Approval Comments
@@ -1603,13 +1024,13 @@ function addActionItemDetails(tableId) {
                     '<tr>' +
                     '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
                     // '<td><input type="date" name="date[]"></td>' +
-                    '<td><input type="text" name="product/material[]"></td>' +
-                    '<td><input type="text" name="batch_no.[]"></td>' +
-                    '<td><input type="text" name="ar_no[]"></td>' +
-                    '<td><input type="text" name="test_name[]"></td>' +
-                    '<td><input type="text" name="instrument_name[]"></td>' +
-                    '<td><input type="text" name="instrument_no[]"></td>'+
-                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="text" id="agenda_date'+ serialNumber +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="date[]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, `agenda_date' + serialNumber +'`)" /></div></div></div></td>'+
+                    '<td><input type="text" name="product_material_information[0][product_material]"></td>' +
+                    '<td><input type="text" name="product_material_information[0][batch_no]"></td>' +
+                    '<td><input type="text" name="product_material_information[0][ar_no]"></td>' +
+                    '<td><input type="text" name="product_material_information[0][test_name]"></td>' +
+                    '<td><input type="text" name="product_material_information[0][instrument_name]"></td>' +
+                    '<td><input type="text" name="product_material_information[0][instrument_no]"></td>'+
+                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="text" id="agenda_date'+ serialNumber +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="product_material_information[0][date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, `agenda_date' + serialNumber +'`)" /></div></div></div></td>'+
                     '</tr>';
                 return html;
             }
@@ -1625,17 +1046,14 @@ function addActionItemDetails(tableId) {
                     '<tr>' +
                     '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
                     // '<td><input type="date" name="date[]"></td>' +
-                    '<td><input type="text" name="item_product_code[]"></td>' +
-                    '<td><input type="text" name="lot_batch_no.[]"></td>' +
-                    '<td><input type="text" name="ar_no[]"></td>' +
-                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="text" id="agenda_date01" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="date[]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, `agenda_date01`);" /></div></div></div></td>' +
-                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="text" id="agenda_date02" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="date[]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, `agenda_date02`);" /></div></div></div></td>' +
-                    '<td><input type="text" name="label_claim[]"></td>'+
-                    '<td><input type="text" name="pack_size[]"></td>'+
-
+                    '<td><input type="text" name="info_on_product_mat[0][item_product_code]"></td>' +
+                    '<td><input type="text" name="info_on_product_mat[0][lot_batch_no]"></td>' +
+                    '<td><input type="text" name="info_on_product_mat[0][ar_no]"></td>' +
+                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="text" id="agenda_date01" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="info_on_product_mat[0][date01]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, `agenda_date01`);" /></div></div></div></td>' +
+                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="text" id="agenda_date02" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="info_on_product_mat[0][date02]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, `agenda_date02`);" /></div></div></div></td>' +
+                    '<td><input type="text" name="info_on_product_mat[0][label_claim]"></td>'+
+                    '<td><input type="text" name="info_on_product_mat[0][pack_size]"></td>'+
                     '</tr>';
-
-
                 return html;
             }
             var tableBody = $('#info_on_product_body tbody');
@@ -1652,10 +1070,10 @@ $('#oos_details').click(function(e) {
                     '<tr>' +
                     '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
                     // '<td><input type="date" name="date[]"></td>' +
-                    '<td><input type="text" name="ar_no[]"></td>' +
-                    '<td><input type="text" name="test_name_of_OOS[]"></td>' +
-                    '<td><input type="text" name="results_obtained[]"></td>' +
-                    '<td><input type="text" name="specification_limit[]"></td>'+
+                    '<td><input type="text" name="oos_details[0][ar_no]"></td>' +
+                    '<td><input type="text" name="oos_details[0][test_name_of_OOS]"></td>' +
+                    '<td><input type="text" name="oos_details[0][results_obtained]"></td>' +
+                    '<td><input type="text" name="oos_details[0][specification_limit]"></td>'+
                     '</tr>';
                 return html;
             }
@@ -1673,14 +1091,14 @@ $('#oos_details').click(function(e) {
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="ar_no_oot[]"></td>' +
-                    '<td><input type="text" name="test_name_oot[]"></td>' +
-                    '<td><input type="text" name="results_obtained_oot[]"></td>' +
-                    '<td><input type="text" name="initial_Interval_Details_oot[]"></td>'+
-                    '<td><input type="text" name="previous_Interval_Details_oot[]"></td>'+
-                    '<td><input type="text" name="difference_of_Results_oot[]"></td>'+
-                    '<td><input type="text" name="initial_interview_Details_oot[]"></td>'+
-                    '<td><input type="text" name="trend_Limit_oot[]"></td>'+
+                    '<td><input type="text" name="oot_detail[0][ar_no_oot]"></td>' +
+                    '<td><input type="text" name="oot_detail[0][test_name_oot]"></td>' +
+                    '<td><input type="text" name="oot_detail[0][results_obtained_oot]"></td>' +
+                    '<td><input type="text" name="oot_detail[0][initial_Interval_Details_oot]"></td>'+
+                    '<td><input type="text" name="oot_detail[0][previous_Interval_Details_oot]"></td>'+
+                    '<td><input type="text" name="oot_detail[0][difference_of_Results_oot]"></td>'+
+                    '<td><input type="text" name="oot_detail[0][initial_interview_Details_oot]"></td>'+
+                    '<td><input type="text" name="oot_detail[0][trend_Limit_oot]"></td>'+
                     '</tr>';
                 return html;
             }
@@ -1698,12 +1116,11 @@ $('#oos_details').click(function(e) {
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="ar_no_stability_stdy2[]"></td>' +
-                    '<td><input type="text" name="stability_condition_stability_stdy2[]"></td>' +
-                    '<td><input type="text" name="stability_interval_stability_stdy2[]"></td>' +
-                    '<td><input type="text" name="pack_details_if_any_stability_stdy2[]"></td>'+
-                    '<td><input type="text" name="orientation_stability_stdy2[]"></td>'+
-
+                    '<td><input type="text" name="stability_study[0][ar_no_stability_stdy]"></td>' +
+                    '<td><input type="text" name="stability_study[0][condition_temp_stability_stdy]"></td>' +
+                    '<td><input type="text" name="stability_study[0][interval_stability_stdy]"></td>' +
+                    '<td><input type="text" name="stability_study[0][orientation_stability_stdy]"></td>'+
+                    '<td><input type="text" name="stability_study[0][pack_details_if_any_stability_stdy]"></td>'+
                     '</tr>';
                 return html;
             }
@@ -1720,11 +1137,11 @@ $('#oos_details').click(function(e) {
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="ar_no_stability_stdy[]"></td>' +
-                    '<td><input type="text" name="condition_temp_stability_stdy[]"></td>' +
-                    '<td><input type="text" name="interval_stability_stdy[]"></td>' +
-                    '<td><input type="text" name="orientation_stability_stdy[]"></td>'+
-                    '<td><input type="text" name="pack_details_if_any_stability_stdy[]"></td>'+
+                    '<td><input type="text" name="stability_study2[0][ar_no_stability_stdy2]"></td>' +
+                    '<td><input type="text" name="stability_study2[0][stability_condition_stability_stdy2]"></td>' +
+                    '<td><input type="text" name="stability_study2[0][stability_interval_stability_stdy2]"></td>' +
+                    '<td><input type="text" name="stability_study2[0][pack_details_if_any_stability_stdy2]"></td>'+
+                    '<td><input type="text" name="stability_study2[0][orientation_stability_stdy2]"></td>'+
                     '</tr>';
                 return html;
             }

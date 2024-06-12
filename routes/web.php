@@ -35,6 +35,7 @@ use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\newForm\MedicalRegistrationController;
+use App\Http\Controllers\ResamplingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -538,6 +539,26 @@ Route::view('OOT_form', 'frontend.OOT.OOT_form');
 //====-------------- Resampling Form------------=========
 
 Route::view('resampling_new','frontend.OOS.resampling_new');
+Route::view('resampling_view','frontend.OOS.resampling_view');
+
+Route::post('store',[ResamplingController::class,'store'])->name('resampling_store');
+Route::get('create',[ResamplingController::class,'create'])->name('resampling_create');
+Route::get('resampling_view/{id}/edit',[ResamplingController::class,'edit'])->name('resampling_edit');
+Route::post('resampling_updated/{id}',[ResamplingController::class,'update'])->name('resampling_update');
+
+
+// Route::post('medicalstore',[MedicalRegistrationController::class,'medicalCreate'])->name('medical.store');
+// Route::get('medicalupdate/{id}/edit',[MedicalRegistrationController::class,'medicalEdit'])->name('medical_edit');
+// Route::put('medicalupdated/{id}',[MedicalRegistrationController::class,'medicalUpdate'])->name('medical.update');
+
+
+
+// Route::view('deviation', 'frontend.forms.deviation');
+// Route::post('deviation_child/{id}', [DeviationController::class, 'deviation_child_1'])->name('deviation_child_1');
+// Route::get('DeviationAuditTrial/{id}', [DeviationController::class, 'DeviationAuditTrial']);
+// Route::get('DeviationAuditTrialDetails/{id}', [DeviationController::class, 'DeviationAuditTrialDetails']);
+// Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
+// Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 
 
 
