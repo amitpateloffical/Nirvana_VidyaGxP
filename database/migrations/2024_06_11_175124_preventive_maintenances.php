@@ -26,11 +26,10 @@ return new class extends Migration
             $table->string('additional_information')->nullable();
             $table->string('related_urls')->nullable();
             $table->string('PM_frequency')->nullable();
-            // $table->longText('file_attachments_pli')->nullable();
             $table->text('parent_site_name')->nullable();
-            $table->text('(parent_building')->nullable();
+            $table->text('parent_building')->nullable();
             $table->longText('parent_floor')->nullable();
-            $table->longText('(parent_room')->nullable();
+            $table->longText('parent_room')->nullable();
             $table->string('comments')->nullable();
 
             $table->text('stage')->nullable();
@@ -40,12 +39,14 @@ return new class extends Migration
             $table->text('type')->nullable();
             $table->text('parent_record')->nullable();
             // workflow start stage
-            $table->text('completed_by_opened')->nullable();
-            $table->text('completed_on_opened')->nullable();
-            $table->text('comment_opened')->nullable(); 
-            $table->text('completed_by_dossier_review')->nullable();
-            $table->text('completed_on_dossier_review')->nullable();
-            $table->text('comment_dossier_review')->nullable();
+           
+            $table->text('completed_by_supervisor_review')->nullable();
+            $table->text('completed_on_supervisor_review')->nullable();
+            $table->text('comment_supervisor_review')->nullable();
+            $table->text('completed_by_working_progress')->nullable();
+            $table->text('completed_on_working_progress')->nullable();
+            $table->text('comment_working_progress')->nullable();
+             
             $table->text('completed_by_approval_completed')->nullable();
             $table->text('completed_on_approval_completed')->nullable();
             $table->text('comment_approval_completed')->nullable();

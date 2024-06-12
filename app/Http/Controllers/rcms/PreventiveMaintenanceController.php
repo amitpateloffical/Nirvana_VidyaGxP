@@ -51,7 +51,7 @@ class PreventiveMaintenanceController extends Controller
         $due_date= $formattedDate->format('Y-m-d');
         // $changeControl = OpenStage::find(1);
         //  if(!empty($changeControl->cft)) $cft = explode(',', $changeControl->cft);
-        return view("frontend.Registration-Tracking.dosier-documents.dosier-documents", compact('due_date', 'record_number', 'old_record', 'cft'));
+        return view("frontend.preventive-maintenance.preventive-maintenance", compact('due_date', 'record_number', 'old_record', 'cft'));
 
     }
     
@@ -65,18 +65,6 @@ class PreventiveMaintenanceController extends Controller
             $input['status'] = 'Opened';
             $input['stage'] = 1;
             $input['record_number'] = ((RecordNumber::first()->value('counter')) + 1);
-
-            if (!empty ($request->file_attachments_pli)) {
-                $files = [];
-                if ($request->hasfile('file_attachments_pli')) {
-                    foreach ($request->file('file_attachments_pli') as $file) {
-                        $name = $request->name . 'file_attachments_pli' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                        $file->move('upload/', $name);
-                        $files[] = $name;
-                    }
-                }
-                $input['file_attachments_pli'] = json_encode($files);
-            }
              
             $PreventiveMaintenances = PreventiveMaintenances::create($input);
             $record = RecordNumber::first();
@@ -85,7 +73,7 @@ class PreventiveMaintenanceController extends Controller
 
             if(!empty($request->short_description)){
                 $history = new PreventiveMaintenancesAuditTrial();
-                $history->dosier_documents_id = $PreventiveMaintenances->id;
+                $history->preventive_maintenances_id = $PreventiveMaintenances->id;
                 $history->previous = "Null";
                 $history->comment = "Not Applicable";
                 $history->activity_type = 'Short Description';
@@ -102,10 +90,10 @@ class PreventiveMaintenanceController extends Controller
             }
             if(!empty($request->due_date)){
                 $history = new PreventiveMaintenancesAuditTrial();
-                $history->dosier_documents_id = $PreventiveMaintenances->id;
+                $history->preventive_maintenances_id = $PreventiveMaintenances->id;
                 $history->previous = "Null";
                 $history->comment = "Not Applicable";
-                $history->activity_type = 'Short Description';
+                $history->activity_type = 'Due Date';
                 $history->current = $request->due_date;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -117,13 +105,13 @@ class PreventiveMaintenanceController extends Controller
                 $history->action_name = 'Create';
                 $history->save();
             }
-            if(!empty($request->dosier_documents_type)){
+            if(!empty($request->additional_information)){
                 $history = new PreventiveMaintenancesAuditTrial();
-                $history->dosier_documents_id = $PreventiveMaintenances->id;
+                $history->preventive_maintenances_id = $PreventiveMaintenances->id;
                 $history->previous = "Null";
                 $history->comment = "Not Applicable";
-                $history->activity_type = 'Dosier Documents Type';
-                $history->current = $request->dosier_documents_type;
+                $history->activity_type = 'Additional Information';
+                $history->current = $request->additional_information;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -134,13 +122,13 @@ class PreventiveMaintenanceController extends Controller
                 $history->action_name = 'Create';
                 $history->save();
             }
-            if(!empty($request->document_language)){
+            if(!empty($request->related_urls)){
                 $history = new PreventiveMaintenancesAuditTrial();
-                $history->dosier_documents_id = $PreventiveMaintenances->id;
+                $history->preventive_maintenances_id = $PreventiveMaintenances->id;
                 $history->previous = "Null";
                 $history->comment = "Not Applicable";
-                $history->activity_type = 'Document Language';
-                $history->current = $request->document_language;
+                $history->activity_type = 'Related Urls';
+                $history->current = $request->related_urls;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -151,13 +139,13 @@ class PreventiveMaintenanceController extends Controller
                 $history->action_name = 'Create';
                 $history->save();
             }
-            if(!empty($request->documents)){
+            if(!empty($request->PM_frequency)){
                 $history = new PreventiveMaintenancesAuditTrial();
-                $history->dosier_documents_id = $PreventiveMaintenances->id;
+                $history->preventive_maintenances_id = $PreventiveMaintenances->id;
                 $history->previous = "Null";
                 $history->comment = "Not Applicable";
-                $history->activity_type = 'Documents';
-                $history->current = $request->documents;
+                $history->activity_type = 'PM Frequency';
+                $history->current = $request->PM_frequency;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -168,13 +156,13 @@ class PreventiveMaintenanceController extends Controller
                 $history->action_name = 'Create';
                 $history->save();
             }
-            if(!empty($request->dossier_parts)){
+            if(!empty($request->parent_site_name)){
                 $history = new PreventiveMaintenancesAuditTrial();
-                $history->dosier_documents_id = $PreventiveMaintenances->id;
+                $history->preventive_maintenances_id = $PreventiveMaintenances->id;
                 $history->previous = "Null";
                 $history->comment = "Not Applicable";
-                $history->activity_type = 'Dossier Parts';
-                $history->current = $request->dossier_parts;
+                $history->activity_type = 'Parent Site Name';
+                $history->current = $request->parent_site_name;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -185,13 +173,13 @@ class PreventiveMaintenanceController extends Controller
                 $history->action_name = 'Create';
                 $history->save();
             }
-            if(!empty($request->root_parent_manufacture)){
+            if(!empty($request->parent_building)){
                 $history = new PreventiveMaintenancesAuditTrial();
-                $history->dosier_documents_id = $PreventiveMaintenances->id;
+                $history->preventive_maintenances_id = $PreventiveMaintenances->id;
                 $history->previous = "Null";
                 $history->comment = "Not Applicable";
-                $history->activity_type = 'Root Parent Manufacture';
-                $history->current = $request->root_parent_manufacture;
+                $history->activity_type = 'Parent Building';
+                $history->current = $request->parent_building;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -202,13 +190,13 @@ class PreventiveMaintenanceController extends Controller
                 $history->action_name = 'Create';
                 $history->save();
             }
-            if(!empty($request->root_parent_product_code)){
+            if(!empty($request->parent_floor)){
                 $history = new PreventiveMaintenancesAuditTrial();
-                $history->dosier_documents_id = $PreventiveMaintenances->id;
+                $history->preventive_maintenances_id = $PreventiveMaintenances->id;
                 $history->previous = "Null";
                 $history->comment = "Not Applicable";
-                $history->activity_type = 'Root Parent Product Code';
-                $history->current = $request->root_parent_product_code;
+                $history->activity_type = 'Parent Floor';
+                $history->current = $request->parent_floor;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -219,13 +207,13 @@ class PreventiveMaintenanceController extends Controller
                 $history->action_name = 'Create';
                 $history->save();
             }
-            if(!empty($request->root_parent_trade_name)){
+            if(!empty($request->parent_room)){
                 $history = new PreventiveMaintenancesAuditTrial();
-                $history->dosier_documents_id = $PreventiveMaintenances->id;
+                $history->preventive_maintenances_id = $PreventiveMaintenances->id;
                 $history->previous = "Null";
                 $history->comment = "Not Applicable";
-                $history->activity_type = 'Root Parent Trade Name';
-                $history->current = $request->root_parent_trade_name;
+                $history->activity_type = 'Parent Room';
+                $history->current = $request->parent_room;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -236,13 +224,13 @@ class PreventiveMaintenanceController extends Controller
                 $history->action_name = 'Create';
                 $history->save();
             }
-            if(!empty($request->root_parent_therapeutic_area)){
+            if(!empty($request->comments)){
                 $history = new PreventiveMaintenancesAuditTrial();
-                $history->dosier_documents_id = $PreventiveMaintenances->id;
+                $history->preventive_maintenances_id = $PreventiveMaintenances->id;
                 $history->previous = "Null";
                 $history->comment = "Not Applicable";
-                $history->activity_type = 'Root Parent Therapeutic Area';
-                $history->current = $request->root_parent_therapeutic_area;
+                $history->activity_type = 'Comments';
+                $history->current = $request->comments;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -278,13 +266,13 @@ class PreventiveMaintenanceController extends Controller
         $data = PreventiveMaintenances::find($id);
         // dd($data);
         $old_record = PreventiveMaintenances::select('id', 'division_id', 'record_number')->get();
-        // $revised_date = Extension::where('parent_id', $id)->where('parent_type', "PreventiveMaintenances Chemical")->value('revised_date');
+        // $revised_date = Extension::where('parent_id', $id)->where('parent_type', "Preventive Maintenances")->value('revised_date');
         $data->record_number = str_pad($data->record_number, 4, '0', STR_PAD_LEFT);
         
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
         // dd($data);
-         return view('frontend.Registration-Tracking.dosier-documents.dosier-documents-view', 
+         return view('frontend.preventive-maintenance.preventive-maintenance-view', 
         compact('data', 'old_record','revised_date'));
 
     }
@@ -296,27 +284,14 @@ class PreventiveMaintenanceController extends Controller
 
         try {
                 $input = $request->all();
-                if (!empty ($request->file_attachments_pli)) {
-                    $files = [];
-                    if ($request->hasfile('file_attachments_pli')) {
-                        foreach ($request->file('file_attachments_pli') as $file) {
-                            $name = $request->name . 'file_attachments_pli' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
-                            $file->move('upload/', $name);
-                            $files[] = $name;
-                        }
-                    }
-    
-                    $input['file_attachments_pli'] = json_encode($files);
-                }
                 // dd($input);
                 $PreventiveMaintenances = PreventiveMaintenances::findOrFail($id);
                 $PreventiveMaintenances->update($input);
-
                 $lastPreventiveMaintenancesRecod = PreventiveMaintenances::where('id', $id)->first();
             // ============= update audit trail==========
             if ($lastPreventiveMaintenancesRecod->short_description != $request->short_description){
                $history = new PreventiveMaintenancesAuditTrial();
-               $history->dosier_documents_id = $lastPreventiveMaintenancesRecod->id;
+               $history->preventive_maintenances_id = $lastPreventiveMaintenancesRecod->id;
                $history->previous = $lastPreventiveMaintenancesRecod->short_description;
                $history->activity_type = 'Short Description ';
                $history->current = $request->short_description;
@@ -333,7 +308,7 @@ class PreventiveMaintenanceController extends Controller
            }
            if ($lastPreventiveMaintenancesRecod->due_date != $request->due_date){
             $history = new PreventiveMaintenancesAuditTrial();
-            $history->dosier_documents_id = $lastPreventiveMaintenancesRecod->id;
+            $history->preventive_maintenances_id = $lastPreventiveMaintenancesRecod->id;
             $history->previous = $lastPreventiveMaintenancesRecod->due_date;
             $history->activity_type = 'Due Date ';
             $history->current = $request->due_date;
@@ -348,12 +323,12 @@ class PreventiveMaintenanceController extends Controller
             $history->action_name = 'Update';
             $history->save();
         }
-        if ($lastPreventiveMaintenancesRecod->dosier_documents_type != $request->dosier_documents_type){
+        if ($lastPreventiveMaintenancesRecod->additional_information != $request->additional_information){
             $history = new PreventiveMaintenancesAuditTrial();
-            $history->dosier_documents_id = $lastPreventiveMaintenancesRecod->id;
-            $history->previous = $lastPreventiveMaintenancesRecod->dosier_documents_type;
-            $history->activity_type = 'dosier_documents_type ';
-            $history->current = $request->dosier_documents_type;
+            $history->preventive_maintenances_id = $lastPreventiveMaintenancesRecod->id;
+            $history->previous = $lastPreventiveMaintenancesRecod->additional_information;
+            $history->activity_type = 'Additional Information ';
+            $history->current = $request->additional_information;
             $history->comment = "Not Applicable";
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -366,12 +341,12 @@ class PreventiveMaintenanceController extends Controller
             $history->save();
         }
         
-        if ($lastPreventiveMaintenancesRecod->document_language != $request->document_language){
+        if ($lastPreventiveMaintenancesRecod->related_urls != $request->related_urls){
             $history = new PreventiveMaintenancesAuditTrial();
-            $history->dosier_documents_id = $lastPreventiveMaintenancesRecod->id;
-            $history->previous = $lastPreventiveMaintenancesRecod->document_language;
-            $history->activity_type = 'document_language ';
-            $history->current = $request->document_language;
+            $history->preventive_maintenances_id = $lastPreventiveMaintenancesRecod->id;
+            $history->previous = $lastPreventiveMaintenancesRecod->related_urls;
+            $history->activity_type = 'Related Urls ';
+            $history->current = $request->related_urls;
             $history->comment = "Not Applicable";
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -383,12 +358,12 @@ class PreventiveMaintenanceController extends Controller
             $history->action_name = 'Update';
             $history->save();
         }
-        if ($lastPreventiveMaintenancesRecod->documents != $request->documents){
+        if ($lastPreventiveMaintenancesRecod->PM_frequency != $request->PM_frequency){
             $history = new PreventiveMaintenancesAuditTrial();
-            $history->dosier_documents_id = $lastPreventiveMaintenancesRecod->id;
-            $history->previous = $lastPreventiveMaintenancesRecod->documents;
-            $history->activity_type = 'Document ';
-            $history->current = $request->documents;
+            $history->preventive_maintenances_id = $lastPreventiveMaintenancesRecod->id;
+            $history->previous = $lastPreventiveMaintenancesRecod->PM_frequency;
+            $history->activity_type = 'PM Frequency ';
+            $history->current = $request->PM_frequency;
             $history->comment = "Not Applicable";
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -400,12 +375,12 @@ class PreventiveMaintenanceController extends Controller
             $history->action_name = 'Update';
             $history->save();
         }
-        if ($lastPreventiveMaintenancesRecod->dossier_parts != $request->dossier_parts){
+        if ($lastPreventiveMaintenancesRecod->parent_site_name != $request->parent_site_name){
             $history = new PreventiveMaintenancesAuditTrial();
-            $history->dosier_documents_id = $lastPreventiveMaintenancesRecod->id;
-            $history->previous = $lastPreventiveMaintenancesRecod->dossier_parts;
-            $history->activity_type = 'Dossier Parts ';
-            $history->current = $request->dossier_parts;
+            $history->preventive_maintenances_id = $lastPreventiveMaintenancesRecod->id;
+            $history->previous = $lastPreventiveMaintenancesRecod->parent_site_name;
+            $history->activity_type = 'Parent Site Name';
+            $history->current = $request->parent_site_name;
             $history->comment = "Not Applicable";
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -417,12 +392,12 @@ class PreventiveMaintenanceController extends Controller
             $history->action_name = 'Update';
             $history->save();
         }
-        if ($lastPreventiveMaintenancesRecod->root_parent_manufacture != $request->root_parent_manufacture){
+        if ($lastPreventiveMaintenancesRecod->parent_building != $request->parent_building){
             $history = new PreventiveMaintenancesAuditTrial();
-            $history->dosier_documents_id = $lastPreventiveMaintenancesRecod->id;
-            $history->previous = $lastPreventiveMaintenancesRecod->root_parent_manufacture;
-            $history->activity_type = 'Root Parent Manufacture ';
-            $history->current = $request->root_parent_manufacture;
+            $history->preventive_maintenances_id = $lastPreventiveMaintenancesRecod->id;
+            $history->previous = $lastPreventiveMaintenancesRecod->parent_building;
+            $history->activity_type = 'Parent Building ';
+            $history->current = $request->parent_building;
             $history->comment = "Not Applicable";
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -434,12 +409,12 @@ class PreventiveMaintenanceController extends Controller
             $history->action_name = 'Update';
             $history->save();
         }
-        if ($lastPreventiveMaintenancesRecod->root_parent_product_code != $request->root_parent_product_code){
+        if ($lastPreventiveMaintenancesRecod->parent_floor != $request->parent_floor){
             $history = new PreventiveMaintenancesAuditTrial();
-            $history->dosier_documents_id = $lastPreventiveMaintenancesRecod->id;
-            $history->previous = $lastPreventiveMaintenancesRecod->root_parent_product_code;
-            $history->activity_type = 'Root Parent Product Code ';
-            $history->current = $request->root_parent_product_code;
+            $history->preventive_maintenances_id = $lastPreventiveMaintenancesRecod->id;
+            $history->previous = $lastPreventiveMaintenancesRecod->parent_floor;
+            $history->activity_type = 'Parent Floor ';
+            $history->current = $request->parent_floor;
             $history->comment = "Not Applicable";
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -451,12 +426,12 @@ class PreventiveMaintenanceController extends Controller
             $history->action_name = 'Update';
             $history->save();
         }
-        if ($lastPreventiveMaintenancesRecod->root_parent_trade_name != $request->root_parent_trade_name){
+        if ($lastPreventiveMaintenancesRecod->parent_room != $request->parent_room){
             $history = new PreventiveMaintenancesAuditTrial();
-            $history->dosier_documents_id = $lastPreventiveMaintenancesRecod->id;
-            $history->previous = $lastPreventiveMaintenancesRecod->root_parent_trade_name;
-            $history->activity_type = 'Root Parent Trade Name ';
-            $history->current = $request->root_parent_trade_name;
+            $history->preventive_maintenances_id = $lastPreventiveMaintenancesRecod->id;
+            $history->previous = $lastPreventiveMaintenancesRecod->parent_room;
+            $history->activity_type = 'Parent Room ';
+            $history->current = $request->parent_room;
             $history->comment = "Not Applicable";
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -468,12 +443,12 @@ class PreventiveMaintenanceController extends Controller
             $history->action_name = 'Update';
             $history->save();
         }
-        if ($lastPreventiveMaintenancesRecod->root_parent_therapeutic_area != $request->root_parent_therapeutic_area){
+        if ($lastPreventiveMaintenancesRecod->comments != $request->comments){
             $history = new PreventiveMaintenancesAuditTrial();
-            $history->dosier_documents_id = $lastPreventiveMaintenancesRecod->id;
-            $history->previous = $lastPreventiveMaintenancesRecod->root_parent_therapeutic_area;
-            $history->activity_type = 'Root Parent Therapeutic Area';
-            $history->current = $request->root_parent_therapeutic_area;
+            $history->preventive_maintenances_id = $lastPreventiveMaintenancesRecod->id;
+            $history->previous = $lastPreventiveMaintenancesRecod->comments;
+            $history->activity_type = 'Comments';
+            $history->current = $request->comments;
             $history->comment = "Not Applicable";
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -485,9 +460,8 @@ class PreventiveMaintenanceController extends Controller
             $history->action_name = 'Update';
             $history->save();
         }
-            // $PreventiveMaintenances_record = PreventiveMaintenancesService::update_oss($request,$id);
         
-            if ($PreventiveMaintenances_record['status'] == 'error')
+        if ($PreventiveMaintenances_record['status'] == 'error')
             {
                 throw new Error($PreventiveMaintenances_record['message']);
             } 
@@ -512,52 +486,52 @@ class PreventiveMaintenanceController extends Controller
             $lastDocument = PreventiveMaintenances::find($id);
             if ($changestage->stage == 1) {
                 $changestage->stage = "2";
-                $changestage->status = "Dossier Review";
-                $changestage->completed_by_dossier_review = Auth::user()->name;
-                $changestage->completed_on_dossier_review = Carbon::now()->format('d-M-Y');
-                $changestage->comment_dossier_review = $request->comment;
-                                $history = new PreventiveMaintenancesAuditTrial();
-                                $history->dosier_documents_id = $id;
-                                $history->activity_type = 'Activity Log';
-                                $history->current = $changestage->completed_by_dossier_review;
-                                $history->comment = $request->comment;
-                                $history->user_id = Auth::user()->id;
-                                $history->user_name = Auth::user()->name;
-                                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                                $history->origin_state = $lastDocument->status;
-                                $history->stage = "2";
-                                $history->save();
-                            //     $list = Helpers::getLeadAuditeeUserList();
-                            //     foreach ($list as $u) {
-                            //         if($u->q_m_s_divisions_id == $changestage->division_id){
-                            //             $email = Helpers::getInitiatorEmail($u->user_id);
-                            //              if ($email !== null) {
-                                      
-                            //               Mail::send(
-                            //                   'mail.view-mail',
-                            //                    ['data' => $changestage],
-                            //                 function ($message) use ($email) {
-                            //                     $message->to($email)
-                            //                         ->subject("Document sent ".Auth::user()->name);
-                            //                 }
-                            //               );
-                            //             }
-                            //      } 
-                            //   }
+                $changestage->status = "Supervisor Review";
+                $changestage->completed_by_supervisor_review = Auth::user()->name;
+                $changestage->completed_on_supervisor_review = Carbon::now()->format('d-M-Y');
+                $changestage->comment_supervisor_review = $request->comment;
+                    $history = new PreventiveMaintenancesAuditTrial();
+                    $history->preventive_maintenances_id = $id;
+                    $history->activity_type = 'Activity Log';
+                    $history->current = $changestage->completed_by_supervisor_review;
+                    $history->comment = $request->comment;
+                    $history->user_id = Auth::user()->id;
+                    $history->user_name = Auth::user()->name;
+                    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                    $history->origin_state = $lastDocument->status;
+                    $history->stage = "2";
+                    $history->save();
+                //     $list = Helpers::getLeadAuditeeUserList();
+                //     foreach ($list as $u) {
+                //         if($u->q_m_s_divisions_id == $changestage->division_id){
+                //             $email = Helpers::getInitiatorEmail($u->user_id);
+                //              if ($email !== null) {
+                            
+                //               Mail::send(
+                //                   'mail.view-mail',
+                //                    ['data' => $changestage],
+                //                 function ($message) use ($email) {
+                //                     $message->to($email)
+                //                         ->subject("Document sent ".Auth::user()->name);
+                //                 }
+                //               );
+                //             }
+                //      } 
+                //   }
                 $changestage->update();
                 toastr()->success('Document Sent');
                 return back();
             }
             if ($changestage->stage == 2) {
                 $changestage->stage = "3";
-                $changestage->status = "Effective";
-                $changestage->completed_by_approval_completed= Auth::user()->name;
-                $changestage->completed_on_approval_completed = Carbon::now()->format('d-M-Y');
-                $changestage->comment_approval_completed = $request->comment;
+                $changestage->status = "Working in Progress";
+                $changestage->completed_by_working_progress = Auth::user()->name;
+                $changestage->completed_on_working_progress = Carbon::now()->format('d-M-Y');
+                $changestage->comment_working_progress = $request->comment;
                     $history = new PreventiveMaintenancesAuditTrial();
-                    $history->dosier_documents_id = $id;
+                    $history->preventive_maintenances_id = $id;
                     $history->activity_type = 'Activity Log';
-                    $history->current = $changestage->completed_by_under_phaseIB_investigation;
+                    $history->current = $changestage->completed_by_working_progress;
                     $history->comment = $request->comment;
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
@@ -571,13 +545,34 @@ class PreventiveMaintenanceController extends Controller
             }
             if ($changestage->stage == 3) {
                 $changestage->stage = "4";
+                $changestage->status = "Pending QA Approval";
+                $changestage->completed_by_approval_completed= Auth::user()->name;
+                $changestage->completed_on_approval_completed = Carbon::now()->format('d-M-Y');
+                $changestage->comment_approval_completed = $request->comment;
+                    $history = new PreventiveMaintenancesAuditTrial();
+                    $history->preventive_maintenances_id = $id;
+                    $history->activity_type = 'Activity Log';
+                    $history->current = $changestage->completed_by_approval_completed;
+                    $history->comment = $request->comment;
+                    $history->user_id = Auth::user()->id;
+                    $history->user_name = Auth::user()->name;
+                    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                    $history->origin_state = $lastDocument->status;
+                    $history->stage = "4";
+                    $history->save();
+                $changestage->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+            if ($changestage->stage == 4) {
+                $changestage->stage = "5";
                 $changestage->status = "Close-Done";
                 $changestage->completed_by_close_done= Auth::user()->name;
                 $changestage->completed_on_close_done = Carbon::now()->format('d-M-Y');
                 $changestage->comment_close_done = $request->comment;
                 
                 $history = new PreventiveMaintenancesAuditTrial();
-                $history->dosier_documents_id = $id;
+                $history->preventive_maintenances_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->current = $changestage->completed_by_close_done;
                 $history->comment = $request->comment;
@@ -603,16 +598,16 @@ class PreventiveMaintenanceController extends Controller
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $changestage = PreventiveMaintenances::find($id);
             $lastDocument = PreventiveMaintenances::find($id);
-            if ($changestage->stage == 2) {
-                $changestage->stage = "1";
-                $changestage->status = "Open";
-                $changestage->completed_by_opened = Auth::user()->name;
-                $changestage->completed_on_opened = Carbon::now()->format('d-M-Y');
-                $changestage->comment_opened = $request->comment;
+            if ($changestage->stage == 4) {
+                $changestage->stage = "2";
+                $changestage->status = "Supervisor Review";
+                $changestage->completed_by_supervisor_review = Auth::user()->name;
+                $changestage->completed_on_supervisor_review = Carbon::now()->format('d-M-Y');
+                $changestage->comment_supervisor_review = $request->comment;
                             $history = new PreventiveMaintenancesAuditTrial();
-                            $history->dosier_documents_id = $id;
+                            $history->preventive_maintenances_id = $id;
                             $history->activity_type = 'Activity Log';
-                            $history->current = $changestage->completed_by_opened;
+                            $history->current = $changestage->completed_by_supervisor_review;
                             $history->comment = $request->comment;
                             $history->user_id = Auth::user()->id;
                             $history->user_name = Auth::user()->name;
@@ -624,27 +619,7 @@ class PreventiveMaintenanceController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
-            if ($changestage->stage == 3) {
-                $changestage->stage = "1";
-                $changestage->status = "Open";
-                $changestage->completed_by_opened = Auth::user()->name;
-                $changestage->completed_on_opened = Carbon::now()->format('d-M-Y');
-                $changestage->comment_opened = $request->comment;
-                            $history = new PreventiveMaintenancesAuditTrial();
-                            $history->dosier_documents_id = $id;
-                            $history->activity_type = 'Activity Log';
-                            $history->current = $changestage->completed_by_opened;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastDocument->status;
-                            $history->stage = "1";
-                            $history->save();
-                $changestage->update();
-                toastr()->success('Document Sent');
-                return back();
-            }
+           
             
         } else {
             toastr()->error('E-signature Not match');
@@ -652,7 +627,6 @@ class PreventiveMaintenanceController extends Controller
         }
     }
 
-   
     public function cancel_stage(Request $request, $id)
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
@@ -665,7 +639,7 @@ class PreventiveMaintenanceController extends Controller
             $data->comment_cancle = $request->comment;
 
                     $history = new PreventiveMaintenancesAuditTrial();
-                    $history->dosier_documents_id = $id;
+                    $history->preventive_maintenances_id = $id;
                     $history->activity_type = 'Activity Log';
                     $history->previous ="";
                     $history->current = $data->cancelled_by;
@@ -687,11 +661,11 @@ class PreventiveMaintenanceController extends Controller
 
     public function AuditTrial($id)
     {
-        $audit = PreventiveMaintenancesAuditTrial::where('dosier_documents_id', $id)->orderByDesc('id')->paginate(5);
+        $audit = PreventiveMaintenancesAuditTrial::where('preventive_maintenances_id', $id)->orderByDesc('id')->paginate(5);
         $today = Carbon::now()->format('d-m-y');
         $document = PreventiveMaintenances::where('id', $id)->first();
         $document->initiator = User::where('id', $document->initiator_id)->value('name');
-        return view('frontend.Registration-Tracking.dosier-documents.audit-trial', compact('audit', 'document', 'today'));
+        return view('frontend.preventive-maintenance.audit-trial', compact('audit', 'document', 'today'));
     }
 
     public function store_audit_review(Request $request, $id)
@@ -711,25 +685,21 @@ class PreventiveMaintenanceController extends Controller
     {
 
         $detail = PreventiveMaintenancesAuditTrial::find($id);
-
-        $detail_data = PreventiveMaintenancesAuditTrial::where('activity_type', $detail->activity_type)->where('dosier_documents_id', $detail->id)->latest()->get();
-
-        $doc = PreventiveMaintenances::where('id', $detail->dosier_documents_id)->first();
-        
-
+        $detail_data = PreventiveMaintenancesAuditTrial::where('activity_type', $detail->activity_type)->where('preventive_maintenances_id', $detail->id)->latest()->get();
+        $doc = PreventiveMaintenances::where('id', $detail->preventive_maintenances_id)->first();
         $doc->origiator_name = User::find($doc->initiator_id);
         
-        return view('frontend.Registration-Tracking.dosier-documents.audit-trial-inner', compact('detail', 'doc', 'detail_data'));
+        return view('frontend.preventive-maintenance.audit-trial-inner', compact('detail', 'doc', 'detail_data'));
     }
     public static function auditReport($id)
     {
         $doc = PreventiveMaintenances::find($id);
         if (!empty($doc)) {
             $doc->originator = User::where('id', $doc->initiator_id)->value('name');
-            $data = PreventiveMaintenancesAuditTrial::where('dosier_documents_id', $id)->get();
+            $data = PreventiveMaintenancesAuditTrial::where('preventive_maintenances_id', $id)->get();
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.Registration-Tracking.dosier-documents.auditReport', compact('data', 'doc'))
+            $pdf = PDF::loadview('frontend.preventive-maintenance.auditReport', compact('data', 'doc'))
                 ->setOptions([
                     'defaultFont' => 'sans-serif',
                     'isHtml5ParserEnabled' => true,
@@ -751,10 +721,12 @@ class PreventiveMaintenanceController extends Controller
     {
         $data = PreventiveMaintenances::find($id);
         if (!empty($data)) {
+            // $data->info_product_materials = $data->grids()->where('identifier', 'info_product_material')->first();
+
             $data->originator = User::where('id', $data->initiator_id)->value('name');
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.Registration-Tracking.dosier-documents.singleReport', compact('data'))
+            $pdf = PDF::loadview('frontend.preventive-maintenance.singleReport', compact('data'))
                 ->setOptions([
                     'defaultFont' => 'sans-serif',
                     'isHtml5ParserEnabled' => true,
@@ -768,7 +740,7 @@ class PreventiveMaintenanceController extends Controller
             $width = $canvas->get_width();
             $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
             $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
-            return $pdf->stream('PreventiveMaintenances Cemical' . $id . '.pdf');
+            return $pdf->stream('Preventive Maintenances' . $id . '.pdf');
         }
     }
        

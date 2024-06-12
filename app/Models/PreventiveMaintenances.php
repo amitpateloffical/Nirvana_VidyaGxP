@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\PreventiveMaintenancesgrids;
 
-class PreventiveMaintenance extends Model
+class PreventiveMaintenances extends Model
 {
     use HasFactory;
 
@@ -20,15 +20,14 @@ class PreventiveMaintenance extends Model
           'assign_to',
           'short_description',
           'due_date',
-          'dosier_documents_type',
-          'document_language',
-          'documents',
-          'file_attachments_pli',
-          'dossier_parts',
-          'root_parent_manufacture',
-          'root_parent_product_code',
-          'root_parent_trade_name',
-          'root_parent_therapeutic_area',
+          'additional_information',
+          'related_urls',
+          'PM_frequency',
+          'parent_site_name',
+          'parent_building',
+          'parent_floor',
+          'parent_room',
+          'comments',
           'status',
           'stage',
           'date_open',
