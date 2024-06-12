@@ -251,7 +251,7 @@
                             <th style="width: 16% pt-2"> Remarks </th>
                         </tr>
                         @if ($action_plans && is_array($action_plans->data))
-                            @foreach ($action_plans->data as  $key => $datagridI)
+                        @foreach ($action_plans->data as  $key => $datagridI)
                         <tr>
                             <td class="w-15">{{ $datagridI ? $key + 1  : "Not Applicable" }}</td>
                             <td class="w-15">{{ $datagridI['action'] ?  $datagridI['action']: "Not Applicable"}}</td>
