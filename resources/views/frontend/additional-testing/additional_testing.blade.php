@@ -103,16 +103,47 @@
         $(document).ready(function() {
             $('#Product_Material1').click(function(e) {
                 function generateTableRow(serialNumber) {
+                    var minDate = '{{ \Carbon\Carbon::now()->format('Y-m-d') }}';
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        '<td><input type="text" name=parent_info_on_product_mat[0][item_product_code]></td>' +
-                        '<td><input type="text" name=parent_info_on_product_mat[0][lot_batch_no]></td>' +
-                        '<td><input type="text" name=parent_info_on_product_mat[0][ar_number]></td>' +
-                        '<td><input type="date" name=parent_info_on_product_mat[0][mfg_date]></td>' +
-                        '<td><input type="date" name=parent_info_on_product_mat[0][exp_date]></td>' +
-                        '<td><input type="text" name=parent_info_on_product_mat[0][label_claim]></td>' +
+                        '<td><input type="text" name="parent_info_on_product_mat1[' + serialNumber +
+                        '][item_product_code]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_mat1[' + serialNumber +
+                        '][lot_batch_no]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_mat1[' + serialNumber +
+                        '][ar_number]"></td>' +
+                        '<td>' +
+                        '<div class="group-input new-date-data-field mb-0">' +
+                        '<div class="input-date ">' +
+                        '<div class="calenderauditee">' +
+                        '<input type="text" id="agenda_date' + serialNumber +
+                        '" readonly placeholder="DD-MMM-YYYY" />' +
+                        '<input type="date" name="parent_info_on_product_mat1[' + serialNumber +
+                        '][mfg_date]" min="' + minDate +
+                        '" class="hide-input" oninput="handleDateInput(this, \'agenda_date' + serialNumber +
+                        '\');" />' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td>' +
+                        '<div class="group-input new-date-data-field mb-0">' +
+                        '<div class="input-date ">' +
+                        '<div class="calenderauditee">' +
+                        '<input type="text" id="agenda_date' + serialNumber +
+                        '_exp" readonly placeholder="DD-MMM-YYYY" />' +
+                        '<input type="date" name="parent_info_on_product_mat1[' + serialNumber +
+                        '][exp_date]" min="' + minDate +
+                        '" class="hide-input" oninput="handleDateInput(this, \'agenda_date' + serialNumber +
+                        '_exp\');" />' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td><input type="text" name="parent_info_on_product_mat1[' + serialNumber +
+                        '][label_claim]"></td>' +
                         '</tr>';
 
                     return html;
@@ -125,22 +156,56 @@
             });
         });
     </script>
+
+
     <!-- ------------------------ ----grid-2--------------------------------->
     <script>
         $(document).ready(function() {
             $('#Product_Material2').click(function(e) {
                 function generateTableRow(serialNumber) {
+                    var minDate = '{{ \Carbon\Carbon::now()->format('Y-m-d') }}';
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        '  <td><input type="text" name="parent_info_on_product_mat[0][item_product_code]"></td>' +
-                        '  <td><input type="text" name="parent_info_on_product_mat[0][batch_number]"></td>' +
-                        ' <td><input type="text" name="parent_info_on_product_mat[0][ar_number]"></td>' +
-                        '  <td><input type="date" name="parent_info_on_product_mat[0][mfg_date]"></td>' +
-                        '<td><input type="date" name="parent_info_on_product_mat[0][exp_date]"></td>' +
-                        ' <td><input type="text" name="parent_info_on_product_mat[0][label_claim]"></td>' +
-                        '  <td><input type="text" name="parent_info_on_product_mat[0][pack_size]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_mat2[' + serialNumber +
+                        '][item_product_code]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_mat2[' + serialNumber +
+                        '][batch_number]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_mat2[' + serialNumber +
+                        '][ar_number]"></td>' +
+                        '<td>' +
+                        '<div class="group-input new-date-data-field mb-0">' +
+                        '<div class="input-date">' +
+                        '<div class="calenderauditee">' +
+                        '<input type="text" id="agenda_date' + serialNumber +
+                        '" readonly placeholder="DD-MMM-YYYY" />' +
+                        '<input type="date" name="parent_info_on_product_mat2[' + serialNumber +
+                        '][mfg_date]" min="' + minDate +
+                        '" class="hide-input" oninput="handleDateInput(this, \'agenda_date' + serialNumber +
+                        '\');" />' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td>' +
+                        '<div class="group-input new-date-data-field mb-0">' +
+                        '<div class="input-date">' +
+                        '<div class="calenderauditee">' +
+                        '<input type="text" id="agenda_date' + serialNumber +
+                        '_exp" readonly placeholder="DD-MMM-YYYY" />' +
+                        '<input type="date" name="parent_info_on_product_mat2[' + serialNumber +
+                        '][exp_date]" min="' + minDate +
+                        '" class="hide-input" oninput="handleDateInput(this, \'agenda_date' + serialNumber +
+                        '_exp\');" />' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</td>' +
+                        '<td><input type="text" name="parent_info_on_product_mat2[' + serialNumber +
+                        '][label_claim]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_mat2[' + serialNumber +
+                        '][pack_size]"></td>' +
                         '</tr>';
 
                     return html;
@@ -153,6 +218,8 @@
             });
         });
     </script>
+
+
     <!-- -----------------------------grid-3--------------------------------->
     <script>
         $(document).ready(function() {
@@ -233,11 +300,62 @@
         });
     </script>
 
+    <!--------------------------------Date--------------------------------->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Function to handle the date input and update the text field
+            function handleDateInput(dateInput, displayInputId) {
+                const displayInput = document.getElementById(displayInputId);
+                const selectedDate = new Date(dateInput.value);
+                const options = {
+                    year: 'numeric',
+                    month: 'short',
+                    day: '2-digit'
+                };
+
+                if (!isNaN(selectedDate.getTime())) {
+                    displayInput.value = selectedDate.toLocaleDateString('en-GB', options).replace(/ /g, '-');
+                } else {
+                    displayInput.value = '';
+                }
+            }
+
+            // Function to validate date ranges
+            function checkDate(startDateId, endDateId) {
+                const startDateInput = document.getElementById(startDateId);
+                const endDateInput = document.getElementById(endDateId);
+
+                const startDate = new Date(startDateInput.value);
+                const endDate = new Date(endDateInput.value);
+
+                if (endDate < startDate) {
+                    alert("End date cannot be earlier than start date");
+                    endDateInput.value = '';
+                    // Get the corresponding display input by using the endDateInput's displayInputId
+                    const displayInputId = endDateInput.dataset.displayId;
+                    document.getElementById(displayInputId).value = '';
+                }
+            }
+
+            // Attach event listeners
+            document.querySelectorAll('input[type="date"]').forEach((dateInput) => {
+                dateInput.addEventListener('input', function() {
+                    handleDateInput(this, this.dataset.displayId);
+                    checkDate(this.dataset.startId, this.id);
+                });
+            });
+        });
+    </script>
+
+
+
+
 
     <div class="form-field-head">
         <div class="division-bar pt-3">
             <strong>Site Division/Project</strong> :
-            QMS-North America / OOS
+            QMS-North America / Additional-Testing
         </div>
     </div>
 
@@ -283,123 +401,123 @@
                         </div>
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Scheduled end date">(Parent) Date Opened
-
-                                </label>
+                                <label for="parent_date_opened">(Parent) Date Opened</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate" name="parent_date_opened"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="group-input">
-                                <label for="Short Description">(Parent) Short Description<span class="text-danger "
-                                        name="short_description">*</span></label><span id="rchars">255 </span>characters
-                                remaining
-                                <input id="docname" type="text" name="short_description" maxlength="255" required>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Scheduled end date">(Parent) Target Closure Date
-
-                                </label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate" name="parent_target_closure_date"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Initiator"> (Parent)Product / Material Name
-                                </label>
-                                <input type="text" id="text" name="parent_product_mat_name">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Initiator"> (Root Parent)Product / Material Name
-                                </label>
-                                <input type="text" id="text" name="root_parent_prod_mat_name">
-                            </div>
-                        </div>
-
-                        <div class="group-input">
-                            <label for="audit-agenda-grid">
-                                (Parent) Info. On Product / Material
-                                <button type="button" name="parent_info_on_product_mat1" id="Product_Material1">+</button>
-                                <span class="text-primary" name="parent_info_on_product_mat_open" data-bs-toggle="modal"
-                                    data-bs-target="#document-details-field-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                    (Open)
-                                </span>
-                            </label>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="Product_Material1" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 4%">Row#</th>
-                                            <th style="width: 10%">Item/Product Code</th>
-                                            <th style="width: 8%"> Lot/Batch Number</th>
-                                            <th style="width: 8%"> A.R. Number</th>
-                                            <th style="width: 8%">Mfg. Date</th>
-                                            <th style="width: 8%"> Expiry Date</th>
-                                            <th style="width: 8%">Label Claim</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input
-                                                    type="text"name="parent_info_on_product_mat1[0][item_product_code]">
-                                            </td>
-                                            <td><input type="text" name="parent_info_on_product_mat1[0][lot_batch_no]">
-                                            </td>
-                                            <td><input type="text" name="parent_info_on_product_mat1[0][ar_number]">
-                                            </td>
-                                            <td>
-                                                <div class="group-input new-date-data-field mb-0">
-                                                    <div class="input-date ">
-                                                        <div class="calenderauditee">
-                                                            <input type="text" id="agenda_date0" readonly
-                                                                placeholder="DD-MMM-YYYY" />
-                                                            <input type="date"
-                                                                name="parent_info_on_product_mat1[0][mfg_date]"
-                                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                                                class="hide-input"
-                                                                oninput="handleDateInput(this, `agenda_date0`);" />
+                                    <input type="text" id="end_date_1" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="date" id="end_date_checkdate_1" name="parent_date_opened"
+                                        min="min="yyyy-mm-dd" " class="hide-input"
+                                                                    oninput="handleDateInput(this, 'end_date_1');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="group-input new-date-data-field mb-0">
-                                                    <div class="input-date ">
-                                                        <div class="calenderauditee">
-                                                            <input type="text" id="agenda_date0" readonly
-                                                                placeholder="DD-MMM-YYYY" />
-                                                            <input type="date"
-                                                                name="parent_info_on_product_mat1[0][exp_date]
-                                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                                                class="hide-input"
-                                                                oninput="handleDateInput(this, `agenda_date0`);" />
+                                                    <div class="col-6">
+                                                        <div class="group-input">
+                                                            <label for="Short Description">(Parent) Short Description<span class="text-danger "
+                                                                    name="short_description">*</span></label><span id="rchars">255 </span>characters
+                                                            remaining
+                                                            <input id="docname" type="text" name="short_description" maxlength="255" required>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td><input type="text" name="parent_info_on_product_mat1[0][label_claim]">
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                                                    <div class="col-lg-6 new-date-data-field">
+                                                        <div class="group-input input-date">
+                                                            <label for="parent_target_closure_date">(Parent) Target Closure Date</label>
+                                                            <div class="calenderauditee">
+                                                                <input type="text" id="end_date_2" readonly placeholder="DD-MMM-YYYY" />
+                                                                <input type="date" id="end_date_checkdate_2" name="parent_target_closure_date"
+                                                                    min="yyyy-mm-dd"
+                                                                    class="hide-input"
+                                                                    data-display-id="end_date_2" data-start-id="start_date_checkdate_2"
+                                                                    oninput="handleDateInput(this, 'end_date_2'); checkDate('start_date_checkdate_2', 'end_date_checkdate_2')" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="group-input">
+                                                            <label for="Initiator"> (Parent)Product / Material Name
+                                                            </label>
+                                                            <input type="text" id="text" name="parent_product_mat_name">
+                                                        </div>
+                                                         </div>
+                                                        <div class="col-lg-6">
+                                                        <div class="group-input">
+                                                            <label for="Initiator"> (Root Parent)Product / Material Name
+                                                            </label>
+                                                            <input type="text" id="text" name="root_parent_prod_mat_name">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="group-input">
+                                                        <label for="audit-agenda-grid">
+                                                            (Parent) Info. On Product / Material
+                                                            <button type="button" name="parent_info_on_product_mat1" id="Product_Material1">+</button>
+                                                            <span class="text-primary" name="parent_info_on_product_mat_open" data-bs-toggle="modal"
+                                                                data-bs-target="#document-details-field-instruction-modal"
+                                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                                                (Open)
+                                                            </span>
+                                                        </label>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered" id="Product_Material1" style="width: 100%;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="width: 4%">Row#</th>
+                                                                        <th style="width: 10%">Item/Product Code</th>
+                                                                        <th style="width: 8%"> Lot/Batch Number</th>
+                                                                        <th style="width: 8%"> A.R. Number</th>
+                                                                        <th style="width: 8%">Mfg. Date</th>
+                                                                        <th style="width: 8%"> Expiry Date</th>
+                                                                        <th style="width: 8%">Label Claim</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                                        <td><input
+                                                                                type="text"name="
+                                                                            parent_info_on_product_mat1[0][item_product_code]">
+                                                                        </td>
+                                                                        <td><input type="text" name="parent_info_on_product_mat1[0][lot_batch_no]">
+                                                                        </td>
+                                                                        <td><input type="text" name="parent_info_on_product_mat1[0][ar_number]">
+                                                                        </td>
+                                                                        <td>
+                                                                                 <div class="group-input new-date-data-field mb-0">
+                                                                                     <div class="input-date">
+                                                                                         <div class="calenderauditee">
+                                                                                             <input type="text" id="agenda_date0" readonly
+                                                                                                 placeholder="DD-MMM-YYYY" />
+                                                                                             <input type="date" name="parent_info_on_product_mat1[0][mfg_date]"
+                                                                                                 min="yyyy-mm-dd" class="hide-input"
+                                                                                                 data-display-id="agenda_date0" data-start-id="agenda_date0"
+                                                                                                 oninput="handleDateInput(this, 'agenda_date0');" />
+                                                                                         </div>
+                                                                                     </div>
+                                                                                 </div>
+                                                                             </td>
+                                                                             <td>
+                                                                                 <div class="group-input new-date-data-field mb-0">
+                                                                                 <div class="input-date ">
+                                                                                     <div class="calenderauditee">
+                                                                                         <input type="text" id="agenda_date2" readonly
+                                                                                             placeholder="DD-MMM-YYYY" />
+                                                                                         <input type="date" name="parent_info_on_product_mat1[0][exp_date]"
+                                                                                             min="yyyy-mm-dd" class="hide-input"
+                                                                                             data-display-id="agenda_date2" data-start-id="agenda_date2"
+                                                                                             oninput="handleDateInput(this, 'agenda_date2');" />
+                                                                                     </div>
+                                                                                 </div>
+                                                                                   </div>
+                                                                         </td>
+                                                                     
+                                                                         <td><input type="text" name="parent_info_on_product_mat1[0][label_claim]">
+                                                                         </td>
+                                                                         </tr>
+                                                                         </tbody>
+                                                                         </table>
+                                                                     </div>
+                                                                           </div>
+                                                                       </div>
+
 
                         <div class="group-input">
                             <label for="audit-agenda-grid">
@@ -437,30 +555,28 @@
                                             </td>
                                             <td>
                                                 <div class="group-input new-date-data-field mb-0">
-                                                    <div class="input-date ">
+                                                    <div class="input-date">
                                                         <div class="calenderauditee">
-                                                            <input type="text" id="agenda_date0" readonly
+                                                            <input type="text" id="agenda_date3" readonly
                                                                 placeholder="DD-MMM-YYYY" />
                                                             <input type="date"
                                                                 name="parent_info_on_product_mat2[0][mfg_date]"
-                                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                                                class="hide-input"
-                                                                oninput="handleDateInput(this, `agenda_date0`);" />
+                                                                min="yyyy-mm-dd" class="hide-input"
+                                                                oninput="handleDateInput(this, 'agenda_date0');" />
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="group-input new-date-data-field mb-0">
-                                                    <div class="input-date ">
+                                                    <div class="input-date">
                                                         <div class="calenderauditee">
-                                                            <input type="text" id="agenda_date0" readonly
+                                                            <input type="text" id="agenda_date4_exp" readonly
                                                                 placeholder="DD-MMM-YYYY" />
                                                             <input type="date"
                                                                 name="parent_info_on_product_mat2[0][exp_date]"
-                                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                                                class="hide-input"
-                                                                oninput="handleDateInput(this, `agenda_date0`);" />
+                                                                min="yyyy-mm-dd" class="hide-input"
+                                                                oninput="handleDateInput(this, 'agenda_date0_exp');" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -474,7 +590,6 @@
                                 </table>
                             </div>
                         </div>
-
 
                         <div class="group-input">
                             <label for="audit-agenda-grid">
@@ -502,9 +617,11 @@
                                         <tr>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
                                             <td><input type="text"
-                                                    name="(root_parent_oos_detailsAR_Number[0][ar_number]"></td>
+                                                    name="(root_parent_oos_detailsAR_Number[0][ar_number]">
+                                            </td>
                                             <td><input type="text"
-                                                    name="(root_parent_oos_detailsTest_Name_OOS[0][test_name_of_oos]"></td>
+                                                    name="(root_parent_oos_detailsTest_Name_OOS[0][test_name_of_oos]">
+                                            </td>
                                             <td><input type="text"
                                                     name="(root_parent_oos_detailsResults_Obtained[0][results_obtained]">
                                             </td>
@@ -516,7 +633,6 @@
                                 </table>
                             </div>
                         </div>
-
 
                         <div class="group-input">
                             <label for="audit-agenda-grid">
@@ -548,19 +664,21 @@
                                             <td><input type="text" name="parent_oot_results[0][ar_number]"></td>
                                             <td><input type="text" name="parent_oot_results[0][test_number_of_oot]">
                                             </td>
-                                            <td><input type="text" name="parent_oot_results[0][results_obtained]"></td>
+                                            <td><input type="text" name="parent_oot_results[0][results_obtained]">
+                                            </td>
                                             <td><input type="text" name="parent_oot_results[0][prev_interval_details]">
                                             </td>
-                                            <td><input type="text" name="parent_oot_results[0][diff_of_results]"></td>
+                                            <td><input type="text" name="parent_oot_results[0][diff_of_results]">
+                                            </td>
                                             <td><input type="text"
-                                                    name="parent_oot_results[0][initial_interview_details]"></td>
+                                                    name="parent_oot_results[0][initial_interview_details]">
+                                            </td>
                                             <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
 
                         <div class="group-input">
                             <label for="audit-agenda-grid">
@@ -589,16 +707,19 @@
                                         <tr>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
                                             <td><input type="text"
-                                                    name="parent_details_of_stability_study[0][ar_number]"></td>
+                                                    name="parent_details_of_stability_study[0][ar_number]">
+                                            </td>
                                             <td><input type="text"
                                                     name="parent_details_of_stability_study[0][condition_temp_and_rh]">
                                             </td>
                                             <td><input type="text"
-                                                    name="parent_details_of_stability_study[0][interval]"></td>
+                                                    name="parent_details_of_stability_study[0][interval]">
+                                            </td>
                                             <td><input type="text"
                                                     name="parent_details_of_stability_study[0][orientation]"></td>
                                             <td><input type="text"
-                                                    name="parent_details_of_stability_study[0][pack_details_if_any]"></td>
+                                                    name="parent_details_of_stability_study[0][pack_details_if_any]">
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -618,15 +739,13 @@
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Scheduled end date">Target Closure Date
-
-                                    </label>
+                                    <label for="Scheduled end date">Target Closure Date</label>
                                     <div class="calenderauditee" disabled>
-                                        <input type="text" id="end_date" disabled readonly
+                                        <input type="text" id="end_date_3" disabled readonly
                                             placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate" disabled name="end_date"
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" id="end_date_checkdate_3" disabled name="end_date"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date_3');checkDate('start_date_checkdate_3','end_date_checkdate_3')" />
                                     </div>
                                 </div>
                             </div>
@@ -652,10 +771,10 @@
                                     <label for="Scheduled end date">Date opened
                                     </label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate" name="date_opened"
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="text" id="end_date4" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate4" name="date_opened"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date4');checkDate('start_date_checkdate4','end_date_checkdate4')" />
                                     </div>
                                 </div>
                             </div>
@@ -680,7 +799,8 @@
 
                         <div class="col-lg-12 mb-4">
                             <div class="group-input">
-                                <label for="Audit Schedule Start Date" name="cq_approver_comments"> CQ Approver Comments
+                                <label for="Audit Schedule Start Date" name="cq_approver_comments"> CQ Approver
+                                    Comments
                                 </label>
                                 <div class="col-md-12">
                                     <div>
@@ -691,24 +811,27 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="resampling-required" name="resampling_required"> Resampling Required ?</label>
-                                <select multiple id="resampling_required" name="resampling_required" id="">
-                                    <option value=""> Enter Your Selection Here</option>
-                                    <option value=""></option>
-                                    <option value=""></option>
+                                <label for="resampling_required">Resampling Required?</label>
+                                <select single id="resampling_required" name="resampling_required">
+                                    <option value="">Enter Your Selection Here</option>
+                                    <option value="option1">Option 1</option>
+                                    <option value="option2">Option 2</option>
+                                    <option value="option3">Option 3</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="resampling-reference">Resample Reference </label>
-                                <select multiple id="resampling_refrence" name="resampling_refrence">
+                                <label for="resampling_reference">Resample Reference</label>
+                                <select single id="resampling_reference" name="resampling_reference">
                                     <option value="">Enter Your Selection Here</option>
-                                    <option value=""></option>
-                                    <option value=""></option>
+                                    <option value="reference1">Reference 1</option>
+                                    <option value="reference2">Reference 2</option>
+                                    <option value="reference3">Reference 3</option>
                                 </select>
                             </div>
                         </div>
+
 
 
 
@@ -733,15 +856,17 @@
 
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-12">
                             <div class="group-input">
-                                <label for="Audit Attachments">Additinal Test Attachment</label>
+                                <label for="add_test_attachment">Additional Test Attachment</label>
+                                <div><small class="text-primary">Please Attach all relevant or supporting
+                                        documents</small></div>
                                 <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="file_attach"></div>
+                                    <div class="file-attachment-list" id="add_test_attachment"></div>
                                     <div class="add-btn">
-                                        <div>View</div>
-                                        <input type="file" id="myfile" name="file_attach[]"
-                                            oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                        <div>Add</div>
+                                        <input type="file" id="myfile" name="add_test_attachment[]"
+                                            oninput="addMultipleFiles(this, 'add_test_attachment')" multiple>
                                     </div>
                                 </div>
                             </div>
@@ -757,11 +882,10 @@
                             <div class="group-input input-date">
                                 <label for="Scheduled end date">Additional Test Proposal Completed On</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate"
-                                        name="additional_test_proposal_completed_on"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    <input type="text" id="end_date5" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="date" id="end_date_checkdate5"
+                                        name="additional_test_proposal_completed_on" min="yyyy-mm-dd" class="hide-input"
+                                        oninput="handleDateInput(this, 'end_date5');checkDate('start_date_checkdate5','end_date_checkdate5')" />
                                 </div>
                             </div>
                         </div>
@@ -796,21 +920,18 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="group-input col-md-6">
-                            <label for="Audit Attachments" name="cq_approval_attachment"> CQ Approval Attachment
-                            </label>
-                            <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                        <div class="group-input">
+                            <label for="cq_approval_attachment">CQ Approval Attachment</label>
+                            <div><small class="text-primary">Please Attach all relevant or supporting
+                                    documents</small></div>
                             <div class="file-attachment-field">
-                                <div class="file-attachment-list" id="file_attach"></div>
+                                <div class="file-attachment-list" id="cq_approval_attachment"></div>
                                 <div class="add-btn">
-                                    <div>View</div>
-                                    <input type="file" id="myfile" name="file_attach[]"
-                                        oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                    <div>Add</div>
+                                    <input type="file" id="myfile" name="cq_approval_attachment[]"
+                                        oninput="addMultipleFiles(this, 'cq_approval_attachment')" multiple>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -826,10 +947,10 @@
                             <div class="group-input input-date">
                                 <label for="Scheduled end date">CQ Approved On</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate" name="cq_approved_on"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    <input type="text" id="end_date6" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="date" id="end_date_checkdate6" name="cq_approved_on"
+                                        min="yyyy-mm-dd" class="hide-input"
+                                        oninput="handleDateInput(this, 'end_date6');checkDate('start_date_checkdate6','end_date_checkdate6')" />
                                 </div>
                             </div>
                         </div>
@@ -862,33 +983,34 @@
                         </small>
                         <div class="col-md-12 mb-4">
                             <div class="group-input">
-                                <label for="Description Deviation" name="delay_justifictaion">Delay Justification</label>
+                                <label for="Description Deviation" name="delay_justifictaion">Delay
+                                    Justification</label>
                                 <textarea name="delay_justifictaion" id="" cols="30" rows="5"></textarea>
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-12">
                             <div class="group-input">
-                                <label for="Audit Attachments"> Additional Test Exe. Attachment</label>
-                                <small class="text-primary">
-                                    Additional Test Execution Attachment
-                                </small>
+                                <label for="add_test_exe_attachment">Additional Test Exe. Attachment
+                                </label>
+                                <div><small class="text-primary">Please Attach all relevant or supporting
+                                        documents</small></div>
                                 <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="file_attach"></div>
+                                    <div class="file-attachment-list" id="add_test_exe_attachment"></div>
                                     <div class="add-btn">
                                         <div>Add</div>
-                                        <input type="file" id="myfile" name="file_attach[]"
-                                            oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                        <input type="file" id="myfile" name="add_test_exe_attachment[]"
+                                            oninput="addMultipleFiles(this, 'add_test_exe_attachment')" multiple>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
                         <div class="row col-md-12">
                             <div class="col-md-6 mb-4">
                                 <div class="group-input">
-                                    <label for="Description Deviation" name="additional_test_exe_by">Additional Test Exe.
+                                    <label for="Description Deviation" name="additional_test_exe_by">Additional Test
+                                        Exe.
                                         By</label>
                                     <input type="text" name="additional_test_exe_by">
                                 </div>
@@ -897,10 +1019,10 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled end date">Additional Test Exe. On</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate" name="add_test_exe_on"
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="text" id="end_date7" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate7" name="add_test_exe_on"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date7');checkDate('start_date_checkdate7','end_date_checkdate7')" />
                                     </div>
                                 </div>
                             </div>
@@ -925,33 +1047,34 @@
                     <div class="row">
                         <div class="col-md-12 mb-4">
                             <div class="group-input">
-                                <label for="Description Deviation" name="qc_comments_on_addl_testing">QC Comments on Addl.
+                                <label for="Description Deviation" name="qc_comments_on_addl_testing">QC Comments on
+                                    Addl.
                                     Testing</label>
                                 <textarea name="qc_comments_on_addl_testing" id="" cols="30" rows="5"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="group-input col-md-6">
-                            <label for="Audit Attachments" name="qc_review_attachment"> QC Review Attachment</label>
-                            <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
+                        <div class="group-input">
+                            <label for="qc_review_attachment">QC Review Attachment
+                            </label>
+                            <div><small class="text-primary">Please Attach all relevant or supporting
+                                    documents</small></div>
                             <div class="file-attachment-field">
-                                <div class="file-attachment-list" id="file_attach"></div>
+                                <div class="file-attachment-list" id="qc_review_attachment"></div>
                                 <div class="add-btn">
-                                    <div>View</div>
-                                    <input type="file" id="myfile" name="file_attach[]"
-                                        oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                    <div>Add</div>
+                                    <input type="file" id="myfile" name="qc_review_attachment[]"
+                                        oninput="addMultipleFiles(this, 'qc_review_attachment')" multiple>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="row col-md-12">
                         <div class="col-md-6 mb-4">
                             <div class="group-input">
-                                <label for="Description Deviation" name="addl_testing_qc_review_by">Additional Testing QC
+                                <label for="Description Deviation" name="addl_testing_qc_review_by">Additional Testing
+                                    QC
                                     Review By</label>
                                 <input type="text" name="addl_testing_qc_review_by">
                             </div>
@@ -961,10 +1084,10 @@
                                 <label for="Scheduled end date">Additional Testing QC Review on
                                 </label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate" name="add_testing_qc_review_on"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    <input type="text" id="end_date8" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="date" id="end_date_checkdate8" name="add_testing_qc_review_on"
+                                        min="yyyy-mm-dd" class="hide-input"
+                                        oninput="handleDateInput(this, 'end_date8');checkDate('start_date_checkdate8','end_date_checkdate8')" />
                                 </div>
                             </div>
                         </div>
@@ -986,7 +1109,8 @@
                     <div class="row">
                         <div class="col-md-12 mb-4">
                             <div class="group-input">
-                                <label for="Description Deviation" name="summary_of_exp_hyp">Summary of Exp./Hyp.</label>
+                                <label for="Description Deviation" name="summary_of_exp_hyp">Summary of
+                                    Exp./Hyp.</label>
                                 <div><small class="text-primary">AQA COmments on Additional Testing</small></div>
                                 <textarea name="summary_of_exp_hyp" id="" cols="30" rows="5"></textarea>
                             </div>
@@ -1006,10 +1130,10 @@
                                         <label for="Scheduled end date">AQA Review Completed On
                                         </label>
                                         <div class="calenderauditee">
-                                            <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" id="end_date_checkdate" name="aqa_review_completed_on"
-                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                            <input type="text" id="end_date10" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date" id="end_date_checkdate10"
+                                                name="aqa_review_completed_on" min="yyyy-mm-dd" class="hide-input"
+                                                oninput="handleDateInput(this, 'end_date10');checkDate('start_date_checkdate10','end_date_checkdate10')" />
                                         </div>
                                     </div>
                                 </div>
@@ -1030,10 +1154,10 @@
                                         <label for="Scheduled end date">Cancel On
                                         </label>
                                         <div class="calenderauditee">
-                                            <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" id="end_date_checkdate" name="cancel_on"
-                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                            <input type="text" id="end_date11" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date" id="end_date_checkdate11" name="cancel_on"
+                                                min="yyyy-mm-dd" class="hide-input"
+                                                oninput="handleDateInput(this, 'end_date11');checkDate('start_date_checkdate11','end_date_checkdate11')" />
                                         </div>
                                     </div>
                                 </div>
@@ -1061,119 +1185,118 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Product/Material Name"> Additional Test Proposal Completed By</label>
-                                <input type="text" name="log_additional_test_proposal_completed_by">
+                                <label for="Product/Material Name"> Additional Test Proposal Completed By :-</label>
+                                {{-- <input type="text" name="log_additional_test_proposal_completed_by"> --}}
                             </div>
                         </div>
 
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Scheduled end date">Additional Test Proposal Completed On</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate"
-                                        name="log_additional_test_proposal_completed_on"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                </div>
+                                <label for="Scheduled end date">Additional Test Proposal Completed On :-</label>
+                                {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate"
+                                            name="log_additional_test_proposal_completed_on" min="yyyy-mm-dd"
+                                            class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div> --}}
                             </div>
                         </div>
                         <div class="col-md-6 mb-4">
                             <div class="group-input">
-                                <label for="Description Deviation" name="log_cq_approved_by">CQ Approved By
+                                <label for="Description Deviation" name="log_cq_approved_by">CQ Approved By :-
                                 </label>
-                                <input type="text" name="log_cq_approved_on">
+                                {{-- <input type="text" name="log_cq_approved_on"> --}}
                             </div>
                         </div>
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Scheduled end date">CQ Approved On</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate" name="log_cq_approved_on"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                </div>
+                                <label for="Scheduled end date">CQ Approved On :-</label>
+                                {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate" name="log_cq_approved_on"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div> --}}
                             </div>
                         </div>
                         <div class="col-md-6 mb-4">
                             <div class="group-input">
                                 <label for="Description Deviation" name="log_additional_test_exe_by">Additional Test
-                                    Exe.
-                                    By</label>
-                                <input type="text" name="log_additional_test_exe_by">
+                                    Exe. By :-</label>
+                                {{-- <input type="text" name="log_additional_test_exe_by"> --}}
                             </div>
                         </div>
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Scheduled end date">Additional Test Exe. On</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate" name="log_add_test_exe_on"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                </div>
+                                <label for="Scheduled end date">Additional Test Exe. On :-</label>
+                                {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate" name="log_add_test_exe_on"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div> --}}
                             </div>
                         </div>
                         <div class="col-md-6 mb-4">
                             <div class="group-input">
                                 <label for="Description Deviation" name="log_addl_testing_qc_review_by">Additional
                                     Testing QC
-                                    Review By</label>
-                                <input type="text" name="log_addl_testing_qc_review_by">
+                                    Review By :-</label>
+                                {{-- <input type="text" name="log_addl_testing_qc_review_by"> --}}
                             </div>
                         </div>
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Scheduled end date">Additional Testing QC Review on
+                                <label for="Scheduled end date">Additional Testing QC Review on :-
                                 </label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate" name="log_add_testing_qc_review_on"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                </div>
+                                {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate" name="log_add_testing_qc_review_on"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div> --}}
                             </div>
                         </div>
                         <div class="col-md-6 mb-4">
                             <div class="group-input">
                                 <label for="Description Deviation" name="log_aqa_review_completed_by">AQA Review
-                                    Completed By
+                                    Completed By :-
                                 </label>
-                                <input type="text" name="log_aqa_review_completed_by">
+                                {{-- <input type="text" name="log_aqa_review_completed_by"> --}}
                             </div>
                         </div>
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Scheduled end date">AQA Review Completed On
+                                <label for="Scheduled end date">AQA Review Completed On :-
                                 </label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate" name="log_aqa_review_completed_on"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                </div>
+                                {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate" name="log_aqa_review_completed_on"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div> --}}
                             </div>
                         </div>
 
 
                         <div class="col-md-6 mb-4">
                             <div class="group-input">
-                                <label for="Description Deviation">Cancel By
+                                <label for="Description Deviation">Cancel By :-
                                 </label>
-                                <input type="text" name="log_cancel_by">
+                                {{-- <input type="text" name="log_cancel_by"> --}}
                             </div>
                         </div>
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Scheduled end date">Cancel On
+                                <label for="Scheduled end date">Cancel On :-
                                 </label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate" name="log-cancel_on"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                </div>
+                                {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate" name="log-cancel_on"
+                                            min="min="yyyy-mm-dd" " class="hide-input"
+                                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                                </div> --}}
                             </div>
                         </div>
 
@@ -1228,15 +1351,15 @@
             let newReference = document.createElement('div');
             newReference.classList.add('row', 'reference-data-' + referenceCount);
             newReference.innerHTML = `
-            <div class="col-lg-6">
-                <input type="text" name="reference-text">
-            </div>
-            <div class="col-lg-6">
-                <input type="file" name="references" class="myclassname">
-            </div><div class="col-lg-6">
-                <input type="file" name="references" class="myclassname">
-            </div>
-        `;
+                           <div class="col-lg-6">
+                               <input type="text" name="reference-text">
+                           </div>
+                           <div class="col-lg-6">
+                               <input type="file" name="references" class="myclassname">
+                           </div><div class="col-lg-6">
+                               <input type="file" name="references" class="myclassname">
+                           </div>
+                     `;
             let referenceContainer = document.querySelector('.reference-data');
             referenceContainer.parentNode.insertBefore(newReference, referenceContainer.nextSibling);
         }
@@ -1254,7 +1377,7 @@
                 cctabcontent[i].style.display = "none";
             }
             cctablinks = document.getElementsByClassName("cctablinks");
-            for (i = 0; i < cctablinks.length; i++) {
+            for (i = 0; i < script cctablinks.length; i++) {
                 cctablinks[i].className = cctablinks[i].className.replace(" active", "");
             }
             document.getElementById(cityName).style.display = "block";
