@@ -31,6 +31,7 @@ use App\Http\Controllers\tms\QuestionBankController;
 use App\Http\Controllers\tms\QuestionController;
 use App\Http\Controllers\tms\QuizeController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\ctms\ClinicalSiteController;
 use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -400,7 +401,7 @@ Route::view('monitoring_visit', 'frontend.ctms.monitoring_visit');
 Route::view('investigational_nda_anda', 'frontend.ctms.investigational_nda_anda');
 Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
 Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
-Route::view('clinical_site', 'frontend.ctms.clinical_site');
+// Route::view('clinical_site', 'frontend.ctms.clinical_site');
 
 Route::view('cta_submission', 'frontend.ctms.cta_submission');
 Route::view('masking', 'frontend.ctms.masking');
@@ -534,3 +535,18 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 
 // ===============OOt form==========================\
 Route::view('OOT_form', 'frontend.OOT.OOT_form');
+
+
+
+
+
+// ========================================ClinicalSite start===============================
+
+Route::get('clinicalsiteindex',[ClinicalSiteController::class,'index']);
+Route::post('clinicalsitestore',[ClinicalSiteController::class,'store'])->name('clinicstore');
+Route::get('clinicalsiteshow/{id}',[ClinicalSiteController::class,'show'])->name('clinicshow');
+Route::put('clinicalsiteupdate/{id}',[ClinicalSiteController::class,'update'])->name('clinicupdate');
+Route::get('clinicalsiteAuditReport/{id}', [ClinicalSiteController::class, 'clinicalsiteAuditTrial'])->name('clinicalsiteAuditReport');
+
+
+// ========================================ClinicalSite end===============================
