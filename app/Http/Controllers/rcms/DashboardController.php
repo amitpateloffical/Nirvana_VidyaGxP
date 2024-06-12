@@ -19,6 +19,7 @@ use App\Models\Observation;
 use App\Models\Deviation;
 use App\Models\MedicalDeviceRegistration;
 use App\Models\DosierDocuments;
+use App\Models\PreventiveMaintenances;
 use Helpers;
 use App\Models\User;
 use Carbon\Carbon;
@@ -69,6 +70,7 @@ class DashboardController extends Controller
         $datas13 = Deviation::orderByDesc('id')->get();
         $datas15 = MedicalDeviceRegistration::orderByDesc('id')->get();
         $datas16 = DosierDocuments::orderByDesc('id')->get();
+        $datas17 = PreventiveMaintenances::orderByDesc('id')->get();
 
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -375,6 +377,26 @@ class DashboardController extends Controller
                 "date_close" => $data->updated_at,
             ]);
         }
+        foreach ($datas17 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Preventive Maintenance",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
         // return $table;
         // $paginatedData = json_encode($table);
@@ -768,6 +790,12 @@ class DashboardController extends Controller
             $data = DosierDocuments::find($id);
             $single = "dosierdocuments/single_report/". $data->id;
             $audit = "dosierdocuments/audit_report/". $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+        }
+        elseif ($type == "Preventive Maintenance") {
+            $data = PreventiveMaintenances::find($id);
+            $single = "preventivemaintenance/single_report/". $data->id;
+            $audit = "preventivemaintenance/audit_report/". $data->id;
             $parent="deviationparentchildReport/". $data->id;
         }
 
