@@ -92,7 +92,7 @@ $users = DB::table('users')->get();
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                         Child
                     </button>
-                    @elseif($national->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                    @elseif($national->stage == 4 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                         Retire
                     </button>
@@ -107,7 +107,7 @@ $users = DB::table('users')->get();
                     Update Done
                     </button> -->
 
-                    @elseif($national->stage == 4 &&
+                    @elseif($national->stage == 3 &&
                     (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
 
                     <button class="button_theme1" data-bs-toggle="modal" name="test_not_required" data-bs-target="#signature-modal">
@@ -178,11 +178,15 @@ $users = DB::table('users')->get();
                 </div>
                 @elseif ($national->stage == 6)
                 <div class="progress-bars ">
-                    <div class="bg-danger">Closed – Not Approved </div>
+                    <div class="bg-danger">Closed - Not Approved </div>
                 </div>
                 @elseif ($national->stage == 7)
-                <div class="progress-bars ">
+                <div class="progress-bars">
                     <div class="bg-danger">Closed - Withdrawn</div>
+                </div>
+                @elseif($national->stage ==5)
+                <div class="progress-bars">
+                    <div class="bg-danger">Closed - Retired</div>
                 </div>
                 @else
                 <div class="progress-bars d-flex" style="font-size: 15px;">
@@ -199,18 +203,16 @@ $users = DB::table('users')->get();
                     @endif
 
                     @if ($national->stage >= 3)
-                    <div class="bg-danger">Approved</div>
-                    @else
-                    <div class="">Approved</div>
-                    @endif
-
-                    @if ($national->stage >= 4)
                     <div class="active">Update Ongoing</div>
                     @else
                     <div class="">Update Ongoing</div>
                     @endif
 
-
+                    @if ($national->stage >= 4)
+                    <div class="bg-danger">Approved</div>
+                    @else
+                    <div class="">Approved</div>
+                    @endif
                     <!-- @if ($national->stage >= 5)
                     <div class="active">Closed - Retired
                     </div>
@@ -234,11 +236,11 @@ $users = DB::table('users')->get();
                     <div class="">Active Document</div>
                     @endif -->
 
-                    @if ($national->stage >= 5)
+                    <!-- @if ($national->stage >= 5)
                     <div class="bg-danger">Closed - Retired</div>
                     @else
                     <div class="">Closed - Retired</div>
-                    @endif
+                    @endif -->
                     {{-- @endif --}}
                 </div>
                 @endif
@@ -257,11 +259,11 @@ $users = DB::table('users')->get();
 
         <script>
                 $(document).ready(function() {
-                    <?php if ($national->stage == 5): ?>
+                    <?php if (in_array($national->stage, [4, 5, 6,7])): ?>
                         $("#target :input").prop("disabled", true);
                     <?php endif; ?>
                 });
-            </script>
+        </script>
 
         <form id="target" action="{{ route('national_approval.update', $national->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -633,37 +635,37 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Started by">Started By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{Auth::user()->name}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Started on">Started On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{$national->initiation_date}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Submitted by">Submitted By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{Auth::user()->name}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Submitted on">Submitted On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{$national->initiation_date}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Approved by">Approved By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{Auth::user()->name}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Approved on">Approved On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{$national->initiation_date}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">

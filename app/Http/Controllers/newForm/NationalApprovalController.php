@@ -8,6 +8,7 @@ use App\Models\Extension;
 use App\Models\NationalApproval;
 use App\Models\NationalApprovalAudit;
 use App\Models\NationalApprovalGrid;
+use App\Models\NationalApprovalStage;
 use App\Models\RecordNumber;
 use App\Models\RoleGroup;
 use App\Models\User;
@@ -813,7 +814,9 @@ if (!empty($request->expiration_date)) {
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $equipment = NationalApproval::find($id);
-            // $lastDocument = NationalApproval::find($id);
+            $lastDocument = NationalApproval::find($id);
+            // $nationalDetails = NationalApprovalStage::withoutTrashed()->where(['status' => 'In-progress', 'nationa_id' => $id])->distinct('national_user_id')->count();
+
 
             if (!$equipment) {
                 toastr()->error('National Approval not found');
@@ -823,17 +826,45 @@ if (!empty($request->expiration_date)) {
             if ($equipment->stage == 1) {
                 $equipment->stage = "2";
                 $equipment->status = "Authority Assessment";
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+                // $equipment->submit_comment = $request->comment;
 
-                $equipment->update();
-
+                $validation2 = new NationalApprovalAudit();
+                $validation2->national_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->previous = "";
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                // $validation2->stage = 'Plan Proposed';
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
             }
 
             if ($equipment->stage == 2) {
-                $equipment->stage = "3";
+                $equipment->stage = "4";
                 $equipment->status = "Approved";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+                $equipment->submit_comment = $request->comment;
+                
+                $validation2 = new NationalApprovalAudit();
+                $validation2->national_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->previous = "";
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -841,6 +872,30 @@ if (!empty($request->expiration_date)) {
 
             if ($equipment->stage == 3) {
                 $equipment->stage = "4";
+                $equipment->status = "Approved";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+                $equipment->submit_comment = $request->comment;
+                
+                $validation2 = new NationalApprovalAudit();
+                $validation2->national_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->previous = "";
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+
+                $equipment->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
+
+            if ($equipment->stage == 4) {
+                $equipment->stage = "3";
                 $equipment->status = "Update Ongoing";
                 $equipment->update();
                 toastr()->success('Document Sent');
@@ -848,13 +903,7 @@ if (!empty($request->expiration_date)) {
             }
 
 
-            if ($equipment->stage == 4) {
-                $equipment->stage = "3";
-                $equipment->status = "Approved  ";
-                $equipment->update();
-                toastr()->success('Document Sent');
-                return back();
-            }
+
 
             // if ($equipment->stage == 5) {
             //     $equipment->stage = "6";
@@ -915,7 +964,7 @@ if (!empty($request->expiration_date)) {
             //     return back();
             // }
 
-            if ($equipment->stage == 3) {
+            if ($equipment->stage == 4) {
                 $equipment->stage = "5";
                 $equipment->status = "Closed - Retired";
                 $equipment->update();
@@ -968,7 +1017,7 @@ if (!empty($request->expiration_date)) {
     {
         $detail = NationalApprovalAudit::find($id);
         $detail_data = NationalApprovalAudit::where('activity_type', $detail->activity_type)->where('nationalApproval_id', $detail->nationalApproval_id)->latest()->get();
-        $doc = NationalApproval::where('id', $detail->national_id)->first();
+        $doc = NationalApproval::where('id', $detail->nationalApproval_id)->first();
         // $doc->origiator_name =  User::where('id', $document->initiator_id)->value('name');
         return view('frontend.New_forms.national-approval.np_audit_details', compact('detail', 'doc', 'detail_data'));
     }
@@ -1014,7 +1063,7 @@ if (!empty($request->expiration_date)) {
         return redirect()->back()->with('error', 'National Approval not found.');
     }
 
-    public function audit2_pdf($id)
+    public function audit1_pdf($id)
     {
         $doc = NationalApproval::find($id);
         if (!empty($doc)) {

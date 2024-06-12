@@ -876,7 +876,7 @@ class DashboardController extends Controller
         elseif ($type == "National Approval") {
             $data = NationalApproval::find($id);
             $single = "national_approvalSingleReport/". $data->id;
-            $audit = "audit/". $data->id;
+            $audit = "np_audit/". $data->id;
             $parent="calibrationparentchildReport/". $data->id;
         }     
         elseif ($type == "Sanction") {

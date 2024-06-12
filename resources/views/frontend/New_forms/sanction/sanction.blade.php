@@ -125,9 +125,9 @@
                                         <div><small class="text-primary">Type of Sanction</small></div>
                                         <select id="select-state" placeholder="Select..." name="sanction_type">
                                             <option value="">Enter your selection here</option>
-                                            <option value="$1">$1</option>
-                                            <option value="$2">$2</option>
-                                            <option value="$3">$3</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -176,9 +176,9 @@
                                         </label>
                                         <select id="select-state" placeholder="Enter your selection here" name="authority_type">
                                             <option value="">Select a value</option>
-                                            <option value="$1">$1</option>
-                                            <option value="$2">$2</option>
-                                            <option value="$3">$3</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -188,10 +188,10 @@
                                             Authority <span class="text-danger"></span>
                                         </label>
                                         <select id="select-state" placeholder="Enter your selection here" name="authority">
-                                            <option value="">Select a value</option>
-                                            <option value="$1">$1</option>
-                                            <option value="$2">$2</option>
-                                            <option value="$3">$3</option>
+                                        <option value="">Select a value</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -211,9 +211,9 @@
                                         </label>
                                         <select id="select-state" placeholder="Enter your selection here" name="currency">
                                             <option value="">Select a value</option>
-                                            <option value="$1">$1</option>
-                                            <option value="$2">$2</option>
-                                            <option value="$3">$3</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
                                         </select>
                                     </div>
                                 </div>

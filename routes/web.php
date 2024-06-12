@@ -22,6 +22,7 @@ use App\Http\Controllers\DocumentContentController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\newForm\CalibrationController;
 use App\Http\Controllers\newForm\EquipmentController;
+use App\Http\Controllers\newForm\MonthlyWorkingController;
 use App\Http\Controllers\newForm\NationalApprovalController;
 use App\Http\Controllers\newForm\SanctionController;
 use App\Http\Controllers\newForm\ValidationController;
@@ -369,7 +370,6 @@ Route::view('deviation_new', 'frontend.forms.deviation_new');
 // -------------------------------------ehs---------forms--------
 Route::view('recurring_commitment', 'frontend.ehs.recurring_commitment');
 
-Route::view('monthly_working', 'frontend.ehs.monthly_working');
 
 Route::view('investigation', 'frontend.ehs.investigation');
 
@@ -479,7 +479,7 @@ Route::get('audit_trail_np/{id}', [NationalApprovalController::class, 'audit_Nat
 Route::get('npAuditTrialDetails/{id}', [NationalApprovalController::class, 'nationalAuditTrialDetails']);
 
 
-//=================== Sanction  Approval ====================//
+//=================== Sanction ====================//
 // Route::view('sanction', 'frontend.ehs.sanction');
 Route::get('sanction', [SanctionController::class, 'index']);
 Route::post('/sanction', [SanctionController::class, 'sanctionStore'])->name('sanction.store');
@@ -489,6 +489,16 @@ Route::post('sanction_child/{id}', [SanctionController::class, 'sanction_child_1
 Route::get('audit_trail_sanction/{id}', [SanctionController::class, 'audit_Sanction']);
 Route::get('sanctionAuditTrialDetails/{id}', [SanctionController::class, 'sanctionAuditTrialDetails']);
 
+//=================== Monthly Working ====================//
+// Route::view('monthly_working', 'frontend.ehs.monthly_working');
+
+Route::get('monthly_working', [MonthlyWorkingController::class, 'index']);
+Route::post('/monthly_working', [MonthlyWorkingController::class, 'monthly_workingStore'])->name('monthly_working.store');
+Route::get('/monthly_working/{id}/edit',[MonthlyWorkingController::class, 'monthly_workingEdit'])->name('monthly_working.edit');
+Route::put('/monthly_working_update/{id}', [MonthlyWorkingController::class, 'monthly_workingUpdate'])->name('monthly_working.update');
+Route::post('monthly_working_child/{id}', [MonthlyWorkingController::class, 'monthly_working_child_1'])->name('monthly_working_child_1');
+Route::get('audit_trail_monthly_working/{id}', [MonthlyWorkingController::class, 'audit_monthly_working']);
+Route::get('monthly_workingAuditTrialDetails/{id}', [MonthlyWorkingController::class, 'monthly_workingAuditTrialDetails']);
 
 
 //--------------------------------ERRATA-----form---------------//

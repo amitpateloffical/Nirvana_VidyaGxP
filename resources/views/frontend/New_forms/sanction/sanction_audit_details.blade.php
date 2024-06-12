@@ -43,7 +43,7 @@
                         <table>
                             <tr>
                                 <td class="w-70 head">
-                                 National Approval Audit Trail Details
+                                 Sanction Audit Trail Details
                                 </td>
                                 <td class="w-30">
                                     <div class="logo">

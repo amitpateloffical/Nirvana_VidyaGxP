@@ -72,7 +72,7 @@
                     $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
                     @endphp
 
-                    <button class="button_theme1"> <a class="text-white" href="{{ url('audit_trail_np', $sanction->id) }}"> Audit Trail </a> </button>
+                    <button class="button_theme1"> <a class="text-white" href="{{ url('audit_trail_sanction', $sanction->id) }}"> Audit Trail </a> </button>
 
                     @if ($sanction->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">

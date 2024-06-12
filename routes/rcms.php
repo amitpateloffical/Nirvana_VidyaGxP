@@ -227,7 +227,7 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::post('national_approval/check2/{id}', [NationalApprovalController::class, 'check2'])->name('national_approval_check2');
              Route::post('national_approval/check3/{id}', [NationalApprovalController::class, 'check3'])->name('national_approval_check3');
              Route::get('national_approvalSingleReport/{id}', [NationalApprovalController::class, 'singleReport'])->name('national_approvalSingleReport');
-             Route::get('/audit/{id}', [NationalApprovalController::class, 'audit2_pdf']);
+             Route::get('/np_audit/{id}', [NationalApprovalController::class, 'audit1_pdf']);
 
 
              //============ Sanction =============
@@ -235,7 +235,7 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::post('sanction',[SanctionController::class,'sanction_reject'])->name('sanctionReject');
              Route::post('sanction/cancel/{id}', [SanctionController::class, 'sanctionCancel'])->name('sanctionCancel');
              Route::post('sanction/check/{id}', [SanctionController::class, 'check'])->name('sanction_check');
-             Route::post('np_qa_more_info/{id}', [SanctionController::class, 'np_qa_more_info'])->name('np_qa_more_info');
+             Route::post('sanction_qa_more_info/{id}', [SanctionController::class, 'np_qa_more_info'])->name('np_qa_more_info');
              Route::post('sanction/check2/{id}', [SanctionController::class, 'check2'])->name('sanction_check2');
              Route::post('sanction/check3/{id}', [SanctionController::class, 'check3'])->name('sanction_check3');
              Route::get('sanctionSingleReport/{id}', [SanctionController::class, 'singleReport'])->name('sanctionSingleReport');

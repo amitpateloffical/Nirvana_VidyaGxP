@@ -161,7 +161,7 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                   National-Approval Single Report
+                   Sanction Single Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -211,30 +211,30 @@
                         <td class="w-30">@if($data->short_description){{ $data->short_description }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">(Root Parent) Manufacturer</th>
-                        <td class="w-30">@if($data->manufacturer){{ $data->manufacturer}} @else Not Applicable @endif</td>
-                        <th class="w-20">(Root Parent) Trade Name</th>
-                        <td class="w-30">@if($data->trade_name){{ $data->trade_name }} @else Not Applicable @endif</td>
+                        <th class="w-20">Type</th>
+                        <td class="w-30">@if($data->sanction_type){{ $data->sanction_type}} @else Not Applicable @endif</td>
+                        <th class="w-20">File Attachments</th>
+                        <td class="w-30">@if($data->file_attach){{ $data->file_attach }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">(Parent) Procedure Type</th>
-                        <td class="w-30">@if($data->procedure_type){{ $data->procedure_type }} @else Not Applicable @endif</td>
-                        <th class="w-20">Planned Subnission Date</th>
-                        <td class="w-30">@if($data->planned_subnission_date){{ $data->planned_subnission_date }}@else Not Applicable @endif</td>                       
+                        <th class="w-20">Description</th>
+                        <td class="w-30">@if($data->description){{ $data->description }} @else Not Applicable @endif</td>
+                        <th class="w-20">Authority Type</th>
+                        <td class="w-30">@if($data->authority_type){{ $data->authority_type }}@else Not Applicable @endif</td>                       
                     </tr>
                     <tr>
-                        <th class="w-20">Member State</th>
-                        <td class="w-30">@if($data->member_state){{ ($data->member_state) }} @else Not Applicable @endif</td>
-                        <th class="w-20">Local Trade Name</th>
-                        <td class="w-30">@if($data->local_trade_name){{ $data->local_trade_name }} @else Not Applicable @endif</td>
+                        <th class="w-20">Authority</th>
+                        <td class="w-30">@if($data->authority){{ ($data->authority) }} @else Not Applicable @endif</td>
+                        <th class="w-20">Fine</th>
+                        <td class="w-30">@if($data->fine){{ $data->fine }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Registration Number</th>
-                        <td class="w-30"> @if($data->registration_number){{ $data->registration_number }}@else Not Applicable @endif</td>
-                        <th class="w-20">Renewal Rule</th>
-                        <td class="w-30"> @if($data->renewal_rule){{ $data->renewal_rule }} @else Not Applicable @endif</td>
+                        <th class="w-20">Currency</th>
+                        <td class="w-30"> @if($data->currency){{ $data->currency }}@else Not Applicable @endif</td>
+                        <!-- <th class="w-20">Renewal Rule</th>
+                        <td class="w-30"> @if($data->renewal_rule){{ $data->renewal_rule }} @else Not Applicable @endif</td> -->
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <th class="w-20">Dossier Parts</th>
                         <td class="w-30">@if($data->dossier_parts){{ $data->dossier_parts }}@else Not Applicable @endif</td>
                         <th class="w-20">Related Dossier Documents</th>
@@ -246,14 +246,14 @@
                         <td class="w-30">@if($data->pack_size){{ $data->pack_size }}@else Not Applicable @endif</td>
                         <th class="w-20">Shelf Life</th>
                         <td class="w-30">@if($data->shelf_life){{ $data->shelf_life }}@else Not Applicable @endif</td>
-                    </tr>
+                    </tr> -->
 
-                    <tr>
+                    <!-- <tr>
                         <th class="w-20">PSUP Cycle</th>
                         <td class="w-30">@if($data->psup_cycle){{ $data->psup_cycle }}@else Not Applicable @endif</td>
                         <th class="w-20">Expiration Date</th>
                         <td class="w-30">@if($data->expiration_date){{ $data->expiration_date }}@else Not Applicable @endif</td>
-                    </tr>
+                    </tr> -->
 
                     <!-- <tr>
                         <th class="w-20">Next PM Date</th>
@@ -305,7 +305,7 @@
                         Approval Plan
                     </div>
                     <table>
-                       <tr>
+                       <!-- <tr>
                             <th class="w-30">Approval Status</th>
                             <td class="w-20">@if($data->approval_status){{ $data->approval_status }}@else Not Applicable @endif</td>
                         </tr>
@@ -343,7 +343,7 @@
                         <tr>
                             <th class="w-30">Comments</th>
                             <td class="w-20">@if($data->comments){{ $data->comments }}@else Not Applicable @endif</td>
-                        </tr>
+                        </tr> -->
                     </table>   
                        
                              
@@ -2084,10 +2084,10 @@
                 </div>
                 <table>
                     <tr>
-                        <th class="w-20">Started By</th>
+                        <!-- <th class="w-20">Started By</th>
                         <td class="w-20">{{ Auth::user()->name }}</td>
                         <th class="w-20">Started On</th>
-                        <td class="w-20">{{ Helpers::getdateFormat($data->created_at) }}</td>
+                        <td class="w-20">{{ Helpers::getdateFormat($data->created_at) }}</td> -->
                         <th class="w-20">Submitted By</th>
                         <td class="w-20">{{ Auth::user()->name }}</td>
                         <th class="w-20">Submitted On</th>
@@ -2095,21 +2095,21 @@
                         {{-- <td class="w-30">{{ $data }}</td> --}}
                     </tr>
                     <tr>
-                        <th class="w-20">Approved By</th>
-                        <td class="w-30">{{ $data->cancelled_by}}</td>
-                        <th class="w-20">Approved On</th>
-                        <!-- <td class="w-30">{{ Helpers::getdateFormat($data->cancelled_on) }}</td>
-                        <th class="w-20">HOD Review Comments</th> -->
+                        <th class="w-20">Closed By</th>
+                        <td class="w-20">{{ Auth::user()->name }}</td>
+                        <th class="w-20">Closed On</th>
+                        <td class="w-20">{{ Helpers::getdateFormat($data->cancelled_on) }}</td>
+                        <!-- <th class="w-20">HOD Review Comments</th> -->
                         {{-- <td class="w-30">{{ $data-> }}</td> --}}
                     </tr>
                     <tr>
-                        <th class="w-20">Refused By</th>
+                        <!-- <th class="w-20">Refused By</th>
                         <td class="w-30">{{ $data->audit_observation_submitted_by }}</td>
                         <th class="w-20">Refused On</th>
                         <td class="w-30">{{ Helpers::getdateFormat($data->audit_observation_submitted_on)  }}</td>
-                        <th class="w-20">Withdrawn By</th>
+                        <th class="w-20">Withdrawn By</th> -->
                         {{-- <td class="w-30">{{ $data-> }}</td> --}}
-                        <th class="w-20">Withdrawn On</th>
+                        <!-- <th class="w-20">Withdrawn On</th> -->
                         {{-- <td class="w-30">{{ $data-> }}</td> --}}
                         <!-- <th class="w-20">Report Reject By</th> -->
                         {{-- <td class="w-30">{{ $data-> }}</td> --}}
