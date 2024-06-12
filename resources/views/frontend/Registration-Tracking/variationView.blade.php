@@ -573,25 +573,40 @@
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Primary Packaging</th>
                                                 <th style="width: 14%">Material</th>
-                                                <th style="width: 14%">Pack Size. </th>
+                                                <th style="width: 14%">Pack Size</th>
                                                 <th style="width: 14%">Shelf Life</th>
                                                 <th style="width: 15%">Storage Condition</th>
                                                 <th style="width: 15%">Secondary Packaging</th>
                                                 <th style="width: 15%">Remarks</th>
-
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-
-                                            <td><input type="text" name="PrimaryPackaging[]"></td>
-                                            <td><input type="text" name="Material[]"></td>
-                                            <td><input type="text" name="PackSize[]"></td>
-                                            <td><input type="text" name="ShelfLife[]"></td>
-                                            <td><input type="text" name="StorageCondition[]"></td>
-                                            <td><input type="text" name="SecondaryPackaging[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
-
+                                            @if ($packaging && is_array($packaging->data))
+                                                @foreach ($packaging->data as $index => $gridData)
+                                                    <tr>
+                                                        <td><input disabled type="text" name="packaging[{{ $loop->index }}][serial]" value="{{ $loop->index+1 }}"></td>
+                                                        <td><input type="text" name="packaging[{{ $loop->index }}][PrimaryPackaging]" value="{{ array_key_exists('PrimaryPackaging', $gridData) ? $gridData['PrimaryPackaging'] : '' }}"></td>
+                                                        <td><input type="text" name="packaging[{{ $loop->index }}][Material]" value="{{ array_key_exists('Material', $gridData) ? $gridData['Material'] : '' }}"></td>
+                                                        <td><input type="text" name="packaging[{{ $loop->index }}][PackSize]" value="{{ array_key_exists('PackSize', $gridData) ? $gridData['PackSize'] : '' }}"></td>
+                                                        <td><input type="text" name="packaging[{{ $loop->index }}][ShelfLife]" value="{{ array_key_exists('ShelfLife', $gridData) ? $gridData['ShelfLife'] : '' }}"></td>
+                                                        <td><input type="text" name="packaging[{{ $loop->index }}][StorageCondition]" value="{{ array_key_exists('StorageCondition', $gridData) ? $gridData['StorageCondition'] : '' }}"></td>
+                                                        <td><input type="text" name="packaging[{{ $loop->index }}][SecondaryPackaging]" value="{{ array_key_exists('SecondaryPackaging', $gridData) ? $gridData['SecondaryPackaging'] : '' }}"></td>
+                                                        <td><input type="text" name="packaging[{{ $loop->index }}][Remarks]" value="{{ array_key_exists('Remarks', $gridData) ? $gridData['Remarks'] : '' }}"></td>
+                                                        <td></td>
+                                                    </tr>
+                                                @endforeach
+                                            @else
+                                                <td><input disabled type="text" name="packaging[0][serial]" value="1"></td>
+                                                <td><input type="text" name="packaging[0][PrimaryPackaging]"></td>
+                                                <td><input type="text" name="packaging[0][Material]"></td>
+                                                <td><input type="text" name="packaging[0][PackSize]"></td>
+                                                <td><input type="text" name="packaging[0][ShelfLife]"></td>
+                                                <td><input type="text" name="packaging[0][StorageCondition]"></td>
+                                                <td><input type="text" name="packaging[0][SecondaryPackaging]"></td>
+                                                <td><input type="text" name="packaging[0][Remarks]"></td>
+                                                <td></td>
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -1170,14 +1185,15 @@
 
                 var html =
                     '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="PrimaryPackaging[]"></td>' +
-                    '<td><input type="text" name="Material[]"></td>' +
-                    '<td><input type="text" name="PackSize[]"></td>' +
-                    '<td><input type="text" name="ShelfLife[]"></td>' +
-                    '<td><input type="text" name="StorageCondition[]"></td>' +
-                    '<td><input type="text" name="SecondaryPackaging[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>' +
+                    '<td><input disabled type="text" name="packaging[' + serialNumber + '][serial]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber + '][PrimaryPackaging]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber + '][Material]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber + '][PackSize]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber + '][ShelfLife]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber + '][StorageCondition]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber + '][SecondaryPackaging]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber + '][Remarks]"></td>' +
+                    '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
                     '</tr>';
                 '</tr>';
 
@@ -1190,6 +1206,11 @@
             tableBody.append(newRow);
         });
     });
+</script>
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
 </script>
 
 <script>

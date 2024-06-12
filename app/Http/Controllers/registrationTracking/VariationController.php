@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\RoleGroup;
 use App\Models\User;
 use App\Models\Variation;
+use App\Models\VariationGrid;
 use App\Models\VariationAuditTrail;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\App;
+use PDF;
+
 
 
 class VariationController extends Controller
@@ -51,6 +55,15 @@ class VariationController extends Controller
         $variation->description = $request->description;
         $variation->documents = $request->documents;
         $variation->save();
+
+        $variation_id = $variation->id;
+
+        $variationGrid = VariationGrid::where(['variation_id' => $variation_id, 'identifier' => 'Packaging'])->firstOrNew();
+        $variationGrid->variation_id = $variation_id;
+        $variationGrid->identifier = 'Packaging';
+        $variationGrid->data = $request->packaging;
+        $variationGrid->save();
+
 
         // -------------------create audit trail--------------------
 
@@ -315,10 +328,15 @@ class VariationController extends Controller
 
     public function show($id) {
         $data = Variation::find($id);
-        return view('frontend.Registration-Tracking.variationView',compact('data'));
+
+        $packaging = VariationGrid::where(['variation_id' => $id, 'identifier' => 'Packaging'])->first();
+
+        return view('frontend.Registration-Tracking.variationView',compact('data', 'packaging'));
     }
 
     public function update(Request $request, $id) {
+        // dd($request->all());
+
         $lastVariation = Variation::find($id);
         $variation = Variation::find($id);
 
@@ -364,6 +382,14 @@ class VariationController extends Controller
         $variation->local_trade_name = $request->local_trade_name;
         $variation->manufacturer = $request->manufacturer;
         $variation->update();
+
+        $variation_id = $variation->id;
+
+        $variationGrid = VariationGrid::where(['variation_id' => $variation_id, 'identifier' => 'Packaging'])->firstOrNew();
+        $variationGrid->variation_id = $variation_id;
+        $variationGrid->identifier = 'Packaging';
+        $variationGrid->data = $request->packaging;
+        $variationGrid->save();
         return back();
 
         // -------------------- Audit Trail------------------------
@@ -1247,5 +1273,90 @@ class VariationController extends Controller
         // return $audit;
 
         return view('frontend.Registration-Tracking.variationAudit', compact('audit', 'document', 'today'));
+    }
+
+    public function audit_pdf($id) {
+        $doc = Variation::find($id);
+        if (!empty($doc)) {
+            $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+        }
+        $data = VariationAuditTrail::where('variation_id', $doc->id)->orderByDesc('id')->get();
+        // pdf related work
+        $pdf = App::make('dompdf.wrapper');
+        $time = Carbon::now();
+        $pdf = PDF::loadview('frontend.Registration-Tracking.variationAuditPdf', compact('data', 'doc'))
+            ->setOptions([
+                'defaultFont' => 'sans-serif',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => true,
+                'isPhpEnabled' => true,
+            ]);
+        $pdf->setPaper('A4');
+        $pdf->render();
+        $canvas = $pdf->getDomPDF()->getCanvas();
+        $height = $canvas->get_height();
+        $width = $canvas->get_width();
+
+        $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+
+        $canvas->page_text(
+            $width / 3,
+            $height / 2,
+            $doc->status,
+            null,
+            60,
+            [0, 0, 0],
+            2,
+            6,
+            -20
+        );
+
+
+
+        return $pdf->stream('SOP' . $id . '.pdf');
+    }
+
+    public function single_pdf($id)
+    {
+        $data = Variation::find($id);
+        $packaging = VariationGrid::where(['variation_id' => $id, 'identifier' => 'Packaging'])->first();
+
+        if (!empty($data)) {
+            $data->originator = User::where('id', $data->initiator)->value('name');
+
+            // pdf related work
+            $pdf = App::make('dompdf.wrapper');
+            $time = Carbon::now();
+            $pdf = PDF::loadview('frontend.Registration-Tracking.variationSingleReport', compact('data', 'packaging'))
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                ]);
+            $pdf->setPaper('A4');
+            $pdf->render();
+            $canvas = $pdf->getDomPDF()->getCanvas();
+            $height = $canvas->get_height();
+            $width = $canvas->get_width();
+
+            $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+
+            $canvas->page_text(
+                $width / 4,
+                $height / 2,
+                $data->status,
+                null,
+                25,
+                [0, 0, 0],
+                2,
+                6,
+                -20
+            );
+
+
+
+            return $pdf->stream('SOP' . $id . '.pdf');
+        }
     }
 }

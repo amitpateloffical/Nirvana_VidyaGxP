@@ -381,19 +381,21 @@
                                                 <th style="width: 15%">Storage Condition</th>
                                                 <th style="width: 15%">Secondary Packaging</th>
                                                 <th style="width: 15%">Remarks</th>
+                                                <th>Action</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
+                                            <td><input disabled type="text" name="packaging[0][serial]" value="1"></td>
 
-                                            <td><input disabled type="text" name="PrimaryPackaging[]"></td>
-                                            <td><input disabled type="text" name="Material[]"></td>
-                                            <td><input disabled type="text" name="PackSize[]"></td>
-                                            <td><input disabled type="text" name="ShelfLife[]"></td>
-                                            <td><input disabled type="text" name="StorageCondition[]"></td>
-                                            <td><input disabled type="text" name="SecondaryPackaging[]"></td>
-                                            <td><input disabled type="text" name="Remarks[]"></td>
+                                            <td><input disabled type="text" name="packaging[0][PrimaryPackaging]"></td>
+                                            <td><input disabled type="text" name="packaging[0][Material]"></td>
+                                            <td><input disabled type="text" name="packaging[0][PackSize]"></td>
+                                            <td><input disabled type="text" name="packaging[0][ShelfLife]"></td>
+                                            <td><input disabled type="text" name="packaging[0][StorageCondition]"></td>
+                                            <td><input disabled type="text" name="packaging[0]SecondaryPackaging]"></td>
+                                            <td><input disabled type="text" name="packaging[0][Remarks]"></td>
+                                            <td></td>
 
                                         </tbody>
                                     </table>
@@ -637,14 +639,22 @@
 
                 var html =
                     '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="PrimaryPackaging[]"></td>' +
-                    '<td><input type="text" name="Material[]"></td>' +
-                    '<td><input type="text" name="PackSize[]"></td>' +
-                    '<td><input type="text" name="ShelfLife[]"></td>' +
-                    '<td><input type="text" name="StorageCondition[]"></td>' +
-                    '<td><input type="text" name="SecondaryPackaging[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>' +
+                    '<td><input disabled type="text" name="packaging[' + serialNumber +
+                        '][serial]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber +
+                        '][PrimaryPackaging]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber +
+                        '][Material]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber +
+                        '][PackSize]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber +
+                        '][ShelfLife]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber +
+                        '][StorageCondition]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber +
+                        '][SecondaryPackaging]"></td>' +
+                    '<td><input type="text" name="packaging[' + serialNumber +
+                        '][Remarks]"></td>' +
                     '</tr>';
                 '</tr>';
 

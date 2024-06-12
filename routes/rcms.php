@@ -189,6 +189,8 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('variation-moreinfo/{id}', [VariationController::class, 'moreInfo'])->name('variation-moreinfo');
             Route::get('variation-audittrail/{id}', [VariationController::class, 'auditTrail'])->name('variation-audittrail');
             Route::get('variation-audittrail/', [VariationController::class, 'auditTrail'])->name('store-audit-reviewer');
+            Route::get('variationSingleReport/{id}', [VariationController::class, 'single_pdf'])->name('variationSingleReport');
+            Route::get('variationAuditpdf/{id}', [VariationController::class, 'audit_pdf'])->name('variationAuditpdf');
 
         }
     );

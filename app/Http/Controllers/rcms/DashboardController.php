@@ -18,6 +18,7 @@ use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 use App\Models\Deviation;
 use App\Models\MedicalDeviceRegistration;
+use App\Models\Variation;
 use Helpers;
 use App\Models\User;
 use Carbon\Carbon;
@@ -67,6 +68,7 @@ class DashboardController extends Controller
         $datas12 = Observation::orderByDesc('id')->get();
         $datas13 = Deviation::orderByDesc('id')->get();
         $datas15 = MedicalDeviceRegistration::orderByDesc('id')->get();
+        $variation = Variation::orderByDesc('id')->get();
 
 
         foreach ($datas as $data) {
@@ -349,6 +351,26 @@ class DashboardController extends Controller
                 "short_description" => $data->short_description ? $data->short_description : "-",
                 "initiator_id" => $data->initiator_id,
                 "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($variation as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Variation",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator,
+                "intiation_date" => $data->date_of_initiation,
                 "stage" => $data->status,
                 "date_open" => $data->create,
                 "date_close" => $data->updated_at,
@@ -742,6 +764,12 @@ class DashboardController extends Controller
             $single = "deviationSingleReport/". $data->id;
             $audit = "#";
             $parent="deviationparentchildReport/". $data->id;
+        }
+        elseif ($type == "Variation") {
+            $data = Variation::find($id);
+            $single = "variationSingleReport/". $data->id;
+            $audit = "variationAuditpdf/". $data->id;
+            $parent="#";
         }
 
 
