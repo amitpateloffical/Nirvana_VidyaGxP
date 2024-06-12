@@ -406,601 +406,512 @@
                                     <input type="text" id="end_date_1" readonly placeholder="DD-MMM-YYYY" />
                                     <input type="date" id="end_date_checkdate_1" name="parent_date_opened"
                                         min="min="yyyy-mm-dd" " class="hide-input"
-                                                                    oninput="handleDateInput(this, 'end_date_1');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
+                                                                        oninput="handleDateInput(this, 'end_date_1');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <div class="group-input">
-                                                            <label for="Short Description">(Parent) Short Description<span class="text-danger "
-                                                                    name="short_description">*</span></label><span id="rchars">255 </span>characters
-                                                            remaining
-                                                            <input id="docname" type="text" name="short_description" maxlength="255" required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6 new-date-data-field">
-                                                        <div class="group-input input-date">
-                                                            <label for="parent_target_closure_date">(Parent) Target Closure Date</label>
-                                                            <div class="calenderauditee">
-                                                                <input type="text" id="end_date_2" readonly placeholder="DD-MMM-YYYY" />
-                                                                <input type="date" id="end_date_checkdate_2" name="parent_target_closure_date"
-                                                                    min="yyyy-mm-dd"
-                                                                    class="hide-input"
-                                                                    data-display-id="end_date_2" data-start-id="start_date_checkdate_2"
-                                                                    oninput="handleDateInput(this, 'end_date_2'); checkDate('start_date_checkdate_2', 'end_date_checkdate_2')" />
+                                                        <div class="col-6">
+                                                            <div class="group-input">
+                                                                <label for="Short Description">(Parent) Short Description<span class="text-danger "
+                                                                        name="short_description">*</span></label><span id="rchars">255 </span>characters
+                                                                remaining
+                                                                <input id="docname" type="text" name="short_description" maxlength="255" required>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <div class="group-input">
-                                                            <label for="Initiator"> (Parent)Product / Material Name
-                                                            </label>
-                                                            <input type="text" id="text" name="parent_product_mat_name">
+                                                        <div class="col-lg-6 new-date-data-field">
+                                                            <div class="group-input input-date">
+                                                                <label for="parent_target_closure_date">(Parent) Target Closure Date</label>
+                                                                <div class="calenderauditee">
+                                                                    <input type="text" id="end_date_2" readonly placeholder="DD-MMM-YYYY" />
+                                                                    <input type="date" id="end_date_checkdate_2" name="parent_target_closure_date"
+                                                                        min="yyyy-mm-dd"
+                                                                        class="hide-input"
+                                                                        data-display-id="end_date_2" data-start-id="start_date_checkdate_2"
+                                                                        oninput="handleDateInput(this, 'end_date_2'); checkDate('start_date_checkdate_2', 'end_date_checkdate_2')" />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                         </div>
                                                         <div class="col-lg-6">
+                                                            <div class="group-input">
+                                                                <label for="Initiator"> (Parent)Product / Material Name
+                                                                </label>
+                                                                <input type="text" id="text" name="parent_product_mat_name">
+                                                            </div>
+                                                             </div>
+                                                            <div class="col-lg-6">
+                                                            <div class="group-input">
+                                                                <label for="Initiator"> (Root Parent)Product / Material Name
+                                                                </label>
+                                                                <input type="text" id="text" name="root_parent_prod_mat_name">
+                                                            </div>
+                                                        </div>
+
                                                         <div class="group-input">
-                                                            <label for="Initiator"> (Root Parent)Product / Material Name
+                                                            <label for="audit-agenda-grid">
+                                                                (Parent) Info. On Product / Material
+                                                                <button type="button" name="parent_info_on_product_mat1" id="Product_Material1">+</button>
+                                                                <span class="text-primary" name="parent_info_on_product_mat_open" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                                                    (Open)
+                                                                </span>
                                                             </label>
-                                                            <input type="text" id="text" name="root_parent_prod_mat_name">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered" id="Product_Material1" style="width: 100%;">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="width: 4%">Row#</th>
+                                                                            <th style="width: 10%">Item/Product Code</th>
+                                                                            <th style="width: 8%"> Lot/Batch Number</th>
+                                                                            <th style="width: 8%"> A.R. Number</th>
+                                                                            <th style="width: 8%">Mfg. Date</th>
+                                                                            <th style="width: 8%"> Expiry Date</th>
+                                                                            <th style="width: 8%">Label Claim</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                                            <td><input type="text" name="parent_info_on_product_mat1[0][item_product_code]"></td>
+                                                                            <td><input type="text" name="parent_info_on_product_mat1[0][lot_batch_no]"></td>
+                                                                            <td><input type="text" name="parent_info_on_product_mat1[0][ar_number]"></td>
+                                                                            <td>
+                                                                                <div class="group-input new-date-data-field mb-0">
+                                                                                    <div class="input-date">
+                                                                                        <div class="calenderauditee">
+                                                                                            <input type="text" id="agenda_date0" readonly placeholder="DD-MMM-YYYY" />
+                                                                                            <input type="date" name="parent_info_on_product_mat1[0][mfg_date]" min="yyyy-mm-dd" class="hide-input" data-display-id="agenda_date0" data-start-id="agenda_date0" oninput="handleDateInput(this, 'agenda_date0');" />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="group-input new-date-data-field mb-0">
+                                                                                    <div class="input-date ">
+                                                                                        <div class="calenderauditee">
+                                                                                            <input type="text" id="agenda_date2" readonly placeholder="DD-MMM-YYYY" />
+                                                                                            <input type="date" name="parent_info_on_product_mat1[0][exp_date]" min="yyyy-mm-dd" class="hide-input" data-display-id="agenda_date2" data-start-id="agenda_date2" oninput="handleDateInput(this, 'agenda_date2');" />
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td><input type="text" name="parent_info_on_product_mat1[0][label_claim]"></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        
+
+                            <div class="group-input">
+                                <label for="audit-agenda-grid">
+                                    (Parent) Info. On Product / Material (0)
+                                    <button type="button" name="parent_info_on_product_mat2"
+                                        id="Product_Material2">+</button>
+                                    <span class="text-primary" data-bs-toggle="modal"
+                                        data-bs-target="#document-details-field-instruction-modal"
+                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                        (Open)
+                                    </span>
+                                </label>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="Product_Material2" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 4%">Row#</th>
+                                                <th style="width: 10%">Item/Product Code</th>
+                                                <th style="width: 8%">Batch Number</th>
+                                                <th style="width: 8%">A.R. Number</th>
+                                                <th style="width: 8%">Mfg. Date</th>
+                                                <th style="width: 8%">Expiry Date</th>
+                                                <th style="width: 8%">Label Claim</th>
+                                                <th style="width: 8%">Pack Size</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                <td><input type="text"
+                                                        name="parent_info_on_product_mat2[0][item_product_code]"></td>
+                                                <td><input type="text" name="parent_info_on_product_mat2[0][batch_number]">
+                                                </td>
+                                                <td><input type="text" name="parent_info_on_product_mat2[0][ar_number]">
+                                                </td>
+                                                <td>
+                                                    <div class="group-input new-date-data-field mb-0">
+                                                        <div class="input-date">
+                                                            <div class="calenderauditee">
+                                                                <input type="text" id="agenda_date3" readonly
+                                                                    placeholder="DD-MMM-YYYY" />
+                                                                <input type="date"
+                                                                    name="parent_info_on_product_mat2[0][mfg_date]"
+                                                                    min="yyyy-mm-dd" class="hide-input"
+                                                                    oninput="handleDateInput(this, 'agenda_date0');" />
+                                                            </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="group-input">
-                                                        <label for="audit-agenda-grid">
-                                                            (Parent) Info. On Product / Material
-                                                            <button type="button" name="parent_info_on_product_mat1" id="Product_Material1">+</button>
-                                                            <span class="text-primary" name="parent_info_on_product_mat_open" data-bs-toggle="modal"
-                                                                data-bs-target="#document-details-field-instruction-modal"
-                                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                                                (Open)
-                                                            </span>
-                                                        </label>
-                                                        <div class="table-responsive">
-                                                            <table class="table table-bordered" id="Product_Material1" style="width: 100%;">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="width: 4%">Row#</th>
-                                                                        <th style="width: 10%">Item/Product Code</th>
-                                                                        <th style="width: 8%"> Lot/Batch Number</th>
-                                                                        <th style="width: 8%"> A.R. Number</th>
-                                                                        <th style="width: 8%">Mfg. Date</th>
-                                                                        <th style="width: 8%"> Expiry Date</th>
-                                                                        <th style="width: 8%">Label Claim</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                                        <td><input
-                                                                                type="text"name="
-                                                                            parent_info_on_product_mat1[0][item_product_code]">
-                                                                        </td>
-                                                                        <td><input type="text" name="parent_info_on_product_mat1[0][lot_batch_no]">
-                                                                        </td>
-                                                                        <td><input type="text" name="parent_info_on_product_mat1[0][ar_number]">
-                                                                        </td>
-                                                                        <td>
-                                                                                 <div class="group-input new-date-data-field mb-0">
-                                                                                     <div class="input-date">
-                                                                                         <div class="calenderauditee">
-                                                                                             <input type="text" id="agenda_date0" readonly
-                                                                                                 placeholder="DD-MMM-YYYY" />
-                                                                                             <input type="date" name="parent_info_on_product_mat1[0][mfg_date]"
-                                                                                                 min="yyyy-mm-dd" class="hide-input"
-                                                                                                 data-display-id="agenda_date0" data-start-id="agenda_date0"
-                                                                                                 oninput="handleDateInput(this, 'agenda_date0');" />
-                                                                                         </div>
-                                                                                     </div>
-                                                                                 </div>
-                                                                             </td>
-                                                                             <td>
-                                                                                 <div class="group-input new-date-data-field mb-0">
-                                                                                 <div class="input-date ">
-                                                                                     <div class="calenderauditee">
-                                                                                         <input type="text" id="agenda_date2" readonly
-                                                                                             placeholder="DD-MMM-YYYY" />
-                                                                                         <input type="date" name="parent_info_on_product_mat1[0][exp_date]"
-                                                                                             min="yyyy-mm-dd" class="hide-input"
-                                                                                             data-display-id="agenda_date2" data-start-id="agenda_date2"
-                                                                                             oninput="handleDateInput(this, 'agenda_date2');" />
-                                                                                     </div>
-                                                                                 </div>
-                                                                                   </div>
-                                                                         </td>
-                                                                     
-                                                                         <td><input type="text" name="parent_info_on_product_mat1[0][label_claim]">
-                                                                         </td>
-                                                                         </tr>
-                                                                         </tbody>
-                                                                         </table>
-                                                                     </div>
-                                                                           </div>
-                                                                       </div>
-
-
-                        <div class="group-input">
-                            <label for="audit-agenda-grid">
-                                (Parent) Info. On Product / Material (0)
-                                <button type="button" name="parent_info_on_product_mat2"
-                                    id="Product_Material2">+</button>
-                                <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#document-details-field-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                    (Open)
-                                </span>
-                            </label>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="Product_Material2" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 4%">Row#</th>
-                                            <th style="width: 10%">Item/Product Code</th>
-                                            <th style="width: 8%">Batch Number</th>
-                                            <th style="width: 8%">A.R. Number</th>
-                                            <th style="width: 8%">Mfg. Date</th>
-                                            <th style="width: 8%">Expiry Date</th>
-                                            <th style="width: 8%">Label Claim</th>
-                                            <th style="width: 8%">Pack Size</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text"
-                                                    name="parent_info_on_product_mat2[0][item_product_code]"></td>
-                                            <td><input type="text" name="parent_info_on_product_mat2[0][batch_number]">
-                                            </td>
-                                            <td><input type="text" name="parent_info_on_product_mat2[0][ar_number]">
-                                            </td>
-                                            <td>
-                                                <div class="group-input new-date-data-field mb-0">
-                                                    <div class="input-date">
-                                                        <div class="calenderauditee">
-                                                            <input type="text" id="agenda_date3" readonly
-                                                                placeholder="DD-MMM-YYYY" />
-                                                            <input type="date"
-                                                                name="parent_info_on_product_mat2[0][mfg_date]"
-                                                                min="yyyy-mm-dd" class="hide-input"
-                                                                oninput="handleDateInput(this, 'agenda_date0');" />
+                                                </td>
+                                                <td>
+                                                    <div class="group-input new-date-data-field mb-0">
+                                                        <div class="input-date">
+                                                            <div class="calenderauditee">
+                                                                <input type="text" id="agenda_date4_exp" readonly
+                                                                    placeholder="DD-MMM-YYYY" />
+                                                                <input type="date"
+                                                                    name="parent_info_on_product_mat2[0][exp_date]"
+                                                                    min="yyyy-mm-dd" class="hide-input"
+                                                                    oninput="handleDateInput(this, 'agenda_date0_exp');" />
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="group-input new-date-data-field mb-0">
-                                                    <div class="input-date">
-                                                        <div class="calenderauditee">
-                                                            <input type="text" id="agenda_date4_exp" readonly
-                                                                placeholder="DD-MMM-YYYY" />
-                                                            <input type="date"
-                                                                name="parent_info_on_product_mat2[0][exp_date]"
-                                                                min="yyyy-mm-dd" class="hide-input"
-                                                                oninput="handleDateInput(this, 'agenda_date0_exp');" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><input type="text" name="parent_info_on_product_mat2[0][label_claim]">
-                                            </td>
-                                            <td><input type="text" name="parent_info_on_product_mat2[0][pack_size]">
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                </td>
+                                                <td><input type="text" name="parent_info_on_product_mat2[0][label_claim]">
+                                                </td>
+                                                <td><input type="text" name="parent_info_on_product_mat2[0][pack_size]">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="group-input">
+                                <label for="audit-agenda-grid">
+                                    (Root Parent) OOS Details (0)
+                                    <button type="button" name="root_parent_oos_detailsAR_Number"
+                                        id="Product_Material3">+</button>
+                                    <span class="text-primary" data-bs-toggle="modal"
+                                        data-bs-target="#document-details-field-instruction-modal"
+                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                        (Open)
+                                    </span>
+                                </label>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="Product_Material3" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 4%">Row#</th>
+                                                <th style="width: 10%">A.R. Number</th>
+                                                <th style="width: 8%">Test Name of OOS</th>
+                                                <th style="width: 8%">Results Obtained</th>
+                                                <th style="width: 8%">Specification Limit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                <td><input type="text"
+                                                        name="(root_parent_oos_detailsAR_Number[0][ar_number]">
+                                                </td>
+                                                <td><input type="text"
+                                                        name="(root_parent_oos_detailsTest_Name_OOS[0][test_name_of_oos]">
+                                                </td>
+                                                <td><input type="text"
+                                                        name="(root_parent_oos_detailsResults_Obtained[0][results_obtained]">
+                                                </td>
+                                                <td><input type="text"
+                                                        name="(root_parent_oos_detailsSpecification_Limit[0][specification_limit]">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="group-input">
+                                <label for="audit-agenda-grid">
+                                    (Parent) OOT Results (0)
+                                    <button type="button" name="parent_oot_results" id="Product_Material4">+</button>
+                                    <span class="text-primary" data-bs-toggle="modal"
+                                        data-bs-target="#document-details-field-instruction-modal"
+                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                        (Open)
+                                    </span>
+                                </label>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="Product_Material4" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 4%">Row#</th>
+                                                <th style="width: 10%">A.R. Number</th>
+                                                <th style="width: 8%">Test Number of OOT</th>
+                                                <th style="width: 8%">Results Obtained</th>
+                                                <th style="width: 8%">Previous Interval Details</th>
+                                                <th style="width: 8%">% Difference of Results</th>
+                                                <th style="width: 8%">Initial Interview Details</th>
+                                                <th style="width: 8%">Trend Limit</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                <td><input type="text" name="parent_oot_results[0][ar_number]"></td>
+                                                <td><input type="text" name="parent_oot_results[0][test_number_of_oot]">
+                                                </td>
+                                                <td><input type="text" name="parent_oot_results[0][results_obtained]">
+                                                </td>
+                                                <td><input type="text" name="parent_oot_results[0][prev_interval_details]">
+                                                </td>
+                                                <td><input type="text" name="parent_oot_results[0][diff_of_results]">
+                                                </td>
+                                                <td><input type="text"
+                                                        name="parent_oot_results[0][initial_interview_details]">
+                                                </td>
+                                                <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="group-input">
+                                <label for="audit-agenda-grid">
+                                    (Parent) Details of Stability Study (0)
+                                    <button type="button" name="parent_details_of_stability_study"
+                                        id="Product_Material5">+</button>
+                                    <span class="text-primary" data-bs-toggle="modal"
+                                        data-bs-target="#document-details-field-instruction-modal"
+                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                        (Open)
+                                    </span>
+                                </label>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="Product_Material5" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 4%">Row#</th>
+                                                <th style="width: 10%">A.R. Number</th>
+                                                <th style="width: 8%">Condition: Temperature & RH</th>
+                                                <th style="width: 8%">Interval</th>
+                                                <th style="width: 8%">Orientation</th>
+                                                <th style="width: 8%">Pack Details (if any)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                <td><input type="text"
+                                                        name="parent_details_of_stability_study[0][ar_number]">
+                                                </td>
+                                                <td><input type="text"
+                                                        name="parent_details_of_stability_study[0][condition_temp_and_rh]">
+                                                </td>
+                                                <td><input type="text"
+                                                        name="parent_details_of_stability_study[0][interval]">
+                                                </td>
+                                                <td><input type="text"
+                                                        name="parent_details_of_stability_study[0][orientation]"></td>
+                                                <td><input type="text"
+                                                        name="parent_details_of_stability_study[0][pack_details_if_any]">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+
+                            <div class="sub-head pt-3">General Information</div>
+                            <div class="row">
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Initiator"> Originator </label>
+                                        <input type="text" disabled name="originator1">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Scheduled end date">Target Closure Date</label>
+                                        <div class="calenderauditee" disabled>
+                                            <input type="text" id="end_date_3" disabled readonly
+                                                placeholder="DD-MMM-YYYY" />
+                                            <input type="date" id="end_date_checkdate_3" disabled name="end_date"
+                                                min="yyyy-mm-dd" class="hide-input"
+                                                oninput="handleDateInput(this, 'end_date_3');checkDate('start_date_checkdate_3','end_date_checkdate_3')" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="Short Description">Short Description<span class="text-danger "
+                                                name="short_description">*</span></label><span id="rchars">255
+                                        </span>characters
+                                        remaining
+                                        <input id="docname" type="text" name="short_description" maxlength="255"
+                                            required>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Initiator"> QC Approver </label>
+                                        <input type="text" name="qc_approver">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Scheduled end date">Date opened
+                                        </label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="end_date4" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date" id="end_date_checkdate4" name="date_opened"
+                                                min="yyyy-mm-dd" class="hide-input"
+                                                oninput="handleDateInput(this, 'end_date4');checkDate('start_date_checkdate4','end_date_checkdate4')" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="group-input">
-                            <label for="audit-agenda-grid">
-                                (Root Parent) OOS Details (0)
-                                <button type="button" name="root_parent_oos_detailsAR_Number"
-                                    id="Product_Material3">+</button>
-                                <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#document-details-field-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                    (Open)
-                                </span>
-                            </label>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="Product_Material3" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 4%">Row#</th>
-                                            <th style="width: 10%">A.R. Number</th>
-                                            <th style="width: 8%">Test Name of OOS</th>
-                                            <th style="width: 8%">Results Obtained</th>
-                                            <th style="width: 8%">Specification Limit</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text"
-                                                    name="(root_parent_oos_detailsAR_Number[0][ar_number]">
-                                            </td>
-                                            <td><input type="text"
-                                                    name="(root_parent_oos_detailsTest_Name_OOS[0][test_name_of_oos]">
-                                            </td>
-                                            <td><input type="text"
-                                                    name="(root_parent_oos_detailsResults_Obtained[0][results_obtained]">
-                                            </td>
-                                            <td><input type="text"
-                                                    name="(root_parent_oos_detailsSpecification_Limit[0][specification_limit]">
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                    Exit </a>
+                            </button>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="group-input">
-                            <label for="audit-agenda-grid">
-                                (Parent) OOT Results (0)
-                                <button type="button" name="parent_oot_results" id="Product_Material4">+</button>
-                                <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#document-details-field-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                    (Open)
-                                </span>
-                            </label>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="Product_Material4" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 4%">Row#</th>
-                                            <th style="width: 10%">A.R. Number</th>
-                                            <th style="width: 8%">Test Number of OOT</th>
-                                            <th style="width: 8%">Results Obtained</th>
-                                            <th style="width: 8%">Previous Interval Details</th>
-                                            <th style="width: 8%">% Difference of Results</th>
-                                            <th style="width: 8%">Initial Interview Details</th>
-                                            <th style="width: 8%">Trend Limit</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="parent_oot_results[0][ar_number]"></td>
-                                            <td><input type="text" name="parent_oot_results[0][test_number_of_oot]">
-                                            </td>
-                                            <td><input type="text" name="parent_oot_results[0][results_obtained]">
-                                            </td>
-                                            <td><input type="text" name="parent_oot_results[0][prev_interval_details]">
-                                            </td>
-                                            <td><input type="text" name="parent_oot_results[0][diff_of_results]">
-                                            </td>
-                                            <td><input type="text"
-                                                    name="parent_oot_results[0][initial_interview_details]">
-                                            </td>
-                                            <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="group-input">
-                            <label for="audit-agenda-grid">
-                                (Parent) Details of Stability Study (0)
-                                <button type="button" name="parent_details_of_stability_study"
-                                    id="Product_Material5">+</button>
-                                <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#document-details-field-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                    (Open)
-                                </span>
-                            </label>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="Product_Material5" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 4%">Row#</th>
-                                            <th style="width: 10%">A.R. Number</th>
-                                            <th style="width: 8%">Condition: Temperature & RH</th>
-                                            <th style="width: 8%">Interval</th>
-                                            <th style="width: 8%">Orientation</th>
-                                            <th style="width: 8%">Pack Details (if any)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text"
-                                                    name="parent_details_of_stability_study[0][ar_number]">
-                                            </td>
-                                            <td><input type="text"
-                                                    name="parent_details_of_stability_study[0][condition_temp_and_rh]">
-                                            </td>
-                                            <td><input type="text"
-                                                    name="parent_details_of_stability_study[0][interval]">
-                                            </td>
-                                            <td><input type="text"
-                                                    name="parent_details_of_stability_study[0][orientation]"></td>
-                                            <td><input type="text"
-                                                    name="parent_details_of_stability_study[0][pack_details_if_any]">
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-
-
-                        <div class="sub-head pt-3">General Information</div>
+                <!-- under ADD. Test Proposal -->
+                <div id="CCForm2" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="sub-head">Add. Test Proposal Comment </div>
                         <div class="row">
+
+                            <div class="col-lg-12 mb-4">
+                                <div class="group-input">
+                                    <label for="Audit Schedule Start Date" name="cq_approver_comments"> CQ Approver
+                                        Comments
+                                    </label>
+                                    <div class="col-md-12">
+                                        <div>
+                                            <textarea name="cq_approver_comments_rows" id="" cols="10" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="resampling_required">Resampling Required?</label>
+                                    <select single id="resampling_required" name="resampling_required">
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="option1">Option 1</option>
+                                        <option value="option2">Option 2</option>
+                                        <option value="option3">Option 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="resampling_reference">Resample Reference</label>
+                                    <select single id="resampling_reference" name="resampling_reference">
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="reference1">Reference 1</option>
+                                        <option value="reference2">Reference 2</option>
+                                        <option value="reference3">Reference 3</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> Originator </label>
-                                    <input type="text" disabled name="originator1">
+                                    <label for="Product/Material Name"> Assignee</label>
+                                    <input type="text" name=assignee"">
                                 </div>
                             </div>
-                            <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="Scheduled end date">Target Closure Date</label>
-                                    <div class="calenderauditee" disabled>
-                                        <input type="text" id="end_date_3" disabled readonly
-                                            placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate_3" disabled name="end_date"
-                                            min="yyyy-mm-dd" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date_3');checkDate('start_date_checkdate_3','end_date_checkdate_3')" />
-                                    </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Reference Recores">AQA Apporover</label>
+                                    <input type="text" name="aqa_approver">
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Product/Material Name">CQ Apporver</label>
+                                    <input type="text" name="cq_approver">
+
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short Description">Short Description<span class="text-danger "
-                                            name="short_description">*</span></label><span id="rchars">255
-                                    </span>characters
-                                    remaining
-                                    <input id="docname" type="text" name="short_description" maxlength="255"
-                                        required>
+                                    <label for="add_test_attachment">Additional Test Attachment</label>
+                                    <div><small class="text-primary">Please Attach all relevant or supporting
+                                            documents</small></div>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="add_test_attachment"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="add_test_attachment[]"
+                                                oninput="addMultipleFiles(this, 'add_test_attachment')" multiple>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> QC Approver </label>
-                                    <input type="text" name="qc_approver">
+                                    <label for="Product/Material Name"> Additional Test Proposal Completed By</label>
+                                    <input type="text" name="additional_test_proposal_completed_by">
                                 </div>
                             </div>
+
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Scheduled end date">Date opened
-                                    </label>
+                                    <label for="Scheduled end date">Additional Test Proposal Completed On</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_date4" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate4" name="date_opened"
-                                            min="yyyy-mm-dd" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date4');checkDate('start_date_checkdate4','end_date_checkdate4')" />
+                                        <input type="text" id="end_date5" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate5"
+                                            name="additional_test_proposal_completed_on" min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date5');checkDate('start_date_checkdate5','end_date_checkdate5')" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a>
-                        </button>
+
+                        <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            <button type="button" class="exitButton">
+                                <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a>
+                            </button>
+                        </div>
+
+
                     </div>
                 </div>
-            </div>
 
-            <!-- under ADD. Test Proposal -->
-            <div id="CCForm2" class="inner-block cctabcontent">
-                <div class="inner-block-content">
-                    <div class="sub-head">Add. Test Proposal Comment </div>
-                    <div class="row">
-
-                        <div class="col-lg-12 mb-4">
-                            <div class="group-input">
-                                <label for="Audit Schedule Start Date" name="cq_approver_comments"> CQ Approver
-                                    Comments
-                                </label>
-                                <div class="col-md-12">
-                                    <div>
-                                        <textarea name="cq_approver_comments_rows" id="" cols="10" rows="5"></textarea>
-                                    </div>
+                <!-- Under CQ Approval -->
+                <div id="CCForm3" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="sub-head">
+                            CQ Approval Comment
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation" name="cq_approval_comment">CQ Approval Comment
+                                    </label>
+                                    <textarea name="cq_approval_comment" id="" cols="30" rows="5"></textarea>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="resampling_required">Resampling Required?</label>
-                                <select single id="resampling_required" name="resampling_required">
-                                    <option value="">Enter Your Selection Here</option>
-                                    <option value="option1">Option 1</option>
-                                    <option value="option2">Option 2</option>
-                                    <option value="option3">Option 3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="resampling_reference">Resample Reference</label>
-                                <select single id="resampling_reference" name="resampling_reference">
-                                    <option value="">Enter Your Selection Here</option>
-                                    <option value="reference1">Reference 1</option>
-                                    <option value="reference2">Reference 2</option>
-                                    <option value="reference3">Reference 3</option>
-                                </select>
-                            </div>
-                        </div>
-
-
-
-
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Product/Material Name"> Assignee</label>
-                                <input type="text" name=assignee"">
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Reference Recores">AQA Apporover</label>
-                                <input type="text" name="aqa_approver">
-
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Product/Material Name">CQ Apporver</label>
-                                <input type="text" name="cq_approver">
-
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="group-input">
-                                <label for="add_test_attachment">Additional Test Attachment</label>
+                                <label for="cq_approval_attachment">CQ Approval Attachment</label>
                                 <div><small class="text-primary">Please Attach all relevant or supporting
                                         documents</small></div>
                                 <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="add_test_attachment"></div>
+                                    <div class="file-attachment-list" id="cq_approval_attachment"></div>
                                     <div class="add-btn">
                                         <div>Add</div>
-                                        <input type="file" id="myfile" name="add_test_attachment[]"
-                                            oninput="addMultipleFiles(this, 'add_test_attachment')" multiple>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Product/Material Name"> Additional Test Proposal Completed By</label>
-                                <input type="text" name="additional_test_proposal_completed_by">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Scheduled end date">Additional Test Proposal Completed On</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="end_date5" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate5"
-                                        name="additional_test_proposal_completed_on" min="yyyy-mm-dd" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date5');checkDate('start_date_checkdate5','end_date_checkdate5')" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button" class="exitButton">
-                            <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a>
-                        </button>
-                    </div>
-
-
-                </div>
-            </div>
-
-            <!-- Under CQ Approval -->
-            <div id="CCForm3" class="inner-block cctabcontent">
-                <div class="inner-block-content">
-                    <div class="sub-head">
-                        CQ Approval Comment
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation" name="cq_approval_comment">CQ Approval Comment
-                                </label>
-                                <textarea name="cq_approval_comment" id="" cols="30" rows="5"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="group-input">
-                            <label for="cq_approval_attachment">CQ Approval Attachment</label>
-                            <div><small class="text-primary">Please Attach all relevant or supporting
-                                    documents</small></div>
-                            <div class="file-attachment-field">
-                                <div class="file-attachment-list" id="cq_approval_attachment"></div>
-                                <div class="add-btn">
-                                    <div>Add</div>
-                                    <input type="file" id="myfile" name="cq_approval_attachment[]"
-                                        oninput="addMultipleFiles(this, 'cq_approval_attachment')" multiple>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row col-md-12">
-                        <div class="col-md-6 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation" name="cq_approved_by">CQ Approved By
-                                </label>
-                                <input type="text" name="cq_approved_on">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Scheduled end date">CQ Approved On</label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="end_date6" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate6" name="cq_approved_on"
-                                        min="yyyy-mm-dd" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date6');checkDate('start_date_checkdate6','end_date_checkdate6')" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Under Add. Text  Excecution--->
-            <div id="CCForm4" class="inner-block cctabcontent">
-                <div class="inner-block-content">
-                    <div class="sub-head">Add. Testing Execution Comment </div>
-                    <div class="row">
-
-                        <div class="col-md-12 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation" name="add_testing_execution_comment">Comments (if
-                                    any)</label>
-                                <textarea name="add_testing_execution_comment" id="" cols="30" rows="5"></textarea>
-                            </div>
-                        </div>
-                        <small class="text-primary">
-                            Jurisdiction for delay in Completion of Activity and closing of Additional Testing
-                        </small>
-                        <div class="col-md-12 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation" name="delay_justifictaion">Delay
-                                    Justification</label>
-                                <textarea name="delay_justifictaion" id="" cols="30" rows="5"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="group-input">
-                                <label for="add_test_exe_attachment">Additional Test Exe. Attachment
-                                </label>
-                                <div><small class="text-primary">Please Attach all relevant or supporting
-                                        documents</small></div>
-                                <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="add_test_exe_attachment"></div>
-                                    <div class="add-btn">
-                                        <div>Add</div>
-                                        <input type="file" id="myfile" name="add_test_exe_attachment[]"
-                                            oninput="addMultipleFiles(this, 'add_test_exe_attachment')" multiple>
+                                        <input type="file" id="myfile" name="cq_approval_attachment[]"
+                                            oninput="addMultipleFiles(this, 'cq_approval_attachment')" multiple>
                                     </div>
                                 </div>
                             </div>
@@ -1009,157 +920,365 @@
                         <div class="row col-md-12">
                             <div class="col-md-6 mb-4">
                                 <div class="group-input">
-                                    <label for="Description Deviation" name="additional_test_exe_by">Additional Test
-                                        Exe.
-                                        By</label>
-                                    <input type="text" name="additional_test_exe_by">
+                                    <label for="Description Deviation" name="cq_approved_by">CQ Approved By
+                                    </label>
+                                    <input type="text" name="cq_approved_on">
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Scheduled end date">Additional Test Exe. On</label>
+                                    <label for="Scheduled end date">CQ Approved On</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_date7" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate7" name="add_test_exe_on"
+                                        <input type="text" id="end_date6" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate6" name="cq_approved_on"
                                             min="yyyy-mm-dd" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date7');checkDate('start_date_checkdate7','end_date_checkdate7')" />
+                                            oninput="handleDateInput(this, 'end_date6');checkDate('start_date_checkdate6','end_date_checkdate6')" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
+                        <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                    Exit </a> </button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Under Add. Text  Excecution QC Review--->
-            <div id="CCForm5" class="inner-block cctabcontent">
-                <div class="inner-block-content">
-                    <div class="sub-head">
-                        Add. Testing QC Comment
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation" name="qc_comments_on_addl_testing">QC Comments on
-                                    Addl.
-                                    Testing</label>
-                                <textarea name="qc_comments_on_addl_testing" id="" cols="30" rows="5"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="group-input">
-                            <label for="qc_review_attachment">QC Review Attachment
-                            </label>
-                            <div><small class="text-primary">Please Attach all relevant or supporting
-                                    documents</small></div>
-                            <div class="file-attachment-field">
-                                <div class="file-attachment-list" id="qc_review_attachment"></div>
-                                <div class="add-btn">
-                                    <div>Add</div>
-                                    <input type="file" id="myfile" name="qc_review_attachment[]"
-                                        oninput="addMultipleFiles(this, 'qc_review_attachment')" multiple>
+                <!-- Under Add. Text  Excecution--->
+                <div id="CCForm4" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="sub-head">Add. Testing Execution Comment </div>
+                        <div class="row">
+
+                            <div class="col-md-12 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation" name="add_testing_execution_comment">Comments (if
+                                        any)</label>
+                                    <textarea name="add_testing_execution_comment" id="" cols="30" rows="5"></textarea>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row col-md-12">
-                        <div class="col-md-6 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation" name="addl_testing_qc_review_by">Additional Testing
-                                    QC
-                                    Review By</label>
-                                <input type="text" name="addl_testing_qc_review_by">
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Scheduled end date">Additional Testing QC Review on
-                                </label>
-                                <div class="calenderauditee">
-                                    <input type="text" id="end_date8" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" id="end_date_checkdate8" name="add_testing_qc_review_on"
-                                        min="yyyy-mm-dd" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date8');checkDate('start_date_checkdate8','end_date_checkdate8')" />
+                            <small class="text-primary">
+                                Jurisdiction for delay in Completion of Activity and closing of Additional Testing
+                            </small>
+                            <div class="col-md-12 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation" name="delay_justifictaion">Delay
+                                        Justification</label>
+                                    <textarea name="delay_justifictaion" id="" cols="30" rows="5"></textarea>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Phase II QC Review -->
-            <div id="CCForm6" class="inner-block cctabcontent">
-                <div class="inner-block-content">
-                    <div class="sub-head">Additional Testing AQA Comment</div>
-                    <div class="row">
-                        <div class="col-md-12 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation" name="summary_of_exp_hyp">Summary of
-                                    Exp./Hyp.</label>
-                                <div><small class="text-primary">AQA COmments on Additional Testing</small></div>
-                                <textarea name="summary_of_exp_hyp" id="" cols="30" rows="5"></textarea>
-                            </div>
-
-
-                            <div class="row col-md-12">
-                                <div class="col-md-6 mb-4">
-                                    <div class="group-input">
-                                        <label for="Description Deviation" name="aqa_review_completed_by">AQA Review
-                                            Completed By
-                                        </label>
-                                        <input type="text" name="aqa_review_completed_by">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Scheduled end date">AQA Review Completed On
-                                        </label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="end_date10" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" id="end_date_checkdate10"
-                                                name="aqa_review_completed_on" min="yyyy-mm-dd" class="hide-input"
-                                                oninput="handleDateInput(this, 'end_date10');checkDate('start_date_checkdate10','end_date_checkdate10')" />
+                            <div class="col-12">
+                                <div class="group-input">
+                                    <label for="add_test_exe_attachment">Additional Test Exe. Attachment
+                                    </label>
+                                    <div><small class="text-primary">Please Attach all relevant or supporting
+                                            documents</small></div>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="add_test_exe_attachment"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="add_test_exe_attachment[]"
+                                                oninput="addMultipleFiles(this, 'add_test_exe_attachment')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-
-                            <div class="sub-head">Cancellation</div>
                             <div class="row col-md-12">
                                 <div class="col-md-6 mb-4">
                                     <div class="group-input">
-                                        <label for="Description Deviation">Cancel By
-                                        </label>
-                                        <input type="text" name="cancel_by">
+                                        <label for="Description Deviation" name="additional_test_exe_by">Additional Test
+                                            Exe.
+                                            By</label>
+                                        <input type="text" name="additional_test_exe_by">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Scheduled end date">Cancel On
-                                        </label>
+                                        <label for="Scheduled end date">Additional Test Exe. On</label>
                                         <div class="calenderauditee">
-                                            <input type="text" id="end_date11" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" id="end_date_checkdate11" name="cancel_on"
+                                            <input type="text" id="end_date7" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="date" id="end_date_checkdate7" name="add_test_exe_on"
                                                 min="yyyy-mm-dd" class="hide-input"
-                                                oninput="handleDateInput(this, 'end_date11');checkDate('start_date_checkdate11','end_date_checkdate11')" />
+                                                oninput="handleDateInput(this, 'end_date7');checkDate('start_date_checkdate7','end_date_checkdate7')" />
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                    Exit </a> </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Under Add. Text  Excecution QC Review--->
+                <div id="CCForm5" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="sub-head">
+                            Add. Testing QC Comment
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation" name="qc_comments_on_addl_testing">QC Comments on
+                                        Addl.
+                                        Testing</label>
+                                    <textarea name="qc_comments_on_addl_testing" id="" cols="30" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="group-input">
+                                <label for="qc_review_attachment">QC Review Attachment
+                                </label>
+                                <div><small class="text-primary">Please Attach all relevant or supporting
+                                        documents</small></div>
+                                <div class="file-attachment-field">
+                                    <div class="file-attachment-list" id="qc_review_attachment"></div>
+                                    <div class="add-btn">
+                                        <div>Add</div>
+                                        <input type="file" id="myfile" name="qc_review_attachment[]"
+                                            oninput="addMultipleFiles(this, 'qc_review_attachment')" multiple>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row col-md-12">
+                            <div class="col-md-6 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation" name="addl_testing_qc_review_by">Additional Testing
+                                        QC
+                                        Review By</label>
+                                    <input type="text" name="addl_testing_qc_review_by">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">Additional Testing QC Review on
+                                    </label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="end_date8" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate8" name="add_testing_qc_review_on"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date8');checkDate('start_date_checkdate8','end_date_checkdate8')" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-block">
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                    Exit </a> </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase II QC Review -->
+                <div id="CCForm6" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="sub-head">Additional Testing AQA Comment</div>
+                        <div class="row">
+                            <div class="col-md-12 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation" name="summary_of_exp_hyp">Summary of
+                                        Exp./Hyp.</label>
+                                    <div><small class="text-primary">AQA COmments on Additional Testing</small></div>
+                                    <textarea name="summary_of_exp_hyp" id="" cols="30" rows="5"></textarea>
+                                </div>
+
+
+                                <div class="row col-md-12">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="group-input">
+                                            <label for="Description Deviation" name="aqa_review_completed_by">AQA Review
+                                                Completed By
+                                            </label>
+                                            <input type="text" name="aqa_review_completed_by">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 new-date-data-field">
+                                        <div class="group-input input-date">
+                                            <label for="Scheduled end date">AQA Review Completed On
+                                            </label>
+                                            <div class="calenderauditee">
+                                                <input type="text" id="end_date10" readonly placeholder="DD-MMM-YYYY" />
+                                                <input type="date" id="end_date_checkdate10"
+                                                    name="aqa_review_completed_on" min="yyyy-mm-dd" class="hide-input"
+                                                    oninput="handleDateInput(this, 'end_date10');checkDate('start_date_checkdate10','end_date_checkdate10')" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="sub-head">Cancellation</div>
+                                <div class="row col-md-12">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="group-input">
+                                            <label for="Description Deviation">Cancel By
+                                            </label>
+                                            <input type="text" name="cancel_by">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 new-date-data-field">
+                                        <div class="group-input input-date">
+                                            <label for="Scheduled end date">Cancel On
+                                            </label>
+                                            <div class="calenderauditee">
+                                                <input type="text" id="end_date11" readonly placeholder="DD-MMM-YYYY" />
+                                                <input type="date" id="end_date_checkdate11" name="cancel_on"
+                                                    min="yyyy-mm-dd" class="hide-input"
+                                                    oninput="handleDateInput(this, 'end_date11');checkDate('start_date_checkdate11','end_date_checkdate11')" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="button-block">
+                                <button type="submit" class="saveButton">Save</button>
+                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                                <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                        Exit </a> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Activity Log  -->
+                <div id="CCForm7" class="inner-block cctabcontent">
+                    <div class="inner-block-content">
+                        <div class="sub-head">
+                            Activity Log
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Product/Material Name"> Additional Test Proposal Completed By :-</label>
+                                    {{-- <input type="text" name="log_additional_test_proposal_completed_by"> --}}
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">Additional Test Proposal Completed On :-</label>
+                                    {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate"
+                                            name="log_additional_test_proposal_completed_on" min="yyyy-mm-dd"
+                                            class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div> --}}
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation" name="log_cq_approved_by">CQ Approved By :-
+                                    </label>
+                                    {{-- <input type="text" name="log_cq_approved_on"> --}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">CQ Approved On :-</label>
+                                    {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate" name="log_cq_approved_on"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div> --}}
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation" name="log_additional_test_exe_by">Additional Test
+                                        Exe. By :-</label>
+                                    {{-- <input type="text" name="log_additional_test_exe_by"> --}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">Additional Test Exe. On :-</label>
+                                    {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate" name="log_add_test_exe_on"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div> --}}
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation" name="log_addl_testing_qc_review_by">Additional
+                                        Testing QC
+                                        Review By :-</label>
+                                    {{-- <input type="text" name="log_addl_testing_qc_review_by"> --}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">Additional Testing QC Review on :-
+                                    </label>
+                                    {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate" name="log_add_testing_qc_review_on"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div> --}}
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation" name="log_aqa_review_completed_by">AQA Review
+                                        Completed By :-
+                                    </label>
+                                    {{-- <input type="text" name="log_aqa_review_completed_by"> --}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">AQA Review Completed On :-
+                                    </label>
+                                    {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate" name="log_aqa_review_completed_on"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                    </div> --}}
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation">Cancel By :-
+                                    </label>
+                                    {{-- <input type="text" name="log_cancel_by"> --}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">Cancel On :-
+                                    </label>
+                                    {{-- <div class="calenderauditee">
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate" name="log-cancel_on"
+                                            min="min="yyyy-mm-dd" " class="hide-input"
+                                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                                </div> --}}
                                 </div>
                             </div>
 
@@ -1174,183 +1293,46 @@
                     </div>
                 </div>
             </div>
-
-
-            <!--Activity Log  -->
-            <div id="CCForm7" class="inner-block cctabcontent">
-                <div class="inner-block-content">
-                    <div class="sub-head">
-                        Activity Log
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Product/Material Name"> Additional Test Proposal Completed By :-</label>
-                                {{-- <input type="text" name="log_additional_test_proposal_completed_by"> --}}
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Scheduled end date">Additional Test Proposal Completed On :-</label>
-                                {{-- <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate"
-                                            name="log_additional_test_proposal_completed_on" min="yyyy-mm-dd"
-                                            class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                    </div> --}}
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation" name="log_cq_approved_by">CQ Approved By :-
-                                </label>
-                                {{-- <input type="text" name="log_cq_approved_on"> --}}
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Scheduled end date">CQ Approved On :-</label>
-                                {{-- <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate" name="log_cq_approved_on"
-                                            min="yyyy-mm-dd" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                    </div> --}}
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation" name="log_additional_test_exe_by">Additional Test
-                                    Exe. By :-</label>
-                                {{-- <input type="text" name="log_additional_test_exe_by"> --}}
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Scheduled end date">Additional Test Exe. On :-</label>
-                                {{-- <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate" name="log_add_test_exe_on"
-                                            min="yyyy-mm-dd" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                    </div> --}}
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation" name="log_addl_testing_qc_review_by">Additional
-                                    Testing QC
-                                    Review By :-</label>
-                                {{-- <input type="text" name="log_addl_testing_qc_review_by"> --}}
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Scheduled end date">Additional Testing QC Review on :-
-                                </label>
-                                {{-- <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate" name="log_add_testing_qc_review_on"
-                                            min="yyyy-mm-dd" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                    </div> --}}
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation" name="log_aqa_review_completed_by">AQA Review
-                                    Completed By :-
-                                </label>
-                                {{-- <input type="text" name="log_aqa_review_completed_by"> --}}
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Scheduled end date">AQA Review Completed On :-
-                                </label>
-                                {{-- <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate" name="log_aqa_review_completed_on"
-                                            min="yyyy-mm-dd" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                    </div> --}}
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-6 mb-4">
-                            <div class="group-input">
-                                <label for="Description Deviation">Cancel By :-
-                                </label>
-                                {{-- <input type="text" name="log_cancel_by"> --}}
-                            </div>
-                        </div>
-                        <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Scheduled end date">Cancel On :-
-                                </label>
-                                {{-- <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="end_date_checkdate" name="log-cancel_on"
-                                            min="min="yyyy-mm-dd" " class="hide-input"
-                                                        oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                                </div> --}}
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
-                        <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                        <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
-                                Exit </a> </button>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
-    </div>
+        </div>
 
 
-    <script>
-        VirtualSelect.init({
-            ele: '#reference_record, #notify_to'
-        });
+        <script>
+            VirtualSelect.init({
+                ele: '#reference_record, #notify_to'
+            });
 
-        $('#summernote').summernote({
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear', 'italic']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
+            $('#summernote').summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear', 'italic']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
 
-        $('.summernote').summernote({
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear', 'italic']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-            ]
-        });
+            $('.summernote').summernote({
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear', 'italic']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
 
-        let referenceCount = 1;
+            let referenceCount = 1;
 
-        function addReference() {
-            referenceCount++;
-            let newReference = document.createElement('div');
-            newReference.classList.add('row', 'reference-data-' + referenceCount);
-            newReference.innerHTML = `
+            function addReference() {
+                referenceCount++;
+                let newReference = document.createElement('div');
+                newReference.classList.add('row', 'reference-data-' + referenceCount);
+                newReference.innerHTML = `
                            <div class="col-lg-6">
                                <input type="text" name="reference-text">
                            </div>
@@ -1360,28 +1342,28 @@
                                <input type="file" name="references" class="myclassname">
                            </div>
                      `;
-            let referenceContainer = document.querySelector('.reference-data');
-            referenceContainer.parentNode.insertBefore(newReference, referenceContainer.nextSibling);
-        }
-    </script>
-
-    <script>
-        VirtualSelect.init({
-            ele: '#facility_name, #group_name, #auditee, #audit_team'
-        });
-
-        function openCity(evt, cityName) {
-            var i, cctabcontent, cctablinks;
-            cctabcontent = document.getElementsByClassName("cctabcontent");
-            for (i = 0; i < cctabcontent.length; i++) {
-                cctabcontent[i].style.display = "none";
+                let referenceContainer = document.querySelector('.reference-data');
+                referenceContainer.parentNode.insertBefore(newReference, referenceContainer.nextSibling);
             }
-            cctablinks = document.getElementsByClassName("cctablinks");
-            for (i = 0; i < script cctablinks.length; i++) {
-                cctablinks[i].className = cctablinks[i].className.replace(" active", "");
+        </script>
+
+        <script>
+            VirtualSelect.init({
+                ele: '#facility_name, #group_name, #auditee, #audit_team'
+            });
+
+            function openCity(evt, cityName) {
+                var i, cctabcontent, cctablinks;
+                cctabcontent = document.getElementsByClassName("cctabcontent");
+                for (i = 0; i < cctabcontent.length; i++) {
+                    cctabcontent[i].style.display = "none";
+                }
+                cctablinks = document.getElementsByClassName("cctablinks");
+                for (i = 0; i < script cctablinks.length; i++) {
+                    cctablinks[i].className = cctablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.className += " active";
             }
-            document.getElementById(cityName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-    </script>
+        </script>
 @endsection
