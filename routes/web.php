@@ -36,6 +36,7 @@ use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\newForm\MedicalRegistrationController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -534,3 +535,7 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 
 // ===============OOt form==========================\
 Route::view('OOT_form', 'frontend.OOT.OOT_form');
+
+// ===============Additional Testing==========================\
+Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
+
