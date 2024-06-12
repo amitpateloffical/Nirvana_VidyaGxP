@@ -250,18 +250,18 @@
                             <th style="width: 12% pt-3">Item Status	</th>
                             <th style="width: 16% pt-2"> Remarks </th>
                         </tr>
-                        {{-- @if($data->info_product_materials)
-                        @foreach ($data->info_product_materials->data as $key => $datagridI)
+                        @if ($action_plans && is_array($action_plans->data))
+                            @foreach ($action_plans->data as  $key => $datagridI)
                         <tr>
                             <td class="w-15">{{ $datagridI ? $key + 1  : "Not Applicable" }}</td>
-                            <td class="w-15">{{ $datagridI['info_analyst_name'] ?  $datagridI['info_analyst_name']: "Not Applicable"}}</td>
-                            <td class="w-15">{{ $datagridI['info_others_specify'] ?  $datagridI['info_others_specify']: "Not Applicable"}}</td>
-                            <td class="w-15">{{ $datagridI['info_process_sample_stage'] ?  $datagridI['info_process_sample_stage']: "Not Applicable"}}</td>
-                            <td class="w-15">{{ $datagridI['info_packing_material_type'] ?  $datagridI['info_packing_material_type']: "Not Applicable"}}</td>
-                            <td class="w-15">{{ $datagridI['info_stability_for'] ?  $datagridI['info_stability_for']: "Not Applicable"}}</td>
+                            <td class="w-15">{{ $datagridI['action'] ?  $datagridI['action']: "Not Applicable"}}</td>
+                            <td class="w-15">{{ $datagridI['responsible'] ?  $datagridI['responsible']: "Not Applicable"}}</td>
+                            <td class="w-15">{{ $datagridI['deadline'] ?  $datagridI['deadline']: "Not Applicable"}}</td>
+                            <td class="w-15">{{ $datagridI['item_status'] ?  $datagridI['item_status']: "Not Applicable"}}</td>
+                            <td class="w-15">{{ $datagridI['remarks'] ?  $datagridI['remarks']: "Not Applicable"}}</td>
                          </tr>
                         @endforeach
-                        @else --}}
+                        @else 
                         <tr>
                             <td>Not Applicable</td>
                             <td>Not Applicable</td>
@@ -270,7 +270,7 @@
                             <td>Not Applicable</td>
                             <td>Not Applicable</td>
                         </tr>
-                        {{-- @endif --}}
+                         @endif 
                     </table>
                  </div>
                 </div>

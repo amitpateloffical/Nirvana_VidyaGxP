@@ -10,7 +10,7 @@ class PreventiveMaintenancesgrids extends Model
     use HasFactory;
     protected $table = 'preventive_maintenances_grids';
     protected $fillable = [
-        'dosier_documents_id',
+        'preventive_maintenances_id',
         'identifier',
         'data'
     ];

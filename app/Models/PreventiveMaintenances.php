@@ -34,10 +34,10 @@ class PreventiveMaintenances extends Model
           'date_close'
       ];
 
-    // public function grids()
-    // {
-    //   return $this->hasMany(dosier_document_grids::class, 'oos_id');
-    // }
+    public function grids()
+    {
+      return $this->hasMany(PreventiveMaintenancesgrids::class, 'preventive_maintenances_id');
+    }
     public function record_number()
     {
         return $this->morphOne(QmsRecordNumber::class, 'recordable');

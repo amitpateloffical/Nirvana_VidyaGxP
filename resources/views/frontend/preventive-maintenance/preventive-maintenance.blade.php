@@ -108,9 +108,7 @@
                             </div>
                         </div>
   
-                            <div class="sub-head">
-                                PM Details
-                            </div>
+                            <div class="sub-head">PM Details </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -134,7 +132,7 @@
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Action_plan-field-table">
+                                    <table class="table table-bordered" id="Action_plan_Details">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -146,12 +144,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="action[]"></td>
-                                            <td><input type="text" name="responsible[]"></td>
-                                            <td><input type="text" name="deadline[]"></td>
-                                            <td><input type="text" name="item_status[]"></td>
-                                            <td><input type="text" name="remarks[]"></td>
+                                            <td><input disabled type="text" name="action_plan[0][serial]" value="1"></td>
+                                            <td><input type="text" name="action_plan[0][action]" value=""></td>
+                                            <td><input type="text" name="action_plan[0][responsible]" value=""></td>
+                                            <td><input type="text" name="action_plan[0][deadline]" value=""></td>
+                                            <td><input type="text" name="action_plan[0][item_status]"value=""></td>
+                                            <td><input type="text" name="action_plan[0][remarks]" value=""></td>
                                         </tbody>
                                     </table>
                                 </div>
@@ -337,29 +335,30 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#Action_plan').click(function(e) {
-            function generateTableRow(serialNumber) {
+        $(document).ready(function() {
+            $('#Action_plan').click(function(e) {
+                function generateTableRow(serialNumber) {
+                    var html =
+                        '<tr>' +
+                            '<td><input disabled type="text" name="action_plan['+ serialNumber +'][serial]" value="' + serialNumber +
+                            '"></td>' +
+                            '<td><input type="text" name="action_plan['+ serialNumber +'][action]"></td>'+
+                            '<td><input type="text" name="action_plan['+ serialNumber +'][responsible]"></td>' +
+                            '<td><input type="text" name="action_plan['+ serialNumber +'][deadline]"></td>' +
+                            '<td><input type="text" name="action_plan['+ serialNumber +'][item_status]"></td>' +
+                            '<td><input type="text" name="action_plan['+ serialNumber +'][remarks]"></td>' +
+                        '</tr>';
+                    return html;
+                }
 
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '</tr>';
-
-                return html;
-            }
-
-            var tableBody = $('#Action_plan-field-table tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
+                var tableBody = $('#Action_plan_Details tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1);
+                tableBody.append(newRow);
+            });
         });
-    });
-</script>
+    </script>
+
 
 <script>
     var maxLength = 255;

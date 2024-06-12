@@ -67,9 +67,19 @@ class PreventiveMaintenanceController extends Controller
             $input['record_number'] = ((RecordNumber::first()->value('counter')) + 1);
              
             $PreventiveMaintenances = PreventiveMaintenances::create($input);
+
             $record = RecordNumber::first();
             $record->counter = ((RecordNumber::first()->value('counter')) + 1);
             $record->update();
+
+            $preventive_maintenances_gridid = $PreventiveMaintenances->id;
+            $actionplan = PreventiveMaintenancesgrids::Where(['preventive_maintenances_id'=>$preventive_maintenances_gridid,'identifier'=>'Action Plan'])->first();
+            $actionplan['preventive_maintenances_id'] = $preventive_maintenances_gridid;
+            $actionplan['identifier'] = 'Action Plan';
+            $actionplan['data'] = $request->action_plan;
+            $PreventiveMaintenancesgridsRecord= PreventiveMaintenancesgrids::create($actionplan);
+            
+            // ============== Audit trail ==============
 
             if(!empty($request->short_description)){
                 $history = new PreventiveMaintenancesAuditTrial();
@@ -264,16 +274,15 @@ class PreventiveMaintenanceController extends Controller
         $cft = [];
         $revised_date = "";
         $data = PreventiveMaintenances::find($id);
-        // dd($data);
+        $action_plans = $data->grids()->where('identifier', 'Action Plan')->first();
         $old_record = PreventiveMaintenances::select('id', 'division_id', 'record_number')->get();
         // $revised_date = Extension::where('parent_id', $id)->where('parent_type', "Preventive Maintenances")->value('revised_date');
         $data->record_number = str_pad($data->record_number, 4, '0', STR_PAD_LEFT);
         
         $data->assign_to_name = User::where('id', $data->assign_id)->value('name');
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
-        // dd($data);
-         return view('frontend.preventive-maintenance.preventive-maintenance-view', 
-        compact('data', 'old_record','revised_date'));
+        return view('frontend.preventive-maintenance.preventive-maintenance-view', 
+        compact('data', 'old_record','revised_date','action_plans'));
 
     }
 
@@ -284,11 +293,21 @@ class PreventiveMaintenanceController extends Controller
 
         try {
                 $input = $request->all();
-                // dd($input);
                 $PreventiveMaintenances = PreventiveMaintenances::findOrFail($id);
                 $PreventiveMaintenances->update($input);
-                $lastPreventiveMaintenancesRecod = PreventiveMaintenances::where('id', $id)->first();
+                if (isset($PreventiveMaintenances->id)){
+                    $actionplan = PreventiveMaintenancesgrids::where(['preventive_maintenances_id' => $PreventiveMaintenances->id, 'identifier' =>'Action Plan'])->firstOrNew();
+                    $actionplan->preventive_maintenances_id = $PreventiveMaintenances->id;
+                    $actionplan->identifier = 'Action Plan';
+                    $actionplan->data = $request->action_plan;
+                    $actionplan->update();
+                    }else{
+                        throw new Exception('Required data or request object is not set.');
+                    }
+
+
             // ============= update audit trail==========
+            $lastPreventiveMaintenancesRecod = PreventiveMaintenances::where('id', $id)->first();
             if ($lastPreventiveMaintenancesRecod->short_description != $request->short_description){
                $history = new PreventiveMaintenancesAuditTrial();
                $history->preventive_maintenances_id = $lastPreventiveMaintenancesRecod->id;
@@ -721,12 +740,12 @@ class PreventiveMaintenanceController extends Controller
     {
         $data = PreventiveMaintenances::find($id);
         if (!empty($data)) {
-            // $data->info_product_materials = $data->grids()->where('identifier', 'info_product_material')->first();
+            $action_plans = $data->grids()->where('identifier', 'Action Plan')->first();
 
             $data->originator = User::where('id', $data->initiator_id)->value('name');
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.preventive-maintenance.singleReport', compact('data'))
+            $pdf = PDF::loadview('frontend.preventive-maintenance.singleReport', compact('data','action_plans'))
                 ->setOptions([
                     'defaultFont' => 'sans-serif',
                     'isHtml5ParserEnabled' => true,
