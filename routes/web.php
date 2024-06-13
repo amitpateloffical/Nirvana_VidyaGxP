@@ -550,6 +550,8 @@ Route::get('clinicalsiteAuditReport/{id}', [ClinicalSiteController::class, 'clin
 Route::post('clinicalsitestagechange/{id}',[ClinicalSiteController::class,'ClinicalSiteStateChange'])->name('clin_site_stagechange');
 Route::post('clinicalsiteCansilstagechange/{id}',[ClinicalSiteController::class,'ClinicalSiteCancel'])->name('cansilstagechange');
 // Route::get('clinetauditTrailPdf/{id}', [ClinicalSiteController::class, 'auditTrailPdf'])->name('clinicalsiteTrailPdf');
+Route::post('clinicalsiteChild/{id}', [ClinicalSiteController::class, 'ClinicalChild'])->name('ClinicalsiteChild');
+
 
 
 

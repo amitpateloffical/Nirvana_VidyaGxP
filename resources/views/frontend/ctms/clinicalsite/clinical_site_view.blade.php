@@ -180,6 +180,9 @@
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                             To In Effect
                         </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
+                            Child
+                        </button>
                         @elseif($data->stage == 4 && (in_array(18, $userRoleIds) || in_array(18, $userRoleIds)))
 
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -349,7 +352,46 @@
         </div>
     </div>
 </div>
+{{-- ==============================================child model===================================================== --}}
 
+<div class="modal fade" id="child-modal1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Child</h4>
+            </div>
+            <div class="model-body">
+            <form action="{{ route('ClinicalsiteChild', $data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        <label style="  display: flex;     gap: 18px; width: 60px;" for="capa-child">
+                            <input type="radio" name="revision" id="capa-child" value="rca-child">
+                           RCA
+                        </label>
+                    </div>
+                    <div class="group-input">
+                        <label style=" display: flex;     gap: 16px; width: 60px;" for="root-item">
+                            <input type="radio" name="revision" id="root-item" value="Action-Item">
+                          <span style="width: 100px;">  Action Item</span>
+                        </label>
+                    </div>
+                   
+                </div>
+
+               
+                <div class="modal-footer">
+                          <button type="submit">Submit</button>
+                         <button type="button" data-bs-dismiss="modal">Close</button>                         
+               </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
         <!-- Tab links -->
