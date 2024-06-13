@@ -543,3 +543,6 @@ Route::view('follow_up_task', 'frontend.newform.follow_up_task');
 
 // ========Analyst Interview===============
 Route::view('analyst_interview', 'frontend.newform.analyst_interview');
+
+// ========Hypothesis ===============
+Route::view('hypothesis', 'frontend.newform.hypothesis');
