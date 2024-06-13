@@ -31,10 +31,14 @@ class ResamplingController extends Controller
         // }
         $resampling = new Resampling();
         $resampling->form_type = "Resampling";
+        $resampling->type = "Resampling";
+
         $resampling->record = ((RecordNumber::first()->value('counter')) + 1);
         // $resampling->initiator_id = Auth::user()->id;
 
         # -------------new-----------
+    // $resampling->parent_record_number = $request->parent_record_number;
+
             $resampling->record_number = $request->record_number;
             $resampling->division_id = $request->division_id;
 
@@ -200,8 +204,10 @@ class ResamplingController extends Controller
                     $stability_studys2->identifier = 'Stability Study2';
                     $stability_studys2->data = $request->stability_study2;
                     $stability_studys2->save();
-                    return redirect()->back()->with('success', 'Resampling data has been saved successfully.');
+                    // return redirect(url('rcms/qms-dashboard'))->back()->with('success', 'Resampling data has been saved successfully.');
 
+                    toastr()->success("Record is created Successfully");
+                    return redirect(url('rcms/qms-dashboard'));
 // ----------------------------------------------------------------------------------------------------
     }
 

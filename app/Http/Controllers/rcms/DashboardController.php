@@ -17,6 +17,8 @@ use App\Models\AuditProgram;
 use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 use App\Models\Deviation;
+use App\Models\Resampling;
+
 use App\Models\MedicalDeviceRegistration;
 use Helpers;
 use App\Models\User;
@@ -67,6 +69,8 @@ class DashboardController extends Controller
         $datas12 = Observation::orderByDesc('id')->get();
         $datas13 = Deviation::orderByDesc('id')->get();
         $datas15 = MedicalDeviceRegistration::orderByDesc('id')->get();
+        $datas16 = Resampling::orderByDesc('id')->get();
+
 
 
         foreach ($datas as $data) {
@@ -346,6 +350,24 @@ class DashboardController extends Controller
                 "type" => "MedicalDeviceRegistration",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas16 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record_number ? $data->parent_record_number : "-",
+                "record" => $data->record_number,
+                "type" => "Resampling",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "division_id" => $data->division_id,
                 "short_description" => $data->short_description ? $data->short_description : "-",
                 "initiator_id" => $data->initiator_id,
                 "intiation_date" => $data->intiation_date,
@@ -739,6 +761,12 @@ class DashboardController extends Controller
             $audit = "rootAuditReport/" . $data->id;
         } elseif ($type == "Deviation") {
             $data = Deviation::find($id);
+            $single = "deviationSingleReport/". $data->id;
+            $audit = "#";
+            $parent="deviationparentchildReport/". $data->id;
+        }
+        elseif ($type == "Resampling") {
+            $data = Resampling::find($id);
             $single = "deviationSingleReport/". $data->id;
             $audit = "#";
             $parent="deviationparentchildReport/". $data->id;

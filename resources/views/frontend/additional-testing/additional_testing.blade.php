@@ -99,60 +99,111 @@
     </script>
 
     <!-- -----------------------------grid-1--------------------------------->
-    <script>
-        $(document).ready(function() {
-            $('#Product_Material1').click(function(e) {
-                function generateTableRow(serialNumber) {
-                    var html =
-                        '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                        '"></td>' +
-                        '<td><input type="text" name=parent_info_on_product_mat[0][item_product_code]></td>' +
-                        '<td><input type="text" name=parent_info_on_product_mat[0][lot_batch_no]></td>' +
-                        '<td><input type="text" name=parent_info_on_product_mat[0][ar_number]></td>' +
-                        '<td><input type="date" name=parent_info_on_product_mat[0][mfg_date]></td>' +
-                        '<td><input type="date" name=parent_info_on_product_mat[0][exp_date]></td>' +
-                        '<td><input type="text" name=parent_info_on_product_mat[0][label_claim]></td>' +
-                        '</tr>';
 
-                    return html;
-                }
+<script>
+    $(document).ready(function() {
+        $('#Product_Material1').click(function(e) {
+            function generateTableRow(serialNumber) {
+                var minDate = '{{ \Carbon\Carbon::now()->format('Y-m-d') }}';
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
+                    '"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_mat[' + serialNumber +
+                    '][item_product_code]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_mat[' + serialNumber +
+                    '][lot_batch_no]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_mat[' + serialNumber +
+                    '][ar_number]"></td>' +
+                    '<td>' +
+                    '<div class="group-input new-date-data-field mb-0">' +
+                    '<div class="input-date ">' +
+                    '<div class="calenderauditee">' +
+                    '<input type="text" id="agenda_date' + serialNumber +
+                    '" readonly placeholder="DD-MMM-YYYY" />' +
+                    '<input type="date" name="parent_info_on_product_mat[' + serialNumber +
+                    '][mfg_date]" min="' + minDate +
+                    '" class="hide-input" oninput="handleDateInput(this, \'agenda_date' + serialNumber +
+                    '\');" />' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td>' +
+                    '<div class="group-input new-date-data-field mb-0">' +
+                    '<div class="input-date ">' +
+                    '<div class="calenderauditee">' +
+                    '<input type="text" id="agenda_date' + serialNumber +
+                    '_exp" readonly placeholder="DD-MMM-YYYY" />' +
+                    '<input type="date" name="parent_info_on_product_mat[' + serialNumber +
+                    '][exp_date]" min="' + minDate +
+                    '" class="hide-input" oninput="handleDateInput(this, \'agenda_date' + serialNumber +
+                    '_exp\');" />' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td><input type="text" name="parent_info_on_product_mat[' + serialNumber +
+                    '][label_claim]"></td>' +
+                    '</tr>';
 
-                var tableBody = $('#Product_Material1 tbody');
-                var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
-                tableBody.append(newRow);
-            });
+                return html;
+            }
+
+            var tableBody = $('#Product_Material1 tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1);
+            tableBody.append(newRow);
         });
-    </script>
+    });
+</script>
     <!-- ------------------------ ----grid-2--------------------------------->
-    <script>
-        $(document).ready(function() {
-            $('#Product_Material2').click(function(e) {
-                function generateTableRow(serialNumber) {
-                    var html =
-                        '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                        '"></td>' +
-                        '  <td><input type="text" name="parent_info_on_product_mat[0][item_product_code]"></td>' +
-                        '  <td><input type="text" name="parent_info_on_product_mat[0][batch_number]"></td>' +
-                        ' <td><input type="text" name="parent_info_on_product_mat[0][ar_number]"></td>' +
-                        '  <td><input type="date" name="parent_info_on_product_mat[0][mfg_date]"></td>' +
-                        '<td><input type="date" name="parent_info_on_product_mat[0][exp_date]"></td>' +
-                        ' <td><input type="text" name="parent_info_on_product_mat[0][label_claim]"></td>' +
-                        '  <td><input type="text" name="parent_info_on_product_mat[0][pack_size]"></td>' +
-                        '</tr>';
 
-                    return html;
-                }
+ <script>
+    $(document).ready(function() {
+        $('#Product_Material2').click(function(e) {
+            function generateTableRow(serialNumber) {
+                var minDate = '{{ \Carbon\Carbon::now()->format('Y-m-d') }}';
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_mat[' + serialNumber + '][item_product_code]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_mat[' + serialNumber + '][batch_number]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_mat[' + serialNumber + '][ar_number]"></td>' +
+                    '<td>' +
+                    '<div class="group-input new-date-data-field mb-0">' +
+                    '<div class="input-date ">' +
+                    '<div class="calenderauditee">' +
+                    '<input type="text" id="agenda_date' + serialNumber + '" readonly placeholder="DD-MMM-YYYY" />' +
+                    '<input type="date" name="parent_info_on_product_mat[' + serialNumber + '][mfg_date]" min="' + minDate + '" class="hide-input" oninput="handleDateInput(this, \'agenda_date' + serialNumber + '\');" />' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td>' +
+                    '<div class="group-input new-date-data-field mb-0">' +
+                    '<div class="input-date ">' +
+                    '<div class="calenderauditee">' +
+                    '<input type="text" id="agenda_date' + serialNumber + '_exp" readonly placeholder="DD-MMM-YYYY" />' +
+                    '<input type="date" name="parent_info_on_product_mat[' + serialNumber + '][exp_date]" min="' + minDate + '" class="hide-input" oninput="handleDateInput(this, \'agenda_date' + serialNumber + '_exp\');" />' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td><input type="text" name="parent_info_on_product_mat[' + serialNumber + '][label_claim]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_mat[' + serialNumber + '][pack_size]"></td>' +
+                    '</tr>';
 
-                var tableBody = $('#Product_Material2 tbody');
-                var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
-                tableBody.append(newRow);
-            });
+                return html;
+            }
+
+            var tableBody = $('#Product_Material2 tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1);
+            tableBody.append(newRow);
         });
-    </script>
+    });
+</script>
     <!-- -----------------------------grid-3--------------------------------->
     <script>
         $(document).ready(function() {
@@ -692,20 +743,20 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="resampling-required" name="resampling_required"> Resampling Required ?</label>
-                                <select multiple id="resampling_required" name="resampling_required" id="">
+                                <select single id="resampling_required" name="resampling_required" id="">
                                     <option value=""> Enter Your Selection Here</option>
-                                    <option value=""></option>
-                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="resampling-reference">Resample Reference </label>
-                                <select multiple id="resampling_refrence" name="resampling_refrence">
+                                <select single id="resampling_refrence" name="resampling_refrence">
                                     <option value="">Enter Your Selection Here</option>
-                                    <option value=""></option>
-                                    <option value=""></option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
                                 </select>
                             </div>
                         </div>
@@ -715,7 +766,7 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Product/Material Name"> Assignee</label>
-                                <input type="text" name=assignee"">
+                                <input type="text" name=assignee>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -733,19 +784,24 @@
 
                             </div>
                         </div>
-                        <div class="col-lg-6">
+
+                        <div class="col-12">
                             <div class="group-input">
-                                <label for="Audit Attachments">Additinal Test Attachment</label>
+                                <label for="add_test_attachment">Additional Test Attachment</label>
+                                <div><small class="text-primary">Please Attach all relevant or supporting
+                                        documents</small></div>
                                 <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="file_attach"></div>
+                                    <div class="file-attachment-list" id="add_test_attachment"></div>
                                     <div class="add-btn">
-                                        <div>View</div>
-                                        <input type="file" id="myfile" name="file_attach[]"
-                                            oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                        <div>Add</div>
+                                        <input type="file" id="myfile" name="add_test_attachment[]"
+                                            oninput="addMultipleFiles(this, 'add_test_attachment')" multiple>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Product/Material Name"> Additional Test Proposal Completed By</label>
@@ -765,6 +821,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="button-block">
@@ -796,23 +853,20 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="group-input col-md-6">
-                            <label for="Audit Attachments" name="cq_approval_attachment"> CQ Approval Attachment
-                            </label>
-                            <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
-                            <div class="file-attachment-field">
-                                <div class="file-attachment-list" id="file_attach"></div>
-                                <div class="add-btn">
-                                    <div>View</div>
-                                    <input type="file" id="myfile" name="file_attach[]"
-                                        oninput="addMultipleFiles(this, 'file_attach')" multiple>
-                                </div>
+                    <div class="group-input">
+                        <label for="cq_approval_attachment">CQ Approval Attachment</label>
+                        <div><small class="text-primary">Please Attach all relevant or supporting
+                                documents</small></div>
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="cq_approval_attachment"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="cq_approval_attachment[]"
+                                    oninput="addMultipleFiles(this, 'cq_approval_attachment')" multiple>
                             </div>
-
                         </div>
                     </div>
+                </div>
 
                     <div class="row col-md-12">
                         <div class="col-md-6 mb-4">
@@ -867,21 +921,20 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-12">
                             <div class="group-input">
-                                <label for="Audit Attachments"> Additional Test Exe. Attachment</label>
-                                <small class="text-primary">
-                                    Additional Test Execution Attachment
-                                </small>
+                                <label for="add_test_exe_attachment">Additional Test Exe. Attachment
+                                </label>
+                                <div><small class="text-primary">Please Attach all relevant or supporting
+                                        documents</small></div>
                                 <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="file_attach"></div>
+                                    <div class="file-attachment-list" id="add_test_exe_attachment"></div>
                                     <div class="add-btn">
                                         <div>Add</div>
-                                        <input type="file" id="myfile" name="file_attach[]"
-                                            oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                        <input type="file" id="myfile" name="add_test_exe_attachment[]"
+                                            oninput="addMultipleFiles(this, 'add_test_exe_attachment')" multiple>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
@@ -932,22 +985,21 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="group-input col-md-6">
-                            <label for="Audit Attachments" name="qc_review_attachment"> QC Review Attachment</label>
-                            <small class="text-primary">
-                                Please Attach all relevant or supporting documents
-                            </small>
-                            <div class="file-attachment-field">
-                                <div class="file-attachment-list" id="file_attach"></div>
-                                <div class="add-btn">
-                                    <div>View</div>
-                                    <input type="file" id="myfile" name="file_attach[]"
-                                        oninput="addMultipleFiles(this, 'file_attach')" multiple>
-                                </div>
+                    <div class="group-input">
+                        <label for="qc_review_attachment">QC Review Attachment
+                        </label>
+                        <div><small class="text-primary">Please Attach all relevant or supporting
+                                documents</small></div>
+                        <div class="file-attachment-field">
+                            <div class="file-attachment-list" id="qc_review_attachment"></div>
+                            <div class="add-btn">
+                                <div>Add</div>
+                                <input type="file" id="myfile" name="qc_review_attachment[]"
+                                    oninput="addMultipleFiles(this, 'qc_review_attachment')" multiple>
                             </div>
-
                         </div>
                     </div>
+                </div>
                     <div class="row col-md-12">
                         <div class="col-md-6 mb-4">
                             <div class="group-input">
