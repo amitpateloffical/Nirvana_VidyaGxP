@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\newForm;
 
 use App\Http\Controllers\Controller;
+use App\Models\MonthlyWorking;
 use App\Models\RecordNumber;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class MonthlyWorkingController extends Controller
     }
 
     public function monthly_workingStore(Request $request){
+        dd($request->all());
         try {
             $recordCounter = RecordNumber::first();
             $newRecordNumber = $recordCounter->counter + 1;

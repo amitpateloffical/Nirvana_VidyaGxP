@@ -77,8 +77,7 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiation"><b>Date of Initiation</b></label>
-                                    <!-- <input disabled type="date" name="Date_of_Initiation" value="">
-                                    <input type="hidden" name="initiation_date" value=""> -->
+
                                     <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
                                     <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
                                 </div>
@@ -123,9 +122,9 @@ $users = DB::table('users')->get();
                                     <label for="Procedure Type">(Parent) Procedure Type</label>
                                     <select name="procedure_type">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="type-1">type-1</option>
-                                        <option value="type-2">type-2</option>
-                                        <option value="type-3">type-3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -168,9 +167,9 @@ $users = DB::table('users')->get();
                                     <label for="Renewal Rule">Renewal Rule</label>
                                     <select name="renewal_rule">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="rule-1">rule-1</option>
-                                        <option value="rule-2">rule-2</option>
-                                        <option value="rule-3">rule-3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -185,9 +184,9 @@ $users = DB::table('users')->get();
                                     <label for="Related Dossier Documents">Related Dossier Documents</label>
                                     <select name="related_dossier_documents">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="doc-1">doc-1</option>
-                                        <option value="doc-2">doc-2</option>
-                                        <option value="doc-3">doc-3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -202,9 +201,9 @@ $users = DB::table('users')->get();
                                     <label for="Shelf Life">Shelf Life</label>
                                     <select name="shelf_life">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="test-1">test-1</option>
-                                        <option value="test-2">test-2</option>
-                                        <option value="test-3">test-3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -351,9 +350,10 @@ $users = DB::table('users')->get();
 
                                     <select name="approval_status">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="status-1">status-1</option>
-                                        <option value="status-2">status-2</option>
-                                        <option value="status-3">status-3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>

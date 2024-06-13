@@ -809,7 +809,6 @@ if (!empty($request->expiration_date)) {
 
     }
 
-
     public function nationalApproval_send_stage(Request $request, $id)
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
@@ -852,7 +851,7 @@ if (!empty($request->expiration_date)) {
 
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
-                $equipment->submit_comment = $request->comment;
+                // $equipment->submit_comment = $request->comment;
                 
                 $validation2 = new NationalApprovalAudit();
                 $validation2->national_id = $id;
@@ -876,7 +875,7 @@ if (!empty($request->expiration_date)) {
 
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
-                $equipment->submit_comment = $request->comment;
+                // $equipment->submit_comment = $request->comment;
                 
                 $validation2 = new NationalApprovalAudit();
                 $validation2->national_id = $id;
@@ -1114,5 +1113,18 @@ if (!empty($request->expiration_date)) {
         );
 
         return $pdf->stream('National Approval' . $id . '.pdf');
+    }
+
+    public function np_child_1($stage){
+        $national = NationalApproval::find($stage);
+
+        if ($national->stage == 2){
+            return view('frontend.New_forms.correspondence');
+        }elseif($national->stage == 3 || value('variation')){
+            return view('frontend.Registration-Tracking.variation');
+        }else{
+            return view('frontend.New_forms.correspondence');
+        }
+        
     }
 }

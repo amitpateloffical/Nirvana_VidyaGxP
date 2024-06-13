@@ -353,7 +353,7 @@ $users = DB::table('users')->get();
                                         <option value="4" @if ($national->procedure_type == 4) selected @endif>4</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>  
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Procedure Type">Planned Subnission Date</label>
@@ -557,10 +557,11 @@ $users = DB::table('users')->get();
                                         <option value="">cfgg</option> 
                                     </select> -->
                                     <select name="approval_status" value="{{$national->approval_status}}">
-                                        <!-- <option value="">Enter Your Selection Here</option> -->
-                                        <option value="status-1">status-1</option>
-                                        <option value="status-2">status-2</option>
-                                        <option value="status-3">status-3</option>
+                                    <option value="">Enter Your Selection Here</option>
+                                        <option value="1" @if ($national->approval_status == 1) selected @endif>1</option>
+                                        <option value="2" @if ($national->approval_status == 2) selected @endif>2</option>
+                                        <option value="3" @if ($national->approval_status == 3) selected @endif>3</option>
+                                        <option value="4" @if ($national->approval_status == 4) selected @endif>4</option>
                                     </select>
                                 </div>
                             </div>

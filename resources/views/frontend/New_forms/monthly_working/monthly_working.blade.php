@@ -10,6 +10,10 @@
     }
 </style>
 
+@php
+$users = DB::table('users')->get();
+@endphp
+
 <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
@@ -91,18 +95,50 @@
 
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Short Description"> Description<span class="text-danger"></span></label>
+                                    <label for="Description"> Description<span class="text-danger"></span></label>
                                     <textarea name="description"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
+                                    <label for="Zone">Zone</label>
+                                    <select name="zone">
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="Asia">Asia</option>
+                                        <option value="Europe">Europe</option>
+                                        <option value="Africa">Africa</option>
+                                        <option value="Central America">Central America</option>
+                                        <option value="South America">South America</option>
+                                        <option value="Oceania">Oceania</option>
+                                        <option value="North America">North America</option>
+                                    </select>
+                                </div>
+                            </div>
 
-                                    <label for="Short Description"> Zone<span class="text-danger"></span></label>
-                                    <select name="">
-                                        <option>pankaj jat</option>
-                                        <option>pankaj jat</option>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Country">Country</label>
+                                    <select name="country" class="form-select country" aria-label="Default select example" onchange="loadStates()">
+                                        <option selected>Select Country</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="State">State</label>
+                                    <select name="state" class="form-select state" aria-label="Default select example" onchange="loadCities()">
+                                        <option selected>Select State/District</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="City">City</label>
+                                    <select name="city" class="form-select city" aria-label="Default select example">
+                                        <option selected>Select City</option>
                                     </select>
                                 </div>
                             </div>
@@ -110,40 +146,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
 
-                                    <label for="Short Description"> Country<span class="text-danger"></span></label>
-                                    <select>
-                                        <option>India</option>
-                                        <option>USA</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-
-                                    <label for="Short Description"> City<span class="text-danger"></span></label>
-                                    <select>
-                                        <option>Indore</option>
-                                        <option>Bhopal</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-
-                                    <label for="Short Description"> State/District<span class="text-danger"></span></label>
-                                    <select>
-                                        <option>Mp</option>
-                                        <option>Gujrat</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-
-                                    <label for="Short Description"> Year<span class="text-danger"></span></label>
+                                    <label for="Year"> Year<span class="text-danger"></span></label>
                                     <select>
                                         <option>2024</option>
                                         <option>2025</option>
@@ -154,7 +157,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
 
-                                    <label for="Short Description"> Month<span class="text-danger"></span></label>
+                                    <label for="Month"> Month<span class="text-danger"></span></label>
                                     <select>
                                         <option>Jan</option>
                                         <option>Feb</option>
@@ -249,6 +252,96 @@
         display: block;
     }
 </style>
+
+
+<!-- zone / country / state / api -->
+<script>
+    var config = {
+        cUrl: 'https://api.countrystatecity.in/v1',
+        ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+    };
+
+    var countrySelect = document.querySelector('.country'),
+        stateSelect = document.querySelector('.state'),
+        citySelect = document.querySelector('.city');
+
+    function loadCountries() {
+        let apiEndPoint = `${config.cUrl}/countries`;
+
+        $.ajax({
+            url: apiEndPoint,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country.iso2;
+                    option.textContent = country.name;
+                    countrySelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading countries:', error);
+            }
+        });
+    }
+
+    function loadStates() {
+        stateSelect.disabled = false;
+        stateSelect.innerHTML = '<option value="">Select State</option>';
+
+        const selectedCountryCode = countrySelect.value;
+
+        $.ajax({
+            url: `${config.cUrl}/countries/${selectedCountryCode}/states`,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.iso2;
+                    option.textContent = state.name;
+                    stateSelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading states:', error);
+            }
+        });
+    }
+
+    function loadCities() {
+        citySelect.disabled = false;
+        citySelect.innerHTML = '<option value="">Select City</option>';
+
+        const selectedCountryCode = countrySelect.value;
+        const selectedStateCode = stateSelect.value;
+
+        $.ajax({
+            url: `${config.cUrl}/countries/${selectedCountryCode}/states/${selectedStateCode}/cities`,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.id;
+                    option.textContent = city.name;
+                    citySelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading cities:', error);
+            }
+        });
+    }
+    $(document).ready(function() {
+        loadCountries();
+    });
+</script>
+
 
 <script>
     VirtualSelect.init({
