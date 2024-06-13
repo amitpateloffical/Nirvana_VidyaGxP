@@ -17,6 +17,8 @@ use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\rcms\ProductRecallController;
+use App\Http\Controllers\rcms\RecurringCommitmentController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -175,7 +177,34 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
+            /************************************ Product Recall Route Start ************************************/
 
+            Route::get('product-recall', [ProductRecallController::class, 'index']);
+            Route::post('store-product-recall', [ProductRecallController::class, 'store'])->name('store-product-recall');
+            Route::get('show-product-recall/{id}', [ProductRecallController::class, 'show'])->name('show-product-recall');
+            Route::post('update-product-recall/{id}', [ProductRecallController::class, 'update'])->name('update-product-recall');
+            Route::get('product-recall-audit/{id}', [ProductRecallController::class, 'auditTrail']);
+            Route::get('product-recall-audit-pdf/{id}', [ProductRecallController::class, 'auditTrailPdf']);
+            Route::get('product-recall-single-report/{id}', [ProductRecallController::class, 'singleReport']);
+            Route::post('store-audit-reviewer/{id}', [ProductRecallController::class, 'storeAuditDetail'])->name('store-audit-reviewer');
+
+            Route::post('product-recall-stage/{id}', [ProductRecallController::class, 'productRecallStage'])->name('product-recall-stage');            
+            Route::post('send-to-intiator/{id}', [ProductRecallController::class, 'sendToInitiator'])->name('send-to-intiator');
+            Route::post('send-to-recall-inprogress/{id}', [ProductRecallController::class, 'sendToRecallProgress'])->name('send-to-recall-inprogress');
+            Route::post('send-to-closerejected/{id}', [ProductRecallController::class, 'sendToCloseRejected'])->name('send-to-closerejected');
+            Route::post('send-to-pending-final-approval/{id}', [ProductRecallController::class, 'recallCompleted'])->name('send-to-pending-final-approval');
+
+            /************************************ Product Recall Route Ends ************************************/
+
+            
+            /************************************ Recurring Commitment Route Starts ************************************/
+            
+            Route::get('recurring-commitment', [RecurringCommitmentController::class, 'index']);
+            Route::post('store-recurring-commitment', [RecurringCommitmentController::class, 'store'])->name('store-recurring-commitment');
+            Route::get('show-recurring-commitment/{id}', [RecurringCommitmentController::class, 'show'])->name('show-recurring-commitment');
+            Route::post('update-recurring-commitment/{id}', [RecurringCommitmentController::class, 'update'])->name('update-recurring-commitment');
+
+            /************************************ Recurring Commitment Route Ends ************************************/
              
 
         }
