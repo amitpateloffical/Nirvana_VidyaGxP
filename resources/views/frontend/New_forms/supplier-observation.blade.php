@@ -11,14 +11,18 @@
 </style>
 
 <div class="form-field-head">
-    {{-- <div class="pr-id">
-            New Child
-        </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / Supplier Observation
+        {{ Helpers::getDivisionName(session()->get('division')) }} / Supplier Observation
+        {{-- KSA / Root Cause Analysis   --}}
+        {{-- EHS-North America --}}
     </div>
 </div>
+
+
+@php
+$users = DB::table('users')->get();
+@endphp
 
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
@@ -50,23 +54,23 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Record Number</b></label>
-                                    <input disabled type="text" name="record_number" value="{{ Helpers::getDivisionName(session()->get('division')) }}/SO/{{ date('Y') }}/">
+                                    <input disabled type="text" name="record_number" value="{{ Helpers::getDivisionName(session()->get('division')) }}/SO/{{ date('Y') }}">
 
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="initiator" value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier/{{ date('Y') }}">
+                                    <label for="originator">Initiator</label>
+                                    <input disabled type="text" name="originator_id" value="{{ Auth::user()->name }}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Date Due">Date of Initiation</label>
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="date_of_initiation">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="date_of_initiation">
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
                                 </div>
                             </div>
 

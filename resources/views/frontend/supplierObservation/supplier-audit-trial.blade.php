@@ -10,7 +10,7 @@
                 <div class="inner-block">
                     <div class="main-head">
                         <div class="default-name">
-                            {{ Helpers::getDivisionName(session()->get('division')) }}/supplierObs/{{ date('Y') }}/{{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>
+                            {{ Helpers::getDivisionName(session()->get('division')) }}/Supplier-Observation/{{ date('Y') }}/{{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>
                             <div class="btn-group">
                                 <a href="{{ url('rcms/supplierAuditReport',$document->id)}}"> <button type="button">Print</button></a>
                             </div>

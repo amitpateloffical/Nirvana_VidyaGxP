@@ -215,7 +215,7 @@ use Illuminate\Support\Facades\Hash;
         if (!empty($request->risk_control_measure)) {
             $root->risk_control_measure = serialize($request->risk_control_measure);
         }
-        if (!empty($request->residual_severity)) {
+        if (!empty($request->residual_severity)) {          
             $root->residual_severity = serialize($request->residual_severity);
         }
         if (!empty($request->residual_probability)) {

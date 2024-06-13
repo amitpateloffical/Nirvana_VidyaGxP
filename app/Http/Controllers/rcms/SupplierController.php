@@ -5,6 +5,7 @@ namespace App\Http\Controllers\rcms;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Supplier;
+use App\Models\RoleGroup;
 use App\Models\RecordNumber;
 use App\Models\SupplierHistory;
 use App\Models\User;
@@ -14,13 +15,14 @@ use Helpers;
 use PDF;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
 class SupplierController extends Controller
 {
     public function supplier()
-    {
+    {   
         $record_number = ((RecordNumber::first()->value('counter')) + 1);
         $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
         $currentDate = Carbon::now();
@@ -38,9 +40,11 @@ class SupplierController extends Controller
 
 
          $supplier = new Supplier();
-         //$supplier->record_number = DB::table('record_number')->value('counter') + 1;
-         $supplier->initiator = $request->initiator;
-         $supplier->date_of_initiation = $request->date_of_initiation;
+         $supplier->form_type_new = "Supplier-Observation";
+         $supplier->originator_id = $request->originator_id;
+         $supplier->record = ((RecordNumber::first()->value('counter')) + 1);
+         $supplier->initiator_id = Auth::user()->id;
+         $supplier->intiation_date = $request->intiation_date;
          $supplier->short_description =($request->short_description);
          $supplier->assigned_to = $request->assigned_to;
          $supplier->due_date = $request->due_date;
@@ -77,6 +81,7 @@ class SupplierController extends Controller
          $supplier->manufacturer = $request->manufacturer;
          $supplier->type = $request->type;
          $supplier->product = $request->product;
+         
          $supplier->proposed_actions = $request->proposed_actions;
          $supplier->comments = $request->comments;
          $supplier->impact = $request->impact;
@@ -89,6 +94,101 @@ class SupplierController extends Controller
          $supplier->status = 'Opened';
          $supplier->stage = 1;
          $supplier->save();
+
+         
+         $record = RecordNumber::first();
+         $record->counter = ((RecordNumber::first()->value('counter')) + 1);
+         $record->update(); 
+
+
+        $history = new SupplierAuditTrial();
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Assigned To';
+        $history->previous = "Null";
+        $history->current = $supplier->assigned_to;
+        $history->comment = "NA";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $supplier->status;
+        $history->save();
+
+        $history = new SupplierAuditTrial();
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Short Description';
+        $history->previous = "Null";
+        $history->current = $supplier->short_description;
+        $history->comment = "NA";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $supplier->status;
+        $history->save();
+
+        $history = new SupplierAuditTrial();
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Criticality';
+        $history->previous = "Null";
+        $history->current = $supplier->criticality;
+        $history->comment = "NA";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $supplier->status;
+        $history->save();
+
+        $history = new SupplierAuditTrial();
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Priority Level';
+        $history->previous = "Null";
+        $history->current = $supplier->priority_level;
+        $history->comment = "NA";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $supplier->status;
+        $history->save();
+
+        $history = new SupplierAuditTrial();
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Auditee';
+        $history->previous = "Null";
+        $history->current = $supplier->auditee;
+        $history->comment = "NA";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $supplier->status;
+        $history->save();
+
+        $history = new SupplierAuditTrial();
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Contact Person';
+        $history->previous = "Null";
+        $history->current = $supplier->contact_person;
+        $history->comment = "NA";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $supplier->status;
+        $history->save();
+
+        
+        if (!empty($supplier->due_date)) {
+        $history = new SupplierAuditTrial();
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Due Date';
+        $history->previous = "Null";
+        $history->current = $supplier->due_date;
+        $history->comment = "NA";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $supplier->status;
+        $history->save();
+
+        }
+
 
          toastr()->success("Record is created Successfully");
          return redirect(url('rcms/qms-dashboard'));
@@ -107,7 +207,7 @@ class SupplierController extends Controller
         $supplier =  Supplier::find($id);
 
         $supplier->initiator = $request->initiator;
-        $supplier->date_of_initiation = $request->date_of_initiation;
+        $supplier->intiation_date = $request->intiation_date;
         $supplier->short_description =($request->short_description);
         $supplier->assigned_to = $request->assigned_to;
         $supplier->due_date = $request->due_date;
@@ -168,10 +268,8 @@ class SupplierController extends Controller
         }
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assigned_to)->value('name');
-        $data->initiator_name = User::where('id', $data->initiator)->value('name');
-          return view('frontend.supplierObservation.supplier_observation_view', compact(
-            'data'
-        ));
+        $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
+        return view('frontend.supplierObservation.supplier_observation_view', compact('data'));
     }
 
     public function supplier_send_stage(Request $request, $id)
@@ -184,21 +282,21 @@ class SupplierController extends Controller
             if ($supplier->stage == 1) {
                 $supplier->stage = "2";
                 $supplier->status = 'Pending Response/CAPA Plan';
-                // $supplier->submitted_by = Auth::user()->name;
-                // $supplier->submitted_on = Carbon::now()->format('d-M-Y');
-                // $history = new supplierAuditTrail();
-                // $history->supplier_id = $id;
-                // $history->activity_type = 'Activity Log';
-                // $history->previous = $lastDocument->submitted_by;
-                // $history->current = $supplier->submitted_by;
-                // $history->comment = $request->comment;
-                // $history->user_id = Auth::user()->id;
-                // $history->user_name = Auth::user()->name;
-                // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                // $history->origin_state = $lastDocument->status;
-                // $history->stage='Report Issued';
+                $supplier->report_issued_by = Auth::user()->name;
+                $supplier->report_issued_on = Carbon::now()->format('d-M-Y');
+                $history = new SupplierAuditTrial();
+                $history->supplier_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = $lastDocument->report_issued_by;
+                $history->current = $supplier->report_issued_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->stage='Report Issued';
 
-                // $history->save();
+                $history->save();
                 $supplier->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -207,21 +305,21 @@ class SupplierController extends Controller
             if ($supplier->stage == 2) {
                 $supplier->stage = "3";
                 $supplier->status = 'Work in Progress';
-                // $supplier->submitted_by = Auth::user()->name;
-                // $supplier->submitted_on = Carbon::now()->format('d-M-Y');
-                // $history = new supplierAuditTrail();
-                // $history->supplier_id = $id;
-                // $history->activity_type = 'Activity Log';
-                // $history->previous = $lastDocument->submitted_by;
-                // $history->current = $root->submitted_by;
-                // $history->comment = $request->comment;
-                // $history->user_id = Auth::user()->id;
-                // $history->user_name = Auth::user()->name;
-                // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                // $history->origin_state = $lastDocument->status;
-                // $history->stage='Approval received';
+                $supplier->approval_received_by = Auth::user()->name;
+                $supplier->approval_received_on = Carbon::now()->format('d-M-Y');
+                $history = new SupplierAuditTrial();
+                $history->supplier_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = $lastDocument->report_issued_by;
+                $history->current = $supplier->report_issued_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->stage='Approval received';
 
-                // $history->save();
+                $history->save();
                 $supplier->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -230,21 +328,21 @@ class SupplierController extends Controller
             if ($supplier->stage == 3) {
                 $supplier->stage = "4";
                 $supplier->status = 'Pending Approval';
-                // $supplier->submitted_by = Auth::user()->name;
-                // $supplier->submitted_on = Carbon::now()->format('d-M-Y');
-                // $history = new supplierAuditTrail();
-                // $history->supplier_id = $id;
-                // $history->activity_type = 'Activity Log';
-                // $history->previous = $lastDocument->submitted_by;
-                // $history->current = $root->submitted_by;
-                // $history->comment = $request->comment;
-                // $history->user_id = Auth::user()->id;
-                // $history->user_name = Auth::user()->name;
-                // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                // $history->origin_state = $lastDocument->status;
-                // $history->stage='All CAPA Closed';
+                $supplier->all_capa_closed_by = Auth::user()->name;
+                $supplier->all_capa_closed_on = Carbon::now()->format('d-M-Y');
+                $history = new SupplierAuditTrial();
+                $history->supplier_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = $lastDocument->report_issued_by;
+                $history->current = $supplier->report_issued_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->stage='All CAPA Closed';
 
-                // $history->save();
+                $history->save();
                 $supplier->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -253,21 +351,21 @@ class SupplierController extends Controller
             if ($supplier->stage == 4) {
                 $supplier->stage = "5";
                 $supplier->status = 'Closed - Done';
-                // $supplier->submitted_by = Auth::user()->name;
-                // $supplier->submitted_on = Carbon::now()->format('d-M-Y');
-                // $history = new supplierAuditTrail();
-                // $history->supplier_id = $id;
-                // $history->activity_type = 'Activity Log';
-                // $history->previous = $lastDocument->submitted_by;
-                // $history->current = $root->submitted_by;
-                // $history->comment = $request->comment;
-                // $history->user_id = Auth::user()->id;
-                // $history->user_name = Auth::user()->name;
-                // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                // $history->origin_state = $lastDocument->status;
-                // $history->stage='Approved';
+                $supplier->approve_by = Auth::user()->name;
+                $supplier->approve_on = Carbon::now()->format('d-M-Y');
+                $history = new SupplierAuditTrial();
+                $history->supplier_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = $lastDocument->report_issued_by;
+                $history->current = $supplier->report_issued_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->stage='Approved';
 
-                // $history->save();
+                $history->save();
                 $supplier->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -295,28 +393,28 @@ class SupplierController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
-            // $history = new RootAuditTrial();
-            // $history->supplier_id = $id;
-            // $history->activity_type = 'Activity Log';
-            // // $history->previous = $lastDocument->cancelled_by;
-            // $history->current = $root->cancelled_by;
-            // $history->comment = $request->comment;
-            // $history->user_id = Auth::user()->id;
-            // $history->user_name = Auth::user()->name;
-            // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            // $history->origin_state = $lastDocument->status;
-            // $history->stage='Cancelled ';
-            // $history->save();
+            $history = new SupplierAuditTrial();
+            $history->supplier_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->previous = $lastDocument->cancelled_by;
+            $history->current = $supplier->cancelled_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->stage='Cancelled';
+            $history->save();
 
-            // $supplier->update();
-            // $history = new SupplierHistory();
-            // $history->type = "Supplier Observation";
-            // $history->doc_id = $id;
-            // $history->user_id = Auth::user()->id;
-            // $history->user_name = Auth::user()->name;
-            // $history->stage_id = $supplier->stage;
-            // $history->status = $supplier->status;
-            // $history->save();
+            $supplier->update();
+            $history = new SupplierHistory();
+            $history->type = "Supplier Observation";
+            $history->doc_id = $id;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->stage_id = $supplier->stage;
+            $history->status = $supplier->status;
+            $history->save();
         } else {
             toastr()->error('E-signature Not match');
             return back();

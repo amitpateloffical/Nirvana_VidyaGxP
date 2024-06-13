@@ -44,7 +44,8 @@
                         <button class="button_theme1" onclick="window.print();return false;"
                             class="new-doc-btn">Print</button>
                         <button class="button_theme1"> <a class="text-white" href="{{ url('supplierAuditTrail', $data->id) }}">
-                                Audit Trail </a> </button>        
+                                Audit Trail </a> </button>            
+                                
 
                     @if ($data->stage == 1)
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
@@ -70,10 +71,10 @@
                         </button>   
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#rejection-modal">
                             Reject
-                        </button>   
-                       
-
+                        </button>     
                     @endif   
+                    <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                    </a> </button>
                 </div>
 
             </div>
@@ -158,16 +159,16 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="initiator" value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier/{{ date('Y') }}">
+                                    <label for="initiator">Initiator</label>
+                                    <input disabled type="text" name="initiator" value="{{ Auth::user()->name }}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Date Due">Date of Initiation</label>
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="date_of_initiation">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="date_of_initiation">
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
                                 </div>
                             </div>
 
@@ -433,61 +434,61 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Report Issued By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{ $data->report_issued_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted on">Report Issued On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{ $data->report_issued_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Approval received By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{ $data->approval_received_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted on">Approval received On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{ $data->approval_received_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="submitted by">All CAPA Closed By</label>
-                                    <div class="static"></div>
+                                    <label for="submitted by">All CAPA Clossed By</label>
+                                    <div class="static">{{ $data->all_capa_closed_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="submitted on">All CAPA Closed On</label>
-                                    <div class="Date"></div>
+                                    <label for="submitted on">All CAPA Clossed On</label>
+                                    <div class="Date">{{ $data->all_capa_closed_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Approve By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{ $data->approve_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted on">Approve On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{ $data->approve_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Reject By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{ $data->reject_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted on">Reject On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{ $data->reject_on }}</div>
                                 </div>
                             </div>
                             

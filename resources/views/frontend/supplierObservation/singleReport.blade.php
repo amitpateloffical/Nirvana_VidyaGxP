@@ -198,6 +198,13 @@
                         <td class="w-30">{{ Helpers::getdateFormat($data->created_at) }}</td>
                     </tr>
                     <tr>
+                        <th class="w-20">Record Number</th>
+                        <td class="w-30">@if($data->record){{ $data->record }} @else Not Applicable @endif</td>
+                        <th class="w-20">Severity Level</th>
+                        <td class="w-30">@if($data->severity_level){{ $data->severity_level }} @else Not Applicable @endif</td>
+
+                    </tr>
+                    <tr>
                         <th class="w-20">Short Description</th>
                         <td class="w-80" colspan="3">
                             @if($data->short_description){{ $data->short_description }}@else Not Applicable @endif</td>

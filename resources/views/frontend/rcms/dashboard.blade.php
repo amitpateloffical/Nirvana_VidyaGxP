@@ -442,7 +442,7 @@
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">
                                                 {{-- {{ $datas->assign_to }} --}}
-                                            {{ Helpers::getInitiatorName($datas->initiator_id) }}
+                                            {{ Helpers::getInitiatorName($datas->id) }}
                                                 {{-- {{ $datas->initiator_id }} --}}
                                             </td>
                                             <td class="viewdetails" data-id="{{ $datas->id }}"

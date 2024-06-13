@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
-            $table->string('record_number')->nullable();
-            $table->string('initiator')->nullable();
-            $table->string('date_of_initiation')->nullable();
+            $table->string('originator_id')->nullable();
+            $table->string('form_type_new')->nullable();
+            $table->integer('initiator_id')->nullable();
+            $table->string('intiation_date')->nullable();
             $table->longText('short_description')->nullable();
             $table->string('assigned_to')->nullable();
             $table->string('due_date')->nullable();
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->string('auditee')->nullable();
             $table->string('contact_person')->nullable();
             $table->longText('descriptions')->nullable();
+            $table->integer('record')->nullable();
             $table->string('attached_file')->nullable();
             $table->string('attached_picture')->nullable();
             $table->string('manufacturer')->nullable();
@@ -35,7 +37,7 @@ return new class extends Migration
             $table->longText('comments')->nullable();
             $table->string('impact')->nullable();
             $table->longText('impact_analysis')->nullable();
-            $table->string('status')->nulable();
+            $table->string('status')->nullable();
             $table->integer('stage')->nullable();
             $table->string('severity_rate')->nullable();
             $table->string('occurence')->nullable();
@@ -51,6 +53,8 @@ return new class extends Migration
             $table->string('approve_on')->nullable();
             $table->string('reject_by')->nullable();
             $table->string('reject_on')->nullable();
+            $table->string('cancelled_by')->nullable();
+            $table->string('cancelled_on')->nullable();
             $table->timestamps();
         });
     }
