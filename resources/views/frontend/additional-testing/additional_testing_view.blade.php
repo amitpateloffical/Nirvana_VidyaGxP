@@ -382,8 +382,11 @@
                 <button class="cctablinks" onclick="openCity(event, 'CCForm7')">Activity Log </button>
 
             </div>
-            <form action="{{ route('at_store') }}" method="post" enctype="multipart/form-data">
+            {{-- <form action="{{ route('at_update') }}" method="post" enctype="multipart/form-data">
+                @csrf --}}
+            <form action="{{ route('at_update', $additionalTest->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div id="step-form">
                     <!-- General Information -->
                     <div id="CCForm1" class="inner-block cctabcontent">
@@ -412,315 +415,315 @@
                                             <input type="text" id="end_date_1" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date" id="end_date_checkdate_1" name="parent_date_opened"
                                                 min="min="yyyy-mm-dd" " class="hide-input" oninput="handleDateInput(this, 'end_date_1');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
-                                                              </div>
-                                                            </div>
-                                                        </div>
-                                                                <div class="col-6">
-                                                                    <div class="group-input">
-                                                                        <label for="Short Description">(Parent) Short Description<span class="text-danger "
-                                                                                name="parent_short_description">*</span></label>
-                                                                        <input id="docname" type="text" name="parent_short_description" maxlength="255" required>
-                                                                    </div>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                        <div class="col-6">
+                                                                                            <div class="group-input">
+                                                                                                <label for="Short Description">(Parent) Short Description<span class="text-danger "
+                                                                                                        name="parent_short_description">*</span></label>
+                                                                                                <input id="docname" type="text" name="parent_short_description" maxlength="255" required>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-lg-6 new-date-data-field">
+                                                                                            <div class="group-input input-date">
+                                                                                                <label for="parent_target_closure_date">(Parent) Target Closure Date</label>
+                                                                                                <div class="calenderauditee">
+                                                                                                    <input type="text" id="end_date_2" readonly placeholder="DD-MMM-YYYY" />
+                                                                                                    <input type="date" id="end_date_checkdate_2" name="parent_target_closure_date"
+                                                                                                        min="yyyy-mm-dd"
+                                                                                                        class="hide-input"
+                                                                                                        data-display-id="end_date_2" data-start-id="start_date_checkdate_2"
+                                                                                                        oninput="handleDateInput(this, 'end_date_2'); checkDate('start_date_checkdate_2', 'end_date_checkdate_2')" />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-lg-6">
+                                                                                            <div class="group-input">
+                                                                                                <label for="Initiator"> (Parent)Product / Material Name
+                                                                                                </label>
+                                                                                                <input type="text" id="text" name="parent_product_mat_name"/>
+                                                                                             </div>
+                                                                                             </div>
+                                                                                            <div class="col-lg-6">
+                                                                                            <div class="group-input">
+                                                                                                <label for="Initiator"> (Root Parent)Product / Material Name
+                                                                                                </label>
+                                                                                                <input type="text" id="text" name="root_parent_prod_mat_name">
+                                                                                            </div>
+                                                                                             </div>
+
+                                                                                             <div class="group-input">
+                                                                                                <label for="audit-agenda-grid">
+                                                                                                    (Parent) Info. On Product/Material
+                                                                                                    <button type="button" name="parent_info_on_product_material" id="Product_Material">+</button>
+                                                                                                </label>
+                                                                                                <div class="table-responsive">
+                                                                                                    <table class="table table-bordered" id="parent_info_on_product_material">
+                                                                                                        <thead>
+                                                                                                            <tr>
+                                                                                                                <th style="width: 4%">Row#</th>
+                                                                                                                <th style="width: 10%">Item/Product Code</th>
+                                                                                                                <th style="width: 8%">Lot/Batch Number</th>
+                                                                                                                <th style="width: 8%">A.R Number</th>
+                                                                                                                <th style="width: 8%">Mfg. Date</th>
+                                                                                                                <th style="width: 8%">Expiry Date</th>
+                                                                                                                <th style="width: 8%">Label Claim</th>
+                                                                                                            </tr>
+                                                                                                        </thead>
+                                                                                                        <tbody>
+                                                                                                            <!-- Existing first row, which serves as a template -->
+                                                                                                            <tr>
+                                                                                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                                                                                <td><input type="text" name="parent_info_on_product_material[0][item_product_code]"></td>
+                                                                                                                <td><input type="text" name="parent_info_on_product_material[0][lot_batch_number]"></td>
+                                                                                                                <td><input type="text" name="parent_info_on_product_material[0][ar_number]"></td>
+                                                                                                                <td>
+                                                                                                                    <div class="group-input new-date-data-field mb-0">
+                                                                                                                        <div class="input-date">
+                                                                                                                            <div class="calenderauditee">
+                                                                                                                                <input type="text" id="agenda_date50_0" readonly placeholder="DD-MMM-YYYY" />
+                                                                                                                                <input type="date" name="parent_info_on_product_material[0][mfg_date]" class="hide-input"
+                                                                                                                                    oninput="handleDateInput(this, 'agenda_date50_0');" />
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="group-input new-date-data-field mb-0">
+                                                                                                                        <div class="input-date">
+                                                                                                                            <div class="calenderauditee">
+                                                                                                                                <input type="text" id="agenda_date51_0" readonly placeholder="DD-MMM-YYYY" />
+                                                                                                                                <input type="date" name="parent_info_on_product_material[0][exp_date]" class="hide-input"
+                                                                                                                                    oninput="handleDateInput(this, 'agenda_date51_0');" />
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td><input type="text" name="parent_info_on_product_material[0][label_claim]"></td>
+                                                                                                            </tr>
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </div>
+
+
+                                                                                            <div class="group-input">
+                                                                                                <label for="audit-agenda-grid">
+                                                                                                    (Parent) Info. On Product/ Material
+                                                                                                    <button type="button" name="parent_info_on_product_material1" id="Product_Material1">+</button>
+                                                                                                    <span class="text-primary" data-bs-toggle="modal"
+                                                                                                          data-bs-target="#document-details-field-instruction-modal"
+                                                                                                          style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                                                                                        (Launch Instruction)
+                                                                                                    </span>
+                                                                                                </label>
+                                                                                                <div class="table-responsive">
+                                                                                                    <table class="table table-bordered" id="parent_info_on_product_material1" style="width: 100%;">
+                                                                                                        <!-- Table headers -->
+                                                                                                        <thead>
+                                                                                                            <tr>
+                                                                                                                <th style="width: 4%">Row#</th>
+                                                                                                                <th style="width: 10%">Item/Product Code</th>
+                                                                                                                <th style="width: 8%">Batch No*.</th>
+                                                                                                                <th style="width: 8%">A.R.Number</th>
+                                                                                                                <th style="width: 8%">Mfg.Date</th>
+                                                                                                                <th style="width: 8%">Expiry Date</th>
+                                                                                                                <th style="width: 8%">Label Claim.</th>
+                                                                                                                <th style="width: 8%">Pack Size</th>
+                                                                                                                {{-- <th style="width: 8%">Lot/Batch Number</th> --}}
+                                                                                                            </tr>
+                                                                                                        </thead>
+                                                                                                        <!-- Table body -->
+                                                                                                        <tbody>
+                                                                                                            <!-- Existing first row -->
+                                                                                                            <tr>
+                                                                                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                                                                                <td><input type="text" name="parent_info_on_product_material1[0][item_product_code]"></td>
+                                                                                                                <td><input type="text" name="parent_info_on_product_material1[0][batch_no]"></td>
+                                                                                                                <td><input type="text" name="parent_info_on_product_material1[0][ar_number]"></td>
+                                                                                                                <td>
+                                                                                                                    <div class="group-input new-date-data-field mb-0">
+                                                                                                                        <div class="input-date">
+                                                                                                                            <div class="calenderauditee">
+                                                                                                                                <input type="text" id="agenda_date52_0" readonly placeholder="DD-MMM-YYYY" />
+                                                                                                                                <input type="date" name="parent_info_on_product_material1[0][mfg_date]" class="hide-input"
+                                                                                                                                       oninput="handleDateInput(this, 'agenda_date52_0');" />
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="group-input new-date-data-field mb-0">
+                                                                                                                        <div class="input-date">
+                                                                                                                            <div class="calenderauditee">
+                                                                                                                                <input type="text" id="agenda_date53_0" readonly placeholder="DD-MMM-YYYY" />
+                                                                                                                                <input type="date" name="parent_info_on_product_material1[0][exp_date]" class="hide-input"
+                                                                                                                                       oninput="handleDateInput(this, 'agenda_date53_0');" />
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td><input type="text" name="parent_info_on_product_material1[0][label_claim]"></td>
+                                                                                                                <td><input type="text" name="parent_info_on_product_material1[0][pack_size]"></td>
+                                                                                                                {{-- <td><input type="text" name="parent_info_on_product_material1[0][lot_batch_number]"></td> --}}
+                                                                                                            </tr>
+                                                                                                        </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            
+                                                                                        
+                                                            <div class="group-input">
+                                                                <label for="audit-agenda-grid">
+                                                                    (Root Parent) OOS Details (0)
+                                                                    <button type="button" name="root_parent_oos_details"
+                                                                        id="Product_Material3">+</button>
+                                                                    <span class="text-primary" data-bs-toggle="modal"
+                                                                        data-bs-target="#document-details-field-instruction-modal"
+                                                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                                                        (Open)
+                                                                    </span>
+                                                                </label>
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered" id="Product_Material3" style="width: 100%;">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width: 4%">Row#</th>
+                                                                                <th style="width: 10%">A.R. Number</th>
+                                                                                <th style="width: 8%">Test Name of OOS</th>
+                                                                                <th style="width: 8%">Results Obtained</th>
+                                                                                <th style="width: 8%">Specification Limit</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                                                <td><input type="text"
+                                                                                        name="root_parent_oos_details[0][ar_number]">
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        name="root_parent_oos_details[0][test_name_of_oos]">
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        name="root_parent_oos_details[0][results_obtained]">
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        name="root_parent_oos_details[0][specification_limit]">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
-                                                                <div class="col-lg-6 new-date-data-field">
-                                                                    <div class="group-input input-date">
-                                                                        <label for="parent_target_closure_date">(Parent) Target Closure Date</label>
-                                                                        <div class="calenderauditee">
-                                                                            <input type="text" id="end_date_2" readonly placeholder="DD-MMM-YYYY" />
-                                                                            <input type="date" id="end_date_checkdate_2" name="parent_target_closure_date"
-                                                                                min="yyyy-mm-dd"
-                                                                                class="hide-input"
-                                                                                data-display-id="end_date_2" data-start-id="start_date_checkdate_2"
-                                                                                oninput="handleDateInput(this, 'end_date_2'); checkDate('start_date_checkdate_2', 'end_date_checkdate_2')" />
-                                                                        </div>
+                                                            </div>
+
+                                                            <div class="group-input">
+                                                                <label for="audit-agenda-grid">
+                                                                    (Parent) OOT Results (0)
+                                                                    <button type="button" name="parent_oot_results" id="Product_Material4">+</button>
+                                                                    <span class="text-primary" data-bs-toggle="modal"
+                                                                        data-bs-target="#document-details-field-instruction-modal"
+                                                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                                                        (Open)
+                                                                    </span>
+                                                                </label>
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered" id="Product_Material4" style="width: 100%;">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width: 4%">Row#</th>
+                                                                                <th style="width: 10%">A.R. Number</th>
+                                                                                <th style="width: 8%">Test Number of OOT</th>
+                                                                                <th style="width: 8%">Results Obtained</th>
+                                                                                <th style="width: 8%">Previous Interval Details</th>
+                                                                                <th style="width: 8%">% Difference of Results</th>
+                                                                                <th style="width: 8%">Initial Interview Details</th>
+                                                                                <th style="width: 8%">Trend Limit</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                                                <td><input type="text" name="parent_oot_results[0][ar_number]"></td>
+                                                                                <td><input type="text" name="parent_oot_results[0][test_number_of_oot]">
+                                                                                </td>
+                                                                                <td><input type="text" name="parent_oot_results[0][results_obtained]">
+                                                                                </td>
+                                                                                <td><input type="text" name="parent_oot_results[0][prev_interval_details]">
+                                                                                </td>
+                                                                                <td><input type="text" name="parent_oot_results[0][diff_of_results]">
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        name="parent_oot_results[0][initial_interview_details]">
+                                                                                </td>
+                                                                                <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="group-input">
+                                                                <label for="audit-agenda-grid">
+                                                                    (Parent) Details of Stability Study (0)
+                                                                    <button type="button" name="parent_details_of_stability_study"
+                                                                        id="Product_Material5">+</button>
+                                                                    <span class="text-primary" data-bs-toggle="modal"
+                                                                        data-bs-target="#document-details-field-instruction-modal"
+                                                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                                                        (Open)
+                                                                    </span>
+                                                                </label>
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered" id="Product_Material5" style="width: 100%;">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width: 4%">Row#</th>
+                                                                                <th style="width: 10%">A.R. Number</th>
+                                                                                <th style="width: 8%">Condition: Temperature & RH</th>
+                                                                                <th style="width: 8%">Interval</th>
+                                                                                <th style="width: 8%">Orientation</th>
+                                                                                <th style="width: 8%">Pack Details (if any)</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                                                <td><input type="text"
+                                                                                        name="parent_details_of_stability_study[0][ar_number]">
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        name="parent_details_of_stability_study[0][condition_temp_and_rh]">
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        name="parent_details_of_stability_study[0][interval]">
+                                                                                </td>
+                                                                                <td><input type="text"
+                                                                                        name="parent_details_of_stability_study[0][orientation]"></td>
+                                                                                <td><input type="text"
+                                                                                        name="parent_details_of_stability_study[0][pack_details_if_any]">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="sub-head pt-3">General Information</div>
+                                                            <div class="row">
+
+
+                                                                {{-- record or site/division code ANSHUL --}}
+                                                                <div class="col-lg-6">
+                                                                    <div class="group-input">
+                                                                        <label for="RLS Record Number"><b>Record Number</b></label>
+                                                                        <input disabled type="text" name="record_number"/>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-6">
                                                                     <div class="group-input">
-                                                                        <label for="Initiator"> (Parent)Product / Material Name
-                                                                        </label>
-                                                                        <input type="text" id="text" name="parent_product_mat_name"/>
-                                                                     </div>
-                                                                     </div>
-                                                                    <div class="col-lg-6">
-                                                                    <div class="group-input">
-                                                                        <label for="Initiator"> (Root Parent)Product / Material Name
-                                                                        </label>
-                                                                        <input type="text" id="text" name="root_parent_prod_mat_name">
-                                                                    </div>
-                                                                     </div>
-
-                                                                     <div class="group-input">
-                                                                        <label for="audit-agenda-grid">
-                                                                            (Parent) Info. On Product/Material
-                                                                            <button type="button" name="parent_info_on_product_material" id="Product_Material">+</button>
-                                                                        </label>
-                                                                        <div class="table-responsive">
-                                                                            <table class="table table-bordered" id="parent_info_on_product_material">
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th style="width: 4%">Row#</th>
-                                                                                        <th style="width: 10%">Item/Product Code</th>
-                                                                                        <th style="width: 8%">Lot/Batch Number</th>
-                                                                                        <th style="width: 8%">A.R Number</th>
-                                                                                        <th style="width: 8%">Mfg. Date</th>
-                                                                                        <th style="width: 8%">Expiry Date</th>
-                                                                                        <th style="width: 8%">Label Claim</th>
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                    <!-- Existing first row, which serves as a template -->
-                                                                                    <tr>
-                                                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                                                        <td><input type="text" name="parent_info_on_product_material[0][item_product_code]"></td>
-                                                                                        <td><input type="text" name="parent_info_on_product_material[0][lot_batch_number]"></td>
-                                                                                        <td><input type="text" name="parent_info_on_product_material[0][ar_number]"></td>
-                                                                                        <td>
-                                                                                            <div class="group-input new-date-data-field mb-0">
-                                                                                                <div class="input-date">
-                                                                                                    <div class="calenderauditee">
-                                                                                                        <input type="text" id="agenda_date50_0" readonly placeholder="DD-MMM-YYYY" />
-                                                                                                        <input type="date" name="parent_info_on_product_material[0][mfg_date]" class="hide-input"
-                                                                                                            oninput="handleDateInput(this, 'agenda_date50_0');" />
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="group-input new-date-data-field mb-0">
-                                                                                                <div class="input-date">
-                                                                                                    <div class="calenderauditee">
-                                                                                                        <input type="text" id="agenda_date51_0" readonly placeholder="DD-MMM-YYYY" />
-                                                                                                        <input type="date" name="parent_info_on_product_material[0][exp_date]" class="hide-input"
-                                                                                                            oninput="handleDateInput(this, 'agenda_date51_0');" />
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td><input type="text" name="parent_info_on_product_material[0][label_claim]"></td>
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
-
-
-                                                                    <div class="group-input">
-                                                                        <label for="audit-agenda-grid">
-                                                                            (Parent) Info. On Product/ Material
-                                                                            <button type="button" name="parent_info_on_product_material1" id="Product_Material1">+</button>
-                                                                            <span class="text-primary" data-bs-toggle="modal"
-                                                                                  data-bs-target="#document-details-field-instruction-modal"
-                                                                                  style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                                                                (Launch Instruction)
-                                                                            </span>
-                                                                        </label>
-                                                                        <div class="table-responsive">
-                                                                            <table class="table table-bordered" id="parent_info_on_product_material1" style="width: 100%;">
-                                                                                <!-- Table headers -->
-                                                                                <thead>
-                                                                                    <tr>
-                                                                                        <th style="width: 4%">Row#</th>
-                                                                                        <th style="width: 10%">Item/Product Code</th>
-                                                                                        <th style="width: 8%">Batch No*.</th>
-                                                                                        <th style="width: 8%">A.R.Number</th>
-                                                                                        <th style="width: 8%">Mfg.Date</th>
-                                                                                        <th style="width: 8%">Expiry Date</th>
-                                                                                        <th style="width: 8%">Label Claim.</th>
-                                                                                        <th style="width: 8%">Pack Size</th>
-                                                                                        {{-- <th style="width: 8%">Lot/Batch Number</th> --}}
-                                                                                    </tr>
-                                                                                </thead>
-                                                                                <!-- Table body -->
-                                                                                <tbody>
-                                                                                    <!-- Existing first row -->
-                                                                                    <tr>
-                                                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                                                        <td><input type="text" name="parent_info_on_product_material1[0][item_product_code]"></td>
-                                                                                        <td><input type="text" name="parent_info_on_product_material1[0][batch_no]"></td>
-                                                                                        <td><input type="text" name="parent_info_on_product_material1[0][ar_number]"></td>
-                                                                                        <td>
-                                                                                            <div class="group-input new-date-data-field mb-0">
-                                                                                                <div class="input-date">
-                                                                                                    <div class="calenderauditee">
-                                                                                                        <input type="text" id="agenda_date52_0" readonly placeholder="DD-MMM-YYYY" />
-                                                                                                        <input type="date" name="parent_info_on_product_material1[0][mfg_date]" class="hide-input"
-                                                                                                               oninput="handleDateInput(this, 'agenda_date52_0');" />
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="group-input new-date-data-field mb-0">
-                                                                                                <div class="input-date">
-                                                                                                    <div class="calenderauditee">
-                                                                                                        <input type="text" id="agenda_date53_0" readonly placeholder="DD-MMM-YYYY" />
-                                                                                                        <input type="date" name="parent_info_on_product_material1[0][exp_date]" class="hide-input"
-                                                                                                               oninput="handleDateInput(this, 'agenda_date53_0');" />
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td><input type="text" name="parent_info_on_product_material1[0][label_claim]"></td>
-                                                                                        <td><input type="text" name="parent_info_on_product_material1[0][pack_size]"></td>
-                                                                                        {{-- <td><input type="text" name="parent_info_on_product_material1[0][lot_batch_number]"></td> --}}
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
-                                                                    
-                                                                
-                                    <div class="group-input">
-                                        <label for="audit-agenda-grid">
-                                            (Root Parent) OOS Details (0)
-                                            <button type="button" name="root_parent_oos_details"
-                                                id="Product_Material3">+</button>
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#document-details-field-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                                (Open)
-                                            </span>
-                                        </label>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="Product_Material3" style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 4%">Row#</th>
-                                                        <th style="width: 10%">A.R. Number</th>
-                                                        <th style="width: 8%">Test Name of OOS</th>
-                                                        <th style="width: 8%">Results Obtained</th>
-                                                        <th style="width: 8%">Specification Limit</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                        <td><input type="text"
-                                                                name="root_parent_oos_details[0][ar_number]">
-                                                        </td>
-                                                        <td><input type="text"
-                                                                name="root_parent_oos_details[0][test_name_of_oos]">
-                                                        </td>
-                                                        <td><input type="text"
-                                                                name="root_parent_oos_details[0][results_obtained]">
-                                                        </td>
-                                                        <td><input type="text"
-                                                                name="root_parent_oos_details[0][specification_limit]">
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                    <div class="group-input">
-                                        <label for="audit-agenda-grid">
-                                            (Parent) OOT Results (0)
-                                            <button type="button" name="parent_oot_results" id="Product_Material4">+</button>
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#document-details-field-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                                (Open)
-                                            </span>
-                                        </label>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="Product_Material4" style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 4%">Row#</th>
-                                                        <th style="width: 10%">A.R. Number</th>
-                                                        <th style="width: 8%">Test Number of OOT</th>
-                                                        <th style="width: 8%">Results Obtained</th>
-                                                        <th style="width: 8%">Previous Interval Details</th>
-                                                        <th style="width: 8%">% Difference of Results</th>
-                                                        <th style="width: 8%">Initial Interview Details</th>
-                                                        <th style="width: 8%">Trend Limit</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                        <td><input type="text" name="parent_oot_results[0][ar_number]"></td>
-                                                        <td><input type="text" name="parent_oot_results[0][test_number_of_oot]">
-                                                        </td>
-                                                        <td><input type="text" name="parent_oot_results[0][results_obtained]">
-                                                        </td>
-                                                        <td><input type="text" name="parent_oot_results[0][prev_interval_details]">
-                                                        </td>
-                                                        <td><input type="text" name="parent_oot_results[0][diff_of_results]">
-                                                        </td>
-                                                        <td><input type="text"
-                                                                name="parent_oot_results[0][initial_interview_details]">
-                                                        </td>
-                                                        <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                    <div class="group-input">
-                                        <label for="audit-agenda-grid">
-                                            (Parent) Details of Stability Study (0)
-                                            <button type="button" name="parent_details_of_stability_study"
-                                                id="Product_Material5">+</button>
-                                            <span class="text-primary" data-bs-toggle="modal"
-                                                data-bs-target="#document-details-field-instruction-modal"
-                                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                                (Open)
-                                            </span>
-                                        </label>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="Product_Material5" style="width: 100%;">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 4%">Row#</th>
-                                                        <th style="width: 10%">A.R. Number</th>
-                                                        <th style="width: 8%">Condition: Temperature & RH</th>
-                                                        <th style="width: 8%">Interval</th>
-                                                        <th style="width: 8%">Orientation</th>
-                                                        <th style="width: 8%">Pack Details (if any)</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                        <td><input type="text"
-                                                                name="parent_details_of_stability_study[0][ar_number]">
-                                                        </td>
-                                                        <td><input type="text"
-                                                                name="parent_details_of_stability_study[0][condition_temp_and_rh]">
-                                                        </td>
-                                                        <td><input type="text"
-                                                                name="parent_details_of_stability_study[0][interval]">
-                                                        </td>
-                                                        <td><input type="text"
-                                                                name="parent_details_of_stability_study[0][orientation]"></td>
-                                                        <td><input type="text"
-                                                                name="parent_details_of_stability_study[0][pack_details_if_any]">
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                    <div class="sub-head pt-3">General Information</div>
-                                    <div class="row">
-
-
-                                        {{-- record or site/division code ANSHUL --}}
-                                        <div class="col-lg-6">
-                                            <div class="group-input">
-                                                <label for="RLS Record Number"><b>Record Number</b></label>
-                                                <input disabled type="text" name="record_number"/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="group-input">
-                                                <label for="Division Code"><b>Site/Division Code</b></label>
-                                                <input readonly type="text" name=division_code" />
+                                                                        <label for="Division Code"><b>Site/Division Code</b></label>
+                                                                        <input readonly type="text" name=division_code" />
                                             <input type="hidden" name="division_id"
                                                 value="{{ session()->get('division') }}">
                                         </div>
