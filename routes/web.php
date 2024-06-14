@@ -574,3 +574,15 @@ Route::get('Vsingle_report/{id}', [VerificationController::class, 'singleReport'
 Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
 
 
+
+// ========recommended action===============
+Route::view('recommended_action_new', 'frontend.OOS.recommended_action');
+
+// ========follow up task===============
+Route::view('follow_up_task', 'frontend.newform.follow_up_task');
+
+// ========Analyst Interview===============
+Route::view('analyst_interview', 'frontend.newform.analyst_interview');
+
+// ========Hypothesis ===============
+Route::view('hypothesis', 'frontend.newform.hypothesis');
