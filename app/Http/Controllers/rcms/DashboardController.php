@@ -22,6 +22,7 @@ use App\Models\Resampling;
 use App\Models\MedicalDeviceRegistration;
 use Helpers;
 use App\Models\User;
+use App\Models\Verification;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -70,6 +71,8 @@ class DashboardController extends Controller
         $datas13 = Deviation::orderByDesc('id')->get();
         $datas15 = MedicalDeviceRegistration::orderByDesc('id')->get();
         $datas16 = Resampling::orderByDesc('id')->get();
+        $datas17 = Verification::orderByDesc('id')->get();
+
 
 
 
@@ -365,6 +368,24 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record_number ? $data->parent_record_number : "-",
                 "record" => $data->record_number,
                 "type" => "Resampling",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "division_id" => $data->division_id,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas17 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record_number ? $data->parent_record_number : "-",
+                "record" => $data->record_number,
+                "type" => "Verification",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "division_id" => $data->division_id,
@@ -769,6 +790,12 @@ class DashboardController extends Controller
             $data = Resampling::find($id);
             $single = "deviationSingleReport/". $data->id;
             $audit = "#";
+            $parent="deviationparentchildReport/". $data->id;
+        }
+        elseif ($type == "Verification") {
+            $data = Verification::find($id);
+            $single = "Vsingle_report/". $data->id;
+            $audit = "Vaudit_report/".$data->id;
             $parent="deviationparentchildReport/". $data->id;
         }
 

@@ -242,10 +242,10 @@
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        ' <td><input type="text" name="(root_parent_oos_detailsAR_Number[0][ar_number]"></td>' +
-                        '  <td><input type="text" name="(root_parent_oos_detailsTest_Name_OOS[0][test_name_of_oos]"></td>' +
-                        ' <td><input type="text" name="(root_parent_oos_detailsResults_Obtained[0][results_obtained]"></td>' +
-                        '  <td><input type="text" name="(root_parent_oos_detailsSpecification_Limit[0][specification_limit]"></td>' +
+                        ' <td><input type="text" name="root_parent_oos_detailsAR_Number[0][ar_number]"></td>' +
+                        '  <td><input type="text" name="root_parent_oos_detailsTest_Name_OOS[0][test_name_of_oos]"></td>' +
+                        ' <td><input type="text" name="root_parent_oos_detailsResults_Obtained[0][results_obtained]"></td>' +
+                        '  <td><input type="text" name="root_parent_oos_detailsSpecification_Limit[0][specification_limit]"></td>' +
                         '</tr>';
 
                     return html;

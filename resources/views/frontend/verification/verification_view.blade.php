@@ -482,8 +482,189 @@
     {{-- ======================================
                     DATA FIELDS
     ======================================= --}}
-    <div id="change-control-fields">
+
+
+    <div id="change-control-view">
         <div class="container-fluid">
+
+            <div class="inner-block state-block">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="main-head">Record Workflow </div>
+
+                    <div class="d-flex" style="gap:20px;">
+                        @php
+                            $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $verification->division_id])->get();
+                            $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                            // $cftRolesAssignUsers = collect($userRoleIds); //->contains(fn ($roleId) => $roleId >= 22 && $roleId <= 33);
+                            // $cftUsers = DB::table('verifications')->where(['verification_id' => $verification->id])->first();
+
+                            // Define the column names
+                            // $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person'];
+
+                            // Initialize an array to store the values
+                            $valuesArray = [];
+
+                            // Iterate over the columns and retrieve the values
+                            // foreach ($columns as $column) {
+                            //     $value = $cftUsers->$column;
+                            //     // Check if the value is not null and not equal to 0
+                            //     if ($value !== null && $value != 0) {
+                            //         $valuesArray[] = $value;
+                            //     }
+                            // }
+                            // $cftCompleteUser = DB::table('deviationcfts_response')
+                            // ->whereIn('status', ['In-progress', 'Completed'])
+                            //     ->where('deviation_id',$verification->id)
+                            //     ->where('cft_user_id', Auth::user()->id)
+                            //     ->whereNull('deleted_at')
+                            //     ->first();
+                            // dd($cftCompleteUser);
+                        @endphp
+                        {{-- <button class="button_theme1" onclick="window.print();return false;"
+                            class="new-doc-btn">Print</button> --}}
+                         <button class="button_theme1"> <a class="text-white" href="{{ url('Vaudit_trial', $verification->id) }}"> {{-- add here url for auditTrail i.e. href="{{ url('CapaAuditTrial', $verification->id) }}" --}}
+                                Audit Trail </a> </button>
+
+                        @if ($verification->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Submit
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                Cancel
+                            </button>
+
+                        @elseif($verification->stage == 2 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                                More Info from Open
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Analysis Complete
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                Cancel
+                            </button>
+                        @elseif($verification->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                               <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                              Return to Analysis in Progress
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                QC Verification Complete
+                            </button>
+                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cft-not-reqired">
+                                CFT Review Not Required
+                            </button> --}}
+                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                                Child
+                            </button> --}}
+                        @elseif($verification->stage == 4 && (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
+                        {{-- @if(!$cftCompleteUser) --}}
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                            Return to QC Verification
+                          </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                            Return to Analysis in Progress
+                        </button>
+                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                            More Info Required
+                            </button> --}}
+                                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                    AQA Verification Complete
+                                </button>
+                                <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                    Approved
+                                </button>
+                            {{-- @endif --}}
+                        {{-- @elseif($verification->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
+                                Send to Initiator
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
+                                Send to HOD
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
+                                Send to QA Initial Review
+                            </button>
+                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                QA Final Review Complete
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                                Child
+                            </button> --}}
+                        {{-- @elseif($verification->stage == 6 && (in_array(9, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                                More Info Required
+                                </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Approved
+                            </button> --}}
+                        @endif
+                        <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                            </a> </button>
+
+
+                    </div>
+
+                </div>
+                <div class="status">
+                    <div class="head">Current Status</div>
+                    @if ($verification->stage == 0)
+                        <div class="progress-bars">
+                            <div class="bg-danger">Closed-Cancelled</div>
+                        </div>
+                    @else
+                        <div class="progress-bars">
+                            @if ($verification->stage >= 1)
+                                <div class="active">Opened</div>
+                            @else
+                                <div class="">Opened</div>
+                            @endif
+
+                            @if ($verification->stage >= 2)
+                                <div class="active">Analysis in Progress </div>
+                            @else
+                                <div class="">Analysis in Progress</div>
+                            @endif
+
+                            @if ($verification->stage >= 3)
+                                <div class="active">Under QC Verification</div>
+                            @else
+                                <div class="">Under QC Verification</div>
+                            @endif
+
+                            @if ($verification->stage >= 4)
+                                <div class="active">Under AQA Verification</div>
+                            @else
+                                <div class="">Under AQA Verification</div>
+                            @endif
+
+
+                            {{-- @if ($verification->stage >= 5)
+                                <div class="active">QA Final Review</div>
+                            @else
+                                <div class="">QA Final Review</div>
+                            @endif
+                            @if ($verification->stage >= 6)
+                                <div class="active">QA Head/Manager Designee</div>
+                            @else
+                                <div class="">Approval</div>
+                            @endif --}}
+                            @if ($verification->stage >= 7)
+                                <div class="bg-danger">Closed - Done</div>
+                            @else
+                                <div class="">Closed - Done</div>
+                            @endif
+                    @endif
+
+
+                </div>
+                {{-- @endif --}}
+                {{-- ---------------------------------------------------------------------------------------- --}}
+            </div>
+        </div>
+
+    <div style="background: #e0903230;" id="change-control-fields">
+        <div class="container-fluid">
+
 
             <!-- Tab links -->
             <div class="cctab">
@@ -495,7 +676,7 @@
             </div>
 
             <!-- Parent Record Information -->
-            <form action="{{ route('verification_store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('verification_update',$verification->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div id="step-form">
             <div id="CCForm1" class="inner-block cctabcontent">
@@ -507,14 +688,14 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator"> (Parent) OOS No. </label>
-                                <input type="number" name="parent_oos_no">
+                                <input type="number" name="parent_oos_no" value="{{$verification->parent_oos_no}}">
                             </div>
                         </div>
 
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator Group"> (Parent) OOT No.</label>
-                                <input type="number" name="parent_oot_no">
+                                <input type="number" name="parent_oot_no" {{$verification->parent_oot_no}}>
                             </div>
                         </div>
 
@@ -522,7 +703,7 @@
                             <div class="group-input input-date">
                                 <label for="Scheduled end date">(Parent)Date Opened</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="date_opened" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="text" id="date_opened" value="{{$verification->parent_date_opened}}" />
                                     <input type="date" id="date_opened_checkdate"
                                         name="parent_date_opened"
                                         min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -534,7 +715,7 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Short Description">(Parent) Short Description</label>
-                                <textarea name="parent_short_description"></textarea>
+                                <textarea name="parent_short_description">{{$verification->parent_short_description}}</textarea>
 
                             </div>
                         </div>
@@ -543,9 +724,9 @@
                             <div class="group-input input-date">
                                 <label for="Scheduled end date">(Parent) Target Closure Date</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="end_date_target" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="text" id="end_date_target"  />
                                     <input type="date" id="end_date_checkdate_target"
-                                        name="parent_target_closure_date"
+                                        name="parent_target_closure_date" value="{{$verification->parent_target_closure_date}}"
                                         min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                         oninput="handleDateInput(this, 'end_date_target');checkDate('start_date_checkdate','end_date_checkdate_target')" />
                                 </div>
@@ -554,7 +735,7 @@
                         <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="parent_product_material">(Parent) Product/Material Name</label>
-                                <input type="text" id="text" name="parent_product_material_name">
+                                <input type="text" id="text" name="parent_product_material_name"  value="{{$verification->parent_product_material_name}}">
 
                             </div>
                         </div>
@@ -822,9 +1003,7 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator"> Initiator </label>
-                                {{-- <input type="text" name="initiator_id"> --}}
-                                <input disabled type="text" name="initiator_id" >
-
+                                <input type="text" name="initiator_id" value="{{$verification->initiator_id}}">
                             </div>
                         </div>
 
@@ -832,59 +1011,50 @@
                             <div class="group-input input-date">
                                 <label for="Scheduled end date">Date Opened</label>
                                 <div class="calenderauditee">
-                                    {{-- <input type="text" id="date_opened1" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="text" id="date_opened1" readonly placeholder="DD-MMM-YYYY" />
                                     <input type="date" id="date_opened1_checkdate"
-                                        name="intiation_date"
+                                        name="date_opened_gi" value="{{$verification->date_opened_gi}}"
                                         min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'date_opened1');checkDate('start_date_checkdate','date_opened1_checkdate')" /> --}}
-                                        <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
-                                    </div>
+                                        oninput="handleDateInput(this, 'date_opened1');checkDate('start_date_checkdate','date_opened1_checkdate')" />
+                                </div>
                             </div>
                         </div>
-                        {{-- <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Date Due"><b>Date Openedii</b></label>
-                                <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date" >
-                                <div class="static">{{ date('d-M-Y') }}</div>
-                            </div>
-                        </div> --}}
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="Scheduled end date">Target Closure Date</label>
                                 <div class="calenderauditee">
                                     <input type="text" id="closure_date" readonly placeholder="DD-MMM-YYYY" />
                                     <input type="date" id="closure_date_checkdate"
-                                        name="target_closure_date_gi"
+                                        name="target_closure_date_gi" value="{{$verification->target_closure_date_gi}}"
                                         min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                         oninput="handleDateInput(this, 'closure_date');checkDate('start_date_checkdate','closure_date_checkdate')" />
-                                    </div>
+                                </div>
                             </div>
                         </div>
+
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Initiator Group Code"> Short description <span
                                     class="text-danger">*</span></label>
-                                <textarea type="text" name="short_description" ></textarea>
+                                <textarea type="text" name="short_description" >{{$verification->short_description}}</textarea>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator"> Assignee </label>
-                                <input type="text" id="text" name="assignee" >
+                                <input type="text" id="text" name="assignee" value="{{$verification->assignee}}" >
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator"> Supervisor</label>
-                                <input type="text" id="text" name="supervisor" >
+                                <input type="text" id="text" name="supervisor" value="{{$verification->supervisor}}" >
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator"> AQA Reviewer</label>
-                                <input type="text" id="text" name="aqa_reviewer" >
+                                <input type="text" id="text" name="aqa_reviewer" value="{{$verification->aqa_reviewer}}">
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -904,13 +1074,13 @@
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Initiator Group Code">Specify If Any Other Action</label>
-                                <textarea type="text" name="specify_if_any_action"></textarea>
+                                <textarea type="text" name="specify_if_any_action">{{$verification->specify_if_any_action}}</textarea>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Initiator Group Code">Justification For Actions</label>
-                                <textarea type="text" name="justification_for_actions" ></textarea>
+                                <textarea type="text" name="justification_for_actions" >{{$verification->specify_if_any_action}}</textarea>
                             </div>
                         </div>
 
@@ -937,7 +1107,7 @@
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Initiator Group Code">Results Of Recommended Actions</label>
-                                <textarea type="text" name="results_of_recommended_actions" ></textarea>
+                                <textarea type="text" name="results_of_recommended_actions" >{{$verification->results_of_recommended_actions}}</textarea>
                             </div>
                         </div>
 
@@ -947,7 +1117,7 @@
                                 <div class="calenderauditee">
                                     <input type="text" id="completion_date" readonly placeholder="DD-MMM-YYYY" />
                                     <input type="date" id="completion_date_checkdate"
-                                        name="date_of_completion"
+                                        name="date_of_completion" value="{{$verification->date_of_completion}}"
                                         min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                         oninput="handleDateInput(this, 'completion_date');checkDate('start_date_checkdate','completion_date_checkdate')" />
                                 </div>
@@ -962,7 +1132,7 @@
                                     <div class="file-attachment-list" id="execution_attachment"></div>
                                     <div class="add-btn">
                                         <div>Add</div>
-                                        <input type="file" id="Execution_Attachment" name="execution_attachment[]"
+                                        <input type="file" id="Execution_Attachment" name="execution_attachment" value="{{$verification->execution_attachment}}"
                                             oninput="addMultipleFiles(this, 'execution_attachment')" multiple>
                                     </div>
                                 </div>
@@ -975,7 +1145,7 @@
                                     Justification for delay in completion of activity and closing of verification.
                                 </small>
                                 <label for="Initiator Group Code">Delay Justification</label>
-                                <textarea type="text" name="delay_justification"></textarea>
+                                <textarea type="text" name="delay_justification">{{$verification->delay_justification}}</textarea>
                             </div>
                         </div>
 
@@ -1005,7 +1175,7 @@
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Initiator Group Code">Supervisor Observations</label>
-                                <textarea type="text" name="supervisor_observation" ></textarea>
+                                <textarea type="text" name="supervisor_observation" >{{$verification->supervisor_observation}}</textarea>
                             </div>
                         </div>
 
@@ -1017,7 +1187,7 @@
                                     <div class="file-attachment-list" id="verification_attachment"></div>
                                     <div class="add-btn">
                                         <div>Add</div>
-                                        <input type="file" id="Veification_Attachment" name="verification_attachment[]"
+                                        <input type="file" id="Veification_Attachment" name="verification_attachment" value="{{$verification->verification_attachment}}"
                                             oninput="addMultipleFiles(this, 'verification_attachment')" multiple>
                                     </div>
                                 </div>
@@ -1045,7 +1215,7 @@
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Initiator Group Code">AQA Comments</label>
-                                <textarea type="text" name="aqa_comments2" ></textarea>
+                                <textarea type="text" name="aqa_comments2" >{{$verification->aqa_comments2}}</textarea>
                             </div>
                         </div>
 
@@ -1057,7 +1227,7 @@
                                     <div class="file-attachment-list" id="aqa_attachment"></div>
                                     <div class="add-btn">
                                         <div>Add</div>
-                                        <input type="file" id="AQA_Attachment" name="aqa_attachment[]"
+                                        <input type="file" id="AQA_Attachment" name="aqa_attachment[]" value="{{$verification->aqa_attachment}}"
                                             oninput="addMultipleFiles(this, 'aqa_attachment')" multiple>
                                     </div>
                                 </div>
@@ -1208,6 +1378,443 @@
             referenceContainer.parentNode.insertBefore(newReference, referenceContainer.nextSibling);
         }
     </script>
+
+
+<div class="modal fade" id="child-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Child</h4>
+            </div>
+            <form action="{{ route('deviation_child_1', $verification->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        @if ($verification->stage == 3)
+                            <label for="major">
+                                <input type="radio" name="child_type" id="major"
+                                    value="rca">
+                                    RCA
+                            </label>
+                            <br>
+                            <label for="major">
+                                <input type="radio" name="child_type" id="major"
+                                    value="extension">
+                                    Extension
+                            </label>
+                        @endif
+
+                        @if ($verification->stage == 5)
+                            <label for="major">
+                                <input type="radio" name="child_type" id="major"
+                                    value="capa">
+                                    CAPA
+                            </label>
+                            <br>
+                            <label for="major">
+                                <input type="radio" name="child_type" id="major"
+                                    value="extension">
+                                    Extension
+                            </label>
+                        @endif
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                    <button type="submit">Continue</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{{-- <div class="modal fade" id="child-modal1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Child</h4>
+            </div>
+            <form  method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        <label for="major">
+                            <input type="radio" name="rsa" id="major"
+                                value="rsa">
+                                RSA
+                        </label>
+                        <br>
+                        <label for="major1">
+                            <input type="radio" name="extension" id="major1"
+                                value="extension">
+                                Extension
+                        </label>
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                    <button type="submit">Continue</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div> --}}
+
+<div class="modal fade" id="more-info-required-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('Vrequestmoreinfo_back_stage', $verification->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancel-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('Vcancel_stage', $verification->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="deviationIsCFTRequired">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ url('deviationIsCFTRequired', $verification->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="sendToInitiator">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('check', $verification->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="hodsend">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('check2', $verification->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="qasend">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('check3', $verification->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="signature-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('Vsend_stage', $verification->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input type="comment" name="comment">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <script>
         VirtualSelect.init({

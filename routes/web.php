@@ -35,7 +35,7 @@ use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\ResamplingController;
-
+use App\Http\Controllers\VerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -510,7 +510,53 @@ Route::get('create',[ResamplingController::class,'create'])->name('resampling_cr
 Route::get('resampling_view/{id}/edit',[ResamplingController::class,'edit'])->name('resampling_edit');
 Route::post('resampling_updated/{id}',[ResamplingController::class,'update'])->name('resampling_update');
 
+//!============================== Verification form  =============================================
+// Route::get('oos_micro', [OOSMicroController::class, 'index'])->name('oos_micro.index');
+// Route::post('oos_micro_store', [OOSMicroController::class, 'store'])->name('oos_micro.store');
+// Route::get('oos_micro_edit/{id}',[OOSMicroController::class, 'edit'])->name('oos_micro.edit');
+// Route::post('oos_micro_update/{id}',[OOSMicroController::class, 'update'])->name('oos_micro.update');
 
+Route::view('verification', 'frontend.verification.verification');
+Route::post('verification_store', [VerificationController::class, 'store'])->name('verification_store');
+Route::get('verification_edit/{id}',[VerificationController::class, 'edit'])->name('verification_edit');
+Route::post('verification_update/{id}',[VerificationController::class, 'update'])->name('verification_update');
+
+Route::post('sendstage/{id}',[VerificationController::class,'send_stage'])->name('Vsend_stage');
+Route::post('requestmoreinfo_back_stage/{id}',[VerificationController::class,'requestmoreinfo_back_stage'])->name('Vrequestmoreinfo_back_stage');
+Route::post('cancel_stage/{id}', [VerificationController::class, 'cancel_stage'])->name('Vcancel_stage');;
+Route::post('thirdStage/{id}', [VerificationController::class, 'stageChange'])->name('thirdStage');
+Route::get('AuditTrial/{id}', [VerificationController::class, 'AuditTrial'])->name('Vaudit_trial');
+Route::post('AuditTrial/{id}', [VerificationController::class, 'store_audit_review'])->name('Vstore_audit_review');
+Route::get('auditDetails/{id}', [VerificationController::class, 'auditDetails'])->name('Vaudit_details');
+
+Route::get('Vaudit_report/{id}', [VerificationController::class, 'auditReport'])->name('Vaudit_report');
+Route::get('Vsingle_report/{id}', [VerificationController::class, 'singleReport'])->name('Vsingle_report');
+
+
+
+// Route::post('sendstage/{id}',[DosierDocumentsController::class,'send_stage'])->name('send_stage');
+// Route::post('requestmoreinfo_back_stage/{id}',[DosierDocumentsController::class,'requestmoreinfo_back_stage'])->name('requestmoreinfo_back_stage');
+// Route::post('cancel_stage/{id}', [DosierDocumentsController::class, 'cancel_stage'])->name('cancel_stage');;
+// Route::post('thirdStage/{id}', [DosierDocumentsController::class, 'stageChange'])->name('thirdStage');
+// Route::get('AuditTrial/{id}', [DosierDocumentsController::class, 'AuditTrial'])->name('audit_trial');
+// Route::post('AuditTrial/{id}', [DosierDocumentsController::class, 'store_audit_review'])->name('store_audit_review');
+// Route::get('auditDetails/{id}', [DosierDocumentsController::class, 'auditDetails'])->name('audit_details');
+
+// Route::get('audit_report/{id}', [DosierDocumentsController::class, 'auditReport'])->name('audit_report');
+// Route::get('single_report/{id}', [DosierDocumentsController::class, 'singleReport'])->name('single_report');
+
+
+
+
+
+// Route::post('oos_micro/requestmoreinfo_back_stage/{id}',[OOSMicroController::class,'requestmoreinfo_back_stage'])->name('requestmoreinfo_back_stage');
+// Route::post('oos_micro/assignable_send_stage/{id}',[OOSMicroController::class,'assignable_send_stage'])->name('assignable_send_stage');
+// Route::post('oos_micro/cancel_stage/{id}', [OOSMicroController::class, 'cancel_stage'])->name('cancel_stage');;
+// Route::post('oos_micro/thirdStage/{id}', [OOSMicroController::class, 'stageChange'])->name('thirdStage');
+// Route::post('oos_micro/reject_stage/{id}', [OOSMicroController::class, 'reject_stage'])->name('reject_stage');
+// Route::get('oos_micro/AuditTrial/{id}', [OOSMicroController::class, 'AuditTrial'])->name('audit_trial');
+// Route::get('oos_micro/auditDetails/{id}', [OOSMicroController::class, 'auditDetails'])->name('audit_details');
+//==================================================================================
 // Route::post('medicalstore',[MedicalRegistrationController::class,'medicalCreate'])->name('medical.store');
 // Route::get('medicalupdate/{id}/edit',[MedicalRegistrationController::class,'medicalEdit'])->name('medical_edit');
 // Route::put('medicalupdated/{id}',[MedicalRegistrationController::class,'medicalUpdate'])->name('medical.update');
@@ -524,13 +570,7 @@ Route::post('resampling_updated/{id}',[ResamplingController::class,'update'])->n
 // Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
 // Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 
-
-
-
-
-
 // ===============Additional Testing==========================\
 Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
 
 
-Route::view('verification', 'frontend.verification.verification');
