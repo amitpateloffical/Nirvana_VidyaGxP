@@ -159,8 +159,8 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="initiator">Initiator</label>
-                                    <input disabled type="text" name="initiator" value="{{ Auth::user()->name }}" />
+                                    <label for="originator_id">Initiator</label>
+                                    <input disabled type="text" name="originator_id" value="{{ Auth::user()->name }}" />
                                 </div>
                             </div>
 
@@ -180,18 +180,23 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="assigned_to">
+                                    <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                    <select id="select-state" placeholder="Select..." name="assigned_to">
-                                        <option value="0">Select a value</option>
-                                        <option value="a" @if ($data->assigned_to =='a') selected @endif>a</option>
-                                        <option value="b" @if ($data->assigned_to =='b') selected @endif>b</option>
-                                        <option value="c" @if ($data->assigned_to =='c') selected @endif>c</option>
+                                    <select id="select-state" placeholder="Select..." name="assign_to"
+                                        {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
+                                        <option value="">Select a value</option>
+                                        @foreach ($users as $key => $value)
+                                            <option value="{{ $value->id }}"
+                                                @if ($data->assign_to == $value->id) selected @endif>
+                                                {{ $value->name }}</option>
+                                        @endforeach
                                     </select>
-
+                                    @error('assign_to')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -220,12 +225,18 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="priority_level"><b>Priority Level</b></label>
-                                    <select name="priority_level">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option @if ($data->priority_level =='h') selected @endif value="h">h</option>
-                                        <option @if ($data->priority_level =='i') selected @endif value="i">i</option>
-                                        <option @if ($data->priority_level =='j') selected @endif value="j">j</option>
+                                    <label for="priority_level">Priority Level</label>
+                                    <div><small class="text-primary">Choose high if Immidiate actions are
+                                            required</small></div>
+                                   
+                                    <select {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }} name="priority_level">
+                                        <option value="0">-- Select --</option>
+                                        <option @if ($data->priority_level == 'low') selected @endif
+                                         value="low">Low</option>
+                                        <option  @if ($data->priority_level == 'medium') selected @endif 
+                                        value="medium">Medium</option>
+                                        <option @if ($data->priority_level == 'high') selected @endif
+                                        value="high">High</option>
                                     </select>
                                 </div>
                             </div>
@@ -306,7 +317,7 @@
                                 <div class="group-input">
                                     <label for="type">Type</label>
                                     <select name="type">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->type =='aa') selected @endif value="aa">aa</option>
                                         <option @if ($data->type =='bb') selected @endif value="bb">bb</option>
                                         <option @if ($data->type =='cc') selected @endif value="cc">cc</option>
@@ -354,7 +365,7 @@
                                 <div class="group-input">
                                     <label for="impact">Impact</label>
                                     <select name="impact">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->impact =='aaa') selected @endif value="aaa">aaa</option>
                                         <option @if ($data->impact =='bbb') selected @endif value="bbb">bbb</option>
                                         <option @if ($data->impact =='ccc') selected @endif value="ccc">ccc</option>
@@ -373,7 +384,7 @@
                                 <div class="group-input">
                                     <label for="severity_rate">Severity Rate</label>
                                     <select name="severity_rate">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->severity_rate =='qqq') selected @endif value="qqq">qqq</option>
                                         <option @if ($data->severity_rate =='www') selected @endif value="www">www</option>
                                         <option @if ($data->severity_rate =='ttt') selected @endif value="ttt">ttt</option>
@@ -384,7 +395,7 @@
                                 <div class="group-input">
                                     <label for="occurence">Occurence</label>
                                     <select name="occurence">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->occurence =='eee') selected @endif value="eee">eee</option>
                                         <option @if ($data->occurence =='rrr') selected @endif value="rrr">rrr</option>
                                         <option @if ($data->occurence =='tttt') selected @endif value="tttt">tttt</option>
@@ -395,7 +406,7 @@
                                 <div class="group-input">
                                     <label for="detection">Detection</label>
                                     <select name="detection">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->detection =='ooo') selected @endif value="ooo">ooo</option>
                                         <option @if ($data->detection =='uuu') selected @endif value="uuu">uuu</option>
                                         <option @if ($data->detection =='yyy') selected @endif value="yyy">yyy</option>
@@ -406,7 +417,7 @@
                                 <div class="group-input">
                                     <label for="rpn">RPN</label>
                                     <select name="rpn">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->rpn =='dd') selected @endif value="dd">dd</option>
                                         <option @if ($data->rpn =='ff') selected @endif value="ff">ff</option>
                                         <option @if ($data->rpn =='gg') selected @endif value="gg">gg</option>

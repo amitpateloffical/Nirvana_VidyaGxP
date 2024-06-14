@@ -25,6 +25,18 @@ class SupplierController extends Controller
     {   
         $record_number = ((RecordNumber::first()->value('counter')) + 1);
         $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
+
+        $division = QMSDivision::where('name', Helpers::getDivisionName(session()->get('division')))->first();
+
+        if ($division) {
+            $last_supplier = Supplier::where('division_id', $division->id)->latest()->first();
+
+            if ($last_supplier) {
+                $record_number = $last_supplier->record_number ? str_pad($last_supplier->record_number->record_number + 1, 4, '0', STR_PAD_LEFT) : '0001';
+            } else {
+                $record_number = '0001';
+            }
+        }
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
@@ -41,12 +53,13 @@ class SupplierController extends Controller
 
          $supplier = new Supplier();
          $supplier->form_type_new = "Supplier-Observation";
-         $supplier->originator_id = $request->originator_id;
+         $supplier->originator_id = Auth::user()->name;
          $supplier->record = ((RecordNumber::first()->value('counter')) + 1);
          $supplier->initiator_id = Auth::user()->id;
          $supplier->intiation_date = $request->intiation_date;
          $supplier->short_description =($request->short_description);
          $supplier->assigned_to = $request->assigned_to;
+         $supplier->assign_to = $request->assign_to;
          $supplier->due_date = $request->due_date;
          $supplier->criticality = $request->criticality;
          $supplier->priority_level = $request->priority_level;
@@ -173,6 +186,42 @@ class SupplierController extends Controller
         $history->origin_state = $supplier->status;
         $history->save();
 
+        $history = new SupplierAuditTrial();
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Descriptions';
+        $history->previous = "Null";
+        $history->current = $supplier->descriptions;
+        $history->comment = "NA";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $supplier->status;
+        $history->save();
+
+        $history = new SupplierAuditTrial();
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Attached File';
+        $history->previous = "Null";
+        $history->current = $supplier->attached_file;
+        $history->comment = "NA";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $supplier->status;
+        $history->save();
+
+        $history = new SupplierAuditTrial();
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Attached Picture';
+        $history->previous = "Null";
+        $history->current = $supplier->attached_picture;
+        $history->comment = "NA";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $supplier->status;
+        $history->save();
+
         
         if (!empty($supplier->due_date)) {
         $history = new SupplierAuditTrial();
@@ -206,7 +255,6 @@ class SupplierController extends Controller
         // $lastDocument =  Supplier::find($id);
         $supplier =  Supplier::find($id);
 
-        $supplier->initiator = $request->initiator;
         $supplier->intiation_date = $request->intiation_date;
         $supplier->short_description =($request->short_description);
         $supplier->assigned_to = $request->assigned_to;
@@ -214,6 +262,7 @@ class SupplierController extends Controller
         $supplier->criticality = $request->criticality;
         $supplier->priority_level = $request->priority_level;
         $supplier->auditee = $request->auditee;
+        $supplier->assign_to = $request->assign_to;
         $supplier->contact_person = $request->contact_person;
         $supplier->descriptions = $request->descriptions;
 

@@ -61,7 +61,7 @@ $users = DB::table('users')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="originator">Initiator</label>
+                                    <label for="originator_id">Initiator</label>
                                     <input disabled type="text" name="originator_id" value="{{ Auth::user()->name }}" />
                                 </div>
                             </div>
@@ -84,16 +84,18 @@ $users = DB::table('users')->get();
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="assigned_to">
-                                        Assigned To <span class="text-danger"></span>
+                                    <label for="search">
+                                        Assigned To
                                     </label>
-                                    <select id="select-state" placeholder="Select..." name="assigned_to">
+                                    <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
-                                        <option value="a">a</option>
-                                        <option value="b">b</option>
-                                        <option value="c">c</option>
+                                        @foreach ($users as $value)
+                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                        @endforeach
                                     </select>
-
+                                    @error('assign_to')
+                                    <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
@@ -112,7 +114,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="criticality"><b>Criticality</b></label>
                                     <select name="criticality">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="e">e</option>
                                         <option value="f">f</option>
                                         <option value="g">g</option>
@@ -123,7 +125,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="priority_level"><b>Priority Level</b></label>
                                     <select name="priority_level">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="h">h</option>
                                         <option value="i">i</option>
                                         <option value="j">j</option>
@@ -185,7 +187,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="type">Type</label>
                                     <select name="type">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="aa">aa</option>
                                         <option value="bb">bb</option>
                                         <option value="cc">cc</option>
@@ -233,7 +235,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="impact">Impact</label>
                                     <select name="impact">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="aaa">aaa</option>
                                         <option value="bbb">bbb</option>
                                         <option value="ccc">ccc</option>
@@ -252,7 +254,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="severity_rate">Severity Rate</label>
                                     <select name="severity_rate">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="qqq">qqq</option>
                                         <option value="www">www</option>
                                         <option value="ttt">ttt</option>
@@ -263,7 +265,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="occurence">Occurence</label>
                                     <select name="occurence">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="eee">eee</option>
                                         <option value="rrr">rrr</option>
                                         <option value="tttt">tttt</option>
@@ -274,7 +276,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="detection">Detection</label>
                                     <select name="detection">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="ooo">ooo</option>
                                         <option value="uuu">uuu</option>
                                         <option value="yyy">yyy</option>
@@ -285,7 +287,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="rpn">RPN</label>
                                     <select name="rpn">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="dd">dd</option>
                                         <option value="ff">ff</option>
                                         <option value="gg">gg</option>
@@ -312,13 +314,49 @@ $users = DB::table('users')->get();
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="submitted by">Approved By</label>
+                                    <label for="report_issued_by">Report Issued By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="submitted on">Approved On</label>
+                                    <label for="report_issued_on">Report Issued On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="approval_received_by">Approval received By</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="approval_received_on">Approval received On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="all_capa_closed_by">All CAPA Closed By</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="all_capa_closed_on">All CAPA Closed On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="approve_by">Approve By</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="approve_on">Approve On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>

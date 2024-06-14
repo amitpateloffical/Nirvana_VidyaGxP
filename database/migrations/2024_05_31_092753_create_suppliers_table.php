@@ -35,6 +35,7 @@ return new class extends Migration
             $table->string('product')->nullable();
             $table->longText('proposed_actions')->nullable();
             $table->longText('comments')->nullable();
+            $table->integer('assign_to')->nullable();
             $table->string('impact')->nullable();
             $table->longText('impact_analysis')->nullable();
             $table->string('status')->nullable();

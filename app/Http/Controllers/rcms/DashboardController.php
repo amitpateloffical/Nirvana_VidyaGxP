@@ -342,7 +342,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "division_id" => $data->division_id,
-                "type" => "Supplier",
+                "type" => "Supplier-Observation",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -744,8 +744,8 @@ class DashboardController extends Controller
         } elseif ($type == "Supplier-Observation") {
             $data = Supplier::find($id);
             $single = "supplierSingleReport/". $data->id;
-            $audit = "supplierAuditTrail" . $data->id;
-            // $parent="deviationparentchildReport/". $data->id;
+            $audit = "supplierAuditReport/" . $data->id;
+            $parent=" ". $data->id;
         }
 
 

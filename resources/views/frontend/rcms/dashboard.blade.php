@@ -118,6 +118,13 @@
                 querySelect.options.add(new Option('Pending Change Implementation', '5'));
                 querySelect.options.add(new Option('Close - Done', '6'));
             }
+            else if (scopeValue === 'Supplier') {
+                querySelect.options.add(new Option('Opened', '1'));
+                querySelect.options.add(new Option('Pending Response/CAPA Plan', '2'));
+                querySelect.options.add(new Option('Work in Progress', '3'));
+                querySelect.options.add(new Option('Pending Approval', '4'));
+                querySelect.options.add(new Option('Close - Done', '5'));
+            }
 
             
         // Add more conditions based on other scope values
@@ -144,6 +151,7 @@
                                     <option value="Lab Incident">Lab Incident</option>
                                     <option value="Risk Assesment">Risk Assesment</option> --}}
                                     <option value="Root-Cause-Analysis">Root Cause Analysis</option>
+                                    <option value="Supplier-Observation">Supplier Observation</option>
                                     <option value="Management Review">Management Review</option>
                                     {{-- <option value="Document">Document</option>
                                     <option value="Extension">Extension</option>
@@ -374,7 +382,7 @@
                                                             </div>
                                                         </a>
                                                     @endif
-                                                    @elseif($datas->type == 'Supplier')
+                                                    @elseif($datas->type == 'Supplier-Observation')
                                                     <a href="{{ route('supplier_show', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
