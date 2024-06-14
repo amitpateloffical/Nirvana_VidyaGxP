@@ -461,9 +461,9 @@
                             <div><small class="text-primary">Person Responsible</small></div>
                             <select id="select-state" placeholder="Select..." name="assign_to">
                                 <option value="">Select a value</option>
-                                <option value="">$1</option>
-                                <option value="">$2</option>
-                                <option value="">$3</option>
+                                <option value="1"{{ $data->assign_to == "1" ? 'selected':"" }}>$1</option>
+                                <option value="s2"{{ $data->assign_to == "2" ? 'selected':"" }}>$2</option>
+                                <option value="s3"{{ $data->assign_to == "3" ? 'selected':"" }}>$3</option>
                             </select>
                         </div>
                     </div>
@@ -472,8 +472,8 @@
                             <label for="due-date">Due Date <span class="text-danger"></span></label>
                             <div><small class="text-primary">Please mention expected date of completion</small></div>
                             <div class="calenderauditee">
-                                <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY"  value="{{ $data->due_date }}"/>
+                                <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $data->due_date }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                             </div>
                         </div>
                     </div>
@@ -485,16 +485,16 @@
                             <!-- <div><small class="text-primary">Select type of site</small></div> -->
                             <select id="select-state" placeholder="Select..." name="type">
                                 <option value="">Enter your selection here</option>
-                                <option value="">$1</option>
-                                <option value="">$2</option>
-                                <option value="">$3</option>
+                                <option value="1"{{ $data->assign_to == "1" ? 'selected':"" }}>$1</option>
+                                <option value="2"{{ $data->assign_to == "2" ? 'selected':"" }}>$2</option>
+                                <option value="3"{{ $data->assign_to == "3" ? 'selected':"" }}>$3</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Site Name"><b>Name of Site</b></label>
-                            <input type="text" name="site_name" value="">
+                            <input type="text" name="site_name" value="{{ $data->site_name }}">
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -530,13 +530,13 @@
                         <div class="group-input">
 
                             <label for="Sponsor"><b>Sponsor</b></label>
-                            <input type="text" name="sponsor" value="">
+                            <input type="text" name="sponsor" value="{{ $data->sponsor }}">
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="group-input">
                             <label for="Description">Description</label>
-                            <textarea name="description"></textarea>
+                            <textarea name="description">{{ $data->description }}</textarea>
                         </div>
                     </div>
                     <div class="col-lg-12">
@@ -571,7 +571,7 @@
                     <div class="col-12">
                         <div class="group-input">
                             <label for="Comments">Comments</label>
-                            <textarea name="comments"></textarea>
+                            <textarea name="comments">{{ $data->comments }}</textarea>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -581,9 +581,9 @@
                             </label>
                             <select id="select-state" placeholder="Select..." name="version_no">
                                 <option value="">Enter your selection here</option>
-                                <option value="">$1</option>
-                                <option value="">$2</option>
-                                <option value="">$3</option>
+                                <option value="$1"{{$data->version_no == "$1" ? 'selected' : ''  }}>$1</option>
+                                <option value="$2"{{$data->version_no == "$2" ? 'selected' : ''  }}>$2</option>
+                                <option value="$3"{{$data->version_no == "$3" ? 'selected' : ''  }}>$3</option>
                             </select>
                         </div>
                     </div>
@@ -649,39 +649,39 @@
                     <div class="col-6">
                         <div class="group-input">
                             <label for="Admission Criteria">(Parent) Admission Criteria</label>
-                            <textarea name="admission_criteria"></textarea>
+                            <textarea name="admission_criteria">{{ $data->admission_criteria }}</textarea>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="group-input">
                             <label for="Clinical Significance">(Parent) Clinical Significance</label>
-                            <textarea name="cinical_significance"></textarea>
+                            <textarea name="cinical_significance">{{ $data->cinical_significance }}</textarea>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="group-input">
 
                             <label for="Trade Name"><b>(Root Parent) Trade Name</b></label>
-                            <input type="text" name="trade_name" value="">
+                            <input type="text" name="trade_name" value="{{ $data->trade_name }}">
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="group-input">
 
                             <label for="Tracking Number"><b>(Parent) Tracking Number</b></label>
-                            <input type="text" name="tracking_number" value="">
+                            <input type="text" name="tracking_number" value="{{ $data->tracking_number }}">
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="group-input">
                             <label for="Phase of Study">(Parent) Phase of Study</label>
                             <select multiple name="phase_of_study" placeholder="" data-search="false" data-silent-initial-value-set="true" id="attendees">
-                                <option value="piyush">-- Select --</option>
-                                <option value="piyush">Amit Guru</option>
-                                <option value="piyush">Amit Patel</option>
-                                <option value="piyush">Anshul Patel</option>
-                                <option value="piyush">Shaleen Mishra</option>
-                                <option value="piyush">Vikas Prajapati</option>
+                                <option value="piyush" {{ $data->phase_of_study == "piyush" ? 'selected' : '' }}>-- Select --</option>
+                                <option value="piyush" {{ $data->phase_of_study == "piyush" ? 'selected' : '' }}>Amit Guru</option>
+                                <option value="piyush" {{ $data->phase_of_study == "piyush" ? 'selected' : '' }}>Amit Patel</option>
+                                <option value="piyush" {{ $data->phase_of_study == "piyush" ? 'selected' : '' }}>Anshul Patel</option>
+                                <option value="piyush" {{ $data->phase_of_study == "piyush" ? 'selected' : '' }}>Shaleen Mishra</option>
+                                <option value="piyush" {{ $data->phase_of_study == "piyush" ? 'selected' : '' }}>Vikas Prajapati</option>
                             </select>
                         </div>
                     </div>
@@ -741,9 +741,9 @@
                             </label>
                             <select id="select-state" placeholder="Select..." name="parent_type">
                                 <option value="">Enter your selection here</option>
-                                <option value="">$1</option>
-                                <option value="">$2</option>
-                                <option value="">$3</option>
+                                <option value="$1"{{ $data->parent_type == "$1" ? 'selected' :'' }}>$1</option>
+                                <option value="$2"{{ $data->parent_type == "$2" ? 'selected' :'' }}>$2</option>
+                                <option value="$3"{{ $data->parent_type == "$3" ? 'selected' :'' }}>$3</option>
                             </select>
                         </div>
                     </div>
@@ -751,7 +751,7 @@
                         <div class="group-input">
 
                             <label for="Other Type"><b>(Parent) Other Type</b></label>
-                            <input type="text" name="par_oth_type" value="">
+                            <input type="text" name="par_oth_type" value="{{ $data->par_oth_type }}">
                         </div>
                     </div>
                     <div class="col-12 sub-head">

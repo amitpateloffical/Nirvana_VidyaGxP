@@ -794,6 +794,40 @@ if ( $lastclinical->site_name != $clinicalSite->site_name) {
         }
     }
 
+    public function ClinicalChild(Request $request,$id)
+{
+    // dd($request->revision);
+    
+    $cc = ClinicalSite::find($id);
+    $cft = [];
+    $parent_id = $id;
+    $parent_type = "Capa";
+    $old_record = Capa::select('id', 'division_id', 'record')->get();
+    $record_number = ((RecordNumber::first()->value('counter')) + 1);
+    $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
+    $currentDate = Carbon::now();
+    $formattedDate = $currentDate->addDays(30);
+    $due_date = $formattedDate->format('d-M-Y');
+    $parent_intiation_date = Capa::where('id', $id)->value('intiation_date');
+    $parent_record =  ((RecordNumber::first()->value('counter')) + 1);
+    $parent_record = str_pad($parent_record, 4, '0', STR_PAD_LEFT);
+    $parent_initiator_id = $id;
+   
+    if ($request->revision == "rca-child") {
+        $cc->originator = User::where('id', $cc->initiator_id)->value('name');
+        return view('frontend.forms.root-cause-analysis', compact('record_number', 'due_date', 'parent_id','old_record', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','cft'));
+
+    }
+    if ($request->revision == "Action-Item") {
+        // return "test";
+        $cc->originator = User::where('id', $cc->initiator_id)->value('name');
+        return view('frontend.forms.action-item', compact('record_number', 'due_date', 'parent_id','old_record', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id'));
+
+    }
+    
+
+}
+
 
 
     public function singleReport(Request $request, $id)

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ctms\ClinicalSiteController;
+use App\Http\Controllers\ctms\SubjectController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CCController;
@@ -180,6 +181,14 @@ Route::group(['prefix' => 'rcms'], function () {
             //  Route::get('clinetauditTrailPdf/{id}', [ClinicalSiteController::class, 'auditTrailPdf'])->name('clinicalsiteTrailPdf');
             Route::get('pdf/{id}',[ClinicalSiteController::class, 'pdf']);
             Route::get('pdf-report/{id}', [ClinicalSiteController::class, 'singleReport']);
+// ================================================sunject ==================
+            Route::get('subjectindex',[SubjectController::class,'index']);
+            Route::post('subjectinsert',[SubjectController::class,'store'])->name('subjectstore');
+            Route::get('subjectupdate/{id}',[SubjectController::class,'show'])->name('subjectshow');
+            Route::put('subjectsaveupdate/{id}',[SubjectController::class,'update'])->name('subjectupdate');
+Route::post('subjectstagechange/{id}',[SubjectController::class,'subjectStateChange'])->name('subject_stagechange');
+
+
 
 
         }
