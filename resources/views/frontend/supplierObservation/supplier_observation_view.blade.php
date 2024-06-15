@@ -176,7 +176,7 @@
                                 <div class="group-input">
                                     <label for="short_description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
                                     characters remaining
-                                    <textarea name="short_description"   id="docname" type="text"    maxlength="255" required>{{ $data->short_description }}</textarea>
+                                    <textarea name="short_description"   id="docname" type="text"    maxlength="255" required {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>{{ $data->short_description }}</textarea>
                                 </div>
                             </div>
 
@@ -206,7 +206,7 @@
                                     <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                         <div class="calenderauditee">
                                             <input type="text" id="due_date" name="due_date" 
-                                                placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}"/>
+                                                placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}/>
                                             <!-- <input type="date" name="due_date" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}} min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" -->
                                         </div>
                                 </div>  
@@ -215,7 +215,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="criticality"><b>Criticality</b></label>
-                                    <select name="criticality">
+                                    <select name="criticality" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
                                         <option value="e" @if ($data->criticality =='e') selected @endif>e</option>
                                         <option value="f" @if ($data->criticality =='f') selected @endif>f</option>
@@ -243,20 +243,20 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="auditee">Auditee/Supplier</label>
-                                    <input type="text" name="auditee" value="{{ $data->auditee }}">
+                                    <input type="text" name="auditee" value="{{ $data->auditee }}" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="contact_person">Contact Person</label>
-                                    <input type="text" name="contact_person" value="{{ $data->contact_person }}">
+                                    <input type="text" name="contact_person" value="{{ $data->contact_person }}" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="descriptions">Descriptions</label>
-                                    <textarea name="descriptions" id="" cols="30" rows="3">{{ $data->descriptions }}</textarea>
+                                    <textarea name="descriptions" id="" cols="30" rows="3" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>{{ $data->descriptions }}</textarea>
                                 </div>
                             </div>
 
@@ -277,7 +277,7 @@
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="attached_file[]" oninput="addMultipleFiles(this, 'attached_file')" multiple>
+                                            <input type="file" id="myfile" name="attached_file[]" oninput="addMultipleFiles(this, 'attached_file')" multiple {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                         </div>
                                     </div>
                                 </div>
@@ -301,7 +301,7 @@
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="attached_picture[]" oninput="addMultipleFiles(this, 'attached_picture')" multiple>
+                                            <input type="file" id="myfile" name="attached_picture[]" oninput="addMultipleFiles(this, 'attached_picture')" multiple {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                         </div>
                                     </div>
                                 </div>
@@ -310,13 +310,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="manufacturer">Manufacturer</label>
-                                    <input type="text" name="manufacturer" value="{{ $data->manufacturer }}">
+                                    <input type="text" name="manufacturer" value="{{ $data->manufacturer }}" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="type">Type</label>
-                                    <select name="type">
+                                    <select name="type" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->type =='aa') selected @endif value="aa">aa</option>
                                         <option @if ($data->type =='bb') selected @endif value="bb">bb</option>
@@ -327,7 +327,7 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="product">Product/Materials(0)</label>
-                                    <input type="text" name="product" id="" value="{{ $data->product }}">
+                                    <input type="text" name="product" id="" value="{{ $data->product }}" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                 </div>
                             </div>
 
@@ -338,13 +338,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="proposed_actions">Proposed Actions</label>
-                                    <textarea name="proposed_actions" id="" cols="30" rows="3">{{ $data->proposed_actions }}</textarea>
+                                    <textarea name="proposed_actions" id="" cols="30" rows="3" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>{{ $data->proposed_actions }}</textarea>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="comments">Comments</label>
-                                    <textarea name="comments" id="" cols="30" rows="3">{{ $data->comments }}</textarea>
+                                    <textarea name="comments" id="" cols="30" rows="3" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>{{ $data->comments }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -364,7 +364,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="impact">Impact</label>
-                                    <select name="impact">
+                                    <select name="impact" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->impact =='aaa') selected @endif value="aaa">aaa</option>
                                         <option @if ($data->impact =='bbb') selected @endif value="bbb">bbb</option>
@@ -375,7 +375,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="impact_analysis">Impact Analysis </label>
-                                    <textarea name="impact_analysis" id="" cols="30" rows="3">{{ $data->impact_analysis }}</textarea>
+                                    <textarea name="impact_analysis" id="" cols="30" rows="3" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>{{ $data->impact_analysis }}</textarea>
                                 </div>
                             </div>
                             <div class="sub-head col-12">Risk Analysis</div>
@@ -383,7 +383,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="severity_rate">Severity Rate</label>
-                                    <select name="severity_rate">
+                                    <select name="severity_rate" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->severity_rate =='qqq') selected @endif value="qqq">qqq</option>
                                         <option @if ($data->severity_rate =='www') selected @endif value="www">www</option>
@@ -394,7 +394,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="occurence">Occurence</label>
-                                    <select name="occurence">
+                                    <select name="occurence" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->occurence =='eee') selected @endif value="eee">eee</option>
                                         <option @if ($data->occurence =='rrr') selected @endif value="rrr">rrr</option>
@@ -405,7 +405,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="detection">Detection</label>
-                                    <select name="detection">
+                                    <select name="detection" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->detection =='ooo') selected @endif value="ooo">ooo</option>
                                         <option @if ($data->detection =='uuu') selected @endif value="uuu">uuu</option>
@@ -415,7 +415,7 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="rpn">RPN</label>
+                                    <label for="rpn" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>RPN</label>
                                     <select name="rpn">
                                         <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->rpn =='dd') selected @endif value="dd">dd</option>

@@ -317,7 +317,7 @@
                     <table>
                         <tr>
                             <th class="w-20">Impact</th>
-                            <td class="w-80">@if($data->ampact){{ $data->ampact }}@else Not Applicable @endif</td>
+                            <td class="w-80">@if($data->impact){{ $data->impact }}@else Not Applicable @endif</td>
                             <th class="w-20">Impact Analysis</th>
                             <td class="w-80">@if($data->impact_analysis){{ $data->impact_analysis }}@else Not Applicable @endif</td>
                         </tr>
