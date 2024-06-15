@@ -582,7 +582,7 @@ Route::view('recommended_action_new', 'frontend.OOS.recommended_action');
 Route::view('follow_up_task', 'frontend.newform.follow_up_task');
 
 // ========Analyst Interview===============
-Route::view('analyst_interview', 'frontend.newform.analyst_interview');
+Route::view('analyst_interview','analystInterview.analystInterview_new');
 
 // ========Hypothesis ===============
 Route::view('hypothesis', 'frontend.newform.hypothesis');
