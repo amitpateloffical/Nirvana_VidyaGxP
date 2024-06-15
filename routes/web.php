@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdditionalTestingController;
 use App\Http\Controllers\CabinateController;
 use App\Http\Controllers\ChangeControlController;
 use App\Http\Controllers\DashboardController;
@@ -572,6 +573,15 @@ Route::get('Vsingle_report/{id}', [VerificationController::class, 'singleReport'
 
 // ===============Additional Testing==========================\
 Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
+Route::get('/additional_testing_view/{id}', [AdditionalTestingController::class, 'edit']);
+// Route::view("additional_testing_view", 'frontend.additional-testing.additional_testing_view');
+Route::post('additional_testing_store', [AdditionalTestingController::class, 'store'])->name('at_store');
+Route::get('additional_testing/{id}', [AdditionalTestingController::class, 'edit'])->name('at_edit');
+// Route::view('/additional_testing_view','frontend.additional-testing.additional_testing_view')->name('at_update');
+Route::post('additional_testing_update/{id}', [AdditionalTestingController::class, 'update'])->name('at_update');
+
+
+
 
 
 
