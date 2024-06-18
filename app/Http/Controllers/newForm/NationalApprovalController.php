@@ -428,6 +428,7 @@ if (!empty($request->expiration_date)) {
 
     public function npUpdate(Request $request, $id){
         try {
+            
             // $recordCounter = RecordNumber::first();
 
             // $newRecordNumber = $recordCounter->counter + 1;

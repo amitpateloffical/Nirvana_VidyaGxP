@@ -38,8 +38,9 @@ $users = DB::table('users')->get();
             <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Activity Log</button>
         </div>
 
-        <form action="{{ route('monthly_working.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('monthly_working.update', $monthly->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
             <div id="step-form">
                 @if (!empty($parent_id))
@@ -72,9 +73,9 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="group-input">
+                            <div class="group-input">
                                     <label for="RLS Record Number">Record Number</label>
-                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/MW/{{ date('Y')}}/{{$record_number}}">
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName($monthly->division_id) }}/MW/{{ Helpers::year($monthly->created_at) }}/{{ $monthly->record }}">
                                 </div>
                             </div>
 
@@ -109,25 +110,22 @@ $users = DB::table('users')->get();
                                         Assigned To <span class="text-danger"></span>
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
-                                        <option value="">Select a value</option>
-                                        @foreach ($users as $key => $value)
-                                        <option value="{{ $value->id }}">
-                                            {{ $value->name }}
+                                        <option value="assign_to">Select a value</option>
+                                        @foreach ($users as $datas)
+                                        @if(Helpers::checkUserRolesassign_to($datas))
+                                        <option value="{{ $datas->id }}" {{ $monthly->assign_to == $datas->id ? 'selected' : '' }}>
+                                            {{ $datas->name }}
                                         </option>
+                                        @endif
                                         @endforeach
-                                    </select>
-                                    @error('assigned_user_id')
-                                    <p class="text-danger">{{ $message }}</p>
-                                    @enderror
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
                                     characters remaining
-                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                    <input id="docname" type="text" name="short_description" maxlength="255" value="{{$monthly->short_description}}" required>
                                 </div>
                             </div>
 
@@ -135,7 +133,7 @@ $users = DB::table('users')->get();
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Description"> Description<span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
+                                    <textarea name="description" value="">{{$monthly->description}}</textarea>
                                 </div>
                             </div>
 
