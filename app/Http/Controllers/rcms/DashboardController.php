@@ -18,8 +18,10 @@ use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 use App\Models\Deviation;
 use App\Models\MedicalDeviceRegistration;
+use App\Models\RecurringCommitment;
 use Helpers;
 use App\Models\User;
+use App\Models\ProductRecall;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -67,6 +69,8 @@ class DashboardController extends Controller
         $datas12 = Observation::orderByDesc('id')->get();
         $datas13 = Deviation::orderByDesc('id')->get();
         $datas15 = MedicalDeviceRegistration::orderByDesc('id')->get();
+        $productRecall = ProductRecall::orderByDesc('id')->get();
+        $recurringCommitment = RecurringCommitment::orderByDesc('id')->get();
 
 
         foreach ($datas as $data) {
@@ -354,6 +358,49 @@ class DashboardController extends Controller
                 "date_close" => $data->updated_at,
             ]);
         }
+
+        foreach ($productRecall as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_id ? $data->parent_id : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Product-Recall",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+                "due_date" => $data->due_date,
+            ]);
+        }
+
+        foreach ($recurringCommitment as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_id ? $data->parent_id : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Recurring-Commitment",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->initiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+                "due_date" => $data->due_date,
+            ]);
+        }
+
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
         // return $table;
         // $paginatedData = json_encode($table);
@@ -742,6 +789,16 @@ class DashboardController extends Controller
             $single = "deviationSingleReport/". $data->id;
             $audit = "#";
             $parent="deviationparentchildReport/". $data->id;
+        } elseif ($type == "Product-Recall") {
+            $data = ProductRecall::find($id);
+            $single = "product-recall-single-report/". $data->id;
+            $audit = "product-recall-audit-pdf/". $data->id;
+            $parent= "#";
+        } elseif ($type == "Recurring-Commitment") {
+            $data = RecurringCommitment::find($id);
+            $single = "#";
+            $audit = "#";
+            $parent= "#";
         }
 
 
