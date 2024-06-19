@@ -5,7 +5,6 @@ use App\Http\Controllers\OpenStageController;
 use App\Http\Controllers\rcms\InternalauditController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\rcms\SupplierController;
-use App\Http\Controllers\rcms\SupplierContractController;
 use App\Http\Controllers\TMSController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\ChangeControlController;
@@ -196,18 +195,6 @@ Route::post('supplier/cancle/{id}',[SupplierController::class,'supplier_Cancle']
 Route::post('supplier/reject/{id}',[SupplierController::class,'supplier_reject'])->name('supplier_reject');
 Route::get('supplierAuditTrail/{id}',[SupplierController::class,'supplierAuditTrail']);
 Route::get('auditDetailsSupplier/{id}',[SupplierController::class,'auditDetailsSupplier'])->name('showsupplierAuditDetails');
-
-//============================Supplier Contract by pramod=======================================
-Route::get('supplier-contract',[SupplierContractController::class,'supplierContract']);
-Route::post('supplierContractStore',[SupplierContractController::class,'supplier_contract_store'])->name('supplier_contract_store');
-Route::put('supplierContractUpdate/{id}',[SupplierContractController::class,'supplier_contract_update'])->name('supplier_contract_update');
-Route::get('supplierContractShow/{id}',[SupplierContractController::class,'supplier_contract_show'])->name('supplier_contract_show');
-Route::post('supplierContract/stage/{id}',[SupplierContractController::class,'supplier_contract_send_stage'])->name('supplier_contract_send_stage');
-Route::post('supplierContract/cancle/{id}',[SupplierContractController::class,'supplier_contract_Cancle'])->name('supplier_contract_Cancle');
-Route::post('supplierContract/failed/{id}',[SupplierContractController::class,'supplier_audit_failed'])->name('supplier_audit_failed');
-Route::post('supplierContract/reject/{id}',[SupplierContractController::class,'supplier_contract_reject'])->name('supplier_contract_reject');
-Route::get('supplierContractAuditTrail/{id}',[SupplierContractController::class,'supplierContractAuditTrail']);
-Route::get('auditDetailsSupplierContract/{id}',[SupplierContractController::class,'auditDetailsSupplierContract'])->name('showSupplierContractAuditDetails');
 
 // =================QRM fORM=====================================
 Route::view('qrm', 'frontend.QRM.qrm');

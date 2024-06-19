@@ -163,10 +163,6 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('supplierSingleReport/{id}', [SupplierController::class, 'singleReport'])->name('supplierSingleReport');
             Route::get('supplierAuditReport/{id}', [SupplierController::class, 'auditReport'])->name('supplierAuditReport');
 
-//--------------------------------------------by pramod-------------------------------------------------------------
-            Route::get('supplierContractSingleReport/{id}', [SupplierContractController::class, 'singleReport'])->name('supplierContractSingleReport');
-            Route::get('supplierContractAuditReport/{id}', [SupplierContractController::class, 'auditReport'])->name('supplierContractAuditReport');            
-
 //---------------------------------------------------------------------------------------------------------
 
             //Route::resource('deviation', DeviationController::class);

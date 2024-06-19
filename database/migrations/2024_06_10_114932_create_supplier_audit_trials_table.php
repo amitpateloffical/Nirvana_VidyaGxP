@@ -18,14 +18,17 @@ return new class extends Migration
             $table->string('supplier_id');
             $table->string('activity_type');
             $table->longText('previous')->nullable();
-            $table->string('stage')->nullable();
             $table->longText('current')->nullable();
             $table->longText('comment')->nullable();
-            $table->string('user_id');
-            $table->string('user_name');
-            $table->string('origin_state');
-            $table->string('user_role');
-            $table->softDeletes();
+            $table->text('action')->nullable();
+            $table->text('stage')->nullable();
+            $table->string('user_id')->nullable();
+            $table->string('user_name')->nullable();
+            $table->string('origin_state')->nullable();
+            $table->string('user_role')->nullable();
+            $table->string('change_to')->nullable();
+            $table->string('change_from')->nullable();
+            $table->string('action_name')->nullable();
             $table->timestamps();
         });
     }
