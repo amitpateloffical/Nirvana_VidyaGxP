@@ -380,7 +380,7 @@ $users = DB::table('users')
                                     <div class="group-input">
                                         <label for="Initiator"><b>Initiator</b></label>
                                         {{-- <div class="static">{{ Auth::user()->name }}</div> --}}
-                                        <input disabled type="text" value="{{ Auth::user()->name }}">
+F                                        <input disabled type="text" value="{{ Auth::user()->name }}">
 
                                     </div>
                                 </div>

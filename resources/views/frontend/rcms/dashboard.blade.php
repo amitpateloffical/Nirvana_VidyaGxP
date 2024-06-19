@@ -374,13 +374,13 @@
                                                             </div>
                                                         </a>
                                                     @endif
-                                                @elseif($datas->type == 'Root-Cause-Analysis')
+                                                @elseif($datas->type == 'RootCauseAnalysis')
                                                     <a href="{{ route('root_show', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
                                                         <a
-                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/RootCauseAnalysis">
                                                             <div class="icon" onclick="showChild()"
                                                                 data-bs-toggle="tooltip" title="Related Records">
                                                                 {{-- <img src="{{ asset('user/images/parent.png') }}"

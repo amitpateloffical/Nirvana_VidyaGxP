@@ -1328,6 +1328,7 @@ class CapaController extends Controller
                 $capa->status = "Pending CAPA Plan";
                 $capa->plan_proposed_by = Auth::user()->name;
                 $capa->plan_proposed_on = Carbon::now()->format('d-M-Y');
+                
                    
                     $history = new CapaAuditTrial();
                     $history->capa_id = $id;
