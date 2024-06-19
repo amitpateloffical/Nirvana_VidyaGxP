@@ -125,14 +125,6 @@
                 querySelect.options.add(new Option('Pending Approval', '4'));
                 querySelect.options.add(new Option('Close - Done', '5'));
             }
-            else if (scopeValue === 'SupplierContract') {
-                querySelect.options.add(new Option('Opened', '1'));
-                querySelect.options.add(new Option('Qualification In Progress', '2'));
-                querySelect.options.add(new Option('Pending Supplier Audit', '3'));
-                querySelect.options.add(new Option('Supplier Approved', '4'));
-                querySelect.options.add(new Option('Pending Rejction', '5'));
-                querySelect.options.add(new Option('Obselete', '6'));
-            }
 
             
         // Add more conditions based on other scope values
@@ -398,20 +390,6 @@
                                                     @if (!empty($datas->parent_id))
                                                         <a
                                                             href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/supplier">
-                                                            <div class="icon" onclick="showChild()"
-                                                                data-bs-toggle="tooltip" title="Related Records">
-                                                                    {{-- <img src="{{ asset('user/images/parent.png') }}"
-                                                                        alt="..." class="w-100 h-100"> --}}
-                                                            </div>
-                                                        </a>    
-                                                    @endif
-                                                    @elseif($datas->type == 'Supplier-Contract')
-                                                    <a href="{{ route('supplier_contract_show', $datas->id) }}">
-                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
-                                                    </a>
-                                                    @if (!empty($datas->parent_id))
-                                                        <a
-                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/supplierContract">
                                                             <div class="icon" onclick="showChild()"
                                                                 data-bs-toggle="tooltip" title="Related Records">
                                                                     {{-- <img src="{{ asset('user/images/parent.png') }}"

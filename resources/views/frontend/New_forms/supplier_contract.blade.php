@@ -73,7 +73,7 @@
 
         </div>
 
-        <form action="{{ route('supplier_contract_store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
