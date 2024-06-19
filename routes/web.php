@@ -31,6 +31,7 @@ use App\Http\Controllers\tms\QuestionBankController;
 use App\Http\Controllers\tms\QuestionController;
 use App\Http\Controllers\tms\QuizeController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\RenewalController;
 use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -211,6 +212,9 @@ Route::get('rootshow/{id}', [RootCauseController::class, 'root_show'])->name('ro
 Route::post('root/stage/{id}', [RootCauseController::class, 'root_send_stage'])->name('root_send_stage');
 Route::post('root/cancel/{id}', [RootCauseController::class, 'root_Cancel'])->name('root_Cancel');
 Route::post('root/reject/{id}', [RootCauseController::class, 'root_reject'])->name('root_reject');
+Route::post('root/backword/{id}', [RootCauseController::class, 'root_backword'])->name('root_backword');
+Route::post('root/backword2/{id}', [RootCauseController::class, 'root_backword_2'])->name('root_backword_2');
+Route::post('root/child/{id}', [RootCauseController::class, 'root_child'])->name('root_child');
 Route::get('rootAuditTrial/{id}', [RootCauseController::class, 'rootAuditTrial']);
 Route::get('auditDetailsRoot/{id}', [RootCauseController::class, 'auditDetailsroot'])->name('showrootAuditDetails');
 
@@ -343,7 +347,7 @@ Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 //! ============================================ 
 
 
-Route::view('deviation', 'frontend.forms.deviation');
+Route::view('deviation', 'frontend.forms.deviation_view');
 Route::post('deviation_child/{id}', [DeviationController::class, 'deviation_child_1'])->name('deviation_child_1');
 Route::get('DeviationAuditTrial/{id}', [DeviationController::class, 'DeviationAuditTrial']);
 Route::get('DeviationAuditTrialDetails/{id}', [DeviationController::class, 'DeviationAuditTrialDetails']);
@@ -415,7 +419,24 @@ Route::view('supplier-observation', 'frontend.new_forms.supplier-observation');
 Route::view('preventive-maintenance', 'frontend.new_forms.preventive-maintenance');
 Route::view('equipment', 'frontend.new_forms.equipment');
 Route::view('production-line-audit', 'frontend.new_forms.production-line-audit');
-Route::view('renewal', 'frontend.new_forms.renewal');
+
+//==========================================renewal route==========================================================//
+
+//Route::view('renewal', 'frontend.new_forms.renewal');
+Route::get('/renewal',[RenewalController::class,'index'])->middleware('auth');
+Route::post('/store',[RenewalController::class,'store'])->name('renewal.store')->middleware('auth');
+Route::get('renewal/show/{id}',[RenewalController::class,'show'])->name('renewal.show')->middleware('auth');
+Route::post('renewal/update/{id}', [RenewalController::class, 'update'])->name('renewal.update')->middleware('auth');
+//--------------------------stage routs------------------------------------------------------------//
+
+Route::post('renewal/cancel/{id}', [RenewalController::class, 'renewal_cancel_stage'])->name('renewal_cancel_stage')->middleware('auth');
+Route::post('renewal/stage/{id}',[RenewalController::class, 'renewal_send_stage'])->name('renewal_send_stage')->middleware('auth');
+Route::post('renewal/backword/{id}',[RenewalController::class, 'renewal_backword_stage'])->name('renewal_backword_stage')->middleware('auth');
+Route::post('renewal/forword/{id}',[RenewalController::class, 'renewal_forword_close'])->name('renewal_forword_close');
+Route::post('renewal/forword2/{id}',[RenewalController::class, 'renewal_forword2_close'])->name('renewal_forword2_close');
+Route::post('renewal/child/{id}', [RenewalController::class, 'renewal_child_stage'])->name('renewal_child_stage');
+Route::get('renewal/AuditTrial/{id}', [RenewalController::class, 'renewalAuditTrial'])->name('renewalAuditTrial');
+//=========================================================================================================//
 Route::view('validation', 'frontend.new_forms.validation');
 Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
 Route::view('product-recall', 'frontend.new_forms.product-recall');

@@ -606,7 +606,7 @@ class DeviationController extends Controller
         $data5->save();
 
         $history = new DeviationAuditTrail();
-        $history->deviation_id = $deviation->id;
+        $history->deviation_id = $deviation->id;    
         $history->activity_type = 'Short Description';
         $history->previous = "Null";
         $history->current = $deviation->short_description;

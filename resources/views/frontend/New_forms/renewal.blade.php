@@ -33,12 +33,12 @@
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Renewal</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Renewal Plan</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Product Information</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Manufacturer Details</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Registration Information</button>
+            {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Manufacturer Details</button> --}}
+            {{-- <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Registration Information</button> --}}
             <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Signatures</button>
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('renewal.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -47,6 +47,7 @@
                 <input type="hidden" name="parent_type" value="{{ $parent_type }}">
                 @endif
 
+                  <!-- General information content -->
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -56,26 +57,29 @@
                                     <input type="text" name="manufacturer" value="">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Trade Name">(Root Parent)Trade Name</label>
-                                    <input type="text" name="Trade Name">
+                                    <input type="text" name="trade_name">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="Initiator" value="">
+                                    <input type="hidden" name="initiator" value="{{ auth()->id() }}">
+                                    <input disabled type="text" name="initiator_show" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
+                           
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                    <input disabled type="date" name="Date_of_Initiation" value="">
-                                    <input type="hidden" name="division_id" value="">
+                                    <input disabled type="text" name="date_of_initiation" value="{{date('j-F-Y')}}">
+                                    <input type="hidden" value="{{date('j-F-Y')}}" name="date_of_initiation" >
                                 </div>
                             </div>
-
+                           
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
@@ -83,21 +87,24 @@
                                     <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
-
+                           
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="search">
-                                        Assigned To <span class="text-danger"></span>
+                                    <label for="search">Assigned To <span class="text-danger"></span>
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
-                                        <option value="">Select a value</option>
-                                        <option value=""></option>
+                                        <option value="0">Select a value</option>
+                                        <option value="Amit sir">Amit sir </option>
+                                        <option value="Nilesh sir ">Nilesh sir </option>
+                                        <option value="Himanshu sir">Himanshu sir </option>
+                                        <option value="Goutam sir">Goutam sir</option>
+                                        <option value="Gourav sir ">Gourav sir </option>
+
 
                                     </select>
 
                                 </div>
                             </div>
-
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due</label>
@@ -108,45 +115,50 @@
                                     </div>
                                 </div>
                             </div>
-
+                           
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Documents">Documents</label>
-                                    <input type="text" name="Documents" id="">
+                                    <input type="text" name="documents" id="">
                                 </div>
                             </div>
-
-                            <div class="col-12">
+                            <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Attached_files">Attached Files</label>
+                                    <label for="Attached_Files">Attached Files</label>
                                     <div>
                                         <small class="text-primary">
                                             Please Attach all relevant or supporting documents
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="Attached_files"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="Attached_files" oninput="" multiple>
+                                            <input type="file" id="Attached_files" name="Attached_files[]"
+                                                oninput="addMultipleFiles(this, 'Attached_files')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            
+                            
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Documents">Dossier Parts</label>
-                                    <input type="text" name="Dossier" id="">
+                                    <input type="text" name="dossier_parts" id="">
                                 </div>
                             </div>
+                           
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Related_Dossier">Related Dossier Documents</label>
-                                    <input type="text" name="Related_Dossier" id="">
+                                    <input type="text" name="related_dossier_documents" id="">
                                 </div>
                             </div>
 
                         </div>
+                       
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -155,80 +167,81 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head">
                                 Registration Status
                             </div>
+                           
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Registration Status">Registration Status</label>
-                                    <select name="Registration_Status">
+                                    <select name="registration_status">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="1">2</option>
+                                        <option value="1">3</option>
                                     </select>
                                 </div>
                             </div>
-
+                           
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Registration Number">Registration Number</label>
-                                    <input type="text" name="Registration Number">
+                                    <input type="text" name="registration_number">
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Planned Submission Date">Planned Submission Date</label>
-                                    <input type="date" name="Planned Submission Date">
+                                    <input type="date" name="planned_submission_date">
                                 </div>
                             </div>
-
+                           
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actual Submission Date">Actual Submission Date</label>
-                                    <input type="date" name="Actual Submission Date">
+                                    <input type="date" name="actual_submission_date">
                                 </div>
                             </div>
-
+                           
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Planed Approval Date">Planed Approval Date</label>
-                                    <input type="date" name="Planed Approval Date">
+                                    <input type="date" name="planned_approval_date">
                                 </div>
                             </div>
-
+                           
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actual Approval Date">Actual Approval Date</label>
-                                    <input type="date" name="Actual Approval Date">
+                                    <input type="date" name="actual_approval_date">
                                 </div>
                             </div>
+                            
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actual Withdrawn Date">Actual Withdrawn Date</label>
-                                    <input type="date" name="Actual Withdrawn Date">
+                                    <input type="date" name="actual_withdrawn_date">
                                 </div>
                             </div>
-
+                           
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actual Rejection Date">Actual Rejection Date</label>
-                                    <input type="date" name="Actual Rejection Date">
+                                    <input type="date" name="actual_rejection_date">
                                 </div>
                             </div>
+                           
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Comments">Comments</label>
-                                    <textarea name="Comments" id="" cols="30" rows="3"></textarea>
+                                    <textarea name="comments" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
-
-
+                           
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -239,42 +252,43 @@
                         </div>
                     </div>
                 </div>
-
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head">
                                 (Parent) Renewal Rule
                             </div>
+                           
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="safety_impact_Probability">(Root Parent) Trade Name</label>
-                                    <input type="text" name="TradeName" id="">
+                                    <input type="text" name="root_parent_trade_name" id="">
                                 </div>
                             </div>
+                           
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="LocalTradeName">(Parent)Local Trade Name</label>
-                                    <input type="text" name="LocalTradeName" id="">
+                                    <input type="text" name="parent_local_trade_name" id="">
                                 </div>
                             </div>
-
+                           
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Renewal Rule">(Parent) Renewal Rule</label>
-                                    <select name="Renewal Rule">
+                                    <select name="renewal_rule">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
-
+                           
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Product Information
-                                    <button type="button" name="audit-agenda-grid" id="Product_Information">+</button>
+                                    <button type="button" name="Product_Information" id="Product_Information">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
@@ -295,13 +309,14 @@
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="IDnumber[]"></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                            {{-- <td><input type="text" name="[IDnumber]"></td> --}}
+                                            <td><input type="text" name="productinfo[0][primary_packaging]"></td>
+                                            <td><input type="text" name="productinfo[0][material]"></td>
+                                            <td><input type="text" name="productinfo[0][pack_size]"></td>
+                                            <td><input type="text" name="productinfo[0][shelf_life]"></td>
+                                            <td><input type="text" name="productinfo[0][storage _condition]"></td>
+                                            <td><input type="text" name="productinfo[0][secondary_packaging]"></td>
+                                            <td><input type="text" name="productinfo[0][remarks]"></td>
                                         </tbody>
 
                                     </table>
@@ -318,7 +333,7 @@
                     </div>
                 </div>
 
-                <div id="CCForm4" class="inner-block cctabcontent">
+                {{-- <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
                         </div>
@@ -330,9 +345,9 @@
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
-                <div id="CCForm5" class="inner-block cctabcontent">
+                {{-- <div id="CCForm5" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
                         </div>
@@ -344,7 +359,7 @@
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div id="CCForm6" class="inner-block cctabcontent">
                     <div class="inner-block-content">
@@ -419,10 +434,7 @@
                         </div>
                     </div>
                 </div>
-
-
         </form>
-
     </div>
 </div>
 
@@ -519,4 +531,69 @@
         $('#rchars').text(textlen);
     });
 </script>
+{{-- <script>
+    // Function to calculate and populate the due date field with a date 30 days from now
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the current date
+        var currentDate = new Date();
+        // Add 30 days to the current date
+        var dueDate = new Date(currentDate.setDate(currentDate.getDate() + 30));
+        //formate the due date as 'DD-MM-YYYY'
+        var formattedDueDate = formatDate(dueDate);
+        
+        // Populate the due date input field
+        document.getElementById("due_date").value = formattedDueDate;
+    });
+
+    // Function to format the date as 'DD-MM-YYYY'
+    function formatDate(date) {
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        // Pad single digit day and month with leading zero
+        if (day < 10) {
+            day = '0' + day;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
+
+        return day + '-' + month + '-' + year;
+    }
+</script> --}}
+
+<script>
+    // Function to calculate and populate the due date field with a date 30 days from now
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the current date
+        var currentDate = new Date();
+        // Add 30 days to the current date
+        var dueDate = new Date(currentDate.setDate(currentDate.getDate() + 30));
+        // Format the due date as 'DD-MMMM-YYYY'
+        var formattedDueDate = formatDate(dueDate);
+        
+        // Populate the due date input field
+        document.getElementById("due_date").value = formattedDueDate;
+    });
+
+    // Function to format the date as 'DD-MMMM-YYYY'
+    function formatDate(date) {
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+
+        // Array of month names
+        var monthNames = ["January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"];
+
+        // Pad single digit day with leading zero
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        return day + '-' + monthNames[monthIndex] + '-' + year;
+    }
+</script>
+
 @endsection

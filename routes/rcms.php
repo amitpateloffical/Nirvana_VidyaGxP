@@ -10,11 +10,14 @@ use App\Http\Controllers\rcms\InternalauditController;
 use App\Http\Controllers\rcms\LabIncidentController;
 use App\Http\Controllers\rcms\ObservationController;
 use App\Http\Controllers\UserLoginController;
+use App\Http\Controllers\RenewalController;
+
 use App\Http\Controllers\rcms\AuditProgramController;
 use App\Http\Controllers\rcms\CapaController;
 use App\Http\Controllers\rcms\FormDivisionController;
 use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RootCauseController;
+// use App\Http\Controllers\rcms\RenewalController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
 use App\Models\EffectivenessCheck;
@@ -174,6 +177,9 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviation', [DeviationController::class, 'deviation']);
              Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
+
+            //  Renewal Audit Trial
+            Route::get('renewal/AuditTrial/{id}', [RenewalController::class, 'renewalAuditTrial'])->name('renewalAuditTrial');
 
 
              
