@@ -302,8 +302,6 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiation"><b>Date of Initiation</b></label>
-                                    <!-- <input disabled type="date" name="Date_of_Initiation" value="">
-                                    <input type="hidden" name="initiation_date" value=""> -->
                                     <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
                                     <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
                                 </div>

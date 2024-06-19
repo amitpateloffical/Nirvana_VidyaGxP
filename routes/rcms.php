@@ -241,6 +241,18 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('sanctionSingleReport/{id}', [SanctionController::class, 'singleReport'])->name('sanctionSingleReport');
              Route::get('/audit/{id}', [SanctionController::class, 'audit2_pdf']);
 
+
+                          //============ Sanction =============
+             Route::post('monthly',[SanctionController::class,'monthly_reject'])->name('monthlyReject');
+             Route::post('monthly/cancel/{id}', [SanctionController::class, 'monthlynCancel'])->name('monthlyCancel');
+             Route::post('monthly/check/{id}', [SanctionController::class, 'check'])->name('monthly_check');
+             Route::post('monthly_qa_more_info/{id}', [SanctionController::class, 'monthly_qa_more_info'])->name('monthly_qa_more_info');
+             Route::post('monthly/check2/{id}', [SanctionController::class, 'check2'])->name('monthly_check2');
+             Route::post('monthly/check3/{id}', [SanctionController::class, 'check3'])->name('monthly_check3');
+             Route::post('sanction/stage/{id}', [SanctionController::class, 'monthly_send_stage'])->name('monthly_send_stage');
+             Route::get('monthlySingleReport/{id}', [SanctionController::class, 'singleReport'])->name('monthlySingleReport');
+             Route::get('/audit/{id}', [SanctionController::class, 'audit2_pdf']);
+
         }
     );
 });

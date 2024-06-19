@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\Sanctum;
 
-class SanctionController extends Controller{
-    public function index(){
+class SanctionController extends Controller
+{
+    public function index()
+    {
 
         $old_record = Sanction::select('id', 'division_id', 'record')->get();
         $record_number = ((RecordNumber::first()->value('counter')) + 1);
@@ -27,7 +29,7 @@ class SanctionController extends Controller{
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
-        return view('frontend.New_forms.sanction.sanction', compact('old_record','record_number', 'currentDate', 'formattedDate', 'due_date'));
+        return view('frontend.New_forms.sanction.sanction', compact('old_record', 'record_number', 'currentDate', 'formattedDate', 'due_date'));
     }
 
     public function sanctionStore(Request $request)
@@ -79,197 +81,197 @@ class SanctionController extends Controller{
 
             $sanction->save();
 
-//===========audit trails ===========//
+            //===========audit trails ===========//
 
 
-if (!empty($request->short_description)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->previous = "Null";
-    $validation2->current = $request->short_description;
-    $validation2->activity_type = 'Short Description';
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->short_description)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->previous = "Null";
+                $validation2->current = $request->short_description;
+                $validation2->activity_type = 'Short Description';
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->comment = "Not Applicable";
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->comment = "Not Applicable";
+                $validation2->save();
+            }
 
-if (!empty($request->originator)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Originator';
-    $validation2->previous = "Null";
-    $validation2->current = $request->originator;
-    $validation2->comment = "Not Applicable";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->originator)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Originator';
+                $validation2->previous = "Null";
+                $validation2->current = $request->originator;
+                $validation2->comment = "Not Applicable";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
-if (!empty($request->assign_to)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Assign To';
-    $validation2->previous = "Null";
-    $validation2->current = $request->assign_to;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->assign_to)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Assign To';
+                $validation2->previous = "Null";
+                $validation2->current = $request->assign_to;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
-if (!empty($request->due_date)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Due Date';
-    $validation2->previous = "Null";
-    $validation2->current = $request->due_date;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->due_date)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Due Date';
+                $validation2->previous = "Null";
+                $validation2->current = $request->due_date;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to = "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to = "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
-if (!empty($request->sanction_type)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Type of Sanction';
-    $validation2->previous = "Null";
-    $validation2->current = $request->sanction_type;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
+            if (!empty($request->sanction_type)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Type of Sanction';
+                $validation2->previous = "Null";
+                $validation2->current = $request->sanction_type;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
 
-    $validation2->save();
-}
+                $validation2->save();
+            }
 
-// if (!empty($request->file_attach)) {
-//     $validation2 = new SanctionAudit();
-//     $validation2->sanction_id = $sanction->id;
-//     $validation2->activity_type = 'File Attachments';
-//     $validation2->previous = "Null";
-//     $validation2->current = $request->file_attach;
-//     $validation2->comment = "NA";
-//     $validation2->user_id = Auth::user()->id;
-//     $validation2->user_name = Auth::user()->name;
-//     $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            // if (!empty($request->file_attach)) {
+            //     $validation2 = new SanctionAudit();
+            //     $validation2->sanction_id = $sanction->id;
+            //     $validation2->activity_type = 'File Attachments';
+            //     $validation2->previous = "Null";
+            //     $validation2->current = $request->file_attach;
+            //     $validation2->comment = "NA";
+            //     $validation2->user_id = Auth::user()->id;
+            //     $validation2->user_name = Auth::user()->name;
+            //     $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-//     $validation2->change_to =   "Opened";
-//     $validation2->change_from = "Initiator";
-//     $validation2->action_name = 'Create';
+            //     $validation2->change_to =   "Opened";
+            //     $validation2->change_from = "Initiator";
+            //     $validation2->action_name = 'Create';
 
-//     $validation2->save();
-// }
+            //     $validation2->save();
+            // }
 
-if (!empty($request->description)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Description';
-    $validation2->previous = "Null";
-    $validation2->current = $request->description;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->description)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Description';
+                $validation2->previous = "Null";
+                $validation2->current = $request->description;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
-if (!empty($request->authority_type)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Authority Type';
-    $validation2->previous = "Null";
-    $validation2->current = $request->authority_type;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->authority_type)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Authority Type';
+                $validation2->previous = "Null";
+                $validation2->current = $request->authority_type;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
-if (!empty($request->authority)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Authority';
-    $validation2->previous = "Null";
-    $validation2->current = $request->authority;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->authority)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Authority';
+                $validation2->previous = "Null";
+                $validation2->current = $request->authority;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
 
-if (!empty($request->fine)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Fine';
-    $validation2->previous = "Null";
-    $validation2->current = $request->fine;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->fine)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Fine';
+                $validation2->previous = "Null";
+                $validation2->current = $request->fine;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
-if (!empty($request->currency)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Currency';
-    $validation2->previous = "Null";
-    $validation2->current = $request->currency;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->currency)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Currency';
+                $validation2->previous = "Null";
+                $validation2->current = $request->currency;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
 
             toastr()->success("Sanction is created Successfully");
@@ -280,12 +282,14 @@ if (!empty($request->currency)) {
         }
     }
 
-    public function sanctionEdit($id){
-       $sanction = Sanction::findOrFail($id);
-       return view('frontend.New_forms.sanction.sanctionUpdate', compact('sanction'));
+    public function sanctionEdit($id)
+    {
+        $sanction = Sanction::findOrFail($id);
+        return view('frontend.New_forms.sanction.sanctionUpdate', compact('sanction'));
     }
 
-    public function sanctionUpdate(Request $request, $id){
+    public function sanctionUpdate(Request $request, $id)
+    {
         try {
             // $recordCounter = RecordNumber::first();
 
@@ -331,198 +335,198 @@ if (!empty($request->currency)) {
 
             $sanction->update();
 
-    
-//===========audit trails update===========//
+
+            //===========audit trails update===========//
 
 
-if (!empty($request->short_description)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->previous = "Null";
-    $validation2->current = $request->short_description;
-    $validation2->activity_type = 'Short Description';
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->short_description)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->previous = "Null";
+                $validation2->current = $request->short_description;
+                $validation2->activity_type = 'Short Description';
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->comment = "Not Applicable";
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->comment = "Not Applicable";
+                $validation2->save();
+            }
 
-if (!empty($request->originator)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Originator';
-    $validation2->previous = "Null";
-    $validation2->current = $request->originator;
-    $validation2->comment = "Not Applicable";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->originator)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Originator';
+                $validation2->previous = "Null";
+                $validation2->current = $request->originator;
+                $validation2->comment = "Not Applicable";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-if (!empty($request->assign_to)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Assign To';
-    $validation2->previous = "Null";
-    $validation2->current = $request->assign_to;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->assign_to)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Assign To';
+                $validation2->previous = "Null";
+                $validation2->current = $request->assign_to;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-if (!empty($request->due_date)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Due Date';
-    $validation2->previous = "Null";
-    $validation2->current = $request->due_date;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->due_date)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Due Date';
+                $validation2->previous = "Null";
+                $validation2->current = $request->due_date;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-if (!empty($request->sanction_type)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Type of Sanction';
-    $validation2->previous = "Null";
-    $validation2->current = $request->sanction_type;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
+            if (!empty($request->sanction_type)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Type of Sanction';
+                $validation2->previous = "Null";
+                $validation2->current = $request->sanction_type;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
 
-    $validation2->save();
-}
+                $validation2->save();
+            }
 
-// if (!empty($request->file_attach)) {
-//     $validation2 = new SanctionAudit();
-//     $validation2->sanction_id = $sanction->id;
-//     $validation2->activity_type = 'File Attachments';
-//     $validation2->previous = "Null";
-//     $validation2->current = $request->file_attach;
-//     $validation2->comment = "NA";
-//     $validation2->user_id = Auth::user()->id;
-//     $validation2->user_name = Auth::user()->name;
-//     $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            // if (!empty($request->file_attach)) {
+            //     $validation2 = new SanctionAudit();
+            //     $validation2->sanction_id = $sanction->id;
+            //     $validation2->activity_type = 'File Attachments';
+            //     $validation2->previous = "Null";
+            //     $validation2->current = $request->file_attach;
+            //     $validation2->comment = "NA";
+            //     $validation2->user_id = Auth::user()->id;
+            //     $validation2->user_name = Auth::user()->name;
+            //     $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-// $validation2->change_to =   "Not Applicable";
-// $validation2->change_from = $lastDocument->status;
-// $validation2->action_name = 'Update';
+            // $validation2->change_to =   "Not Applicable";
+            // $validation2->change_from = $lastDocument->status;
+            // $validation2->action_name = 'Update';
 
-//     $validation2->save();
-// }
+            //     $validation2->save();
+            // }
 
-if (!empty($request->description)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Description';
-    $validation2->previous = "Null";
-    $validation2->current = $request->description;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->description)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Description';
+                $validation2->previous = "Null";
+                $validation2->current = $request->description;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-if (!empty($request->authority_type)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Authority Type';
-    $validation2->previous = "Null";
-    $validation2->current = $request->authority_type;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->authority_type)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Authority Type';
+                $validation2->previous = "Null";
+                $validation2->current = $request->authority_type;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-if (!empty($request->authority)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Authority';
-    $validation2->previous = "Null";
-    $validation2->current = $request->authority;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->authority)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Authority';
+                $validation2->previous = "Null";
+                $validation2->current = $request->authority;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
 
-if (!empty($request->fine)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Fine';
-    $validation2->previous = "Null";
-    $validation2->current = $request->fine;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->fine)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Fine';
+                $validation2->previous = "Null";
+                $validation2->current = $request->fine;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-if (!empty($request->currency)) {
-    $validation2 = new SanctionAudit();
-    $validation2->sanction_id = $sanction->id;
-    $validation2->activity_type = 'Currency';
-    $validation2->previous = "Null";
-    $validation2->current = $request->currency;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->currency)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'Currency';
+                $validation2->previous = "Null";
+                $validation2->current = $request->currency;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
             toastr()->success("Sanction is Update Successfully");
             return redirect(url('rcms/qms-dashboard'));
@@ -530,7 +534,6 @@ if (!empty($request->currency)) {
 
             return redirect()->back()->with('error', 'Failed to update Sanction : ' . $e->getMessage());
         }
-
     }
 
     public function sanctionCancel(Request $request, $id)
@@ -602,15 +605,14 @@ if (!empty($request->currency)) {
                     'isPhpEnabled' => true,
                 ]);
 
-                $pdf->setPaper('A4');
-                $pdf->render();
-                $canvas = $pdf->getDomPDF()->getCanvas();
-                $height = $canvas->get_height();
-                $width = $canvas->get_width();
-                $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
-                $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
-                return $pdf->stream('Sanction' . $id . '.pdf');
-
+            $pdf->setPaper('A4');
+            $pdf->render();
+            $canvas = $pdf->getDomPDF()->getCanvas();
+            $height = $canvas->get_height();
+            $width = $canvas->get_width();
+            $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+            $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
+            return $pdf->stream('Sanction' . $id . '.pdf');
         }
 
         return redirect()->back()->with('error', 'Sanction not found.');
@@ -668,5 +670,4 @@ if (!empty($request->currency)) {
 
         return $pdf->stream('Sanction' . $id . '.pdf');
     }
-
 }

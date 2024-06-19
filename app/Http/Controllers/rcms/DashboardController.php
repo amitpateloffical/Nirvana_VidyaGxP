@@ -21,6 +21,7 @@ use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 use App\Models\Deviation;
 use App\Models\Equipment;
+use App\Models\MonthlyWorking;
 use App\Models\NationalApproval;
 use Helpers;
 use App\Models\User;
@@ -76,6 +77,8 @@ class DashboardController extends Controller
         $datas16 = Calibration::orderByDesc('id')->get();
         $datas17 = NationalApproval::orderByDesc('id')->get();
         $datas18 = Sanction::orderByDesc('id')->get();
+        $datas19 = MonthlyWorking::orderByDesc('id')->get();
+
 
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -432,6 +435,26 @@ class DashboardController extends Controller
                 "record" => $data->record,
                 "division_id" => $data->division_id,
                 "type" => "Sanction",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->initiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas19 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "MonthlyWorking",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -884,6 +907,12 @@ class DashboardController extends Controller
             $single = "sanctionSingleReport/". $data->id;
             $audit = "audit/". $data->id;
             $parent="sanctionparentchildReport/". $data->id;
+        }
+        elseif ($type == "MonthlyWorking") {
+            $data = MonthlyWorking::find($id);
+            $single = "monthlySingleReport/". $data->id;
+            $audit = "audit/". $data->id;
+            $parent="monthlyparentchildReport/". $data->id;
         }
 
 
