@@ -232,12 +232,12 @@
                                    
                                     <select {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }} name="priority_level">
                                         <option value="0">-- Select --</option>
-                                        <option @if ($data->priority_level == 'low') selected @endif
-                                         value="low">Low</option>
-                                        <option  @if ($data->priority_level == 'medium') selected @endif 
-                                        value="medium">Medium</option>
-                                        <option @if ($data->priority_level == 'high') selected @endif
-                                        value="high">High</option>
+                                        <option @if ($data->priority_level == 'Low') selected @endif
+                                         value="Low">Low</option>
+                                        <option  @if ($data->priority_level == 'Medium') selected @endif 
+                                        value="Medium">Medium</option>
+                                        <option @if ($data->priority_level == 'High') selected @endif
+                                        value="High">High</option>
                                     </select>
                                 </div>
                             </div>
@@ -416,8 +416,8 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="rpn" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>RPN</label>
-                                    <select name="rpn">
+                                    <label for="rpn">RPN</label>
+                                    <select name="rpn" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
                                         <option @if ($data->rpn =='dd') selected @endif value="dd">dd</option>
                                         <option @if ($data->rpn =='ff') selected @endif value="ff">ff</option>

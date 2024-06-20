@@ -204,11 +204,16 @@
                         <td class="w-80" colspan="3">
                             @if($data->short_description){{ $data->short_description }}@else Not Applicable @endif</td>
                     </tr>
+                </table>
+            </div>
+            
+            <div class="block">
+                <table>
                     <tr>
                         <th class="w-20">Due Date</th>
-                        <td class="w-80" colspan="3"> @if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
-                        <th class="w-50">Assigned To</th>
-                        <td class="w-20">@if($data->assign_to){{ Helpers::getInitiatorName($data->assign_to) }} @else Not Applicable @endif</td>
+                        <td class="w-80"> @if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
+                        <th class="w-20">Assigned To</th>
+                        <td class="w-80">@if($data->assign_to){{ Helpers::getInitiatorName($data->assign_to) }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">Criticality</th>
@@ -216,6 +221,11 @@
                         <th class="w-20">Priority Level</th>
                         <td class="w-80">@if($data->priority_level){{ $data->priority_level }}@else Not Applicable @endif</td>
                     </tr>
+                </table>
+            </div>
+            
+            <div class="block">
+                <table>
                     <tr>
                         <th class="w-20">Auditee</th>
                         <td class="w-80">@if($data->auditee){{ $data->auditee }}@else Not Applicable @endif</td>
@@ -235,7 +245,7 @@
                             <th class="w-20">Manufacturer</th>
                             <td class="w-80">@if($data->manufacturer){{ $data->manufacturer }}@else Not Applicable @endif</td>
                             <th class="w-20">Type</th>
-                            <td class="w-90">@if($data->type){{ $data->type }}@else Not Applicable @endif</td>
+                            <td class="w-80">@if($data->type){{ $data->type }}@else Not Applicable @endif</td>
                         </tr>
                         <tr>
                             <th class="w-20">Product/Materials</th>

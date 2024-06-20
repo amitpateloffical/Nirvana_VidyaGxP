@@ -125,9 +125,9 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Priority Level">Priority Level</label>
                                     <select name="priority_level" id="priority_level">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="High">High</option>
-                                        <option value="medium">Medium</option>
+                                        <option value="Medium">Medium</option>
                                         <option value="Low">Low</option>
                                     </select>
                                 </div>
