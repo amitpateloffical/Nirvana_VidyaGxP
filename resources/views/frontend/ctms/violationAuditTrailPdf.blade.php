@@ -143,111 +143,11 @@
     .table_bg {
         background: #4274da57;
     }
-
 </style>
-{{--<style>
 
 
-table {
-    width: 100%;
-    table-layout: fixed; /* Ensures table respects defined column widths */
-    border-collapse: collapse;
-}
 
-th, td {
-    border: 1px solid black;
-    font-size: 0.9rem;
-    padding: 10px;
-    text-align: left;
-    word-wrap: break-word; /* Ensures text wraps within cell */
-}
 
-header .head {
-    font-weight: bold;
-    text-align: center;
-    font-size: 1.2rem;
-}
-
-@page {
-    size: A4;
-    margin-top: 160px;
-    margin-bottom: 60px;
-}
-
-header {
-    position: fixed;
-    top: -140px;
-    left: 0;
-    width: 100%;
-    display: block;
-}
-
-footer {
-    position: fixed;
-    bottom: -40px;
-    left: 0;
-    width: 100%;
-}
-
-.inner-block {
-    padding: 10px;
-}
-
-.inner-block .head {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-}
-
-.inner-block .division {
-    margin-bottom: 10px;
-}
-
-.first-table {
-    border-top: 1px solid black;
-    margin-bottom: 20px;
-}
-
-.first-table table td,
-.first-table table th,
-.first-table table {
-    border: 0;
-}
-
-.second-table td:nth-child(1)>div {
-    margin-bottom: 10px;
-}
-
-.second-table td:nth-child(1)>div:nth-last-child(1) {
-    margin-bottom: 0px;
-}
-
-.table_bg {
-    background: #4274da57;
-}
-
-/* Define fixed widths for each column */
-.table-field-history th:nth-child(1),
-.table-field-history td:nth-child(1) {
-    width: 70%; /* Adjust as necessary */
-}
-
-.table-field-history th:nth-child(2),
-.table-field-history td:nth-child(2) {
-    width: 10%; /* Adjust as necessary */
-}
-
-.table-field-history th:nth-child(3),
-.table-field-history td:nth-child(3) {
-    width: 10%; /* Adjust as necessary */
-}
-
-.table-field-history th:nth-child(4),
-.table-field-history td:nth-child(4) {
-    width: 10%; /* Adjust as necessary */
-}
-
-</style>--}}
 <body>
 
     <header>
@@ -266,10 +166,10 @@ footer {
         <table>
             <tr>
                 <td class="w-30">
-                    <strong>Supplier-Contract No.</strong>{{ $doc->id }}
+                    <strong>Violation No.</strong>{{ $doc->id }}
                 </td>
                 <td class="w-40">
-                   {{ Helpers::getDivisionName($doc->division_id) }}/Contract/{{ Helpers::year($doc->created_at)}}/ {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
+                   {{ Helpers::getDivisionName($doc->division_id) }}/Violation/{{ Helpers::year($doc->created_at)}}/ {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
@@ -300,7 +200,7 @@ footer {
                     </td>
                     <td class="w-50">
                         <strong>End Date (GMT) :</strong>
-                        @if ($doc->stage >= 4)
+                        @if ($doc->stage >= 3)
                             {{ Helpers::getDateFormat($doc->updated_at) }}
                         @endif
                     </td>
@@ -319,7 +219,7 @@ footer {
                 </tr>
                 @foreach ($data as $datas)
                     <tr>
-                        <td >
+                        <td>
                             <div>{{ $datas->activity_type }}</div>
                             <div>
                                 @if($datas->activity_type == "Activity Log")
@@ -347,9 +247,9 @@ footer {
                             </div>
                             <div>
                                 @if($datas->activity_type == "Activity Log")
-                                    <div ><strong>Changed To :</strong></div>
+                                    <div><strong>Changed To :</strong></div>
                                     @if(!empty($datas->change_to))
-                                        <div class="w-50">{{ $datas->change_to }}</div>
+                                        <div>{{ $datas->change_to }}</div>
                                     @else
                                         <div>Not Applicable</div>
                                     @endif

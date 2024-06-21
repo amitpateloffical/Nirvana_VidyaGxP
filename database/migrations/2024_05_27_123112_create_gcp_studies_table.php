@@ -32,8 +32,8 @@ return new class extends Migration
             $table->string('study_title_sd')->nullable();
             $table->string('study_type_sd')->nullable();
             $table->string('study_protocol_number_sd')->nullable();
-            $table->string('description_sd')->nullable();
-            $table->string('comments_sd')->nullable();
+            $table->longText('description_sd')->nullable();
+            $table->longText('comments_sd')->nullable();
             $table->string('related_studies_ai')->nullable();
             $table->string('document_link_ai')->nullable();
             $table->string('appendiceis_ai')->nullable();
@@ -68,7 +68,7 @@ return new class extends Migration
             $table->text('initiate_comment')->nullable();
 
             $table->text('initiate_cancel_by')->nullable();
-            $table->text('initiate_cancel_by')->nullable();
+            $table->text('initiate_cancel_on')->nullable();
             $table->text('initiate_cancel_comment')->nullable();
 
             $table->text('study_complete_by')->nullable();

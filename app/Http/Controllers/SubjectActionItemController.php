@@ -26,8 +26,11 @@ class SubjectActionItemController extends Controller
             $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
             $users = User::all();
             $qmsDevisions = QMSDivision::all();
+            $currentDate = Carbon::now();
+            $formattedDate = $currentDate->addDays(30);
+            $due_date = $formattedDate->format('Y-m-d');
 
-            return view('frontend.ctms.subject_action_item',compact('old_record','record_number','users','qmsDevisions'));
+            return view('frontend.ctms.subject_action_item',compact('old_record','record_number','users','qmsDevisions','due_date'));
         }
 
         public function store(Request $request){
@@ -338,16 +341,21 @@ class SubjectActionItemController extends Controller
                     $old_record = SubjectActionItem::select('id', 'division_id', 'record')->get();
                     $record_number = ((RecordNumber::first()->value('counter')) + 1);
                     $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
+
                     $users = User::all();
                     $qmsDevisions = QMSDivision::all();
 
+                    //due date
+                    $currentDate = Carbon::now();
+                    $formattedDate = $currentDate->addDays(30);
+                    $due_date = $formattedDate->format('Y-m-d');
 
                     $g_id = $item_data->id;
                     $grid_DataD = SubjectActionItemGrid::where(['subject_action_item_id' => $g_id, 'identifier' => 'dfc_grid'])->first();
                     $grid_DataM = SubjectActionItemGrid::where(['subject_action_item_id' => $g_id, 'identifier' => 'minor_protocol_voilation'])->first();
                     // dd($grid_DataM);
 
-                 return view('frontend.ctms.subject_action_item_view',compact('item_data','record_number','users','qmsDevisions','grid_DataD','grid_DataM'));
+                 return view('frontend.ctms.subject_action_item_view',compact('item_data','record_number','users','qmsDevisions','due_date','grid_DataD','grid_DataM'));
         }
 
         public function update(Request $request, $id){
@@ -728,6 +736,10 @@ class SubjectActionItemController extends Controller
                         return back();
                }
             }
+                else {
+                    toastr()->error('E-signature Not match');
+                    return back();
+            }
         }
 
         public function Subject_action_item_cancel(Request $request, $id){
@@ -761,6 +773,24 @@ class SubjectActionItemController extends Controller
                         return back();
                     }
             }
+                else {
+                    toastr()->error('E-signature Not match');
+                    return back();
+            }
+        }
+
+        public function Subject_action_item_child(Request $request, $id){
+
+            $item_data = SubjectActionItem::find($id);
+
+            if ($request->child_type == 'violation'){
+
+                return redirect(route('violation.index'));
+            }else{
+
+                return view('frontend.ctms.serious_adverse_event');
+            }
+
         }
 
 
@@ -847,4 +877,6 @@ class SubjectActionItemController extends Controller
                 );
                 return $pdf->stream('SOP' . $id . '.pdf');
             }
+
+
 }

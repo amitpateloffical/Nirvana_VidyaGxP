@@ -55,7 +55,7 @@
                                 <div class="group-input">
                                     <label for="Initiator"> Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/GCP_Study/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Subject_Action_Item/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -69,7 +69,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Initiator</b></label>
-                                    <input disabled type="text" name="initiation_id" value="{{ auth()->user()->name }}">
+                                    <input disabled type="text" disabled name="initiation_id" value="{{ auth()->user()->name }}">
 
                                 </div>
                             </div>
@@ -82,6 +82,14 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-lg-12">
+                                <div class="group-input">
+                                    <label for="cancelled by">Short Description<span class="text-danger">*</span>
+                                    <input type="text" name="short_description_ti" maxlength="255" required>
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Assigned To</b></label>
@@ -97,24 +105,16 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Due Date">Due Date</label>
-
-                                        @if (!empty($cc->due_date))
-                                        <div class="static"></div>
-                                        @endif
-                                    </div>
-                                </div> --}}
-
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date"> Date Due <span class="text-danger"></span></label>
                                     <p class="text-primary">Please mention expected date of completion</p>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}" >
+                                        {{--<input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />--}}
                                     </div>
                                 </div>
                             </div>
@@ -206,13 +206,6 @@
 
                         <div class="row">
 
-                            <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="cancelled by">Short Description<span class="text-danger">*</span>
-                                    <input type="text" name="short_description_ti" maxlength="255" required>
-                                </div>
-                            </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Clinical Efficacy</b></label>
@@ -268,7 +261,7 @@
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                    DCF (0)
+                                    DCF
                                     <button type="button" name="dfc_grid" id="DCFadd">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
@@ -309,7 +302,7 @@
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                    Minor Protocol Voilation (0)
+                                    Minor Protocol Voilation
                                     <button type="button" name="minor_protocol_voilation" id="ObservationAdd">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open

@@ -28,13 +28,13 @@ return new class extends Migration
             $table->string('due_date')->nullable();
             $table->string('supplier_list_gi')->nullable();
             $table->string('distribution_list_gi')->nullable();
-            $table->string('description_gi')->nullable();
+            $table->longText('description_gi')->nullable();
             $table->string('manufacturer_gi')->nullable();
             $table->string('priority_level_gi')->nullable();
             $table->string('zone_gi')->nullable();
-            $table->integer('country_id')->nullable();
-            $table->integer('state_id')->nullable();
-            $table->integer('city_id')->nullable();
+            $table->integer('country')->nullable();
+            $table->integer('state')->nullable();
+            $table->integer('city')->nullable();
             $table->string('type_gi')->nullable();
             $table->string('other_type')->nullable();
             $table->longText('file_attachments_gi')->nullable();
@@ -43,8 +43,8 @@ return new class extends Migration
             $table->string('actual_start_date_cd')->nullable();
             $table->string('actual_end_date_cd')->nullable();
             $table->string('suppplier_list_cd')->nullable();
-            $table->string('negotiation_team_cd')->nullable();
-            $table->string('comments_cd')->nullable();
+            $table->longText('negotiation_team_cd')->nullable();
+            $table->longText('comments_cd')->nullable();
 
             $table->string('status')->nullable();
             $table->integer('stage')->nullable();

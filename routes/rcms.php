@@ -20,6 +20,8 @@ use App\Http\Controllers\rcms\DeviationController;
 use App\Http\Controllers\GcpStudyController;
 use App\Http\Controllers\SupplierContractController;
 use App\Http\Controllers\SubjectActionItemController;
+use App\Http\Controllers\rcms\ViolationController;
+use App\Http\Controllers\rcms\FirstProductValidationController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -213,6 +215,7 @@ Route::group(['prefix' => 'rcms'], function () {
         Route::post('/supplier_send_stage/{id}', [SupplierContractController::class, 'Supplier_contract_send_stage'])->name('Supplier_contract.send_stage');
         Route::post('/supplier_contract_cancel/{id}', [SupplierContractController::class, 'Supplier_contract_cancel'])->name('Supplier_contract.cancel');
         Route::post('/supplier_contract_reject/{id}', [SupplierContractController::class, 'Reject_stage'])->name('Supplier_contract.reject');
+        Route::post('/supplier_contract_child/{id}', [SupplierContractController::class, 'Supplier_contract_child'])->name('Supplier_contract.child');
 
         //singlereport
         Route::get('supplier_contract/SingleReport/{id}', [SupplierContractController::class, 'Supplier_Contract_SingleReport'])->name('Supplier_Contract.SingleReport');
@@ -237,7 +240,7 @@ Route::group(['prefix' => 'rcms'], function () {
         ////workflow
         Route::post('/subject_action_item_stage_send/{id}', [SubjectActionItemController::class, 'Subject_action_item_send_stage'])->name('subject_action_item.send_stage');
         Route::post('/subject_action_item_cancel/{id}', [SubjectActionItemController::class, 'Subject_action_item_cancel'])->name('subject_action_item.cancel');
-        //Route::post('/supplier_contract_reject/{id}', [SubjectActionItemController::class, 'Reject_stage'])->name('Supplier_contract.reject');
+        Route::post('/subject_action_item_child/{id}', [SubjectActionItemController::class, 'Subject_action_item_child'])->name('subjec_action_item.child');
 
         //singlereport
         Route::get('subject_action_item/SingleReport/{id}', [SubjectActionItemController::class, 'Suject_Action_ItemSingleReport'])->name('subject_action_item.SingleReport');
@@ -249,6 +252,78 @@ Route::group(['prefix' => 'rcms'], function () {
 
 
        //-------------------------------- Subject Action Item Route End ---------------------------------------
+
+      //-------------------------------- Violation Route Strat ---------------------------------------
+
+        //form
+        Route::get('/violation', [ViolationController::class,'index'])->name('violation.index');
+        Route::post('/violation_store', [ViolationController::class,'store'])->name('violation.store');
+        Route::get('/violation_edit/{id}', [ViolationController::class, 'edit'])->name('violation.edit')->middleware('auth');;
+        Route::post('/violation_update/{id}', [ViolationController::class, 'update'])->name('violation.update')->middleware('auth');
+
+
+        ////workflow
+        Route::post('/violation_stage_send/{id}', [ViolationController::class, 'Violation_send_stage'])->name('violation.send_stage');
+        Route::post('/violation_cancel/{id}', [ViolationController::class, 'Violation_cancel'])->name('violation.cancel');
+        //Route::post('/supplier_contract_reject/{id}', [ViolationController::class, 'Reject_stage'])->name('Supplier_contract.reject');
+
+        //singlereport
+        Route::get('Violation/SingleReport/{id}', [ViolationController::class, 'ViolationSingleReport'])->name('violation.SingleReport');
+
+        ////audittrail
+        Route::get('Violation/AuditTrail/{id}', [ViolationController::class, 'ViolationAuditTrial'])->name('violation.audit_trail');
+        Route::get('Violation/AuditTrailPdf/{id}', [ViolationController::class, 'ViolationAuditTrailPdf'])->name('violation.auditTrailPdf');
+
+
+
+       //-------------------------------- Violation Route End ---------------------------------------
+
+
+//-------------------------------- Violation Route Strat ---------------------------------------
+
+        //form
+        Route::get('/first_product_validation', [FirstProductValidationController::class,'index'])->name('first_product_validation.index');
+        Route::post('/first_product_validation_store', [FirstProductValidationController::class,'store'])->name('first_product_validation.store');
+        Route::get('/first_product_validation_edit/{id}', [FirstProductValidationController::class, 'edit'])->name('first_product_validation.edit')->middleware('auth');;
+        Route::post('/first_product_validation_update/{id}', [FirstProductValidationController::class, 'update'])->name('first_product_validation.update')->middleware('auth');
+
+
+        //////workflow
+        Route::post('/first_product_validation_stage_send/{id}', [FirstProductValidationController::class, 'FirstProductValidation_Send_Stage'])->name('first_product_validation.send_stage');
+        Route::post('/first_product_validation_cancel/{id}', [FirstProductValidationController::class, 'First_product_validation_cancel'])->name('first_product_validation.cancel');
+        Route::post('/first_product_validation_analysis/{id}', [FirstProductValidationController::class, 'First_product_validation_analysis'])->name('first_product_validation.analysis');
+        Route::post('/first_product_validation_reject/{id}', [FirstProductValidationController::class, 'First_product_validation_reject'])->name('first_product_validation.reject');
+
+        //singlereport
+        //Route::get('Violation/SingleReport/{id}', [FirstProductValidationController::class, 'ViolationSingleReport'])->name('violation.SingleReport');
+
+        ////audittrail
+        //Route::get('Violation/AuditTrail/{id}', [FirstProductValidationController::class, 'ViolationAuditTrial'])->name('violation.audit_trail');
+        //Route::get('Violation/AuditTrailPdf/{id}', [FirstProductValidationController::class, 'ViolationAuditTrailPdf'])->name('violation.auditTrailPdf');
+
+
+
+       //-------------------------------- Violation Route End ---------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
     );
 });

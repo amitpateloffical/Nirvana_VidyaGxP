@@ -161,7 +161,7 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                    Subject Action Item Single Report
+                    Violation Single Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -173,14 +173,14 @@
         <table>
             <tr>
                 <td class="w-30">
-                    <strong>Subject Action Item No.</strong>{{ $item_data->id }}
+                    <strong>Violation No.</strong>{{ $violation_data->id }}
                 </td>
                 <td class="w-40">
-                       {{ Helpers::getDivisionName($item_data->division_id) }}/Subject_Action_Item/{{ Helpers::year($item_data->created_at) }}/{{ $item_data->record }}
-                    {{--{{ Helpers::divisionNameForQMS($item_data->division_id) }}/{{ Helpers::year($item_data->created_at) }}/{{ $item_data->record_number ? str_pad($item_data->record_number->record_number, 4, '0', STR_PAD_LEFT) : '' }}--}}
+                       {{ Helpers::getDivisionName($violation_data->division_id) }}/Violation/{{ Helpers::year($violation_data->created_at) }}/{{ $violation_data->record }}
+                    {{--{{ Helpers::divisionNameForQMS($violation_data->division_id) }}/{{ Helpers::year($violation_data->created_at) }}/{{ $violation_data->record_number ? str_pad($violation_data->record_number->record_number, 4, '0', STR_PAD_LEFT) : '' }}--}}
                 </td>
                 <td class="w-30">
-                    <strong>Record No.</strong> {{ str_pad($item_data->record, 4, '0', STR_PAD_LEFT) }}
+                    <strong>Record No.</strong> {{ str_pad($violation_data->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
             </tr>
         </table>
@@ -191,15 +191,15 @@
         <div class="content-table">
             <div class="block">
                 <div class="block-head">
-                    General Information
+                    Monitor Visit
                 </div>
                 <table>
 
                     <tr>
                         <th class="w-20">Record Number</th>
                         <td class="w-30">
-                            @if ($item_data->record)
-                                {{ str_pad($item_data->record, 4, '0', STR_PAD_LEFT) }}
+                            @if ($violation_data->record)
+                                {{ str_pad($violation_data->record, 4, '0', STR_PAD_LEFT) }}
                             @else
                                 Not Applicable
                             @endif
@@ -214,208 +214,297 @@
                             @endif
                         </td>
                     </tr>
-                    <tr> {{ $item_data->created_at }} added by {{ $item_data->originator }}
+                    <tr> {{ $violation_data->created_at }} added by {{ $violation_data->originator }}
                         <th class="w-20">Initiator</th>
-                        <td class="w-30">{{ $item_data->originator }}</td>
+                        <td class="w-30">{{ $violation_data->originator }}</td>
 
                         <th class="w-20">Date of Initiation</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($item_data->created_at) }}</td>
+                        <td class="w-30">{{ Helpers::getdateFormat($violation_data->created_at) }}</td>
                     </tr>
                     <tr>
 
                         <th class="w-20">Assign To</th>
-                        <td class="w-80">{{ $item_data->a_originator }}</td>
+                        <td class="w-80">{{ $violation_data->a_originator }}</td>
 
                         <th class="w-20">Date Due</th>
-                        <td class="w-80">{{ $item_data->due_date }}</td>
+                        <td class="w-80">{{ $violation_data->due_date }}</td>
                     </tr>
-
-                    </tr>
-                </table>
-            </div>
-            <div class="block">
-                <div class="block-head">
-                    Study Details
-                </div>
-                <table>
-
-                    <tr>
-                        <th class="w-20">Trade Name</th>
-                        <td class="w-30">
-                            @if ($item_data->trade_name_sd)
-                                {{ $item_data->trade_name_sd }}
-
-                            @endif
-                        </td>
-
-                        <th class="w-20">Assigned To</th>
-                        <td class="w-30">
-                            @if ($item_data->assign_to_sd)
-                                {{ $item_data->assign_to_sd }}
-
-                            @endif
-                        </td>
-                    </tr>
-
-                    </tr>
-                </table>
-            </div>
-            <div class="block">
-                <div class="block-head">
-                    Subject Details
-                </div>
-                <table>
-
-                    <tr>
-                        <th class="w-20">Subject Name</th>
-                        <td class="w-30">
-                            @if ($item_data->subject_name_sd)
-                                {{ $item_data->subject_name_sd }}
-
-                            @endif
-                        </td>
-
-                        <th class="w-20">Gender</th>
-                        <td class="w-30">
-                            @if ($item_data->gender_sd)
-                                {{ $item_data->gender_sd }}
-
-                            @endif
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th class="w-20">Date Of Birth</th>
-                        <td class="w-30">
-                            @if ($item_data->date_of_birth_sd)
-                                {{ $item_data->date_of_birth_sd }}
-
-                            @endif
-                        </td>
-
-                        <th class="w-20">Race</th>
-                        <td class="w-30">
-                            @if ($item_data->race_sd)
-                                {{ $item_data->race_sd }}
-
-                            @endif
-                        </td>
-
-                    </tr>
-
-                </table>
-            </div>
-            <div class="block">
-                <div class="block-head">
-                    Treatment Information
-                </div>
-                <table>
 
                     <tr>
                         <th class="w-20">Short Description</th>
                         <td class="w-30">
-                            @if ($item_data->short_description_ti)
-                                {{ $item_data->short_description_ti }}
+                            @if ($violation_data->short_description)
+                                {{ $violation_data->short_description }}
 
                             @endif
                         </td>
 
-                        <th class="w-20">Clinical Efficacy</th>
+                        <th class="w-20">Type</th>
                         <td class="w-30">
-                            @if ($item_data->clinical_efficacy_ti)
-                                {{ $item_data->clinical_efficacy_ti }}
+                            @if ($violation_data->type)
+                                {{ $violation_data->type }}
 
                             @endif
                         </td>
                     </tr>
 
                     <tr>
-                        <th class="w-20">Carry Over Effect</th>
+                        <th class="w-20">Other Type</th>
                         <td class="w-30">
-                            @if ($item_data->carry_over_effect_ti)
-                                {{ $item_data->carry_over_effect_ti }}
+                            @if ($violation_data->trade_name_sd)
+                                {{ $violation_data->trade_name_sd }}
 
                             @endif
                         </td>
 
-                        <th class="w-20">Last Monitered</th>
+                        <th class="w-20">Related URL</th>
                         <td class="w-30">
-                            @if ($item_data->last_monitered_ti)
-                                {{ $item_data->last_monitered_ti }}
-
-                            @endif
-                        </td>
-
-                    </tr>
-
-                    <tr>
-                        <th class="w-20">Total Doses Recieved</th>
-                        <td class="w-30">
-                            @if ($item_data->total_doses_recieved_ti)
-                                {{ $item_data->total_doses_recieved_ti }}
-
-                            @endif
-                        </td>
-
-                        <th class="w-20">Treatment Effect</th>
-                        <td class="w-30">
-                            @if ($item_data->treatment_effect_ti)
-                                {{ $item_data->treatment_effect_ti }}
+                            @if ($violation_data->related_url)
+                                {{ $violation_data->related_url }}
 
                             @endif
                         </td>
                     </tr>
 
                     <tr>
-                        <th class="w-20">Comments</th>
+                        <th class="w-20">Description</th>
                         <td class="w-30">
-                            @if ($item_data->comments_ti)
-                                {{ $item_data->comments_ti }}
+                            @if ($violation_data->description)
+                                {{ $violation_data->description }}
 
                             @endif
                         </td>
-
-                        <th class="w-20">Summary</th>
-                        <td class="w-30">
-                            @if ($item_data->summary_ti)
-                                {{ $item_data->summary_ti }}
-
-                            @endif
-                        </td>
-                      </tr>
+                    </tr>
                 </table>
             </div>
+            <div class="block">
+                <div class="block-head">
+                    Location
+                </div>
+                <table>
+
+                    <tr>
+                        <th class="w-20">Zone</th>
+                        <td class="w-30">
+                            @if ($violation_data->zone)
+                                {{ $violation_data->zone }}
+
+                            @endif
+                        </td>
+
+                        <th class="w-20">Country</th>
+                        <td class="w-30">
+                            @if ($violation_data->country_id)
+                                {{ $violation_data->country_id }}
+
+                            @endif
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">State/District</th>
+                        <td class="w-30">
+                            @if ($violation_data->state_id)
+                                {{ $violation_data->state_id }}
+
+                            @endif
+                        </td>
+
+                        <th class="w-20">City</th>
+                        <td class="w-30">
+                            @if ($violation_data->city_id)
+                                {{ $violation_data->city_id }}
+
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w-20">Site Name</th>
+                        <td class="w-30">
+                            @if ($violation_data->site_name_id)
+                                {{ $violation_data->site_name_id }}
+
+                            @endif
+                        </td>
+
+                        <th class="w-20">Building</th>
+                        <td class="w-30">
+                            @if ($violation_data->building_id)
+                                {{ $violation_data->building_id }}
+
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="w-20">Floor</th>
+                        <td class="w-30">
+                            @if ($violation_data->flore_id)
+                                {{ $violation_data->flore_id }}
+
+                            @endif
+                        </td>
+
+                        <th class="w-20">Room</th>
+                        <td class="w-30">
+                            @if ($violation_data->room_id)
+                                {{ $violation_data->room_id }}
+
+                            @endif
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="block">
+                <div class="block-head">
+                    Violation Information
+                </div>
+                <table>
+
+                    <tr>
+                        <th class="w-20">Date Occured</th>
+                        <td class="w-30">
+                            @if ($violation_data->date_occured)
+                                {{ $violation_data->date_occured }}
+
+                            @endif
+                        </td>
+
+                        <th class="w-20">Notification Date</th>
+                        <td class="w-30">
+                            @if ($violation_data->notification_date)
+                                {{ $violation_data->notification_date }}
+
+                            @endif
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Severity Rate</th>
+                        <td class="w-30">
+                            @if ($violation_data->severity_rate)
+                                {{ $violation_data->severity_rate }}
+
+                            @endif
+                        </td>
+
+                        <th class="w-20">Occurance</th>
+                        <td class="w-30">
+                            @if ($violation_data->occurance)
+                                {{ $violation_data->occurance }}
+
+                            @endif
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Detection</th>
+                        <td class="w-30">
+                            @if ($violation_data->detection)
+                                {{ $violation_data->detection }}
+
+                            @endif
+                        </td>
+
+                        <th class="w-20">RPN</th>
+                        <td class="w-30">
+                            @if ($violation_data->rpn)
+                                {{ $violation_data->rpn }}
+
+                            @endif
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Manufacturer</th>
+                        <td class="w-30">
+                            @if ($violation_data->manufacturer)
+                                {{ $violation_data->manufacturer }}
+
+                            @endif
+                        </td>
+
+                        <th class="w-20">Date Sent</th>
+                        <td class="w-30">
+                            @if ($violation_data->date_sent)
+                                {{ $violation_data->date_sent }}
+
+                            @endif
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Date Returned</th>
+                        <td class="w-30">
+                            @if ($violation_data->date_returned)
+                                {{ $violation_data->date_returned }}
+
+                            @endif
+                        </td>
+
+                        <th class="w-20">Follow Up</th>
+                        <td class="w-30">
+                            @if ($violation_data->follow_up)
+                                {{ $violation_data->follow_up }}
+
+                            @endif
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th class="w-20">Summary</th>
+                        <td class="w-30">
+                            @if ($violation_data->summary)
+                                {{ $violation_data->summary }}
+
+                            @endif
+                        </td>
+
+                        <th class="w-20">Comments</th>
+                        <td class="w-30">
+                            @if ($violation_data->Comments)
+                                {{ $violation_data->Comments }}
+
+                            @endif
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+
 
             <div class="block">
                 {{-- <div class="block"> --}}
                 {{-- <div class="block-head"> --}}
-                <div style="font-weight: 200">DCF</div>
+                <div style="font-weight: 200">Product/Material</div>
                 {{-- </div> --}}
                 <div class="border-table">
                     <table>
                         <tr class="table_bg">
                             <th class="w-20">Sr. no.</th>
-                            <th class="w-20">Number</th>
-                            <th class="w-20"> Date</th>
-                            <th class="w-20">Sent Date</th>
-                            <th class="w-20">Returned Date</th>
-                            <th class="w-20">Data Collection Method </th>
+                            <th class="w-20">Product Name</th>
+                            <th class="w-20">Batch Number</th>
+                            <th class="w-20">Expiry Date</th>
+                            <th class="w-20">Manufactured Date</th>
+                            <th class="w-20">Disposition</th>
                             <th class="w-20">Comment</th>
                             <th class="w-20">Remarks</th>
                         </tr>
+
                             @php
-                            $data = isset($grid_DataD) && $grid_DataD->data ? json_decode($grid_DataD->data, true) : null;
+                              $data = isset($grid_Data) && $grid_Data->data ? json_decode($grid_Data->data, true) : null;
                             @endphp
 
                             @if ($data && is_array($data))
-                              @foreach ($data as $index => $item)
+                                @foreach ($data as $index => $item)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
-                                    <td>{{ isset($item['Number']) ? $item['Number'] : '' }}</td>
-                                    <td>{{ isset($item['Date']) ? $item['Date'] : '' }}</td>
-                                    <td>{{ isset($item['SentDate']) ? $item['SentDate'] : '' }}</td>
-                                    <td>{{ isset($item['ReturnedDate']) ? $item['ReturnedDate'] : '' }}</td>
-                                    <td>{{ isset($item['DataCollectionMethod']) ? $item['DataCollectionMethod'] : '' }}</td>
+                                    <td>{{ isset($item['ProductName']) ? $item['ProductName'] : '' }}</td>
+                                    <td>{{ isset($item['BatchNumber']) ? $item['BatchNumber'] : '' }}</td>
+                                    <td>{{ isset($item['ExpiryDate']) ? $item['ExpiryDate'] : '' }}</td>
+                                    <td>{{ isset($item['ManufacturedDate']) ? $item['ManufacturedDate'] : '' }}</td>
+                                    <td>{{ isset($item['Disposition']) ? $item['Disposition'] : '' }}</td>
                                     <td>{{ isset($item['Comment']) ? $item['Comment'] : '' }}</td>
                                     <td>{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}</td>
                                 </tr>
@@ -435,50 +524,6 @@
             </div>
         <div>
 
-            <div class="block">
-                {{-- <div class="block"> --}}
-                {{-- <div class="block-head"> --}}
-                    <div style="font-weight: 200">Minor Protocol Voilation</div>
-                    {{-- </div> --}}
-                    <div class="border-table">
-                        <table>
-                            <tr class="table_bg">
-                                <th class="w-20">SR no.</th>
-                                <th class="w-20">Item Description</th>
-                                <th class="w-20"> Date</th>
-                                <th class="w-20">Sent Date</th>
-                                <th class="w-20">Returned Date</th>
-                                <th class="w-20">Comment</th>
-                            </tr>
-                            @php
-                                $data = isset($grid_DataM) && $grid_DataM->data ? json_decode($grid_DataM->data, true) : null;
-                            @endphp
-
-                             @if ($data && is_array($data))
-                                @foreach ($data as $index => $item)
-                                    <tr>
-                                        <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ isset($item['ItemDescription']) ? $item['ItemDescription'] : '' }}</td>
-                                        <td>{{ isset($item['Date']) ? $item['Date'] : '' }}</td>
-                                        <td>{{ isset($item['SentDate']) ? $item['SentDate'] : '' }}</td>
-                                        <td>{{ isset($item['ReturnedDate']) ? $item['ReturnedDate'] : '' }}</td>
-                                        <td>{{ isset($item['Comment']) ? $item['Comment'] : '' }}</td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td>Not Applicable</td>
-                                    <td>Not Applicable</td>
-                                    <td>Not Applicable</td>
-                                    <td>Not Applicable</td>
-                                    <td>Not Applicable</td>
-                                </tr>
-                            @endif
-                        </table>
-                    </div>
-                    {{-- </div> --}}
-                </div>
-            <div>
 
     <footer>
         <table>
@@ -490,7 +535,7 @@
                     <strong>Printed By :</strong> {{ Auth::user()->name }}
                 </td>
                 {{--<td class="w-30">
-                    <strong>Page :</strong> 1 of 1
+                    <strong>Page :</strong> 1 of 2
                 </td>--}}
             </tr>
         </table>

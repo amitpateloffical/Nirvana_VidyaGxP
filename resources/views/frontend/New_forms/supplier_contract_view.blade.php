@@ -153,7 +153,7 @@ border-radius:10px;
                             Audit Failed
                         </button>
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
-                            Supplier Audit
+                            Child
                          </button>
                         @elseif($contract_data->stage == 4 && (in_array(3, $userRoleIds) || in_array(3, $userRoleIds)))
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -432,7 +432,42 @@ border-radius:10px;
     </div>
 </div>
 
-{{--Submit Reject Due To Quality Issues button Model Open--}}
+{{--------Reject Due To Quality Issues button Model Open--------}}
+
+{{-----------Child Button Model Open-----------}}
+
+<div class="modal fade" id="child-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('Supplier_contract.child', $contract_data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        <label style="display: flex;" for="major">
+                            <input type="radio" name="child_type" id="child_type">
+                             Supplier Audit
+                        </label>
+
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                    <button type="submit">Continue</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-----------Child Button Model Open-----------}}
 
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
@@ -466,7 +501,7 @@ border-radius:10px;
                                 <div class="group-input">
                                     <label for="Initiator"> Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/GCP_Study/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier_Contract/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -481,7 +516,7 @@ border-radius:10px;
                                 <div class="group-input">
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
-                                    <input type="text" name="initiator_id" value="{{ auth()->user()->name }}">
+                                    <input type="text" disabled name="initiator_id" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -498,7 +533,26 @@ border-radius:10px;
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span>
                                         <p>255 Characters remaining</p>
-                                        <input id="docname" type="text" name="short_description_gi" maxlength="255" required value="{{ $contract_data->short_description_gi }}">
+                                        <input id="docname" type="text" name="short_description_gi" maxlength="255" required value="{{ $contract_data->short_description_gi }}" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="group-input">
+                                    <label  for="search">
+                                        Assigned To <span class="text-danger"></span>
+                                    </label>
+
+                                    <select id="select-state" placeholder="Select..." name="assign_to_gi" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
+                                        <option value="">Select a value</option>
+                                            @if(!empty($users))
+                                                @foreach ($users as $user)
+                                                <option value="{{ $user->id }}" {{ $user->id == $contract_data->assign_to_gi ? 'selected' : '' }}>{{ $user->name }}</option>
+                                                @endforeach
+                                            @endif
+
+                                        </select>
+
                                 </div>
                             </div>
 
@@ -537,29 +591,12 @@ border-radius:10px;
                                 document.getElementById('due_date').value = dueDateFormatted;
                             </script>
 
-                            <div class="col-md-6">
-                                <div class="group-input">
-                                    <label  for="search">
-                                        Assigned To <span class="text-danger"></span>
-                                    </label>
 
-                                    <select id="select-state" placeholder="Select..." name="assign_to_gi">
-                                        <option value="">Select a value</option>
-                                            @if(!empty($users))
-                                                @foreach ($users as $user)
-                                                <option value="{{ $user->id }}" {{ $user->id == $contract_data->assign_to_gi ? 'selected' : '' }}>{{ $user->name }}</option>
-                                                @endforeach
-                                            @endif
-
-                                        </select>
-
-                                </div>
-                            </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Supplier List</label>
-                                    <select name="supplier_list_gi">
+                                    <select name="supplier_list_gi" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="supplier-performance-metrics" @if($contract_data->supplier_list_gi == 'supplier-performance-metrics') selected @endif>Supplier Performance Metrics</option>
                                         <option value="contractual-terms-and-conditions" @if($contract_data->supplier_list_gi == 'contractual-terms-and-conditions') selected @endif>Contractual Terms and Conditions</option>
@@ -572,7 +609,14 @@ border-radius:10px;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Distribution List<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="distribution_list_gi">{{ $contract_data->distribution_list_gi }}</textarea>
+                                    {{--<textarea placeholder="" name="distribution_list_gi" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>{{ $contract_data->distribution_list_gi }}</textarea>--}}
+                                    <select name="distribution_list_gi" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="internal-stakeholders" @if($contract_data->supplier_list_gi == 'internal-stakeholders') selected @endif>Internal Stakeholders</option>
+                                        <option value="external-stakeholders" @if($contract_data->supplier_list_gi == 'external-stakeholders') selected @endif>External Stakeholders</option>
+                                        <option value="project-specific-stakeholders" @if($contract_data->supplier_list_gi == 'project-specific-stakeholders') selected @endif>Project-Specific Stakeholders</option>
+                                        <option value="miscellaneous" @if($contract_data->supplier_list_gi == 'miscellaneous') selected @endif>Miscellaneous</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -583,7 +627,7 @@ border-radius:10px;
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Description<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description_gi">{{ $contract_data->description_gi }}</textarea>
+                                    <textarea placeholder="" name="description_gi" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>{{ $contract_data->description_gi }}</textarea>
                                 </div>
                             </div>
 
@@ -592,14 +636,14 @@ border-radius:10px;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Manufacturer</b></label>
-                                    <input type="text" name="manufacturer_gi" value="{{ $contract_data->manufacturer_gi }}">
+                                    <input type="text" name="manufacturer_gi" value="{{ $contract_data->manufacturer_gi }}" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Priority level</label>
-                                    <select name="priority_level_gi">
+                                    <select name="priority_level_gi" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="high-priority" @if($contract_data->priority_level_gi == 'high-priority') selected @endif>High Priority</option>
                                         <option value="medium-priority" @if($contract_data->priority_level_gi == 'medium-priority') selected @endif>Medium Priority</option>
@@ -611,12 +655,15 @@ border-radius:10px;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label  for="Responsible Department">Zone </label>
-                                    <select name="zone_gi">
+                                    <select name="zone_gi" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="geographic-zones" @if($contract_data->zone_gi == 'geographic-zones') selected @endif>Geographic Zones</option>
-                                        <option value="operational-zones" @if($contract_data->zone_gi == 'operational-zones') selected @endif>Operational Zones</option>
-                                        <option value="distribution-zones" @if($contract_data->zone_gi == 'distribution-zones') selected @endif>Distribution Zones</option>
-                                        <option value="custom-zones" @if($contract_data->zone_gi == 'custom-zones') selected @endif>Custom Zones</option>
+                                        <option value="asia" @if ($contract_data->zone_gi == "asia") selected @endif>Asia</option>
+                                        <option value="europe" @if ($contract_data->zone_gi == "europe") selected @endif>Europe</option>
+                                        <option value="africa" @if ($contract_data->zone_gi == "africa") selected @endif>Africa</option>
+                                        <option value="central-america" @if ($contract_data->zone_gi == "central-america") selected @endif>Central America</option>
+                                        <option value="south-america" @if ($contract_data->zone_gi == "south-america") selected @endif>South America</option>
+                                        <option value="oceania" @if ($contract_data->zone_gi == "oceania") selected @endif>Oceania</option>
+                                        <option value="north-america" @if ($contract_data->zone_gi == "north-america") selected @endif>North America</option>
                                     </select>
                                 </div>
                             </div>
@@ -624,9 +671,8 @@ border-radius:10px;
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Country</b></label>
                                     <p class="text-primary">Auto filter according to selected zone</p>
-                                    <select name="country_id">
-                                        <option value="">Enter Your Selection Here</option>
-
+                                    <select name="country" class="form-select country" aria-label="Default select example" onchange="loadStates()" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
+                                        <option value="{{ $contract_data->country }}" selected>{{ $contract_data->country }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -635,10 +681,8 @@ border-radius:10px;
                                 <div class="group-input">
                                     <label  for="Responsible Department">State/District</label>
                                     <p class="text-primary">Auto selected according to country</p>
-                                    <select name="state_id">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
+                                    <select name="state" class="form-select state" aria-label="Default select example" onchange="loadCities()" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
+                                      <option value="{{ $contract_data->state }}" selected>{{ $contract_data->state }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -647,18 +691,16 @@ border-radius:10px;
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>City</b></label>
                                     <p class="text-primary">Auto filter according to selected state</p>
-                                    <select name="city_id">
-                                        <option value="">Enter Your Selection Here</option>
-
+                                    <select name="city" class="form-select city" aria-label="Default select example" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
+                                        <option value="{{ $contract_data->city }}" selected>{{ $contract_data->city }}</option>
                                     </select>
-
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label  for="Responsible Department">Type </label>
-                                    <select name="type_gi">
+                                    <select name="type_gi" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="supplier-type" @if($contract_data->type_gi == 'supplier-type') selected @endif>Supplier Type</option>
                                         <option value="payment-type" @if($contract_data->type_gi == 'payment-type') selected @endif>Payment Type</option>
@@ -672,7 +714,7 @@ border-radius:10px;
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Other type</b></label>
                                     <p class="text-primary">If you choose "other" -please specify</p>
-                                    <input type="text" name="other_type" value="{{ $contract_data->other_type }}">
+                                    <input type="text" name="other_type" value="{{ $contract_data->other_type }}" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
 
                                 </div>
                             </div>
@@ -694,7 +736,7 @@ border-radius:10px;
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attachments_gi[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="file_attachments_gi[]" oninput="addMultipleFiles(this, 'file_attach')" multiple {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
                                         </div>
                                     </div>
                                     {{-- <input type="file" name="file_attach[]" multiple> --}}
@@ -722,7 +764,7 @@ border-radius:10px;
                                     <label for="actual_start_date_cd">Actual start Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="actual_start_date_cd" value="{{ $contract_data->actual_start_date_cd }}" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="actual_start_date_cd" name="actual_start_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_start_date_cd');" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $contract_data->actual_start_date_cd }}" id="actual_start_date_cd" name="actual_start_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_start_date_cd');" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }} />
                                     </div>
                                 </div>
                             </div>
@@ -731,14 +773,14 @@ border-radius:10px;
                                     <label for="actual_end_date_cd">Actual end Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="actual_end_date_cd" value="{{ $contract_data->actual_end_date_cd }}" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="actual_end_date_cd" name="actual_end_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_end_date_cd');" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $contract_data->actual_end_date_cd }}" id="actual_end_date_cd" name="actual_end_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_end_date_cd');" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }} />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Suppplier List</label>
-                                    <select name="suppplier_list_cd">
+                                    <select name="suppplier_list_cd" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="risk-and-compliance" @if($contract_data->suppplier_list_cd == 'risk-and-compliance') selected @endif>Risk and Compliance</option>
                                         <option value="contractual-details" @if($contract_data->suppplier_list_cd == 'contractual-details') selected @endif>Contractual Details</option>
@@ -750,7 +792,7 @@ border-radius:10px;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Negotiation Team<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="negotiation_team_cd">{{ $contract_data->negotiation_team_cd }}</textarea>
+                                    <textarea placeholder="" name="negotiation_team_cd" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>{{ $contract_data->negotiation_team_cd }}</textarea>
                                 </div>
                             </div>
 
@@ -761,7 +803,7 @@ border-radius:10px;
 
                         <div class="group-input">
                             <label for="audit-agenda-grid">
-                                Financial Transaction (0)
+                                Financial Transaction
                                 <button type="button" name="financial_transaction" id="ReferenceDocument">+</button>
                                 <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                     (open)
@@ -811,7 +853,7 @@ border-radius:10px;
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Comments <span class="text-danger"></span></label>
-                                    <textarea name="comments_cd">{{ $contract_data->comments_cd }}</textarea>
+                                    <textarea name="comments_cd" {{ $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>{{ $contract_data->comments_cd }}</textarea>
                                 </div>
                             </div>
 
@@ -1777,4 +1819,97 @@ border-radius:10px;
         $(this).closest('tr').remove();
     })
 </script>
+
+{{--Country Statecity API--}}
+<script>
+    var config = {
+        cUrl: 'https://api.countrystatecity.in/v1',
+        ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+    };
+
+    var countrySelect = document.querySelector('.country'),
+        stateSelect = document.querySelector('.state'),
+        citySelect = document.querySelector('.city');
+
+    function loadCountries() {
+        let apiEndPoint = `${config.cUrl}/countries`;
+
+        $.ajax({
+            url: apiEndPoint,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country.iso2;
+                    option.textContent = country.name;
+                    countrySelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading countries:', error);
+            }
+        });
+    }
+
+    function loadStates() {
+        stateSelect.disabled = false;
+        stateSelect.innerHTML = '<option value="">Select State</option>';
+
+        const selectedCountryCode = countrySelect.value;
+
+        $.ajax({
+            url: `${config.cUrl}/countries/${selectedCountryCode}/states`,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.iso2;
+                    option.textContent = state.name;
+                    stateSelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading states:', error);
+            }
+        });
+    }
+
+    function loadCities() {
+        citySelect.disabled = false;
+        citySelect.innerHTML = '<option value="">Select City</option>';
+
+        const selectedCountryCode = countrySelect.value;
+        const selectedStateCode = stateSelect.value;
+
+        $.ajax({
+            url: `${config.cUrl}/countries/${selectedCountryCode}/states/${selectedStateCode}/cities`,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.id;
+                    option.textContent = city.name;
+                    citySelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading cities:', error);
+            }
+        });
+    }
+    $(document).ready(function() {
+        loadCountries();
+    });
+
+
+</script>
+{{--Country Statecity API End--}}
+
+
 @endsection

@@ -52,9 +52,9 @@ class SupplierContractController extends Controller
                 $contract->manufacturer_gi = $request->manufacturer_gi;
                 $contract->priority_level_gi = $request->priority_level_gi;
                 $contract->zone_gi = $request->zone_gi;
-                $contract->country_id = $request->country_id;
-                $contract->state_id = $request->state_id;
-                $contract->city_id = $request->city_id;
+                $contract->country = $request->country;
+                $contract->state = $request->state;
+                $contract->city = $request->city;
                 $contract->type_gi = $request->type_gi;
                 $contract->other_type = $request->other_type;
                 $contract->stage = '1';
@@ -240,11 +240,11 @@ class SupplierContractController extends Controller
                 $history->save();
             }
 
-            if(!empty($request->country_id)){
+            if(!empty($request->country)){
                 $history = new SupplierContractAuditTrail();
                 $history->supplier_contract_id = $contract->id;
                 $history->previous = "Null";
-                $history->current = $request->country_id;
+                $history->current = $request->country;
                 $history->activity_type = 'Country';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -256,11 +256,11 @@ class SupplierContractController extends Controller
                 $history->save();
             }
 
-            if(!empty($request->state_id)){
+            if(!empty($request->state)){
                 $history = new SupplierContractAuditTrail();
                 $history->supplier_contract_id = $contract->id;
                 $history->previous = "Null";
-                $history->current = $request->state_id;
+                $history->current = $request->state;
                 $history->activity_type = 'State/District';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -272,11 +272,11 @@ class SupplierContractController extends Controller
                 $history->save();
             }
 
-            if(!empty($request->city_id)){
+            if(!empty($request->city)){
                 $history = new SupplierContractAuditTrail();
                 $history->supplier_contract_id = $contract->id;
                 $history->previous = "Null";
-                $history->current = $request->city_id;
+                $history->current = $request->city;
                 $history->activity_type = 'City';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -310,6 +310,22 @@ class SupplierContractController extends Controller
                 $history->previous = "Null";
                 $history->current = $request->other_type;
                 $history->activity_type = 'Other type';
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->change_to =   "Opened";
+                $history->change_from = "Initiator";
+                $history->action_name = 'Create';
+                $history->comment = "Not Applicable";
+                $history->save();
+            }
+
+            if(!empty($contract->file_attachments_gi)){
+                $history = new SupplierContractAuditTrail();
+                $history->supplier_contract_id = $contract->id;
+                $history->previous = "Null";
+                $history->current = json_encode($contract->file_attachments_gi);
+                $history->activity_type = 'File Attachments';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -446,9 +462,9 @@ class SupplierContractController extends Controller
                       $contract->manufacturer_gi = $request->manufacturer_gi;
                       $contract->priority_level_gi = $request->priority_level_gi;
                       $contract->zone_gi = $request->zone_gi;
-                      $contract->country_id = $request->country_id;
-                      $contract->state_id = $request->state_id;
-                      $contract->city_id = $request->city_id;
+                      $contract->country = $request->country;
+                      $contract->state = $request->state;
+                      $contract->city = $request->city;
                       $contract->type_gi = $request->type_gi;
                       $contract->other_type = $request->other_type;
 
@@ -641,11 +657,11 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->country_id != $contract->country_id){
+                    if($contract_data->country != $contract->country){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
-                        $history->previous = $contract_data->country_id;
-                        $history->current = $contract->country_id;
+                        $history->previous = $contract_data->country;
+                        $history->current = $contract->country;
                         $history->activity_type = 'Country';
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
@@ -658,11 +674,11 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->state_id != $contract->state_id){
+                    if($contract_data->state != $contract->state){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
-                        $history->previous = $contract_data->state_id;
-                        $history->current = $contract->state_id;
+                        $history->previous = $contract_data->state;
+                        $history->current = $contract->state;
                         $history->activity_type = 'State/District';
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
@@ -675,11 +691,11 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->city_id != $contract->city_id){
+                    if($contract_data->city != $contract->city){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
-                        $history->previous = $contract_data->city_id;
-                        $history->current = $contract->city_id;
+                        $history->previous = $contract_data->city;
+                        $history->current = $contract->city;
                         $history->activity_type = 'City';
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
@@ -715,6 +731,23 @@ class SupplierContractController extends Controller
                         $history->previous = $contract_data->other_type;
                         $history->current = $contract->other_type;
                         $history->activity_type = 'Other type';
+                        $history->user_id = Auth::user()->id;
+                        $history->user_name = Auth::user()->name;
+                        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                        $history->change_from =   $contract_data->status;
+                        $history->change_to = "Not Applicable";
+                        $history->action_name = 'Update';
+                        $history->comment = "Not Applicable";
+                        $history->save();
+
+                    }
+
+                    if($contract_data->file_attachments_gi != $contract->file_attachments_gi){
+                        $history = new SupplierContractAuditTrail();
+                        $history->supplier_contract_id = $contract->id;
+                        $history->previous = json_encode($contract_data->file_attachments_gi);
+                        $history->current = json_encode($contract->file_attachments_gi);
+                        $history->activity_type = 'File Attachments';
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -1114,6 +1147,18 @@ class SupplierContractController extends Controller
                 }
 
         }
+
+        public function Supplier_contract_child(Request $request, $id){
+
+                $contract_data = SupplierContract::find($id);
+
+                if($contract_data->stage == 3){
+
+                        //return redirect(route('supplier_contract.index'));
+                    }
+
+     }
+
 
              //Single Report Start
 

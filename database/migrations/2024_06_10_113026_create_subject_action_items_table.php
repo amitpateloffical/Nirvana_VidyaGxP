@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('intiation_date')->nullable();
             $table->integer('parent_id')->nullable();
             $table->string('parent_type')->nullable();
+            $table->string('short_description_ti')->nullable();
             $table->string('assign_to_gi')->nullable();
             $table->string('due_date')->nullable();
 
@@ -37,14 +38,13 @@ return new class extends Migration
             $table->string('race_sd')->nullable();
 
             //Treatment Information
-            $table->string('short_description_ti')->nullable();
             $table->string('clinical_efficacy_ti')->nullable();
             $table->string('carry_over_effect_ti')->nullable();
             $table->string('last_monitered_ti')->nullable();
             $table->string('total_doses_recieved_ti')->nullable();
             $table->string('treatment_effect_ti')->nullable();
-            $table->string('comments_ti')->nullable();
-            $table->string('summary_ti')->nullable();
+            $table->longText('comments_ti')->nullable();
+            $table->longText('summary_ti')->nullable();
 
             $table->string('status')->nullable();
             $table->string('stage')->nullable();

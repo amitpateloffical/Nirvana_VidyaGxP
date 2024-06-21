@@ -96,10 +96,7 @@
                             Close
                         </button>
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
-                            Voilation
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
-                            SAE
+                           Child
                         </button>
 
                     @endif
@@ -240,6 +237,60 @@
 </div>
 {{-- Workflow Model Close--}}
 
+
+
+<div class="modal fade" id="child-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Child</h4>
+            </div>
+            <form action="{{ route('subjec_action_item.child', $item_data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        <label style="display: flex;" for="major">
+                            <input type="radio" name="child_type" id="child_type" value="violation">
+                              Violation
+                        </label>
+
+                        <label style="display: flex;" for="major">
+                            <input type="radio" name="child_type" id="major">
+                             SAE
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                    <button type="submit">Continue</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
 {{-- ! ========================================= --}}
@@ -273,7 +324,7 @@
                                 <div class="group-input">
                                     <label for="Initiator"> Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/GCP_Study/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Subject_Action_Item/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -287,7 +338,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Initiator</b></label>
-                                    <input disabled type="text" name="initiation_id" value="{{ auth()->user()->name }}">
+                                    <input disabled type="text" disabled name="initiation_id" value="{{ auth()->user()->name }}">
 
                                 </div>
                             </div>
@@ -300,10 +351,18 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-lg-12">
+                                <div class="group-input">
+                                    <label for="cancelled by">Short Description<span class="text-danger">*</span>
+                                    <input type="text" name="short_description_ti" value="{{ $item_data->short_description_ti }}" maxlength="255" required {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Assigned To</b></label>
-                                    <select name="assign_to_gi">
+                                    <select name="assign_to_gi" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="">Select a value</option>
                                             @if(!empty($users))
                                                 @foreach ($users as $user)
@@ -315,27 +374,18 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Due Date">Due Date</label>
-
-                                        @if (!empty($cc->due_date))
-                                        <div class="static"></div>
-                                        @endif
-                                    </div>
-                                </div> --}}
-
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date"> Date Due <span class="text-danger"></span></label>
                                     <p class="text-primary">Please mention expected date of completion</p>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly value="{{ $item_data->due_date }}" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}">
                                     </div>
                                 </div>
                             </div>
+
 
 
                             <div class="sub-head">Study Details</div>
@@ -350,7 +400,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Root Parent) Assigned To</b></label>
-                                    <select name="assign_to_sd">
+                                    <select name="assign_to_sd" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="">--Select--</option>
                                         <option value="manish" @if($item_data->assign_to_sd == 'manish') selected @endif>Manish</option>
                                         <option value="pankaj" @if($item_data->assign_to_sd == 'panka-') selected @endif>Pankaj</option>
@@ -365,7 +415,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Subject Name</b></label>
-                                    <input  type="text" name="subject_name_sd" value="{{ $item_data->subject_name_sd }}">
+                                    <input  type="text" name="subject_name_sd" value="{{ $item_data->subject_name_sd }}" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
                                 </div>
                             </div>
 
@@ -373,9 +423,9 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Gender</b></label>
-                                    <select name="gender_sd">
+                                    <select name="gender_sd" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="">--Select--</option>
-                                        <option value="male">Male</option>
+                                        <option value="male" @if($item_data->gender_sd == 'male') selected @endif>Male</option>
                                         <option value="female" @if($item_data->gender_sd == 'female') selected @endif>Female</option>
                                         <option value="others" @if($item_data->gender_sd == 'others') selected @endif>Others</option>
                                     </select>
@@ -386,14 +436,14 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Date Of Birth</b></label>
-                                    <input  type="date" name="date_of_birth_sd" value="{{ $item_data->date_of_birth_sd }}">
+                                    <input  type="date" name="date_of_birth_sd" value="{{ $item_data->date_of_birth_sd }}" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Race</b></label>
-                                    <select name="race_sd">
+                                    <select name="race_sd" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="">--Select--</option>
                                         <option value="23" @if($item_data->race_sd == 23) selected @endif>23</option>
                                         <option value="24" @if($item_data->race_sd == 24) selected @endif>24</option>
@@ -418,17 +468,10 @@
 
                         <div class="row">
 
-                            <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="cancelled by">Short Description<span class="text-danger">*</span>
-                                    <input type="text" name="short_description_ti" maxlength="255" required value="{{ $item_data->short_description_ti }}">
-                                </div>
-                            </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Clinical Efficacy</b></label>
-                                    <select name="clinical_efficacy_ti">
+                                    <select name="clinical_efficacy_ti" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="">--Select--</option>
                                         <option value="efficacy-analysis" @if($item_data->clinical_efficacy_ti == "efficacy-analysis") selected @endif>Efficacy Analysis</option>
                                         <option value="interim-efficacy-assessment" @if($item_data->clinical_efficacy_ti == "interim-efficacy-assessment") selected @endif>Interim Efficacy Assessment</option>
@@ -441,7 +484,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Carry Over Effect</b></label>
-                                    <select name="carry_over_effect_ti">
+                                    <select name="carry_over_effect_ti" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="">--Select--</option>
                                         <option value="data-collection-protocols" @if($item_data->carry_over_effect_ti == "data-collection-protocols") selected @endif>Data Collection Protocols</option>
                                         <option value="statistical-analysis" @if($item_data->carry_over_effect_ti == "statistical-analysis") selected @endif>Statistical Analysis</option>
@@ -454,7 +497,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Last Monitered (Days)</b></label>
-                                    <select name="last_monitered_ti">
+                                    <select name="last_monitered_ti" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="">--Select--</option>
                                         <option value="1Days" @if($item_data->last_monitered_ti == '1Days') selected @endif>1Days</option>
                                         <option value="2Days" @if($item_data->last_monitered_ti == '2Days') selected @endif>2Days</option>
@@ -466,21 +509,21 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="cancelled by">Total Doses Recieved</label>
-                                    <input name="total_doses_recieved_ti" value="{{ $item_data->total_doses_recieved_ti }}">
+                                    <input name="total_doses_recieved_ti" value="{{ $item_data->total_doses_recieved_ti }}" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="cancelled by">Treatment Effect</label>
-                                    <input name="treatment_effect_ti" value="{{ $item_data->treatment_effect_ti }}">
+                                    <input name="treatment_effect_ti" value="{{ $item_data->treatment_effect_ti }}" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
                                 </div>
                             </div>
 
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                    DCF (0)
+                                    DCF
                                     <button type="button" name="dfc_grid" id="DCFadd">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
@@ -530,7 +573,7 @@
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                    Minor Protocol Voilation (0)
+                                    Minor Protocol Voilation
                                     <button type="button" name="minor_protocol_voilation" id="ObservationAdd">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
@@ -577,14 +620,14 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <Label>Comments</Label>
-                                    <textarea name="comments_ti">{{ $item_data->comments_ti }}</textarea>
+                                    <textarea name="comments_ti" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>{{ $item_data->comments_ti }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <Label>Summary </Label>
-                                    <textarea name="summary_ti">{{ $item_data->summary_ti }}</textarea>
+                                    <textarea name="summary_ti" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>{{ $item_data->summary_ti }}</textarea>
                                 </div>
                             </div>
 

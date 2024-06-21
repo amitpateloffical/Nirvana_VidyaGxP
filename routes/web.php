@@ -376,7 +376,7 @@ Route::view('action_item', 'frontend.ehs.action_item');
 
 // --------------------------------------ctms-------forms-------
 
-Route::view('violation', 'frontend.ctms.violation');
+//Route::view('violation', 'frontend.ctms.violation');
 Route::view('subject', 'frontend.ctms.subject');
 //Route::view('subject_action_item', 'frontend.ctms.subject_action_item');
 
@@ -452,7 +452,7 @@ Route::view('oos-form', 'frontend.OOS.oos-form');
 //Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
 Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');
 Route::view('correspondence', 'frontend.New_forms.correspondence');
-Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
+//Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
 Route::view('read_and_understand', 'frontend.New_forms.read_and_understand');
 Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
 // Route::view('auditee', 'frontend.forms.auditee');

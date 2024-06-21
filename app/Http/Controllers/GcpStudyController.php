@@ -27,7 +27,13 @@ class GcpStudyController extends Controller
             $users = User::all();
             $qmsDevisions = QMSDivision::all();
             //dd($qmsDevisions);
-            return view('frontend.new_forms.GCP_study',compact('old_record','record_number','users','qmsDevisions'));
+
+            //due date
+            $currentDate = Carbon::now();
+            $formattedDate = $currentDate->addDays(30);
+            $due_date = $formattedDate->format('Y-m-d');
+
+            return view('frontend.new_forms.GCP_study',compact('old_record','record_number','users','qmsDevisions','due_date'));
         }
         public function store(Request $request){
             //dd($request->all());
@@ -610,13 +616,19 @@ class GcpStudyController extends Controller
                     $users = User::all();
                     //$qmsDevisions = QMSDivision::all();
                     $divisionName = DB::table('q_m_s_divisions')->where('id', $study_data->division_id)->value('name');
+
+                    //due date
+                    $currentDate = Carbon::now();
+                    $formattedDate = $currentDate->addDays(30);
+                    $due_date = $formattedDate->format('Y-m-d');
+
                     //gridfetch
 
                     $g_id = $study_data->id;
                     $grid_DataA = GcpStudyGrid::where(['gcp_study_id' => $g_id, 'identifier' => 'audit_site_information'])->first();
                     $grid_DataS = GcpStudyGrid::where(['gcp_study_id' => $g_id, 'identifier' => 'study_site_information'])->first();
 
-                    return view('frontend.new_forms.GCP_study_view',compact('study_data','old_record','record_number','users','grid_DataA','grid_DataS','divisionName'));
+                    return view('frontend.new_forms.GCP_study_view',compact('study_data','old_record','record_number','users','due_date','grid_DataA','grid_DataS','divisionName'));
                 }
 
               public function update(Request $request, $id){
@@ -1386,25 +1398,15 @@ class GcpStudyController extends Controller
                 //Audit child button
 
                public function GCP_study_child(Request $request, $id){
-                    if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
-                        $study_data = GcpStudy::find($id);
-                        $lastDocument = GcpStudy::find($id);
-                        //$cftDetails = DeviationCftsResponse::withoutTrashed()->where(['status' => 'In-progress', 'deviation_id' => $id])->distinct('cft_user_id')->count();
-                        //if ($study_data->stage == 2) {
-                        //    $study_data->stage = "3";
-                        //    $study_data->status = "Pending Report Issuance";
-                        //    $study_data->submit_by = Auth::user()->name;
-                        //    $study_data->submit_on = Carbon::now()->format('d-M-Y');
-                        //    $study_data->submit_comment = $request->comment;
-                        //    $study_data->save();
 
-                        //    return back();
-                        }
-                        else {
-                            toastr()->error('E-signature Not match');
-                            return back();
-                        }
-                }
+                    $study_data = GcpStudy::find($id);
+
+                    if($study_data->stage == 2){
+
+                        //return redirect(route('supplier_contract.index'));
+                    }
+
+             }
 
 
                     //single Report start

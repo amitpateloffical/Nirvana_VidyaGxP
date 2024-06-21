@@ -71,7 +71,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Initiator</b></label>
-                                     <input type="text" name="initiator_id" value="{{ auth()->user()->name }}">
+                                     <input type="text" disabled name="initiator_id" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
                             {{--<div class="col-lg-6">
@@ -125,8 +125,10 @@
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}">
+                                        {{--<input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />--}}
                                     </div>
                                 </div>
                             </div>
@@ -195,7 +197,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Study Number</label>
-                                    <input type="text" name="study_number_sd">
+                                    <input type="number" name="study_number_sd">
                                 </div>
                             </div>
 
@@ -227,21 +229,23 @@
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short Description">Study Protocol Number </label>
-                                    <input id="docname" type="text" name="study_protocol_number_sd">
+                                    <label for="Short Description">Study Protocol Number</label>
+                                    <input id="docname" type="number" name="study_protocol_number_sd">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <p class="text-primary">Detailed Description</p>
                                     <label for="Responsible Department">Description</label>
-                                    <input type="text" name="description_sd">
+                                    <textarea name="description_sd"></textarea>
+                                    {{--<input type="text" name="description_sd">--}}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label class="mb-4" for="Responsible Department">Comments</label>
-                                    <input type="text" name="comments_sd">
+                                    <textarea name="comments_sd"></textarea>
+                                    {{--<input type="text" name="comments_sd">--}}
                                 </div>
                             </div>
                             <div class="sub-head">
@@ -375,7 +379,7 @@
                             <div class="group-input input-date">
                                 <label for="start_date">IND No.</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="start_date" name="ind_no_gcpd">
+                                    <input type="number" id="start_date" name="ind_no_gcpd">
                                 </div>
                             </div>
                         </div>
@@ -383,7 +387,7 @@
                             <div class="group-input input-date">
                                 <label for="start_date">Number of Centers</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="start_date" name="number_of_centers_gcpd">
+                                    <input type="number" id="start_date" name="number_of_centers_gcpd">
                                 </div>
                             </div>
                         </div>
@@ -419,7 +423,7 @@
                                 </thead>
                                 <tbody>
                                     <td><input disabled type="text" name="audit_site_information[0][serial]" value="1"></td>
-                                    <td><input type="text" name="audit_site_information[0][Number]"></td>
+                                    <td><input type="number" name="audit_site_information[0][Number]"></td>
                                     <td><input type="text" name="audit_site_information[0][AuditFrequency]"></td>
                                     <td><input type="text" name="audit_site_information[0][Current]"></td>
                                     <td><input type="text" name="audit_site_information[0][CRO]"></td>
@@ -457,10 +461,10 @@
                                 <tbody>
                                     <td><input disabled type="text" name="study_site_information[0][serial]" value="1"></td>
                                     <td><input type="text" name="study_site_information[0][AuditSite]"></td>
-                                    <td><input type="text" name="study_site_information[0][SiteNo]"></td>
+                                    <td><input type="number" name="study_site_information[0][SiteNo]"></td>
                                     <td><input type="text" name="study_site_information[0][Investigator]"></td>
                                     <td><input type="text" name="study_site_information[0][FirstPatientInDate]"></td>
-                                    <td><input type="text" name="study_site_information[0][EnrolledNo]"></td>
+                                    <td><input type="number" name="study_site_information[0][EnrolledNo]"></td>
                                     <td><input type="text" name="study_site_information[0][Current]"></td>
                                     <td><input type="text" name="study_site_information[0][Remark]"></td>
                                     <td><button type="text" class="removeRowBtn">Remove</button></td>

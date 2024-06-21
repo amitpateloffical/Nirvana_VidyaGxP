@@ -95,7 +95,7 @@
                                 <div class="group-input">
                                     <label for="Initiator"> Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/GCP_Study/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier_Contract/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -110,7 +110,7 @@
                                 <div class="group-input">
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
-                                    <input type="text" name="initiator_id" value="{{ auth()->user()->name }}">
+                                    <input type="text" disabled name="initiator_id" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -223,7 +223,14 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Distribution List<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="distribution_list_gi"></textarea>
+                                    {{--<textarea placeholder="" name="distribution_list_gi"></textarea>--}}
+                                    <select name="distribution_list_gi">
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="internal-stakeholders">Internal Stakeholders</option>
+                                        <option value="external-stakeholders">External Stakeholders</option>
+                                        <option value="project-specific-stakeholders">Project-Specific Stakeholders</option>
+                                        <option value="miscellaneous">Miscellaneous</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -264,10 +271,13 @@
                                     <label  for="Responsible Department">Zone </label>
                                     <select name="zone_gi">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="geographic-zones">Geographic Zones</option>
-                                        <option value="operational-zones">Operational Zones</option>
-                                        <option value="distribution-zones">Distribution Zones</option>
-                                        <option value="custom-zones">Custom Zones</option>
+                                        <option value="asia">Asia</option>
+                                        <option value="europe">Europe</option>
+                                        <option value="africa">Africa</option>
+                                        <option value="central-america">Central America</option>
+                                        <option value="south-america">South America</option>
+                                        <option value="oceania">Oceania</option>
+                                        <option value="north-america">North America</option>
                                     </select>
                                 </div>
                             </div>
@@ -275,9 +285,8 @@
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Country</b></label>
                                     <p class="text-primary">Auto filter according to selected zone</p>
-                                    <select name="country_id">
-                                        <option value="">Enter Your Selection Here</option>
-
+                                    <select name="country" class="form-select country" aria-label="Default select example" onchange="loadStates()">
+                                        <option selected>Select Country</option>
                                     </select>
                                 </div>
                             </div>
@@ -286,11 +295,10 @@
                                 <div class="group-input">
                                     <label  for="Responsible Department">State/District</label>
                                     <p class="text-primary">Auto selected according to country</p>
-                                    <select name="state_id">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
+                                    <select name="state" class="form-select state" aria-label="Default select example" onchange="loadCities()">
+                                        <option selected>Select State/District</option>
                                     </select>
+
                                 </div>
                             </div>
 
@@ -298,11 +306,9 @@
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>City</b></label>
                                     <p class="text-primary">Auto filter according to selected state</p>
-                                    <select name="city_id">
-                                        <option value="">Enter Your Selection Here</option>
-
+                                    <select name="city" class="form-select city" aria-label="Default select example">
+                                        <option selected>Select City</option>
                                     </select>
-
                                 </div>
                             </div>
 
@@ -362,8 +368,10 @@
                                 <div class="group-input input-date">
                                     <label for="start_date">Actual start Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="actual_start_date_cd" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        {{--<input type="text" id="actual_start_date_cd" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="actual_start_date_cd" name="actual_start_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_start_date_cd');" />--}}
+                                        <input type="text" id="actual_start_date_cd" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="actual_start_date_cd" name="actual_start_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_start_date_cd');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
@@ -371,8 +379,8 @@
                                 <div class="group-input input-date">
                                     <label for="start_date">Actual end Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="actual_end_date_cd" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="text" id="actual_end_date_cd" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="actual_end_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_end_date_cd');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
@@ -402,7 +410,7 @@
 
                         <div class="group-input">
                             <label for="audit-agenda-grid">
-                                Financial Transaction (0)
+                                Financial Transaction
                                 <button type="button" name="financial_transaction" id="ReferenceDocument">+</button>
                                 <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                     (open)
@@ -1154,4 +1162,95 @@
     })
 </script>
 
+     {{--Country Statecity API--}}
+    <script>
+        var config = {
+            cUrl: 'https://api.countrystatecity.in/v1',
+            ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+        };
+
+        var countrySelect = document.querySelector('.country'),
+            stateSelect = document.querySelector('.state'),
+            citySelect = document.querySelector('.city');
+
+        function loadCountries() {
+            let apiEndPoint = `${config.cUrl}/countries`;
+
+            $.ajax({
+                url: apiEndPoint,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.iso2;
+                        option.textContent = country.name;
+                        countrySelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading countries:', error);
+                }
+            });
+        }
+
+        function loadStates() {
+            stateSelect.disabled = false;
+            stateSelect.innerHTML = '<option value="">Select State</option>';
+
+            const selectedCountryCode = countrySelect.value;
+
+            $.ajax({
+                url: `${config.cUrl}/countries/${selectedCountryCode}/states`,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(state => {
+                        const option = document.createElement('option');
+                        option.value = state.iso2;
+                        option.textContent = state.name;
+                        stateSelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading states:', error);
+                }
+            });
+        }
+
+        function loadCities() {
+            citySelect.disabled = false;
+            citySelect.innerHTML = '<option value="">Select City</option>';
+
+            const selectedCountryCode = countrySelect.value;
+            const selectedStateCode = stateSelect.value;
+
+            $.ajax({
+                url: `${config.cUrl}/countries/${selectedCountryCode}/states/${selectedStateCode}/cities`,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city.id;
+                        option.textContent = city.name;
+                        citySelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading cities:', error);
+                }
+            });
+        }
+        $(document).ready(function() {
+            loadCountries();
+        });
+    </script>
+{{--Country Statecity API End--}}
+
 @endsection
+
+
