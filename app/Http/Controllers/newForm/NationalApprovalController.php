@@ -33,7 +33,7 @@ class NationalApprovalController extends Controller
         return view('frontend.New_forms.national-approval.national-approval', compact('old_record', 'record_number', 'currentDate', 'formattedDate', 'due_date'));
     }
 
-    public function npStore(Request $request)
+     public function npStore(Request $request)
     {
 
         try {
@@ -95,317 +95,317 @@ class NationalApprovalController extends Controller
             $newDataGridErrata->identifier = 'details';
             $newDataGridErrata->data = $request->details;
             $newDataGridErrata->save();
-    
-
-//===========audit trails ===========//
-if (!empty($request->manufacturer)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = '(Root Parent) Manufacturer';
-    $validation2->previous = "Null";
-    $validation2->current = $request->manufacturer;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
-
-if (!empty($request->trade_name)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = '(Root Parent) Trade Name';
-    $validation2->previous = "Null";
-    $validation2->current = $request->trade_name;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
-
-if (!empty($request->short_description)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->previous = "Null";
-    $validation2->current = $request->short_description;
-    $validation2->activity_type = 'Short Description';
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->comment = "Not Applicable";
-    $validation2->save();
-}
-
-if (!empty($request->initiation_date)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Initiation Date';
-    $validation2->previous = "Null";
-    $validation2->current = $request->initiation_date;
-    $validation2->comment = "Not Applicable";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
-
-if (!empty($request->assign_to)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Assign To';
-    $validation2->previous = "Null";
-    $validation2->current = $request->assign_to;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
-
-if (!empty($request->due_date)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Due Date';
-    $validation2->previous = "Null";
-    $validation2->current = $request->due_date;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-
-    $validation2->save();
-}
-
-if (!empty($request->procedure_type)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = '(Parent) Procedure Type';
-    $validation2->previous = "Null";
-    $validation2->current = $request->procedure_type;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-
-    $validation2->save();
-}
-
-if (!empty($request->planned_subnission_date)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Planned Subnission Date';
-    $validation2->previous = "Null";
-    $validation2->current = $request->planned_subnission_date;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-
-    $validation2->save();
-}
-
-if (!empty($request->member_state)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Member State';
-    $validation2->previous = "Null";
-    $validation2->current = $request->member_state;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
-
-if (!empty($request->local_trade_name)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Local Trade Name';
-    $validation2->previous = "Null";
-    $validation2->current = $request->local_trade_name;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
-
-if (!empty($request->registration_number)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Registration Number';
-    $validation2->previous = "Null";
-    $validation2->current = $request->registration_number;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
 
 
-if (!empty($request->renewal_rule)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Renewal Rule';
-    $validation2->previous = "Null";
-    $validation2->current = $request->renewal_rule;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            //===========audit trails ===========//
+            if (!empty($request->manufacturer)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = '(Root Parent) Manufacturer';
+                $validation2->previous = "Null";
+                $validation2->current = $request->manufacturer;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
-if (!empty($request->dossier_parts)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Dossier Parts';
-    $validation2->previous = "Null";
-    $validation2->current = $request->dossier_parts;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->trade_name)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = '(Root Parent) Trade Name';
+                $validation2->previous = "Null";
+                $validation2->current = $request->trade_name;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
-if (!empty($request->related_dossier_documents)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Related Dossier Documents';
-    $validation2->previous = "Null";
-    $validation2->current = $request->related_dossier_documents;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->short_description)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->previous = "Null";
+                $validation2->current = $request->short_description;
+                $validation2->activity_type = 'Short Description';
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->comment = "Not Applicable";
+                $validation2->save();
+            }
 
-if (!empty($request->pack_size)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Pack Size';
-    $validation2->previous = "Null";
-    $validation2->current = $request->pack_size;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->initiation_date)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Initiation Date';
+                $validation2->previous = "Null";
+                $validation2->current = $request->initiation_date;
+                $validation2->comment = "Not Applicable";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
-if (!empty($request->shelf_life)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Shelf Life';
-    $validation2->previous = "Null";
-    $validation2->current = $request->shelf_life;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->assign_to)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Assign To';
+                $validation2->previous = "Null";
+                $validation2->current = $request->assign_to;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
-if (!empty($request->psup_cycle)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'PSUP Cycle';
-    $validation2->previous = "Null";
-    $validation2->current = $request->psup_cycle;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->due_date)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Due Date';
+                $validation2->previous = "Null";
+                $validation2->current = $request->due_date;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
 
-if (!empty($request->expiration_date)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national->id;
-    $validation2->activity_type = 'Expiration Date';
-    $validation2->previous = "Null";
-    $validation2->current = $request->expiration_date;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->save();
+            }
 
-    $validation2->change_to =   "Opened";
-    $validation2->change_from = "Initiator";
-    $validation2->action_name = 'Create';
-    $validation2->save();
-}
+            if (!empty($request->procedure_type)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = '(Parent) Procedure Type';
+                $validation2->previous = "Null";
+                $validation2->current = $request->procedure_type;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+
+                $validation2->save();
+            }
+
+            if (!empty($request->planned_subnission_date)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Planned Subnission Date';
+                $validation2->previous = "Null";
+                $validation2->current = $request->planned_subnission_date;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+
+                $validation2->save();
+            }
+
+            if (!empty($request->member_state)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Member State';
+                $validation2->previous = "Null";
+                $validation2->current = $request->member_state;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
+
+            if (!empty($request->local_trade_name)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Local Trade Name';
+                $validation2->previous = "Null";
+                $validation2->current = $request->local_trade_name;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
+
+            if (!empty($request->registration_number)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Registration Number';
+                $validation2->previous = "Null";
+                $validation2->current = $request->registration_number;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
+
+
+            if (!empty($request->renewal_rule)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Renewal Rule';
+                $validation2->previous = "Null";
+                $validation2->current = $request->renewal_rule;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
+
+            if (!empty($request->dossier_parts)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Dossier Parts';
+                $validation2->previous = "Null";
+                $validation2->current = $request->dossier_parts;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
+
+            if (!empty($request->related_dossier_documents)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Related Dossier Documents';
+                $validation2->previous = "Null";
+                $validation2->current = $request->related_dossier_documents;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
+
+            if (!empty($request->pack_size)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Pack Size';
+                $validation2->previous = "Null";
+                $validation2->current = $request->pack_size;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
+
+            if (!empty($request->shelf_life)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Shelf Life';
+                $validation2->previous = "Null";
+                $validation2->current = $request->shelf_life;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
+
+            if (!empty($request->psup_cycle)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'PSUP Cycle';
+                $validation2->previous = "Null";
+                $validation2->current = $request->psup_cycle;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
+
+            if (!empty($request->expiration_date)) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national->id;
+                $validation2->activity_type = 'Expiration Date';
+                $validation2->previous = "Null";
+                $validation2->current = $request->expiration_date;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiator";
+                $validation2->action_name = 'Create';
+                $validation2->save();
+            }
 
 
 
@@ -417,18 +417,20 @@ if (!empty($request->expiration_date)) {
         }
     }
 
-    public function npEdit($id){
+    public function npEdit($id)
+    {
         $national = NationalApproval::findOrFail($id);
         $packagingDetails = NationalApprovalGrid::where('national_id', $id)->where('identifier', 'details')->first();
-    
+
         $details = $packagingDetails ? json_decode($packagingDetails->data, true) : [];
-    
+
         return view('frontend.New_forms.national-approval.np_update', compact('national', 'details'));
     }
 
-    public function npUpdate(Request $request, $id){
+    public function npUpdate(Request $request, $id)
+    {
         try {
-            
+
             // $recordCounter = RecordNumber::first();
 
             // $newRecordNumber = $recordCounter->counter + 1;
@@ -488,326 +490,321 @@ if (!empty($request->expiration_date)) {
             $newDataGridErrata->identifier = 'details';
             $newDataGridErrata->data = $request->details;
             $newDataGridErrata->save();
-    
-//===========audit trails ===========//
-if (!empty($request->manufacturer)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = '(Root Parent) Manufacturer';
-    $validation2->previous = "Null";
-    $validation2->current = $request->manufacturer;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+            //===========audit trails ===========//
+            if ($lastDocument->manufacturer != $request->manufacture) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = '(Root Parent) Manufacturer';
+                $validation2->previous = $lastDocument->manufacturer;
+                $validation2->current = $request->manufacturer;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-if (!empty($request->trade_name)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = '(Root Parent) Trade Name';
-    $validation2->previous = "Null";
-    $validation2->current = $request->trade_name;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+            if ($lastDocument->manufacturer != $request->manufacture)  {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = '(Root Parent) Trade Name';
+                $validation2->previous = $lastDocument->trade_name;
+                $validation2->current = $request->trade_name;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-if (!empty($request->short_description)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->previous = "Null";
-    $validation2->current = $request->short_description;
-    $validation2->activity_type = 'Short Description';
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->comment = "Not Applicable";
-    $validation2->save();
-}
+            if ($lastDocument->trade_name != $request->trade_name)  {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->previous = $lastDocument->short_description;
+                $validation2->current = $request->short_description;
+                $validation2->activity_type = 'Short Description';
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-if (!empty($request->initiation_date)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Initiation Date';
-    $validation2->previous = "Null";
-    $validation2->current = $request->initiation_date;
-    $validation2->comment = "Not Applicable";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->comment = "Not Applicable";
+                $validation2->save();
+            }
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+            if ($lastDocument->initiation_date != $request->initiation_date)  {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Initiation Date';
+                $validation2->previous = $lastDocument->initiation_date;
+                $validation2->current = $request->initiation_date;
+                $validation2->comment = "Not Applicable";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-if (!empty($request->assign_to)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Assign To';
-    $validation2->previous = "Null";
-    $validation2->current = $request->assign_to;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+            if ($lastDocument->assign_to != $request->assign_to) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Assign To';
+                $validation2->previous = $lastDocument->assign_to;
+                $validation2->current = $request->assign_to;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-if (!empty($request->due_date)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Due Date';
-    $validation2->previous = "Null";
-    $validation2->current = $request->due_date;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
+            if ($lastDocument->due_date != $request->due_date) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Due Date';
+                $validation2->previous = $lastDocument->due_date;
+                $validation2->current = $request->due_date;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
 
-if (!empty($request->procedure_type)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = '(Parent) Procedure Type';
-    $validation2->previous = "Null";
-    $validation2->current = $request->procedure_type;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-    $validation2->save();
-}
+            if ($lastDocument->procedure_type != $request->procedure_type) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = '(Parent) Procedure Type';
+                $validation2->previous = $lastDocument->procedure_type;
+                $validation2->current = $request->procedure_type;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
 
-if (!empty($request->planned_subnission_date)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Planned Subnission Date';
-    $validation2->previous = "Null";
-    $validation2->current = $request->planned_subnission_date;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->save();
+            }
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
+            if ($lastDocument->planned_subnission_date != $request->planned_subnission_date) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Planned Subnission Date';
+                $validation2->previous = $lastDocument->planned_subnission_date;
+                $validation2->current = $request->planned_subnission_date;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
 
-if (!empty($request->member_state)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Member State';
-    $validation2->previous = "Null";
-    $validation2->current = $request->member_state;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->save();
+            }
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+            if ($lastDocument->member_state != $request->member_state) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Member State';
+                $validation2->previous = $lastDocument->member_state;
+                $validation2->current = $request->member_state;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-if (!empty($request->local_trade_name)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Local Trade Name';
-    $validation2->previous = "Null";
-    $validation2->current = $request->local_trade_name;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+            if ($lastDocument->local_trade_name != $request->local_trade_name) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Local Trade Name';
+                $validation2->previous = $lastDocument->local_trade_name;
+                $validation2->current = $request->local_trade_name;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
-if (!empty($request->registration_number)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Registration Number';
-    $validation2->previous = "Null";
-    $validation2->current = $request->registration_number;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if ($lastDocument->registration_number != $request->registration_number) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Registration Number';
+                $validation2->previous = $lastDocument->registration_number;
+                $validation2->current = $request->registration_number;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
-
-
-if (!empty($request->renewal_rule)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Renewal Rule';
-    $validation2->previous = "Null";
-    $validation2->current = $request->renewal_rule;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
-
-if (!empty($request->dossier_parts)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Dossier Parts';
-    $validation2->previous = "Null";
-    $validation2->current = $request->dossier_parts;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
-
-if (!empty($request->related_dossier_documents)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Related Dossier Documents';
-    $validation2->previous = "Null";
-    $validation2->current = $request->related_dossier_documents;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
-
-if (!empty($request->pack_size)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Pack Size';
-    $validation2->previous = "Null";
-    $validation2->current = $request->pack_size;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
-
-if (!empty($request->shelf_life)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Shelf Life';
-    $validation2->previous = "Null";
-    $validation2->current = $request->shelf_life;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
-
-if (!empty($request->psup_cycle)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'PSUP Cycle';
-    $validation2->previous = "Null";
-    $validation2->current = $request->psup_cycle;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
-
-if (!empty($request->expiration_date)) {
-    $validation2 = new NationalApprovalAudit();
-    $validation2->nationalApproval_id = $national1->id;
-    $validation2->activity_type = 'Expiration Date';
-    $validation2->previous = "Null";
-    $validation2->current = $request->expiration_date;
-    $validation2->comment = "NA";
-    $validation2->user_id = Auth::user()->id;
-    $validation2->user_name = Auth::user()->name;
-    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-    $validation2->change_to =   "Not Applicable";
-    $validation2->change_from = $lastDocument->status;
-    $validation2->action_name = 'Update';
-    $validation2->save();
-}
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
 
 
+            if ($lastDocument->renewal_rule != $request->renewal_rule) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Renewal Rule';
+                $validation2->previous = $lastDocument->renewal_rule;
+                $validation2->current = $request->renewal_rule;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->dossier_parts != $request->dossier_parts) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Dossier Parts';
+                $validation2->previous = $lastDocument->dossier_parts;
+                $validation2->current = $request->dossier_parts;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->related_dossier_documents != $request->related_dossier_documents) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Related Dossier Documents';
+                $validation2->previous = $lastDocument->related_dossier_documents;
+                $validation2->current = $request->related_dossier_documents;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->pack_size != $request->pack_size) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Pack Size';
+                $validation2->previous = $lastDocument->pack_size;
+                $validation2->current = $request->pack_size;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->shelf_life != $request->shelf_life) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Shelf Life';
+                $validation2->previous = $lastDocument->shelf_life;
+                $validation2->current = $request->shelf_life;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->psup_cycle != $request->psup_cycle) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'PSUP Cycle';
+                $validation2->previous = $lastDocument->psup_cycle;
+                $validation2->current = $request->psup_cycle;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->expiration_date != $request->expiration_date) {
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $national1->id;
+                $validation2->activity_type = 'Expiration Date';
+                $validation2->previous = $lastDocument->expiration_date;
+                $validation2->current = $request->expiration_date;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
             toastr()->success("National Approval is Update Successfully");
             return redirect(url('rcms/qms-dashboard'));
         } catch (\Exception $e) {
 
             return redirect()->back()->with('error', 'Failed to update National Approval : ' . $e->getMessage());
         }
-
     }
 
     public function nationalApproval_send_stage(Request $request, $id)
@@ -853,7 +850,7 @@ if (!empty($request->expiration_date)) {
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
                 // $equipment->submit_comment = $request->comment;
-                
+
                 $validation2 = new NationalApprovalAudit();
                 $validation2->national_id = $id;
                 $validation2->activity_type = 'Activity Log';
@@ -877,7 +874,7 @@ if (!empty($request->expiration_date)) {
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
                 // $equipment->submit_comment = $request->comment;
-                
+
                 $validation2 = new NationalApprovalAudit();
                 $validation2->national_id = $id;
                 $validation2->activity_type = 'Activity Log';
@@ -971,7 +968,7 @@ if (!empty($request->expiration_date)) {
                 toastr()->success('Document Sent');
                 return back();
             }
- 
+
             toastr()->error('States not Defined');
             return back();
         } else {
@@ -1049,15 +1046,14 @@ if (!empty($request->expiration_date)) {
                     'isPhpEnabled' => true,
                 ]);
 
-                $pdf->setPaper('A4');
-                $pdf->render();
-                $canvas = $pdf->getDomPDF()->getCanvas();
-                $height = $canvas->get_height();
-                $width = $canvas->get_width();
-                $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
-                $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
-                return $pdf->stream('National Approval' . $id . '.pdf');
-
+            $pdf->setPaper('A4');
+            $pdf->render();
+            $canvas = $pdf->getDomPDF()->getCanvas();
+            $height = $canvas->get_height();
+            $width = $canvas->get_width();
+            $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+            $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
+            return $pdf->stream('National Approval' . $id . '.pdf');
         }
 
         return redirect()->back()->with('error', 'National Approval not found.');
@@ -1116,16 +1112,16 @@ if (!empty($request->expiration_date)) {
         return $pdf->stream('National Approval' . $id . '.pdf');
     }
 
-    public function np_child_1($stage){
+    public function np_child_1($stage)
+    {
         $national = NationalApproval::find($stage);
 
-        if ($national->stage == 2){
+        if ($national->stage == 2) {
             return view('frontend.New_forms.correspondence');
-        }elseif($national->stage == 3 || value('variation')){
+        } elseif ($national->stage == 3 || value('variation')) {
             return view('frontend.Registration-Tracking.variation');
-        }else{
+        } else {
             return view('frontend.New_forms.correspondence');
         }
-        
     }
 }

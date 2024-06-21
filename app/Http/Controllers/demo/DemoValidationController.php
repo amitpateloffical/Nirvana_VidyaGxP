@@ -248,11 +248,9 @@ class DemoValidationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 
-                // dd($validation2->validation_id);
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "Initiator";
                 $validation2->action_name = 'Create';
-                $validation2->comment = "Not Applicable";
                 $validation2->save();
             }
 
@@ -579,6 +577,8 @@ class DemoValidationController extends Controller
             $recordCounter->save();
 
             $validations =  Validation::findOrFail($id);
+            $lastDocument =  Validation::findOrFail($id);
+
             // General Information
             // $validation->parent_id = $request->input('parent_id');
             // $validation->parent_type = $request->input('parent_type');
@@ -771,312 +771,311 @@ class DemoValidationController extends Controller
             $validations->update();
 
 
-            if (!empty($request->short_description)) {
+            if ($lastDocument->short_description != $request->short_description) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->short_description;
                 $validation2->current = $request->short_description;
                 $validation2->activity_type = 'Short Description';
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
-                $validation2->comment = "Not Applicable";
+         
                 $validation2->save();
             }
 
-            if (!empty($request->intiation_date)) {
+            if ($lastDocument->intiation_date != $request->intiation_date){
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Intiation Date';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->intiation_date;
                 $validation2->current = $request->intiation_date;
                 $validation2->comment = "Not Applicable";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
-                $validation2->action_name = 'Update';
+            
+                   $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
+                $validation2->action_name = 'Update';             
                 $validation2->save();
             }
 
-            if (!empty($request->assign_to)) {
+            if ($lastDocument->assign_to != $request->assign_to) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Assign To';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->assign_to;
                 $validation2->current = $request->assign_to;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->assign_due_date)) {
+            if ($lastDocument->assign_due_date != $request->assign_due_date) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = ' Assign Due Date';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->assign_due_date;
                 $validation2->current = $request->assign_due_date;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-            if (!empty($request->validation_type)) {
+            if ($lastDocument->validation_type != $request->validation_type)  {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Validation Type';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->validation_type;
                 $validation2->current = $request->validation_type;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
-                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');    
+
+                 $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-            if (!empty($request->validation_due_date)) {
+           if ($lastDocument->validation_due_date != $request->validation_due_date) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Validation Due Date';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->validation_due_date;
                 $validation2->current = $request->validation_due_date;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-            if (!empty($request->notify_type)) {
+            if ($lastDocument->notify_type != $request->notify_type)  {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Notify Type';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->notify_type;
                 $validation2->current = $request->notify_type;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->phase_type)) {
+            if ($lastDocument->phase_type != $request->phase_type) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Phase Level';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->phase_type;
                 $validation2->current = $request->phase_type;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->document_reason_type)) {
+            if ($lastDocument->document_reason_type != $request->document_reason_type) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Document Reason';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->document_reason_type;
                 $validation2->current = $request->document_reason_type;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
 
-            if (!empty($request->purpose)) {
+            if ($lastDocument->purpose != $request->purpose) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Purpose';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->purpose;
                 $validation2->current = $request->purpose;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->validation_category)) {
+            if ($lastDocument->validation_category != $request->validation_category) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Validation Category';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->validation_category;
                 $validation2->current = $request->validation_category;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->validation_sub_category)) {
+            if ($lastDocument->validation_sub_category != $request->validation_sub_category)  {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Validation Sub Category';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->validation_sub_category;
                 $validation2->current = $request->validation_sub_category;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->file_attechment)) {
+            if ($lastDocument->file_attechment != $request->file_attechment) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Download Templates';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->file_attechment;
                 $validation2->current = $request->file_attechment;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->related_record)) {
+        if ($lastDocument->related_record != $request->related_record) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Related Records';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->related_record;
                 $validation2->current = $request->related_record;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->document_link)) {
+            if ($lastDocument->document_link != $request->document_link) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Document Link';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->document_link;
                 $validation2->current = $request->document_link;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->tests_required)) {
+            if ($lastDocument->tests_required != $request->tests_required) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Tests Required';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->tests_required;
                 $validation2->current = $request->tests_required;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->reference_document)) {
+            if ($lastDocument->reference_document != $request->reference_document) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Refrence Document';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->reference_document;
                 $validation2->current = $request->reference_document;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-
-            if (!empty($request->reference_link)) {
+            if ($lastDocument->reference_link != $request->reference_link) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Refrence Link';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->reference_link;
                 $validation2->current = $request->reference_link;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->stage;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }

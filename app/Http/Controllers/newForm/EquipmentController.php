@@ -462,7 +462,7 @@ class EquipmentController extends Controller
         try {
 
             $equipment =  Equipment::findOrFail($id);
-
+            $lastDocument =  Equipment::findOrFail($id);
             // $equipment = new Equipment();
 
             // General Information
@@ -508,28 +508,27 @@ class EquipmentController extends Controller
 
 
 
-            if (!empty($request->short_description)) {
+            if ($lastDocument->short_description != $request->short_description) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->short_description;
                 $validation2->current = $request->short_description;
                 $validation2->activity_type = 'Short Description';
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
-                $validation2->comment = "Not Applicable";
                 $validation2->save();
             }
 
-            if (!empty($request->initiation_date)) {
+            if ($lastDocument->initiation_date != $request->initiation_date){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Initiation Date';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->initiation_date;
                 $validation2->current = $request->initiation_date;
                 $validation2->comment = "Not Applicable";
                 $validation2->user_id = Auth::user()->id;
@@ -537,15 +536,17 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
 
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->assign_to)) {
+            if ($lastDocument->assign_to != $request->assign_to){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Assign To';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->assign_to;
                 $validation2->current = $request->assign_to;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -553,298 +554,312 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
 
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->assign_due_date)) {
+            if ($lastDocument->assign_due_date != $request->assign_due_date){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = ' Assign Due Date';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->assign_due_date;
                 $validation2->current = $request->assign_due_date;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-            if (!empty($request->type)) {
+           if ($lastDocument->type != $request->type){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Type';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->type;
                 $validation2->current = $request->type;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-            if (!empty($request->number_id)) {
+            if ($lastDocument->number_id != $request->number_id){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Number IDs';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->number_id;
                 $validation2->current = $request->number_id;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-            if (!empty($request->site_name)) {
+            if ($lastDocument->site_name != $request->site_name){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Site Name';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->site_name;
                 $validation2->current = $request->site_name;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+    
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->building)) {
+            if ($lastDocument->building != $request->building){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Building';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->building;
                 $validation2->current = $request->building;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+         
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->floor)) {
+            if ($lastDocument->floor != $request->floor) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Floor';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->floor;
                 $validation2->current = $request->floor;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+       
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
 
-            if (!empty($request->rooms)) {
+            if ($lastDocument->rooms != $request->rooms){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Room';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->rooms;
                 $validation2->current = $request->rooms;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+   
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->description)) {
+            if ($lastDocument->description != $request->description){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Description';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->description;
                 $validation2->current = $request->description;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->comments)) {
+            if ($lastDocument->comments != $request->comments){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Comments';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->comments;
                 $validation2->current = $request->comments;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->file_attechment)) {
+            if ($lastDocument->file_attechment != $request->file_attechment){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'File Attachment';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->file_attechment;
                 $validation2->current = $request->file_attechment;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->pm_frequency)) {
+            if ($lastDocument->pm_frequency != $request->pm_frequency){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'PM Frequency';
-                $validation2->previous = "Null";
+                $validation2->previous =$lastDocument->pm_frequency;
                 $validation2->current = $request->pm_frequency;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->calibration_frequency)) {
+           if ($lastDocument->calibration_frequency != $request->calibration_frequency){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Calibration Frequency';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->calibration_frequency;
                 $validation2->current = $request->calibration_frequency;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->preventive_maintenance_plan)) {
+            if ($lastDocument->preventive_maintenance_plan != $request->preventive_maintenance_plan){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Preventive Maintenance Plan';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->preventive_maintenance_plan;
                 $validation2->current = $request->preventive_maintenance_plan;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->calibration_information)) {
+            if ($lastDocument->calibration_information != $request->calibration_information){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Calibration Information';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->calibration_information;
                 $validation2->current = $request->calibration_information;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
 
-            if (!empty($request->next_pm_date)) {
+           if ($lastDocument->next_pm_date != $request->next_pm_date){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Next PM Date';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->next_pm_date;
                 $validation2->current = $request->next_pm_date;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if (!empty($request->next_calibration_date)) {
+            if ($lastDocument->next_calibration_date != $request->next_calibration_date){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Next Calibration Date';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->next_calibration_date;
                 $validation2->current = $request->next_calibration_date;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
 
-            if (!empty($request->maintenance_history)) {
+            if ($lastDocument->maintenance_history != $request->maintenance_history){
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Maintenance History';
-                $validation2->previous = "Null";
+                $validation2->previous = $lastDocument->maintenance_history;
                 $validation2->current = $request->maintenance_history;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // $validation2->change_to =   "Opened";
-                // $validation2->change_from = "Initiator";
+         
+                $validation2->change_to =   "Not applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
