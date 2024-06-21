@@ -16,6 +16,7 @@ use App\Http\Controllers\rcms\FormDivisionController;
 use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\rcms\SupplierController;
+use App\Http\Controllers\rcms\CountrySubDataController;
 use App\Http\Controllers\rcms\SupplierContractController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
@@ -162,6 +163,11 @@ Route::group(['prefix' => 'rcms'], function () {
 //--------------------------------------------by pramod-------------------------------------------------------------
             Route::get('supplierSingleReport/{id}', [SupplierController::class, 'singleReport'])->name('supplierSingleReport');
             Route::get('supplierAuditReport/{id}', [SupplierController::class, 'auditReport'])->name('supplierAuditReport');
+
+
+//--------------------------------------------by pramod-------------------------------------------------------------
+            Route::get('countrySingleReport/{id}', [CountrySubDataController::class, 'singleReport'])->name('supplierSingleReport');
+            Route::get('countryAuditReport/{id}', [CountrySubDataController::class, 'auditReport'])->name('supplierAuditReport');            
 
 //---------------------------------------------------------------------------------------------------------
 

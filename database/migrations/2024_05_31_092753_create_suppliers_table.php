@@ -44,18 +44,25 @@ return new class extends Migration
             $table->string('occurence')->nullable();
             $table->string('detection')->nullable();
             $table->string('rpn')->nullable();
+            $table->text('comment')->nullable();
             $table->string('report_issued_by')->nullable();
             $table->string('report_issued_on')->nullable();
+            $table->string('report_issued_comment')->nullable();
             $table->string('approval_received_by')->nullable();
             $table->string('approval_received_on')->nullable();
+            $table->string('approval_received_comment')->nullable();
             $table->string('all_capa_closed_by')->nullable();
             $table->string('all_capa_closed_on')->nullable();
+            $table->string('all_capa_closed_comment')->nullable();
             $table->string('approve_by')->nullable();
             $table->string('approve_on')->nullable();
+            $table->string('approve_comment')->nullable();
             $table->string('reject_by')->nullable();
             $table->string('reject_on')->nullable();
+            $table->string('reject_comment')->nullable();
             $table->string('cancelled_by')->nullable();
             $table->string('cancelled_on')->nullable();
+            $table->string('cancelled_comment')->nullable();
             $table->timestamps();
         });
     }

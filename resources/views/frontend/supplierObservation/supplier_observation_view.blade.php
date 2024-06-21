@@ -443,64 +443,112 @@
                             <div class="sub-head">
                                 Signatures
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted by">Report Issued By</label>
                                     <div class="static">{{ $data->report_issued_by }}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted on">Report Issued On</label>
                                     <div class="Date">{{ $data->report_issued_on }}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="submitted on">Report Issued Comment</label>
+                                    <div class="Date">{{ $data->report_issued_comment }}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted by">Approval received By</label>
                                     <div class="static">{{ $data->approval_received_by }}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted on">Approval received On</label>
                                     <div class="Date">{{ $data->approval_received_on }}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="submitted on">Approval received Comment</label>
+                                    <div class="Date">{{ $data->approval_received_comment }}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted by">All CAPA Clossed By</label>
                                     <div class="static">{{ $data->all_capa_closed_by }}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted on">All CAPA Clossed On</label>
                                     <div class="Date">{{ $data->all_capa_closed_on }}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="submitted on">All CAPA Clossed Comment</label>
+                                    <div class="Date">{{ $data->all_capa_closed_comment }}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted by">Approve By</label>
                                     <div class="static">{{ $data->approve_by }}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted on">Approve On</label>
                                     <div class="Date">{{ $data->approve_on }}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="submitted on">Approve Comment</label>
+                                    <div class="Date">{{ $data->approve_comment }}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted by">Reject By</label>
                                     <div class="static">{{ $data->reject_by }}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted on">Reject On</label>
                                     <div class="Date">{{ $data->reject_on }}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="submitted on">Reject Comment</label>
+                                    <div class="Date">{{ $data->reject_comment }}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="group-input">
+                                    <label for="submitted by">Cancel By</label>
+                                    <div class="static">{{ $data->cancelled_by }}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="group-input">
+                                    <label for="submitted on">Cancel On</label>
+                                    <div class="Date">{{ $data->cancelled_on }}</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="submitted on">Cancel Comment</label>
+                                    <div class="Date">{{ $data->cancelled_comment }}</div>
                                 </div>
                             </div>
                             

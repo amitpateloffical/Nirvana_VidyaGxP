@@ -125,6 +125,11 @@
                 querySelect.options.add(new Option('Pending Approval', '4'));
                 querySelect.options.add(new Option('Close - Done', '5'));
             }
+            else if (scopeValue === 'Country_submission_data') {
+                querySelect.options.add(new Option('Opened', '1'));
+                querySelect.options.add(new Option('Country Record Created', '2'));
+                querySelect.options.add(new Option('Close - Done', '3'));
+            }
 
             
         // Add more conditions based on other scope values
@@ -396,7 +401,22 @@
                                                                         alt="..." class="w-100 h-100"> --}}
                                                             </div>
                                                         </a>    
-                                                    @endif    
+                                                    @endif 
+                                                    
+                                                    @elseif($datas->type == 'Country-Submission-Data')
+                                                    <a href="{{ route('country_show', $datas->id) }}">
+                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/country-submission-data">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                    {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                        alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>    
+                                                    @endif 
                                                 @elseif($datas->type == 'Root-Cause-Analysis')
                                                     <a href="{{ route('root_show', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}

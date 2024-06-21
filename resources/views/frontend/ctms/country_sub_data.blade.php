@@ -17,6 +17,10 @@
     </div>
 </div>
 
+@php
+$users = DB::table('users')->get();
+@endphp
+
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
 {{-- ! ========================================= --}}
@@ -31,7 +35,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('country_store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -45,15 +49,15 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="Initiator" value="">
+                                    <label for="originator_id"><b>Initiator</b></label>
+                                    <input disabled type="text" name="originator_id" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiation"><b>Date of Initiation</b></label>
-                                    <input disabled type="date" name="Date_of_Initiation" value="">
-                                    <input type="hidden" name="division_id" value="">
+                                    <label for="intiation_date"><b>Date of Initiation</b></label>
+                                    <input disabled type="date" name="intiation_date" value="">
+                                    <input type="hidden" name="intiation_date" value="">
                                 </div>
                             </div>
 
@@ -64,16 +68,19 @@
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
-                                        <option value=""></option>
-
+                                        @foreach ($users as $value)
+                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                        @endforeach
                                     </select>
-
+                                    @error('assign_to')
+                                    <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Date Due</label>
+                                    <label for="due-date">Due Date</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
@@ -84,10 +91,12 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Type">Type</label>
-                                    <select multiple id="Type" name="Type[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">pankaj</option>
+                                    <label for="type">Type</label>
+                                    <select name="type">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">Type 1</option>
+                                        <option value="2">Type 2</option>
+                                        <option value="3">Type 3</option>
                                     </select>
                                 </div>
                             </div>
@@ -95,14 +104,14 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Other Type">Other Type</label>
-                                    <input type="text" name="Other_type" id="">
+                                    <label for="other_type">Other Type</label>
+                                    <input type="text" name="other_type" id="">
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
+                                    <label for="short_description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
                                     characters remaining
                                     <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
@@ -110,17 +119,17 @@
 
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Attached_Files">Attached Files</label>
+                                    <label for="attached_files">Attached Files</label>
                                     <div>
                                         <small class="text-primary">
                                             Please Attach all relevant or supporting documents
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="attached_files"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="Attached_Files" oninput="" multiple>
+                                            <input type="file" id="myfile" name="attached_files[]" oninput="addMultipleFiles(this, 'attached_files')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -128,9 +137,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Customer_Name">Related URLs</label>
-                                    <select name="Related_URLs">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <label for="related_urls">Related URLs</label>
+                                    <select name="related_urls">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">Type 1</option>
                                         <option value="2">Type 2</option>
                                         <option value="3">Type 3</option>
@@ -140,8 +149,8 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Descriptions">Descriptions</label>
-                                    <textarea name="Descriptions" id="" cols="30" rows="3"></textarea>
+                                    <label for="descriptions">Descriptions</label>
+                                    <textarea name="descriptions" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
 
@@ -153,7 +162,7 @@
                                 <div class="group-input">
                                     <label for="zone">Zone</label>
                                     <select name="zone">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -162,9 +171,9 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Country">Country</label>
+                                    <label for="country">Country</label>
                                     <select name="country">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -173,15 +182,15 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="City">City</label>
-                                    <input type="city" name="Reporter">
+                                    <label for="city">City</label>
+                                    <input type="city" name="city">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="State District">State/District</label>
-                                    <select name="State_District">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <label for="state_district">State/District</label>
+                                    <select name="state_district">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -208,15 +217,15 @@
 
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Manufacturer">Manufacturer</label>
-                                    <input type="text" name="Manufacturer" id="">
+                                    <label for="manufacturer">Manufacturer</label>
+                                    <input type="text" name="manufacturer" id="">
                                 </div>
                             </div>
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Product/Material(0)
-                                    <button type="button" name="audit-agenda-grid" id="Product_Material_country_sub_data">+</button>
+                                    <button type="button" name="audit-agenda-grid" id="Product_Material">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
@@ -228,22 +237,68 @@
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Product Name</th>
                                                 <th style="width: 16%">Batch Number</th>
-                                                <th style="width: 16%">Expiry Date</th>
                                                 <th style="width: 16%">Manufactured Date</th>
+                                                <th style="width: 16%">Expiry Date</th>
                                                 <th style="width: 15%">Disposition</th>
                                                 <th style="width: 15%">Comments</th>
                                                 <th style="width: 15%">Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="ProductName[]"></td>
-                                            <td><input type="text" name="BatchNumber[]"></td>
-                                            <td><input type="date" name="ExpiryDate"></td>
-                                            <td><input type="date" name="ManufacturedDate[]"></td>
-                                            <td><input type="text" name="Disposition[]"></td>
-                                            <td><input type="text" name="Comments[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
+                                            <td><input disabled type="text" name="serial_number_gi[0][serial]" value="1"></td>
+                                            <td><input type="text" name="serial_number_gi[0][info_product_name]"></td>
+                                            <td><input type="text" name="serial_number_gi[0][info_batch_number]"></td>
+                                            <td>
+                                                <div class="new-date-data-field">
+                                                    <div class="group-input input-date">
+                                                        <div class="calenderauditee">
+                                                            <input
+                                                                class="click_date"
+                                                                id="date_0_mfg_date"
+                                                                type="text"
+                                                                name="serial_number_gi[0][info_mfg_date]"
+                                                                placeholder="DD-MMM-YYYY"
+                                                            />
+                                                            <input
+                                                                type="date"
+                                                                name="serial_number_gi[0][info_mfg_date]"
+                                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                                                id="date_0_mfg_date"
+                                                                class="hide-input show_date"
+                                                                style="position: absolute; top: 0; left: 0; opacity: 0;"
+                                                                oninput="handleDateInput(this, 'date_0_mfg_date')"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="new-date-data-field">
+                                                    <div class="group-input input-date">
+                                                        <div class="calenderauditee">
+                                                            <input
+                                                                class="click_date"
+                                                                id="date_0_expiry_date"
+                                                                type="text"
+                                                                name="serial_number_gi[0][info_expiry_date]"
+                                                                placeholder="DD-MMM-YYYY"
+                                                            />
+                                                            <input
+                                                                type="date"
+                                                                name="serial_number_gi[0][info_expiry_date]"
+                                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                                                id="date_0_expiry_date"
+                                                                class="hide-input show_date"
+                                                                style="position: absolute; top: 0; left: 0; opacity: 0;"
+                                                                oninput="handleDateInput(this, 'date_0_expiry_date')"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><input type="text" name="serial_number_gi[0][info_disposition]"></td>
+                                            <td><input type="text" name="serial_number_gi[0][info_comments]"></td>
+                                            <td><input type="text" name="serial_number_gi[0][info_remarks[]"></td>
                                         </tbody>
 
                                     </table>
@@ -256,22 +311,22 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Number">Number (Id)</label>
-                                    <input type="text" name="Number" id="">
+                                    <label for="number_id">Number (Id)</label>
+                                    <input type="text" name="number_id" id="">
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Project Code">Project Code</label>
-                                    <input type="text" name="Project_Code" id="">
+                                    <label for="project_code">Project Code</label>
+                                    <input type="text" name="project_code" id="">
                                 </div>
                             </div>
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Authority Type">Authority Type</label>
-                                    <select name="Authority_Type">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <label for="authority_type">Authority Type</label>
+                                    <select name="authority_type">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -281,9 +336,9 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Authority">Authority</label>
-                                    <select name="Authority">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <label for="authority">Authority</label>
+                                    <select name="authority">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -292,9 +347,9 @@
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Priority Level">Priority Level</label>
-                                    <select name="Priority_Level">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <label for="priority_level">Priority Level</label>
+                                    <select name="priority_level">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -304,16 +359,16 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Other Authority">Other Authority</label>
-                                    <input type="text" name="Other_Authority" id="">
+                                    <label for="other_authority">Other Authority</label>
+                                    <input type="text" name="other_authority" id="">
                                 </div>
                             </div>
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Approval Status">Approval Status</label>
-                                    <select name="Approval_Status">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <label for="approval_status">Approval Status</label>
+                                    <select name="approval_status">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -324,8 +379,8 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Managed by Company">Managed by Company?</label>
-                                    <select name="Managed_by_Company">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <select name="managed_by_company">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -335,8 +390,8 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Managed by Company">Marketing Status</label>
-                                    <select name="Managed_by_Company">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <select name="marketing_status">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -346,8 +401,8 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Therapeutic Area">Therapeutic Area</label>
-                                    <select name="Therapeutic_Area">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <select name="therapeutic_area">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -357,8 +412,8 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="End of Trial Date Status">End of Trial Date Status</label>
-                                    <select name="End_of_Trial_Date_Status">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <select name="end_of_trial_date_status">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -368,8 +423,8 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Protocol Type">Protocol Type</label>
-                                    <select name="Protocol_Type">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <select name="protocol_type">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -379,8 +434,8 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Registration Status">Registration Status</label>
-                                    <select name="Registration_Status">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <select name="registration_status">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -389,9 +444,9 @@
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Protocol Type">Unblinded SUSAR to CEC?</label>
-                                    <select name="Protocol_Type">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <label for="unblinded_SUSAR_to_CEC">Unblinded SUSAR to CEC?</label>
+                                    <select name="unblinded_SUSAR_to_CEC">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -401,8 +456,8 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Trade Name">Trade Name</label>
-                                    <select name="Trade_Name">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <select name="trade_name">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -412,8 +467,8 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Dosage Form">Dosage Form</label>
-                                    <select name="Dosage_Form">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <select name="dosage_form">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -423,13 +478,13 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Photocure Trade Name">Photocure Trade Name</label>
-                                    <input type="text" name="Photocure_Trade_Name" id="">
+                                    <input type="text" name="photocure_trade_name" id="">
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Currency">Currency</label>
-                                    <input type="text" name="Currency" id="">
+                                    <input type="text" name="currency" id="">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -441,10 +496,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="attacehed_payments"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="Attacehed Payments" oninput="" multiple>
+                                            <input type="file" id="myfile" name="attacehed_payments[]" oninput="addMultipleFiles(this, 'attacehed_payments')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -452,8 +507,8 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Follow Up Documents">Follow Up Documents</label>
-                                    <select name="Follow_Up_Documents">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <select name="follow_up_documents">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -464,9 +519,11 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Hospitals">Hospitals</label>
-                                    <select multiple id="Hospitals" name="" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">
+                                    <select id="hospitals" name="hospitals" id="">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                         </option>
                                     </select>
                                 </div>
@@ -474,74 +531,78 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Vendors">Vendors</label>
-                                    <select multiple id="Vendors" name="Vendors" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">
-                                        </option>
+                                    <label for="vendors">Vendors</label>
+                                    <select id="vendors" name="vendors">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="INN">INN(s)</label>
-                                    <select multiple id="Route_of_Administration" name="INN" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">
-                                        </option>
+                                    <select id="INN" name="INN" id="">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Route of Administration">Route of Administration</label>
-                                    <select multiple id="Route_of_Administration" name="" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">
-                                        </option>
+                                    <select id="route_of_administration" name="route_of_administration">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="1st IB Version">1st IB Version</label>
-                                    <input type="text" name="1st_IB_Version" id="">
+                                    <label for="first_IB_version">1st IB Version</label>
+                                    <input type="text" name="first_IB_version" id="">
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="1st Protocol Version">1st Protocol Version</label>
-                                    <input type="text" name="1st_Protocol_Version" id="">
+                                    <label for="first_protocol_version">1st Protocol Version</label>
+                                    <input type="text" name="first_protocol_version" id="">
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="EudraCT Number">EudraCT Number</label>
-                                    <input type="text" name="EudraCT_Number" id="">
+                                    <label for="eudraCT_numberr">EudraCT Number</label>
+                                    <input type="text" name="eudraCT_number" id="">
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Budget">Budget</label>
-                                    <input type="text" name="Budget" id="">
+                                    <label for="budget">Budget</label>
+                                    <input type="text" name="budget" id="">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Phase of Study">Phase of Study</label>
-                                    <select multiple id="Phase_of_Study" name="" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">
-                                        </option>
+                                    <label for="phase_of_study">Phase of Study</label>
+                                    <select id="phase_of_study" name="phase_of_study">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-12 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Related Clinical Trials">Related Clinical Trials</label>
-                                    <select name="Related_Clinical_Trials">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <label for="related_clinical_trials">Related Clinical Trials</label>
+                                    <select name="related_clinical_trials">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -572,14 +633,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="Transaction[]"></td>
-                                            <td><input type="text" name="TransactionType[]"></td>
-                                            <td><input type="date" name="Date[]"></td>
-                                            <td><input type="number" name="Amount[]"></td>
-                                            <td><input type="text" name="Currency Used[]"></td>
-                                            <td><input type="text" name="Comments[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
+                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
+                                            <td><input type="text" name="details[0][Transaction]"></td>
+                                            <td><input type="text" name="details[0][TransactionType]"></td>
+                                            <td><input type="date" name="details[0][Date]"></td>
+                                            <td><input type="number" name="details[0][Amount]"></td>
+                                            <td><input type="text" name="details[0][CurrencyUsed]"></td>
+                                            <td><input type="text" name="details[0][Comments]"></td>
+                                            <td><input type="text" name="details[0][Remarks]"></td>
                                         </tbody>
 
                                     </table>
@@ -607,12 +668,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="IDnumber[]"></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
+                                            <td><input type="text" name="details[0][IngredientType]"></td>
+                                            <td><input type="text" name="details[0][IngredientName]"></td>
+                                            <td><input type="text" name="details[0][IngredientStrength]"></td>
+                                            <td><input type="text" name="details[0][Comments]"></td>
+                                            <td><input type="text" name="details[0][Remarks]"></td>
                                         </tbody>
 
                                     </table>
@@ -622,8 +683,8 @@
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Data Safety Notes">Data Safety Notes</label>
-                                    <select name="Data_Safety_Notes">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <select name="data_safety_notes">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -632,9 +693,9 @@
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Comments">Comments</label>
-                                    <select name="Comments">
-                                        <option value="">Enter Your Selection Here</option>
+                                    <label for="comments">Comments</label>
+                                    <select name="comments">
+                                        <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -659,78 +720,78 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Annual IB Update Date Due">Annual IB Update Date Due</label>
-                                    <input type="date" name="Annual_IB_Update_Date_Due" id="">
+                                    <label for="annual_IB_update_date_due">Annual IB Update Date Due</label>
+                                    <input type="date" name="annual_IB_update_date_due" id="">
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="safety_impact_Severity">Date of 1st IB</label>
-                                    <input type="date" name="" id="">
+                                    <label for="date_of_first_IB">Date of 1st IB</label>
+                                    <input type="date" name="date_of_first_IB" id="">
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="legal_impact_Probability">Date of 1st Protocol</label>
-                                    <input type="date" name="" id="">
+                                    <label for="date_of_first_protocol">Date of 1st Protocol</label>
+                                    <input type="date" name="date_of_first_protocol" id="">
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="legal_impact_Severity">Date Safety Report</label>
-                                    <input type="date" name="" id="">
+                                    <label for="date_safety_report">Date Safety Report</label>
+                                    <input type="date" name="date_safety_report" id="">
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Business_impact_Probability">Date Trial Active</label>
-                                    <input type="date" name="" id="">
+                                    <label for="date_trial_active">Date Trial Active</label>
+                                    <input type="date" name="date_trial_active" id="">
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Business_impact_Severity">End of Study Report Date</label>
-                                    <input type="date" name="" id="">
+                                    <input type="date" name="end_of_study_report_date" id="">
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Revenue_impact_Probability">End of Study Synopsis Date</label>
-                                    <input type="date" name="" id="">
+                                    <input type="date" name="end_of_study_synopsis_date" id="">
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Revenue_impact_Severity">End of Trial Date</label>
-                                    <input type="date" name="" id="">
+                                    <input type="date" name="end_of_trial_date" id="">
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Brand_impact_Probability">Last Visit</label>
-                                    <input type="date" name="" id="">
+                                    <input type="date" name="last_visit" id="">
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Brand_impact_Severity">Next Visit</label>
-                                    <input type="date" name="" id="">
+                                    <input type="date" name="next_visit" id="">
                                 </div>
                             </div>
 
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Brand_impact_Severity">Ethics Commitee Approval</label>
-                                    <input type="date" name="" id="">
+                                    <input type="date" name="ethics_commitee_approval" id="">
                                 </div>
                             </div>
 
@@ -740,10 +801,13 @@
 
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Safety_Impact_Risk">Safety Impact Risk</label>
+                                    <label for="safety_impact_risk">Safety Impact Risk</label>
                                     <div><small class="text-primary">Acceptable- Risks Nigligible, Further Effort not justified; consider product improvement</small></div>
-                                    <select name="Safety_Impact_Risk">
-                                        <option value="">--select--</option>
+                                    <select name="safety_impact_risk">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -757,64 +821,69 @@
 
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Lead Investigator">Lead Investigator</label>
-                                    <input type="text" name="Lead Investigator" id="">
+                                    <label for="lead_investigator">Lead Investigator</label>
+                                    <input type="text" name="lead_investigator" id="">
 
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Sponsor">Sponsor</label>
-                                    <input type="text" name="Sponsor" id="">
+                                    <label for="sponsor">Sponsor</label>
+                                    <input type="text" name="sponsor" id="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Additional Investigators">Additional Investigators</label>
-                                    <select multiple id="Additional_Investigators" name="Additional_Investigators" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">
-                                        </option>
+                                    <label for="additional_investigators">Additional Investigators</label>
+                                    <select id="additional_investigators" name="additional_investigators" id="">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Clinical Events Committee">Clinical Events Committee</label>
-                                    <select multiple id="Clinical_Events_Committee" name="Clinical_Events_Committee" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">
-                                        </option>
+                                    <label for="clinical_events_committee">Clinical Events Committee</label>
+                                    <select id="clinical_events_committee" name="clinical_events_committee" id="">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Clinical Research Team">Clinical Research Team</label>
-                                    <select multiple id="Clinical_Research_Team" name="Clinical_Research_Team" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">
-                                        </option>
+                                    <label for="clinical_research_team">Clinical Research Team</label>
+                                    <select id="clinical_research_team" name="clinical_research_team" id="">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Data Safety Monitoring Board">Data Safety Monitoring Board</label>
-                                    <select multiple id="Data_Safety_Monitoring_Board" name="Data_Safety_Monitoring_Board" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">
-                                        </option>
+                                    <label for="data_safety_monitoring_board">Data Safety Monitoring Board</label>
+                                    <select id="data_safety_monitoring_board" name="data_safety_monitoring_board" id="">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Distribution List">Distribution List</label>
-                                    <select multiple id="Distribution_List" name="Distribution_List" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">
-                                        </option>
+                                    <select id="distribution_list" name="distribution_list" id="">
+                                        <option value="0">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>

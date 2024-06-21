@@ -17,6 +17,7 @@ use App\Http\Controllers\CabinateController;
 use App\Http\Controllers\rcms\CCController;
 use App\Http\Controllers\rcms\EffectivenessCheckController;
 use App\Http\Controllers\rcms\ObservationController;
+use App\Http\Controllers\rcms\CountrySubDataController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentContentController;
 use App\Http\Controllers\ImportController;
@@ -195,6 +196,17 @@ Route::post('supplier/cancle/{id}',[SupplierController::class,'supplier_Cancle']
 Route::post('supplier/reject/{id}',[SupplierController::class,'supplier_reject'])->name('supplier_reject');
 Route::get('supplierAuditTrail/{id}',[SupplierController::class,'supplierAuditTrail']);
 Route::get('auditDetailsSupplier/{id}',[SupplierController::class,'auditDetailsSupplier'])->name('showsupplierAuditDetails');
+
+// ======================================================
+//============================Supplier Observation by pramod=======================================
+
+Route::get('country-submission-data',[CountrySubDataController::class,'country_submission']);
+Route::post('countrystore',[CountrySubDataController::class,'country_store'])->name('country_store');
+Route::put('countrySubUpdate/{id}',[CountrySubDataController::class,'country_update'])->name('country_update');
+Route::get('countryshow/{id}',[CountrySubDataController::class,'country_show'])->name('country_show');
+Route::post('country/stage/{id}',[CountrySubDataController::class,'country_send_stage'])->name('country_send_stage');
+Route::post('country/cancle/{id}',[CountrySubDataController::class,'country_Cancle'])->name('country_Cancle');
+Route::get('countryAuditTrail/{id}',[CountrySubDataController::class,'countryAuditTrail']);
 
 // =================QRM fORM=====================================
 Route::view('qrm', 'frontend.QRM.qrm');

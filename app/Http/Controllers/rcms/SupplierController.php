@@ -978,6 +978,7 @@ class SupplierController extends Controller
                 $supplier->status = 'Pending Response/CAPA Plan';
                 $supplier->report_issued_by = Auth::user()->name;
                 $supplier->report_issued_on = Carbon::now()->format('d-M-Y');
+                $supplier->report_issued_comment = $request->comment;
                 $history = new SupplierAuditTrial();
                 $history->supplier_id = $id;
                 $history->activity_type = 'Activity Log';
@@ -1004,6 +1005,7 @@ class SupplierController extends Controller
                 $supplier->status = 'Work in Progress';
                 $supplier->approval_received_by = Auth::user()->name;
                 $supplier->approval_received_on = Carbon::now()->format('d-M-Y');
+                $supplier->approval_received_comment = $request->comment;
                 $history = new SupplierAuditTrial();
                 $history->supplier_id = $id;
                 $history->activity_type = 'Activity Log';
@@ -1030,6 +1032,7 @@ class SupplierController extends Controller
                 $supplier->status = 'Pending Approval';
                 $supplier->all_capa_closed_by = Auth::user()->name;
                 $supplier->all_capa_closed_on = Carbon::now()->format('d-M-Y');
+                $supplier->all_capa_closed_comment = $request->comment;
                 $history = new SupplierAuditTrial();
                 $history->supplier_id = $id;
                 $history->activity_type = 'Activity Log';
@@ -1056,6 +1059,7 @@ class SupplierController extends Controller
                 $supplier->status = 'Closed - Done';
                 $supplier->approve_by = Auth::user()->name;
                 $supplier->approve_on = Carbon::now()->format('d-M-Y');
+                $supplier->approve_comment = $request->comment;
                 $history = new SupplierAuditTrial();
                 $history->supplier_id = $id;
                 $history->activity_type = 'Activity Log';
@@ -1095,36 +1099,40 @@ class SupplierController extends Controller
             if ($supplier->stage == 1) {
                 $supplier->stage = "0";
                 $supplier->status = "Closed - Cancelled";
+                $supplier->cancelled_by = Auth::user()->name;
+                $supplier->cancelled_on = Carbon::now()->format('d-M-Y');
+                $supplier->cancelled_comment = $request->comment;
                 $supplier->update();
+
+                $history = new SupplierAuditTrial();
+                $history->supplier_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = "";
+                $history->current = $supplier->cancelled_by;
+                $history->comment = $request->comment;
+                $history->action = 'Closed - Cancelled';
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->change_to = "Closed - Cancelled";
+                $history->change_from = $lastDocument->status;
+                $history->stage='Closed - Cancelled';
+                $history->save();
+
+                $history = new SupplierHistory();
+                $history->type = "Supplier Observation";
+                $history->doc_id = $id;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->stage_id = $supplier->stage;
+                $history->status = $supplier->status;
+                $history->save();
                 toastr()->success('Document Sent');
                 return back();
-            }
-            $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
-            $history->activity_type = 'Activity Log';
-            $history->previous = "";
-            $history->current = $supplier->cancelled_by;
-            $history->comment = $request->comment;
-            $history->action = 'Closed - Cancelled';
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastDocument->status;
-            $history->change_to = "Closed - Cancelled";
-            $history->change_from = $lastDocument->status;
-            $history->stage='Closed - Cancelled';
-            $history->save();
-
-            $supplier->update();
-            $history = new SupplierHistory();
-            $history->type = "Supplier Observation";
-            $history->doc_id = $id;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->stage_id = $supplier->stage;
-            $history->status = $supplier->status;
-            $history->save();
-        } else {
+                
+            } 
+        }else {
             toastr()->error('E-signature Not match');
             return back();
         }
@@ -1136,12 +1144,15 @@ class SupplierController extends Controller
     {
 
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
-            $capa = Supplier::find($id);
+            $supplier = Supplier::find($id);
 
-            if ($capa->stage == 4) {
-                $capa->stage = "2";
-                $capa->status = "Pending Response/CAPA Plan";
-                $capa->update();
+            if ($supplier->stage == 4) {
+                $supplier->stage = "2";
+                $supplier->status = "Pending Response/CAPA Plan";
+                $supplier->reject_by = Auth::user()->name;
+                $supplier->reject_on = Carbon::now()->format('d-M-Y');
+                $supplier->reject_comment = $request->comment;
+                $supplier->update();
 
                 toastr()->success('Document Sent');
                 return back();
