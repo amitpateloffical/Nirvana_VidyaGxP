@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('audit_reviewers_details', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('verification_id');
+            $table->unsignedBigInteger('analystinterview_id');
+            $table->unsignedBigInteger('additional_testing_id');
             $table->unsignedBigInteger('user_id');
             $table->text('type')->nullable();
             $table->longText('reviewer_comment')->nullable();

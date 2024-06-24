@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdditionalTestingController;
+use App\Http\Controllers\AnalystInterviewController;
 use App\Http\Controllers\CabinateController;
 use App\Http\Controllers\ChangeControlController;
 use App\Http\Controllers\DashboardController;
@@ -37,6 +38,7 @@ use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\ResamplingController;
 use App\Http\Controllers\VerificationController;
+use App\Models\AnalystInterview;
 
 /*
 |--------------------------------------------------------------------------
@@ -517,21 +519,75 @@ Route::post('resampling_updated/{id}',[ResamplingController::class,'update'])->n
 // Route::get('oos_micro_edit/{id}',[OOSMicroController::class, 'edit'])->name('oos_micro.edit');
 // Route::post('oos_micro_update/{id}',[OOSMicroController::class, 'update'])->name('oos_micro.update');
 
-Route::view('verification', 'frontend.verification.verification');
+Route::view('verification', 'frontend.verification.verification')->name('verification');
 Route::post('verification_store', [VerificationController::class, 'store'])->name('verification_store');
 Route::get('verification_edit/{id}',[VerificationController::class, 'edit'])->name('verification_edit');
 Route::post('verification_update/{id}',[VerificationController::class, 'update'])->name('verification_update');
 
-Route::post('sendstage/{id}',[VerificationController::class,'send_stage'])->name('Vsend_stage');
-Route::post('requestmoreinfo_back_stage/{id}',[VerificationController::class,'requestmoreinfo_back_stage'])->name('Vrequestmoreinfo_back_stage');
+Route::post('Vsendstage/{id}',[VerificationController::class,'send_stage'])->name('Vsend_stage');
+Route::post('sendstage2/{id}',[VerificationController::class,'Vsend_stage2'])->name('Vsend_stage2');
+
+Route::post('Vrequestmoreinfo_back_stage/{id}',[VerificationController::class,'requestmoreinfo_back_stage'])->name('Vrequestmoreinfo_back_stage');
 Route::post('cancel_stage/{id}', [VerificationController::class, 'cancel_stage'])->name('Vcancel_stage');;
 Route::post('thirdStage/{id}', [VerificationController::class, 'stageChange'])->name('thirdStage');
-Route::get('AuditTrial/{id}', [VerificationController::class, 'AuditTrial'])->name('Vaudit_trial');
-Route::post('AuditTrial/{id}', [VerificationController::class, 'store_audit_review'])->name('Vstore_audit_review');
-Route::get('auditDetails/{id}', [VerificationController::class, 'auditDetails'])->name('Vaudit_details');
+Route::post('Vstore_audit_review/{id}', [VerificationController::class, 'store_audit_review'])->name('Vstore_audit_review');
+Route::get('Vaudit_details/{id}', [VerificationController::class, 'auditDetails'])->name('Vaudit_details');
 
 Route::get('Vaudit_report/{id}', [VerificationController::class, 'auditReport'])->name('Vaudit_report');
 Route::get('Vsingle_report/{id}', [VerificationController::class, 'singleReport'])->name('Vsingle_report');
+Route::get('Vaudit_trial/{id}', [VerificationController::class, 'AuditTrial'])->name('Vaudit_trial');
+
+
+
+//============================= Analyst Interview  =====================================================
+
+Route::view('analyst_interview','analystInterview.analystInterview_new');
+Route::view('analyst_interview','analystInterview.analystInterview_new')->name('analyst_interview');
+
+Route::post('analystinterview_store', [AnalystInterviewController::class, 'store'])->name('analystinterview_store');
+Route::get('analystinterview_edit/{id}',[AnalystInterviewController::class, 'edit'])->name('analystinterview_edit');
+Route::post('analystinterview_update/{id}',[AnalystInterviewController::class, 'update'])->name('analystinterview_update');
+
+Route::post('sendstage/{id}',[AnalystInterviewController::class,'send_stage'])->name('AIsend_stage');
+Route::post('requestmoreinfo_back_stage/{id}',[AnalystInterviewController::class,'requestmoreinfo_back_stage'])->name('AIrequestmoreinfo_back_stage');
+Route::post('cancel_stage/{id}', [AnalystInterviewController::class, 'cancel_stage'])->name('AIcancel_stage');;
+Route::post('thirdStage/{id}', [AnalystInterviewController::class, 'stageChange'])->name('thirdStage');
+Route::post('AuditTrial/{id}', [AnalystInterviewController::class, 'store_audit_review'])->name('AIstore_audit_review');
+Route::get('auditDetails/{id}', [AnalystInterviewController::class, 'auditDetails'])->name('AIaudit_details');
+Route::get('AIaudit_report/{id}', [AnalystInterviewController::class, 'auditReport'])->name('AIaudit_report');
+Route::get('AIsingle_report/{id}', [AnalystInterviewController::class, 'singleReport'])->name('AIsingle_report');
+Route::get('AIAuditTrial/{id}', [AnalystInterviewController::class, 'AuditTrial'])->name('AIaudit_trial');
+
+// ===============Additional Testing==========================\
+Route::view("additional_testing", 'frontend.additional-testing.additional_testing')->name('additional_testing');
+Route::post('additionaltesting_store', [AdditionalTestingController::class, 'store'])->name('additionaltesting_store');
+Route::get('additionaltesting_edit/{id}',[AdditionalTestingController::class, 'edit'])->name('additionaltesting_edit');
+Route::post('additionaltesting_update/{id}',[AdditionalTestingController::class, 'update'])->name('additionaltesting_update');
+
+Route::post('sendstageat/{id}',[AdditionalTestingController::class,'send_stage'])->name('ATsend_stage');
+Route::post('request_more_info_back_stage/{id}',[AdditionalTestingController::class,'requestmoreinfo_back_stage'])->name('ATrequest_more_info_back_stage');
+
+Route::post('send_back_stage_to4/{id}',[AdditionalTestingController::class,'send_stageto4'])->name('send_stageto4');
+
+Route::post('cancel_stages/{id}', [AdditionalTestingController::class, 'cancel_stages'])->name('ATcancel_stages');
+Route::post('thirdStage/{id}', [AdditionalTestingController::class, 'stageChange'])->name('thirdStage');
+Route::post('AuditTrial/{id}', [AdditionalTestingController::class, 'store_audit_review'])->name('ATstore_audit_review');
+Route::get('auditDetails_at/{id}', [AdditionalTestingController::class, 'auditDetails'])->name('auditDetails_at');
+Route::get('ATaudit_report/{id}', [AdditionalTestingController::class, 'auditReport'])->name('ATaudit_report');
+Route::get('ATsingle_report/{id}', [AdditionalTestingController::class, 'singleReport'])->name('ATsingle_report');
+Route::get('AuditTrial/{id}', [AdditionalTestingController::class, 'AuditTrial'])->name('ATaudit_trial');
+
+
+
+// Route::get('/additional_testing_view/{id}', [AdditionalTestingController::class, 'edit']);
+// Route::view("additional_testing_view", 'frontend.additional-testing.additional_testing_view');
+// Route::post('additional_testing_store', [AdditionalTestingController::class, 'store'])->name('at_store');
+// Route::get('additional_testing/{id}', [AdditionalTestingController::class, 'edit'])->name('at_edit');
+
+// Route::view('/additional_testing_view','frontend.additional-testing.additional_testing_view')->name('at_update');
+Route::post('additional_testing_update/{id}', [AdditionalTestingController::class, 'update'])->name('at_update');
+
+
 
 
 
@@ -571,16 +627,6 @@ Route::get('Vsingle_report/{id}', [VerificationController::class, 'singleReport'
 // Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
 // Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 
-// ===============Additional Testing==========================\
-Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
-Route::get('/additional_testing_view/{id}', [AdditionalTestingController::class, 'edit']);
-// Route::view("additional_testing_view", 'frontend.additional-testing.additional_testing_view');
-Route::post('additional_testing_store', [AdditionalTestingController::class, 'store'])->name('at_store');
-Route::get('additional_testing/{id}', [AdditionalTestingController::class, 'edit'])->name('at_edit');
-// Route::view('/additional_testing_view','frontend.additional-testing.additional_testing_view')->name('at_update');
-Route::post('additional_testing_update/{id}', [AdditionalTestingController::class, 'update'])->name('at_update');
-
-
 
 
 
@@ -591,8 +637,6 @@ Route::view('recommended_action_new', 'frontend.OOS.recommended_action');
 // ========follow up task===============
 Route::view('follow_up_task', 'frontend.newform.follow_up_task');
 
-// ========Analyst Interview===============
-Route::view('analyst_interview','analystInterview.analystInterview_new');
 
 // ========Hypothesis ===============
 Route::view('hypothesis', 'frontend.newform.hypothesis');

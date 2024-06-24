@@ -185,7 +185,7 @@ class RoleGroupSeeder extends Seeder
         $group->description = "Jordan-Change Control- View Only";
         $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
         $group->save();
-    
+
 
     $group = new RoleGroup();
 $group->id = 25;
@@ -1896,113 +1896,7 @@ $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => tr
 $group->save();
 
 $group = new RoleGroup();
-$group->id = 262;
-$group->name = "Estonia-New Document-Trainer";
-$group->description = "Estonia-New Document-Trainer";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
-$group->id = 263;
-$group->name = "Egypt-New Document-Trainer";
-$group->description = "Egypt-New Document-Trainer";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
-$group->id = 264;
-$group->name = "Jordan-New Document-Trainer";
-$group->description = "Jordan-New Document-Trainer";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
-$group->id = 265;
-$group->name = "KSA-Lab Incident- QC Head/ Designee";
-$group->description = "KSA-Lab Incident- QC Head/ Designee";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
-$group->id = 266;
-$group->name = "Estonia-Lab Incident- QC Head/ Designee";
-$group->description = "Estonia-Lab Incident- QC Head/ Designee";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
-$group->id = 267;
-$group->name = "Egypt-Lab Incident- QC Head/ Designee";
-$group->description = "Egypt-Lab Incident- QC Head/ Designee";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
-$group->id = 268;
-$group->name = "Jordan-Lab Incident- QC Head/ Designee";
-$group->description = "Jordan-Lab Incident- QC Head/ Designee";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-//KSA-Deviation
-$group = new RoleGroup();
-$group->id = 269;
-$group->name = "KSA-Deviation- Initiator";
-$group->description = "KSA-Deviation- Initiator";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
-$group->id = 270;
-$group->name = "KSA-Deviation- HOD/Designee";
-$group->description = "KSA-Deviation- HOD/Designee";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
-$group->id = 271;
-$group->name = "KSA-Deviation- QA";
-$group->description = "KSA-Deviation- QA";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
-$group->id = 272;
-$group->name = "KSA-Deviation- FP";
-$group->description = "KSA-Deviation- FP";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
-$group->id = 273;
-$group->name = "KSA-Deviation- View Only";
-$group->description = "KSA-Deviation- View Only";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group  = new RoleGroup();
-$group->id = 274;
-$group->name = "KSA-Deviation- CFT/SME";
-$group->description = "KSA-Deviation- CFT/SME";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-//Dewas-India-Deviation
-$group = new RoleGroup();
-$group->id = 275;
-$group->name = "Dewas/India-Deviation- Initiator";
-$group->description = "Dewas/India-Deviation- Initiator";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
-$group->id = 276;
-$group->name = "Dewas/India-Deviation- HOD/Designee";
-$group->description = "Dewas/India-Deviation- HOD/Designee";
-$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
-$group->save();
-
-$group = new RoleGroup();
+$group->id = 262;$group = new RoleGroup();
 $group->id = 277;
 $group->name = "Dewas/India-Deviation- QA";
 $group->description = "Dewas/India-Deviation- QA";
@@ -2154,7 +2048,113 @@ $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => tr
 $group->save();
 
 $group = new RoleGroup();
-$group->id = 298;
+$group->id = 298
+$group->name = "Estonia-New Document-Trainer";
+$group->description = "Estonia-New Document-Trainer";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 263;
+$group->name = "Egypt-New Document-Trainer";
+$group->description = "Egypt-New Document-Trainer";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 264;
+$group->name = "Jordan-New Document-Trainer";
+$group->description = "Jordan-New Document-Trainer";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 265;
+$group->name = "KSA-Lab Incident- QC Head/ Designee";
+$group->description = "KSA-Lab Incident- QC Head/ Designee";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 266;
+$group->name = "Estonia-Lab Incident- QC Head/ Designee";
+$group->description = "Estonia-Lab Incident- QC Head/ Designee";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 267;
+$group->name = "Egypt-Lab Incident- QC Head/ Designee";
+$group->description = "Egypt-Lab Incident- QC Head/ Designee";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 268;
+$group->name = "Jordan-Lab Incident- QC Head/ Designee";
+$group->description = "Jordan-Lab Incident- QC Head/ Designee";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+//KSA-Deviation
+$group = new RoleGroup();
+$group->id = 269;
+$group->name = "KSA-Deviation- Initiator";
+$group->description = "KSA-Deviation- Initiator";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 270;
+$group->name = "KSA-Deviation- HOD/Designee";
+$group->description = "KSA-Deviation- HOD/Designee";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 271;
+$group->name = "KSA-Deviation- QA";
+$group->description = "KSA-Deviation- QA";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 272;
+$group->name = "KSA-Deviation- FP";
+$group->description = "KSA-Deviation- FP";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 273;
+$group->name = "KSA-Deviation- View Only";
+$group->description = "KSA-Deviation- View Only";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group  = new RoleGroup();
+$group->id = 274;
+$group->name = "KSA-Deviation- CFT/SME";
+$group->description = "KSA-Deviation- CFT/SME";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+//Dewas-India-Deviation
+$group = new RoleGroup();
+$group->id = 275;
+$group->name = "Dewas/India-Deviation- Initiator";
+$group->description = "Dewas/India-Deviation- Initiator";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+$group = new RoleGroup();
+$group->id = 276;
+$group->name = "Dewas/India-Deviation- HOD/Designee";
+$group->description = "Dewas/India-Deviation- HOD/Designee";
+$group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+$group->save();
+
+;
 $group->name = "Dewas/India-Root Cause Analysis- FP";
 $group->description = "Dewas/India-Root Cause Analysis- FP";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);

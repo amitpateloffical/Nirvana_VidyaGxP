@@ -25,8 +25,8 @@ return new class extends Migration
             $table->string('parent_product_material_name')->nullable();
             //(general information section)
             $table->integer('record')->nullable();
-            $table->string('division_id')->nullable();
             $table->string('division_code')->nullable();
+            $table->string('division_id')->nullable();
             $table->integer('initiator_id')->nullable();
             $table->string('intiation_date')->nullable();
             $table->string('target_closure_date_gi')->nullable();

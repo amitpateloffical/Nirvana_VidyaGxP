@@ -151,7 +151,7 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                   Dossier Document Audit Trial Report
+                   Verification Audit Trial Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -164,7 +164,7 @@
         <table>
             <tr>
                 <td class="w-30">
-                    <strong>Dossier Document Audit No.</strong>
+                    <strong>Verification Audit No.</strong>
                 </td>
                 <td class="w-40">
                    {{ Helpers::divisionNameForQMS($doc->division_id) }}/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
@@ -178,12 +178,11 @@
 
     <div class="inner-block">
 
-        <div class="head">Audit Trial Histroy Configuration Report</div>
+        <div class="head">Audit Trial History Configuration Report</div>
 
         <div class="division">
             {{ Helpers::divisionNameForQMS($doc->division_id) }}/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
         </div>
-
         <!-- <div class="first-table">
             <table>
                 <tr>

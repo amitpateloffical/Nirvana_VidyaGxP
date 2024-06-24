@@ -186,7 +186,7 @@
                             ->get();
                         $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
                         $auditCollect = DB::table('audit_reviewers_details')
-                            ->where(['additional_testing_id' => $document->id, 'user_id' => Auth::user()->id])
+                            ->where(['analystinterview_id' => $document->id, 'user_id' => Auth::user()->id])
                             ->latest()
                             ->first();
                     @endphp
@@ -207,7 +207,7 @@
                                 View
                             </button>
                             <button class="button_theme1"><a class="text-white"
-                                    href="{{ route('additional_testing', $document->id) }}"> Back
+                                    href="{{ route('analyst_interview', $document->id) }}"> Back
                                 </a>
                             </button>
                             <button class="button_theme1" onclick="window.print();">
@@ -233,7 +233,7 @@
 
                                 @php
                                     $reviewer = DB::table('audit_reviewers_details')
-                                        ->where(['additional_testing_id' => $document->id, 'type' => 'Additional Testing'])
+                                        ->where(['analystinterview_id' => $document->id, 'type' => 'Analyst Interview'])
                                         ->get();
                                 @endphp
                                 <!-- Customer grid view -->
@@ -284,7 +284,7 @@
                                     <h4 class="modal-title">Audit Reviewers</h4>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
-                               <form action="{{ route('ATstore_audit_review', $document->id) }}" method="POST">
+                               <form action="{{ route('Vstore_audit_review', $document->id) }}" method="POST">
                                         @csrf
                                         <!-- Modal body -->
                                         <div class="modal-body">
@@ -326,7 +326,7 @@
                                 Audit Trail
                             </div>
 
-                            <div> <strong>Record ID.</strong> {{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>
+                            <div> <strong>Record ID.</strong> {{ str_pad($document->record_number, 4, '0', STR_PAD_LEFT) }}</div>
                             <div style="margin-bottom: 5px;  font-weight: bold;"> Originator
                                 :{{ Auth::user()->name }}</div>
                             <div style="margin-bottom: 5px; font-weight: bold;">Short Description :
@@ -378,7 +378,7 @@
                             <td>
                                 <div>
                                     <strong> Data Field Name :</strong><a
-                                        href="{{ route('auditDetails_at', $dataDemo->id) }}">{{ $dataDemo->activity_type ? $dataDemo->activity_type : 'Not Applicable' }}</a>
+                                        href="{{ route('Vaudit_details', $dataDemo->id) }}">{{ $dataDemo->activity_type ? $dataDemo->activity_type : 'Not Applicable' }}</a>
                                 </div>
                                 <div style="margin-top: 5px;">
                                     @if($dataDemo->activity_type == "Activity Log")
