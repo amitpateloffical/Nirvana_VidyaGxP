@@ -17,6 +17,9 @@ use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\newForm\MedicalRegistrationController;
+use App\Http\Controllers\newForm\LabController;
+use App\Http\Controllers\newForm\FieldController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +36,8 @@ Route::group(['prefix' => 'rcms'], function () {
 
     Route::middleware(['rcms'])->group(
         function () {
+
+            Route::get('field_auditTrail/{id}',[FieldController::class,'fieldAuditTrail'])->name('field_auditTrail');
             Route::resource('CC', CCController::class);
             Route::resource('actionItem', ActionItemController::class);
             Route::post('action-stage-cancel/{id}', [ActionItemController::class, 'actionStageCancel']);
@@ -114,7 +119,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('LabIncidentAuditReport/{id}', [LabIncidentController::class, 'auditReport'])->name('LabIncidentAuditReport');
             //------------------------------------
 
-            
+
             Route::post('create', [AuditProgramController::class, 'create'])->name('createAuditProgram');
             Route::get('AuditProgramShow/{id}', [AuditProgramController::class, 'AuditProgramShow'])->name('ShowAuditProgram');
             Route::post('AuditStateChange/{id}', [AuditProgramController::class, 'AuditStateChange'])->name('StateChangeAuditProgram');
@@ -171,12 +176,46 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('deviation/Qa/{id}', [DeviationController::class, 'deviation_qa_more_info'])->name('deviation_qa_more_info');
             Route::post('deviationstore', [DeviationController::class, 'store'])->name('deviationstore');
             Route::post('deviationupdate/{id}', [DeviationController::class, 'update'])->name('deviationupdate');
-             Route::get('deviation', [DeviationController::class, 'deviation']);
-             Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
-             Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
+            Route::get('deviation', [DeviationController::class, 'deviation']);
+            Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
+            Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
 
-             
+             Route::post('medical_device/stage/{id}', [MedicalRegistrationController::class, 'medical_registration_send_stage'])->name('medical_registration_send_stage');
+             Route::post('medical_device/cancel/{id}', [MedicalRegistrationController::class, 'medical_deviceCancel'])->name('medical_deviceCancel');
+             Route::post('medical_device/reject/{id}', [MedicalRegistrationController::class, 'medical_device_reject'])->name('medical_device_reject');
+             Route::post('medical_device/check/{id}', [MedicalRegistrationController::class, 'check'])->name('check');
+             Route::post('medical_device/check2/{id}', [MedicalRegistrationController::class, 'check2'])->name('check2');
+             Route::post('medical_device/check3/{id}', [MedicalRegistrationController::class, 'check3'])->name('check3');
+             Route::post('medical_device/cftnotreqired/{id}', [MedicalRegistrationController::class, 'cftnotreqired'])->name('cftnotreqired');
+
+             Route::post('lab_test/cancel/{id}', [LabController::class, 'lab_Cancel'])->name('lab_Cancel');
+             Route::post('lab_test/stage/{id}', [LabController::class, 'lab_sends_stage'])->name('lab_send_stage');
+             Route::post('lab_test/reject/{id}', [LabController::class, 'lab_test_reject'])->name('lab_test_reject');
+             Route::post('lab_test_qa/{id}', [LabController::class, 'lab_qa_more_info'])->name('lab_qa_more_info');
+             Route::post('lab_test/check/{id}', [LabController::class, 'check'])->name('check');
+             Route::post('lab_test/check2/{id}',[ LabController::class, 'check2'])->name('check2');
+             Route::post('lab_test/check3/{id}',[ LabController::class, 'check3'])->name('check3');
+             Route::post('lab_test/qanotreqired/{id}',[ LabController::class, 'qanotreqired'])->name('qanotreqired');
+             Route::get('lab_auditReport/{id}',[LabController::class, 'auditReport']);
+             Route::get('lab_audit_singleReport/{id}',[LabController::class, 'singleReport']);
+
+
+
+             Route::post('field_inquiry/cancel/{id}', [FieldController::class, 'field_Cancel'])->name('field_Cancel');
+             Route::post('field_inquiry/stage/{id}', [FieldController::class, 'field_sends_stage'])->name('field_sends_stage');
+             Route::get('field_auditReport/{id}',[FieldController::class, 'fieldauditReport']);
+             Route::get('field_audit_singleReport/{id}',[FieldController::class, 'fieldauditSingleReport']);
+
+
+
+
+
+
+
+
+
+
 
         }
     );

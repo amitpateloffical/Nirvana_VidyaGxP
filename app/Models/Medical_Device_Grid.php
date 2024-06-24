@@ -12,5 +12,5 @@ class Medical_Device_Grid extends Model
     protected $fillable =  ['mdg_id','identifier','data'] ;
 
     protected $casts = ['data'=>'array'];
-    
+
 }

@@ -58,10 +58,10 @@
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
                                     <input  type="date" name="Date Opened" value="">
-                                 
+
                                 </div>
                             </div>
-                            
+
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -115,15 +115,15 @@
                                     </select>
                                 </div>
                             </div>
-                            
-                          
+
+
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Description</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="description" id="summernote-16"></textarea>
                                 </div>
                             </div>
-                         
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Type</label>
@@ -222,6 +222,27 @@
                                 </div>
                             </div>
 
+                            <div class="col-6">
+                                <div class="group-input">
+                                    <label for="Attached File">Attached File</label>
+                                    <div>
+                                        <small class="text-primary">
+                                            Please Attach all relevant or supporting documents
+                                        </small>
+                                    </div>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="file_attachment"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="HOD_Attachments" name="file_attachment[]"
+                                                oninput="addMultipleFiles(this, 'file_attachment')" multiple>
+
+                                            {{-- <input type="file" id="myfile" name="file_attachment" oninput="" multiple> --}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+{{--
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="closure attachment">Attached Files </label>
@@ -236,7 +257,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -297,7 +318,7 @@
                                     </select>
                                 </div>
                             </div>
-    
+
 
                         </div>
                         <div class="button-block">
@@ -312,7 +333,7 @@
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                           
+
                         <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Account Type</label>
@@ -328,7 +349,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Business Area</label>
-                                    <select name="Type">
+                                    <select name="business_area">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">B-1</option>
                                         <option value="2">B-2</option>
@@ -398,23 +419,23 @@
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
 
-                               
+
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                     </a> </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                           
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Completed By</label>
                                     <div class="static"></div>
-                                </div>  
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">

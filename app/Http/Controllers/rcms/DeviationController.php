@@ -117,7 +117,7 @@ class DeviationController extends Controller
         $deviation->Investigation_Summary = $request->Investigation_Summary;
         $deviation->Impact_assessment = $request->Impact_assessment;
         $deviation->Root_cause = $request->Root_cause;
-        // $deviation->due_date_extension = $request->due_date_extension; 
+        // $deviation->due_date_extension = $request->due_date_extension;
         $deviation->CAPA_Rquired = $request->CAPA_Rquired;
         $deviation->capa_type = $request->capa_type;
         $deviation->CAPA_Description = $request->CAPA_Description;
@@ -239,7 +239,7 @@ class DeviationController extends Controller
         $Cft->Production_assessment = $request->Production_assessment;
         $Cft->Production_feedback = $request->Production_feedback;
         $Cft->production_on = $request->production_on;
-        $Cft->production_by = $request->production_by; 
+        $Cft->production_by = $request->production_by;
 
         $Cft->Warehouse_review = $request->Warehouse_review;
         $Cft->Warehouse_notification = $request->Warehouse_notification;
@@ -1081,7 +1081,7 @@ class DeviationController extends Controller
         $deviation->Product_Batch = $request->Product_Batch;
 
         $deviation->Description_Deviation = implode(',', $request->Description_Deviation);
-        $deviation->Facility = implode(',', $request->Facility);  
+        $deviation->Facility = implode(',', $request->Facility);
 
 
         $deviation->Immediate_Action = implode(',', $request->Immediate_Action);
@@ -1117,7 +1117,7 @@ class DeviationController extends Controller
         $Cft->Production_assessment = $request->Production_assessment;
         $Cft->Production_feedback = $request->Production_feedback;
         $Cft->production_on = $request->production_on;
-        $Cft->production_by = $request->production_by; 
+        $Cft->production_by = $request->production_by;
 
         $Cft->Warehouse_review = $request->Warehouse_review;
         $Cft->Warehouse_notification = $request->Warehouse_notification;
@@ -1457,7 +1457,7 @@ class DeviationController extends Controller
 
             $Cft->Other5_attachment = json_encode($files);
         }
-    
+
 
     $Cft->save();
 
@@ -2062,7 +2062,9 @@ class DeviationController extends Controller
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $deviation = Deviation::find($id);
             $lastDocument = Deviation::find($id);
+
             $cftDetails = DeviationCftsResponse::withoutTrashed()->where(['status' => 'In-progress', 'deviation_id' => $id])->distinct('cft_user_id')->count();
+
             if ($deviation->stage == 1) {
                 $deviation->stage = "2";
                 $deviation->status = "HOD Review";
@@ -2167,7 +2169,7 @@ class DeviationController extends Controller
                 $deviation->stage = "4";
                 $deviation->status = "CFT Review";
 
-                // Code for the CFT required 
+                // Code for the CFT required
                 $stage = new DeviationCftsResponse();
                 $stage->deviation_id = $id;
                 $stage->cft_user_id = Auth::user()->id;
@@ -2445,6 +2447,7 @@ class DeviationController extends Controller
             $deviation->status = "Closed-Cancelled";
             $deviation->cancelled_by = Auth::user()->name;
             $deviation->cancelled_on = Carbon::now()->format('d-M-Y');
+
             $history = new DeviationAuditTrail();
             $history->deviation_id = $id;
             $history->activity_type = 'Activity Log';
@@ -2994,6 +2997,7 @@ class DeviationController extends Controller
     {
 
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+
             $deviation = Deviation::find($id);
             $lastDocument = Deviation::find($id);
             $list = Helpers::getInitiatorUserList();

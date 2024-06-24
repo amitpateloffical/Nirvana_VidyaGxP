@@ -8,8 +8,37 @@
         header {
             display: none;
         }
-    </style>
 
+
+        .progress-bars div {
+            flex: 1 1 auto;
+            border: 1px solid grey;
+            padding: 5px;
+            text-align: center;
+            position: relative;
+            /* border-right: none; */
+            background: white;
+        }
+
+        .state-block {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bars div.active {
+            background: green;
+            font-weight: bold;
+        }
+
+        #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(1) {
+            border-radius: 20px 0px 0px 20px;
+        }
+
+        #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(9) {
+            border-radius: 0px 20px 20px 0px;
+
+        }
+    </style>
     <script>
         $(document).ready(function() {
             $('#ReferenceDocument').click(function(e) {
@@ -38,7 +67,7 @@
                         //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                         // }
 
-                        // html += '</select></td>' + 
+                        // html += '</select></td>' +
 
                         '</tr>';
 
@@ -73,6 +102,195 @@
     {{-- ! ========================================= --}}
     <div id="change-control-fields">
         <div class="container-fluid">
+
+
+
+            <div class="inner-block state-block">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="main-head">Record Workflow </div>
+
+                    <div class="d-flex" style="gap:20px;">
+                        @php
+                            $userRoles = DB::table('user_roles')
+                                ->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => 7])
+                                ->get();
+                            $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                        @endphp
+
+                        <button class="button_theme1"> <a class="text-white" href="{{ url('medical_audit', $data->id) }}">
+                                Audit Trail </a> </button>
+
+                        @if ($data->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Assign Responsible
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                Cancel
+                            </button>
+                        @elseif($data->stage == 2 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Classify
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target=" #cancel-modal">
+                                Reject
+                            </button>
+                            <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                        Cancel
+                                    </button> -->
+                        @elseif($data->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Submit To Regulator
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                Cancel
+                            </button>
+                        @elseif(
+                            $data->stage == 4 &&
+                                (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
+                            <button class="button_theme1" data-bs-toggle="modal" name="widthrown"
+                                data-bs-target="#cancel-modal">
+                                Withdraw
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                Refused
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Approval Received
+                            </button>
+
+                            {{-- @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Deviation Complete
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
+                            Back to Testing
+                        </button> --}}
+                            <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
+                                                Document Completed
+                                            </button> -->
+                            <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                                QA Final Review Complete
+                                            </button>
+                                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                                                Child
+                                            </button>  -->
+                            {{-- @elseif($data->stage == 6 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Document Completed
+                        </button> --}}
+                            <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                            Report Reject
+                                            </button>
+                                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
+                                            Obsolete
+                                            </button> -->
+
+                            {{-- @elseif($data->stage == 7 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Final Approval
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            Report Reject
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Obsolete
+                        </button> --}}
+                            <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                                Initiator Updated Complete
+                                            </button> -->
+                        @elseif($data->stage == 5 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
+                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Obsolete
+                        </button> --}}
+                        @endif
+                        <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                            </a> </button>
+                    </div>
+                </div>
+
+
+                <div class="status">
+                    <div class="head">Current Status</div>
+                    @if ($data->stage == 0)
+                        <div class="progress-bars ">
+                            <div class="bg-danger">Closed-Cancelled</div>
+                        </div>
+                    @elseif ($data->stage == 6)
+                        {{-- @if ($data->stage == 6) --}}
+                        <div class="progress-bars ">
+                            <div class="bg-danger">Closed - Withdraw</div>
+                        </div>
+                    @elseif ($data->stage == 7)
+                    <div class="progress-bars ">
+                        <div class="bg-danger">Closed - Not Approved</div>
+                    </div>
+                    @else
+                        <div class="progress-bars d-flex" style="font-size: 15px;">
+
+                            @if ($data->stage >= 1)
+                                <div class="active">Opened</div>
+                            @else
+                                <div class="">Opened</div>
+                            @endif
+
+                            @if ($data->stage >= 2)
+                                <div class="active">Device and Directive Classification </div>
+                            @else
+                                <div class="">Device and Directive Classification</div>
+                            @endif
+
+                            @if ($data->stage >= 3)
+                                <div class="active">Dossier Finalization</div>
+                            @else
+                                <div class="">Dossier Finalization</div>
+                            @endif
+
+                            @if ($data->stage >= 4)
+                                <div class="active"> Pending Registration Approval</div>
+                            @else
+                                <div class=""> Pending Registration
+                                    Approval</div>
+                            @endif
+
+
+
+                            {{-- @if ($data->stage >= 6)
+                        <div class="active"> Closed - Withdrawn</div>
+                        @else
+                        <div class=""> Closed - Withdrawn</div>
+                        @endif
+                        @if ($data->stage >= 7)
+                        <div class="active"> Closed – Not Approved</div>
+                        @else
+                        <div class=""> Closed – Not Approved</div>
+                        @endif --}}
+                            @if ($data->stage >= 5)
+                                <div class="bg-danger"> Closed –Approved
+                                </div>
+                            @else
+                                <div class=""> Closed –Approved
+                                </div>
+                            @endif
+                            {{-- @if ($data->stage >= 8)
+                        <div class="active"> Closed - Cancelled</div>
+                        @else
+                        <div class=""> Closed - Cancelled</div>
+                        @endif
+                        @if ($data->stage >= 9)
+                        <div class="bg-danger">Closed - Done</div>
+                        @else
+                        <div class="">Closed - Done</div>
+                        @endif --}}
+                            {{-- @endif --}}
+                        </div>
+                    @endif
+
+                    {{-- ---------------------------------------------------------------------------------------- --}}
+                </div>
+            </div>
+
+            <!-- Tab links -->
+
 
             <!-- Tab links -->
             <div class="cctab">
@@ -119,6 +337,21 @@
                                     </div>
                                 </div>
 
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="division_id"><b>Division</b></label>
+                                        <select name="division_id" id="division_id">
+                                            <option value="">Select Division</option>
+                                            @foreach ($division as $divData)
+                                                <option value="{{ $divData->id }}"
+                                                    {{ $divData->id == $data->division_id ? 'selected' : '' }}>
+                                                    {{ $divData->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
 
                                 <div class="col-12">
                                     <div class="group-input">
@@ -128,59 +361,56 @@
                                                 value="{{ $data->short_description }}" maxlength="255" required>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="group-input">
+                                            <label for="search">
+                                                Assigned To <span class="text-danger"></span>
+                                            </label>
+                                            <p class="text-primary">Person responsible</p>
+                                            <select id="select-state" placeholder="Select..." name="assign_to">
+                                                <option value="">Select a value</option>
+                                                @if ($users->isNotEmpty())
+                                                    @foreach ($users as $user)
+                                                        <option value="{{ $user->id }}"
+                                                            @if (isset($data->assign_to) && $data->assign_to == $user->id) selected @endif>
+                                                            {{ $user->name }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
 
-                                {{-- <div class="col-md-6"> --}}
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="group-input">
-                                                <label for="search">
-                                                    Assigned To <span class="text-danger"></span>
-                                                </label>
-                                                <select id="select-assign-to" placeholder="Select..." name="assign_to">
-                                                    <option value="">Select a value</option>
-                                                    <option value="Vibha" @if (isset($data->assign_to) && $data->assign_to == 'Vibha') selected @endif>
-                                                        Vibha</option>
-                                                    <option value="Shruti" @if (isset($data->assign_to) && $data->assign_to == 'Shruti') selected @endif>
-                                                        Shruti</option>
-                                                    <option value="Monika" @if (isset($data->assign_to) && $data->assign_to == 'Monika') selected @endif>
-                                                        Monika</option>
-                                                </select>
-                                            </div>
                                         </div>
+                                    </div>
 
-                                        <div class="col-md-6 new-date-data-field">
-                                            <div class="group-input input-date">
-                                                <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                                <div class="calenderauditee">
-    
-                                                    <input type="text" id="due_date_gi" readonly placeholder="DD-MMM-YYYY" />
-                                                    <input type="date" name="due_date_gi"
-                                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                        oninput="handleDateInput(this)" />
-                                                </div>
+                                    <div class="col-md-6 new-date-data-field">
+                                        <div class="group-input input-date">
+                                            <label for="due-date">Date Due</label>
+                                            <div><small class="text-primary">Please mention expected date of
+                                                    completion</small></div>
+                                            <div class="calenderauditee">
+                                                {{-- Parse the date string into a DateTime object --}}
+                                                @php
+                                                    $date = new DateTime($data->due_date_gi);
+                                                @endphp
+                                                {{-- Format the date as desired --}}
+                                                <input type="text" id="due_date_gi" readonly placeholder="DD-MMM-YYYY"
+                                                    value="{{ $date->format('j-F-Y') }}" />
+                                                <input type="date" name="due_date_gi"
+                                                    min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                                    value="{{ $data->due_date_gi }}" class="hide-input"
+                                                    oninput="handleDateInput(this, 'due_date_gi')" />
                                             </div>
                                         </div>
                                     </div>
-                                    
-
-
-
-                                    {{-- <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly
-                                            placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($ooc->due_date) }}" {{ $ooc->stage == 0 || $ooc->stage == 8 ? 'disabled' : ''}}/>
-                                        <input type="date" name="due_date" {{ $ooc->stage == 0 || $ooc->stage == 8 ? 'disabled' : ''}}  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'due_date')" />
-                                    </div> --}}
-
-
-
                                     <div class="col-md-6">
                                         <div class="group-input">
                                             <label for="search">
                                                 Type <span class="text-danger"></span>
                                             </label>
                                             <p class="text-primary">Registration Type</p>
-                                            <select id="select-state" placeholder="Select..." name="registration_type_gi">
+                                            <select id="select-state" placeholder="Select..."
+                                                name="registration_type_gi">
                                                 <option value="">Select a value</option>
                                                 <option value="1" @if ($data->registration_type_gi == 1) selected @endif>1
                                                 </option>
@@ -192,8 +422,6 @@
 
                                         </div>
                                     </div>
-
-
                                     <div class="col-lg-12">
                                         <div class="group-input">
                                             <label for="Audit Attachments">File Attachments</label>
@@ -206,8 +434,8 @@
                                                             <h6 type="button" class="file-container text-dark"
                                                                 style="background-color: rgb(243, 242, 240);">
                                                                 <b>{{ $file }}</b>
-                                                                <a href="{{ asset('upload/' . $file) }}" target="_blank"><i
-                                                                        class="fa fa-eye text-primary"
+                                                                <a href="{{ asset('upload/' . $file) }}"
+                                                                    target="_blank"><i class="fa fa-eye text-primary"
                                                                         style="font-size:20px; margin-right:-10px;"></i></a>
                                                                 <a type="button" class="remove-file"
                                                                     data-file-name="{{ $file }}"><i
@@ -229,186 +457,151 @@
                                         </div>
                                     </div>
 
+{{-- regitration --}}
+
+                         <div class="sub-head">Registration Information</div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+
+                                        <label for="RLS Record Number"><b>(Parent) Trade Name</b></label>
+
+                                        <input type="text" name="parent_record_number"
+                                            value="{{ $data->parent_record_number }}">
 
 
-
-
-                                    {{-- <div class="file-attachment-field">
-                                <div class="file-attachment-list" id="Audit_file">
-                                    @if ($data->file_attachment_gi)
-                                    @foreach (json_decode($data->file_attachment_gi) as $file)
-                                    <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
-                                        <b>{{ $file }}</b>
-                                        <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
-                                        <a type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
-                                    </h6>
-                                    @endforeach
-                                    @endif
+                                    </div>
                                 </div>
-                                <div class="add-btn">
-                                    <div>Add</div>
-                                    <input type="file" id="Audit_file" name="Audit_file[]" value="{{$data->file_attachment_gi}}" oninput="addMultipleFiles(this, 'Audit_file')" multiple>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+
+                                        <label class="" for="RLS Record Number"><b>Local Trade Name</b></label>
+
+                                        <input type="text" name="local_record_number"
+                                            value="{{ $data->local_record_number }}">
+
+
+                                    </div>
                                 </div>
-                            </div>
- --}}
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Responsible Department">Zone</label>
+                                        <select name="zone_departments">
+                                            <option value="">Enter Your Selection Here</option>
 
+                                            <option value="Asia" @if ($data->zone_departments == 'Asia') selected @endif>Asia</option>
+                                            <option value="Europe" @if ($data->zone_departments == 'Europe') selected @endif>Europe</option>
+                                            <option value="North America" @if ($data->zone_departments == 'North America') selected @endif>North America</option>
+                                            <option value="South America" @if ($data->zone_departments == 'South America') selected @endif>South America</option>
+                                            <option value="Africa" @if ($data->zone_departments == 'Africa') selected @endif>Africa</option>
+                                            <option value="Australia" @if ($data->zone_departments == 'Australia') selected @endif>Australia</option>
+                                            <option value="Antarctica" @if ($data->zone_departments== 'Antarctica') selected @endif>Antarctica</option>
 
-
-
-                                    {{-- ============================================================================================================================= --}}
-
-
-                                    {{-- 
-                            {{-- <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="Audit Attachments">File Attachments</label>
-                                    <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
-                                    {{-- <input type="file" id="myfile" name="Initial_Attachment" {{ $data->stage == 0 || $data->stage == 8 ? "disabled" : "" }}
-                                        value="{{ $data->Initial_Attachment }}"> 
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="Audit_file">
-                                                @if ($data->file_attachment_gi)
-                                                @foreach (json_decode($data->file_attachment_gi) as $file)
-                                                    <h6 type="button" class="file-container text-dark"
-                                                        style="background-color: rgb(243, 242, 240);">
-                                                        <b>{{ $file }}</b>
-                                                        <a href="{{ asset('upload/' . $file) }}"
-                                                            target="_blank"><i class="fa fa-eye text-primary"
-                                                                style="font-size:20px; margin-right:-10px;"></i></a>
-                                                        <a type="button" class="remove-file"
-                                                            data-file-name="{{ $file }}"><i
-                                                                class="fa-solid fa-circle-xmark"
-                                                                style="color:red; font-size:20px;"></i></a>
-                                                    </h6>
-                                                @endforeach
-                                            @endif
-                                            </div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                {{-- <input {{ $data->stage == 0 || $data->stage == 8 ? "disabled" : "" }} type="file" id="Audit_file" name="Audit_file[]"
-                                                    oninput="addMultipleFiles(this, 'Audit_file')" multiple> 
-                                                    <input type="file" id="Audit_file" name="Audit_file[]" value="{{$data->file_attachment_gi}}">
-                                            </div>
-                                        </div>
-                                 </div>
-                                   </div> --}}
-                            
-                                    <div class="sub-head">Registration Information</div>
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-
-                                            <label for="RLS Record Number"><b>(Parent) Trade Name</b></label>
-
-                                            <input type="text" name="parent_record_number"
-                                                value="{{ $data->parent_record_number }}">
-
-
-                                        </div>
+                                        </select>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
+                                </div>
 
-                                            <label class="" for="RLS Record Number"><b>Local Trade Name</b></label>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
 
-                                            <input type="text" name="local_record_number"
-                                                value="{{ $data->local_record_number }}">
+                                        <label for="RLS Record Number"><b>Country</b></label>
+                                        <p class="text-primary">Auto filter according to selected zone</p>
+                                        <select name="country_number">
+                                            <option value="">Select Country</option>
+                                            <option value="">Enter Your Selection Here</option>
+                                            <option value="1" @if ($data->country_number == 1) selected @endif>1
+                                            </option>
+                                            <option value="2" @if ($data->country_number == 2) selected @endif>2
+                                            </option>
+                                            <option value="3" @if ($data->country_number == 3) selected @endif>3
+                                            </option>
+
+                                        </select>
 
 
-                                        </div>
+
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-                                            <label for="Responsible Department">Zone</label>
-                                            <select name="zone_departments">
-                                                <option value="">Enter Your Selection Here</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="regulatory_departments">Regulatory body</label>
+                                        <p class="text-primary">Auto filter according to country (if selected)</p>
+                                        <select name="regulatory_departments">
+                                            <option value="">Enter Your Selection Here</option>
+                                            <option value="1" @if ($data->regulatory_departments == 1) selected @endif>1
+                                            </option>
+                                            <option value="2" @if ($data->regulatory_departments== 2) selected @endif>2
+                                            </option>
+                                            <option value="3" @if ($data->regulatory_departments == 3) selected @endif>3
+                                            </option>
+
+                                        </select>
                                     </div>
+                                </div>
 
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
+                                <div class="col-lg-6">
+                                    <div class="group-input">
 
-                                            <label for="RLS Record Number"><b>Country</b></label>
-                                            <p class="text-primary">Auto filter according to selected zone</p>
+                                        <label for="RLS Record Number"><b>Registration number</b></label>
 
-                                            <input type="text" name="country_number" value="">
+                                        <input type="number" name="registration_number" value="{{ $data->registration_number }}">
 
 
-                                        </div>
+
                                     </div>
+                                </div>
 
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-                                            <label for="Responsible Department">Regulatory body</label>
-                                            <p class="text-primary">auto filter according to country(if selected)</p>
-                                            <select name="regulatory_departments">
-                                                <option value="">Enter Your Selection Here</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Responsible Department">Class (Risk Based)</label>
+                                        <p class="text-primary">auto filter according to country</p>
+                                        <select name="risk_based_departments">
+                                            <option value="">Enter Your Selection Here</option>
+                                            <option value="1" @if ($data->risk_based_departments == 1) selected @endif>1
+                                            </option>
+                                            <option value="2" @if ($data->risk_based_departments== 2) selected @endif>2
+                                            </option>
+                                            <option value="3" @if ($data->risk_based_departments == 3) selected @endif>3
+                                            </option>
+                                        </select>
                                     </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-
-                                            <label for="RLS Record Number"><b>Registration number</b></label>
-
-                                            <input type="number" name="registration_number" value="">
+                                </div>
 
 
-                                        </div>
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Responsible Department">Device Approval Type</label>
+                                        <p class="text-primary">auto filter according to country</p>
+                                        <select name="device_approval_departments">
+                                            <option value="">Enter Your Selection Here</option>
+                                            <option value="1" @if ($data->device_approval_departments == 1) selected @endif>1
+                                            </option>
+                                            <option value="2" @if ($data->device_approval_departments== 2) selected @endif>2
+                                            </option>
+                                            <option value="3" @if ($data->device_approval_departments == 3) selected @endif>3
+                                            </option>
+                                        </select>
                                     </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-                                            <label for="Responsible Department">Class (Risk Based)</label>
-                                            <p class="text-primary">auto filter according to country</p>
-                                            <select name="risk_based_departments">
-                                                <option value="">Enter Your Selection Here</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="RLS Record Number"><b>Marketing Authorization Holder</b></label>
+                                        <input type="number" name="marketing_auth_number" value="0" min="0"
+                                            max="9" step="1">
                                     </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+
+                                        <label for="RLS Record Number"><b>Manufacturer</b></label>
+
+                                        <input type="text" name="manufacturer_number"value="{{ $data->manufacturer_number }}">
 
 
-
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-                                            <label for="Responsible Department">Device Approval Type</label>
-                                            <p class="text-primary">auto filter according to country</p>
-                                            <select name="device_approval_departments">
-                                                <option value="">Enter Your Selection Here</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                            </select>
-                                        </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-                                            <label for="RLS Record Number"><b>Marketing Authorization Holder</b></label>
-                                            <input type="number" name="marketing_auth_number" value="0"
-                                                min="0" max="9" step="1">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-
-                                            <label for="RLS Record Number"><b>Manufacturer</b></label>
-
-                                            <input type="text" name="manufacturer_number" value="">
-
-
-                                        </div>
-                                    </div>
+                                </div>
 
                                 {{-- </div> --}}
                                 <div class="group-input">
@@ -439,48 +632,74 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td><input disabled type="text" name="serial[]" value="1">
-                                                    </td>
 
-                                                    <td><input type="text" name="packagedetail[0][PrimaryPackaging]">
-                                                    </td>
-                                                    <td><input type="text" name="packagedetail[0][Material]"></td>
-                                                    <td><input type="number" name="packagedetail[0][PackSize]"></td>
-                                                    <td><input type="text" name="packagedetail[0][SelfLife]"></td>
-                                                    <td><input type="text" name="packagedetail[0][StorageCondition]">
-                                                    </td>
-                                                    <td><input type="text" name="packagedetail[0][SecondaryPackaging]">
-                                                    </td>
-                                                    <td><input type="text" name="packagedetail[0][Remarks]"></td>
-                                                </tr>
+                                                @if ($gridMedical && is_array($gridMedical->data))
+                                                    @foreach ($gridMedical->data as $gridData)
+                                                        <tr>
+
+                                                            <td>{{ $loop->index +1 }}</td>
+                                                            {{-- <td>
+                                                           <input type="text" class="numberDetail" name="packagedetail[][item_product_code]" value="{{ isset($gridData['item_product_code']) ? $gridData['item_product_code'] : '' }}">
+                                                            </td> --}}
+                                                            <td>
+                                                                <input type="text" class="numberDetail" name="packagedetail[{{ $loop->index }}][PrimaryPackaging]" value="{{ isset($gridData['PrimaryPackaging']) ? $gridData['PrimaryPackaging'] : '' }}">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="numberDetail" name="packagedetail[{{ $loop->index }}][Material]"value="{{ isset($gridData['Material']) ? $gridData['Material'] : '' }}">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class="numberDetail" name="packagedetail[{{ $loop->index }}][PackSize]"value="{{ isset($gridData['PackSize']) ? $gridData['PackSize'] : '' }}">
+                                                            </td>
+
+                                                            <td>
+                                                                <input type="text" class="numberDetail" name="packagedetail[{{ $loop->index }}][SelfLife]" value="{{ isset($gridData['SelfLife']) ? $gridData['SelfLife'] : '' }}">
+                                                            </td>
+
+                                                            <td>
+                                                                <input type="text" class="numberDetail" name="packagedetail[{{ $loop->index }}][StorageCondition]" value="{{ isset($gridData['StorageCondition']) ? $gridData['StorageCondition'] : '' }}">
+                                                            </td>
+
+                                                            <td>
+                                                                <input type="text" class="numberDetail" name="packagedetail[{{ $loop->index }}][SecondaryPackaging]" value="{{ isset($gridData['SecondaryPackaging']) ? $gridData['SecondaryPackaging'] : '' }}">
+                                                            </td>
+
+                                                            <td>
+                                                                <input type="text" class="numberDetail" name="packagedetail[{{ $loop->index }}][Remarks]" value="{{ isset($gridData['Remarks']) ? $gridData['Remarks'] : '' }}">
+                                                            </td>
+
+
+                                                        </tr>
+                                                    @endforeach
+                                                @else
+                                                    {{-- <td>{{ $serialNumber }}</td> --}}
+
+                                                    <td><input type="text" class="numberDetail"          name="packagedetail[0][PrimaryPackaging]"></td>
+                                                    <td><input type="text" class="Document_Remarks"      name="packagedetail[0][Material]"></td>
+                                                    <td><input type="text" class="Document_Remarks"      name="packagedetail[0][PackSize]"></td>
+                                                    <td><input type="date"class="Document_Remarks"       name="packagedetail[0][StorageCondition]">
+                                                    </td><td><input type="date" class="Document_Remarks" name="packagedetail[0][SecondaryPackaging]"></td>
+                                                    <td><input type="text" class="Document_Remarks"      name="packagedetail[0][Remarks]"></td>
+                                                    {{-- <td><button type="text" class="removeRowBtn">Remove</button></td> --}}
+                                                @endif
+
                                             </tbody>
                                         </table>
                                     </div>
 
                                 </div>
-                                {{-- 
-                        <div class="col-12">
-                            <div class="group-input">
-                                <label for="Description"> Description<span class="text-danger">*</span>
-                                    <p>255 characters remaining</p>
-                                    <textarea placeholder="" name="manufacturing_description"></textarea>
-                            </div>
-                        </div>
-                        </div> --}}
 
 
 
 
 
 
-
-                                <div class="row">
                                     <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Actions">Manufacturing Site<span
                                                     class="text-danger"></span></label>
-                                            <textarea placeholder="" name="manufacturing_description"></textarea>
+
+                                            <textarea placeholder=""
+                                                name="manufacturing_description"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>{{ $data->manufacturing_description }}</textarea>
                                         </div>
                                     </div>
 
@@ -489,25 +708,24 @@
 
                                             <label for="RLS Record Number"><b>Dossier Parts</b></label>
 
-                                            <input type="text" name="dossier_number" value="">
+                                            <input type="text" name="dossier_number"
+                                                value="{{ $data->dossier_number }}">
 
 
                                         </div>
                                     </div>
-
-
-
 
                                     <div class="col-lg-12">
                                         <div class="group-input">
                                             <label for="Responsible Department">Related Dossier Document</label>
                                             <select name="dossier_departments">
                                                 <option value="">Enter Your Selection Here</option>
-                                                <option value="person1">1</option>
-                                                <option value="person2">2</option>
-                                                <option value="person3">3</option>
-
-
+                                                <option value="1" @if ($data->dossier_departments == 1) selected @endif>1
+                                                </option>
+                                                <option value="2" @if ($data->dossier_departments == 2) selected @endif>2
+                                                </option>
+                                                <option value="3" @if ($data->dossier_departments == 3) selected @endif>3
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -518,178 +736,61 @@
                                         <div class="group-input">
                                             <label for="Description"> Description<span class="text-danger">*</span>
                                                 <p>255 characters remaining</p>
-                                                <textarea placeholder="" name="manufacturing_description"></textarea>
+                                                <textarea placeholder="" name="description"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>{{ $data->description }}</textarea>
+                                                {{-- <textarea placeholder="" name="Description" {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->Description }}</textarea> --}}
                                         </div>
                                     </div>
                                 </div>
-
-
-                                {{-- <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="Actions">Description<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
-                                </div>
-                            </div> --}}
-
-
-
-
                                 <p class="text-primary">Important Dates</p>
-                                <div class="col-md-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="due-date">Planned Submission Date</label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="planned_submission_date"
-                                                value="{{ Helpers::getdateFormat($data->planned_submission_date) }}"
-                                                readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="planned_submission_date"
-                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
-                                                class="hide-input"
-                                                oninput="handleDateInput(this, 'planned_submission_date')" />
-                                        </div>
+                                <div class="col-6">
+                                    <div class="group-input">
+                                        <label for="Date">Planned Submission Date</label>
+                                        <input type="date" name="planned_submission_date"
+                                            value="{{ $data->planned_submission_date }}">
                                     </div>
                                 </div>
-
-
-                                {{-- <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Planned Submission Date</label>
-                                    <div class="calenderauditee">                                     
-                                        <input type="text"  id="planned_submission_date"  value="{{  Helpers::getdateFormat($data->planned_submission_date) }}" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="planned_submission_date"    min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
-                                        class="hide-input"
-                                        oninput="handleDateInput(this,'planned_submission_date')"/>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Date">Actual Submission Date</label>
+                                        <input type="date" name="actual_submission_date"
+                                            value="{{ $data->actual_submission_date }}">
                                     </div>
                                 </div>
-                            </div> --}}
-
-                                {{-- <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Planned Submission Date <span class="text-danger"></span></label>
-
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date"  placeholder="DD-MMM-YYYY" value="" />
-                                        <input type="date" name="planned_submission_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hidden-input" oninput="handleDateInput(this, 'due_date')" />
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Date">Actual Approval Date</label>
+                                        <input type="date" name="actual_approval_date"
+                                            value="{{ $data->actual_approval_date }}">
                                     </div>
                                 </div>
-                            </div>
-
-
-
- --}}
-
-
-                                <div class="col-md-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="due-date">Actual Submission Date</label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="actual_submission_date"
-                                                value="{{ Helpers::getdateFormat($data->actual_submission_date) }}"
-                                                readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="actual_submission_date"
-                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
-                                                class="hide-input"
-                                                oninput="handleDateInput(this, 'actual_submission_date')" />
-                                        </div>
+                                <div class="col-6">
+                                    <div class="group-input">
+                                        <label for="Date">Actual Rejection Date</label>
+                                        <input type="date" name="actual_rejection_date"
+                                            value="{{ $data->actual_rejection_date }}">
                                     </div>
                                 </div>
-
-
-                                <div class="col-md-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="due-date">Actual Approval Date</label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="actual_approval_date"
-                                                value="{{ Helpers::getdateFormat($data->actual_approval_date) }}" readonly
-                                                placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="actual_approval_date"
-                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
-                                                class="hide-input"
-                                                oninput="handleDateInput(this, 'actual_approval_date')" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {{-- <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Actual Approval Date <span class="text-danger"></span></label>
-
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date"  placeholder="DD-MMM-YYYY" value="" />
-                                        <input type="date" name="actual_approval_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hidden-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-                                </div>
-                            </div> --}}
-
-                                <div class="col-md-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="due-date">Actual Rejection Date</label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="actual_rejection_date"
-                                                value="{{ Helpers::getdateFormat($data->actual_rejection_date) }}"
-                                                readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="actual_rejection_date"
-                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
-                                                class="hide-input"
-                                                oninput="handleDateInput(this, 'actual_rejection_date')" />
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-
-                                {{-- <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Actual Rejection Date <span class="text-danger"></span></label>
-
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date"  placeholder="DD-MMM-YYYY" value="" />
-                                        <input type="date" name="actual_rejection_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hidden-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-                                </div>
-                            </div> --}}
-
-
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Responsible Department">Renewal Rule</label>
                                         <select name="renewal_departments">
                                             <option value="">Enter Your Selection Here</option>
-                                            <option value="p1">1</option>
-                                            <option value="p2">2</option>
-                                            <option value="p3">3</option>
+                                            <option value="1" @if ($data->renewal_departments == 1) selected @endif>1
+                                            </option>
+                                            <option value="2" @if ($data->renewal_departments == 2) selected @endif>2
+                                            </option>
+                                            <option value="3" @if ($data->renewal_departments == 3) selected @endif>3
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="col-md-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="due-date">Next Renewal Date</label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="next_renewal_date"
-                                                value="{{ Helpers::getdateFormat($data->next_renewal_date) }}" readonly
-                                                placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="next_renewal_date"
-                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
-                                                class="hide-input" oninput="handleDateInput(this, 'next_renewal_date')" />
-                                        </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Date">Next Renewal Date</label>
+                                        <input type="date" name="next_renewal_date"
+                                            value="{{ $data->next_renewal_date }}">
                                     </div>
                                 </div>
-
-                                {{-- <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Next Renewal Date <span class="text-danger"></span></label>
-
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date"  placeholder="DD-MMM-YYYY" value="" />
-                                        <input type="date" name="next_renewal_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hidden-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-                                </div>
-                            </div> --}}
-
-
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -701,6 +802,7 @@
                         </div>
                     </div>
 
+                    {{-- =====================================ccform3==================== --}}
 
                     <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
@@ -710,7 +812,6 @@
                                     <div class="group-input">
                                         <label for="Actual_Amount ">Submitted by :</label>
                                         <div class="static"></div>
-
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -718,10 +819,6 @@
 
                                         <label for="Division Code"><b>Submitted on :</b></label>
                                         <div class="date"></div>
-
-
-
-
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -736,15 +833,8 @@
 
                                         <label for="Division Code"><b>Approved on :</b></label>
                                         <div class="date"></div>
-
-
-
-
                                     </div>
                                 </div>
-
-
-
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -755,16 +845,13 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-                
-
+            </form>
         </div>
-        </form>
+    </div>
 
-    </div>
-    </div>
+
+
 
     <style>
         #step-form>div {
@@ -775,6 +862,23 @@
             display: block;
         }
     </style>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const removeButtons = document.querySelectorAll('.remove-file');
+
+                            removeButtons.forEach(button => {
+                                button.addEventListener('click', function() {
+                                    const fileName = this.getAttribute('data-file-name');
+                                    const fileContainer = this.closest('.file-container');
+
+                                    // Hide the file container
+                                    if (fileContainer) {
+                                        fileContainer.style.display = 'none';
+                                    }
+                                });
+                            });
+                        });
+                    </script>
 
     <script>
         VirtualSelect.init({
@@ -848,6 +952,44 @@
             }
         }
     </script>
+
+<script>
+    $(document).ready(function() {
+        let gridMedicalCount = {{ $gridMedical && is_array($gridMedical->data) ? count($gridMedical->data) : 0 }};
+
+        $('#infoProAdd').click(function(e) {
+            e.preventDefault();
+
+            function generateTableRow(serialNumber) {
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="info_product[' + gridMedicalCount + '][PrimaryPackaging]"></td>' +
+                    '<td><input type="date" name="info_product[' + gridMedicalCount + '][mfg_date]"></td>' +
+                    '<td><input type="date" name="info_product[' + gridMedicalCount + '][exp_date]"></td>' +
+                    '<td><input type="text" name="info_product[' + gridMedicalCount + '][ar_number]"></td>' +
+                    '<td><input type="text" name="info_product[' + gridMedicalCount + '][pack_style]"></td>' +
+                    '<td><input type="text" name="info_product[' + gridMedicalCount + '][frequency]"></td>' +
+                    '<td><input type="text" name="info_product[' + gridMedicalCount + '][condition]"></td>' +
+                    '<td><button type="button" class="removeRowBtn">Remove</button></td>' +
+                    '</tr>';
+
+                gridMedicalCount++;
+                return html;
+            }
+
+            var serialNumber = $('table tbody tr').length + 1;
+            $('table tbody').append(generateTableRow(serialNumber));
+        });
+
+        $(document).on('click', '.removeRowBtn', function() {
+            $(this).closest('tr').remove();
+        });
+    });
+</script>
+
+
+
     <script>
         $(document).ready(function() {
             $('#Witness_details').click(function(e) {
@@ -936,28 +1078,511 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get today's date
-            var today = new Date();
+        // Function to calculate and populate the due date field with a date 30 days from now
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the current date
+            var currentDate = new Date();
+            // Add 30 days to the current date
+            var dueDate = new Date(currentDate.setDate(currentDate.getDate() + 30));
+            // Format the due date as 'DD-MMMM-YYYY'
+            var formattedDueDate = formatDate(dueDate);
 
-            // Calculate the date 30 days from today
-            var dueDate = new Date();
-            dueDate.setDate(today.getDate() + 30);
-
-            // Format the date to YYYY-MM-DD
-            var day = String(dueDate.getDate()).padStart(2, '0');
-            var month = String(dueDate.getMonth() + 1).padStart(2, '0'); // January is 0!
-            var year = dueDate.getFullYear();
-
-            var formattedDate = year + '-' + month + '-' + day;
-
-            // Set the value of the date input field
-            document.getElementById('due_date_gi').value = formattedDate;
+            // Populate the due date input field
+            document.getElementById("due_date_gi").value = formattedDueDate;
         });
 
-        function handleDateInput(input, hiddenId) {
-            var hiddenInput = document.getElementById(hiddenId);
-            hiddenInput.value = input.value;
+        // Function to format the date as 'DD-MMMM-YYYY'
+        function formatDate(date) {
+            var day = date.getDate();
+            var monthIndex = date.getMonth();
+            var year = date.getFullYear();
+
+            // Array of month names
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            // Pad single digit day with leading zero
+            if (day < 10) {
+                day = '0' + day;
+            }
+
+            return day + '-' + monthNames[monthIndex] + '-' + year;
         }
     </script>
+
+
+    <!-- signature model -->
+
+    <div class="modal fade" id="more-info-required-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form action="{{ route('medical_device_reject', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                            <button type="submit" data-bs-dismiss="modal">Submit</button>
+                            <button>Close</button>
+                        </div> -->
+                    <div class="modal-footer">
+                        <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- -----------cancel modal---------- --}}
+
+    <div class="modal fade" id="cancel-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form action="{{ route('medical_deviceCancel', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                            <button type="submit" data-bs-dismiss="modal">Submit</button>
+                            <button>Close</button>
+                        </div> -->
+                    <div class="modal-footer">
+                        <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="deviationIsCFTRequired">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form action="{{ url('deviationIsCFTRequired', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="sendToInitiator">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form action="{{ route('check', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                            <button type="submit" data-bs-dismiss="modal">Submit</button>
+                            <button>Close</button>
+                        </div> -->
+                    <div class="modal-footer">
+                        <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="hodsend">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form action="{{ route('check2', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                            <button type="submit" data-bs-dismiss="modal">Submit</button>
+                            <button>Close</button>
+                        </div> -->
+                    <div class="modal-footer">
+                        <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="qasend">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form action="{{ route('check3', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                            <button type="submit" data-bs-dismiss="modal">Submit</button>
+                            <button>Close</button>
+                        </div> -->
+                    <div class="modal-footer">
+                        <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- <div class="modal fade" id="child-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Child</h4>
+            </div>
+            <form action="{{ route('data_child_1', $data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        @if ($data->stage == 5)
+                        <label style="display: flex;" for="major">
+                            <input  type="radio" name="child_type" id="major" value="pm">
+                            Preventive Maintenance
+                        </label>
+
+                        <label style="display: flex;" for="major">
+                            <input  type="radio" name="child_type" id="major" value="calibration">
+                            Calibration
+                        </label>
+
+                        <label for="major">
+                            <input type="radio" name="child_type" id="major" value="deviation">
+                            Deviation
+                        </label>
+                        @endif
+
+                    </div>
+
+                </div> --}}
+
+    <!-- Modal footer -->
+    <div class="modal-footer">
+        <button type="button" data-bs-dismiss="modal">Close</button>
+        <button type="submit">Continue</button>
+    </div>
+    </form>
+
+    </div>
+    </div>
+    </div>
+
+
+    <div class="modal fade" id="signature-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ route('medical_registration_send_stage', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment</label>
+                            <input type="comment" name="comment">
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                            <button type="submit" data-bs-dismiss="modal">Submit</button>
+                            <button>Close</button>
+                        </div> -->
+                    <div class="modal-footer">
+                        <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="cft-not-reqired">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ route('cftnotreqired', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment</label>
+                            <input type="comment" name="comment">
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                            <button type="submit" data-bs-dismiss="modal">Submit</button>
+                            <button>Close</button>
+                        </div> -->
+                    <div class="modal-footer">
+                        <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+         {{-- model1 --}}
+    <div class="modal fade" id="modal1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ route('deviation_qa_more_info', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment</label>
+                            <input type="comment" name="comment">
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                            <button type="submit" data-bs-dismiss="modal">Submit</button>
+                            <button>Close</button>
+                        </div> -->
+                    <div class="modal-footer">
+                        <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
 @endsection

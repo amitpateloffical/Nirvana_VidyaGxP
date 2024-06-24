@@ -54,6 +54,12 @@
             querySelect.options.add(new Option('Pending QA Head Approve', '7'));
             querySelect.options.add(new Option('Close - Done', '8'));
 
+        else if (scopeValue === 'Field Inquiry') {
+            querySelect.options.add(new Option('Opened', '1'));
+            querySelect.options.add(new Option(' Supervisor Review ', '2'));
+
+            querySelect.options.add(new Option('Close - Done', '3'));
+
         } else if (scopeValue === 'risk_assement') {
             querySelect.options.add(new Option('Opened', '1'));
             querySelect.options.add(new Option('Risk Analysis & Work Group Assignment', '2'));
@@ -119,7 +125,16 @@
                 querySelect.options.add(new Option('Close - Done', '6'));
             }
 
-            
+            else if (scopeValue === 'LabTest') {
+                querySelect.options.add(new Option('Opened', '1'));
+                querySelect.options.add(new Option('Under HOD Review', '2'));
+                querySelect.options.add(new Option('Pending QA Review', '3'));
+                querySelect.options.add(new Option('CFT Review', '4'));
+                querySelect.options.add(new Option('Pending Change Implementation', '5'));
+                querySelect.options.add(new Option('Close - Done', '6'));
+            }
+
+
         // Add more conditions based on other scope values
 
     }
@@ -128,10 +143,10 @@
     <div id="rcms-dashboard">
         <div class="container-fluid">
             <div class="dash-grid">
-                
+
                 <div>
                     <div class="inner-block scope-table" style="height: calc(100vh - 170px); padding: 0;">
-                        
+
                        <div class="grid-block">
                             <div class="group-input">
                                 <label for="scope">Process</label>
@@ -152,7 +167,7 @@
                                     <option value="Action Item">Action Item</option> --}}
                                     <option value="Effectiveness Check">Effectiveness Check</option>
                                     <option value="Deviation">Deviation</option>
-                                     {{-- <option value="tms">TMS</option>  --}}
+                                     <option value="lab_test">LabTest</option>
                                 </select>
                             </div>
                             <div class="group-input">
@@ -247,6 +262,9 @@
                                                             </div>
                                                         </a>
                                                     @endif
+
+
+
                                                 @elseif ($datas->type == 'External-Audit')
                                                     <a href="{{ route('showExternalAudit', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
@@ -261,7 +279,7 @@
                                                             </div>
                                                         </a>
                                                     @endif
-                                                    
+
                                                 @elseif ($datas->type == 'Audit-Program')
                                                     <a href="{{ route('ShowAuditProgram', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
@@ -403,7 +421,39 @@
                                                             </div>
                                                         </a>
                                                     @endif
-                                                
+
+                                                    @elseif($datas->type == 'LabTest')
+                                                    <a href="{{ route('lab_show', $datas->id) }}">
+                                                        {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+
+
+                                                    @elseif($datas->type == 'Field Inquiry')
+                                                    <a href="{{ route('field_view', $datas->id) }}">
+                                                        {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/Field_Inquiry">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+
+
                                                 @endif
                                             </td>
                                             {{-- @if ($datas->parent != '-')

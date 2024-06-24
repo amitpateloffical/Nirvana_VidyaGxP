@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('record_number')->nullable();
             $table->string('initiator_id')->nullable();
             $table->date('date_of_initiation')->nullable();
-            $table->string('short_description')->nullable();
+            $table->longText('short_description')->nullable();
             $table->string('assign_to')->nullable();
             $table->date('due_date_gi')->nullable();
             $table->string('registration_type_gi')->nullable();
@@ -37,10 +37,10 @@ return new class extends Migration
             $table->string('stage')->nullable();
             $table->string('status')->nullable();
             $table->string('audit_agenda_grid')->nullable();
-            $table->string('manufacturing_description')->nullable();
+            $table->longText('manufacturing_description')->nullable();
             $table->string('dossier_number')->nullable();
             $table->string('dossier_departments')->nullable();
-            $table->string('description')->nullable();    
+            $table->longText('description')->nullable();    
             $table->date('planned_submission_date')->nullable();
             $table->date('actual_submission_date')->nullable();
             $table->date('actual_approval_date')->nullable();

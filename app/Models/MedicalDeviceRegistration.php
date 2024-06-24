@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MedicalDeviceRegistration extends Model
 {
     use HasFactory;
+    protected $table = "medical_device_registrations";
 
     // protected $fillable = [
     //     'record_number', 'date_of_initiation', 'assign_to', 'due_date_gi',

@@ -22,7 +22,7 @@ class Helpers
     if(empty($date)) {
         return ''; // or any default value you prefer
     }
-    else{        
+    else{
         $date = Carbon::parse($date);
         $formatted_date = $date->format("d-M-Y");
         return $formatted_date;
@@ -35,84 +35,84 @@ class Helpers
     }
 
     public static function isRevised($data)
-    {   
+    {
         if($data  >= 8 ){
             return 'disabled';
         }else{
             return  '';
         }
-         
+
     }
     public static function getHodUserList(){
-        
+
         return $hodUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'4'])->get();
     }
     public static function getQAUserList(){
-        
+
         return $QAUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'7'])->get();
     }
     public static function getInitiatorUserList(){
-        
+
         return $InitiatorUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'3'])->get();
     }
     public static function getApproverUserList(){
-        
+
         return $ApproverUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'1'])->get();
     }
     public static function getReviewerUserList(){
-        
+
         return $ReviewerUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'2'])->get();
     }
     public static function getCFTUserList(){
-        
+
         return $CFTUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'5'])->get();
     }
     public static function getTrainerUserList(){
-        
+
         return $TrainerUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'6'])->get();
     }
     public static function getActionOwnerUserList(){
-        
+
         return $ActionOwnerUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'8'])->get();
     }
     public static function getQAHeadUserList(){
-        
+
         return $QAHeadUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'9'])->get();
     }
     public static function getQCHeadUserList(){
-        
+
         return $QCHeadUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'10'])->get();
     }
     public static function getLeadAuditeeUserList(){
-        
+
         return $LeadAuditeeUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'11'])->get();
     }
     public static function getLeadAuditorUserList(){
-        
+
         return $LeadAuditorUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'12'])->get();
     }
     public static function getAuditManagerUserList(){
-        
+
         return $AuditManagerUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'13'])->get();
     }
     public static function getSupervisorUserList(){
-        
+
         return $SupervisorUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'14'])->get();
     }
     public static function getResponsibleUserList(){
-        
+
         return $ResponsibleUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'15'])->get();
     }
     public static function getWorkGroupUserList(){
-        
+
         return $WorkGroupUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'16'])->get();
     }
     public static function getViewUserList(){
-        
+
         return $ViewUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'17'])->get();
     }
     public static function getFPUserList(){
-        
+
         return $FPUserList = DB::table('user_roles')->where(['q_m_s_roles_id' =>'18'])->get();
     }
 
@@ -130,13 +130,13 @@ class Helpers
         //    return true;
         // }else{
         //     return false;
-        // } 
+        // }
     }
 
 
     public static function checkRoles_check_reviewers($document)
     {
-       
+
         if ($document->reviewers) {
             $datauser = explode(',', $document->reviewers);
             for ($i = 0; $i < count($datauser); $i++) {
@@ -146,7 +146,7 @@ class Helpers
             }
         } else {
             return false;
-        }         
+        }
     }
 
     public static function checkRoles_check_approvers($document)
@@ -274,7 +274,7 @@ class Helpers
     }
     public static function getInitiatorEmail($id)
     {
-   
+
         return   DB::table('users')->where('id',$id)->value('email');
     }
     public static function getDepartmentNameWithString($id)
@@ -302,9 +302,9 @@ class Helpers
         }
         return $resp;
     }
-   
+
 public static function getInitiatorGroupFullName($shortName)
-    { 
+    {
 
         switch ($shortName) {
             case 'Corporate Quality Assurance':
@@ -362,8 +362,20 @@ public static function getInitiatorGroupFullName($shortName)
                 return '';
                 break;
         }
+
+
     }
 // }
+
+public static function fieldInquiry($data)
+{
+    if($data  >= 3 ){
+        return 'disabled';
+    }else{
+        return  '';
+    }
+
+}
 
 
     public static function hodMail($data)

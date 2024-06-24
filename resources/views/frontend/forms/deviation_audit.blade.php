@@ -28,7 +28,7 @@
     .w-10 {
         width: 10%;
     }
-  
+
     .w-20 {
         width: 20%;
     }
@@ -180,10 +180,10 @@
                     <strong>Deviation Audit No.</strong>
                 </td>
                 <td class="w-40">
-                   
+
                 </td>
                 <td class="w-30">
-                    <strong>Record No. 000{{$document->record}}</strong> 
+                    <strong>Record No. 000{{$document->record}}</strong>
                 </td>
             </tr>
         </table>
@@ -192,11 +192,11 @@
        <div style="margin-bottom: 5px;  font-weight: bold;"> Originator :{{ Auth::user()->name }}</div>
        <div style="margin-bottom: 5px; font-weight: bold;">Short Description : {{$document->short_description}}</div>
        <div style="margin-bottom: 5px;  font-weight: bold;">Due Status :  {{$document->due_date}}</div>
-      
+
        </div>
         </div>
         </table>
-        
+
     </header>
 
     <div class="inner-block">
@@ -206,7 +206,7 @@
         <div class="division">
         </div>
 
-        
+
         <div class="second-table">
             <table>
                 <tr class="table_bg">
@@ -217,15 +217,15 @@
                     <th>Action Type</th>
                     <th>Performer</th>
                 </tr>
-                
+
                     <tr>
                         @foreach ($audit as $audits)
                         <td>1</td>
                         <!-- --------- -->
                         <td>
-                       
+
                          <div><strong>Changed From :</strong>{{$audits->origin_state}}</div>
-                       
+
                  </td>
                  <!-- ----------------------- -->
                         <td>
@@ -241,7 +241,7 @@
                       <strong>Change From :</strong>{{$audits->origin_state}}</div>
                             <br>
                             <!--  -->
-                      <div ><strong>Changed To :</strong>{{$audits->current}}</div> 
+                      <div ><strong>Changed To :</strong>{{$audits->current}}</div>
                             <div style="margin-top: 5px;"><strong>Change Type :</strong>{{$audits->action_name}}
                             </div>
                             <div style="margin-top: 5px;"><strong>Comments :</strong>{{$audits->comment}}</div>
@@ -264,10 +264,10 @@
                     @endforeach
 <!-- ------------------------------------------------- -->
                     {{-- <tr>
-                       
+
                         <td>2</td>
                         <td>
-                       
+
                         <div><strong>Changed From :</strong>{{$audits->origin_state}}</div>
 
                  </td>
@@ -284,7 +284,7 @@
 
                         </td>
                         <td>
-                          <div><strong>Action Name :</strong>{{$audits->action_name}}</div> 
+                          <div><strong>Action Name :</strong>{{$audits->action_name}}</div>
                         </td>
                         <td>
                         <div style="margin-top: 5px;"><strong> Peformed By :</strong>{{$audits->user_name}}</div>
@@ -295,10 +295,10 @@
                     </tr>
                <!-- ---------------------------------------- -->
                <tr>
-                       
+
                         <td>3</td>
                         <td>
-                       
+
                         <div style="margin-top: 5px;"><strong>Changed From :</strong> HOD Review</div>
                         <div  style="margin-top: 5px;"><strong>Changed To :</strong> Hod REVIEW</div>
                         <div  style="margin-top: 5px;"><strong>Comments :</strong> Not Applicable</div>
@@ -306,7 +306,7 @@
                  </td>
                         <td>
                           <!-- <div><strong>Changed To :</strong> HOD Review</div> -->
-                         
+
                         </td>
                         <td>
                         <div style="margin-top: 5px;"><strong>Data Field Name :</strong> Description</div>
@@ -317,7 +317,7 @@
 
                         </td>
                         <td>
-                          <div><strong>Action Name :</strong> Remove </div> 
+                          <div><strong>Action Name :</strong> Remove </div>
                         </td>
                         <td>
                         <div style="margin-top: 5px;"><strong> Peformed By :</strong> David</div>
@@ -326,7 +326,7 @@
 
                         </td>
                     </tr> --}}
-              
+
             </table>
         </div>
 
@@ -336,10 +336,10 @@
         <table>
             <tr>
                 <td class="w-30">
-                    <strong>Printed On :</strong> 
+                    <strong>Printed On :</strong>
                 </td>
                 <td class="w-40">
-                    <strong>Printed By :</strong> 
+                    <strong>Printed By :</strong>
                 </td>
                 {{-- <td class="w-30">
                     <strong>Page :</strong> 1 of 1

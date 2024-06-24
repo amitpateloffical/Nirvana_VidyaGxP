@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('medical__device__grids', function (Blueprint $table) {
             $table->id();
-            $table->integer('mdg_id');
-            $table->text('identifier');
-            $table->longText('data');
+            $table->integer('mdg_id')->nullable();
+            $table->text('identifier')->nullable();
+            $table->longText('data')->nullable();
             $table->timestamps();
         });
     }

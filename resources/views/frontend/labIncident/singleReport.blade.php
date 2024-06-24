@@ -215,7 +215,7 @@
                         <td class="w-30">@if($data->severity_level2){{ $data->severity_level2 }} @else Not Applicable @endif</td>
                         <th class="w-20">Incident Details</th>
                         <td class="w-30">@if($data->Incident_Details){{ $data->Incident_Details }} @else Not Applicable @endif</td>
-                       
+
                     </tr>
                     <tr>
                         <th class="w-20">Short Description</th>
@@ -255,7 +255,7 @@
                             <th class="w-20">Initial Attachment</th>
                             <td class="w-80">@if($data->Initial_Attachment)<a href="{{ asset('upload/document/',$data->Initial_Attachment) }}">{{ $data->Initial_Attachment }}</a>@else Not Applicable @endif</td>
                         </tr>
-                       
+
                     </table>
                 </div>
             </div>
@@ -296,7 +296,7 @@
                             <td class="w-80">@if($data->Supervisor_Review_Comments){{ $data->Supervisor_Review_Comments }}@else Not Applicable @endif</td>
 
                         </tr>
-                        
+
                     </table>
                 </div>
             </div>
@@ -330,7 +330,7 @@
                         <td class="w-30">@if($data->Currective_Action){{ $data->Currective_Action }}@else Not Applicable @endif</td>
                         <th class="w-20">Preventive Action</th>
                         <td class="w-30">@if($data->Preventive_Action){{ $data->Preventive_Action }}@else Not Applicable @endif</td>
-                        
+
                     </tr>
                     <tr>
                     <th class="w-20">Corrective & Preventive Action</th>
@@ -345,7 +345,7 @@
                         <td class="w-30">@if($data->QA_Head){{ $data->QA_Head }}@else Not Applicable @endif</td>
                     </tr>
                     <tr>
-                       
+
                         <th class="w-20">Incident Types</th>
                         <td class="w-30">@if($data->Incident_Type){{ $data->Incident_Type }}@else Not Applicable @endif</td>
                     </tr>
@@ -445,7 +445,7 @@
 
 
                 </table>
-            </div> 
+            </div>
         </div>
     </div>
 

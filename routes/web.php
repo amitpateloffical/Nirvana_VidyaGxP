@@ -35,6 +35,10 @@ use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\newForm\MedicalRegistrationController;
+use App\Http\Controllers\newForm\LabController;
+use App\Http\Controllers\newForm\FieldController;
+use App\Http\Controllers\newForm\ContractController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -88,9 +92,9 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     //Route::post('set/division', [DocumentController::class, 'division'])->name('division_submit');
     Route::post('dcrDivision', [DocumentController::class, 'dcrDivision'])->name('dcrDivision_submit');
     Route::get('documents/generatePdf/{id}', [DocumentController::class, 'createPDF']);
-    
+
     Route::get('documents/reviseCreate/{id}', [DocumentController::class, 'revise_create']);
-    
+
     Route::get('documents/printPDF/{id}', [DocumentController::class, 'printPDF']);
     Route::get('documents/viewpdf/{id}', [DocumentController::class, 'viewPdf']);
     Route::resource('documentsContent', DocumentContentController::class);
@@ -142,16 +146,48 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
 });
 
 
-// =======================medicsl device //==============================
+// =======================medical device  Registration//==============================
 
 Route::middleware(['auth'])->group(function () {
-    
+
 Route::get('/medical_device_registration', [MedicalRegistrationController::class, 'index'])->name('auth');
 Route::post('medicalstore',[MedicalRegistrationController::class,'medicalCreate'])->name('medical.store');
 Route::get('medicalupdate/{id}/edit',[MedicalRegistrationController::class,'medicalEdit'])->name('medical_edit');
 Route::put('medicalupdated/{id}',[MedicalRegistrationController::class,'medicalUpdate'])->name('medical.update');
+Route::get('medical_audit/{id}',[MedicalRegistrationController::class,'medicalAudit'])->name('medical.audit');
+Route::get('medical_audit_details/{id}',[MedicalRegistrationController::class,'medicalAuditDetails'])->name('medical.auditDetails');
+
+
     // Route::get('/your-route', [YourController::class, 'yourMethod']);
 });
+
+// ===========================Lab Test ===============================
+Route::middleware(['auth'])->group(function () {
+    Route::get('/lab_test', [LabController::class,'index']);
+    Route::post('lab_store',[LabController::class,'store'])->name('labstore.index');
+    Route::get('lab_update/{id}/show',[LabController::class,'show'])->name('lab_show');
+    Route::put('labUpdated/{id}',[LabController::class,'labUpdate'])->name('lab.update');
+    Route::get('lab_audit/{id}',[LabController::class,'labAudit'])->name('lab.audit');
+    Route::get('lab_audit_details/{id}',[LabController::class,'labAuditDetails'])->name('lab.auditDetails');
+    //  Route::get('lab_audit_singleReport/{id}',[LabController::class,'labSingleReport'])->name('lab.singleReport');
+
+});
+
+
+
+//======================================Field Inquiry=====================
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('field_inquiry', [FieldController::class,'index']);
+    Route::post('fieldstore_store',[FieldController::class,'store'])->name('fieldstore_store');
+    Route::get('field_update/{id}/show',[FieldController::class,'view'])->name('field_view');
+    Route::put('field_Update/{id}',[FieldController::class,'fieldUpdate'])->name('field_update');
+    Route::get('field_auditDetails/{id}',[FieldController::class,'fieldAuditDetails'])->name('field.auditDetails');
+
+
+});
+
+
 
 
 // ====================================Capa=======================
@@ -339,7 +375,7 @@ Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 
 //! ============================================
 //!                    FORMS
-//! ============================================ 
+//! ============================================
 
 
 Route::view('deviation', 'frontend.forms.deviation');
@@ -418,11 +454,13 @@ Route::view('renewal', 'frontend.new_forms.renewal');
 Route::view('validation', 'frontend.new_forms.validation');
 Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
 Route::view('product-recall', 'frontend.new_forms.product-recall');
-Route::view('field-inquiry', 'frontend.new_forms.field-inquiry');
+//  Route::view('field-inquiry', 'frontend.new_forms.field-inquiry');
 Route::view('medical-device', 'frontend.new_forms.medical-device');
 Route::view('risk-management', 'frontend.new_forms.risk-management');
 Route::view('training_course', 'frontend.New_forms.training_course');
-Route::view('lab_test', 'frontend.New_forms.lab_test');
+
+//Route::view('lab_test', 'frontend.New_forms.lab_test');
+
 Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
 Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
 Route::view('GCP_study', 'frontend.new_forms.GCP_study');
