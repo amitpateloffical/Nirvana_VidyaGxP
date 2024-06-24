@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AnalystInterviewController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CCController;
@@ -19,9 +18,6 @@ use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
 use App\Http\Controllers\VerificationController;
-
-use App\Http\Controllers\AdditionalTestingController;
-
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -186,24 +182,6 @@ Route::group(['prefix' => 'rcms'], function () {
 
             Route::get('Vaudit_report/{id}', [VerificationController::class, 'auditReport'])->name('Vaudit_report');
             Route::get('Vsingle_report/{id}', [VerificationController::class, 'singleReport'])->name('Vsingle_report');
-            Route::get('AuditTrial/{id}', [VerificationController::class, 'AuditTrial'])->name('Vaudit_trial');
-
-
-            // ---------------------Analyst Interview---------------------------------------------------------------
-            Route::get('AIaudit_report/{id}', [AnalystInterviewController::class, 'auditReport'])->name('AIaudit_report');
-            Route::get('AIsingle_report/{id}', [AnalystInterviewController::class, 'singleReport'])->name('AIsingle_report');
-            Route::get('AuditTrial/{id}', [AnalystInterviewController::class, 'AuditTrial'])->name('AIaudit_trial');
-            Route::view('analyst_interview','analystInterview.analystInterview_new')->name('analyst_interview');
-            // Route::get('AuditTrial/{id}', [AnalystInterviewController::class, 'AuditTrial'])->name('AIaudit_trial');
-
-            // ---------------------Additional Testing---------------------------------------------------------------
-
-            Route::get('auditDetails/{id}', [AdditionalTestingController::class, 'auditDetails'])->name('ATaudit_details');
-            Route::get('ATaudit_report/{id}', [AdditionalTestingController::class, 'auditReport'])->name('ATaudit_report');
-            Route::get('ATsingle_report/{id}', [AdditionalTestingController::class, 'singleReport'])->name('ATsingle_report');
-            Route::get('AuditTrial/{id}', [AdditionalTestingController::class, 'AuditTrial'])->name('ATaudit_trial');
-
-
 
 
         }

@@ -31,7 +31,7 @@
 <div class="form-field-head">
 
     <div class="division-bar">
-        <strong>Site Division/Project</strong> : {{ Helpers::getDivisionName(session()->get('division')) }}Analyst Interview
+        <strong>Site Division/Project</strong> : {{ Helpers::getDivisionName(session()->get('division')) }}/Observation
     </div>
 </div>
 
@@ -77,7 +77,7 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
 
-
+                           
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent) Date Opened</label>
@@ -145,7 +145,7 @@ $users = DB::table('users')->get();
                                     <input type="text" name="parent_product_material_name">
                                 </div>
                             </div>
-
+                            
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Parent)Analyst Name</b></label>
@@ -260,7 +260,7 @@ $users = DB::table('users')->get();
                                         <th>%Difference of Results</th>
                                         <!-- <th>Initial Interview Details</th> -->
                                         <th>Trend Limit</th>
-
+                                      
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -308,7 +308,7 @@ $users = DB::table('users')->get();
                             </table>
                         </div>
                     </div>
-
+                    
 
 
                             <div class="sub-head">General Information</div>
@@ -360,7 +360,7 @@ $users = DB::table('users')->get();
                             </div>
                         </div>
                     </div>
-
+                    
                     <!-- <div class="col-lg-6">
                         <div class="group-input">
                             <label for="RLS Record Number"><b>Short Description</b></label>
@@ -392,14 +392,14 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
 
-
+                            
                             <!-- <div class="col-12">
                                 <div class="group-input">
                                     <label for="Description">Submit By</label>
                                     <input name="description"></input>
                                 </div>
                             </div>
-
+                            
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Description">Submit On</label>
@@ -514,12 +514,12 @@ $users = DB::table('users')->get();
                                         <td>2</td>
                                         <td>What is the acid/base used for buffer ph adjustment?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                      <tr>
                                         <td>3</td>
                                         <td>What is the buffer solution final ph observed value?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>4</td>
                                         <td>Have you filtered the buffer solution? If Yes what is the MOC of the filter used?</td>
@@ -529,12 +529,12 @@ $users = DB::table('users')->get();
                                         <td>5</td>
                                         <td>Have you used mobile phase within the valid date?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>6</td>
                                         <td>Mobile phase stability mentioned in the MOA(Hrs):</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                 </tbody>
                             </table>
                         </div>
@@ -564,12 +564,12 @@ $users = DB::table('users')->get();
                                         <td>2</td>
                                         <td>How long working standard kept in desiccator to attain room temperature?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                      <tr>
                                         <td>3</td>
                                         <td>What is nature of standard?(Light sensitive,moisture sensitive, oxygen sensitive or hygroscopic)</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>4</td>
                                         <td>What precaution required while handling/analysis?</td>
@@ -579,7 +579,7 @@ $users = DB::table('users')->get();
                                         <td>5</td>
                                         <td>Whether LOD or Water content determination required before usage? If yes what is the results observed?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>6</td>
                                         <td>Have you observed any spillage during weighing?</td>
@@ -594,8 +594,8 @@ $users = DB::table('users')->get();
                                         <td>8</td>
                                         <td>Working standard solution stability mentioned in the MOA?(specify hours):</td>
                                         <td><input type="text"></td>
-                                    </tr>
-
+                                    </tr> 
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -624,12 +624,12 @@ $users = DB::table('users')->get();
                                         <td>2</td>
                                         <td>Whether sample mixed/triturate thoroughly before weighing?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                      <tr>
                                         <td>3</td>
                                         <td>Is there any unusual observation on composite sample prepared?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>4</td>
                                         <td>How you weighed the composite sample?</td>
@@ -639,7 +639,7 @@ $users = DB::table('users')->get();
                                         <td>5</td>
                                         <td>Have you observed any spillage during weighing?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>6</td>
                                         <td>How you transferred the sample to volumetric glassware after weighing?</td>
@@ -654,38 +654,38 @@ $users = DB::table('users')->get();
                                         <td>8</td>
                                         <td>Have you used correct volume of volumetric glassware?(specify the volume and number of glassware used)</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>9</td>
                                         <td>Whether sample preparation involves sonication? If Yes, What is the time & temperature followed?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>10</td>
                                         <td>Whether sample preparation involves intermittent shaking? If Yes, What is the time interval followed?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>11</td>
                                         <td>What is the MOC of sample filter used? And How many filters used while sample preparation?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>12</td>
                                         <td>Sample solution stability mentioned in the  MOA?(specify Hrs)</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>13</td>
                                         <td>Please describe any abnormality noticed while performing weighing/pipetting/volume makeup/dilution etc.</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>14</td>
                                         <td>Any other information related to testing?</td>
                                         <td><input type="text"></td>
-                                    </tr>
-
+                                    </tr> 
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -715,12 +715,12 @@ $users = DB::table('users')->get();
                                         <td>2</td>
                                         <td>Have you verified solvent filters before placing mobile phase?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                      <tr>
                                         <td>3</td>
                                         <td>Specify the HPLC/GC column make/ID and total no. of previous injections.</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td>4</td>
                                         <td>How much time taken for column conditioning and instrument stabilization?</td>
@@ -730,7 +730,7 @@ $users = DB::table('users')->get();
                                         <td>5</td>
                                         <td>Any other information related to instrument set up?</td>
                                         <td><input type="text"></td>
-                                    </tr>
+                                    </tr> 
                                     </tbody>
                             </table>
                         </div>
@@ -742,7 +742,7 @@ $users = DB::table('users')->get();
                             <label for="Description">Interviewer(s) Assessment</label>
                             <textarea name="interviewer_assessment"></textarea>
                         </div>
-                    </div>
+                    </div> 
                     <div class="col-12">
                         <div class="group-input">
                             <label for="Description">Recommendations</label>
@@ -754,7 +754,7 @@ $users = DB::table('users')->get();
                             <label for="Description">Delay justification</label>
                             <textarea name="delay_justification"></textarea>
                         </div>
-                    </div>
+                    </div> 
                      <div class="col-12">
                         <div class="group-input">
                             <label for="Description">Any other Comments</label>
@@ -778,19 +778,19 @@ $users = DB::table('users')->get();
                         <div class="group-input">
                             <label for="Description">Interview Done By</label>
                         </div>
-                    </div>
+                    </div>   
                      <div class="col-6">
                         <div class="group-input">
                             <label for="Description">Interview Done On</label>
                         </div>
-                    </div>
+                    </div> 
 
 
   <div class="col-6">
                         <div class="group-input">
                             <label for="Description">Cancel By</label>
                         </div>
-                    </div>
+                    </div>   
                      <div class="col-6">
                         <div class="group-input">
                             <label for="Description">Cancel On</label>
@@ -798,8 +798,8 @@ $users = DB::table('users')->get();
                     </div>  -->
 
 
-
-
+                    
+                 
 
 
 
@@ -998,7 +998,7 @@ $users = DB::table('users')->get();
                     </div>
                 </div>
 
-
+                
                 </div>
                 </div>
 
@@ -1039,7 +1039,7 @@ $users = DB::table('users')->get();
                                         <label for="Completed On">Interview Done On :-</label>
                                         {{-- <div class="static">17-04-2023 11:12PM</div> --}}
                                     </div>
-                                </div>
+                                </div> 
 
                                 <div class="sub-head">Cancellation</div>
                                 <div class="col-lg-6">
@@ -1061,7 +1061,7 @@ $users = DB::table('users')->get();
                             <!-- <div class="col-12 mt-4">
                                 <div class="sub-head">Compliance Verification</div>
                             </div>
-
+                            
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -1416,9 +1416,9 @@ $users = DB::table('users')->get();
             var rowCount = tableBody.children('tr').length;
             var newRow = generateTableRow(rowCount + 1);
             // var newRow = generateTableRow(rowCount - 1);
-            tableBody.append(newRow);
-
-
+            tableBody.append(newRow); 
+            
+           
         });
 
 

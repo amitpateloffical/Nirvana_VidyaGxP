@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="audit-inner-container">
 
-
+                
                 <style>
                         header .head {
                                 font-weight: bold;
@@ -33,11 +33,11 @@
                                     background: #E8A936;
                                     }
                             footer {
-
+                        
                                                 bottom: -40px;
                                                 left: 0;
                                                 width: 100%;
-                                    }
+                                    } 
                 </style>
                     <header>
                         <table>
@@ -52,18 +52,18 @@
                                 </td>
                             </tr>
                         </table>
-
+                     
                         <table>
                             <div class="heading">
                                 <div style="margin-bottom: 5px;  font-weight: bold;"> ID :000{{$doc->record}}</</div>
                                 <div style="margin-bottom: 5px;  font-weight: bold;"> Originator :{{ Auth::user()->name }}</div>
                                 <div style="margin-bottom: 5px; font-weight: bold;">Short Description : {{$doc->short_description}}</div>
                                 <div style="margin-bottom: 5px;  font-weight: bold;">Due Date Status :  {{$doc->due_date}}</div>
-
+                    
                             </div>
-
+                        
                         </table>
-
+                        
                     </header>
                     @foreach($detail_data as $temp)
                         <div class="inner-block audit-main">
@@ -106,7 +106,7 @@
                                         <div>:</div>
                                         <div>{{ empty($temp->action_name) ? 'Not Applicable' : $temp->action_name }}</div>
                                     </div>
-
+                                    
                                     @if($temp->comment)
                                     <div class="list-item">
                                         <div class="head">Comments</div>
@@ -119,7 +119,7 @@
                                         <div>:</div>
                                         <div>{{ empty($temp->action_name) ? 'Not Applicable' : $temp->action_name }}</div>
                                     </div>
-
+                                    
                                     <div class="list-item">
                                         <div class="head">Peformed By</div>
                                         <div>:</div>
@@ -133,14 +133,14 @@
                                             {{ empty($temp->created_at) ? 'Not Applicable' : Helpers::getdateFormat1($temp->created_at) }}
                                         </div>
                                     </div>
-
+                                    
                                     @if($temp->comment)
                                         <div class="list-item">
                                             <div class="head">Comments </div>
                                             <div>:</div>
                                             <div>{{ $temp->comment }}</div>
                                         </div>
-                                    @endif
+                                    @endif 
 
 
                                 {{-- @if($temp->activity_type == "Responsibility" ||$temp->activity_type == "Abbreviation" ||$temp->activity_type == "Defination" ||$temp->activity_type == "Materials and Equipments" ||$temp->activity_type == "Reporting" )
@@ -199,68 +199,76 @@
                                 {{-- @if($temp->current != $temp->previous)
                                 @if($temp->activity_type == "Activity Log" )
 
-
+                            
                                         <div class="list-item">
                                         <div class="head">{{$temp->stage}} By</div>
                                         <div>:</div>
                                         <div> {{$temp->current}}</div>
-                                        </div>
+                                        </div>  
                                         <div class="list-item">
                                         <div class="head">{{$temp->stage}} On</div>
                                         <div>:</div>
                                         <div> {{Helpers::getdateFormat1($temp->created_at)}}</div>
-                                        </div>
-                                        {{-- @elseif($temp->origin_state =="In Progress")
-
+                                        </div> 
+                                        {{-- @elseif($temp->origin_state =="In Progress") 
+                                        
                                         <div class="list-item">
                                         <div class="head">{{$temp->stage}} By</div>
                                         <div>:</div>
                                         <div> {{$temp->current}}</div>
-                                        </div>
+                                        </div>  
                                         <div class="list-item">
                                         <div class="head">Submited On</div>
                                         <div>:</div>
                                         <div> {{Helpers::getdateFormat1($temp->created_at)}}</div>
-                                        </div>
-                                        @elseif($temp->origin_state =="Pending HOD Approval")
+                                        </div> 
+                                        @elseif($temp->origin_state =="Pending HOD Approval") 
                                         <div class="list-item">
                                         <div class="head">Plan Approved By</div>
                                         <div>:</div>
                                         <div> {{$temp->current}}</div>
-                                        </div>
+                                        </div>  
                                         <div class="list-item">
                                         <div class="head">Plan Approved On</div>
                                         <div>:</div>
                                         <div> {{Helpers::getdateFormat1($temp->created_at)}}</div>
-                                        </div>
-                                        @elseif($temp->origin_state =="Residual Risk Evaluation")
+                                        </div> 
+                                        @elseif($temp->origin_state =="Residual Risk Evaluation") 
                                         <div class="list-item">
                                         <div class="head">Risk Analysis Completed By</div>
                                         <div>:</div>
                                         <div> {{$temp->current}}</div>
-                                        </div>
+                                        </div>  
                                         <div class="list-item">
                                         <div class="head">Risk Analysis Completed By</div>
                                         <div>:</div>
                                         <div> {{Helpers::getdateFormat1($temp->created_at)}}</div>
-                                        </div>
-
+                                        </div> 
+                                        
 
                                         @endif --}}
 
 
+                                {{-- @else  --}}
 
 
+                                {{-- <div class="list-item">
+                                    <div class="head">Origin state</div>
+                                    <div>:</div>
+                                    <div>{{ $temp->origin_state }}</div>
+                                </div> --}}
+                                {{-- @endif
+                                @endif --}}
                             </div>
-
+                        
                         </div>
                     @endforeach
-
+                      
 
             </div>
         </div>
-
+      
     </div>
-
-
+    
+    
 @endsection

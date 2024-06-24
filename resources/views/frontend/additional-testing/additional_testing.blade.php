@@ -382,7 +382,7 @@
                 <button class="cctablinks" onclick="openCity(event, 'CCForm7')">Activity Log </button>
 
             </div>
-            <form action="{{ route('additionaltesting_store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('at_store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div id="step-form">
                     <!-- General Information -->
@@ -709,6 +709,8 @@
                                     <div class="sub-head pt-3">General Information</div>
                                     <div class="row">
 
+
+                                        {{-- record or site/division code ANSHUL --}}
                                         <div class="col-lg-6">
                                             <div class="group-input">
                                                 <label for="RLS Record Number"><b>Record Number</b></label>
@@ -718,26 +720,19 @@
                                         <div class="col-lg-6">
                                             <div class="group-input">
                                                 <label for="Division Code"><b>Site/Division Code</b></label>
-                                                <input readonly type="text" name="division_code" />
+                                                <input readonly type="text" name=division_code" />
                                             <input type="hidden" name="division_id"
                                                 value="{{ session()->get('division') }}">
                                         </div>
                                     </div>
+                                    {{--  --}}
+
                                     <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Initiator"> Initiator </label>
-                                            <input type="text" disabled name="initiator" value="{{ Auth::user()->name }}" >
+                                            <input type="text" disabled name="initiator">
                                         </div>
                                     </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="group-input">
-                                            <label for="date_opened">Date of Initiation</label>
-                                            <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date"  >
-                                            <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
-                                        </div>
-                                    </div>
-
                                     <div class="col-lg-6 new-date-data-field">
                                         <div class="group-input input-date">
                                             <label for="Scheduled end date">Target Closure Date</label>
@@ -754,7 +749,7 @@
                                         <div class="group-input">
                                             <label for="Short Description">Short Description<span class="text-danger "
                                                     name="gi_short_description">*</span></label>
-                                            <input id="docname" type="text" name="short_description"
+                                            <input id="docname" type="text" name="gi_short_description"
                                                 maxlength="255" required>
                                         </div>
                                     </div>
@@ -765,7 +760,19 @@
                                             <input type="text" name="qc_approver">
                                         </div>
                                     </div>
-
+                                    <div class="col-lg-6 new-date-data-field">
+                                        <div class="group-input input-date">
+                                            <label for="Scheduled end date">Date opened
+                                            </label>
+                                            <div class="calenderauditee">
+                                                <input type="text" id="end_date4" readonly
+                                                    placeholder="DD-MMM-YYYY" />
+                                                <input type="date" id="end_date_checkdate4" name="date_opened"
+                                                    min="yyyy-mm-dd" class="hide-input"
+                                                    oninput="handleDateInput(this, 'end_date4');checkDate('start_date_checkdate4','end_date_checkdate4')" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="button-block">
@@ -792,7 +799,7 @@
                                         </label>
                                         <div class="col-md-12">
                                             <div>
-                                                <textarea name="cq_approver_comments"></textarea>
+                                                <textarea name="cq_approver_comments_rows"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -823,7 +830,7 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Product/Material Name"> Assignee</label>
-                                        <input type="text" name="assignee">
+                                        <input type="text" name=assignee"">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -850,12 +857,30 @@
                                             <div class="file-attachment-list" id="add_test_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="add_test_attachment"
+                                                <input type="file" id="myfile" name="add_test_attachment[]"
                                                     oninput="addMultipleFiles(this, 'add_test_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                {{-- <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Product/Material Name"> Additional Test Proposal Completed By</label>
+                                <input type="text" name="additional_test_proposal_completed_by">
+                            </div>
+                        </div> --}}
+
+                                {{-- <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="Scheduled end date">Additional Test Proposal Completed On</label>
+                                <div class="calenderauditee">
+                                    <input type="text" id="end_date5" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="date" id="end_date_checkdate5"
+                                        name="additional_test_proposal_completed_on" min="yyyy-mm-dd" class="hide-input"
+                                        oninput="handleDateInput(this, 'end_date5');checkDate('start_date_checkdate5','end_date_checkdate5')" />
+                                </div>
+                            </div>
+                        </div> --}}
                             </div>
 
                             <div class="button-block">
@@ -902,6 +927,26 @@
                                 </div>
                             </div>
 
+                            {{-- <div class="row col-md-12">
+                        <div class="col-md-6 mb-4">
+                            <div class="group-input">
+                                <label for="Description Deviation" name="cq_approved_by">CQ Approved By
+                                </label>
+                                <input type="text" name="cq_approved_by">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="Scheduled end date" class="cq_approved_on">CQ Approved On</label>
+                                <div class="calenderauditee">
+                                    <input type="text" id="end_date6" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="date" id="end_date_checkdate6" name="cq_approved_on"
+                                        min="yyyy-mm-dd" class="hide-input"
+                                        oninput="handleDateInput(this, 'end_date6');checkDate('start_date_checkdate6','end_date_checkdate6')" />
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -953,6 +998,28 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                {{-- <div class="row col-md-12">
+                            <div class="col-md-6 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation" name="additional_test_exe_by">Additional Test
+                                        Exe.
+                                        By</label>
+                                    <input type="text" name="additional_test_exe_by">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">Additional Test Exe. On</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="end_date7" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate7" name="add_test_exe_on"
+                                            min="yyyy-mm-dd" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date7');checkDate('start_date_checkdate7','end_date_checkdate7')" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -997,6 +1064,28 @@
                                     </div>
                                 </div>
                             </div>
+                            {{-- <div class="row col-md-12">
+                        <div class="col-md-6 mb-4">
+                            <div class="group-input">
+                                <label for="Description Deviation" name="addl_testing_qc_review_by">Additional Testing
+                                    QC
+                                    Review By</label>
+                                <input type="text" name="addl_testing_qc_review_by">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="Scheduled end date">Additional Testing QC Review on
+                                </label>
+                                <div class="calenderauditee">
+                                    <input type="text" id="end_date8" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="date" id="end_date_checkdate8" name="add_testing_qc_review_on"
+                                        min="yyyy-mm-dd" class="hide-input"
+                                        oninput="handleDateInput(this, 'end_date8');checkDate('start_date_checkdate8','end_date_checkdate8')" />
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1006,6 +1095,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- Phase II QC Review -->
                     <div id="CCForm6" class="inner-block cctabcontent">
                         <div class="inner-block-content">
@@ -1015,7 +1105,7 @@
                                     <div class="group-input">
                                         <label for="Description Deviation" name="summary_of_exp_hyp">Summary of
                                             Exp./Hyp.</label>
-                                        <div><small class="text-primary">AQA Comments on Additional Testing</small></div>
+                                        <div><small class="text-primary">AQA COmments on Additional Testing</small></div>
                                         <textarea name="summary_of_exp_hyp"></textarea>
                                     </div>
                                     <div class="col-12">

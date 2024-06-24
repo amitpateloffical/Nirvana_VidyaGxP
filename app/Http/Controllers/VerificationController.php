@@ -19,8 +19,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\DB;
-
 
 class VerificationController extends Controller
 {
@@ -343,7 +341,7 @@ $combinedfields = [
                 $info_product_material->verification_id = $grid_data;
                 $info_product_material->identifier = 'Parent Info on Product Material1';
                 $info_product_material->data = $request->parent_info_no_product_material;
-                $info_product_material->update();
+                $info_product_material->save();
 
                 // Verification grid 2-----------------------------
 
@@ -352,7 +350,7 @@ $combinedfields = [
                 $info_product_material2->verification_id = $grid_data;
                 $info_product_material2->identifier = 'Parent Info on Product Material2';
                 $info_product_material2->data = $request->parent_info_no_product_material1;
-                $info_product_material2->update();
+                $info_product_material2->save();
 
                  // Verification grid 3-----------------------------
 
@@ -361,7 +359,7 @@ $combinedfields = [
                  $oos_details->verification_id = $grid_data;
                  $oos_details->identifier = 'Parent OOS Details';
                  $oos_details->data = $request->parent_oos_details;
-                 $oos_details->update();
+                 $oos_details->save();
 
                 //v grid 4
 
@@ -419,8 +417,6 @@ $combinedfields = [
             $history->verification_id = $id;
             $history->activity_type = $value;
             $history->previous = $lastVerification->$key;
-            $history->change_to = "Not Applicable";
-            $history->change_from = $lastVerification->status;
             $history->current = $verification->$key;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
@@ -437,25 +433,15 @@ $combinedfields = [
     return redirect(url('rcms/qms-dashboard'));
 }
 
-     public function edit($id) {
+                public function edit($id) {
     $verification = Verification::findOrFail($id);
-
-    $verification = Verification::find($id);
-    $verification->record = str_pad($verification->record, 4, '0', STR_PAD_LEFT);
-    $old_record = Verification::select('id', 'division_id', 'record')->get();
-    $verification->assign_to_name = User::where('id', $verification->assign_id)->value('name');
-    $verification->initiator_name = User::where('id', $verification->initiator_id)->value('name');
-    $pre = Verification::all();
-    $divisionName = DB::table('q_m_s_divisions')->where('id', $verification->division_id)->value('name');
-
-
     $gridDatas01 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent Info on Product Material1'])->first();
     $gridDatas02 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent Info on Product Material2'])->first();
     $gridDatas03 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent OOS Details'])->first();
     $gridDatas04 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent OOT Results'])->first();
     $gridDatas05 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent Stability Study'])->first();
 
-    return view('frontend.verification.verification_view', compact('verification', 'gridDatas01', 'gridDatas02', 'gridDatas03', 'gridDatas04', 'gridDatas05','pre','divisionName','old_record'));
+    return view('frontend.verification.verification_view', compact('verification', 'gridDatas01', 'gridDatas02', 'gridDatas03', 'gridDatas04', 'gridDatas05'));
 }
 
 public function send_stage(Request $request, $id)
@@ -672,41 +658,6 @@ public function requestmoreinfo_back_stage(Request $request, $id)
     }
 }
 
-public function Vsend_stage2(Request $request, $id)
-{
-
-    if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
-        $changestage = Verification::find($id);
-        $lastDocument = Verification::find($id);
-
-        if ($changestage->stage == 4) {
-            $changestage->stage = "2";
-            $changestage->status = "Analysis Completed";
-            $changestage->analysis_completed_by = Auth::user()->name;
-            $changestage->analysis_completed_on = Carbon::now()->format('d-M-Y');
-            $changestage->comment_analysis_completed = $request->comment;
-                            $history = new VerificationAuditTrail();
-                            $history->verification_id = $id;
-                            $history->activity_type = 'Activity Log';
-                            $history->current = $changestage->analysis_completed_by;
-                            $history->comment = $request->comment;
-                            $history->user_id = Auth::user()->id;
-                            $history->user_name = Auth::user()->name;
-                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                            $history->origin_state = $lastDocument->status;
-                            $history->stage = "2";
-                            $history->save();
-             $changestage->update();
-            toastr()->success('Document Sent');
-            return back();
-        }
-
-    } else {
-        toastr()->error('E-signature Not match');
-        return back();
-    }
-}
-
 
 public function cancel_stage(Request $request, $id)
 {
@@ -746,12 +697,8 @@ public function AuditTrial($id)
     $today = Carbon::now()->format('d-m-y');
     $document = Verification::where('id', $id)->first();
     $document->initiator = User::where('id', $document->initiator_id)->value('name');
-
-
     return view('frontend.verification.verification_Audit_Trail', compact('audit', 'document', 'today'));
-
 }
-
 
 public function store_audit_review(Request $request, $id)
 {
@@ -768,10 +715,16 @@ public function store_audit_review(Request $request, $id)
 }
 public function auditDetails($id)
 {
+
     $detail = VerificationAuditTrail::find($id);
+
     $detail_data = VerificationAuditTrail::where('activity_type', $detail->activity_type)->where('verification_id', $detail->id)->latest()->get();
+
     $doc = Verification::where('id', $detail->verification_id)->first();
+
+
     $doc->origiator_name = User::find($doc->initiator_id);
+
     return view('frontend.verification.verification_InnerAudit', compact('detail', 'doc', 'detail_data'));
 }
 
@@ -804,18 +757,11 @@ public function auditDetails($id)
 public static function singleReport($id)
 {
     $data = Verification::find($id);
-    $verification = Verification::findOrFail($id);
-    $gridDatas01 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent Info on Product Material1'])->first();
-    $gridDatas02 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent Info on Product Material2'])->first();
-    $gridDatas03 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent OOS Details'])->first();
-    $gridDatas04 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent OOT Results'])->first();
-    $gridDatas05 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent Stability Study'])->first();
-
     if (!empty($data)) {
         $data->originator = User::where('id', $data->initiator_id)->value('name');
         $pdf = App::make('dompdf.wrapper');
         $time = Carbon::now();
-        $pdf = PDF::loadview('frontend.verification.verification_SingleReport', compact('data','gridDatas01','gridDatas02','gridDatas03','gridDatas04','gridDatas05'))
+        $pdf = PDF::loadview('frontend.verification.verification_SingleReport', compact('data'))
             ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,
@@ -837,6 +783,7 @@ public static function singleReport($id)
 
 
 }
+
 
 
 
