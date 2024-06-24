@@ -807,7 +807,7 @@
                                 <label for="RLS Record Number"><b>Record Number</b></label>
                                 <input disabled type="text" name="record">
                                     {{-- value="{{ Helpers::getDivisionName(session()->get('division')) }}/MR/{{ date('Y') }}/{{ $record_number }}" --}}
-                                <!-- {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}} -->
+                                 {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -822,11 +822,11 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator"> Initiator </label>
-                                {{-- <input type="text" name="initiator_id"> --}}
-                                <input disabled type="text" name="initiator_id" >
-
+                                <input type="text" disabled name="initiator" value="{{ Auth::user()->name }}" >
                             </div>
                         </div>
+
+
 
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">

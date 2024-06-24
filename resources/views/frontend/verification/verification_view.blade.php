@@ -8,6 +8,11 @@
         header {
             display: none;
         }
+        .input_width{
+            width:100%;
+            border-radius: 5px;
+            margin-bottom: 11px;
+        }
     </style>
 
 
@@ -522,7 +527,7 @@
                         @endphp
                         {{-- <button class="button_theme1" onclick="window.print();return false;"
                             class="new-doc-btn">Print</button> --}}
-                         <button class="button_theme1"> <a class="text-white" href="{{ url('Vaudit_trial', $verification->id) }}"> {{-- add here url for auditTrail i.e. href="{{ url('CapaAuditTrial', $verification->id) }}" --}}
+                         <button class="button_theme1"> <a class="text-white" href="{{ route('Vaudit_trial', $verification->id) }}"> {{-- add here url for auditTrail i.e. href="{{ url('CapaAuditTrial', $verification->id) }}" --}}
                                 Audit Trail </a> </button>
 
                         @if ($verification->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
@@ -561,7 +566,7 @@
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
                             Return to QC Verification
                           </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal02">
                             Return to Analysis in Progress
                         </button>
                             {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
@@ -648,7 +653,7 @@
                             @else
                                 <div class="">Approval</div>
                             @endif --}}
-                            @if ($verification->stage >= 7)
+                            @if ($verification->stage >= 5)
                                 <div class="bg-danger">Closed - Done</div>
                             @else
                                 <div class="">Closed - Done</div>
@@ -891,14 +896,17 @@
                                             <th style="width: 8%">Specification Limit</th>
                                         </tr>
                                     </thead>
+                                             @foreach($gridDatas03->data as $datas)
+
                                     <tbody>
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="parent_oos_details[0][ar_number]"></td>
-                                        <td><input type="text" name="parent_oos_details[0][test_name_of_oos]"></td>
-                                        <td><input type="text" name="parent_oos_details[0][result_obtained]"></td>
-                                        <td><input type="text" name="parent_oos_details[0][specification_limit]"></td>
+                                        <td><input type="text" name="parent_oos_details[0][ar_number]" value="{{$datas['ar_number']}}"></td>
+                                        <td><input type="text" name="parent_oos_details[0][test_name_of_oos]" value="{{$datas['test_name_of_oos']}}" ></td>
+                                        <td><input type="text" name="parent_oos_details[0][result_obtained]" value="{{$datas['result_obtained']}}" ></td>
+                                        <td><input type="text" name="parent_oos_details[0][specification_limit]" value="{{$datas['specification_limit']}}" ></td>
                                     </tbody>
                                 </table>
+                                @endforeach
                             </div>
                         </div>
 
@@ -983,35 +991,34 @@
 
                     <div class="sub-head">General Information</div>
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="RLS Record Number"><b>Record Number</b></label>
-                                <input disabled type="text" name="record">
-                                    {{-- value="{{ Helpers::getDivisionName(session()->get('division')) }}/MR/{{ date('Y') }}/{{ $record_number }}" --}}
-                                <!-- {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}} -->
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Division Code"><b>Site/Location Code</b></label>
-                                <input readonly type="text" name="division_code"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}">
-                                <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
-                            </div>
-                        </div>
 
                         <div class="col-lg-6">
                             <div class="group-input">
-                                <label for="Initiator"> Initiator </label>
-                                <input type="text" name="initiator_id" value="{{$verification->initiator_id}}">
+                                <label for="RLS Record Number"><b>Record Number</b></label>
+                                <input disabled type="text" name="record_number"  value="{{ Helpers::getDivisionName($verification->division_id) }}/DEV/{{ Helpers::year($verification->created_at) }}/{{ $verification->record }}" />
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Division Code"><b>Site/Division Code</b></label>
+                                <input readonly type="text" name="division_code"   value="{{ $divisionName }}" />
+                            <input type="hidden" name="division_id"
+                            value="{{ session()->get('division') }}">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Initiator"> Initiator </label>
+                            <input type="text" disabled name="initiator" value="{{ Auth::user()->name }}" >
+                        </div>
+                    </div>
+
 
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="Scheduled end date">Date Opened</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="date_opened1" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="text" id="date_opened1" readonly placeholder="DD-MMM-YYYY"  value="{{ date('d-M-Y') }}" />
                                     <input type="date" id="date_opened1_checkdate"
                                         name="date_opened_gi" value="{{$verification->date_opened_gi}}"
                                         min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -1530,7 +1537,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <form action="{{ route('Vcancel_stage', $verification->id) }}" method="POST">
+            <form action="{{ url('Vcancel_stage', $verification->id) }}" method="POST">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">
@@ -1800,18 +1807,55 @@
     </div>
 </div>
 
+{{-- sending back to stage 2 --}}
 
 
+<div class="modal fade" id="signature-modal02">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('Vsend_stage2', $verification->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username</label>
+                        <input class="input_width" type="text" name="username" required>
 
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password</label>
+                        <input class="input_width" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input class="input_width" type="comment" name="comment">
+                    </div>
+                </div>
 
-
-
-
-
-
-
-
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 

@@ -154,6 +154,9 @@
                                     <option value="Deviation">Deviation</option>
                                      <option value="Resampling">Resampling</option>
                                      <option value="Verification">Verification</option>
+                                     <option value="Analyst Interview">Analyst Interview</option>
+                                     <option value="Additional Testing">Additional Testing</option>
+
 
                                 </select>
                             </div>
@@ -437,6 +440,36 @@
                                                         </div>
                                                     </a>
                                                 @endif
+                                                @elseif ($datas->type == 'Analyst Interview')
+                                                <a href="{{ route('analystinterview_edit', $datas->id) }}">
+                                                    {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                </a>
+                                                @if (!empty($datas->parent_id))
+                                                    <a
+                                                        href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/analystinterview">
+                                                        <div class="icon" onclick="showChild()"
+                                                            data-bs-toggle="tooltip" title="Related Records">
+                                                            {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                alt="..." class="w-100 h-100"> --}}
+                                                        </div>
+                                                    </a>
+                                                @endif
+
+                                                @elseif ($datas->type == 'Additional Testing')
+                                                <a href="{{ route('additionaltesting_edit', $datas->id) }}">
+                                                    {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                </a>
+                                                @if (!empty($datas->parent_id))
+                                                    <a
+                                                        href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/additionaltesting">
+                                                        <div class="icon" onclick="showChild()"
+                                                            data-bs-toggle="tooltip" title="Related Records">
+                                                            {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                alt="..." class="w-100 h-100"> --}}
+                                                        </div>
+                                                    </a>
+                                                @endif
+
 
                                             @endif
                                             </td>
