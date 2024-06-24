@@ -572,3 +572,15 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 
 // ===============OOt form==========================\
 Route::view('OOT_form', 'frontend.OOT.OOT_form');
+
+// ========recommended action===============
+Route::view('recommended_action_new', 'frontend.OOS.recommended_action');
+
+// ========follow up task===============
+Route::view('follow_up_task', 'frontend.newform.follow_up_task');
+
+// ========Analyst Interview===============
+Route::view('analyst_interview', 'frontend.newform.analyst_interview');
+
+// ========Hypothesis ===============
+Route::view('hypothesis', 'frontend.newform.hypothesis');
