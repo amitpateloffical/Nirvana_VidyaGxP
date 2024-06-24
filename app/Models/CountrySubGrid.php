@@ -9,5 +9,10 @@ class CountrySubGrid extends Model
 {
     use HasFactory;
     protected $table = 'country_sub_grids';
+    protected $fillable = [
+        'c_id',
+        'identifers',
+        'data'
+        ];
     protected $casts = ['data' => 'array'];
 }

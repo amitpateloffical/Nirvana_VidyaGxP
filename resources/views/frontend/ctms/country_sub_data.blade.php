@@ -37,7 +37,7 @@ $users = DB::table('users')->get();
 
         <form action="{{ route('country_store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-
+            
             <div id="step-form">
                 @if (!empty($parent_id))
                 <input type="hidden" name="parent_id" value="{{ $parent_id }}">
@@ -55,9 +55,9 @@ $users = DB::table('users')->get();
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="intiation_date"><b>Date of Initiation</b></label>
-                                    <input disabled type="date" name="intiation_date" value="">
-                                    <input type="hidden" name="intiation_date" value="">
+                                    <label for="Date Due">Date of Initiation</label>
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
                                 </div>
                             </div>
 
@@ -225,7 +225,7 @@ $users = DB::table('users')->get();
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Product/Material(0)
-                                    <button type="button" name="audit-agenda-grid" id="Product_Material">+</button>
+                                    <button type="button" name="audit-agenda-grid" id="Product_Material_country_sub_data">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
@@ -298,7 +298,7 @@ $users = DB::table('users')->get();
                                             </td>
                                             <td><input type="text" name="serial_number_gi[0][info_disposition]"></td>
                                             <td><input type="text" name="serial_number_gi[0][info_comments]"></td>
-                                            <td><input type="text" name="serial_number_gi[0][info_remarks[]"></td>
+                                            <td><input type="text" name="serial_number_gi[0][info_remarks]"></td>
                                         </tbody>
 
                                     </table>
@@ -506,7 +506,7 @@ $users = DB::table('users')->get();
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Follow Up Documents">Follow Up Documents</label>
+                                    <label for="follow_up_documents">Follow Up Documents</label>
                                     <select name="follow_up_documents">
                                         <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
@@ -519,7 +519,7 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Hospitals">Hospitals</label>
-                                    <select id="hospitals" name="hospitals" id="">
+                                    <select id="hospitals" name="hospitals">
                                         <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -633,14 +633,37 @@ $users = DB::table('users')->get();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
-                                            <td><input type="text" name="details[0][Transaction]"></td>
-                                            <td><input type="text" name="details[0][TransactionType]"></td>
-                                            <td><input type="date" name="details[0][Date]"></td>
-                                            <td><input type="number" name="details[0][Amount]"></td>
-                                            <td><input type="text" name="details[0][CurrencyUsed]"></td>
-                                            <td><input type="text" name="details[0][Comments]"></td>
-                                            <td><input type="text" name="details[0][Remarks]"></td>
+                                            <td><input disabled type="text" name="financial_transection[0][serial]" value="1"></td>
+                                            <td><input type="text" name="financial_transection[0][info_transaction]"></td>
+                                            <td><input type="text" name="financial_transection[0][info_transaction_type]"></td>
+                                            <td>
+                                                <div class="new-date-data-field">
+                                                    <div class="group-input input-date">
+                                                        <div class="calenderauditee">
+                                                            <input
+                                                                class="click_date"
+                                                                id="date_0_date"
+                                                                type="text"
+                                                                name="financial_transection[0][info_date]"
+                                                                placeholder="DD-MMM-YYYY"
+                                                            />
+                                                            <input
+                                                                type="date"
+                                                                name="financial_transection[0][info_date]"
+                                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                                                id="date_0_date"
+                                                                class="hide-input show_date"
+                                                                style="position: absolute; top: 0; left: 0; opacity: 0;"
+                                                                oninput="handleDateInput(this, 'date_0_date')"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><input type="number" name="financial_transection[0][info_amount]"></td>
+                                            <td><input type="text" name="financial_transection[0][info_currency_used]"></td>
+                                            <td><input type="text" name="financial_transection[0][info_comments]"></td>
+                                            <td><input type="text" name="financial_transection[0][info_remarks]"></td>
                                         </tbody>
 
                                     </table>
@@ -668,12 +691,12 @@ $users = DB::table('users')->get();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
-                                            <td><input type="text" name="details[0][IngredientType]"></td>
-                                            <td><input type="text" name="details[0][IngredientName]"></td>
-                                            <td><input type="text" name="details[0][IngredientStrength]"></td>
-                                            <td><input type="text" name="details[0][Comments]"></td>
-                                            <td><input type="text" name="details[0][Remarks]"></td>
+                                            <td><input disabled type="text" name="ingredi[0][serial]" value="1"></td>
+                                            <td><input type="text" name="ingredi[0][info_ingredient_type]"></td>
+                                            <td><input type="text" name="ingredi[0][info_ingredient_name]"></td>
+                                            <td><input type="text" name="ingredi[0][info_ingredient_strength]"></td>
+                                            <td><input type="text" name="ingredi[0][info_comments]"></td>
+                                            <td><input type="text" name="ingredi[0][info_remarks]"></td>
                                         </tbody>
 
                                     </table>
@@ -902,15 +925,57 @@ $users = DB::table('users')->get();
                 <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="Closed by">Closed By</label>
+                                    <label for="Closed by">Activate By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="Closed on">Closed On</label>
+                                    <label for="Closed on">Activate On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="Closed on">Activate Comment</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="group-input">
+                                    <label for="Closed by">Close By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="group-input">
+                                    <label for="Closed on">Close On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="Closed on">Close Comment</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="group-input">
+                                    <label for="Closed by">Cancel By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="group-input">
+                                    <label for="Closed on">Cancel On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="Closed on">Cancel Comment</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
