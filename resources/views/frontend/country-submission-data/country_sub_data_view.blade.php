@@ -124,6 +124,13 @@ $users = DB::table('users')->get();
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
+                                    <label for="RLS Record Number"><b>Record Number</b></label>
+                                    <input disabled type="text" name="record_number"
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/CSD/{{ Helpers::year($data->created_at) }}/{{ $data->record }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
                                     <label for="originator_id"><b>Initiator</b></label>
                                     <input disabled type="text" name="originator_id" value="{{ Auth::user()->name }}">
                                 </div>
@@ -133,23 +140,6 @@ $users = DB::table('users')->get();
                                     <label for="Date Due">Date of Initiation</label>
                                     <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
                                     <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="group-input">
-                                    <label for="search">
-                                        Assigned To <span class="text-danger"></span>
-                                    </label>
-                                    <select id="select-state" placeholder="Select..." name="assign_to" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
-                                        <option value="">Select a value</option>
-                                        @foreach ($users as $value)
-                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('assign_to')
-                                    <p class="text-danger">{{ $message }}</p>
-                                    @enderror
                                 </div>
                             </div>
 
@@ -163,6 +153,28 @@ $users = DB::table('users')->get();
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="search">
+                                        Assigned To <span class="text-danger"></span>
+                                    </label>
+                                    <select id="select-state" placeholder="Select..." name="assign_to"
+                                        {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                                        <option value="">Select a value</option>
+                                        @foreach ($users as $key => $value)
+                                            <option value="{{ $value->id }}"
+                                                @if ($data->assign_to == $value->id) selected @endif>
+                                                {{ $value->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('assign_to')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -326,31 +338,31 @@ $users = DB::table('users')->get();
                                         </thead>
                                         <tbody>
                                             @if (!empty($grid_Data) && is_array($grid_Data->data))
-                                            @foreach ($grid_Data->data as $index => $detail)  
+                                            @foreach ($grid_Data->data as $grid_Data)  
                                                 <tr>
-                                                    <td><input disabled type="text" name="serial_number_gi[serial]" value="1"></td>
-                                                    <td><input type="text" name="serial_number_gi[{{ $index }}][info_product_name]" value="{{ array_key_exists('info_product_name', $detail) ? $detail['info_product_name'] : '' }}"></td>
-                                                    <td><input type="text" name="serial_number_gi[{{ $index }}][info_batch_number]" value="{{ array_key_exists('info_batch_number', $detail) ? $detail['info_batch_number'] : '' }}"></td>
+                                                    <td><input disabled type="text" name="serial_number_gi[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_product_name]" value="{{ isset($grid_Data['info_product_name']) ? $grid_Data['info_product_name'] : '' }}"></td>
+                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_batch_number]" value="{{ isset($grid_Data['info_batch_number']) ? $grid_Data['info_batch_number'] : '' }}"></td>
                                                     <td>
                                                         <div class="new-date-data-field">
                                                             <div class="group-input input-date">
                                                                 <div class="calenderauditee">
                                                                     <input
                                                                         class="click_date"
-                                                                        id="date_{{ $index }}_mfg_date"
+                                                                        id="date_{{ $loop->index }}_mfg_date"
                                                                         type="text"
-                                                                        name="serial_number_gi[{{ $index }}][info_mfg_date]"
+                                                                        name="serial_number_gi[{{ $loop->index }}][info_mfg_date]"
                                                                         placeholder="DD-MMM-YYYY"
-                                                                        value="{{ !empty($detail['info_mfg_date']) ? \Carbon\Carbon::parse($detail['info_mfg_date'])->format('d-M-Y') : '' }}"
+                                                                        value="{{ isset($grid_Data['info_mfg_date']) ? $grid_Data['info_mfg_date'] : '' }}"
                                                                     />
                                                                     <input
                                                                         type="date"
-                                                                        name="serial_number_gi[{{ $index }}][info_mfg_date]"
-                                                                        value="{{ !empty($detail['info_mfg_date']) ? \Carbon\Carbon::parse($detail['info_mfg_date'])->format('Y-m-d') : '' }}"
-                                                                        id="date_{{ $index }}_mfg_date_picker"
+                                                                        name="serial_number_gi[{{ $loop->index }}][info_mfg_date]"
+                                                                        value="{{ isset($grid_Data['info_mfg_date']) ? $grid_Data['info_mfg_date'] : '' }}"
+                                                                        id="date_{{ $loop->index }}_mfg_date_picker"
                                                                         class="hide-input show_date"
                                                                         style="position: absolute; top: 0; left: 0; opacity: 0;"
-                                                                        onchange="handleDateInput(this, 'date_{{ $index }}_mfg_date')"
+                                                                        onchange="handleDateInput(this, 'date_{{ $loop->index }}_mfg_date')"
                                                                     />
                                                                 </div>
                                                             </div>
@@ -362,34 +374,30 @@ $users = DB::table('users')->get();
                                                                 <div class="calenderauditee">
                                                                     <input
                                                                         class="click_date"
-                                                                        id="date_{{ $index }}_expiry_date"
+                                                                        id="date_{{ $loop->index }}_expiry_date"
                                                                         type="text"
-                                                                        name="serial_number_gi[{{ $index }}][info_expiry_date]"
+                                                                        name="serial_number_gi[{{ $loop->index }}][info_expiry_date]"
                                                                         placeholder="DD-MMM-YYYY"
-                                                                        value="{{ !empty($detail['info_expiry_date']) ? \Carbon\Carbon::parse($detail['info_expiry_date'])->format('d-M-Y') : '' }}"
+                                                                        value="{{ isset($grid_Data['info_expiry_date']) ? $grid_Data['info_expiry_date'] : '' }}"
                                                                     />
                                                                     <input
                                                                         type="date"
-                                                                        name="serial_number_gi[{{ $index }}][info_expiry_date]"
-                                                                        value="{{ !empty($detail['info_expiry_date']) ? \Carbon\Carbon::parse($detail['info_expiry_date'])->format('Y-m-d') : '' }}"
-                                                                        id="date_{{ $index }}_expiry_date_picker"
+                                                                        name="serial_number_gi[{{ $loop->index }}][info_expiry_date]"
+                                                                        value="{{ isset($grid_Data['info_expiry_date']) ? $grid_Data['info_expiry_date'] : '' }}"
+                                                                        id="date_{{ $loop->index }}_expiry_date_picker"
                                                                         class="hide-input show_date"
                                                                         style="position: absolute; top: 0; left: 0; opacity: 0;"
-                                                                        onchange="handleDateInput(this, 'date_{{ $index }}_expiry_date')"
+                                                                        onchange="handleDateInput(this, 'date_{{ $loop->index }}_expiry_date')"
                                                                     />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td><input type="text" name="serial_number_gi[{{ $index }}][info_disposition]" value="{{ array_key_exists('info_disposition', $detail) ? $detail['info_disposition'] : '' }}"></td>
-                                                    <td><input type="text" name="serial_number_gi[{{ $index }}][info_comments]" value="{{ array_key_exists('info_comments', $detail) ? $detail['info_comments'] : '' }}"></td>
-                                                    <td><input type="text" name="serial_number_gi[{{ $index }}][info_remarks]" value="{{ array_key_exists('info_remarks', $detail) ? $detail['info_remarks'] : '' }}"></td>
+                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_disposition]" value="{{ isset($grid_Data['info_disposition']) ? $grid_Data['info_disposition'] : '' }}"></td>
+                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_comments]" value="{{ isset($grid_Data['info_comments']) ? $grid_Data['info_comments'] : '' }}"></td>
+                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_remarks]" value="{{ isset($grid_Data['info_remarks']) ? $grid_Data['info_remarks'] : '' }}"></td>
                                                 </tr>
                                             @endforeach
-                                        @else
-                                            <tr>
-                                                <td colspan="9">No product Material details found</td>
-                                            </tr>
                                         @endif
                                         </tbody>
 
@@ -399,22 +407,22 @@ $users = DB::table('users')->get();
                             
                             <script>
                                 $(document).ready(function() {
-                                    let indexDetail = {{ ($grid_Data && is_array($grid_Data->data)) ? count($grid_Data->data) : 0 }};
                                     $('#Product_Material_country_sub_data').click(function(e) {
                                         function generateTableRow(serialNumber) {
-                            
-                                            var html =
+                                            var data = @json($grid_Data);
+                                            var html = '';
+                                            html +=
                                                 '<tr>' +
-                                                '<td><input disabled type="text" name="serial_number_gi[' + serialNumber + '][serial]" value="' + (serialNumber) + '"></td>' +
-                                                '<td><input type="text" name="serial_number_gi[' + indexDetail + '][info_product_name]"></td>' +
-                                                '<td><input type="text" name="serial_number_gi[' + indexDetail + '][info_batch_number]"></td>' +
-                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ indexDetail +'_mfg_date" type="text" name="serial_number_gi[' + indexDetail + '][info_mfg_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + indexDetail + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_mfg_date\')" /> </div> </div></div></td>' +
-                                                '<td>  <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ indexDetail +'_expiry_date" type="text" name="serial_number_gi[' + indexDetail + '][info_expiry_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + indexDetail + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_expiry_date\')" /> </div> </div></div></td>' +
-                                                '<td><input type="text" name="serial_number_gi[' + indexDetail + '][info_disposition]"></td>' +
-                                                '<td><input type="text" name="serial_number_gi[' + indexDetail + '][info_comments]"></td>' +
-                                                '<td><input type="text" name="serial_number_gi[' + indexDetail + '][info_remarks]"></td>' +
+                                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                                                '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_product_name]"></td>' +
+                                                '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_batch_number]"></td>' +
+                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_mfg_date" type="text" name="serial_number_gi[' + indexDetail + '][info_mfg_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + indexDetail + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_mfg_date\')" /> </div> </div></div></td>' +
+                                                '<td>  <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_expiry_date" type="text" name="serial_number_gi[' + indexDetail + '][info_expiry_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + indexDetail + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_expiry_date\')" /> </div> </div></div></td>' +
+                                                '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_disposition]"></td>' +
+                                                '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_comments]"></td>' +
+                                                '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_remarks]"></td>' +
                                                 '</tr>';
-                                                indexDetail++;
+                                                
                             
                                             return html;
                                         }
@@ -782,11 +790,11 @@ $users = DB::table('users')->get();
                                         </thead>
                                         <tbody>
                                             @if (!empty($grid_two) && is_array($grid_two->data))
-                                                @foreach ($grid_two->data as $index => $detail)  
+                                                @foreach ($grid_two->data as $grid_two)  
                                                     <tr>
-                                                        <td><input disabled type="text" name="financial_transection[serial]" value="1"></td>
-                                                        <td><input type="text" name="financial_transection[{{ $index }}][info_transaction]" value="{{ array_key_exists('info_transaction', $detail) ? $detail['info_transaction'] : '' }}"></td>
-                                                        <td><input type="text" name="financial_transection[{{ $index }}][info_transaction_type]" value="{{ array_key_exists('info_transaction_type', $detail) ? $detail['info_transaction_type'] : '' }}"></td>
+                                                        <td><input disabled type="text" name="financial_transection[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_transaction]" value="{{ isset($grid_two['info_transaction']) ? $grid_two['info_transaction'] : '' }}"></td>
+                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_transaction_type]" value="{{ isset($grid_two['info_transaction_type']) ? $grid_two['info_transaction_type'] : '' }}"></td>
                                                         <td>
                                                             <div class="new-date-data-field">
                                                                 <div class="new-date-data-field">
@@ -794,34 +802,34 @@ $users = DB::table('users')->get();
                                                                         <div class="calenderauditee">
                                                                             <input
                                                                                 class="click_date"
-                                                                                id="date_{{ $index }}_date"
+                                                                                id="date_{{ $loop->index }}_date"
                                                                                 type="text"
-                                                                                name="financial_transection[{{ $index }}][info_date]"
+                                                                                name="financial_transection[{{ $loop->index }}][info_date]"
                                                                                 placeholder="DD-MMM-YYYY"
-                                                                                value="{{ !empty($detail['info_date']) ? \Carbon\Carbon::parse($detail['info_date'])->format('d-M-Y') : '' }}"
+                                                                                value="{{ isset($grid_two['info_date']) ? $grid_two['info_date'] : '' }}"
                                                                             />
                                                                             <input
                                                                                 type="date"
-                                                                                name="financial_transection[{{ $index }}][info_date]"
-                                                                                value="{{ !empty($detail['info_date']) ? \Carbon\Carbon::parse($detail['info_date'])->format('Y-m-d') : '' }}"
-                                                                                id="date_{{ $index }}_date_picker"
+                                                                                name="financial_transection[{{ $loop->index }}][info_date]"
+                                                                                value="{{ isset($grid_two['info_date']) ? $grid_two['info_date'] : '' }}"
+                                                                                id="date_{{ $loop->index }}_date_picker"
                                                                                 class="hide-input show_date"
                                                                                 style="position: absolute; top: 0; left: 0; opacity: 0;"
-                                                                                onchange="handleDateInput(this, 'date_{{ $index }}_date')"
+                                                                                onchange="handleDateInput(this, 'date_{{ $loop->index }}_date')"
                                                                             />
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td><input type="number" name="financial_transection[{{ $index }}][info_amount]" value="{{ array_key_exists('info_amount', $detail) ? $detail['info_amount'] : '' }}"></td>
-                                                        <td><input type="text" name="financial_transection[{{ $index }}][info_currency_used]" value="{{ array_key_exists('info_currency_used', $detail) ? $detail['info_currency_used'] : '' }}"></td>
-                                                        <td><input type="text" name="financial_transection[{{ $index }}][info_comments]" value="{{ array_key_exists('info_comments', $detail) ? $detail['info_comments'] : '' }}"></td>
-                                                        <td><input type="text" name="financial_transection[{{ $index }}][info_remarks]" value="{{ array_key_exists('info_remarks', $detail) ? $detail['info_remarks'] : '' }}"></td>
+                                                        <td><input type="number" name="financial_transection[{{ $loop->index }}][info_amount]" value="{{ isset($grid_two['info_amount']) ? $grid_two['info_amount'] : '' }}"></td>
+                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_currency_used]" value="{{ isset($grid_two['info_currency_used']) ? $grid_two['info_currency_used'] : '' }}"></td>
+                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_comments]" value="{{ isset($grid_two['info_comments']) ? $grid_two['info_comments'] : '' }}"></td>
+                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_remarks]" value="{{ isset($grid_two['info_remarks']) ? $grid_two['info_remarks'] : '' }}"></td>
                                                     </tr>
                                                 @endforeach
-                                            @else
+                                            {{-- @else
                                                     <tr>
                                                         <td colspan="9">No Financial Transactions details found</td>
-                                                    </tr>
+                                                    </tr> --}}
                                             @endif  
                                         </tbody>
 
@@ -831,22 +839,21 @@ $users = DB::table('users')->get();
 
                             <script>
                                 $(document).ready(function() {
-                                    let indexDetail = {{ ($grid_two && is_array($grid_two->data)) ? count($grid_two->data) : 0 }};
                                     $('#Financial_Transactions_country_sub_data').click(function(e) {
                                         function generateTableRow(serialNumber) {
-                            
-                                            var html =
+                                            var data = @json($grid_two);
+                    var                     html = '';
+                                            html +=
                                                 '<tr>' +
-                                                '<td><input disabled type="text" name="financial_transection[' + serialNumber + '][serial]" value="' + (serialNumber) + '"></td>' +
-                                                '<td><input type="text" name="financial_transection[' + indexDetail + '][info_transaction]"></td>' +
-                                                '<td><input type="text" name="financial_transection[' + indexDetail + '][info_transaction_type]"></td>' +
-                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ indexDetail +'_date" type="text" name="financial_transection[' + indexDetail + '][info_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="financial_transection[' + indexDetail + '][info_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_date\')" /> </div> </div></div></td>' +
-                                                '<td><input type="number" name="financial_transection[' + indexDetail + '][info_amount]"></td>' +
-                                                '<td><input type="text" name="financial_transection[' + indexDetail + '][info_currency_used]"></td>' +
-                                                '<td><input type="text" name="financial_transection[' + indexDetail + '][info_comments]"></td>' +
-                                                '<td><input type="text" name="financial_transection[' + indexDetail + '][info_remarks]"></td>' +
+                                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                                                '<td><input type="text" name="financial_transection[' + serialNumber + '][info_transaction]"></td>' +
+                                                '<td><input type="text" name="financial_transection[' + serialNumber + '][info_transaction_type]"></td>' +
+                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_date" type="text" name="financial_transection[' + serialNumber + '][info_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="financial_transection[' + indexDetail + '][info_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_date\')" /> </div> </div></div></td>' +
+                                                '<td><input type="number" name="financial_transection[' + serialNumber + '][info_amount]"></td>' +
+                                                '<td><input type="text" name="financial_transection[' + serialNumber + '][info_currency_used]"></td>' +
+                                                '<td><input type="text" name="financial_transection[' + serialNumber + '][info_comments]"></td>' +
+                                                '<td><input type="text" name="financial_transection[' + serialNumber + '][info_remarks]"></td>' +
                                                 '</tr>';
-                                                indexDetail++;
                             
                                             return html;
                                         }
@@ -881,20 +888,16 @@ $users = DB::table('users')->get();
                                         </thead>
                                         <tbody>
                                             @if (!empty($grid_three) && is_array($grid_three->data))
-                                                @foreach ($grid_three->data as $index => $detail)  
+                                                @foreach ($grid_three->data as $grid_three)  
                                                     <tr>
-                                                        <td><input disabled type="text" name="ingredi[serial]" value="1"></td>
-                                                        <td><input type="text" name="ingredi[{{ $index }}][info_ingredient_type]" value="{{ array_key_exists('info_ingredient_type', $detail) ? $detail['info_ingredient_type'] : '' }}"></td>
-                                                        <td><input type="text" name="ingredi[{{ $index }}][info_ingredient_name]" value="{{ array_key_exists('info_ingredient_name', $detail) ? $detail['info_ingredient_name'] : '' }}"></td>
-                                                        <td><input type="text" name="ingredi[{{ $index }}][info_ingredient_strength]" value="{{ array_key_exists('info_ingredient_strength', $detail) ? $detail['info_ingredient_strength'] : '' }}"></td>
-                                                        <td><input type="text" name="ingredi[{{ $index }}][info_comments]" value="{{ array_key_exists('info_comments', $detail) ? $detail['info_comments'] : '' }}"></td>
-                                                        <td><input type="text" name="ingredi[{{ $index }}][info_remarks]" value="{{ array_key_exists('info_remarks', $detail) ? $detail['info_remarks'] : '' }}"></td>
+                                                        <td><input disabled type="text" name="ingredi[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_ingredient_type]" value="{{ isset($grid_three['info_ingredient_type']) ? $grid_three['info_ingredient_type'] : '' }}"></td>
+                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_ingredient_name]" value="{{ isset($grid_three['info_ingredient_name']) ? $grid_three['info_ingredient_name'] : '' }}"></td>
+                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_ingredient_strength]" value="{{ isset($grid_three['info_ingredient_strength']) ? $grid_three['info_ingredient_strength'] : '' }}"></td>
+                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_comments]" value="{{ isset($grid_three['info_comments']) ? $grid_three['info_comments'] : '' }}"></td>
+                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_remarks]" value="{{ isset($grid_three['info_remarks']) ? $grid_three['info_remarks'] : '' }}"></td>
                                                     </tr>
                                                 @endforeach
-                                            @else
-                                                <tr>
-                                                    <td colspan="9">No Ingredients details found</td>
-                                                </tr>
                                             @endif   
                                         </tbody>
 
@@ -905,19 +908,19 @@ $users = DB::table('users')->get();
                             <script>
                                 $(document).ready(function() {
                                     $('#Ingredients_country_sub_data').click(function(e) {
-                                        let indexDetail = {{ ($grid_three && is_array($grid_three->data)) ? count($grid_three->data) : 0 }};
                                         function generateTableRow(serialNumber) {
-                            
-                                            var html =
+                                            var data = @json($grid_three);
+                                            var html = '';
+                                            html +=
                                             '<tr>' +
-                                                '<td><input disabled type="text" name="ingredi[' + serialNumber + '][serial]" value="' + serialNumber + '"></td>' +
-                                                '<td><input type="text" name="ingredi[' + indexDetail + '][info_ingredient_type]"></td>' +
-                                                '<td><input type="text" name="ingredi[' + indexDetail + '][info_ingredient_name]"></td>' +
-                                                '<td><input type="text" name="ingredi[' + indexDetail + '][info_ingredient_strength]"></td>' +
-                                                '<td><input type="text" name="ingredi[' + indexDetail + '][info_comments]"></td>' +
-                                                '<td><input type="text" name="ingredi[' + indexDetail + '][info_remarks]"></td>' +
+                                                '<td><input disabled type="text" name="ingredi[serial]" value="' + serialNumber + '"></td>' +
+                                                '<td><input type="text" name="ingredi[' + serialNumber + '][info_ingredient_type]"></td>' +
+                                                '<td><input type="text" name="ingredi[' + serialNumber + '][info_ingredient_name]"></td>' +
+                                                '<td><input type="text" name="ingredi[' + serialNumber + '][info_ingredient_strength]"></td>' +
+                                                '<td><input type="text" name="ingredi[' + serialNumber + '][info_comments]"></td>' +
+                                                '<td><input type="text" name="ingredi[' + serialNumber + '][info_remarks]"></td>' +
                                                 '</tr>';
-                                                indexDetail++;
+                                                // indexDetail++;
                             
                                             return html;
                                         }

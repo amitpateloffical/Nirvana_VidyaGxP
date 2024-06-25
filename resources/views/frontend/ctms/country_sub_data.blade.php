@@ -49,6 +49,14 @@ $users = DB::table('users')->get();
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
+                                    <label for="RLS Record Number"><b>Record Number</b></label>
+                                    <input disabled type="text" name="record_number" value="{{ Helpers::getDivisionName(session()->get('division')) }}/CSD/{{ date('Y') }}">
+                                    {{-- <input disabled type="text" name="record" id="record" 
+                                        value="---/CSD/{{ date('y') }}/{{ $record }}"> --}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
                                     <label for="originator_id"><b>Initiator</b></label>
                                     <input disabled type="text" name="originator_id" value="{{ Auth::user()->name }}">
                                 </div>
@@ -58,6 +66,17 @@ $users = DB::table('users')->get();
                                     <label for="Date Due">Date of Initiation</label>
                                     <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
                                     <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="due-date">Due Date</label>
+                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                    </div>
                                 </div>
                             </div>
 
@@ -78,16 +97,7 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
 
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Due Date</label>
-                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -304,6 +314,34 @@ $users = DB::table('users')->get();
                                     </table>
                                 </div>
                             </div>
+
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Product_Material_country_sub_data').click(function(e) {
+                                        function generateTableRow(serialNumber) {
+                                            var html = '';
+                                            html +=
+                                                '<tr>' +
+                                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                                                '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_product_name]"></td>' +
+                                                '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_batch_number]"></td>' +
+                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_mfg_date" type="text" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_mfg_date\')" /> </div> </div></div></td>' +
+                                                '<td>  <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_expiry_date" type="text" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_expiry_date\')" /> </div> </div></div></td>' +
+                                                '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_disposition]"></td>' +
+                                                '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_comments]"></td>' +
+                                                '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_remarks]"></td>' +
+                                                '</tr>';
+                            
+                                            return html;
+                                        }
+                            
+                                        var tableBody = $('#Product-Material_country_sub_data-field-instruction-modal tbody');
+                                        var rowCount = tableBody.children('tr').length;
+                                        var newRow = generateTableRow(rowCount + 1);
+                                        tableBody.append(newRow);
+                                    });
+                                });
+                            </script>
 
                             <div class="sub-head">
                                 Country Submission Information
@@ -1057,46 +1095,19 @@ $users = DB::table('users')->get();
 
 <script>
     $(document).ready(function() {
-        $('#Product_Material_country_sub_data').click(function(e) {
-            function generateTableRow(serialNumber) {
-
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="ProductName[]"></td>' +
-                    '<td><input type="text" name="BatchNumber[]"></td>' +
-                    '<td><input type="date" name="ExpiryDate[]"></td>' +
-                    '<td><input type="date" name="ManufacturedDate[]"></td>' +
-                    '<td><input type="text" name="Disposition[]"></td>' +
-                    '<td><input type="text" name="Comments[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>' +
-                    '</tr>';
-
-                return html;
-            }
-
-            var tableBody = $('#Product-Material_country_sub_data-field-instruction-modal tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
         $('#Financial_Transactions_country_sub_data').click(function(e) {
             function generateTableRow(serialNumber) {
-
-                var html =
+                var html = '';
+                html +=
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="Transaction[]"></td>' +
-                    '<td><input type="text" name="TransactionType[]"></td>' +
-                    '<td><input type="date" name="Date[]"></td>' +
-                    '<td><input type="number" name="Amount[]"></td>' +
-                    '<td><input type="text" name="CurrencyUsed[]"></td>' +
-                    '<td><input type="text" name="Comments[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>' +
+                    '<td><input type="text" name="financial_transection[' + serialNumber + '][info_transaction]"></td>' +
+                    '<td><input type="text" name="financial_transection[' + serialNumber + '][info_transaction_type]"></td>' +
+                    '<td><input type="date" name="financial_transection[' + serialNumber + '][info_date]"></td>' +
+                    '<td><input type="number" name="financial_transection[' + serialNumber + '][info_amount]"></td>' +
+                    '<td><input type="text" name="financial_transection[' + serialNumber + '][info_currency_used]"></td>' +
+                    '<td><input type="text" name="financial_transection[' + serialNumber + '][info_comments]"></td>' +
+                    '<td><input type="text" name="financial_transection[' + serialNumber + '][info_remarks]"></td>' +
                     '</tr>';
 
                 return html;
@@ -1113,17 +1124,16 @@ $users = DB::table('users')->get();
     $(document).ready(function() {
         $('#Ingredients_country_sub_data').click(function(e) {
             function generateTableRow(serialNumber) {
-
-                var html =
+                var html = '';
+                html =
                 '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="IngredientType[]"></td>' +
-                    '<td><input type="text" name="IngredientName[]"></td>' +
-                    '<td><input type="text" name="IngredientStrength[]"></td>' +
-                    '<td><input type="text" name="Comments[]"></td>' +
-
-                    '<td><input type="text" name="Remarks[]"></td>' +
-                    '</tr>';
+                '<td><input disabled type="text" name="ingredi[serial]" value="' + serialNumber + '"></td>' +
+                '<td><input type="text" name="ingredi[' + serialNumber + '][info_ingredient_type]"></td>' +
+                '<td><input type="text" name="ingredi[' + serialNumber + '][info_ingredient_name]"></td>' +
+                '<td><input type="text" name="ingredi[' + serialNumber + '][info_ingredient_strength]"></td>' +
+                '<td><input type="text" name="ingredi[' + serialNumber + '][info_comments]"></td>' +
+                '<td><input type="text" name="ingredi[' + serialNumber + '][info_remarks]"></td>' +
+                '</tr>';
 
                 return html;
             }

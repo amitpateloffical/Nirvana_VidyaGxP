@@ -292,6 +292,46 @@
                         </tr>
                     </table>
             </div>
+            <div class="border-table">
+                <div class="block-head">
+                    Product/Material
+                </div>
+                <table>
+                    <tr class="table_bg">
+                        <th class="w-20">SR no.</th>
+                        <th class="w-20">Product Name</th>
+                        <th class="w-20">Batch Number</th>
+                        <th class="w-20">Manufactured Date</th>
+                        <th class="w-20">Expiry Date</th>
+                        <th class="w-20">Disposition</th>
+                        <th class="w-20">Comments</th>
+                        <th class="w-20">Remarks</th>
+                    </tr>
+                    @if ($grid_Data && is_array($grid_Data->data))
+                            @foreach ($grid_Data->data as $grid_Data)
+                                <tr>
+                                    <td class="w-20">{{ $loop->index + 1 }}</td>
+                                    <td class="w-20">{{ isset($grid_Data['info_product_name']) ? $grid_Data['info_product_name'] : '' }}
+                                    </td>
+                                    <td class="w-20">{{ isset($grid_Data['info_batch_number']) ? $grid_Data['info_batch_number'] : '' }}</td>
+                                    <td class="w-20">{{ isset($grid_Data['info_mfg_date']) ? $grid_Data['info_mfg_date'] : '' }}</td>
+                                    <td class="w-20">{{ isset($grid_Data['info_expiry_date']) ? $grid_Data['info_expiry_date'] : '' }}</td>
+                                    <td class="w-20">{{ isset($grid_Data['info_disposition']) ? $grid_Data['info_disposition'] : '' }}</td>
+                                    <td class="w-20">{{ isset($grid_Data['info_comments']) ? $grid_Data['info_comments'] : '' }}</td>
+                                    <td class="w-20">{{ isset($grid_Data['info_remarks']) ? $grid_Data['info_remarks'] : '' }}</td>
+                                </tr>
+                            @endforeach
+                    @else 
+                        <tr>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                        </tr>
+                    @endif
+                </table>
+            </div>  
             
             <div class="block">
                 <div class="block-head">
@@ -424,7 +464,48 @@
                             <td class="w-80">@if($data->comments){{ $data->comments }}@else Not Applicable @endif</td>
                         </tr>
                     </table>
-            </div>   
+            </div>  
+            
+            <div class="border-table">
+                <div class="block-head">
+                    Financial Transactions
+                </div>
+                <table>
+                    <tr class="table_bg">
+                        <th class="w-20">SR no.</th>
+                        <th class="w-20">Transaction</th>
+                        <th class="w-20">Transaction Type</th>
+                        <th class="w-20">Date</th>
+                        <th class="w-20">Amount</th>
+                        <th class="w-20">Currency Used</th>
+                        <th class="w-20">Comments</th>
+                        <th class="w-20">Remarks</th>
+                    </tr>
+                    @if ($second_grid && is_array($second_grid->data))
+                            @foreach ($second_grid->data as $second_grid)
+                                <tr>
+                                    <td class="w-20">{{ $loop->index + 1 }}</td>
+                                    <td class="w-20">{{ isset($second_grid['info_transaction']) ? $second_grid['info_transaction'] : '' }}
+                                    </td>
+                                    <td class="w-20">{{ isset($second_grid['info_transaction_type']) ? $second_grid['info_transaction_type'] : '' }}</td>
+                                    <td class="w-20">{{ isset($second_grid['info_date']) ? $second_grid['info_date'] : '' }}</td>
+                                    <td class="w-20">{{ isset($second_grid['info_amount']) ? $second_grid['info_amount'] : '' }}</td>
+                                    <td class="w-20">{{ isset($second_grid['info_currency_used']) ? $second_grid['info_currency_used'] : '' }}</td>
+                                    <td class="w-20">{{ isset($second_grid['info_comments']) ? $second_grid['info_comments'] : '' }}</td>
+                                    <td class="w-20">{{ isset($second_grid['info_remarks']) ? $second_grid['info_remarks'] : '' }}</td>
+                                </tr>
+                            @endforeach
+                    @else 
+                        <tr>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                        </tr>
+                    @endif
+                </table>
+            </div>  
             
             <div class="block">
                 <div class="block-head">

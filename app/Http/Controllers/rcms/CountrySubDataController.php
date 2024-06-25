@@ -21,7 +21,7 @@ class CountrySubDataController extends Controller
     public function country_submission()
     {
         $record = ((RecordNumber::first()->value('counter')) + 1);
-        $record = str_pad($record, 4, '0', STR_PAD_LEFT);
+        $record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
@@ -2805,13 +2805,15 @@ class CountrySubDataController extends Controller
     public static function singleReport($id)
     {
         $data = CountrySubData::find($id);
-        $prductinfogrid = CountrySubGrid::where(['c_id' => $id,'identifer' => 'ProductMaterialDetails'])->first();
+        $grid_Data = CountrySubGrid::where(['c_id' => $id,'identifer' => 'ProductMaterialDetails'])->first();
+        $second_grid = CountrySubGrid::where(['c_id' => $id,'identifer' => 'FinancialTransactions'])->first();
+        $third_grid = CountrySubGrid::where(['c_id' => $id,'identifer' => 'Ingredients'])->first();
 
         if (!empty($data)) {
             $data->originator_id = User::where('id', $data->initiator_id)->value('name');
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.country-submission-data.singleReport', compact('data'))
+            $pdf = PDF::loadview('frontend.country-submission-data.singleReport', compact('data','grid_Data','second_grid','third_grid'))
                 ->setOptions([
                     'defaultFont' => 'sans-serif',
                     'isHtml5ParserEnabled' => true,
