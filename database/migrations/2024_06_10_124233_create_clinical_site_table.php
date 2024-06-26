@@ -60,12 +60,12 @@ return new class extends Migration
             $table->date('imp_site_date')->nullable();
             $table->string('lab_de_name')->nullable();
             $table->string('moni_per_by')->nullable();
-            $table->integer('drop_withdrawn')->nullable();
-            $table->integer('enrolled')->nullable();
-            $table->integer('follow_up')->nullable();
-            $table->integer('planned')->nullable();
-            $table->integer('screened')->nullable();
-            $table->integer('project_annual_mv')->nullable();
+            $table->string('drop_withdrawn')->nullable();
+            $table->string('enrolled')->nullable();
+            $table->string('follow_up')->nullable();
+            $table->string('planned')->nullable();
+            $table->string('screened')->nullable();
+            $table->string('project_annual_mv')->nullable();
             $table->date('schedule_start_date')->nullable();
             $table->date('schedule_end_date')->nullable();
             $table->date('actual_start_date')->nullable();
