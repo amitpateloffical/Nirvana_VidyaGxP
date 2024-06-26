@@ -8,6 +8,7 @@ use App\Models\RecordNumber;
 use App\Models\CountrySubData;
 use App\Models\CountrySubGrid;
 use App\Models\RoleGroup;
+use App\Models\CountrySubHistory;
 use App\Models\CountrySubAuditTrail;
 use App\Models\User;
 use Carbon\Carbon;
@@ -2771,7 +2772,7 @@ class CountrySubDataController extends Controller
                 $history->stage='Closed - Cancelled';
                 $history->save();
 
-                $history = new SupplierHistory();
+                $history = new CountrySubHistory();
                 $history->type = "Country-Submission-Data";
                 $history->doc_id = $id;
                 $history->user_id = Auth::user()->id;

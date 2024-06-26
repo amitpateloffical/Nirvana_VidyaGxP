@@ -426,7 +426,7 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                   Supplier Observation Audit Trial Report
+                    Country Submission Data Audit Trial Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -438,7 +438,7 @@
         <table>
             <tr>
                 <td class="w-30">
-                    <strong>Supplier Observation No.</strong>
+                    <strong>Country Submission Data No.</strong>
                 </td>
                 <td class="w-40">
                     {{ Helpers::divisionNameForQMS($doc->division_id) }}/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
@@ -452,7 +452,7 @@
 
     <div class="inner-block">
 
-        <div class="head">Supplier Observation Audit Trial Report</div>
+        <div class="head">Country Submission Data Audit Trial Report</div>
 
         <div class="division">
             {{ Helpers::divisionNameForQMS($doc->division_id) }}/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}

@@ -331,7 +331,7 @@
                         </tr>
                     @endif
                 </table>
-            </div>  
+            </div>  <br>
             
             <div class="block">
                 <div class="block-head">
@@ -505,7 +505,44 @@
                         </tr>
                     @endif
                 </table>
-            </div>  
+            </div>  <br>
+
+            <div class="border-table">
+                <div class="block-head">
+                    Ingredients
+                </div>
+                <table>
+                    <tr class="table_bg">
+                        <th class="w-20">SR no.</th>
+                        <th class="w-20">Ingredient Type</th>
+                        <th class="w-20">Ingredient Name</th>
+                        <th class="w-20">Ingredient Strength</th>
+                        <th class="w-20">Comments</th>
+                        <th class="w-20">Remarks</th>
+                    </tr>
+                    @if ($third_grid && is_array($third_grid->data))
+                            @foreach ($third_grid->data as $third_grid)
+                                <tr>
+                                    <td class="w-20">{{ $loop->index + 1 }}</td>
+                                    <td class="w-20">{{ isset($third_grid['info_ingredient_type']) ? $third_grid['info_ingredient_type'] : '' }}
+                                    </td>
+                                    <td class="w-20">{{ isset($third_grid['info_ingredient_name']) ? $third_grid['info_ingredient_name'] : '' }}</td>
+                                    <td class="w-20">{{ isset($third_grid['info_ingredient_strength']) ? $third_grid['info_ingredient_strength'] : '' }}</td>
+                                    <td class="w-20">{{ isset($third_grid['info_comments']) ? $third_grid['info_comments'] : '' }}</td>
+                                    <td class="w-20">{{ isset($third_grid['info_remarks']) ? $third_grid['info_remarks'] : '' }}</td>
+                                </tr>
+                            @endforeach
+                    @else 
+                        <tr>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                        </tr>
+                    @endif
+                </table>
+            </div> <br>
             
             <div class="block">
                 <div class="block-head">

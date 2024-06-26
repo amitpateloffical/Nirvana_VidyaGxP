@@ -148,7 +148,7 @@ $users = DB::table('users')->get();
                                     <label for="due-date">Due Date</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}"/>
+                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
                                         <input type="date" name="due_date" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }} min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
@@ -317,7 +317,7 @@ $users = DB::table('users')->get();
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Product/Material(0)
-                                    <button type="button" name="audit-agenda-grid" id="Product_Material_country_sub_data">+</button>
+                                    <button type="button" name="audit-agenda-grid" id="Product_Material_country_sub_data" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
@@ -340,9 +340,9 @@ $users = DB::table('users')->get();
                                             @if (!empty($grid_Data) && is_array($grid_Data->data))
                                             @foreach ($grid_Data->data as $grid_Data)  
                                                 <tr>
-                                                    <td><input disabled type="text" name="serial_number_gi[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
-                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_product_name]" value="{{ isset($grid_Data['info_product_name']) ? $grid_Data['info_product_name'] : '' }}"></td>
-                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_batch_number]" value="{{ isset($grid_Data['info_batch_number']) ? $grid_Data['info_batch_number'] : '' }}"></td>
+                                                    <td><input disabled type="text" name="serial_number_gi[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_product_name]" value="{{ isset($grid_Data['info_product_name']) ? $grid_Data['info_product_name'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_batch_number]" value="{{ isset($grid_Data['info_batch_number']) ? $grid_Data['info_batch_number'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
                                                     <td>
                                                         <div class="new-date-data-field">
                                                             <div class="group-input input-date">
@@ -353,6 +353,7 @@ $users = DB::table('users')->get();
                                                                         type="text"
                                                                         name="serial_number_gi[{{ $loop->index }}][info_mfg_date]"
                                                                         placeholder="DD-MMM-YYYY"
+                                                                        {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
                                                                         value="{{ isset($grid_Data['info_mfg_date']) ? $grid_Data['info_mfg_date'] : '' }}"
                                                                     />
                                                                     <input
@@ -361,6 +362,7 @@ $users = DB::table('users')->get();
                                                                         value="{{ isset($grid_Data['info_mfg_date']) ? $grid_Data['info_mfg_date'] : '' }}"
                                                                         id="date_{{ $loop->index }}_mfg_date_picker"
                                                                         class="hide-input show_date"
+                                                                        {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
                                                                         style="position: absolute; top: 0; left: 0; opacity: 0;"
                                                                         onchange="handleDateInput(this, 'date_{{ $loop->index }}_mfg_date')"
                                                                     />
@@ -378,6 +380,7 @@ $users = DB::table('users')->get();
                                                                         type="text"
                                                                         name="serial_number_gi[{{ $loop->index }}][info_expiry_date]"
                                                                         placeholder="DD-MMM-YYYY"
+                                                                        {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
                                                                         value="{{ isset($grid_Data['info_expiry_date']) ? $grid_Data['info_expiry_date'] : '' }}"
                                                                     />
                                                                     <input
@@ -386,6 +389,7 @@ $users = DB::table('users')->get();
                                                                         value="{{ isset($grid_Data['info_expiry_date']) ? $grid_Data['info_expiry_date'] : '' }}"
                                                                         id="date_{{ $loop->index }}_expiry_date_picker"
                                                                         class="hide-input show_date"
+                                                                        {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
                                                                         style="position: absolute; top: 0; left: 0; opacity: 0;"
                                                                         onchange="handleDateInput(this, 'date_{{ $loop->index }}_expiry_date')"
                                                                     />
@@ -393,9 +397,9 @@ $users = DB::table('users')->get();
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_disposition]" value="{{ isset($grid_Data['info_disposition']) ? $grid_Data['info_disposition'] : '' }}"></td>
-                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_comments]" value="{{ isset($grid_Data['info_comments']) ? $grid_Data['info_comments'] : '' }}"></td>
-                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_remarks]" value="{{ isset($grid_Data['info_remarks']) ? $grid_Data['info_remarks'] : '' }}"></td>
+                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_disposition]" value="{{ isset($grid_Data['info_disposition']) ? $grid_Data['info_disposition'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_comments]" value="{{ isset($grid_Data['info_comments']) ? $grid_Data['info_comments'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                    <td><input type="text" name="serial_number_gi[{{ $loop->index }}][info_remarks]" value="{{ isset($grid_Data['info_remarks']) ? $grid_Data['info_remarks'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
                                                 </tr>
                                             @endforeach
                                         @endif
@@ -416,8 +420,8 @@ $users = DB::table('users')->get();
                                                 '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                                                 '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_product_name]"></td>' +
                                                 '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_batch_number]"></td>' +
-                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_mfg_date" type="text" name="serial_number_gi[' + indexDetail + '][info_mfg_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + indexDetail + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_mfg_date\')" /> </div> </div></div></td>' +
-                                                '<td>  <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_expiry_date" type="text" name="serial_number_gi[' + indexDetail + '][info_expiry_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + indexDetail + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_expiry_date\')" /> </div> </div></div></td>' +
+                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_mfg_date" type="text" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_mfg_date\')" /> </div> </div></div></td>' +
+                                                '<td>  <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_expiry_date" type="text" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_expiry_date\')" /> </div> </div></div></td>' +
                                                 '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_disposition]"></td>' +
                                                 '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_comments]"></td>' +
                                                 '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_remarks]"></td>' +
@@ -769,7 +773,7 @@ $users = DB::table('users')->get();
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Financial Transactions(0)
-                                    <button type="button" name="audit-agenda-grid" id="Financial_Transactions_country_sub_data">+</button>
+                                    <button type="button" name="audit-agenda-grid" id="Financial_Transactions_country_sub_data" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
@@ -792,9 +796,9 @@ $users = DB::table('users')->get();
                                             @if (!empty($grid_two) && is_array($grid_two->data))
                                                 @foreach ($grid_two->data as $grid_two)  
                                                     <tr>
-                                                        <td><input disabled type="text" name="financial_transection[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
-                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_transaction]" value="{{ isset($grid_two['info_transaction']) ? $grid_two['info_transaction'] : '' }}"></td>
-                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_transaction_type]" value="{{ isset($grid_two['info_transaction_type']) ? $grid_two['info_transaction_type'] : '' }}"></td>
+                                                        <td><input disabled type="text" name="financial_transection[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_transaction]" value="{{ isset($grid_two['info_transaction']) ? $grid_two['info_transaction'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_transaction_type]" value="{{ isset($grid_two['info_transaction_type']) ? $grid_two['info_transaction_type'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
                                                         <td>
                                                             <div class="new-date-data-field">
                                                                 <div class="new-date-data-field">
@@ -806,6 +810,7 @@ $users = DB::table('users')->get();
                                                                                 type="text"
                                                                                 name="financial_transection[{{ $loop->index }}][info_date]"
                                                                                 placeholder="DD-MMM-YYYY"
+                                                                                {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
                                                                                 value="{{ isset($grid_two['info_date']) ? $grid_two['info_date'] : '' }}"
                                                                             />
                                                                             <input
@@ -814,16 +819,17 @@ $users = DB::table('users')->get();
                                                                                 value="{{ isset($grid_two['info_date']) ? $grid_two['info_date'] : '' }}"
                                                                                 id="date_{{ $loop->index }}_date_picker"
                                                                                 class="hide-input show_date"
+                                                                                {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
                                                                                 style="position: absolute; top: 0; left: 0; opacity: 0;"
                                                                                 onchange="handleDateInput(this, 'date_{{ $loop->index }}_date')"
                                                                             />
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td><input type="number" name="financial_transection[{{ $loop->index }}][info_amount]" value="{{ isset($grid_two['info_amount']) ? $grid_two['info_amount'] : '' }}"></td>
-                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_currency_used]" value="{{ isset($grid_two['info_currency_used']) ? $grid_two['info_currency_used'] : '' }}"></td>
-                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_comments]" value="{{ isset($grid_two['info_comments']) ? $grid_two['info_comments'] : '' }}"></td>
-                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_remarks]" value="{{ isset($grid_two['info_remarks']) ? $grid_two['info_remarks'] : '' }}"></td>
+                                                        <td><input type="number" name="financial_transection[{{ $loop->index }}][info_amount]" value="{{ isset($grid_two['info_amount']) ? $grid_two['info_amount'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_currency_used]" value="{{ isset($grid_two['info_currency_used']) ? $grid_two['info_currency_used'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_comments]" value="{{ isset($grid_two['info_comments']) ? $grid_two['info_comments'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                        <td><input type="text" name="financial_transection[{{ $loop->index }}][info_remarks]" value="{{ isset($grid_two['info_remarks']) ? $grid_two['info_remarks'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
                                                     </tr>
                                                 @endforeach
                                             {{-- @else
@@ -842,7 +848,7 @@ $users = DB::table('users')->get();
                                     $('#Financial_Transactions_country_sub_data').click(function(e) {
                                         function generateTableRow(serialNumber) {
                                             var data = @json($grid_two);
-                    var                     html = '';
+                                            var html = '';
                                             html +=
                                                 '<tr>' +
                                                 '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
@@ -869,7 +875,7 @@ $users = DB::table('users')->get();
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Ingredients(0)
-                                    <button type="button" name="audit-agenda-grid" id="Ingredients_country_sub_data">+</button>
+                                    <button type="button" name="audit-agenda-grid" id="Ingredients_country_sub_data" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
@@ -890,12 +896,12 @@ $users = DB::table('users')->get();
                                             @if (!empty($grid_three) && is_array($grid_three->data))
                                                 @foreach ($grid_three->data as $grid_three)  
                                                     <tr>
-                                                        <td><input disabled type="text" name="ingredi[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
-                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_ingredient_type]" value="{{ isset($grid_three['info_ingredient_type']) ? $grid_three['info_ingredient_type'] : '' }}"></td>
-                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_ingredient_name]" value="{{ isset($grid_three['info_ingredient_name']) ? $grid_three['info_ingredient_name'] : '' }}"></td>
-                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_ingredient_strength]" value="{{ isset($grid_three['info_ingredient_strength']) ? $grid_three['info_ingredient_strength'] : '' }}"></td>
-                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_comments]" value="{{ isset($grid_three['info_comments']) ? $grid_three['info_comments'] : '' }}"></td>
-                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_remarks]" value="{{ isset($grid_three['info_remarks']) ? $grid_three['info_remarks'] : '' }}"></td>
+                                                        <td><input disabled type="text" name="ingredi[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_ingredient_type]" value="{{ isset($grid_three['info_ingredient_type']) ? $grid_three['info_ingredient_type'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_ingredient_name]" value="{{ isset($grid_three['info_ingredient_name']) ? $grid_three['info_ingredient_name'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_ingredient_strength]" value="{{ isset($grid_three['info_ingredient_strength']) ? $grid_three['info_ingredient_strength'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_comments]" value="{{ isset($grid_three['info_comments']) ? $grid_three['info_comments'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
+                                                        <td><input type="text" name="ingredi[{{ $loop->index }}][info_remarks]" value="{{ isset($grid_three['info_remarks']) ? $grid_three['info_remarks'] : '' }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}></td>
                                                     </tr>
                                                 @endforeach
                                             @endif   
@@ -971,80 +977,147 @@ $users = DB::table('users')->get();
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="annual_IB_update_date_due">Annual IB Update Date Due</label>
-                                    <input type="date" name="annual_IB_update_date_due" id="" value="{{ $data->annual_IB_update_date_due }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Annual IB Due Date">Annual IB Update Date Due</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="annual_IB_update_date_due" value="{{ $data->annual_IB_update_date_due }}" readonly placeholder="DD-MMM-YYYY" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="annual_IB_update_date_due" value="{{ $data->annual_IB_update_date_due }}"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
+                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                            class="hide-input" oninput="handleDateInput(this, 'annual_IB_update_date_due')" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="date_of_first_IB">Date of 1st IB</label>
-                                    <input type="date" name="date_of_first_IB" id="" value="{{ $data->date_of_first_IB }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Date of 1st IB">Date of 1st IB</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="date_of_first_IB" value="{{ $data->date_of_first_IB }}" readonly placeholder="DD-MMM-YYYY" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="date_of_first_IB" value="{{ $data->date_of_first_IB }}"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
+                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                            class="hide-input" oninput="handleDateInput(this, 'date_of_first_IB')" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="date_of_first_protocol">Date of 1st Protocol</label>
-                                    <input type="date" name="date_of_first_protocol" id="" value="{{ $data->date_of_first_protocol }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Date of 1st Protocol">Date of 1st Protocol</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="date_of_first_protocol" value="{{ $data->date_of_first_protocol }}" readonly placeholder="DD-MMM-YYYY" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="date_of_first_protocol" value="{{ $data->date_of_first_protocol }}"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
+                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                            class="hide-input" oninput="handleDateInput(this, 'date_of_first_protocol')" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="date_safety_report">Date Safety Report</label>
-                                    <input type="date" name="date_safety_report" id="" value="{{ $data->date_safety_report }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Date Safety Report">Date Safety Report</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="date_safety_report" value="{{ $data->date_safety_report }}" readonly placeholder="DD-MMM-YYYY" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="date_safety_report" value="{{ $data->date_safety_report }}"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
+                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                            class="hide-input" oninput="handleDateInput(this, 'date_safety_report')" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="date_trial_active">Date Trial Active</label>
-                                    <input type="date" name="date_trial_active" id="" value="{{ $data->date_trial_active }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Date Trial Active">Date Trial Active</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="date_trial_active" value="{{ $data->date_trial_active }}" readonly placeholder="DD-MMM-YYYY" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="date_trial_active" value="{{ $data->date_trial_active }}"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
+                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                            class="hide-input" oninput="handleDateInput(this, 'date_trial_active')" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Business_impact_Severity">End of Study Report Date</label>
-                                    <input type="date" name="end_of_study_report_date" id="" value="{{ $data->end_of_study_report_date }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="End of Study Report Date">End of Study Report Date</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="end_of_study_report_date" value="{{ $data->end_of_study_report_date }}" readonly placeholder="DD-MMM-YYYY" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="end_of_study_report_date" value="{{ $data->end_of_study_report_date }}"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
+                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                            class="hide-input" oninput="handleDateInput(this, 'end_of_study_report_date')" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Revenue_impact_Probability">End of Study Synopsis Date</label>
-                                    <input type="date" name="end_of_study_synopsis_date" id="" value="{{ $data->end_of_study_synopsis_date }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="End of Study Synopsis Date">End of Study Synopsis Date</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="end_of_study_synopsis_date" value="{{ $data->end_of_study_synopsis_date }}" readonly placeholder="DD-MMM-YYYY" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="end_of_study_synopsis_date" value="{{ $data->end_of_study_synopsis_date }}"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
+                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                            class="hide-input" oninput="handleDateInput(this, 'end_of_study_synopsis_date')" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Revenue_impact_Severity">End of Trial Date</label>
-                                    <input type="date" name="end_of_trial_date" id="" value="{{ $data->end_of_trial_date }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="End of Trial Date">End of Trial Date</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="end_of_trial_date" value="{{ $data->end_of_trial_date }}" readonly placeholder="DD-MMM-YYYY" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="end_of_trial_date" value="{{ $data->end_of_trial_date }}"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
+                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                            class="hide-input" oninput="handleDateInput(this, 'end_of_trial_date')" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Brand_impact_Probability">Last Visit</label>
-                                    <input type="date" name="last_visit" id="" value="{{ $data->last_visit }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Last Visit">Last Visit</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="last_visit" value="{{ $data->last_visit }}" readonly placeholder="DD-MMM-YYYY" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="last_visit" value="{{ $data->last_visit }}"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
+                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                            class="hide-input" oninput="handleDateInput(this, 'last_visit')" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Brand_impact_Severity">Next Visit</label>
-                                    <input type="date" name="next_visit" id="" value="{{ $data->next_visit }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Next Visit">Next Visit</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="next_visit" value="{{ $data->next_visit }}" readonly placeholder="DD-MMM-YYYY" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="next_visit" value="{{ $data->next_visit }}"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
+                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                            class="hide-input" oninput="handleDateInput(this, 'next_visit')" />
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Brand_impact_Severity">Ethics Commitee Approval</label>
-                                    <input type="date" name="ethics_commitee_approval" id="" value="{{ $data->ethics_commitee_approval }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Ethics Commitee Approval">Ethics Commitee Approval</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="ethics_commitee_approval" value="{{ $data->ethics_commitee_approval }}" readonly placeholder="DD-MMM-YYYY" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="ethics_commitee_approval" value="{{ $data->ethics_commitee_approval }}"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
+                                            {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                            class="hide-input" oninput="handleDateInput(this, 'ethics_commitee_approval')" />
+                                    </div>
                                 </div>
                             </div>
 
