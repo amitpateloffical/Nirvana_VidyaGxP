@@ -534,9 +534,6 @@
                                     <option value="severity-scale">Severity(S)Scale</option>
                                     <option value="detection-scale">Detection(D)Scale</option>
                                 </select>
-
-
-
                             </div>
                         </div>
 
@@ -582,7 +579,7 @@
                                         <td><input type="text" name="product_material[0][Disposition]"></td>
                                         <td><input type="text" name="product_material[0][Comment]"></td>
                                         <td><input type="text" name="product_material[0][Remarks]"></td>
-                                        <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                        <td><input readonly type="text"></td>
                                     </tbody>
 
                                 </table>

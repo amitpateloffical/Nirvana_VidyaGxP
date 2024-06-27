@@ -10,7 +10,7 @@
     }
 </style>
 
-
+{{--<img src="https://vidyagxp.com/vidyaGxp_logo.png" alt="" class="w-100">--}}
 
 
 
@@ -51,7 +51,7 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 //     '</tr>';
 
@@ -89,7 +89,7 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 //     '</tr>';
 
@@ -113,13 +113,14 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="Batch_number[]"></td>' +
-                    '<td><input type="text" name="Expiry_date[]"></td>' +
-                    '<td><input type="text" name="Manufactured_date[]"></td>' +
-                    '<td><input type="text" name="Disposition_date[]"></td>' +
-                    '<td><input type="text" name="Comments_date[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>' +
-
+                    '<td><input type="text" name="product_material[' + serialNumber + '][ProductName]"></td>' +
+                    '<td><input type="number" name="product_material[' + serialNumber + '][BatchNumber]"></td>' +
+                    '<td><input type="date" name="product_material[' + serialNumber + '][ExpiryDate]"></td>' +
+                    '<td><input type="date" name="product_material[' + serialNumber + '][ManufacturedDate]"></td>' +
+                    '<td><input type="text" name="product_material[' + serialNumber + '][Disposition]"></td>' +
+                    '<td><input type="text" name="product_material[' + serialNumber + '][Comments]"></td>' +
+                    '<td><input type="text" name="product_material[' + serialNumber + '][Remarks]"></td>' +
+                    '<td><button type="text" class="removeRowBtn">Remove</button></td>' +
 
                     '</tr>';
 
@@ -127,7 +128,7 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 //     '</tr>';
 
@@ -166,7 +167,7 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 //     '</tr>';
 
@@ -206,7 +207,7 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 //     '</tr>';
 
@@ -239,7 +240,7 @@
 
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('cta_amendement.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -254,23 +255,41 @@
                             General Information
                         </div> <!-- RECORD NUMBER -->
                         <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Initiator"> Record Number </label>
+                                    <input disabled type="text" name="record"
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTA_Amendement/{{ date('Y') }}/{{ $record_number }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                    {{-- <div class="static">QMS-North America</div> --}}
+                                </div>
+                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator">Initiator</label>
-                                    <input disabled type="text" name="initiator_id" value="" />
+                                    <input disabled type="text" name="initiator_id" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input ">
                                     <label for="Date Of Initiation"><b>Date Of Initiation</b></label>
-                                    <input disabled type="text" value="" name="intiation_date">
-                                    <input type="hidden" value="" name="intiation_date">
+                                    <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Initiator Group Code">Short Description</label>
+                                    <label for="Initiator Group Code">Short Description<span class="text-danger">*</span></label>
                                     <p class="text-primary">PSUR Short Description to be presented on dekstop</p>
                                     <input type="text" name="short_description" id="initiator_group_code" value="">
                                 </div>
@@ -279,10 +298,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="If Others">Assigned To</label>
-                                    <select name="assigned_to" onchange="">
-                                        <option value="">-- select --</option>
-                                        <option value=""></option>
-
+                                    <select name="assigned_to">
+                                     <option value="">Select a value</option>
+                                        @if($users->isNotEmpty())
+                                            @foreach($users as $user)
+                                            <option value='{{ $user->id }}'>{{ $user->name }}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -292,23 +314,22 @@
                                     <label for="Due Date">Date Due</label>
                                     <p class="text-primary"> last date this record should be closed by</p>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}">
                                     </div>
-
-
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Type</label>
-                                    <select name="type" onchange="">
+                                    <select name="type">
                                         <option value="">-- select --</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-
+                                        <option value="administrative-amendment">Administrative Amendment</option>
+                                        <option value="budget-amendment">Budget Amendment</option>
+                                        <option value="scope-of-work-amendment">Scope of Work Amendment</option>
+                                        <option value="regulatory-amendment">Regulatory Amendment</option>
+                                        <option value="milestone-amendment">Milestone Amendment</option>
                                     </select>
                                 </div>
                             </div>
@@ -316,12 +337,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Other Type">Other Type</label>
-                                    <select name="Other_type" onchange="">
+                                    <select name="other_type">
                                         <option value="">-- select --</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-
+                                        <option value="data-management-amendment">Data Management Amendment</option>
+                                        <option value="logistical-amendment">Logistical Amendment</option>
+                                        <option value="communication-amendment">Communication Amendment</option>
+                                        <option value="quality-assurance-amendment">Quality Assurance Amendment</option>
+                                        <option value="equipment-amendment">Equipment Amendment</option>
                                     </select>
                                 </div>
                             </div>
@@ -335,10 +357,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="file_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="" oninput="" multiple>
+                                            <input type="file" id="myfile" name="attached_files[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -347,14 +369,10 @@
                             <div class="col-md-12">
                                 <div class="group-input">
                                     <label for="Description">Description</label>
-
                                     <small class="text-primary">
                                         Amendment detailled description
                                     </small>
-
-                                    <textarea class="" name="description" id="">
-                                    </textarea>
-
+                                    <textarea class="" name="description" id=""></textarea>
                                 </div>
                             </div>
 
@@ -363,18 +381,17 @@
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="search">
-                                        Zone <span class="text-danger"></span>
-                                    </label>
-                                    <select id="select-state" placeholder="Select..." name="zone">
+                                    <label for="search">Zone</label>
+                                    <select name="zone">
                                         <option value="">Select a value</option>
-
-                                        <option value=""></option>
-
+                                        <option value="asia">Asia</option>
+                                        <option value="europe">Europe</option>
+                                        <option value="africa">Africa</option>
+                                        <option value="central-america">Central America</option>
+                                        <option value="south-america">South America</option>
+                                        <option value="oceania">Oceania</option>
+                                        <option value="north-america">North America</option>
                                     </select>
-
-
-
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -382,11 +399,8 @@
                                     <label for="search">
                                         Country <span class="text-danger"></span>
                                     </label>
-                                    <select id="select-state" placeholder="Select..." name="country">
-                                        <option value="">Select a value</option>
-
-                                        <option value=""></option>
-
+                                    <select name="country" class="form-select country" aria-label="Default select example" onchange="loadStates()">
+                                        <option value="">Select Country</option>
                                     </select>
                                 </div>
                             </div>
@@ -395,13 +409,8 @@
                                     <label for="search">
                                         State/District <span class="text-danger"></span>
                                     </label>
-
-
-                                    <select id="select-state" placeholder="Select..." name="city">
-                                        <option value="">Select a value</option>
-
-                                        <option value=""></option>
-
+                                    <select name="state" class="form-select state" aria-label="Default select example" onchange="loadCities()">
+                                        <option value="">Select State/District</option>
                                     </select>
                                 </div>
                             </div>
@@ -410,11 +419,8 @@
                                     <label for="search">
                                         City <span class="text-danger"></span>
                                     </label>
-                                    <select id="select-state" placeholder="Select..." name="city">
-                                        <option value="">Select a value</option>
-
-                                        <option value=""></option>
-
+                                    <select name="city" class="form-select city" aria-label="Default select example">
+                                        <option value="">Select City</option>
                                     </select>
                                 </div>
                             </div>
@@ -432,11 +438,10 @@
                         <div class="row">
                             <div class="sub-head col-12">Amendement Information</div>
 
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Procedure Number">Procedure Number</label>
-                                    <input type="text" name="procedure_number" id="procedure_number" value="">
+                                    <input type="number" name="procedure_number" id="procedure_number" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -448,7 +453,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Registration Number">Registration Number</label>
-                                    <input type="text" name="registration_number" id="registration_number" value="">
+                                    <input type="number" name="registration_number" id="registration_number" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -461,85 +466,78 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Authority Type">Authority Type</label>
-                                    <select name="authority_type" onchange="">
+                                    <select name="authority_type">
                                         <option value="">-- select --</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-
+                                        <option value="ethics-committee">Ethics Committee/Institutional Review Board </option>
+                                        <option value="regulatory-authority">Regulatory Authority</option>
+                                        <option value="sponsor-investigator">Sponsor/Investigator</option>
+                                        <option value="data-safety-monitoring-board">Data Safety Monitoring Board</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Authority">Authority</label>
-                                    <select name="authority" onchange="">
+                                    <select name="authority">
                                         <option value="">-- select --</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-
+                                        <option value="national-competent-authority">National Competent Authority</option>
+                                        <option value="ethics-committee">Ethics Committee</option>
+                                        <option value="local-ethics-committees">Local Ethics Committees</option>
+                                        <option value="national-health-authorities">National Health Authorities</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Year">Year</label>
-                                    <select name="year" onchange="">
+                                    <select name="year">
                                         <option value="">-- select --</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                        <option value="2028">2028</option>
                                     </select>
                                 </div>
                             </div>
 
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Registration Status">Registration Status</label>
-                                    <small class="text-primary">
-                                        < No Option available>
-                                    </small>
-                                </div>
-                            </div>
-
-
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Registration Status">Registration Status</label>
-                                    <select name="registratioon_status" onchange="">
+                                    <select name="registration_status">
                                         <option value="">-- select --</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-
+                                        <option value="pending-submission">Pending Submission</option>
+                                        <option value="submitted">Submitted</option>
+                                        <option value="under-review">Under Review</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="rejected">Rejected</option>
+                                        <option value="withdrawn">Withdrawn</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="CAR Clouser Time Weight">CAR Clouser Time Weight</label>
-                                    <select name="car_clouser_time_weight" onchange="">
+                                    <select name="car_clouser_time_weight">
                                         <option value="">-- select --</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-
+                                        <option value="high-priority">High Priority</option>
+                                        <option value="medium-high-priority">Medium-High Priority</option>
+                                        <option value="medium-priority">Medium Priority</option>
+                                        <option value="medium-low-priority">Medium-Low Priority</option>
+                                        <option value="low-priority">Low Priority</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Outcome">Outcome</label>
-                                    <select name="outcome" onchange="">
+                                    <select name="outcome">
                                         <option value="">-- select --</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-
+                                        <option value="approved">Approved</option>
+                                        <option value="pending-approval">Pending Approval</option>
+                                        <option value="under-review">Under Review</option>
+                                        <option value="pending-approval">modification-required</option>
+                                        <option value="superseded">superseded</option>
                                     </select>
                                 </div>
                             </div>
@@ -562,9 +560,7 @@
                             <div class="col-md-12">
                                 <div class="group-input">
                                     <label for="Comments">Comments</label>
-                                    <textarea class="" name="description" id="">
-                                    </textarea>
-
+                                    <textarea name="comments" id=""></textarea>
                                 </div>
                             </div>
 
@@ -573,12 +569,12 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Manufaturer">Manufaturer</label>
-                                    <select name="manufaturer" onchange="">
+                                    <select name="manufaturer">
                                         <option value="">-- select --</option>
-                                        <option value="">A</option>
-                                        <option value="">B</option>
-                                        <option value="">C</option>
-
+                                        <option value="sponsor-manufacturer">Sponsor Manufacturer</option>
+                                        <option value="contract-manufacturing-organization">Contract Manufacturing Organization</option>
+                                        <option value="in-house-manufacturing">In-house Manufacturing</option>
+                                        <option value="academic-institution">Academic Institution</option>
                                     </select>
                                 </div>
                             </div>
@@ -586,39 +582,37 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Product_Material">
-                                        (Root Parent) Product/Material (0)
-                                        <button type="button" onclick="add4Input('Product_Material-first-table')">+</button>
+                                        (Root Parent) Product/Material
+                                        <button type="button" name="product_material" id="Product_Material">+</button>
                                         <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                             (Launch Instruction)
                                         </span>
                                     </label>
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="Product_Material-first-table">
+                                        <table class="table table-bordered" id="Product_Material-first-table" style="width: 100%;">
                                             <thead>
                                                 <tr>
-                                                    <th>Row #</th>
-                                                    <th>Product Name</th>
-                                                    <th>Batch Number</th>
-                                                    <th>Expiry Date</th>
-                                                    <th>Manufactured Date</th>
-                                                    <th>Disposition</th>
-                                                    <th>Comments</th>
-                                                    <th>Remarks</th>
-
+                                                    <th style="width: 4%">Row #</th>
+                                                    <th style="width: 12%">Product Name</th>
+                                                    <th style="width: 16%">Batch Number</th>
+                                                    <th style="width: 16%">Expiry Date</th>
+                                                    <th style="width: 16%">Manufactured Date</th>
+                                                    <th style="width: 16%">Disposition</th>
+                                                    <th style="width: 16%">Comments</th>
+                                                    <th style="width: 16%">Remarks</th>
+                                                    <th style="width: 16%">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <td><input disabled type="text" name="serial_number[]" value="1">
-                                                </td>
-                                                <td><input type="text" name="Product_Type[]"></td>
-                                                <td><input type="text" name="Batch_number[]"></td>
-                                                <td><input type="text" name="Expiry_date[]"></td>
-                                                <td><input type="text" name="Manufactured_date[]"></td>
-                                                <td><input type="text" name="Disposition_date[]"></td>
-                                                <td><input type="text" name="Comments_date[]"></td>
-                                                <td><input type="text" name="Remarks[]"></td>
-
-
+                                                <td><input disabled type="text" name="product_material[0][serial]" value="1"></td>
+                                                <td><input type="text" name="product_material[0][ProductName]"></td>
+                                                <td><input type="number" name="product_material[0][BatchNumber]"></td>
+                                                <td><input type="date" name="product_material[0][ExpiryDate]"></td>
+                                                <td><input type="date" name="product_material[0][ManufacturedDate]"></td>
+                                                <td><input type="text" name="product_material[0][Disposition]"></td>
+                                                <td><input type="text" name="product_material[0][Comments]"></td>
+                                                <td><input type="text" name="product_material[0][Remarks]"></td>
+                                                <td><input readonly type="text"></td>
                                             </tbody>
                                         </table>
                                     </div>
@@ -669,7 +663,7 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Planened Submission Date"> Planened Submission Date </label>
+                                    <label for="Planened Submission Date"> Planned Submission Date </label>
                                     <div class="calenderauditee">
                                         <input type="text" id="planned_submission_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="planned_submission_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'planned_submission_date')" />
@@ -679,7 +673,7 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Planened DateSent To Affiliate"> Planened DateSent To Affiliate </label>
+                                    <label for="Planned DateSent To Affiliate"> Planned Date Sent To Affiliate </label>
                                     <div class="calenderauditee">
                                         <input type="text" id="planned_date_sent_to_affiliate" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="planned_date_sent_to_affiliate" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'planned_date_sent_to_affiliate')" />
@@ -737,10 +731,11 @@
                                     <label for="Trainer">Trainer</label>
                                     <select name="trainer" onchange="">
                                         <option value="">-- select --</option>
-                                        <option value="">A</option>
-                                        <option value="">B</option>
-                                        <option value="">C</option>
-
+                                        <option value="internal-trainer">Internal Trainer</option>
+                                        <option value="external-trainer">External Trainer</option>
+                                        <option value="contract-research-organization-trainer">Contract Research Organization Trainer</option>
+                                        <option value="subject-matter-expert ">Subject Matter Expert</option>
+                                        <option value="clinical-educator">Clinical Educator</option>
                                     </select>
                                 </div>
                             </div>
@@ -837,10 +832,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Documents Affected">Documents Affected</label>
-                                    <select multiple id="documents_affected" name="" id="">
+                                    <select id="documents_affected" name="" id="">
                                         <option value="">--Select---</option>
-                                        <option value="">
-                                        </option>
+                                        <option value="protocol">Protocol</option>
+                                        <option value="informed-consent-form">Informed Consent Form</option>
+                                        <option value="investigators-brochure">Investigators Brochure</option>
+                                        <option value="case-report-forms">Case Report Forms</option>
+                                        <option value="clinical-study-report">Clinical Study Report</option>
                                     </select>
                                 </div>
                             </div>
@@ -863,7 +861,7 @@
                         <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                            
+
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
@@ -890,7 +888,7 @@
                         <div class="button-block">
                         <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                           
+
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
@@ -1053,4 +1051,103 @@
         $('#rchars').text(textlen);
     });
 </script>
+
+
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
+</script>
+
+     {{--Country Statecity API--}}
+    <script>
+        var config = {
+            cUrl: 'https://api.countrystatecity.in/v1',
+            ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+        };
+
+        var countrySelect = document.querySelector('.country'),
+            stateSelect = document.querySelector('.state'),
+            citySelect = document.querySelector('.city');
+
+        function loadCountries() {
+            let apiEndPoint = `${config.cUrl}/countries`;
+
+            $.ajax({
+                url: apiEndPoint,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.iso2;
+                        option.textContent = country.name;
+                        countrySelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading countries:', error);
+                }
+            });
+        }
+
+        function loadStates() {
+            stateSelect.disabled = false;
+            stateSelect.innerHTML = '<option value="">Select State</option>';
+
+            const selectedCountryCode = countrySelect.value;
+
+            $.ajax({
+                url: `${config.cUrl}/countries/${selectedCountryCode}/states`,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(state => {
+                        const option = document.createElement('option');
+                        option.value = state.iso2;
+                        option.textContent = state.name;
+                        stateSelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading states:', error);
+                }
+            });
+        }
+
+        function loadCities() {
+            citySelect.disabled = false;
+            citySelect.innerHTML = '<option value="">Select City</option>';
+
+            const selectedCountryCode = countrySelect.value;
+            const selectedStateCode = stateSelect.value;
+
+            $.ajax({
+                url: `${config.cUrl}/countries/${selectedCountryCode}/states/${selectedStateCode}/cities`,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city.id;
+                        option.textContent = city.name;
+                        citySelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading cities:', error);
+                }
+            });
+        }
+        $(document).ready(function() {
+            loadCountries();
+        });
+    </script>
+{{--Country Statecity API End--}}
+
+
+
 @endsection

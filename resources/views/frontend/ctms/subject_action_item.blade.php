@@ -292,8 +292,8 @@
                                             <td><input type="text" name="dfc_grid[0][DataCollectionMethod]"></td>
                                             <td><input type="text" name="dfc_grid[0][Comment]"></td>
                                             <td><input type="text" name="dfc_grid[0][Remarks]"></td>
-                                            <td><button type="text" class="removeRowBtn">Remove</button></td>
-
+                                            <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                            {{--<td><input readonly type="text"></td>--}}
                                         </tbody>
 
                                     </table>
@@ -328,11 +328,9 @@
                                             <td><input type="date" name="minor_protocol_voilation[0][SentDate]"></td>
                                             <td><input type="date" name="minor_protocol_voilation[0][ReturnedDate]"></td>
                                             <td><input type="text" name="minor_protocol_voilation[0][Comment]"></td>
-                                            <td><button type="text" class="removeRowBtn">Remove</button></td>
-
-
+                                            <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                            {{--<td><input readonly type="text"></td>--}}
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>

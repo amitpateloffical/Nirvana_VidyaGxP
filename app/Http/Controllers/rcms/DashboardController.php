@@ -24,6 +24,7 @@ use App\Models\SupplierContract;
 use App\Models\SubjectActionItem;
 use App\Models\Violation;
 use App\Models\FirstProductValidation;
+use App\Models\CTAAmendement;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -75,6 +76,7 @@ class DashboardController extends Controller
         $datas17 = SubjectActionItem::orderByDesc('id')->get();
         $datas18 = Violation::orderByDesc('id')->get();
         $datas19 = FirstProductValidation::orderByDesc('id')->get();
+        $datas20 = CTAAmendement::orderByDesc('id')->get();
 
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -434,6 +436,26 @@ class DashboardController extends Controller
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description_gi ? $data->short_description_gi : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas20 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "CTA_Amendement",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
                 "initiator_id" => $data->initiator_id,
                 "intiation_date" => $data->intiation_date,
                 "stage" => $data->status,
@@ -853,6 +875,12 @@ class DashboardController extends Controller
             $data = Violation::find($id);
             $single = "Violation/SingleReport/" . $data->id;
             $audit = "Violation/AuditTrailPdf/". $data->id;
+            $parent="/". $data->id;
+        }
+        elseif ($type == "CTA_Amendement") {
+            $data = CTAAmendement::find($id);
+            $single = "CTA_Amendement/SingleReport/" . $data->id;
+            $audit = "CTA_Amendement/AuditTrailPdf/". $data->id;
             $parent="/". $data->id;
         }
 

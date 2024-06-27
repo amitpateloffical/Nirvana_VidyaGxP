@@ -143,6 +143,7 @@
     .table_bg {
         background: #4274da57;
     }
+
 </style>
 
 <body>
@@ -164,10 +165,10 @@
         <table>
             <tr>
                 <td class="w-30">
-                    <strong>Subject Action Item No.</strong>{{ $doc->id }}
+                    <strong>CTA-Amendement No.</strong>{{ $doc->id }}
                 </td>
                 <td class="w-40">
-                   {{ Helpers::getDivisionName($doc->division_id) }}/Action_Item/{{ Helpers::year($doc->created_at)}}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
+                   {{ Helpers::getDivisionName($doc->division_id) }}/CTA_Amendement/{{ Helpers::year($doc->created_at)}}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
@@ -198,7 +199,7 @@
                     </td>
                     <td class="w-50">
                         <strong>End Date (GMT) :</strong>
-                        @if ($doc->stage >= 3)
+                        @if ($doc->stage >= 4)
                             {{ Helpers::getDateFormat($doc->updated_at) }}
                         @endif
                     </td>
@@ -217,7 +218,7 @@
                 </tr>
                 @foreach ($data as $datas)
                     <tr>
-                        <td>
+                        <td >
                             <div>{{ $datas->activity_type }}</div>
                             <div>
                                 @if($datas->activity_type == "Activity Log")
@@ -245,9 +246,9 @@
                             </div>
                             <div>
                                 @if($datas->activity_type == "Activity Log")
-                                    <div><strong>Changed To :</strong></div>
+                                    <div ><strong>Changed To :</strong></div>
                                     @if(!empty($datas->change_to))
-                                        <div>{{ $datas->change_to }}</div>
+                                        <div class="w-50">{{ $datas->change_to }}</div>
                                     @else
                                         <div>Not Applicable</div>
                                     @endif

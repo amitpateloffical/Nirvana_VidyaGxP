@@ -359,9 +359,6 @@
                             </div>
                         </div>
 
-
-
-
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Responsible Department">Therapeutic Area</label>
@@ -402,7 +399,7 @@
                     </div>
                     <div class="group-input">
                         <label for="audit-agenda-grid">
-                            Audit Site Information(0)
+                            Audit Site Information
                             <button type="button" name="audit_site_information" id="AuditSiteInformation">+</button>
                             <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                 (Launch Instruction)
@@ -428,7 +425,7 @@
                                     <td><input type="text" name="audit_site_information[0][Current]"></td>
                                     <td><input type="text" name="audit_site_information[0][CRO]"></td>
                                     <td><input type="text" name="audit_site_information[0][Remark]"></td>
-                                    <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                    <td><input readonly type="text"></td>
                                 </tbody>
 
                             </table>
@@ -437,7 +434,7 @@
                     </div>
                     <div class="group-input">
                         <label for="audit-agenda-grid">
-                            Study Site Information(0)
+                            Study Site Information
                             <button type="button" name="study_site_information" id="StudySiteInformation">+</button>
                             <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                 (Launch Instruction)
@@ -463,11 +460,12 @@
                                     <td><input type="text" name="study_site_information[0][AuditSite]"></td>
                                     <td><input type="number" name="study_site_information[0][SiteNo]"></td>
                                     <td><input type="text" name="study_site_information[0][Investigator]"></td>
-                                    <td><input type="text" name="study_site_information[0][FirstPatientInDate]"></td>
+                                    <td><input type="date" name="study_site_information[0][FirstPatientInDate]"></td>
                                     <td><input type="number" name="study_site_information[0][EnrolledNo]"></td>
                                     <td><input type="text" name="study_site_information[0][Current]"></td>
                                     <td><input type="text" name="study_site_information[0][Remark]"></td>
-                                    <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                    <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                    {{--<td><input readonly type="text"></td>--}}
                                 </tbody>
 
                             </table>
@@ -650,7 +648,7 @@
                             var html =
                                 '<tr>' +
                                 '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                                '<td><input type="text" name="audit_site_information[' + serialNumber + '][Number]"></td>' +
+                                '<td><input type="number" name="audit_site_information[' + serialNumber + '][Number]"></td>' +
                                 '<td><input type="text" name="audit_site_information[' + serialNumber + '][AuditFrequency]"></td>' +
                                 '<td><input type="text" name="audit_site_information[' + serialNumber + '][Current]"></td>' +
                                 '<td><input type="text" name="audit_site_information[' + serialNumber + '][CRO]"></td>' +
@@ -677,10 +675,10 @@
                                 '<tr>' +
                                 '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][AuditSite]"></td>' +
-                                '<td><input type="text" name="study_site_information[' + serialNumber + '][SiteNo]"></td>' +
+                                '<td><input type="number" name="study_site_information[' + serialNumber + '][SiteNo]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Investigator]"></td>' +
-                                '<td><input type="text" name="study_site_information[' + serialNumber + '][FirstPatient in Date]"></td>' +
-                                '<td><input type="text" name="study_site_information[' + serialNumber + '][EnrolledNo]"></td>' +
+                                '<td><input type="date" name="study_site_information[' + serialNumber + '][FirstPatient in Date]"></td>' +
+                                '<td><input type="number" name="study_site_information[' + serialNumber + '][EnrolledNo]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Current]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Remark]"></td>' +
                                 '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +

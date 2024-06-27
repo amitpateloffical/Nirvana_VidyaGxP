@@ -32,9 +32,9 @@ return new class extends Migration
             $table->string('manufacturer_gi')->nullable();
             $table->string('priority_level_gi')->nullable();
             $table->string('zone_gi')->nullable();
-            $table->integer('country')->nullable();
-            $table->integer('state')->nullable();
-            $table->integer('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
             $table->string('type_gi')->nullable();
             $table->string('other_type')->nullable();
             $table->longText('file_attachments_gi')->nullable();

@@ -351,7 +351,19 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
         </div>
 
-        <form action="{{ route('GCP_study.update', $study_data->id) }}" method="POST" enctype="multipart/form-data">
+        {{--disabled field code start--}}
+
+        <?php if (in_array($study_data->stage, [0, 4])) : ?>
+        <script>
+            $(document).ready(function() {
+                $("#target :input").prop("disabled", true);
+            });
+        </script>
+        <?php endif; ?>
+
+        {{--disabled field code start--}}
+
+        <form id="target" action="{{ route('GCP_study.update', $study_data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -418,7 +430,7 @@
                                 <div class="group-input">
                                     <label for="Short Description">Short Description <span class="text-danger">*</span></label>
                                     <p class="text-primary">Short Description to be presented on dekstop</p>
-                                    <input id="docname" type="text" name="short_description_gi" maxlength="255" required value="{{ $study_data->short_description_gi }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <input id="docname" type="text" name="short_description_gi" maxlength="255" required value="{{ $study_data->short_description_gi }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -428,7 +440,7 @@
                                     </label>
                                     <p class="text-primary">Person responsible</p>
 
-                                    <select id="select-state" placeholder="Select..." name="assign_to_gi" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <select id="select-state" placeholder="Select..." name="assign_to_gi">
                                         <option value="">Select a value</option>
                                         @if($users->isNotEmpty())
                                             @foreach($users as $user)
@@ -455,8 +467,7 @@
                                 <div class="group-input">
                                     <label for="Initiator Group"><b>Department(s)</b></label>
                                     <p class="text-primary">Add all the related departments</p>
-                                    <select name="department_gi" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}
-                                         id="initiator_group">
+                                    <select name="department_gi" id="initiator_group">
                                          <option value="">Enter Your Selection Here</option>
                                         <option value="CQA"
                                             @if ($study_data->department_gi == 'CQA') selected @endif>Corporate
@@ -534,7 +545,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Study Number</label>
-                                      <input type="number" name="study_number_sd" value="{{ $study_data->study_number_sd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                      <input type="number" name="study_number_sd" value="{{ $study_data->study_number_sd }}">
 
                                 </div>
                             </div>
@@ -542,21 +553,21 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Name of Product</label>
-                                    <input type="text" name="name_of_product_sd" value="{{ $study_data->name_of_product_sd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <input type="text" name="name_of_product_sd" value="{{ $study_data->name_of_product_sd }}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Study Title</label>
-                                    <input type="text" name="study_title_sd" value="{{ $study_data->study_title_sd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <input type="text" name="study_title_sd" value="{{ $study_data->study_title_sd }}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Study type</label>
-                                    <select name="study_type_sd" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <select name="study_type_sd">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="interventional-studies" @if($study_data->study_type_sd == 'interventional-studies') selected @endif>Interventional Studies</option>
                                         <option value="observational-Studies" @if($study_data->study_type_sd == 'observational-Studies') selected @endif>Observational Studies</option>
@@ -568,21 +579,21 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Study Protocol Number</label>
-                                    <input id="docname" type="number" name="study_protocol_number_sd" value="{{ $study_data->study_protocol_number_sd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <input id="docname" type="number" name="study_protocol_number_sd" value="{{ $study_data->study_protocol_number_sd }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <p class="text-primary">Detailed Description</p>
                                     <label for="Responsible Department">Description</label>
-                                    <textarea name="description_sd" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>{{ $study_data->description_sd }}</textarea>
+                                    <textarea name="description_sd">{{ $study_data->description_sd }}</textarea>
                                     {{--<input type="text" name="description_sd" value="{{ $study_data->description_sd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>--}}
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label class="mb-4" for="Responsible Department">Comments</label>
-                                    <textarea name="comments_sd" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>{{ $study_data->comments_sd }}</textarea>
+                                    <textarea name="comments_sd">{{ $study_data->comments_sd }}</textarea>
                                     {{--<input type="text" name="comments_sd" value="{{ $study_data->comments_sd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>--}}
                                 </div>
                             </div>
@@ -593,7 +604,7 @@
                                 <div class="group-input">
                                     <label for="Responsible Department">Related studies</label>
                                     <p class="text-primary">Link between study records related to the same study type or topic</p>
-                                    <select name="related_studies_ai" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <select name="related_studies_ai">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="toxicology" @if($study_data->related_studies_ai == 'toxicology') selected @endif>Toxicology</option>
                                         <option value="microbiome" @if($study_data->related_studies_ai == 'microbiome') selected @endif>Microbiome</option>
@@ -614,7 +625,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Appendiceis</label>
-                                    <select name="appendiceis_ai" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <select name="appendiceis_ai">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="statistical-analysis-plan" @if($study_data->appendiceis_ai == 'statistical-analysis-plan') selected @endif>Statistical Analysis Plan (SAP)</option>
                                         <option value="patient-information-sheet" @if($study_data->appendiceis_ai == 'patient-information-sheet') selected @endif>Patient Information Sheet (PIS)</option>
@@ -627,7 +638,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related Audits</label>
-                                    <select name="related_audits_ai" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <select name="related_audits_ai">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="quality-assurance-audits" @if($study_data->related_audits_ai == 'quality-assurance-audits') selected @endif>Quality Assurance Audits</option>
                                         <option value="regulatory-compliance-audits" @if($study_data->related_audits_ai == 'regulatory-compliance-audits') selected @endif>Regulatory Compliance Audits</option>
@@ -656,7 +667,7 @@
                             <div class="group-input input-date">
                                 <label for="start_date">Generic Product Name</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="start_date" name="generic_product_name_gcpd" value="{{ $study_data->generic_product_name_gcpd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <input type="text" id="start_date" name="generic_product_name_gcpd" value="{{ $study_data->generic_product_name_gcpd }}">
                                 </div>
                             </div>
                         </div>
@@ -664,7 +675,7 @@
                             <div class="group-input input-date">
                                 <label for="start_date">Indication Name</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="start_date" name="indication_name_gcpd" value="{{ $study_data->indication_name_gcpd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <input type="text" id="start_date" name="indication_name_gcpd" value="{{ $study_data->indication_name_gcpd }}">
                                 </div>
                             </div>
                         </div>
@@ -672,7 +683,7 @@
                             <div class="group-input input-date">
                                 <label for="start_date">Clinical Study Manager</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="start_date" name="clinical_study_manager_gcpd" value="{{ $study_data->clinical_study_manager_gcpd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <input type="text" id="start_date" name="clinical_study_manager_gcpd" value="{{ $study_data->clinical_study_manager_gcpd }}">
                                 </div>
                             </div>
                         </div>
@@ -680,7 +691,7 @@
                             <div class="group-input input-date">
                                 <label for="start_date">Clinical Expert</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="start_date" name="clinical_expert_gcpd" value="{{ $study_data->clinical_expert_gcpd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <input type="text" id="start_date" name="clinical_expert_gcpd" value="{{ $study_data->clinical_expert_gcpd }}">
                                 </div>
                             </div>
                         </div>
@@ -688,7 +699,7 @@
                         <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="Responsible Department">Phase Level</label>
-                                <select name="phase_level_gcpd" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                <select name="phase_level_gcpd">
                                     <option value="">Enter Your Selection Here</option>
                                     <option value="phase-I" @if($study_data->phase_level_gcpd == 'phase-I') selected @endif>Phase I</option>
                                     <option value="phase-II" @if($study_data->phase_level_gcpd == 'phase-II') selected @endif>Phase II</option>
@@ -701,7 +712,7 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Responsible Department">Therapeutic Area</label>
-                                <select name="therapeutic_area_gcpd" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                <select name="therapeutic_area_gcpd">
                                     <option value="">Enter Your Selection Here</option>
                                     <option value="cardiology" @if($study_data->therapeutic_area_gcpd == 'cardiology') selected @endif>Cardiology</option>
                                     <option value="oncology" @if($study_data->therapeutic_area_gcpd == 'oncology') selected @endif>Oncology</option>
@@ -715,7 +726,7 @@
                             <div class="group-input input-date">
                                 <label for="start_date">IND No.</label>
                                 <div class="calenderauditee">
-                                    <input type="number" id="start_date" name="ind_no_gcpd" value="{{ $study_data->ind_no_gcpd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <input type="number" id="start_date" name="ind_no_gcpd" value="{{ $study_data->ind_no_gcpd }}">
                                 </div>
                             </div>
                         </div>
@@ -723,7 +734,7 @@
                             <div class="group-input input-date">
                                 <label for="start_date">Number of Centers</label>
                                 <div class="calenderauditee">
-                                    <input type="number" id="start_date" name="number_of_centers_gcpd" value="{{ $study_data->number_of_centers_gcpd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <input type="number" id="start_date" name="number_of_centers_gcpd" value="{{ $study_data->number_of_centers_gcpd }}">
                                 </div>
                             </div>
                         </div>
@@ -731,14 +742,14 @@
                             <div class="group-input input-date">
                                 <label for="start_date">#of Subjects</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="start_date" name="of_subjects_gcpd" value="{{ $study_data->of_subjects_gcpd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                    <input type="text" id="start_date" name="of_subjects_gcpd" value="{{ $study_data->of_subjects_gcpd }}">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="group-input">
                         <label for="audit-agenda-grid">
-                            Audit Site Information(0)
+                            Audit Site Information
                             <button type="button" name="audit_site_information" id="AuditSiteInformation">+</button>
                             <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                 (Launch Instruction)
@@ -767,7 +778,8 @@
                                         <td><input type="text" name="audit_site_information[{{ $loop->index }}][Current]" value="{{ isset($grid_DataA['Current']) ? $grid_DataA['Current'] : '' }}"></td>
                                         <td><input type="text" name="audit_site_information[{{ $loop->index }}][CRO]" value="{{ isset($grid_DataA['CRO']) ? $grid_DataA['CRO'] : '' }}"></td>
                                         <td><input type="text" name="audit_site_information[{{ $loop->index }}][Remark]" value="{{ isset($grid_DataA['Remark']) ? $grid_DataA['Remark'] : '' }}"></td>
-                                        <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                        <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                        {{--<td><input readonly type="text"></td>--}}
                                     </tr>
                                     @endforeach
                                 @endif
@@ -779,7 +791,7 @@
                     </div>
                     <div class="group-input">
                         <label for="audit-agenda-grid">
-                            Study Site Information(0)
+                            Study Site Information
                             <button type="button" name="study_site_information" id="StudySiteInformation">+</button>
                             <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                 (Launch Instruction)
@@ -812,7 +824,8 @@
                                         <td><input type="number" name="study_site_information[{{ $loop->index }}][EnrolledNo]" value="{{ isset($grid_DataS['EnrolledNo']) ? $grid_DataS['EnrolledNo'] : '' }}"></td>
                                         <td><input type="text" name="study_site_information[{{ $loop->index }}][Current]" value="{{ isset($grid_DataS['Current']) ? $grid_DataS['Current'] : '' }}"></td>
                                         <td><input type="text" name="study_site_information[{{ $loop->index }}][Remark]" value="{{ isset($grid_DataS['Remark']) ? $grid_DataS['Remark'] : '' }}"></td>
-                                        <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                        <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                        {{--<td><input readonly type="text"></td>--}}
                                      </tr>
                                      @endforeach
                                     @endif
@@ -840,49 +853,49 @@
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Date">Initiation Date</label>
-                                <input type="date" name="initiation_date_i" value="{{ $study_data->initiation_date_i }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                <input type="date" name="initiation_date_i" value="{{ $study_data->initiation_date_i }}">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Study Start Date</label>
-                                <input type="date" name="study_start_date" value="{{ $study_data->study_start_date }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                <input type="date" name="study_start_date" value="{{ $study_data->study_start_date }}">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Study End Date</label>
-                                <input type="date" name="study_end_date" value="{{ $study_data->study_end_date }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                <input type="date" name="study_end_date" value="{{ $study_data->study_end_date }}">
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Date">Study Protocol</label>
-                                <input type="text" name="study_protocol" value="{{ $study_data->study_protocol }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                <input type="text" name="study_protocol" value="{{ $study_data->study_protocol }}">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">First Subject in(FSI)</label>
-                                <input type="date" name="first_subject_in" value="{{ $study_data->first_subject_in }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                <input type="date" name="first_subject_in" value="{{ $study_data->first_subject_in }}">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Last Subject Out</label>
-                                <input type="date" name="last_subject_out" value="{{ $study_data->last_subject_out }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                <input type="date" name="last_subject_out" value="{{ $study_data->last_subject_out }}">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Data Base Lock(DBL)</label>
-                                <input type="text" name="databse_lock" value="{{ $study_data->databse_lock }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                <input type="text" name="databse_lock" value="{{ $study_data->databse_lock }}">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Integrated CTR</label>
-                                <input type="text" name="integrated_ctr" value="{{ $study_data->integrated_ctr }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>
+                                <input type="text" name="integrated_ctr" value="{{ $study_data->integrated_ctr }}">
                             </div>
                         </div>
                     </div>
@@ -1162,10 +1175,10 @@
                             '<tr>' +
                                 '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][AuditSite]"></td>' +
-                                '<td><input type="text" name="study_site_information[' + serialNumber + '][SiteNo]"></td>' +
+                                '<td><input type="number" name="study_site_information[' + serialNumber + '][SiteNo]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Investigator]"></td>' +
-                                '<td><input type="text" name="study_site_information[' + serialNumber + '][First Patient in Date]"></td>' +
-                                '<td><input type="text" name="study_site_information[' + serialNumber + '][Enrolled No.]"></td>' +
+                                '<td><input type="date" name="study_site_information[' + serialNumber + '][First Patient in Date]"></td>' +
+                                '<td><input type="number" name="study_site_information[' + serialNumber + '][Enrolled No.]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Current]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Remark]"></td>' +
                                 '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
@@ -1187,6 +1200,7 @@
                 $(this).closest('tr').remove();
             })
         </script>
+
             <script>
                 var maxLength = 255;
                 $('#docname').keyup(function() {

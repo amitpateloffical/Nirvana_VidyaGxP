@@ -158,7 +158,8 @@
                 </td>
                 <td class="w-30">
                     <div class="logo">
-                        <img src="https://dms.mydemosoftware.com/user/images/logo.png" alt="" class="w-100">
+                        <img src="https://vidyagxp.com/vidyaGxp_logo.png" alt="" class="w-100">
+                        {{--<img src="https://dms.mydemosoftware.com/user/images/logo.png" alt="" class="w-100">--}}
                     </div>
                 </td>
             </tr>
@@ -169,7 +170,7 @@
                     <strong>Violation No.</strong>{{ $doc->id }}
                 </td>
                 <td class="w-40">
-                   {{ Helpers::getDivisionName($doc->division_id) }}/Violation/{{ Helpers::year($doc->created_at)}}/ {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
+                   {{ Helpers::getDivisionName($doc->division_id) }}/Violation/{{ Helpers::year($doc->created_at)}}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}

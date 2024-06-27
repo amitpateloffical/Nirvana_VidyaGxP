@@ -236,9 +236,6 @@
     </div>
 </div>
 {{-- Workflow Model Close--}}
-
-
-
 <div class="modal fade" id="child-modal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -280,17 +277,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
 {{-- ! ========================================= --}}
@@ -305,7 +291,19 @@
 
         </div>
 
-        <form action="{{ route('subject_action_item.update', $item_data->id) }}" method="POST" enctype="multipart/form-data">
+        {{--disabled field code start--}}
+
+        <?php if (in_array($item_data->stage, [0, 3])) : ?>
+        <script>
+            $(document).ready(function() {
+                $("#target :input").prop("disabled", true);
+            });
+        </script>
+        <?php endif; ?>
+
+        {{--disabled field code start--}}
+
+        <form action="{{ route('subject_action_item.update', $item_data->id) }}" method="POST" id="target" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -355,14 +353,14 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="cancelled by">Short Description<span class="text-danger">*</span>
-                                    <input type="text" name="short_description_ti" value="{{ $item_data->short_description_ti }}" maxlength="255" required {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <input type="text" name="short_description_ti" value="{{ $item_data->short_description_ti }}" maxlength="255" required>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Assigned To</b></label>
-                                    <select name="assign_to_gi" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <select name="assign_to_gi">
                                         <option value="">Select a value</option>
                                             @if(!empty($users))
                                                 @foreach ($users as $user)
@@ -415,7 +413,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Subject Name</b></label>
-                                    <input  type="text" name="subject_name_sd" value="{{ $item_data->subject_name_sd }}" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <input  type="text" name="subject_name_sd" value="{{ $item_data->subject_name_sd }}">
                                 </div>
                             </div>
 
@@ -423,7 +421,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Gender</b></label>
-                                    <select name="gender_sd" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <select name="gender_sd">
                                         <option value="">--Select--</option>
                                         <option value="male" @if($item_data->gender_sd == 'male') selected @endif>Male</option>
                                         <option value="female" @if($item_data->gender_sd == 'female') selected @endif>Female</option>
@@ -436,14 +434,14 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Date Of Birth</b></label>
-                                    <input  type="date" name="date_of_birth_sd" value="{{ $item_data->date_of_birth_sd }}" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <input  type="date" name="date_of_birth_sd" value="{{ $item_data->date_of_birth_sd }}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Race</b></label>
-                                    <select name="race_sd" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <select name="race_sd">
                                         <option value="">--Select--</option>
                                         <option value="23" @if($item_data->race_sd == 23) selected @endif>23</option>
                                         <option value="24" @if($item_data->race_sd == 24) selected @endif>24</option>
@@ -471,7 +469,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Clinical Efficacy</b></label>
-                                    <select name="clinical_efficacy_ti" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <select name="clinical_efficacy_ti">
                                         <option value="">--Select--</option>
                                         <option value="efficacy-analysis" @if($item_data->clinical_efficacy_ti == "efficacy-analysis") selected @endif>Efficacy Analysis</option>
                                         <option value="interim-efficacy-assessment" @if($item_data->clinical_efficacy_ti == "interim-efficacy-assessment") selected @endif>Interim Efficacy Assessment</option>
@@ -484,7 +482,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Carry Over Effect</b></label>
-                                    <select name="carry_over_effect_ti" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <select name="carry_over_effect_ti">
                                         <option value="">--Select--</option>
                                         <option value="data-collection-protocols" @if($item_data->carry_over_effect_ti == "data-collection-protocols") selected @endif>Data Collection Protocols</option>
                                         <option value="statistical-analysis" @if($item_data->carry_over_effect_ti == "statistical-analysis") selected @endif>Statistical Analysis</option>
@@ -497,7 +495,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Last Monitered (Days)</b></label>
-                                    <select name="last_monitered_ti" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <select name="last_monitered_ti">
                                         <option value="">--Select--</option>
                                         <option value="1Days" @if($item_data->last_monitered_ti == '1Days') selected @endif>1Days</option>
                                         <option value="2Days" @if($item_data->last_monitered_ti == '2Days') selected @endif>2Days</option>
@@ -509,14 +507,14 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="cancelled by">Total Doses Recieved</label>
-                                    <input name="total_doses_recieved_ti" value="{{ $item_data->total_doses_recieved_ti }}" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <input name="total_doses_recieved_ti" value="{{ $item_data->total_doses_recieved_ti }}">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="cancelled by">Treatment Effect</label>
-                                    <input name="treatment_effect_ti" value="{{ $item_data->treatment_effect_ti }}" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <input name="treatment_effect_ti" value="{{ $item_data->treatment_effect_ti }}">
                                 </div>
                             </div>
 
@@ -561,7 +559,8 @@
                                                 <td><input type="text" name="dfc_grid[{{ $loop->index }}][DataCollectionMethod]" value="{{ isset($item['DataCollectionMethod']) ? $item['DataCollectionMethod'] : '' }}"></td>
                                                 <td><input type="text" name="dfc_grid[{{ $loop->index }}][Comment]" value="{{ isset($item['Comment']) ? $item['Comment'] : '' }}"></td>
                                                 <td><input type="text" name="dfc_grid[{{ $loop->index }}][Remarks]" value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}"></td>
-                                                <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                                <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                                {{--<td><input readonly type="text"></td>--}}
                                             </tr>
                                            @endforeach
                                          @endif
@@ -606,12 +605,12 @@
                                                     <td><input type="date" name="minor_protocol_voilation[{{ $loop->index }}][SentDate]" value="{{ isset($item['SentDate']) ? $item['SentDate'] : '' }}"></td>
                                                     <td><input type="date" name="minor_protocol_voilation[{{ $loop->index }}][ReturnedDate]" value="{{ isset($item['ReturnedDate']) ? $item['ReturnedDate'] : '' }}"></td>
                                                     <td><input type="text" name="minor_protocol_voilation[{{ $loop->index }}][Comment]" value="{{ isset($item['Comment']) ? $item['Comment'] : '' }}"></td>
-                                                    <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                                    <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                                    {{--<td><input readonly type="text"></td>--}}
                                                 </tr>
                                               @endforeach
                                              @endif
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
@@ -620,14 +619,14 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <Label>Comments</Label>
-                                    <textarea name="comments_ti" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>{{ $item_data->comments_ti }}</textarea>
+                                    <textarea name="comments_ti">{{ $item_data->comments_ti }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <Label>Summary </Label>
-                                    <textarea name="summary_ti" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>{{ $item_data->summary_ti }}</textarea>
+                                    <textarea name="summary_ti">{{ $item_data->summary_ti }}</textarea>
                                 </div>
                             </div>
 

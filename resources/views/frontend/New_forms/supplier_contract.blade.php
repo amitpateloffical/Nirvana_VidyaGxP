@@ -26,7 +26,7 @@
                     '<td><input type="number" name="financial_transaction[' + serialNumber + '][Amount]"></td>' +
                     '<td><input type="text" name="financial_transaction[' + serialNumber + '][CurrencyUsed]"></td>' +
                     '<td><input type="text" name="financial_transaction[' + serialNumber + '][Remarks]"></td>' +
-                    '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
+                    '<td><button type="text" class="removeRowBtn">Remove</button></td>' +
 
                     //     '</tr>';
 
@@ -233,10 +233,8 @@
                                     </select>
                                 </div>
                             </div>
-
-
-
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="group-input">
@@ -244,8 +242,6 @@
                                     <textarea placeholder="" name="description_gi"></textarea>
                                 </div>
                             </div>
-
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -402,11 +398,7 @@
                                     <textarea placeholder="" name="negotiation_team_cd"></textarea>
                                 </div>
                             </div>
-
                         </div>
-
-
-
 
                         <div class="group-input">
                             <label for="audit-agenda-grid">
@@ -440,7 +432,7 @@
                                         <td><input type="number" name="financial_transaction[0][Amount]"></td>
                                         <td><input type="text" name="financial_transaction[0][CurrencyUsed]"></td>
                                         <td><input type="text" name="financial_transaction[0][Remarks]"></td>
-                                        <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                        <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                     </tbody>
                                 </table>
                             </div>

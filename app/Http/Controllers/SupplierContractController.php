@@ -521,7 +521,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->assign_to_gi != $contract->assign_to_gi){
+                if($contract_data->assign_to_gi != $contract->assign_to_gi){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->assign_to_gi;
@@ -538,7 +538,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->due_date != $contract->due_date){
+                if($contract_data->due_date != $contract->due_date){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->due_date;
@@ -555,7 +555,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->supplier_list_gi != $contract->supplier_list_gi){
+                if($contract_data->supplier_list_gi != $contract->supplier_list_gi){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->supplier_list_gi;
@@ -572,7 +572,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->distribution_list_gi != $contract->distribution_list_gi){
+                if($contract_data->distribution_list_gi != $contract->distribution_list_gi){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->distribution_list_gi;
@@ -589,7 +589,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->description_gi != $contract->description_gi){
+                if($contract_data->description_gi != $contract->description_gi){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->description_gi;
@@ -606,7 +606,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->manufacturer_gi != $contract->manufacturer_gi){
+                if($contract_data->manufacturer_gi != $contract->manufacturer_gi){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->manufacturer_gi;
@@ -623,7 +623,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->priority_level_gi != $contract->priority_level_gi){
+                if($contract_data->priority_level_gi != $contract->priority_level_gi){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->priority_level_gi;
@@ -640,7 +640,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->zone_gi != $contract->zone_gi){
+                if($contract_data->zone_gi != $contract->zone_gi){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->zone_gi;
@@ -657,7 +657,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->country != $contract->country){
+                if($contract_data->country != $contract->country){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->country;
@@ -674,7 +674,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->state != $contract->state){
+                if($contract_data->state != $contract->state){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->state;
@@ -691,7 +691,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->city != $contract->city){
+                if($contract_data->city != $contract->city){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->city;
@@ -708,7 +708,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->type_gi != $contract->type_gi){
+                if($contract_data->type_gi != $contract->type_gi){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->type_gi;
@@ -725,7 +725,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->other_type != $contract->other_type){
+                if($contract_data->other_type != $contract->other_type){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->other_type;
@@ -742,7 +742,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->file_attachments_gi != $contract->file_attachments_gi){
+                if($contract_data->file_attachments_gi != $contract->file_attachments_gi){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = json_encode($contract_data->file_attachments_gi);
@@ -759,7 +759,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->actual_start_date_cd != $contract->actual_start_date_cd){
+                if($contract_data->actual_start_date_cd != $contract->actual_start_date_cd){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->actual_start_date_cd;
@@ -776,7 +776,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->actual_end_date_cd != $contract->actual_end_date_cd){
+                if($contract_data->actual_end_date_cd != $contract->actual_end_date_cd){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->actual_end_date_cd;
@@ -793,7 +793,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->suppplier_list_cd != $contract->suppplier_list_cd){
+                if($contract_data->suppplier_list_cd != $contract->suppplier_list_cd){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->suppplier_list_cd;
@@ -810,7 +810,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->negotiation_team_cd != $contract->negotiation_team_cd){
+                if($contract_data->negotiation_team_cd != $contract->negotiation_team_cd){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->negotiation_team_cd;
@@ -827,7 +827,7 @@ class SupplierContractController extends Controller
 
                     }
 
-                    if($contract_data->comments_cd != $contract->comments_cd){
+                if($contract_data->comments_cd != $contract->comments_cd){
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
                         $history->previous = $contract_data->comments_cd;
@@ -1152,7 +1152,7 @@ class SupplierContractController extends Controller
 
                 $contract_data = SupplierContract::find($id);
 
-                if($contract_data->stage == 3){
+                 if($contract_data->stage == 3){
 
                         //return redirect(route('supplier_contract.index'));
                     }
@@ -1189,11 +1189,11 @@ class SupplierContractController extends Controller
                     $width = $canvas->get_width();
                     $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
                     $canvas->page_text($width / 4, $height / 2, $contract_data->status, null, 25, [0, 0, 0], 2, 6, -20);
-                    return $pdf->stream('GCP_dtudy' . $id . '.pdf');
+                    return $pdf->stream('Supplier_Contract' . $id . '.pdf');
                 }
             }
 
-                //Audit Trail Report Start
+                //Audit Trail Start
 
                 public function Supplier_ContractAuditTrial($id){
 
@@ -1206,6 +1206,8 @@ class SupplierContractController extends Controller
 
                     return view('frontend.new_forms.supplier_contractAuditTrail',compact('document','audit','today'));
                 }
+
+                //Audit Trail Report Start
 
                 public function Supplier_Contract_AuditTrailPdf($id)
                 {

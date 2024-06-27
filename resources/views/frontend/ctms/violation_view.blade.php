@@ -371,7 +371,19 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
         </div>
 
-        <form action="{{ route('violation.update', $violation_data->id) }}" method="POST" enctype="multipart/form-data">
+        {{--disabled field code start--}}
+
+        <?php if (in_array($violation_data->stage, [0, 3])) : ?>
+        <script>
+            $(document).ready(function() {
+                $("#target :input").prop("disabled", true);
+            });
+        </script>
+        <?php endif; ?>
+
+        {{--disabled field code start--}}
+
+        <form id="target" action="{{ route('violation.update', $violation_data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -427,7 +439,7 @@
                             <div class="group-input">
                                 <label for="Short Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
                                 characters remaining
-                                <input id="short_description" type="text" name="short_description" value="{{ $violation_data->short_description }}" maxlength="255" required {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <input id="short_description" type="text" name="short_description" value="{{ $violation_data->short_description }}" maxlength="255" required>
                             </div>
                         </div>
 
@@ -436,7 +448,7 @@
                                 <label for="search">
                                     Assigned To <span class="text-danger"></span>
                                 </label>
-                                <select id="assign_to" placeholder="Select..." name="assign_to" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="assign_to" placeholder="Select..." name="assign_to">
                                     <option value="">Select a value</option>
                                     @if($users->isNotEmpty())
                                         @foreach($users as $user)
@@ -464,7 +476,7 @@
                                 <label for="search">
                                     Type <span class="text-danger"></span>
                                 </label>
-                                <select id="type" placeholder="Select..." name="type" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="type" placeholder="Select..." name="type">
                                     <option value="">Enter Your Selection Here</option>
                                     <option value="supplier-type" @if($violation_data->type == 'supplier-type') selected @endif>Supplier Type</option>
                                     <option value="payment-type" @if($violation_data->type == 'payment-type') selected @endif>Payment Type</option>
@@ -479,7 +491,7 @@
                                 <label for="search">
                                     Other Type <span class="text-danger"></span>
                                 </label>
-                                <select id="other_type" placeholder="Select..." name="other_type" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="other_type" placeholder="Select..." name="other_type">
                                     <option value="">Select a value</option>
                                     <option value="good-manufacturing-practice" @if($violation_data->other_type == 'good-manufacturing-practice') selected @endif>Good Manufacturing Practice</option>
                                     <option value="good-clinical-practice" @if($violation_data->other_type == 'good-clinical-practice') selected @endif>Good Clinical Practice</option>
@@ -493,7 +505,7 @@
                                 <label for="search">
                                     Related URL <span class="text-danger"></span>
                                 </label>
-                                <select id="related_url" placeholder="Select..." name="related_url" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="related_url" placeholder="Select...">
                                     <option value="">Select a value</option>
                                     <option value="fda-gmp-guidelines" @if($violation_data->related_url == 'fda-gmp-guidelines') selected @endif>FDA GMP Guidelines</option>
                                     <option value="who-gmp-guidelines" @if($violation_data->related_url == 'who-gmp-guidelines') selected @endif>WHO GMP Guidelines</option>
@@ -533,7 +545,7 @@
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Short Description">Description</label>
-                                 <textarea name="description" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>{{ $violation_data->description }}</textarea>
+                                 <textarea name="description">{{ $violation_data->description }}</textarea>
                             </div>
                         </div>
 
@@ -547,7 +559,7 @@
                                 <label for="search">
                                     Zone <span class="text-danger"></span>
                                 </label>
-                                <select id="select-state" placeholder="Select..." name="zone" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="select-state" placeholder="Select..." name="zone">
                                     <option value="">Enter Your Selection Here</option>
                                     <option value="asia" @if ($violation_data->zone == "asia") selected @endif>Asia</option>
                                     <option value="europe" @if ($violation_data->zone == "europe") selected @endif>Europe</option>
@@ -566,7 +578,7 @@
 
                                 </label>
                                 <p class="text-primary">Auto filter according to selected zone</p>
-                                <select name="country_id" class="form-select country" aria-label="Default select example" onchange="loadStates()" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select name="country_id" class="form-select country" aria-label="Default select example" onchange="loadStates()">
                                     <option value="{{ $violation_data->country_id }}" selected>{{ $violation_data->country_id }}</option>
                                 </select>
                             </div>
@@ -578,7 +590,7 @@
                                     State/District <span class="text-danger"></span>
                                 </label>
                                 <p class="text-primary">Auto selected according to City</p>
-                                <select name="state_id" class="form-select state" aria-label="Default select example" onchange="loadCities()" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select name="state_id" class="form-select state" aria-label="Default select example" onchange="loadCities()">
                                     <option value="{{ $violation_data->state_id }}" selected>{{ $violation_data->state_id }}</option>
                                   </select>
                             </div>
@@ -590,7 +602,7 @@
                                     City <span class="text-danger"></span>
                                 </label>
                                 <p class="text-primary">Auto filter according to selected country</p>
-                                <select name="city_id" class="form-select city" aria-label="Default select example" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select name="city_id" class="form-select city" aria-label="Default select example">
                                     <option value="{{ $violation_data->city_id }}" selected>{{ $violation_data->city_id }}</option>
                                 </select>
                             </div>
@@ -602,7 +614,7 @@
                                     Site Name <span class="text-danger"></span>
                                 </label>
 
-                                <select id="select-state" placeholder="Select..." name="site_name_id" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="select-state" placeholder="Select..." name="site_name_id">
                                     <option value="">Select Site</option>
                                     <option value="site-A" @if ($violation_data->site_name_id == "site-A") selected @endif>Site A</option>
                                     <option value="site-B" @if ($violation_data->site_name_id == "site-B") selected @endif>Site B</option>
@@ -617,7 +629,7 @@
                                     Building <span class="text-danger"></span>
                                 </label>
 
-                                <select id="select-state" placeholder="Select..." name="building_id" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="select-state" placeholder="Select..." name="building_id">
                                     <option value="">Select Building</option>
                                     <option value="building-X" @if ($violation_data->building_id == "building-X") selected @endif>Building X</option>
                                     <option value="building-Y" @if ($violation_data->building_id == "building-Y") selected @endif>Building Y</option>
@@ -632,7 +644,7 @@
                                     Floor <span class="text-danger"></span>
                                 </label>
 
-                                <select id="select-state" placeholder="Select..." name="flore_id" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="select-state" placeholder="Select..." name="flore_id">
                                     <option value="">Select Floor</option>
                                     <option value="floor-1" @if ($violation_data->flore_id == "floor-1") selected @endif>Floor 1</option>
                                     <option value="floor-2" @if ($violation_data->flore_id == "floor-2") selected @endif>Floor 2</option>
@@ -650,7 +662,7 @@
                                     Room <span class="text-danger"></span>
                                 </label>
 
-                                <select id="select-state" placeholder="Select..." name="room_id" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="select-state" placeholder="Select..." name="room_id">
                                     <option value="">Select Room</option>
                                     <option value="room-101" @if ($violation_data->room_id == "room-101") selected @endif>Room 101</option>
                                     <option value="room-102" @if ($violation_data->room_id == "room-102") selected @endif>Room 102</option>
@@ -689,7 +701,7 @@
                                 <label for="date_occured">Date Occured</lable>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $violation_data->date_occured }}" id="date_occured" name="date_occured" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->date_occured }}" id="end_date_checkdate" name="date_occured" class="hide-input" oninput="handleDateInput(this, 'date_occured');checkDate('start_date_checkdate','end_date_checkdate')" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->date_occured }}" id="end_date_checkdate" name="date_occured" class="hide-input" oninput="handleDateInput(this, 'date_occured');checkDate('start_date_checkdate','end_date_checkdate')"/>
                                     </div>
                               </div>
                         </div>
@@ -699,7 +711,7 @@
                                 <label for="notification_date">Notification Date</lable>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $violation_data->notification_date }}" id="notification_date" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->notification_date }}" id="notification_date" name="notification_date" class="hide-input" oninput="handleDateInput(this, 'notification_date');checkDate('start_date_checkdate','end_date_checkdate')" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->notification_date }}" id="notification_date" name="notification_date" class="hide-input" oninput="handleDateInput(this, 'notification_date');checkDate('start_date_checkdate','end_date_checkdate')"/>
                                     </div>
                               </div>
                         </div>
@@ -709,7 +721,7 @@
                                 <label for="search">
                                     Severity Rate <span class="text-danger"></span>
                                 </label>
-                                <select id="select-state" placeholder="Select..." name="severity_rate" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="select-state" placeholder="Select..." name="severity_rate">
                                     <option value="">Select a value</option>
                                     <option value="critical" @if($violation_data->severity_rate == 'critical') selected @endif>Critical</option>
                                     <option value="major" @if($violation_data->severity_rate == 'major') selected @endif>Major</option>
@@ -723,7 +735,7 @@
                                 <label for="search">
                                     Occurance <span class="text-danger"></span>
                                 </label>
-                                <select id="select-state" placeholder="Select..." name="occurance" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="select-state" placeholder="Select..." name="occurance">
                                     <option value="">Select a value</option>
                                     <option value="frequent" @if($violation_data->occurance == 'frequent') selected @endif>Frequent</option>
                                     <option value="occasional" @if($violation_data->occurance == 'occasional') selected @endif>Occasional</option>
@@ -738,7 +750,7 @@
                                 <label for="search">
                                     Detection <span class="text-danger"></span>
                                 </label>
-                                <select id="select-state" placeholder="Select..." name="detection" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="select-state" placeholder="Select..." name="detection">
                                     <option value="">Select a value</option>
                                     <option value="internal-audit" @if($violation_data->detection == 'internal-audit') selected @endif>Internal Audit</option>
                                     <option value="external-audit" @if($violation_data->detection == 'external-audit') selected @endif>External Audit</option>
@@ -753,7 +765,7 @@
                                 <label for="search">
                                     RPN <span class="text-danger"></span>
                                 </label>
-                                <select id="select-state" placeholder="Select..." name="rpn" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <select id="select-state" placeholder="Select..." name="rpn">
                                     <option value="">Select a value</option>
                                     <option value="occurrence-scale" @if($violation_data->rpn == 'occurrence-scale') selected @endif>Occurrence(O)Scale</option>
                                     <option value="severity-scale" @if($violation_data->rpn == 'severity-scale') selected @endif>Severity(S)Scale</option>
@@ -770,7 +782,7 @@
                                 <label for="search">
                                     Manufacturer <span class="text-danger"></span>
                                 </label>
-                                <input type="text" name="manufacturer" value="{{ $violation_data->manufacturer }}" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>
+                                <input type="text" name="manufacturer" value="{{ $violation_data->manufacturer }}">
                             </div>
                         </div>
 
@@ -813,7 +825,7 @@
                                             <td><input type="text" name="product_material[{{ $loop->index }}][Disposition]" value="{{ isset($item['Disposition']) ? $item['Disposition'] : '' }}"></td>
                                             <td><input type="text" name="product_material[{{ $loop->index }}][Comment]" value="{{ isset($item['Comment']) ? $item['Comment'] : '' }}"></td>
                                             <td><input type="text" name="product_material[{{ $loop->index }}][Remarks]" value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}"></td>
-                                            <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                            <td><input readonly type="text"></td>
                                         </tr>
                                         @endforeach
                                        @endif
@@ -827,7 +839,7 @@
                                 <label for="date_sent">Date Sent</lable>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $violation_data->date_sent }}" name="date_sent" id="date_sent" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->date_sent }}" id="date_sent" name="date_sent" class="hide-input" oninput="handleDateInput(this, 'date_sent');checkDate('start_date_checkdate','end_date_checkdate')" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->date_sent }}" id="date_sent" name="date_sent" class="hide-input" oninput="handleDateInput(this, 'date_sent');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
 
 
@@ -839,7 +851,7 @@
                                 <label for="date_returned">Date Returned</lable>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $violation_data->date_returned }}" id="date_returned" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->date_returned }}" id="date_returned" name="date_returned" class="hide-input" oninput="handleDateInput(this, 'date_returned');checkDate('start_date_checkdate','end_date_checkdate')" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->date_returned }}" id="date_returned" name="date_returned" class="hide-input" oninput="handleDateInput(this, 'date_returned');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                             </div>
                         </div>
@@ -847,21 +859,21 @@
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="followUp">Follow Up</label>
-                                <textarea name="follow_up" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>{{ $violation_data->follow_up }}</textarea>
+                                <textarea name="follow_up">{{ $violation_data->follow_up }}</textarea>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="summary">Summary</label>
-                                <textarea name="summary" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>{{ $violation_data->summary }}</textarea>
+                                <textarea name="summary">{{ $violation_data->summary }}</textarea>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Comments">Comments</label>
-                                <textarea name="Comments" {{ $violation_data->stage == 0 || $violation_data->stage == 3 ? 'disabled' : '' }}>{{ $violation_data->Comments }}</textarea>
+                                <textarea name="Comments">{{ $violation_data->Comments }}</textarea>
                             </div>
                         </div>
 

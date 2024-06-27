@@ -82,6 +82,8 @@ class GcpStudyController extends Controller
                 $study->last_subject_out = $request->last_subject_out;
                 $study->databse_lock = $request->databse_lock;
                 $study->integrated_ctr = $request->integrated_ctr;
+                $study->status = 'Opened';
+                $study->stage = '1';
 
                 $study->save();
 

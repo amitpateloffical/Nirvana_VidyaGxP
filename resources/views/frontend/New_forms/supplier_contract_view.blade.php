@@ -798,9 +798,6 @@ border-radius:10px;
 
                         </div>
 
-
-
-
                         <div class="group-input">
                             <label for="audit-agenda-grid">
                                 Financial Transaction
@@ -840,7 +837,7 @@ border-radius:10px;
                                                 <td><input type="number" name="financial_transaction[{{ $index }}][Amount]" value="{{ isset($item['Amount']) ? $item['Amount'] : '' }}"></td>
                                                 <td><input type="text" name="financial_transaction[{{ $index }}][CurrencyUsed]" value="{{ isset($item['CurrencyUsed']) ? $item['CurrencyUsed'] : '' }}"></td>
                                                 <td><input type="text" name="financial_transaction[{{ $index }}][Remarks]" value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}"></td>
-                                                <td><button type="text" class="removeRowBtn">Remove</button></td>
+                                                <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                             </tr>
                                         @endforeach
                                      @endif
