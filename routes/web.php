@@ -200,7 +200,7 @@ Route::get('auditDetailsSupplier/{id}',[SupplierController::class,'auditDetailsS
 // ======================================================
 //============================Supplier Observation by pramod=======================================
 
-Route::get('country-submission-data',[CountrySubDataController::class,'country_submission']);
+Route::get('country_sub_data',[CountrySubDataController::class,'country_submission']);
 Route::post('countrystore',[CountrySubDataController::class,'country_store'])->name('country_store');
 Route::put('countrySubUpdate/{id}',[CountrySubDataController::class,'country_update'])->name('country_update');
 Route::get('countryshow/{id}',[CountrySubDataController::class,'country_show'])->name('country_show');
@@ -409,7 +409,7 @@ Route::view('serious_adverse_event', 'frontend.ctms.serious_adverse_event');
 Route::view('monitoring_visit', 'frontend.ctms.monitoring_visit');
 Route::view('investigational_nda_anda', 'frontend.ctms.investigational_nda_anda');
 Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
-Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
+// Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
 Route::view('clinical_site', 'frontend.ctms.clinical_site');
 
 Route::view('cta_submission', 'frontend.ctms.cta_submission');
@@ -420,7 +420,7 @@ Route::view('regulatory_notification', 'frontend.ctms.regulatory_notification');
 
 // ----------------------------------------------------------------------New Forms ------------------------------
 Route::view('complaint', 'frontend.new_forms.complaint');
-Route::view('supplier-observation', 'frontend.new_forms.supplier-observation');
+// Route::view('supplier-observation', 'frontend.new_forms.supplier-observation');
 Route::view('preventive-maintenance', 'frontend.new_forms.preventive-maintenance');
 Route::view('equipment', 'frontend.new_forms.equipment');
 Route::view('production-line-audit', 'frontend.new_forms.production-line-audit');

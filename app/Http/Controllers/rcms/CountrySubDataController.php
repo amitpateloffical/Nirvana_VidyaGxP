@@ -21,12 +21,13 @@ class CountrySubDataController extends Controller
 {
     public function country_submission()
     {
-        $record = ((RecordNumber::first()->value('counter')) + 1);
-        $record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
+        $record_number = ((RecordNumber::first()->value('counter')) + 1);
+        $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
-        return view("frontend.ctms.country_sub_data", compact('due_date', 'record'));
+        return view("frontend.ctms.country_sub_data", compact('due_date', 'record_number'));
+        // dd($record);
     }
 
     public function country_store(Request $request)
@@ -1736,7 +1737,7 @@ class CountrySubDataController extends Controller
             // return 'history';
             $history = new CountrySubAuditTrail();
             $history->country_id = $id;
-            $history->activity_type = 'authority_type';
+            $history->activity_type = 'Authority Type';
             $history->previous = $lastData->authority_type;
             $history->current = $country->authority_type;
             $history->comment = $request->comment;
@@ -2828,7 +2829,7 @@ class CountrySubDataController extends Controller
             $width = $canvas->get_width();
             $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
             $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
-            return $pdf->stream('Supplier-Obs' . $id . '.pdf');
+            return $pdf->stream('Country-Submission-Data-Obs' . $id . '.pdf');
         }
 
 
@@ -2870,7 +2871,4 @@ class CountrySubDataController extends Controller
         return $pdf->stream('SOP' . $id . '.pdf');
         
     }
-
-
-
 }
