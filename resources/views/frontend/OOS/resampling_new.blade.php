@@ -85,7 +85,7 @@
                                             <option value="assign_to">Select a value</option>
                                             @foreach ($users as $data)
                                                 <option value="{{ $data->id }}">{{ $data->name }}</option>
-                                            @endforeach
+                                            @endforeach 
                                         </select>
                                         @error('assign_to')
                                             <p class="text-danger">{{ $message }}</p>

@@ -50,7 +50,7 @@ class AdditionalTestingController extends Controller
 
         $additionaltesting->record_number = $request->record_number;
         $additionaltesting->division_code = $request->division_code;
-        $additionaltesting->division_id = $request->division_id;
+        $additionaltesting->division_id = 7;
         // $additionaltesting->initiator = $request->initiator;
 
         $additionaltesting->gi_target_closure_date = $request->gi_target_closure_date;
@@ -223,7 +223,7 @@ class AdditionalTestingController extends Controller
             if (!empty($additionaltesting->$key)) {
                 $history = new AdditionalTestingAuditTrail();
                 $history->additional_testing_id = $additionaltesting->id;
-                $history->activity_type = $value;
+                $history->activity_type = "Initiator";
                 $history->previous = "Null";
                 $history->current = $additionaltesting->$key;
                 $history->comment = "Not Applicable";
@@ -232,6 +232,8 @@ class AdditionalTestingController extends Controller
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $additionaltesting->status;
                 $history->action_name = 'Submit';
+                $history->change_from = "Initiator";
+                $history->change_to = $additionaltesting->$value;
                 $history->save();
             }
         }
@@ -267,7 +269,7 @@ class AdditionalTestingController extends Controller
 
         $additionaltesting->record_number = $request->record_number;
         $additionaltesting->division_code = $request->division_code;
-        $additionaltesting->division_id = $request->division_id;
+        $additionaltesting->division_id = 7;
         $additionaltesting->initiator = $request->initiator;
 
         $additionaltesting->gi_target_closure_date = $request->gi_target_closure_date;
@@ -347,14 +349,25 @@ class AdditionalTestingController extends Controller
 
             $additionaltesting->qc_review_attachment = json_encode($files);
         }
+        if (!empty($request->aqa_review_attachment)) {
+            $files = [];
+            if ($request->hasfile('aqa_review_attachment')) {
+                foreach ($request->file('aqa_review_attachment') as $file) {
+                    $name = $request->name . 'aqa_review_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $additionaltesting->aqa_review_attachment = json_encode($files);
+        }
         $additionaltesting->update();
 
 
         $record = RecordNumber::first();
         $record->counter = ((RecordNumber::first()->value('counter')) + 1);
         $record->update();
-        $additionaltesting->status = 'Opened';
-        $additionaltesting->stage = 1;
         // $additionaltesting->save();
         // dd($additionaltesting->id);
 
@@ -441,16 +454,16 @@ class AdditionalTestingController extends Controller
                 $history = new AdditionalTestingAuditTrail();
                 $history->additional_testing_id = $additionaltesting->id;
                 $history->activity_type = $value;
-                $history->change_to = "Not Applicable";
-                $history->change_from = $lastAdditionalTest->status;
+                $history->action_name = "Update";
                 $history->previous = $lastAdditionalTest->$key;
                 $history->current = $additionaltesting->$key;
-                $history->comment = $request->comment;
+                $history->comment = "Not Applicable";
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastAdditionalTest->status;
-                $history->action_name = 'Update';
+                $history->change_from = $lastAdditionalTest->status;
+                $history->change_to = "Not Applicable";
                 $history->save();
             }
         }
@@ -514,6 +527,7 @@ public function send_stage(Request $request, $id)
                             $history = new AdditionalTestingAuditTrail();
                             $history->additional_testing_id = $id;
                             $history->activity_type = 'Activity Log';
+                            $history->action = 'Submit';
                             $history->current = $changestage->additional_test_proposal_completed_by;
                             $history->comment = $request->comment;
                             $history->user_id = Auth::user()->id;
@@ -552,6 +566,7 @@ public function send_stage(Request $request, $id)
                 $history = new AdditionalTestingAuditTrail();
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = 'Add Tests Proposal Complete';
                 $history->current = $changestage->cq_approved_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -573,6 +588,8 @@ public function send_stage(Request $request, $id)
                 $history = new AdditionalTestingAuditTrail();
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = 'CQ Approval Complete';
+
                 $history->current = $changestage->additional_test_exe_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -594,6 +611,8 @@ public function send_stage(Request $request, $id)
                 $history = new AdditionalTestingAuditTrail();
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = ' Under Add.Testing Execution Complete';
+
                 $history->current = $changestage->resampling_checked_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -615,6 +634,8 @@ public function send_stage(Request $request, $id)
                 $history = new AdditionalTestingAuditTrail();
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = 'Resampling Close';
+
                 $history->current = $changestage->additional_test_qc_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -636,6 +657,8 @@ public function send_stage(Request $request, $id)
                 $history = new AdditionalTestingAuditTrail();
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = ' Add.Testing Exe. AQA Review Complete';
+
                 $history->current = $changestage->aqa_review_completed_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -658,6 +681,7 @@ public function send_stage(Request $request, $id)
             $history = new AdditionalTestingAuditTrail();
             $history->additional_testing_id = $id;
             $history->activity_type = 'Activity Log';
+            $history->action = 'Close Done';
             $history->current = $changestage->completed_by_close_done;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
@@ -716,6 +740,7 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                             $history = new AdditionalTestingAuditTrail();
                             $history->additional_testing_id = $id;
                             $history->activity_type = 'Activity Log';
+                            $history->action = 'Submit';
                             $history->current = $changestage->additional_test_proposal_completed_by;
                             $history->comment = $request->comment;
                             $history->user_id = Auth::user()->id;
@@ -754,6 +779,8 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                 $history = new AdditionalTestingAuditTrail();
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = 'CQ Approval Complete';
+
                 $history->current = $changestage->additional_test_exe_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -775,6 +802,8 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                 $history = new AdditionalTestingAuditTrail();
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = 'Resampling Close';
+
                 $history->current = $changestage->additional_test_qc_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
@@ -810,6 +839,8 @@ public function send_stageto4(Request $request, $id)
                 $history = new AdditionalTestingAuditTrail();
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = 'CQ Approval Complete';
+
                 $history->current = $changestage->additional_test_exe_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;

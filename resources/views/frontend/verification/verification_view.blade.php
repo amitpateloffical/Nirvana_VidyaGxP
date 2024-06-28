@@ -697,10 +697,11 @@
                             </div>
                         </div>
 
+
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Initiator Group"> (Parent) OOT No.</label>
-                                <input type="number" name="parent_oot_no" {{$verification->parent_oot_no}}>
+                                <input type="number" name="parent_oot_no" value ="{{$verification->parent_oot_no}}">
                             </div>
                         </div>
 
@@ -729,7 +730,7 @@
                             <div class="group-input input-date">
                                 <label for="Scheduled end date">(Parent) Target Closure Date</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="end_date_target"  />
+                                    <input type="text" id="end_date_target" value="{{$verification->parent_target_closure_date}}" />
                                     <input type="date" id="end_date_checkdate_target"
                                         name="parent_target_closure_date" value="{{$verification->parent_target_closure_date}}"
                                         min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -769,15 +770,17 @@
                                             <th style="width: 8%"> Label Claim.</th>
                                         </tr>
                                     </thead>
+                                    @foreach($gridDatas01->data as $datas)
+
                                     <tbody>
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="parent_info_no_product_material[0][product_code]"></td>
-                                        <td><input type="text" name="parent_info_no_product_material[0][ar_number]"></td>
+                                        <td><input type="text" name="parent_info_no_product_material[0][product_code]" value="{{$datas['product_code']}}" ></td>
+                                        <td><input type="text" name="parent_info_no_product_material[0][ar_number]" value="{{$datas['ar_number']}}" ></td>
                                         <td>
                                             <div class="group-input new-date-data-field mb-0">
                                                 <div class="input-date ">
                                                     <div class="calenderauditee">
-                                                        <input type="text" id="agenda_date0" readonly placeholder="DD-MMM-YYYY" />
+                                                        <input type="text" id="agenda_date0" readonly placeholder="DD-MMM-YYYY"  value="{{$datas['mfg_date']}}" />
                                                         <input type="date" name="parent_info_no_product_material[0][mfg_date]"
                                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                                oninput="handleDateInput(this, 'agenda_date0');" />
@@ -790,7 +793,7 @@
                                             <div class="group-input new-date-data-field mb-0">
                                                 <div class="input-date ">
                                                     <div class="calenderauditee">
-                                                        <input type="text" id="agenda_date1" readonly placeholder="DD-MMM-YYYY" />
+                                                        <input type="text" id="agenda_date1" readonly placeholder="DD-MMM-YYYY"  value="{{$datas['expiry_date']}}" />
                                                         <input type="date" name="parent_info_no_product_material[0][expiry_date]"
                                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                                oninput="handleDateInput(this, 'agenda_date1');" />
@@ -799,8 +802,9 @@
                                             </div>
                                         </td>
                                         {{-- <td><input type="date" name="parent_info_no_product_material[0][expiry_date]"></td> --}}
-                                        <td><input type="text" name="parent_info_no_product_material[0][name]"></td>
+                                        <td><input type="text" name="parent_info_no_product_material[0][name]" value="{{$datas['name']}}" ></td>
                                     </tbody>
+                                    @endforeach
                                 </table>
                             </div>
                         </div>
@@ -833,16 +837,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach($gridDatas02->data as $datas)
+
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="parent_info_no_product_material1[0][product_code]"></td>
-                                        <td><input type="text" name="parent_info_no_product_material1[0][batch_no]"></td>
-                                        <td><input type="text" name="parent_info_no_product_material1[0][ar_number]"></td>
+                                        <td><input type="text" name="parent_info_no_product_material1[0][product_code]"  value="{{$datas['product_code']}}" ></td>
+                                        <td><input type="text" name="parent_info_no_product_material1[0][batch_no]" value="{{$datas['batch_no']}}" ></td>
+                                        <td><input type="text" name="parent_info_no_product_material1[0][ar_number]" value="{{$datas['ar_number']}}" ></td>
 
                                         <td>
                                             <div class="group-input new-date-data-field mb-0">
                                                 <div class="input-date ">
                                                     <div class="calenderauditee">
-                                                        <input type="text" id="agenda_date2" readonly placeholder="DD-MMM-YYYY" />
+                                                        <input type="text" id="agenda_date2" readonly placeholder="DD-MMM-YYYY"  value="{{$datas['mfg_date']}}" />
                                                         <input type="date" name="parent_info_no_product_material1[0][mfg_date]"
                                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                                oninput="handleDateInput(this, 'agenda_date2');" />
@@ -855,7 +861,7 @@
                                             <div class="group-input new-date-data-field mb-0">
                                                 <div class="input-date ">
                                                     <div class="calenderauditee">
-                                                        <input type="text" id="agenda_date3" readonly placeholder="DD-MMM-YYYY" />
+                                                        <input type="text" id="agenda_date3" readonly placeholder="DD-MMM-YYYY"  value="{{$datas['expiry_date']}}" />
                                                         <input type="date" name="parent_info_no_product_material1[0][expiry_date]"
                                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                                oninput="handleDateInput(this, 'agenda_date3');" />
@@ -865,10 +871,11 @@
                                         </td>
                                         {{-- <td><input type="date" name="parent_info_no_product_material1[0][mfg_date]"></td>
                                         <td><input type="date" name="parent_info_no_product_material1[0][expiry_date]"></td> --}}
-                                        <td><input type="text" name="parent_info_no_product_material1[0][label]"></td>
-                                        <td><input type="text" name="parent_info_no_product_material1[0][pack_size]"></td>
-                                        <td><input type="text" name="parent_info_no_product_material1[0][lot_batch_no]"></td>
+                                        <td><input type="text" name="parent_info_no_product_material1[0][label]" value="{{$datas['label']}}" ></td>
+                                        <td><input type="text" name="parent_info_no_product_material1[0][pack_size]" value="{{$datas['pack_size']}}" ></td>
+                                        <td><input type="text" name="parent_info_no_product_material1[0][lot_batch_no]" value="{{$datas['lot_batch_no']}}" ></td>
                                     </tbody>
+                                    @endforeach
                                 </table>
                             </div>
                         </div>
@@ -936,16 +943,19 @@
                                             <th style="width: 8%">Trend Limit</th>
                                         </tr>
                                     </thead>
+                                    @foreach($gridDatas04->data as $datas)
+
                                     <tbody>
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="OOT_Results[0][AR_Number]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Test_Name_Of_OOT]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Result_Obtained]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Initial_Interval_Details]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Previous_Interval_Details]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Difference_Of_Results]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Trend_Limit]"></td>
+                                        <td><input type="text" name="OOT_Results[0][AR_Number]" value="{{$datas['AR_Number']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[0][Test_Name_Of_OOT]" value="{{$datas['Test_Name_Of_OOT']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[0][Result_Obtained]" value="{{$datas['Result_Obtained']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[0][Initial_Interval_Details]" value="{{$datas['Initial_Interval_Details']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[0][Previous_Interval_Details]" value="{{$datas['Previous_Interval_Details']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[0][Difference_Of_Results]" value="{{$datas['Difference_Of_Results']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[0][Trend_Limit]" value="{{$datas['Trend_Limit']}}" ></td>
                                     </tbody>
+                                    @endforeach
                                 </table>
                             </div>
                         </div>
@@ -974,14 +984,17 @@
                                             <th style="width: 16%">Pack Details (if any)</th>
                                         </tr>
                                     </thead>
+                                    @foreach($gridDatas05->data as $datas)
+
                                     <tbody>
                                         <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][ar_number]"></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][temperature_rh]"></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][interval]"></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][orientation]"></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][pack_details]"></td>
+                                        <td><input type="text" name="parent_details_of_stability_study[0][ar_number]" value="{{$datas['ar_number']}}"  ></td>
+                                        <td><input type="text" name="parent_details_of_stability_study[0][temperature_rh]" value="{{$datas['temperature_rh']}}"  ></td>
+                                        <td><input type="text" name="parent_details_of_stability_study[0][interval]" value="{{$datas['interval']}}"  ></td>
+                                        <td><input type="text" name="parent_details_of_stability_study[0][orientation]" value="{{$datas['orientation']}}"  ></td>
+                                        <td><input type="text" name="parent_details_of_stability_study[0][pack_details]" value="{{$datas['pack_details']}}"  ></td>
                                     </tbody>
+                                    @endforeach
                                 </table>
                             </div>
                         </div>
@@ -1104,7 +1117,7 @@
             </div>
         </div>
 
-        </form>
+
             <!-- Analysis in Progress -->
             <div id="CCForm2" class="inner-block cctabcontent">
                 <div class="inner-block-content">
@@ -1122,7 +1135,7 @@
                             <div class="group-input input-date">
                                 <label for="Scheduled end date">Date Of Completion</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="completion_date" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="text" id="completion_date" readonly placeholder="DD-MMM-YYYY" value="{{$verification->date_of_completion}}" />
                                     <input type="date" id="completion_date_checkdate"
                                         name="date_of_completion" value="{{$verification->date_of_completion}}"
                                         min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -1131,10 +1144,10 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-12">
+                        {{-- <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="Execution Attachments">Execution Attachment</label>
-                                {{-- <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div> --}}
+                                <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                 <div class="file-attachment-field">
                                     <div class="file-attachment-list" id="execution_attachment"></div>
                                     <div class="add-btn">
@@ -1144,7 +1157,38 @@
                                     </div>
                                 </div>
                             </div>
+                        </div> --}}
+
+
+
+                        <div class="col-12">
+                            <div class="group-input">
+                                <label for="QA Initial Attachments"> xecution Attachment</label>
+                                <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                <div class="file-attachment-field">
+                                    <div disabled class="file-attachment-list" id="execution_attachment">
+                                        @if ($verification->execution_attachment)
+                                        @foreach(json_decode($verification->execution_attachment) as $file)
+                                        <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                            <b>{{ $file }}</b>
+                                            <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                            <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                        </h6>
+                                   @endforeach
+                                        @endif
+                                    </div>
+                                    <div class="add-btn">
+                                        <div>Add</div>
+                                        <input {{ $verification->stage == 0 || $verification->stage == 6 ? 'disabled' : '' }} type="file" id="myfile" name="execution_attachment[]"
+                                            oninput="addMultipleFiles(this, 'execution_attachment')" multiple>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+
+
+
 
                         <div class="col-12">
                             <div class="group-input">
@@ -1164,13 +1208,9 @@
                                     Exit </a>
                             </button>
                         </div>
-
-
                     </div>
                 </div>
-
             </div>
-
 
 
             <!-- QC Verification -->
@@ -1331,7 +1371,7 @@
                 </div>
                 </div>
             </div>
-
+        </form>
     </div>
     </div>
 

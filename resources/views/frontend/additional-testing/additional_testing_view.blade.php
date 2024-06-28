@@ -1077,10 +1077,18 @@
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="add_test_attachment"></div>
+                                            <div class="file-attachment-list" id="add_test_attachment"> @if ($additionaltesting->add_test_attachment)
+                                                @foreach(json_decode($additionaltesting->add_test_attachment) as $file)
+                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                           @endforeach
+                                                @endif</div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="add_test_attachment" value="{{ $additionaltesting->add_test_attachment }}"
+                                                <input type="file" id="myfile" name="add_test_attachment[]" value="{{ $additionaltesting->add_test_attachment }}"
                                                     oninput="addMultipleFiles(this, 'add_test_attachment')" multiple>
                                             </div>
                                         </div>
@@ -1116,13 +1124,26 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="cq_approval_attachment">CQ Approval Attachment</label>
+                                    <label for="cq_approval_attachment">CQ Approval Attachment
+                                    </label>
                                     <div><small class="text-primary">Please Attach all relevant or supporting
                                             documents</small></div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="cq_approval_attachment"></div>
+                                        <div class="file-attachment-list" id="cq_approval_attachment">
+                                            @if ($additionaltesting->cq_approval_attachment)
+                                            @foreach(json_decode($additionaltesting->cq_approval_attachment) as $file)
+                                            <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                <b>{{ $file }}</b>
+                                                <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                            </h6>
+                                       @endforeach
+                                            @endif
+                                        </div>
                                         <div class="add-btn">
                                             <div>Add</div>
                                             <input type="file" id="myfile" name="cq_approval_attachment[]" value="{{$additionaltesting->cq_approval_attachment}}"
@@ -1217,13 +1238,24 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="qc_review_attachment">QC Review Attachment  </label>
                                     <div><small class="text-primary">Please Attach all relevant or supporting
                                             documents</small></div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="qc_review_attachment"></div>
+                                        <div class="file-attachment-list" id="qc_review_attachment">
+                                            @if ($additionaltesting->qc_review_attachment)
+                                            @foreach(json_decode($additionaltesting->qc_review_attachment) as $file)
+                                            <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                <b>{{ $file }}</b>
+                                                <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                            </h6>
+                                       @endforeach
+                                            @endif
+                                        </div>
                                         <div class="add-btn">
                                             <div>Add</div>
                                             <input type="file" id="myfile" name="qc_review_attachment[]" value="{{$additionaltesting->qc_review_attachment}}"
@@ -1232,6 +1264,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1258,7 +1291,18 @@
                                             <div><small class="text-primary">Please Attach all relevant or supporting
                                                     documents</small></div>
                                             <div class="file-attachment-field">
-                                                <div class="file-attachment-list" id="aqa_review_attachment"></div>
+                                                <div class="file-attachment-list" id="aqa_review_attachment">
+                                                    @if ($additionaltesting->aqa_review_attachment)
+                                                    @foreach(json_decode($additionaltesting->aqa_review_attachment) as $file)
+                                                    <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                        <b>{{ $file }}</b>
+                                                        <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                        <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                    </h6>
+                                               @endforeach
+                                                    @endif
+
+                                                </div>
                                                 <div class="add-btn">
                                                     <div>Add</div>
                                                     <input type="file" id="myfile" name="aqa_review_attachment[]" value="{{$additionaltesting->aqa_review_attachment}}"
@@ -1267,6 +1311,12 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+
+
+
+
 
                                 </div>
                                 <div class="button-block">

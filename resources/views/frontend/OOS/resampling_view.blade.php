@@ -24,6 +24,195 @@
     {{-- ======================================
                     DATA FIELDS
     ======================================= --}}
+
+
+
+
+    <div id="change-control-view">
+        <div class="container-fluid">
+
+            <div class="inner-block state-block">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="main-head">Record Workflow </div>
+
+                    <div class="d-flex" style="gap:20px;">
+                        @php
+                            $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $resampling->division_id])->get();
+                            $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                            // $cftRolesAssignUsers = collect($userRoleIds); //->contains(fn ($roleId) => $roleId >= 22 && $roleId <= 33);
+                            // $cftUsers = DB::table('verifications')->where(['verification_id' => $resampling->id])->first();
+
+                            // Define the column names
+                            // $columns = ['Production_person', 'Warehouse_notification', 'Quality_Control_Person', 'QualityAssurance_person', 'Engineering_person', 'Analytical_Development_person', 'Kilo_Lab_person', 'Technology_transfer_person', 'Environment_Health_Safety_person', 'Human_Resource_person', 'Information_Technology_person', 'Project_management_person'];
+
+                            // Initialize an array to store the values
+                            $valuesArray = [];
+
+                            // Iterate over the columns and retrieve the values
+                            // foreach ($columns as $column) {
+                            //     $value = $cftUsers->$column;
+                            //     // Check if the value is not null and not equal to 0
+                            //     if ($value !== null && $value != 0) {
+                            //         $valuesArray[] = $value;
+                            //     }
+                            // }
+                            // $cftCompleteUser = DB::table('deviationcfts_response')
+                            // ->whereIn('status', ['In-progress', 'Completed'])
+                            //     ->where('deviation_id',$resampling->id)
+                            //     ->where('cft_user_id', Auth::user()->id)
+                            //     ->whereNull('deleted_at')
+                            //     ->first();
+                            // dd($cftCompleteUser);
+                        @endphp
+                        {{-- <button class="button_theme1" onclick="window.print();return false;"
+                            class="new-doc-btn">Print</button> --}}
+                         <button class="button_theme1"> <a class="text-white" href="{{ route('Vaudit_trial', $resampling->id) }}"> {{-- add here url for auditTrail i.e. href="{{ url('CapaAuditTrial', $resampling->id) }}" --}}
+                                Audit Trail </a> </button>
+
+                        @if ($resampling->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Submit
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                Cancellation Request
+                            </button>
+
+                        @elseif($resampling->stage == 2 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                                More Info from Open
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Sample Request Approval Complete
+                            </button>
+                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                Cancel
+                            </button> --}}
+                        @elseif($resampling->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                               <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                              More Info from Sample Request Approval
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Sample Received
+                            </button>
+                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cft-not-reqired">
+                                CFT Review Not Required
+                            </button> --}}
+                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                                Child
+                            </button> --}}
+                        {{-- @elseif($resampling->stage == 4 && (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray))) --}}
+                        {{-- @if(!$cftCompleteUser) --}}
+                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal"> --}}
+                       {{-- /     Return to QC Verification --}}
+                          {{-- </button> --}}
+                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal02"> --}}
+                            {{-- Return to Analysis in Progress --}}
+                        {{-- </button> --}}
+                            {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                            More Info Required
+                            </button> --}}
+                                {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal"> --}}
+                                    {{-- AQA Verification Complete --}}
+                                {{-- </button> --}}
+                                {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal"> --}}
+                                    {{-- Approved --}}
+                                {{-- </button> --}}
+                            {{-- @endif --}}
+                        {{-- @elseif($resampling->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#sendToInitiator">
+                                Send to Initiator
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#hodsend">
+                                Send to HOD
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
+                                Send to QA Initial Review
+                            </button>
+                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                QA Final Review Complete
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                                Child
+                            </button> --}}
+                        {{-- @elseif($resampling->stage == 6 && (in_array(9, $userRoleIds) || in_array(18, $userRoleIds)))
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#more-info-required-modal">
+                                More Info Required
+                                </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Approved
+                            </button> --}}
+                        @endif
+                        <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                            </a> </button>
+
+
+                    </div>
+
+                </div>
+                <div class="status">
+                    <div class="head">Current Status</div>
+                    @if ($resampling->stage == 0)
+                        <div class="progress-bars">
+                            <div class="bg-danger">Closed-Cancelled</div>
+                        </div>
+                    @else
+                        <div class="progress-bars">
+                            @if ($resampling->stage >= 1)
+                                <div class="active">Opened</div>
+                            @else
+                                <div class="">Opened</div>
+                            @endif
+
+                            @if ($resampling->stage >= 2)
+                                <div class="active">Under Sample Request Approval </div>
+                            @else
+                                <div class="">Under Sample Request Approval</div>
+                            @endif
+
+                            @if ($resampling->stage >= 3)
+                                <div class="active">Pending Sample Receive</div>
+                            @else
+                                <div class="">Pending Sample Receive</div>
+                            @endif
+
+                            {{-- @if ($resampling->stage >= 4)
+                                <div class="active"></div>
+                            @else
+                                <div class="">Under AQA Verification</div>
+                            @endif --}}
+
+
+                            {{-- @if ($resampling->stage >= 5)
+                                <div class="active">QA Final Review</div>
+                            @else
+                                <div class="">QA Final Review</div>
+                            @endif
+                            @if ($resampling->stage >= 6)
+                                <div class="active">QA Head/Manager Designee</div>
+                            @else
+                                <div class="">Approval</div>
+                            @endif --}}
+                            @if ($resampling->stage >= 4)
+                                <div class="bg-danger">Closed - Done</div>
+                            @else
+                                <div class="">Closed - Done</div>
+                            @endif
+                    @endif
+
+
+                </div>
+                {{-- @endif --}}
+                {{-- ---------------------------------------------------------------------------------------- --}}
+            </div>
+        </div>
+
+    <div style="background: #e0903230;" id="change-control-fields">
+        <div class="container-fluid">
+
+
+
+
+
     <div id="change-control-fields">
         <div class="container-fluid">
 
@@ -46,7 +235,7 @@
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
                                         <input disabled type="text" name="record_number">
-                                        
+
                                         {{-- value="{{ Helpers::getDivisionName(session()->get('division')) }}/MR/{{ date('Y') }}/{{ $record_number }}" --}}
                                         <!-- {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}} -->
                                     </div>
@@ -1268,6 +1457,394 @@ $('#oos_details').click(function(e) {
                 tableBody.append(newRow);
             });
         });
+
+
+
+
+
+// Modal for Workflow
+
+
+<div class="modal fade" id="more-info-required-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('Vrequestmoreinfo_back_stage', $resampling->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancel-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ url('cancel_stageR', $resampling->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="deviationIsCFTRequired">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ url('deviationIsCFTRequired', $resampling->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="sendToInitiator">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('check', $resampling->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="hodsend">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('check2', $resampling->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="qasend">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('check3', $resampling->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="signature-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('Vsend_stage', $resampling->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input type="comment" name="comment">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{{-- sending back to stage 2 --}}
+
+
+<div class="modal fade" id="signature-modal02">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('Vsend_stage2', $resampling->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username</label>
+                        <input class="input_width" type="text" name="username" required>
+
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password</label>
+                        <input class="input_width" type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input class="input_width" type="comment" name="comment">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                  <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
     </script>
              <script>
                 var maxLength = 255;

@@ -887,8 +887,6 @@
                                 <input type="text" id="text" name="aqa_reviewer" >
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                        </div>
 
                         <div class="col-lg-6">
                             <div class="group-input">
@@ -927,7 +925,7 @@
             </div>
         </div>
 
-        </form>
+
             <!-- Analysis in Progress -->
             <div id="CCForm2" class="inner-block cctabcontent">
                 <div class="inner-block-content">
@@ -954,10 +952,42 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-12">
+
+
+
+   <div class="col-12">
+    <div class="group-input">
+        <label for="Inv Attachments">Initial Attachmentexecution_attachment</label>
+        <div>
+            <small class="text-primary">
+                Please Attach all relevant or supporting documents
+            </small>
+        </div>
+        <div class="file-attachment-field">
+            <div class="file-attachment-list" id="execution_attachment"></div>
+            <div class="add-btn">
+                <div>Add</div>
+                <input type="file" id="myfile" name="execution_attachment[]"
+                    oninput="addMultipleFiles(this, 'execution_attachment')"
+                    multiple>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+                        {{-- <div class="col-lg-12">
                             <div class="group-input">
                                 <label for="Execution Attachments">Execution Attachment</label>
-                                {{-- <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div> --}}
+                                <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                 <div class="file-attachment-field">
                                     <div class="file-attachment-list" id="execution_attachment"></div>
                                     <div class="add-btn">
@@ -967,7 +997,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="col-12">
                             <div class="group-input">
@@ -1154,7 +1184,7 @@
                 </div>
                 </div>
             </div>
-
+        </form>
     </div>
     </div>
 

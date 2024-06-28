@@ -51,7 +51,7 @@ class VerificationController extends Controller
 
             // General information section
             $verification->record = $request->record;
-            $verification->division_id = $request->division_id;
+            $verification->division_id = 7 ;
             $verification->division_code = $request->division_code;
             $verification->initiator_id = $request->initiator_id;
             $verification->intiation_date = $request->intiation_date;
@@ -97,6 +97,7 @@ class VerificationController extends Controller
             }
             $verification->execution_attachment = json_encode($files);
         }
+
         if (!empty ($request->verification_attachment)) {
             $files = [];
             if ($request->hasfile('verification_attachment')) {
@@ -291,7 +292,7 @@ $combinedfields = [
             $verification->form_type = $request->form_type;
             $verification->record_number = $request->record_number;
             $verification->status = $request->status;
-            $verification->stage = $request->stage;
+            // $verification->stage = $request->stage;
             $verification->submitted_by = $request->submitted_by;
             $verification->submitted_on = $request->submitted_on;
             $verification->cancelled_by = $request->cancelled_by;

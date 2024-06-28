@@ -953,6 +953,30 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="cq_approval_attachment">CQ Approval Attachment</label>
+                                        <div><small class="text-primary">Please Attach all relevant or supporting
+                                                documents</small></div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="cq_approval_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="cq_approval_attachment[]"
+                                                    oninput="addMultipleFiles(this, 'cq_approval_attachment')" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -1018,6 +1042,8 @@
                                         <div><small class="text-primary">AQA Comments on Additional Testing</small></div>
                                         <textarea name="summary_of_exp_hyp"></textarea>
                                     </div>
+
+
                                     <div class="col-12">
                                         <div class="group-input">
                                             <label for="aqa_review_attachment">AQA Review Attachment
@@ -1028,7 +1054,7 @@
                                                 <div class="file-attachment-list" id="aqa_review_attachment"></div>
                                                 <div class="add-btn">
                                                     <div>Add</div>
-                                                    <input type="file" id="myfile" name="aqa_review_attachment[]"
+                                                    <input type="file"   name="aqa_review_attachment[]"
                                                         oninput="addMultipleFiles(this, 'aqa_review_attachment')" multiple>
                                                 </div>
                                             </div>
@@ -1059,28 +1085,6 @@
                             </div> --}}
 
 
-                                    {{-- <div class="sub-head">Cancellation</div>
-                            <div class="row col-md-12">
-                                <div class="col-md-6 mb-4">
-                                    <div class="group-input">
-                                        <label for="Description Deviation">Cancel By
-                                        </label>
-                                        <input type="text" name="cancel_by">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Scheduled end date">Cancel On
-                                        </label>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="end_date11" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" id="end_date_checkdate11" name="cancel_on"
-                                                min="yyyy-mm-dd" class="hide-input"
-                                                oninput="handleDateInput(this, 'end_date11');checkDate('start_date_checkdate11','end_date_checkdate11')" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> --}}
 
                                 </div>
                                 <div class="button-block">

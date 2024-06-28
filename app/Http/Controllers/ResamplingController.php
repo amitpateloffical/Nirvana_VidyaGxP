@@ -7,8 +7,17 @@ use Illuminate\Http\Request;
 use App\Models\RecordNumber;
 use App\Models\Resampling;
 use App\Models\Resampling_Grid;
-// use App\Models\Deviation;
+use App\Models\ResamplingAuditTrail;
+use App\Models\RoleGroup;
+use App\Models\User;
+use Carbon\Carbon;
+use Helpers;
+use PDF;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -223,7 +232,6 @@ class ResamplingController extends Controller
         //$deviation->division_id = $request->division_id;
         //$deviation->text = $request->text;
 
-
         $resampling = Resampling::find($id);
 
         $resampling->record_number = $request->record_number;
@@ -413,12 +421,266 @@ class ResamplingController extends Controller
         $gridDatas06 = Resampling_Grid::where(['resampling_id'=> $id,'identifier'=>'Stability Study2'])->first();
 
 
-
-
         return view('frontend.OOS.resampling_view', compact('resampling', 'gridDatas01', 'gridDatas02', 'gridDatas03', 'gridDatas04', 'gridDatas05', 'gridDatas06'));
     }
 
 
+    public function send_stage(Request $request, $id)
+{
+    if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+        $changestage = Resampling::find($id);
+        $lastDocument = Resampling::find($id);
+        if ($changestage->stage == 1) {
+            $changestage->stage = "2";
+            $changestage->status = "Under Sample Request Approval";
+            $changestage->sample_req_approval_done_by = Auth::user()->name;
+            $changestage->sample_req_approval_done_on = Carbon::now()->format('d-M-Y');
+            $changestage->sample_req_approval_done_comment = $request->comment;
+                            $history = new ResamplingAuditTrail();
+                            $history->resampling_id = $id;
+                            $history->activity_type = 'Activity Log';
+                            $history->current = $changestage->sample_req_approval_done_by;
+                            $history->comment = $request->comment;
+                            $history->user_id = Auth::user()->id;
+                            $history->user_name = Auth::user()->name;
+                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                            $history->origin_state = $lastDocument->status;
+                            $history->stage = "2";
+                            $history->save();
+                            $list = Helpers::getLeadAuditeeUserList();
+                            foreach ($list as $u) {
+                                if($u->q_m_s_divisions_id == $changestage->division_id){
+                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                     if ($email !== null) {
+
+                                      Mail::send(
+                                          'mail.view-mail',
+                                           ['data' => $changestage],
+                                        function ($message) use ($email) {
+                                            $message->to($email)
+                                                ->subject("Document sent ".Auth::user()->name);
+                                        }
+                                      );
+                                    }
+                             }
+                          }
+            $changestage->update();
+            toastr()->success('Document Sent');
+            return back();
+        }
+        if ($changestage->stage == 2) {
+            $changestage->stage = "3";
+            $changestage->status = "Pending Sample Receive";
+            $changestage->sample_received_completed_by= Auth::user()->name;
+            $changestage->sample_received_completed_on = Carbon::now()->format('d-M-Y');
+            $changestage->sample_received_completed_comment = $request->comment;
+                $history = new ResamplingAuditTrail();
+                $history->resampling_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->current = $changestage->sample_received_completed_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->stage = "3";
+                $history->save();
+            $changestage->update();
+            toastr()->success('Document Sent');
+            return back();
+        }
+
+        if ($changestage->stage == 3) {
+            $changestage->stage = "4";
+            $changestage->status = "Close-Done";
+            $changestage->cancelled_by= Auth::user()->name;
+            $changestage->cancelled_on = Carbon::now()->format('d-M-Y');
+            $changestage->cancelled_comment = $request->comment;
+
+            $history = new ResamplingAuditTrail();
+            $history->resampling_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->current = $changestage->cancelled_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->stage = "Close-Done";
+            $history->save();
+            $changestage->update();
+            toastr()->success('Document Sent');
+            return back();
+        }
+    } else {
+        toastr()->error('E-signature Not match');
+        return back();
+    }
+}
+// ========== requestmoreinfo_back_stage ==============
+public function requestmoreinfo_back_stage(Request $request, $id)
+{
+    if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+        $changestage = Resampling::find($id);
+        $lastDocument = Resampling::find($id);
+        if ($changestage->stage == 2) {
+            $changestage->stage = "1";
+            $changestage->status = "Opened";
+            $changestage->submitted_by = Auth::user()->name;
+            $changestage->submitted_on = Carbon::now()->format('d-M-Y');
+            $changestage->submitted_comment = $request->comment;
+            // $changestage->completed_by_opened = Auth::user()->name;
+            // $changestage->completed_on_opened = Carbon::now()->format('d-M-Y');
+            // $changestage->comment_opened = $request->comment;
+                        $history = new ResamplingAuditTrail();
+                        $history->resampling_id = $id;
+                        $history->activity_type = 'Activity Log';
+                        $history->current = $changestage->submitted_by;
+                        $history->comment = $request->comment;
+                        $history->user_id = Auth::user()->id;
+                        $history->user_name = Auth::user()->name;
+                        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                        $history->origin_state = $lastDocument->status;
+                        $history->stage = "1";
+                        $history->save();
+            $changestage->update();
+            toastr()->success('Document Sent');
+            return back();
+        }
+
+        if ($changestage->stage == 3) {
+            $changestage->stage = "2";
+            $changestage->status = "Under Sample Request Approval";
+            $changestage->sample_req_approval_done_by = Auth::user()->name;
+            $changestage->sample_req_approval_done_on = Carbon::now()->format('d-M-Y');
+            $changestage->sample_req_approval_done_comment = $request->comment;
+                            $history = new ResamplingAuditTrail();
+                            $history->resampling_id = $id;
+                            $history->activity_type = 'Activity Log';
+                            $history->current = $changestage->sample_req_approval_done_by;
+                            $history->comment = $request->comment;
+                            $history->user_id = Auth::user()->id;
+                            $history->user_name = Auth::user()->name;
+                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                            $history->origin_state = $lastDocument->status;
+                            $history->stage = "2";
+                            $history->save();
+                            $list = Helpers::getLeadAuditeeUserList();
+                            foreach ($list as $u) {
+                                if($u->q_m_s_divisions_id == $changestage->division_id){
+                                    $email = Helpers::getInitiatorEmail($u->user_id);
+                                     if ($email !== null) {
+
+                                      Mail::send(
+                                          'mail.view-mail',
+                                           ['data' => $changestage],
+                                        function ($message) use ($email) {
+                                            $message->to($email)
+                                                ->subject("Document sent ".Auth::user()->name);
+                                        }
+                                      );
+                                    }
+                             }
+                          }
+            $changestage->update();
+            toastr()->success('Document Sent');
+            return back();
+        }
+        if ($changestage->stage == 4) {
+            $changestage->stage = "3";
+            $changestage->status = "Pending Sample Receive";
+            $changestage->sample_received_completed_by= Auth::user()->name;
+            $changestage->sample_received_completed_on = Carbon::now()->format('d-M-Y');
+            $changestage->sample_received_completed_comment = $request->comment;
+                $history = new ResamplingAuditTrail();
+                $history->resampling_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->current = $changestage->sample_received_completed_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->stage = "3";
+                $history->save();
+            $changestage->update();
+            toastr()->success('Document Sent');
+            return back();
+        }
+
+    } else {
+        toastr()->error('E-signature Not match');
+        return back();
+    }
+}
+
+public function Rsend_stage2(Request $request, $id)
+{
+
+    if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+        $changestage = Resampling::find($id);
+        $lastDocument = Resampling::find($id);
+
+        if ($changestage->stage == 4) {
+            $changestage->stage = "2";
+            $changestage->status = "Analysis Completed";
+            $changestage->analysis_completed_by = Auth::user()->name;
+            $changestage->analysis_completed_on = Carbon::now()->format('d-M-Y');
+            $changestage->comment_analysis_completed = $request->comment;
+                            $history = new ResamplingAuditTrail();
+                            $history->resampling_id = $id;
+                            $history->activity_type = 'Activity Log';
+                            $history->current = $changestage->analysis_completed_by;
+                            $history->comment = $request->comment;
+                            $history->user_id = Auth::user()->id;
+                            $history->user_name = Auth::user()->name;
+                            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                            $history->origin_state = $lastDocument->status;
+                            $history->stage = "2";
+                            $history->save();
+             $changestage->update();
+            toastr()->success('Document Sent');
+            return back();
+        }
+
+    } else {
+        toastr()->error('E-signature Not match');
+        return back();
+    }
+}
+
+
+public function cancel_stage(Request $request, $id)
+{
+    if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
+        $data = Resampling::find($id);
+        $lastDocument = Resampling::find($id);
+        $data->stage = "0";
+        $data->status = "Closed-Cancelled";
+        $data->cancelled_by = Auth::user()->name;
+        $data->cancelled_on = Carbon::now()->format('d-M-Y');
+        $data->comment_cancle = $request->comment;
+
+                $history = new ResamplingAuditTrail();
+                $history->resampling_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous ="";
+                $history->current = $data->cancelled_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state =  $data->status;
+                $history->stage = 'Cancelled';
+                $history->save();
+        $data->update();
+        toastr()->success('Document Sent');
+        return back();
+    } else {
+        toastr()->error('E-signature Not match');
+        return back();
+    }
+}
 
 
 

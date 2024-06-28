@@ -58,19 +58,28 @@ return new class extends Migration
             $table->longText('file_attchment_pending_sample')->nullable();
 
 
-
-
-
-
             $table->string('status')->nullable();
             $table->integer('stage')->nullable();
 
             $table->string('submitted_by')->nullable();
             $table->string('submitted_on')->nullable();
+            $table->string('submitted_comment')->nullable();
+
+            $table->string('sample_req_approval_done_by')->nullable();
+            $table->string('sample_req_approval_done_on')->nullable();
+            $table->string('sample_req_approval_done_comment')->nullable();
+
+            $table->string('sample_received_completed_by')->nullable();
+            $table->string('sample_received_completed_on')->nullable();
+            $table->string('sample_received_completed_comment')->nullable();
+
+
             // $table->string('qA_review_complete_by')->nullable();
             // $table->string('qA_review_complete_on')->nullable();
             $table->string('cancelled_by')->nullable();
             $table->string('cancelled_on')->nullable();
+            $table->string('cancelled_comment')->nullable();
+
 
             $table->timestamps();
         });

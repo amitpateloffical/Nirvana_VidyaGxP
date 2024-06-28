@@ -254,7 +254,7 @@
                                         value="{{ Helpers::getDivisionName(session()->get('division')) }}/RCA/{{ Helpers::year($data->created_at) }}/{{ $data->record }}">
                                     </div>
                                 </div>
-                                   
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code </b></label>
@@ -279,13 +279,13 @@
                                             <input type="hidden" value="{{ date('d-m-Y') }}" name="intiation_date">
                                         </div>
                                     </div>
-                                     
+
                                     <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Initiator Group"><b>Initiator Group</b></label>
                                             <select name="initiator_Group"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}}
                                                  id="initiator_group">
-                                               
+
                                                 <option value="CQA"
                                                     @if ($data->initiator_Group== 'CQA') selected @endif>Corporate
                                                     Quality Assurance</option>
@@ -349,17 +349,17 @@
                                                 readonly>
                                         </div>
                                     </div>
-                                   
+
                                     <div class="col-12">
                                                 <div class="group-input">
                                                     <label for="Short Description">Short Description<span
                                                             class="text-danger">*</span></label><span id="rchars">255</span>
                                                     characters remaining
-                                                    
+
                                                     <textarea name="short_description"   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->short_description }}</textarea>
                                                 </div>
                                                 <p id="docnameError" style="color:red">**Short Description is required</p>
-            
+
                                             </div>
                                     <div class="col-12">
                                         <div class="group-input">
@@ -403,12 +403,12 @@
                                     <div class="group-input input-date">
                                         <label for="Due Date"> Due Date</label>
                                         <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
-                                       
-                                            <input type="text" id="due_date" name="due_date" 
+
+                                            <input type="text" id="due_date" name="due_date"
                                                 placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}"min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" />
                                             <!-- <input type="date" name="due_date" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : ''}} min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" -->
- 
-                                    </div>  
+
+                                    </div>
                                  </div>                                  <!-- <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Initiator Group"><b>Initiator Group</b></label>
@@ -427,7 +427,7 @@
                                                     @if ($data->initiatorGroup == 'CQC') selected @endif>Manufacturing
                                                 </option>
                                                 <option value="PSG"
-                                                    @if ($data->initiatorGroup == 'PSG') selected @endif>Plasma 
+                                                    @if ($data->initiatorGroup == 'PSG') selected @endif>Plasma
                                                      Sourcing Group</option>
                                                 <option value="CS"
                                                     @if ($data->initiatorGroup == 'CS') selected @endif>Central
@@ -468,7 +468,7 @@
 
                                             </select>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Initiator Group Code">Initiator Group Code</label>
@@ -518,7 +518,7 @@
                                             <textarea {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} name="initiated_if_other">{{$data->initiated_if_other}}</textarea>
                                         </div>
                                     </div>
-                                     
+
                                     <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Type">Type</label>
@@ -543,7 +543,7 @@
                                             <label for="priority_level">Priority Level</label>
                                             <div><small class="text-primary">Choose high if Immidiate actions are
                                                     required</small></div>
-                                           
+
                                             <select {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} name="priority_level">
                                                 <!-- {{-- <option value="0">-- Select --</option>
                                                 <option value="low">Low</option>
@@ -552,7 +552,7 @@
                                                 <option value="0">-- Select --</option>
                                                 <option @if ($data->priority_level == 'low') selected @endif
                                                  value="low">Low</option>
-                                                <option  @if ($data->priority_level == 'medium') selected @endif 
+                                                <option  @if ($data->priority_level == 'medium') selected @endif
                                                 value="medium">Medium</option>
                                                 <option @if ($data->priority_level == 'high') selected @endif
                                                 value="high">High</option>
@@ -574,7 +574,7 @@
                                             </select>
                                         </div>
                                     </div> --}}
-                            
+
                                     <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="department">Department(s)</label>
@@ -594,7 +594,7 @@
                                     <div class="col-12">
                                         <div class="group-input">
                                             <label for="description">Description</label>
-                                         
+
                                             <textarea name="description"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>{{ $data->description }}</textarea>
                                         </div>
                                     </div>
@@ -626,7 +626,7 @@
                                                 </div>
                                                 <div class="add-btn">
                                                     <div>Add</div>
-                                                    
+
                                                     <input type="file" id="myfile" name="root_cause_initial_attachment[]"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
                                                         oninput="addMultipleFiles(this, 'root_cause_initial_attachment')"
                                                         multiple>
@@ -645,11 +645,11 @@
                                             </select>
                                         </div>
                                     </div>  -->
-                                    
+
                                     <div class="col-12">
                                <div class="group-input">
                               <label for="related_url">Related URL</label>
-                           <input name="related_url" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} value="{{ $data->related_url }}"> 
+                           <input name="related_url" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }} value="{{ $data->related_url }}">
                        </div>
                      </div>
 
@@ -661,7 +661,7 @@
                                 </div>
                             </div>
                         </div>
-     
+
                         <div id="CCForm2" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                                 <div class="row">
@@ -737,7 +737,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                     
+
                                     <div class="col-12 sub-head"></div>
                                     <div class="col-12 mb-4">
                                         <div class="group-input">
@@ -822,7 +822,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <input name="risk_control_measure[]" type="text" value="{{ unserialize($data->risk_control_measure)[$key] ?? null }}" >
-                                                                     
+
                                                                 </td>
                                                                 <td>
                                                                     <select onchange="calculateResidualResult(this)" class="residual-fieldR" name="residual_severity[]">
@@ -831,7 +831,7 @@
                                                                         <option value="2"  {{ (unserialize($data->residual_severity)[$key] ?? null)== 2 ? 'selected' :''}}>2</option>
                                                                         <option value="3"  {{ (unserialize($data->residual_severity)[$key] ?? null)== 3 ? 'selected' :''}}>3</option>
                                                                     </select>
-                                                                    
+
                                                                 </td>
                                                                 <td>
                                                                     <select onchange="calculateResidualResult(this)" class="residual-fieldP" name="residual_probability[]">
@@ -840,7 +840,7 @@
                                                                         <option value="2"  {{ (unserialize($data->residual_probability)[$key] ?? null)== 2 ? 'selected' :''}}>2</option>
                                                                         <option value="3"  {{ (unserialize($data->residual_probability)[$key] ?? null)== 3 ? 'selected' :''}}>3</option>
                                                                     </select>
-                                                                     
+
                                                                 </td>
 
                                                                 <td>
@@ -851,7 +851,7 @@
                                                                         <option value="3"  {{ (unserialize($data->residual_detectability)[$key] ?? null)== 3 ? 'selected' :''}}>3</option>
                                                                     </select>
                                                                 </td>
-                                                               
+
 
                                                                 <td>
                                                                     <input name="residual_rpn[]" class='residual-rpn'  disabled ="text" value="{{ unserialize($data->residual_rpn)[$key] ?? null }}" >
@@ -866,7 +866,7 @@
                                                                 <td>
                                                                     <input name="mitigation_proposal[]" type="text" value="{{ unserialize($data->mitigation_proposal)[$key] ?? null }}" >
                                                                 </td>
-                                                            </tr>    
+                                                            </tr>
                                                             @endforeach
                                                         @endif
                                                     </tbody>
@@ -942,11 +942,11 @@
                                                 </div>
                                                 <div class="right-group">
                                                     <div class="field-name">
-                                                        Problem Statement 
+                                                        Problem Statement
                                                     </div>
                                                     <div class="field">
                                                           <textarea name="problem_statement"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>{{ $data->problem_statement }}</textarea>
-                                                      
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -971,7 +971,7 @@
                                                               <td>
                                                             <textarea name="why_problem_statement">{{ $data->why_problem_statement }}</textarea>
                                                         </td>
-                                                            
+
                                                         </tr>
                                                         <tr class="why-row">
                                                             <th style="width:150px; color: #393cd4;">
@@ -1269,7 +1269,7 @@
                                             <label for="Country">Country</label>
                                             <select name="country" class="countries" id="country">
                                                 <option value="">Select Country</option>
-    
+
                                             </select>
                                         </div>
                                     </div>
@@ -1286,12 +1286,12 @@
                                             <label for="City">City</label>
                                             <select name="city" class="cities" id="city">
                                                 <option value="">Select City</option>
-    
+
                                             </select>
                                         </div>
                                     </div> --}}
                                 </div>
-                             
+
                                 <div class="button-block">
                                     <button type="submit" class="saveButton"
                                         {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>Save</button>
@@ -1304,14 +1304,14 @@
                             </div>
                         </div>
 
-                       
+
                         <div id="CCForm4" class="inner-block cctabcontent">
                             <div class="inner-block-content">
                              <!-- <div class="sub-head">
                                     CFT Feedback
                                 </div>  -->
                                 <div class="row">
-    
+
                                 <div class="col-lg-12">
                                         <div class="group-input">
                                             <label for="comments">Final Comments</label>
@@ -1346,18 +1346,18 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+
                                 <div class="button-block">
                                     <button type="submit" class="saveButton">Save</button>
                                     <button type="button" class="backButton" onclick="previousStep()">Back</button>
                                     <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                                     <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                             Exit </a> </button>
-    
+
                                 </div>
                             </div>
-                        </div> 
- 
+                        </div>
+
                         <div id="CCForm7" class="inner-block cctabcontent">
                             <div class="inner-block-content">
                                 <div class="row">
@@ -1469,7 +1469,7 @@
                         <div class="modal-footer">
                             <button type="submit">Submit</button>
                               <button type="button" data-bs-dismiss="modal">Close</button>
-                            
+
                    </div>
                     </form>
                 </div>
@@ -1695,12 +1695,12 @@ function add4Input_case(tableId) {
           <script>
                       document.addEventListener('DOMContentLoaded', function () {
                           const removeButtons = document.querySelectorAll('.remove-file');
-          
+
                           removeButtons.forEach(button => {
                               button.addEventListener('click', function () {
                                   const fileName = this.getAttribute('data-file-name');
                                   const fileContainer = this.closest('.file-container');
-          
+
                                   // Hide the file container
                                   if (fileContainer) {
                                       fileContainer.style.display = 'none';
@@ -1709,7 +1709,7 @@ function add4Input_case(tableId) {
                           });
                       });
                   </script>
-       
+
             <script>
         function calculateInitialResult(selectElement) {
             let row = selectElement.closest('tr');
@@ -1736,7 +1736,7 @@ function add4Input_case(tableId) {
             var selectedValue = this.value;
             document.getElementById('initiator_group_code').value = selectedValue;
         });
-        
+
         function setCurrentDate(item){
             if(item == 'yes'){
                 $('#effect_check_date').val('{{ date('d-M-Y')}}');
@@ -1746,7 +1746,7 @@ function add4Input_case(tableId) {
             }
         }
     </script>
-    
+
      <script>
                     document.getElementById('initiator_group').addEventListener('change', function() {
                         var selectedValue = this.value;
@@ -1756,12 +1756,12 @@ function add4Input_case(tableId) {
                  <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         const removeButtons = document.querySelectorAll('.remove-file');
-        
+
                         removeButtons.forEach(button => {
                             button.addEventListener('click', function () {
                                 const fileName = this.getAttribute('data-file-name');
                                 const fileContainer = this.closest('.file-container');
-        
+
                                 // Hide the file container
                                 if (fileContainer) {
                                     fileContainer.style.display = 'none';
@@ -1769,8 +1769,8 @@ function add4Input_case(tableId) {
                             });
                         });
                     });
-                </script>    
-       
+                </script>
+
         <script>
         var maxLength = 255;
         $('#docname').keyup(function() {

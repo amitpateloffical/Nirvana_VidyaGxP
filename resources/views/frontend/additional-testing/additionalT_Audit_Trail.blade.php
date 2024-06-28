@@ -363,6 +363,7 @@
                             $previousItem = null;
                         @endphp
 
+
                         @foreach ($audit as $audits => $dataDemo)
                         <td>{{ $audits + 1 }} </td>
                         {{--{{ $dataDemo ? ($audit->current() - 1) * $audit->perPage() + $audits + 1 : 'Not Applicable' }}

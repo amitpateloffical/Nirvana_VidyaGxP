@@ -513,6 +513,13 @@ Route::get('create',[ResamplingController::class,'create'])->name('resampling_cr
 Route::get('resampling_view/{id}/edit',[ResamplingController::class,'edit'])->name('resampling_edit');
 Route::post('resampling_updated/{id}',[ResamplingController::class,'update'])->name('resampling_update');
 
+Route::post('Rsendstage/{id}',[ResamplingController::class,'send_stage'])->name('Rsend_stage');
+Route::post('sendstage2/{id}',[ResamplingController::class,'Rsend_stage2'])->name('Rsend_stage2');
+Route::post('Rrequestmoreinfo_back_stage/{id}',[ResamplingController::class,'requestmoreinfo_back_stage'])->name('Rrequestmoreinfo_back_stage');
+Route::post('cancel_stage/{id}', [ResamplingController::class, 'cancel_stage'])->name('cancel_stageR');;
+Route::post('thirdStage/{id}', [ResamplingController::class, 'stageChange'])->name('thirdStage');
+
+
 //!============================== Verification form  =============================================
 // Route::get('oos_micro', [OOSMicroController::class, 'index'])->name('oos_micro.index');
 // Route::post('oos_micro_store', [OOSMicroController::class, 'store'])->name('oos_micro.store');
