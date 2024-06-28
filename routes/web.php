@@ -539,3 +539,8 @@ Route::view('OOT_form', 'frontend.OOT.OOT_form');
 // ===============Additional Testing==========================\
 Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
 
+
+// Supplier route==================
+Route::view('supplier_new', 'frontend.supplier(SQM).supplier_new');
+
+
