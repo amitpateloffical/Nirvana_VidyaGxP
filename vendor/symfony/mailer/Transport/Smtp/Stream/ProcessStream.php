@@ -24,10 +24,16 @@ use Symfony\Component\Mailer\Exception\TransportException;
 final class ProcessStream extends AbstractStream
 {
     private string $command;
+    private bool $interactive = false;
 
     public function setCommand(string $command): void
     {
         $this->command = $command;
+    }
+
+    public function setInteractive(bool $interactive): void
+    {
+        $this->interactive = $interactive;
     }
 
     public function initialize(): void
@@ -46,12 +52,14 @@ final class ProcessStream extends AbstractStream
         $this->in = &$pipes[0];
         $this->out = &$pipes[1];
         $this->err = &$pipes[2];
+        $this->err = &$pipes[2];
     }
 
     public function terminate(): void
     {
         if (null !== $this->stream) {
             fclose($this->in);
+            $out = stream_get_contents($this->out);
             $out = stream_get_contents($this->out);
             fclose($this->out);
             $err = stream_get_contents($this->err);
@@ -62,6 +70,10 @@ final class ProcessStream extends AbstractStream
         }
 
         parent::terminate();
+
+        if (!$this->interactive && isset($errorMessage)) {
+            throw new TransportException($errorMessage);
+        }
     }
 
     protected function getReadConnectionDescription(): string

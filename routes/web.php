@@ -1,41 +1,46 @@
 <?php
 
-use App\Http\Controllers\ActionItemController;
-use App\Http\Controllers\OpenStageController;
-use App\Http\Controllers\rcms\InternalauditController;
-use App\Http\Controllers\rcms\RootCauseController;
-use App\Http\Controllers\rcms\SupplierController;
-use App\Http\Controllers\TMSController;
-use App\Http\Controllers\RiskManagementController;
-use App\Http\Controllers\ChangeControlController;
-use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\DocumentDetailsController;
-use App\Http\Controllers\rcms\DesktopController;
-use App\Http\Controllers\UserLoginController;
-use App\Http\Controllers\MytaskController;
+use App\Http\Controllers\AdditionalTestingController;
+use App\Http\Controllers\AnalystInterviewController;
 use App\Http\Controllers\CabinateController;
-use App\Http\Controllers\rcms\CCController;
-use App\Http\Controllers\rcms\EffectivenessCheckController;
-use App\Http\Controllers\rcms\ObservationController;
+use App\Http\Controllers\rcms\SupplierController;
+use App\Http\Controllers\ChangeControlController;
 use App\Http\Controllers\rcms\CountrySubDataController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentContentController;
+use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\DocumentDetailsController;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\MytaskController;
+use App\Http\Controllers\newForm\MedicalRegistrationController;
+use App\Http\Controllers\OpenStageController;
 use App\Http\Controllers\rcms\AuditeeController;
-use App\Http\Controllers\rcms\CapaController;
-use App\Http\Controllers\rcms\LabIncidentController;
 use App\Http\Controllers\rcms\AuditProgramController;
+use App\Http\Controllers\rcms\CapaController;
+use App\Http\Controllers\rcms\CCController;
 use App\Http\Controllers\rcms\CustomerController;
+use App\Http\Controllers\rcms\DesktopController;
+use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\rcms\EffectivenessCheckController;
 use App\Http\Controllers\rcms\ExtensionController;
+use App\Http\Controllers\rcms\InternalauditController;
+use App\Http\Controllers\rcms\LabIncidentController;
 use App\Http\Controllers\rcms\ManagementReviewController;
+use App\Http\Controllers\rcms\ObservationController;
 use App\Http\Controllers\rcms\RcmsDashboardController;
+use App\Http\Controllers\rcms\RootCauseController;
+use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\tms\QuestionBankController;
 use App\Http\Controllers\tms\QuestionController;
 use App\Http\Controllers\tms\QuizeController;
-use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\TMSController;
+use App\Http\Controllers\UserLoginController;
 use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\ResamplingController;
+use App\Http\Controllers\VerificationController;
+use App\Models\AnalystInterview;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,13 +64,12 @@ Route::get('/error', function () {
 })->name('error.route');
 Route::view('rcms_check', 'frontend.rcms.makePassword');
 
-
 //!---------------- starting login  ---------------------------//
 
 Route::get('/', [UserLoginController::class, 'userlogin']);
 Route::view('forgot-password', 'frontend.forgot-password');
-Route::get('reset-password/{token}', [UserLoginController::class,'resetPage']);
-Route::post('reset-password', [UserLoginController::class,'UpdateNewPassword']);
+Route::get('reset-password/{token}', [UserLoginController::class, 'resetPage']);
+Route::post('reset-password', [UserLoginController::class, 'UpdateNewPassword']);
 Route::get('forgetPassword-user', [UserLoginController::class, 'forgetPassword']);
 
 // Route::view('dashboard', 'frontend.dashboard');
@@ -89,9 +93,9 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     //Route::post('set/division', [DocumentController::class, 'division'])->name('division_submit');
     Route::post('dcrDivision', [DocumentController::class, 'dcrDivision'])->name('dcrDivision_submit');
     Route::get('documents/generatePdf/{id}', [DocumentController::class, 'createPDF']);
-    
+
     Route::get('documents/reviseCreate/{id}', [DocumentController::class, 'revise_create']);
-    
+
     Route::get('documents/printPDF/{id}', [DocumentController::class, 'printPDF']);
     Route::get('documents/viewpdf/{id}', [DocumentController::class, 'viewPdf']);
     Route::resource('documentsContent', DocumentContentController::class);
@@ -139,7 +143,18 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     Route::get('data/{id}', [QuizeController::class, 'datag'])->name('data');
     Route::get('datag/{id}', [QuizeController::class, 'data'])->name('datag');
     //-----------------------QMS----------------
-    Route::get('qms-dashboard', [RcmsDashboardController::class, 'index']);
+    // Route::get('qms-dashboard', [RcmsDashboardController::class, 'index']);
+});
+
+// =======================medicsl device //==============================
+
+Route::middleware(['auth'])->group(function () {
+
+Route::get('/medical_device_registration', [MedicalRegistrationController::class, 'index'])->name('auth');
+Route::post('medicalstore',[MedicalRegistrationController::class,'medicalCreate'])->name('medical.store');
+Route::get('medicalupdate/{id}/edit',[MedicalRegistrationController::class,'medicalEdit'])->name('medical_edit');
+Route::put('medicalupdated/{id}',[MedicalRegistrationController::class,'medicalUpdate'])->name('medical.update');
+    // Route::get('/your-route', [YourController::class, 'yourMethod']);
 });
 
 // ====================================Capa=======================
@@ -181,9 +196,7 @@ Route::post('reject_Risk/{id}', [RiskManagementController::class, 'RejectStateCh
 
 Route::get('riskAuditTrial/{id}', [RiskManagementController::class, 'riskAuditTrial']);
 Route::get('auditDetailsrisk/{id}', [RiskManagementController::class, 'auditDetailsrisk'])->name('showriskAuditDetails');
-Route::post('child/{id}',[RiskManagementController::class,'child'])->name('riskAssesmentChild');
-
-
+Route::post('child/{id}', [RiskManagementController::class, 'child'])->name('riskAssesmentChild');
 
 // ======================================================
 //============================Supplier Observation by pramod=======================================
@@ -211,7 +224,6 @@ Route::get('countryAuditTrail/{id}',[CountrySubDataController::class,'countryAud
 // =================QRM fORM=====================================
 Route::view('qrm', 'frontend.QRM.qrm');
 
-
 // ====================================root cause analysis=======================
 Route::get('root-cause-analysis', [RootCauseController::class, 'rootcause']);
 Route::post('rootstore', [RootCauseController::class, 'root_store'])->name('root_store');
@@ -222,8 +234,6 @@ Route::post('root/cancel/{id}', [RootCauseController::class, 'root_Cancel'])->na
 Route::post('root/reject/{id}', [RootCauseController::class, 'root_reject'])->name('root_reject');
 Route::get('rootAuditTrial/{id}', [RootCauseController::class, 'rootAuditTrial']);
 Route::get('auditDetailsRoot/{id}', [RootCauseController::class, 'auditDetailsroot'])->name('showrootAuditDetails');
-
-
 
 // ====================================InternalauditController=======================
 Route::post('internalauditreject/{id}', [InternalauditController::class, 'RejectStateChange']);
@@ -252,11 +262,6 @@ Route::post('StageChangeLabIncident/{id}', [LabIncidentController::class, 'LabIn
 Route::post('LabIncidentCancel/{id}', [LabIncidentController::class, 'LabIncidentCancelStage']);
 
 Route::get('audit-program', [AuditProgramController::class, 'auditprogram']);
-
-
-
-
-
 
 Route::get('data-fields', function () {
     return view('frontend.data-fields');
@@ -304,7 +309,6 @@ Route::view('edit-question', 'frontend.TMS.edit-question');
 Route::view('change-control-list', 'frontend.change-control.change-control-list');
 Route::view('auditReport', 'frontend.deviation_report.auditReport');
 
-
 Route::view('change-control-list-print', 'frontend.change-control.change-control-list-print');
 
 Route::view('change-control-view', 'frontend.change-control.change-control-view');
@@ -314,21 +318,21 @@ Route::view('reviewer-panel', 'frontend.change-control.reviewer-panel');
 Route::view('change-control-form', 'frontend.change-control.data-fields');
 
 //Route::view('new-change-control', 'frontend.change-control.new-change-control');
-Route::get("new-change-control", [CCController::class, "changecontrol"]);
+Route::get('new-change-control', [CCController::class, 'changecontrol']);
 
 Route::view('audit-pdf', 'frontend.documents.audit-pdf');
 
 //! ============================================
 //!                    RCMS
 //! ============================================
-Route::get('chart-data',[DesktopController::class, 'fetchChartData']);
-Route::get('chart-data-releted',[DesktopController::class, 'fetchChartDataDepartmentReleted']);
-Route::get('chart-data-initialDeviationCategory',[DesktopController::class, 'fetchChartDataInitialDeviationCategory']);
-Route::get('chart-data-postCategorizationOfDeviation',[DesktopController::class, 'fetchChartDataPostCategorizationOfDeviation']);
-Route::get('chart-data-capa',[DesktopController::class, 'fetchChartDataCapa']);
+Route::get('chart-data', [DesktopController::class, 'fetchChartData']);
+Route::get('chart-data-releted', [DesktopController::class, 'fetchChartDataDepartmentReleted']);
+Route::get('chart-data-initialDeviationCategory', [DesktopController::class, 'fetchChartDataInitialDeviationCategory']);
+Route::get('chart-data-postCategorizationOfDeviation', [DesktopController::class, 'fetchChartDataPostCategorizationOfDeviation']);
+Route::get('chart-data-capa', [DesktopController::class, 'fetchChartDataCapa']);
 
-Route::get('chart-data-dep',[DesktopController::class, 'fetchChartDataDepartment']);
-Route::get('chart-data-statuswise',[DesktopController::class, 'fatchStatuswise']);
+Route::get('chart-data-dep', [DesktopController::class, 'fetchChartDataDepartment']);
+Route::get('chart-data-statuswise', [DesktopController::class, 'fatchStatuswise']);
 
 Route::view('rcms_login', 'frontend.rcms.login');
 
@@ -346,10 +350,9 @@ Route::view('Supplier-Dashboard-Report', 'frontend.rcms.Supplier-Dashboard');
 
 Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 
-
 //! ============================================
 //!                    FORMS
-//! ============================================ 
+//! ============================================
 
 
 Route::view('deviation', 'frontend.forms.deviation');
@@ -369,7 +372,6 @@ Route::view('out-of-specification', 'frontend.forms.out-of-specification');
 
 // Route::view('risk-management', 'frontend.forms.risk-management');
 
-
 Route::view('action-item', 'frontend.forms.action-item');
 
 // Route::view('effectiveness-check', 'frontend.forms.effectiveness-check');
@@ -379,9 +381,6 @@ Route::view('quality-event', 'frontend.forms.quality-event');
 
 Route::view('vendor-entity', 'frontend.forms.vendor-entity');
 Route::view('deviation_new', 'frontend.forms.deviation_new');
-
-
-
 
 // -------------------------------------ehs---------forms--------
 Route::view('recurring_commitment', 'frontend.ehs.recurring_commitment');
@@ -395,7 +394,6 @@ Route::view('ehs_event', 'frontend.ehs.ehs_event');
 Route::view('effectiveness', 'frontend.ehs.effectiveness');
 Route::view('capa', 'frontend.ehs.capa');
 Route::view('action_item', 'frontend.ehs.action_item');
-
 
 // --------------------------------------ctms-------forms-------
 
@@ -440,15 +438,13 @@ Route::view('calibration', 'frontend.new_forms.calibration');
 Route::view('self-inspection', 'frontend.new_forms.self-inspection');
 Route::view('meeting-management', 'frontend.new_forms.meeting-management');
 
-
-
 // ------------------------------R T Form--------------------//
 Route::view('national-approval', 'frontend.Registration-Tracking.national-approval');
 Route::view('variation', 'frontend.Registration-Tracking.variation');
 Route::view('PSUR', 'frontend.Registration-Tracking.PSUR');
 Route::view('dosier-documents', 'frontend.Registration-Tracking.dosier-documents');
-Route::view('commitment', 'frontend.Registration-Tracking.commitment');
-
+Route::view('commit
+ment', 'frontend.Registration-Tracking.commitment');
 
 //--------------------------------ERRATA-----form---------------//
 Route::view('errata', 'frontend.ERRATA.errata');
@@ -461,24 +457,15 @@ Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
 
 Route::view('incident', 'frontend.Incident.incident');
 
-
-
-
 // -------------------------OOS-----------------
 Route::view('oos-form', 'frontend.OOS.oos-form');
-
-
-
-
-
-
 
 Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
 Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');
 Route::view('correspondence', 'frontend.New_forms.correspondence');
 Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
 Route::view('read_and_understand', 'frontend.New_forms.read_and_understand');
-Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
+// Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
 
@@ -508,8 +495,6 @@ Route::view('supplier-investigation', 'frontend.forms.supplier-investigation');
 
 Route::view('supplier-issue-notification', 'frontend.forms.supplier-issue-notification');
 
-
-
 // Route::view('audit', 'frontend.forms.audit');
 Route::get('audit', [InternalauditController::class, 'internal_audit']);
 
@@ -535,11 +520,147 @@ Route::view('help-desk-incident', 'frontend.forms.help-desk-incident');
 
 Route::view('review-management-report', 'frontend.review-management.review-management-report');
 
-
 //! ============================================
 //!                    External Audit
 //! ============================================
 
-
 // ===============OOt form==========================\
 Route::view('OOT_form', 'frontend.OOT.OOT_form');
+
+//====-------------- Resampling Form------------=========
+
+Route::view('resampling_new','frontend.OOS.resampling_new');
+Route::view('resampling_view','frontend.OOS.resampling_view');
+
+Route::post('store',[ResamplingController::class,'store'])->name('resampling_store');
+Route::get('create',[ResamplingController::class,'create'])->name('resampling_create');
+Route::get('resampling_view/{id}/edit',[ResamplingController::class,'edit'])->name('resampling_edit');
+Route::post('resampling_updated/{id}',[ResamplingController::class,'update'])->name('resampling_update');
+
+//!============================== Verification form  =============================================
+// Route::get('oos_micro', [OOSMicroController::class, 'index'])->name('oos_micro.index');
+// Route::post('oos_micro_store', [OOSMicroController::class, 'store'])->name('oos_micro.store');
+// Route::get('oos_micro_edit/{id}',[OOSMicroController::class, 'edit'])->name('oos_micro.edit');
+// Route::post('oos_micro_update/{id}',[OOSMicroController::class, 'update'])->name('oos_micro.update');
+
+Route::view('verification', 'frontend.verification.verification')->name('verification');
+Route::post('verification_store', [VerificationController::class, 'store'])->name('verification_store');
+Route::get('verification_edit/{id}',[VerificationController::class, 'edit'])->name('verification_edit');
+Route::post('verification_update/{id}',[VerificationController::class, 'update'])->name('verification_update');
+
+Route::post('Vsendstage/{id}',[VerificationController::class,'send_stage'])->name('Vsend_stage');
+Route::post('sendstage2/{id}',[VerificationController::class,'Vsend_stage2'])->name('Vsend_stage2');
+
+Route::post('Vrequestmoreinfo_back_stage/{id}',[VerificationController::class,'requestmoreinfo_back_stage'])->name('Vrequestmoreinfo_back_stage');
+Route::post('cancel_stage/{id}', [VerificationController::class, 'cancel_stage'])->name('Vcancel_stage');;
+Route::post('thirdStage/{id}', [VerificationController::class, 'stageChange'])->name('thirdStage');
+Route::post('Vstore_audit_review/{id}', [VerificationController::class, 'store_audit_review'])->name('Vstore_audit_review');
+Route::get('Vaudit_details/{id}', [VerificationController::class, 'auditDetails'])->name('Vaudit_details');
+
+Route::get('Vaudit_report/{id}', [VerificationController::class, 'auditReport'])->name('Vaudit_report');
+Route::get('Vsingle_report/{id}', [VerificationController::class, 'singleReport'])->name('Vsingle_report');
+Route::get('Vaudit_trial/{id}', [VerificationController::class, 'AuditTrial'])->name('Vaudit_trial');
+
+
+
+//============================= Analyst Interview  =====================================================
+
+Route::view('analyst_interview','analystInterview.analystInterview_new');
+Route::view('analyst_interview','analystInterview.analystInterview_new')->name('analyst_interview');
+
+Route::post('analystinterview_store', [AnalystInterviewController::class, 'store'])->name('analystinterview_store');
+Route::get('analystinterview_edit/{id}',[AnalystInterviewController::class, 'edit'])->name('analystinterview_edit');
+Route::post('analystinterview_update/{id}',[AnalystInterviewController::class, 'update'])->name('analystinterview_update');
+
+Route::post('sendstage/{id}',[AnalystInterviewController::class,'send_stage'])->name('AIsend_stage');
+Route::post('requestmoreinfo_back_stage/{id}',[AnalystInterviewController::class,'requestmoreinfo_back_stage'])->name('AIrequestmoreinfo_back_stage');
+Route::post('cancel_stage/{id}', [AnalystInterviewController::class, 'cancel_stage'])->name('AIcancel_stage');;
+Route::post('thirdStage/{id}', [AnalystInterviewController::class, 'stageChange'])->name('thirdStage');
+Route::post('AuditTrial/{id}', [AnalystInterviewController::class, 'store_audit_review'])->name('AIstore_audit_review');
+Route::get('auditDetails/{id}', [AnalystInterviewController::class, 'auditDetails'])->name('AIaudit_details');
+Route::get('AIaudit_report/{id}', [AnalystInterviewController::class, 'auditReport'])->name('AIaudit_report');
+Route::get('AIsingle_report/{id}', [AnalystInterviewController::class, 'singleReport'])->name('AIsingle_report');
+Route::get('AIAuditTrial/{id}', [AnalystInterviewController::class, 'AuditTrial'])->name('AIaudit_trial');
+
+// ===============Additional Testing==========================\
+Route::view("additional_testing", 'frontend.additional-testing.additional_testing')->name('additional_testing');
+Route::post('additionaltesting_store', [AdditionalTestingController::class, 'store'])->name('additionaltesting_store');
+Route::get('additionaltesting_edit/{id}',[AdditionalTestingController::class, 'edit'])->name('additionaltesting_edit');
+Route::post('additionaltesting_update/{id}',[AdditionalTestingController::class, 'update'])->name('additionaltesting_update');
+
+Route::post('sendstageat/{id}',[AdditionalTestingController::class,'send_stage'])->name('ATsend_stage');
+Route::post('request_more_info_back_stage/{id}',[AdditionalTestingController::class,'requestmoreinfo_back_stage'])->name('ATrequest_more_info_back_stage');
+
+Route::post('send_back_stage_to4/{id}',[AdditionalTestingController::class,'send_stageto4'])->name('send_stageto4');
+
+Route::post('cancel_stages/{id}', [AdditionalTestingController::class, 'cancel_stages'])->name('ATcancel_stages');
+Route::post('thirdStage/{id}', [AdditionalTestingController::class, 'stageChange'])->name('thirdStage');
+Route::post('AuditTrial/{id}', [AdditionalTestingController::class, 'store_audit_review'])->name('ATstore_audit_review');
+Route::get('auditDetails_at/{id}', [AdditionalTestingController::class, 'auditDetails'])->name('auditDetails_at');
+Route::get('ATaudit_report/{id}', [AdditionalTestingController::class, 'auditReport'])->name('ATaudit_report');
+Route::get('ATsingle_report/{id}', [AdditionalTestingController::class, 'singleReport'])->name('ATsingle_report');
+Route::get('AuditTrial/{id}', [AdditionalTestingController::class, 'AuditTrial'])->name('ATaudit_trial');
+
+
+
+// Route::get('/additional_testing_view/{id}', [AdditionalTestingController::class, 'edit']);
+// Route::view("additional_testing_view", 'frontend.additional-testing.additional_testing_view');
+// Route::post('additional_testing_store', [AdditionalTestingController::class, 'store'])->name('at_store');
+// Route::get('additional_testing/{id}', [AdditionalTestingController::class, 'edit'])->name('at_edit');
+
+// Route::view('/additional_testing_view','frontend.additional-testing.additional_testing_view')->name('at_update');
+Route::post('additional_testing_update/{id}', [AdditionalTestingController::class, 'update'])->name('at_update');
+
+
+
+
+
+// Route::post('sendstage/{id}',[DosierDocumentsController::class,'send_stage'])->name('send_stage');
+// Route::post('requestmoreinfo_back_stage/{id}',[DosierDocumentsController::class,'requestmoreinfo_back_stage'])->name('requestmoreinfo_back_stage');
+// Route::post('cancel_stage/{id}', [DosierDocumentsController::class, 'cancel_stage'])->name('cancel_stage');;
+// Route::post('thirdStage/{id}', [DosierDocumentsController::class, 'stageChange'])->name('thirdStage');
+// Route::get('AuditTrial/{id}', [DosierDocumentsController::class, 'AuditTrial'])->name('audit_trial');
+// Route::post('AuditTrial/{id}', [DosierDocumentsController::class, 'store_audit_review'])->name('store_audit_review');
+// Route::get('auditDetails/{id}', [DosierDocumentsController::class, 'auditDetails'])->name('audit_details');
+
+// Route::get('audit_report/{id}', [DosierDocumentsController::class, 'auditReport'])->name('audit_report');
+// Route::get('single_report/{id}', [DosierDocumentsController::class, 'singleReport'])->name('single_report');
+
+
+
+
+
+// Route::post('oos_micro/requestmoreinfo_back_stage/{id}',[OOSMicroController::class,'requestmoreinfo_back_stage'])->name('requestmoreinfo_back_stage');
+// Route::post('oos_micro/assignable_send_stage/{id}',[OOSMicroController::class,'assignable_send_stage'])->name('assignable_send_stage');
+// Route::post('oos_micro/cancel_stage/{id}', [OOSMicroController::class, 'cancel_stage'])->name('cancel_stage');;
+// Route::post('oos_micro/thirdStage/{id}', [OOSMicroController::class, 'stageChange'])->name('thirdStage');
+// Route::post('oos_micro/reject_stage/{id}', [OOSMicroController::class, 'reject_stage'])->name('reject_stage');
+// Route::get('oos_micro/AuditTrial/{id}', [OOSMicroController::class, 'AuditTrial'])->name('audit_trial');
+// Route::get('oos_micro/auditDetails/{id}', [OOSMicroController::class, 'auditDetails'])->name('audit_details');
+//==================================================================================
+// Route::post('medicalstore',[MedicalRegistrationController::class,'medicalCreate'])->name('medical.store');
+// Route::get('medicalupdate/{id}/edit',[MedicalRegistrationController::class,'medicalEdit'])->name('medical_edit');
+// Route::put('medicalupdated/{id}',[MedicalRegistrationController::class,'medicalUpdate'])->name('medical.update');
+
+
+
+// Route::view('deviation', 'frontend.forms.deviation');
+// Route::post('deviation_child/{id}', [DeviationController::class, 'deviation_child_1'])->name('deviation_child_1');
+// Route::get('DeviationAuditTrial/{id}', [DeviationController::class, 'DeviationAuditTrial']);
+// Route::get('DeviationAuditTrialDetails/{id}', [DeviationController::class, 'DeviationAuditTrialDetails']);
+// Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
+// Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+
+
+
+
+
+// ========recommended action===============
+Route::view('recommended_action_new', 'frontend.OOS.recommended_action');
+
+// ========follow up task===============
+Route::view('follow_up_task', 'frontend.newform.follow_up_task');
+
+
+// ========Hypothesis ===============
+Route::view('hypothesis', 'frontend.newform.hypothesis');

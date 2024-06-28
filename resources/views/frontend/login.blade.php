@@ -128,7 +128,7 @@
         #rcms_login_block .login-form-block .logo {
             width: 280px;
             margin: 0 auto 30px;
-            margin-top: 19px
+            margin-top: 17px;
         }
 
         /* #rcms_login_block .login-form-block .logo img {
@@ -143,7 +143,7 @@
             color: #817474;
             letter-spacing: 2px;
             padding-bottom: 15px;
-            margin-top: -46px;
+            margin-top: -25px;
             margin-bottom: 15px;
 
         }
@@ -241,8 +241,13 @@
     <div id="rcms_login_block" style="background-image: url('{{ asset('user/images/new2.jpg') }}')">
         <div class="login-form-block" style="background-image: url('{{ asset('user/images/background1.jpg') }}')">
             <div class="top-block">
-                <div class="logo">
-                    <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-100 h-100">
+                <div style="display: flex;" class="logo ">
+<div class="v_logo">
+    <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-100 h-100" style="scale: 1;">
+</div>        
+<div class="n_logo">
+    <img src="{{ asset('user/images/nirvana.png') }}" alt="..." class="w-100 h-100" style="scale:1;">
+</div>            
                 </div>
                 {{-- <div class="head">
                     Welcome to Doculife

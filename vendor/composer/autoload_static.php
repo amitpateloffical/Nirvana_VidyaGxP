@@ -408,8 +408,8 @@ class ComposerStaticInit32b19ce3f69434c2f000f287d2782722
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -657,6 +657,7 @@ class ComposerStaticInit32b19ce3f69434c2f000f287d2782722
         'App\\Http\\Controllers\\ImportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ImportController.php',
         'App\\Http\\Controllers\\MytaskController' => __DIR__ . '/../..' . '/app/Http/Controllers/MytaskController.php',
         'App\\Http\\Controllers\\OpenStageController' => __DIR__ . '/../..' . '/app/Http/Controllers/OpenStageController.php',
+        'App\\Http\\Controllers\\ResamplingController' => __DIR__ . '/../..' . '/app/Http/Controllers/ResamplingController.php',
         'App\\Http\\Controllers\\RiskManagementController' => __DIR__ . '/../..' . '/app/Http/Controllers/RiskManagementController.php',
         'App\\Http\\Controllers\\TMSController' => __DIR__ . '/../..' . '/app/Http/Controllers/TMSController.php',
         'App\\Http\\Controllers\\UserLoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserLoginController.php',
@@ -678,6 +679,7 @@ class ComposerStaticInit32b19ce3f69434c2f000f287d2782722
         'App\\Http\\Controllers\\admin\\RiskLevelController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/RiskLevelController.php',
         'App\\Http\\Controllers\\admin\\RoleGroupController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/RoleGroupController.php',
         'App\\Http\\Controllers\\admin\\UserManagementController' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/UserManagementController.php',
+        'App\\Http\\Controllers\\newForm\\MedicalRegistrationController' => __DIR__ . '/../..' . '/app/Http/Controllers/newForm/MedicalRegistrationController.php',
         'App\\Http\\Controllers\\rcms\\ActionItemController' => __DIR__ . '/../..' . '/app/Http/Controllers/rcms/ActionItemController.php',
         'App\\Http\\Controllers\\rcms\\AuditProgramController' => __DIR__ . '/../..' . '/app/Http/Controllers/rcms/AuditProgramController.php',
         'App\\Http\\Controllers\\rcms\\AuditeeController' => __DIR__ . '/../..' . '/app/Http/Controllers/rcms/AuditeeController.php',
@@ -785,6 +787,8 @@ class ComposerStaticInit32b19ce3f69434c2f000f287d2782722
         'App\\Models\\ManagementReview' => __DIR__ . '/../..' . '/app/Models/ManagementReview.php',
         'App\\Models\\ManagementReviewDocDetails' => __DIR__ . '/../..' . '/app/Models/ManagementReviewDocDetails.php',
         'App\\Models\\Material' => __DIR__ . '/../..' . '/app/Models/Material.php',
+        'App\\Models\\MedicalDeviceRegistration' => __DIR__ . '/../..' . '/app/Models/MedicalDeviceRegistration.php',
+        'App\\Models\\Medical_Device_Grid' => __DIR__ . '/../..' . '/app/Models/Medical_Device_Grid.php',
         'App\\Models\\Observation' => __DIR__ . '/../..' . '/app/Models/Observation.php',
         'App\\Models\\ObservationGrid' => __DIR__ . '/../..' . '/app/Models/ObservationGrid.php',
         'App\\Models\\OpenStage' => __DIR__ . '/../..' . '/app/Models/OpenStage.php',
@@ -806,6 +810,8 @@ class ComposerStaticInit32b19ce3f69434c2f000f287d2782722
         'App\\Models\\Recipent' => __DIR__ . '/../..' . '/app/Models/Recipent.php',
         'App\\Models\\RecordNumber' => __DIR__ . '/../..' . '/app/Models/RecordNumber.php',
         'App\\Models\\RefInfoComments' => __DIR__ . '/../..' . '/app/Models/RefInfoComments.php',
+        'App\\Models\\Resampling' => __DIR__ . '/../..' . '/app/Models/Resampling.php',
+        'App\\Models\\Resampling_Grid' => __DIR__ . '/../..' . '/app/Models/Resampling_Grid.php',
         'App\\Models\\RiskAssesmentGrid' => __DIR__ . '/../..' . '/app/Models/RiskAssesmentGrid.php',
         'App\\Models\\RiskAssessment' => __DIR__ . '/../..' . '/app/Models/RiskAssessment.php',
         'App\\Models\\RiskAuditTrail' => __DIR__ . '/../..' . '/app/Models/RiskAuditTrail.php',

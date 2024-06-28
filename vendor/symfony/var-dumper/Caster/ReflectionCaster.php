@@ -46,6 +46,7 @@ class ReflectionCaster
         $a = static::castFunctionAbstract($c, $a, $stub, $isNested, $filter);
 
         if (!str_contains($c->name, '{closure')) {
+        if (!str_contains($c->name, '{closure')) {
             $stub->class = isset($a[$prefix.'class']) ? $a[$prefix.'class']->value.'::'.$c->name : $c->name;
             unset($a[$prefix.'class']);
         }
@@ -89,13 +90,13 @@ class ReflectionCaster
         // Cannot create ReflectionGenerator based on a terminated Generator
         try {
             $reflectionGenerator = new \ReflectionGenerator($c);
+
+            return self::castReflectionGenerator($reflectionGenerator, $a, $stub, $isNested);
         } catch (\Exception) {
             $a[Caster::PREFIX_VIRTUAL.'closed'] = true;
 
             return $a;
         }
-
-        return self::castReflectionGenerator($reflectionGenerator, $a, $stub, $isNested);
     }
 
     /**
@@ -129,8 +130,16 @@ class ReflectionCaster
     public static function castAttribute(\ReflectionAttribute $c, array $a, Stub $stub, bool $isNested)
     {
         $map = [
+        $map = [
             'name' => 'getName',
             'arguments' => 'getArguments',
+        ];
+
+        if (\PHP_VERSION_ID >= 80400) {
+            unset($map['name']);
+        }
+
+        self::addMap($a, $c, $map);
         ];
 
         if (\PHP_VERSION_ID >= 80400) {
@@ -231,7 +240,7 @@ class ReflectionCaster
         if (isset($a[$prefix.'returnType'])) {
             $v = $a[$prefix.'returnType'];
             $v = $v instanceof \ReflectionNamedType ? $v->getName() : (string) $v;
-            $a[$prefix.'returnType'] = new ClassStub($a[$prefix.'returnType'] instanceof \ReflectionNamedType && $a[$prefix.'returnType']->allowsNull() && 'mixed' !== $v ? '?'.$v : $v, [class_exists($v, false) || interface_exists($v, false) || trait_exists($v, false) ? $v : '', '']);
+            $a[$prefix.'returnType'] = new ClassStub($a[$prefix.'returnType'] instanceof \ReflectionNamedType && $a[$prefix.'returnType']->allowsNull() && !\in_array($v, ['mixed', 'null'], true) ? '?'.$v : $v, [class_exists($v, false) || interface_exists($v, false) || trait_exists($v, false) ? $v : '', '']);
         }
         if (isset($a[$prefix.'class'])) {
             $a[$prefix.'class'] = new ClassStub($a[$prefix.'class']);
