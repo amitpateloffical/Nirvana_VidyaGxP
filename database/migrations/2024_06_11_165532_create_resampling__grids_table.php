@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('resampling__grids', function (Blueprint $table) {
             $table->id();
-            $table->integer('resampling_id')->default(0);
-            $table->string('identifier');
-            $table->longText('data')->nullable(); // Column to store serialized data.
+            $table->integer('r_id');
+            $table->string('identifer')->nullable();
+            $table->text('data')->nullable();
             $table->timestamps();
         });
 

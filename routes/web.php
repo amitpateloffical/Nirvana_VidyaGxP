@@ -529,13 +529,23 @@ Route::view('OOT_form', 'frontend.OOT.OOT_form');
 
 //====-------------- Resampling Form------------=========
 
-Route::view('resampling_new','frontend.OOS.resampling_new');
-Route::view('resampling_view','frontend.OOS.resampling_view');
+// Route::view('resampling_new','frontend.OOS.resampling_new');
+// Route::view('resampling_view','frontend.OOS.resampling_view');
 
-Route::post('store',[ResamplingController::class,'store'])->name('resampling_store');
-Route::get('create',[ResamplingController::class,'create'])->name('resampling_create');
-Route::get('resampling_view/{id}/edit',[ResamplingController::class,'edit'])->name('resampling_edit');
-Route::post('resampling_updated/{id}',[ResamplingController::class,'update'])->name('resampling_update');
+// Route::post('resampling_new',[ResamplingController::class,'store']);
+// Route::get('create',[ResamplingController::class,'create'])->name('resampling_create');
+// Route::get('resampling_view/{id}/edit',[ResamplingController::class,'edit'])->name('resampling_edit');
+// Route::post('resampling_updated/{id}',[ResamplingController::class,'update'])->name('resampling_update');
+
+Route::get('resampling_new',[ResamplingController::class,'create']);
+Route::post('resamplingStore',[ResamplingController::class,'resampling_store'])->name('resampling_store');
+Route::put('resamplingUpdate/{id}',[ResamplingController::class,'resampling_update'])->name('resampling_update');
+Route::get('resamplingshow/{id}',[ResamplingController::class,'resampling_show'])->name('resampling_show');
+Route::post('resampling/stage/{id}',[ResamplingController::class,'resampling_send_stage'])->name('resampling_send_stage');
+Route::post('resampling/cancle/{id}',[ResamplingController::class,'resampling_Cancle'])->name('resampling_Cancle');
+Route::post('resampling/reject/{id}',[ResamplingController::class,'resampling_reject'])->name('resampling_reject');
+Route::get('resamplingAuditTrail/{id}',[ResamplingController::class,'resamplingAuditTrail'])->name('resamplingAuditTrail');
+Route::get('resampling/auditDetails/{id}',[ResamplingController::class,'auditDetails'])->name('auditDetails');
 
 //!============================== Verification form  =============================================
 // Route::get('oos_micro', [OOSMicroController::class, 'index'])->name('oos_micro.index');

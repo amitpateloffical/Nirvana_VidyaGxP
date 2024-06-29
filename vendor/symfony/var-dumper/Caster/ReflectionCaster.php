@@ -46,33 +46,34 @@ class ReflectionCaster
         $a = static::castFunctionAbstract($c, $a, $stub, $isNested, $filter);
 
         if (!str_contains($c->name, '{closure')) {
-        if (!str_contains($c->name, '{closure')) {
-            $stub->class = isset($a[$prefix.'class']) ? $a[$prefix.'class']->value.'::'.$c->name : $c->name;
-            unset($a[$prefix.'class']);
+            if (!str_contains($c->name, '{closure')) {
+                $stub->class = isset($a[$prefix.'class']) ? $a[$prefix.'class']->value.'::'.$c->name : $c->name;
+                unset($a[$prefix.'class']);
+            }
+            unset($a[$prefix.'extra']);
+
+            $stub->class .= self::getSignature($a);
+
+            if ($f = $c->getFileName()) {
+                $stub->attr['file'] = $f;
+                $stub->attr['line'] = $c->getStartLine();
+            }
+
+            unset($a[$prefix.'parameters']);
+
+            if ($filter & Caster::EXCLUDE_VERBOSE) {
+                $stub->cut += ($c->getFileName() ? 2 : 0) + \count($a);
+
+                return [];
+            }
+
+            if ($f) {
+                $a[$prefix.'file'] = new LinkStub($f, $c->getStartLine());
+                $a[$prefix.'line'] = $c->getStartLine().' to '.$c->getEndLine();
+            }
+
+            return $a;
         }
-        unset($a[$prefix.'extra']);
-
-        $stub->class .= self::getSignature($a);
-
-        if ($f = $c->getFileName()) {
-            $stub->attr['file'] = $f;
-            $stub->attr['line'] = $c->getStartLine();
-        }
-
-        unset($a[$prefix.'parameters']);
-
-        if ($filter & Caster::EXCLUDE_VERBOSE) {
-            $stub->cut += ($c->getFileName() ? 2 : 0) + \count($a);
-
-            return [];
-        }
-
-        if ($f) {
-            $a[$prefix.'file'] = new LinkStub($f, $c->getStartLine());
-            $a[$prefix.'line'] = $c->getStartLine().' to '.$c->getEndLine();
-        }
-
-        return $a;
     }
 
     /**
@@ -130,16 +131,8 @@ class ReflectionCaster
     public static function castAttribute(\ReflectionAttribute $c, array $a, Stub $stub, bool $isNested)
     {
         $map = [
-        $map = [
             'name' => 'getName',
             'arguments' => 'getArguments',
-        ];
-
-        if (\PHP_VERSION_ID >= 80400) {
-            unset($map['name']);
-        }
-
-        self::addMap($a, $c, $map);
         ];
 
         if (\PHP_VERSION_ID >= 80400) {
@@ -422,7 +415,7 @@ class ReflectionCaster
                     if (!$type instanceof \ReflectionNamedType) {
                         $signature .= $type.' ';
                     } else {
-                        if ($param->allowsNull() && 'mixed' !== $type->getName()) {
+                        if (!$param->isOptional() && $param->allowsNull() && 'mixed' !== $type->getName()) {
                             $signature .= '?';
                         }
                         $signature .= substr(strrchr('\\'.$type->getName(), '\\'), 1).' ';

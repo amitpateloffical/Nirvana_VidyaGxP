@@ -9,7 +9,11 @@ class Resampling_Grid extends Model
 {
     use HasFactory;
     protected $table = 'resampling__grids';
-    protected $fillable = ['resampling_id','identifier', 'data'];
+    protected $fillable = [
+        'r_id',
+        'identifers',
+        'data'
+        ];
     protected $casts = ['data' => 'array'];
 
 

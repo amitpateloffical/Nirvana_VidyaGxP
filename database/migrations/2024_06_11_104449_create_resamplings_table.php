@@ -15,15 +15,13 @@ return new class extends Migration
     {
         Schema::create('resamplings', function (Blueprint $table) {
             $table->id();
-            $table->integer('record')->nullable();
-            $table->string('division_id')->nullable();
-            $table->string('form_type')->nullable();
-
-            $table->integer('record_number')->nullable();
-            $table->string('division_code')->nullable();
-
-            $table->integer('initiator_id')->nullable();
-            $table->string('intiation_date')->nullable();
+            $table->integer('record')->nullable();//
+            $table->string('division_id')->nullable();//
+            $table->string('originator_id')->nullable();//
+            $table->string('form_type')->nullable();//
+            $table->integer('initiator_id')->nullable();//
+            $table->string('division_code')->nullable();//
+            $table->string('intiation_date')->nullable();//
             $table->string('assign_to')->nullable();
             $table->string('due_date')->nullable();
             $table->string('initiator_Group')->nullable();
@@ -42,6 +40,7 @@ return new class extends Migration
             $table->string('parent_oos_no')->nullable();
             $table->string('parent_oot_no')->nullable();
             $table->string('parent_lab_incident_no')->nullable();
+            
             $table->string('parent_date_opened')->nullable();
             $table->longText('parent_short_description')->nullable();
             $table->string('parent_product_material_name')->nullable();
@@ -61,16 +60,28 @@ return new class extends Migration
 
 
 
-
+            $table->longText('comment')->nullable();
             $table->string('status')->nullable();
             $table->integer('stage')->nullable();
 
             $table->string('submitted_by')->nullable();
             $table->string('submitted_on')->nullable();
-            // $table->string('qA_review_complete_by')->nullable();
-            // $table->string('qA_review_complete_on')->nullable();
+            $table->string('submitted_comment')->nullable();
+            $table->string('approval_done_by')->nullable();
+            $table->string('approval_done_on')->nullable();
+            $table->string('approval_done_comment')->nullable();
+            $table->string('sample_received_by')->nullable();
+            $table->string('sample_received_on')->nullable();
+            $table->string('sample_received_comment')->nullable();
             $table->string('cancelled_by')->nullable();
             $table->string('cancelled_on')->nullable();
+            $table->string('cancelled_comment')->nullable();
+            $table->string('more_info_by')->nullable();
+            $table->string('more_info_on')->nullable();
+            $table->string('more_info_comment')->nullable();
+            $table->string('more_info_from_sample_req_by')->nullable();
+            $table->string('more_info_from_sample_req_on')->nullable();
+            $table->string('more_info_from_sample_req_comment')->nullable();
 
             $table->timestamps();
         });

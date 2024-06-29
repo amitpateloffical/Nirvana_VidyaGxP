@@ -57,7 +57,7 @@ $users = DB::table('users')->get();
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="originator_id"><b>Initiator</b></label>
+                                    <label for="Initiator"><b>Initiator</b></label>
                                     <input disabled type="text" name="originator_id" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>

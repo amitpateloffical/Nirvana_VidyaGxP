@@ -423,7 +423,7 @@
                                                                             alt="..." class="w-100 h-100"> --}}
                                                                 </div>
                                                             </a>       
-                                                        @endif 
+                                                    @endif 
                                                 @elseif($datas->type == 'Root-Cause-Analysis')
                                                     <a href="{{ route('root_show', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
@@ -455,7 +455,7 @@
                                                     @endif
 
                                                     @elseif ($datas->type == 'Resampling')
-                                                    <a href="{{ route('resampling_edit', $datas->id) }}">
+                                                    <a href="{{ route('resampling_show', $datas->id) }}">
                                                         {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
@@ -553,7 +553,7 @@
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">
                                                 {{-- {{ $datas->assign_to }} --}}
-                                            {{ Helpers::getInitiatorName($datas->id) }}
+                                            {{ Helpers::getInitiatorName($datas->initiator_id) }}
                                                 {{-- {{ $datas->initiator_id }} --}}
                                             </td>
                                             <td class="viewdetails" data-id="{{ $datas->id }}"

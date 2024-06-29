@@ -24,6 +24,93 @@
     {{-- ======================================
                     DATA FIELDS
     ======================================= --}}
+    <div id="change-control-view">
+        <div class="container-fluid">
+    
+            <div class="inner-block state-block">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="main-head">Record Workflow </div>
+    
+                    <div class="d-flex" style="gap:20px;">
+    
+                        @php
+                            $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => 1])->get();
+                            $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                        @endphp
+    
+                            <button class="button_theme1" onclick="window.print();return false;"
+                                class="new-doc-btn">Print</button>
+                            <button class="button_theme1"> <a class="text-white" href="{{ url('resamplingAuditTrail', $data->id) }}">
+                                    Audit Trail </a> </button>            
+                                    
+    
+                        @if ($data->stage == 1)
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Submit
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                                Cancellation Request
+                            </button>
+                        @elseif($data->stage == 2)
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Sample Request Approval Complete
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#rejection-modal">
+                                More Info from Open
+                            </button> 
+                        @elseif($data->stage == 3)
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                Sample Received
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#rejection-modal">
+                                More Info from Sample Request Approval
+                            </button>      
+                        @endif   
+                        <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                        </a> </button>
+                    </div>
+    
+                </div>
+                <div class="status">
+                    <div class="head">Current Status</div>
+                    @if ($data->stage == 0)
+                        <div class="progress-bars">
+                            <div class="bg-danger">Closed-Cancelled</div>
+                        </div>
+                    @else
+                        <div class="progress-bars" style="font-size: 15px;">
+                            @if ($data->stage >= 1)
+                                <div class="active">Opened</div>
+                            @else
+                                <div class="">Opened</div>
+                            @endif
+    
+                            @if ($data->stage >= 2)
+                                <div class="active">Under Sample Request Approval</div>
+                            @else
+                                <div class="">Under Sample Request Approval</div>
+                            @endif
+
+                            @if ($data->stage >= 3)
+                                <div class="active">Pending Sample Receive</div>
+                            @else
+                                <div class="">Pending Sample Receive</div>
+                            @endif
+    
+                            @if ($data->stage >= 4)
+                                <div class="bg-danger">Closed - Done</div>
+                            @else
+                                <div class="">Closed - Done</div>
+                            @endif
+                        </div>
+                    @endif
+    
+                {{-- @endif --}}
+                {{-- ---------------------------------------------------------------------------------------- --}}
+            </div>
+        </div>
+    </div>
+
     <div id="change-control-fields">
         <div class="container-fluid">
 
@@ -36,8 +123,9 @@
                 <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Activity Log</button>
             </div>
 
-            <form action="{{ route('resampling_update',$resampling->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('resampling_update',$data->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <div id="step-form">
                     <div id="CCForm1" class="inner-block cctabcontent">
                         <div class="inner-block-content">
@@ -45,10 +133,8 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
-                                        <input disabled type="text" name="record_number">
-                                        
-                                        {{-- value="{{ Helpers::getDivisionName(session()->get('division')) }}/MR/{{ date('Y') }}/{{ $record_number }}" --}}
-                                        <!-- {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}} -->
+                                        <input disabled type="text" name="record_number"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/Resampling/{{ Helpers::year($data->created_at) }}/{{ $data->record }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -64,7 +150,7 @@
                                         <label for="Initiator"><b>Initiator</b></label>
                                         {{-- <div class="static">{{ Auth::user()->name }}</div> --}}
                                         {{-- <input disabled type="text" value="{{ Auth::user()->name }}"> --}}
-                                    <input readonly type="text" name="initiator_id" value="{{ $resampling->initiator_id }}" />
+                                    <input readonly type="text" name="initiator_id" value="{{ Auth::user()->name }}" />
 
                                         {{-- <input disabled type="text" value=""> --}}
                                     </div>
@@ -77,13 +163,13 @@
                                         {{-- <div class="static">{{ date('d-M-Y') }}</div> --}}
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <div class="group-input">
                                         <label for="search">
                                             Assigned To <span class="text-danger"></span>
                                         </label>
                                         <select id="select-state" placeholder="Select..." name="assign_to">
-                                            <option value="{{ $resampling->assign_to }}">Select a value</option>
+                                            <option value="{{ $data->assign_to }}">Select a value</option>
                                             @foreach ($users as $data)
                                                 <option value="{{ $data->id }}">{{ $data->name }}</option>
                                             @endforeach
@@ -92,18 +178,34 @@
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
+                                </div> --}}
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="search">
+                                            Assigned To <span class="text-danger"></span>
+                                        </label>
+                                        <select id="select-state" placeholder="Select..." name="assign_to">
+                                            <option value="">Select a value</option>
+                                            @foreach ($users as $key => $value)
+                                                <option value="{{ $value->id }}"
+                                                    @if ($data->assign_to == $value->id) selected @endif>
+                                                    {{ $value->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('assign_to')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
                                 </div>
 
-                                <div class="col-lg-6 new-date-data-field">
+                                <div class="col-md-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Date Due">Date Due</label>
-                                        <div><small class="text-primary">Please mention expected date of completion</small>
-                                        </div>
+                                        <label for="due-date">Due Date</label>
+                                        <div><small class="text-primary">Please mention expected date of completion</small></div>
                                         <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly
-                                                placeholder="DD-MM-YYYY"  value="{{ Helpers::getdateFormat($resampling->due_date) }}" />
-                                            {{-- <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                oninput="handleDateInput(this, 'due_date')" /> --}}
+                                            <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}"/>
+                                            <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                         </div>
                                     </div>
                                 </div>
@@ -112,42 +214,42 @@
                                         <label for="Initiator Group"><b>Initiator Group</b></label>
                                         <select name="initiator_Group" id="initiator_group">
                                             <option value="">-- Select --</option>
-                                            <option value="CQA"  @if ($resampling->initiator_Group == 'CQA') selected @endif>
+                                            <option value="CQA"  @if ($data->initiator_Group == 'CQA') selected @endif>
                                                 Corporate Quality Assurance</option>
-                                            <option value="QAB" @if ($resampling->initiator_Group == 'QAB') selected @endif>Quality
+                                            <option value="QAB" @if ($data->initiator_Group == 'QAB') selected @endif>Quality
                                                 Assurance Biopharma</option>
                                                 {{-- <option value="QAB" @if (old('initiator_Group') == 'QAB') selected @endif>Quality
                                                     Assurance Biopharma</option> --}}
-                                            <option value="CQC" @if ($resampling->initiator_Group == 'CQA') selected @endif>Central
+                                            <option value="CQC" @if ($data->initiator_Group == 'CQA') selected @endif>Central
                                                 Quality Control</option>
-                                            <option value="CQC" @if ($resampling->initiator_Group == 'MANU') selected @endif>
+                                            <option value="CQC" @if ($data->initiator_Group == 'MANU') selected @endif>
                                                 Manufacturing</option>
-                                            <option value="PSG" @if ($resampling->initiator_Group == 'PSG') selected @endif>Plasma
+                                            <option value="PSG" @if ($data->initiator_Group == 'PSG') selected @endif>Plasma
                                                 Sourcing Group</option>
-                                            <option value="CS" @if ($resampling->initiator_Group == 'CS') selected @endif>Central
+                                            <option value="CS" @if ($data->initiator_Group == 'CS') selected @endif>Central
                                                 Stores</option>
-                                            <option value="ITG" @if ($resampling->initiator_Group == 'ITG') selected @endif>
+                                            <option value="ITG" @if ($data->initiator_Group == 'ITG') selected @endif>
                                                 Information Technology Group</option>
-                                            <option value="MM" @if ($resampling->initiator_Group == 'MM') selected @endif>
+                                            <option value="MM" @if ($data->initiator_Group == 'MM') selected @endif>
                                                 Molecular Medicine</option>
-                                            <option value="CL" @if ($resampling->initiator_Group == 'CL') selected @endif>Central
+                                            <option value="CL" @if ($data->initiator_Group == 'CL') selected @endif>Central
                                                 Laboratory</option>
 
-                                            <option value="TT" @if ($resampling->initiator_Group == 'TT') selected @endif>Tech
+                                            <option value="TT" @if ($data->initiator_Group == 'TT') selected @endif>Tech
                                                 team</option>
-                                            <option value="QA" @if ($resampling->initiator_Group == 'QA') selected @endif>
+                                            <option value="QA" @if ($data->initiator_Group == 'QA') selected @endif>
                                                 Quality Assurance</option>
-                                            <option value="QM" @if ($resampling->initiator_Group == 'QM') selected @endif>
+                                            <option value="QM" @if ($data->initiator_Group == 'QM') selected @endif>
                                                 Quality Management</option>
-                                            <option value="IA" @if ($resampling->initiator_Group == 'IA') selected @endif>IT
+                                            <option value="IA" @if ($data->initiator_Group == 'IA') selected @endif>IT
                                                 Administration</option>
-                                            <option value="ACC" @if ($resampling->initiator_Group == 'ACC') selected @endif>
+                                            <option value="ACC" @if ($data->initiator_Group == 'ACC') selected @endif>
                                                 Accounting</option>
-                                            <option value="LOG" @if ($resampling->initiator_Group == 'LOG') selected @endif>
+                                            <option value="LOG" @if ($data->initiator_Group == 'LOG') selected @endif>
                                                 Logistics</option>
-                                            <option value="SM" @if ($resampling->initiator_Group == 'SM') selected @endif>
+                                            <option value="SM" @if ($data->initiator_Group == 'SM') selected @endif>
                                                 Senior Management</option>
-                                            <option value="BA" @if ($resampling->initiator_Group == 'BA') selected @endif>
+                                            <option value="BA" @if ($data->initiator_Group == 'BA') selected @endif>
                                                 Business Administration</option>
                                         </select>
                                     </div>
@@ -156,7 +258,7 @@
                                     <div class="group-input">
                                         <label for="Initiator Group Code"><b>Initiator Group Code</b></label>
                                         <input type="text" name="initiator_group_code" id="initiator_group_code"
-                                            value="{{$resampling->initiator_Group}}" disabled>
+                                            value="{{$data->initiator_Group}}" disabled>
                                     </div>
                                 </div>
                                 {{-- <div class="col-12">
@@ -172,7 +274,7 @@
                                         <label for="Short Description">Short Description<span
                                                 class="text-danger">*</span></label><span id="rchars">255</span>
                                         characters remaining
-                                    <textarea name="short_description"   id="docname" type="text"    maxlength="255" required >{{ $resampling->short_description }}</textarea>
+                                    <textarea name="short_description"   id="docname" type="text"    maxlength="255" required >{{ $data->short_description }}</textarea>
                                     {{-- <textarea name="short_description"   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $resampling->short_description }}</textarea> --}}
 
                                         {{-- <input id="docname" type="text" name="short_description" maxlength="255" required value="{{ $resampling->short_description }}"> --}}
@@ -181,48 +283,48 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="cq_Approver"><b>CQ Approver</b></label>
-                                        <input type="text" name="cq_Approver" value="{{$resampling->cq_Approver}}">
+                                        <input type="text" name="cq_Approver" value="{{$data->cq_Approver}}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Supervisor"><b>Supervisor</b></label>
-                                        <input type="text" name="supervisor"   value="{{$resampling->cq_Approver}}" >
+                                        <input type="text" name="supervisor"   value="{{$data->cq_Approver}}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="api_Material_Product_Name"><b>API/Material/Drug Product Name</b></label>
-                                        <input  type="text" name="api_Material_Product_Name"  value="{{$resampling->api_Material_Product_Name}}" >
+                                        <input  type="text" name="api_Material_Product_Name"  value="{{$data->api_Material_Product_Name}}" >
                                     </div>
                                 </div> <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="lot_Batch_Number"><b>Lot/Batch Number</b></label>
-                                        <input type="text" name="lot_Batch_Number"  value="{{$resampling->lot_Batch_Number}}" >
+                                        <input type="text" name="lot_Batch_Number"  value="{{$data->lot_Batch_Number}}" >
                                     </div>
                                  </div>
                                   <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for=" AR Number"><b>AR Number</b></label>
-                                    <input type="text" name="ar_Number_GI"  value="{{$resampling->ar_Number_GI}}" >
+                                    <input type="text" name="ar_Number_GI"  value="{{$data->ar_Number_GI}}" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Test Name"><b>Test Name</b></label>
-                                    <input type="text" name="test_Name_GI"  value="{{$resampling->test_Name_GI}}" >
+                                    <input type="text" name="test_Name_GI"  value="{{$data->test_Name_GI}}" >
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="justification_for_resampling">Justification For Resampling</label>
-                                    <textarea name="justification_for_resampling_GI">{{$resampling->justification_for_resampling_GI}}</textarea>
+                                    <textarea name="justification_for_resampling_GI">{{$data->justification_for_resampling_GI}}</textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Description">Predetermined Sampling Strategies</label>
-                                    <textarea name="predetermined_Sampling_Strategies_GI">{{$resampling->predetermined_Sampling_Strategies_GI}}</textarea>
+                                    <textarea name="predetermined_Sampling_Strategies_GI">{{$data->predetermined_Sampling_Strategies_GI}}</textarea>
                                 </div>
                             </div>
 
@@ -233,8 +335,8 @@
                                             documents</small></div>
                                     <div class="file-attachment-field">
                                         <div class="file-attachment-list" id="supporting_attach">
-                                        @if ($resampling->supporting_attach)
-                                        @foreach(json_decode($resampling->supporting_attach) as $file)
+                                        @if ($data->supporting_attach)
+                                        @foreach(json_decode($data->supporting_attach) as $file)
                                         <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
                                             <b>{{ $file }}</b>
                                             <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
@@ -259,7 +361,7 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled end date">Parent-TCD(hid)</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY"  value="{{$resampling->parent_tcd_hid}}"/>
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY"  value="{{$data->parent_tcd_hid}}"/>
                                         <input type="date" id="end_date_checkdate" name="parent_tcd_hid" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                             oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
@@ -272,26 +374,26 @@
                                <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Parent) OOS No.</b></label>
-                                    <input type="text" name="parent_oos_no" value="{{$resampling->parent_oos_no}}">
+                                    <input type="text" name="parent_oos_no" value="{{$data->parent_oos_no}}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Parent) OOT No.</b></label>
-                                    <input type="text" name="parent_oot_no"   value="{{$resampling->parent_oot_no}}">
+                                    <input type="text" name="parent_oot_no"   value="{{$data->parent_oot_no}}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Parent) Lab Incident No.</b></label>
-                                    <input type="text" name="parent_lab_incident_no"  value="{{$resampling->parent_lab_incident_no}}">
+                                    <input type="text" name="parent_lab_incident_no"  value="{{$data->parent_lab_incident_no}}">
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent)Date Opened</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" value="{{$resampling->parent_date_opened}}"/>
+                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" value="{{$data->parent_date_opened}}"/>
                                         <input type="date" id="start_date_checkdate"  name="parent_date_opened" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                             oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')"/>
                                     </div>
@@ -301,13 +403,13 @@
                                 <div class="group-input">
                                     <label for="Short Description">(Parent)Short Description<span
                                             class="text-danger"></span></label><span id="rchars"></span>
-                                    <input id="docname" type="text" name="parent_short_description" maxlength="255"  value="{{$resampling->parent_short_description}}" >
+                                    <input id="docname" type="text" name="parent_short_description" maxlength="255"  value="{{$data->parent_short_description}}" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Parent) Product/Material Name</b></label>
-                                    <input type="text" name="parent_product_material_name"  value="{{$resampling->parent_product_material_name}}">
+                                    <input type="text" name="parent_product_material_name"  value="{{$data->parent_product_material_name}}">
                                 </div>
                             </div>
 
@@ -315,7 +417,7 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent)Target Closure Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY"  value="{{$resampling->parent_target_closure_date}}"/>
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY"  value="{{$data->parent_target_closure_date}}"/>
                                         <input type="date" id="end_date_checkdate"  name="parent_target_closure_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                             oninput="handleDateInput(this, 'end_date');checkDate('end_date_checkdate','end_date_checkdate')"/>
                                     </div>
@@ -395,26 +497,77 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($gridDatas01->data as $datas)
-
-                                                <tr>
-                                                    <td><input  type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="product_material_information[0][product_material]">{{$datas['product_material']}}</td>
-                                                    <td><input type="text" name="product_material_information[0][batch_no]">{{$datas['batch_no']}}</td>
-                                                    <td><input type="text" name="product_material_information[0][ar_no]">{{$datas['ar_no']}}</td>
-                                                    <td><input type="text" name="product_material_information[0][test_name]">{{$datas['test_name']}}</td>
-                                                    <td><input type="text" name="product_material_information[0][instrument_name]">{{$datas['instrument_name']}}</td>
-                                                    <td><input type="text" name="product_material_information[0][instrument_no]">{{$datas['instrument_no']}}</td>
-                                                    <td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee">
-                                                        <input type="text" id="agenda_date0" readonly  />{{$datas['date']}}
-                                                        <input type="date" name="product_material_information[0][date]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                        oninput="handleDateInput(this, `agenda_date0`);" /></div></div></div></td>
-                                                </tr>
-                                                @endforeach
+                                                @if (!empty($gridDatas01) && is_array($gridDatas01->data))
+                                                    @foreach ($gridDatas01->data as $gridDatas01) 
+                                                        <tr>
+                                                            <td><input disabled type="text" name="product_material_information[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][product_material]" value="{{ isset($gridDatas01['product_material']) ? $gridDatas01['product_material'] : '' }}"></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][batch_no]" value="{{ isset($gridDatas01['batch_no']) ? $gridDatas01['batch_no'] : '' }}"></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][ar_no]" value="{{ isset($gridDatas01['ar_no']) ? $gridDatas01['ar_no'] : '' }}"></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][test_name]" value="{{ isset($gridDatas01['test_name']) ? $gridDatas01['test_name'] : '' }}"></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][instrument_name]" value="{{ isset($gridDatas01['instrument_name']) ? $gridDatas01['instrument_name'] : '' }}"></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][instrument_no]" value="{{ isset($gridDatas01['instrument_no']) ? $gridDatas01['instrument_no'] : '' }}"></td>
+                                                            <td>
+                                                                <div class="new-date-data-field">
+                                                                    <div class="new-date-data-field">
+                                                                        <div class="group-input input-date">
+                                                                            <div class="calenderauditee">
+                                                                                <input
+                                                                                    class="click_date"
+                                                                                    id="date_{{ $loop->index }}_date"
+                                                                                    type="text"
+                                                                                    name="product_material_information[{{ $loop->index }}][info_date]"
+                                                                                    placeholder="DD-MMM-YYYY"
+                                                                                    value="{{ isset($gridDatas01['info_date']) ? $gridDatas01['info_date'] : '' }}"
+                                                                                />
+                                                                                <input
+                                                                                    type="date"
+                                                                                    name="product_material_information[{{ $loop->index }}][info_date]"
+                                                                                    value="{{ isset($gridDatas01['info_date']) ? $gridDatas01['info_date'] : '' }}"
+                                                                                    id="date_{{ $loop->index }}_date_picker"
+                                                                                    class="hide-input show_date"
+                                                                                    style="position: absolute; top: 0; left: 0; opacity: 0;"
+                                                                                    onchange="handleDateInput(this, 'date_{{ $loop->index }}_date')"
+                                                                                />
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
+
+                                <script>
+                                    $(document).ready(function() {
+                            
+                                        $('#product_material').click(function(e) {
+                                        function generateTableRow(serialNumber) {
+                                            var data = @json($gridDatas01);
+                                            var html = '';
+                                            html +=
+                                                '<tr>' +
+                                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                                                // '<td><input type="date" name="date[]"></td>' +
+                                                '<td><input type="text" name="product_material_information[' + serialNumber + '][product_material]"></td>' +
+                                                '<td><input type="text" name="product_material_information[' + serialNumber + '][batch_no]"></td>' +
+                                                '<td><input type="text" name="product_material_information[' + serialNumber + '][ar_no]"></td>' +
+                                                '<td><input type="text" name="product_material_information[' + serialNumber + '][test_name]"></td>' +
+                                                '<td><input type="text" name="product_material_information[' + serialNumber + '][instrument_name]"></td>' +
+                                                '<td><input type="text" name="product_material_information[' + serialNumber + '][instrument_no]"></td>'+
+                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_date" type="text" name="financial_transection[' + serialNumber + '][info_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="financial_transection[' + indexDetail + '][info_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_date\')" /> </div> </div></div></td>' +
+                                                '</tr>';
+                                            return html;
+                                        }
+                                        var tableBody = $('#product_material_body tbody');
+                                        var rowCount = tableBody.children('tr').length;
+                                        var newRow = generateTableRow(rowCount + 1);
+                                        tableBody.append(newRow);
+                                    });
+                                });
+                            </script>
 
                                 <div class="col-12">
                                     <div class="group-input">
@@ -435,33 +588,101 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            @php
-                                                $serialNumber = 1;
-                                                // dd($gridDatas02);
-                                            @endphp
-
-                                            @foreach($gridDatas02->data as $data2)
-                                                <tr>
-                                                    <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="info_on_product_mat[0][item_product_code]">{{$data2['item_product_code']}}</td>
-                                                    <td><input type="text" name="info_on_product_mat[0][lot_batch_no]">{{$data2['lot_batch_no']}}</td>
-                                                    <td><input type="text" name="info_on_product_mat[0][ar_no]">{{$data2['ar_no']}}</td>
-                                                    <td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee">
-                                                        <input type="text" id="agenda_date01" readonly  />
-                                                        <input type="date" name="info_on_product_mat[0][date01]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                        oninput="handleDateInput(this, `agenda_date01`);" /></div></div></div>{{$data2['date01']}}</td>
-                                                     <td><div class="group-input new-date-data-field mb-02"><div class="input-date "><div class="calenderauditee">
-                                                     <input type="text" id="agenda_date02" readonly  />
-                                                         <input type="date" name="info_on_product_mat[0][date02]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                        oninput="handleDateInput(this, `agenda_date0`);" /></div></div></div>{{$data2['date02']}}</td>
-                                                    <td><input type="text" name="info_on_product_mat[0][label_claim]">{{$data2['label_claim']}}</td>
-                                                    <td><input type="text" name="info_on_product_mat[0][pack_size]">{{$data2['pack_size']}}</td>
-                                                </tr>
-                                                @endforeach
+                                                @if (!empty($gridDatas02) && is_array($gridDatas02->data))
+                                                    @foreach ($gridDatas02->data as $gridDatas02) 
+                                                            <tr>
+                                                                <td><input disabled type="text" name="info_on_product_mat[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][item_product_code]" value="{{ isset($gridDatas02['item_product_code']) ? $gridDatas02['item_product_code'] : '' }}"></td>
+                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][lot_batch_no]" value="{{ isset($gridDatas02['lot_batch_no']) ? $gridDatas02['lot_batch_no'] : '' }}"></td>
+                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][ar_no]" value="{{ isset($gridDatas02['ar_no']) ? $gridDatas02['ar_no'] : '' }}"></td>
+                                                                <td>
+                                                                    <div class="new-date-data-field">
+                                                                        <div class="group-input input-date">
+                                                                            <div class="calenderauditee">
+                                                                                <input
+                                                                                    class="click_date"
+                                                                                    id="date_{{ $loop->index }}_mfg_date"
+                                                                                    type="text"
+                                                                                    name="info_on_product_mat[{{ $loop->index }}][info_mfg_date]"
+                                                                                    placeholder="DD-MMM-YYYY"
+                                                                                    value="{{ isset($gridDatas02['info_mfg_date']) ? $gridDatas02['info_mfg_date'] : '' }}"
+                                                                                />
+                                                                                <input
+                                                                                    type="date"
+                                                                                    name="info_on_product_mat[{{ $loop->index }}][info_mfg_date]"
+                                                                                    value="{{ isset($gridDatas02['info_mfg_date']) ? $gridDatas02['info_mfg_date'] : '' }}"
+                                                                                    id="date_{{ $loop->index }}_mfg_date_picker"
+                                                                                    class="hide-input show_date"
+                                                                                    style="position: absolute; top: 0; left: 0; opacity: 0;"
+                                                                                    onchange="handleDateInput(this, 'date_{{ $loop->index }}_mfg_date')"
+                                                                                />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="new-date-data-field">
+                                                                        <div class="group-input input-date">
+                                                                            <div class="calenderauditee">
+                                                                                <input
+                                                                                    class="click_date"
+                                                                                    id="date_{{ $loop->index }}_expiry_date"
+                                                                                    type="text"
+                                                                                    name="info_on_product_mat[{{ $loop->index }}][info_expiry_date]"
+                                                                                    placeholder="DD-MMM-YYYY"
+                                                                                    {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                                                                    value="{{ isset($gridDatas02['info_expiry_date']) ? $gridDatas02['info_expiry_date'] : '' }}"
+                                                                                />
+                                                                                <input
+                                                                                    type="date"
+                                                                                    name="info_on_product_mat[{{ $loop->index }}][info_expiry_date]"
+                                                                                    value="{{ isset($gridDatas02['info_expiry_date']) ? $gridDatas02['info_expiry_date'] : '' }}"
+                                                                                    id="date_{{ $loop->index }}_expiry_date_picker"
+                                                                                    class="hide-input show_date"
+                                                                                    style="position: absolute; top: 0; left: 0; opacity: 0;"
+                                                                                    onchange="handleDateInput(this, 'date_{{ $loop->index }}_expiry_date')"
+                                                                                />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][label_claim]" value="{{ isset($gridDatas02['label_claim']) ? $gridDatas02['label_claim'] : '' }}"></td>
+                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][pack_size]" value="{{ isset($gridDatas02['pack_size']) ? $gridDatas02['pack_size'] : '' }}"></td>
+                                                            </tr>
+                                                    @endforeach
+                                                @endif    
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#info_on_product').click(function(e) {
+                                            function generateTableRow(serialNumber) {
+                                                var data = @json($gridDatas02);
+                                                var html = '';
+                                                html +=
+                                                    '<tr>' +
+                                                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                                                    // '<td><input type="date" name="date[]"></td>' +
+                                                    '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][item_product_code]"></td>' +
+                                                    '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][lot_batch_no]"></td>' +
+                                                    '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][ar_no]"></td>' +
+                                                    '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_mfg_date" type="text" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_mfg_date\')" /> </div> </div></div></td>' +
+                                                '<td>  <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_expiry_date" type="text" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_expiry_date\')" /> </div> </div></div></td>' +
+                                                    '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][label_claim]"></td>'+
+                                                    '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][pack_size]"></td>'+
+                                                    '</tr>';
+                                                return html;
+                                            }
+                                            var tableBody = $('#info_on_product_body tbody');
+                                            var rowCount = tableBody.children('tr').length;
+                                            var newRow = generateTableRow(rowCount + 1);
+                                            tableBody.append(newRow);
+                                        });
+                                    });
+                                </script>
 
                                 {{-- 3 --}}
 
@@ -482,19 +703,46 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($gridDatas03->data as $data3)
-                                                <tr>
-                                                    <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="oos_details[0][ar_no]">{{$data3['ar_no']}}</td>
-                                                    <td><input type="text" name="oos_details[0][test_name_of_OOS]">{{$data3['test_name_of_OOS']}}</td>
-                                                    <td><input type="text" name="oos_details[0][results_obtained]">{{$data3['results_obtained']}}</td>
-                                                    <td><input type="text" name="oos_details[0][specification_limit]">{{$data3['specification_limit']}}</td>
-                                                </tr>
-                                                @endforeach
+                                                @if (!empty($gridDatas03) && is_array($gridDatas03->data))
+                                                    @foreach ($gridDatas03->data as $gridDatas03) 
+                                                        <tr>
+                                                            <td><input disabled type="text" name="oos_details[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][ar_no]" value="{{ isset($gridDatas03['ar_no']) ? $gridDatas03['ar_no'] : '' }}"></td>
+                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][test_name_of_OOS]" value="{{ isset($gridDatas03['test_name_of_OOS']) ? $gridDatas03['test_name_of_OOS'] : '' }}"></td>
+                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][results_obtained]" value="{{ isset($gridDatas03['results_obtained']) ? $gridDatas03['results_obtained'] : '' }}"></td>
+                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][specification_limit]" value="{{ isset($gridDatas03['specification_limit']) ? $gridDatas03['specification_limit'] : '' }}"></td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#oos_details').click(function(e) {
+                                            function generateTableRow(serialNumber) {
+                                                var data = @json($gridDatas03);
+                                                var html = '';
+                                                html +=
+                                                    '<tr>' +
+                                                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                                                    // '<td><input type="date" name="date[]"></td>' +
+                                                    '<td><input type="text" name="oos_details[' + serialNumber + '][ar_no]"></td>' +
+                                                    '<td><input type="text" name="oos_details[' + serialNumber + '][test_name_of_OOS]"></td>' +
+                                                    '<td><input type="text" name="oos_details[' + serialNumber + '][results_obtained]"></td>' +
+                                                    '<td><input type="text" name="oos_details[' + serialNumber + '][specification_limit]"></td>'+
+                                                    '</tr>';
+                                                return html;
+                                            }
+                                            var tableBody = $('#oos_details_body tbody');
+                                            var rowCount = tableBody.children('tr').length;
+                                            var newRow = generateTableRow(rowCount + 1);
+                                            tableBody.append(newRow);
+                                        });
+                                    });
+                                </script> 
 
                                 {{-- 4 --}}
                                 <div class="col-12">
@@ -517,23 +765,53 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($gridDatas04->data as $data4)
-                                                <tr>
-                                                    <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="oot_detail[0][ar_no_oot]">{{$data4['ar_no_oot']}}</td>
-                                                    <td><input type="text" name="oot_detail[0][test_name_oot]">{{$data4['test_name_oot']}}</td>
-                                                    <td><input type="text" name="oot_detail[0][results_obtained_oot]">{{$data4['results_obtained_oot']}}</td>
-                                                    <td><input type="text" name="oot_detail[0][initial_Interval_Details_oot]">{{$data4['initial_Interval_Details_oot']}}</td>
-                                                    <td><input type="text" name="oot_detail[0][previous_Interval_Details_oot]">{{$data4['previous_Interval_Details_oot']}}</td>
-                                                    <td><input type="text" name="oot_detail[0][difference_of_Results_oot]">{{$data4['difference_of_Results_oot']}}</td>
-                                                    <td><input type="text" name="oot_detail[0][initial_interview_Details_oot]">{{$data4['initial_interview_Details_oot']}}</td>
-                                                    <td><input type="text" name="oot_detail[0][trend_Limit_oot]">{{$data4['trend_Limit_oot']}}</td>
-                                                </tr>
-                                                @endforeach
+                                                @if (!empty($gridDatas04) && is_array($gridDatas04->data))
+                                                    @foreach ($gridDatas04->data as $gridDatas04)
+                                                        <tr>
+                                                            <td><input disabled type="text" name="oot_detail[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][ar_no_oot]" value="{{ isset($gridDatas04['ar_no_oot']) ? $gridDatas04['ar_no_oot'] : '' }}"></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][test_name_oot]" value="{{ isset($gridDatas04['test_name_oot']) ? $gridDatas04['test_name_oot'] : '' }}"></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][results_obtained_oot]" value="{{ isset($gridDatas04['results_obtained_oot']) ? $gridDatas04['results_obtained_oot'] : '' }}"></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][initial_Interval_Details_oot]" value="{{ isset($gridDatas04['initial_Interval_Details_oot']) ? $gridDatas04['initial_Interval_Details_oot'] : '' }}"></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][previous_Interval_Details_oot]" value="{{ isset($gridDatas04['previous_Interval_Details_oot']) ? $gridDatas04['previous_Interval_Details_oot'] : '' }}"></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][difference_of_Results_oot]" value="{{ isset($gridDatas04['difference_of_Results_oot']) ? $gridDatas04['difference_of_Results_oot'] : '' }}"></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][initial_interview_Details_oot]" value="{{ isset($gridDatas04['initial_interview_Details_oot']) ? $gridDatas04['initial_interview_Details_oot'] : '' }}"></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][trend_Limit_oot]" value="{{ isset($gridDatas04['trend_Limit_oot']) ? $gridDatas04['trend_Limit_oot'] : '' }}"></td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#oot_detail').click(function(e) {
+                                            function generateTableRow(serialNumber) {
+                                                var data = @json($gridDatas04);
+                                                var html = '';
+                                                html +=
+                                                    '<tr>' +
+                                                    '<td><input disabled type="text" name="oot_detail[serial]" value="' + serialNumber + '"></td>' +
+                                                    '<td><input type="text" name="oot_detail[' + serialNumber + '][ar_no_oot]"></td>' +
+                                                    '<td><input type="text" name="oot_detail[' + serialNumber + '][test_name_oot]"></td>' +
+                                                    '<td><input type="text" name="oot_detail[' + serialNumber + '][results_obtained_oot]"></td>' +
+                                                    '<td><input type="text" name="oot_detail[' + serialNumber + '][initial_Interval_Details_oot]"></td>'+
+                                                    '<td><input type="text" name="oot_detail[' + serialNumber + '][previous_Interval_Details_oot]"></td>'+
+                                                    '<td><input type="text" name="oot_detail[' + serialNumber + '][difference_of_Results_oot]"></td>'+
+                                                    '<td><input type="text" name="oot_detail[' + serialNumber + '][initial_interview_Details_oot]"></td>'+
+                                                    '<td><input type="text" name="oot_detail[' + serialNumber + '][trend_Limit_oot]"></td>'+
+                                                    '</tr>';
+                                                return html;
+                                            }
+                                            var tableBody = $('#oot_detail_body tbody');
+                                            var rowCount = tableBody.children('tr').length;
+                                            var newRow = generateTableRow(rowCount + 1);
+                                            tableBody.append(newRow);
+                                        });
+                                    });
+                                </script>
 
                                 {{-- 5 --}}
                                 <div class="col-12">
@@ -553,20 +831,47 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($gridDatas05->data as $data5)
-                                                <tr>
-                                                    <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="stability_study[0][ar_no_stability_stdy]">{{$data5['ar_no_stability_stdy']}}</td>
-                                                    <td><input type="text" name="stability_study[0][condition_temp_stability_stdy]">{{$data5['condition_temp_stability_stdy']}}</td>
-                                                    <td><input type="text" name="stability_study[0][interval_stability_stdy]">{{$data5['interval_stability_stdy']}}</td>
-                                                    <td><input type="text" name="stability_study[0][orientation_stability_stdy]">{{$data5['orientation_stability_stdy']}}</td>
-                                                    <td><input type="text" name="stability_study[0][pack_details_if_any_stability_stdy]">{{$data5['pack_details_if_any_stability_stdy']}}</td>
-                                                </tr>
-                                                @endforeach
+                                                @if (!empty($gridDatas05) && is_array($gridDatas05->data))
+                                                    @foreach ($gridDatas05->data as $gridDatas05)
+                                                        <tr>
+                                                            <td><input disabled type="text" name="stability_study[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][ar_no_stability_stdy]" value="{{ isset($gridDatas05['ar_no_stability_stdy']) ? $gridDatas05['ar_no_stability_stdy'] : '' }}"></td>
+                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][condition_temp_stability_stdy]" value="{{ isset($gridDatas05['condition_temp_stability_stdy']) ? $gridDatas05['condition_temp_stability_stdy'] : '' }}"></td>
+                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][interval_stability_stdy]" value="{{ isset($gridDatas05['interval_stability_stdy']) ? $gridDatas05['interval_stability_stdy'] : '' }}"></td>
+                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][orientation_stability_stdy]" value="{{ isset($gridDatas05['orientation_stability_stdy']) ? $gridDatas05['orientation_stability_stdy'] : '' }}"></td>
+                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][pack_details_if_any_stability_stdy]" value="{{ isset($gridDatas05['pack_details_if_any_stability_stdy']) ? $gridDatas05['pack_details_if_any_stability_stdy'] : '' }}"></td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#stability_study').click(function(e) {
+                                            function generateTableRow(serialNumber) {
+                                                var data = @json($gridDatas05);
+                                                var html = '';
+                                                html +=
+                                                    '<tr>' +
+                                                    '<td><input disabled type="text" name="stability_study[serial]" value="' + serialNumber + '"></td>' +
+                                                    '<td><input type="text" name="stability_study[' + serialNumber + '][ar_no_stability_stdy]"></td>' +
+                                                    '<td><input type="text" name="stability_study[' + serialNumber + '][condition_temp_stability_stdy]"></td>' +
+                                                    '<td><input type="text" name="stability_study[' + serialNumber + '][interval_stability_stdy]"></td>' +
+                                                    '<td><input type="text" name="stability_study[' + serialNumber + '][orientation_stability_stdy]"></td>'+
+                                                    '<td><input type="text" name="stability_study[' + serialNumber + '][pack_details_if_any_stability_stdy]"></td>'+
+                                                    '</tr>';
+                                                return html;
+                                            }
+                                            var tableBody = $('#stability_study_body tbody');
+                                            var rowCount = tableBody.children('tr').length;
+                                            var newRow = generateTableRow(rowCount + 1);
+                                            tableBody.append(newRow);
+                                        });
+                                    });
+                                </script>
 
 
                                 {{-- 5 --}}
@@ -588,21 +893,48 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach($gridDatas06->data as $data6)
-                                                <tr>
-                                                    <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                                    <td><input type="text" name="stability_study2[0][ar_no_stability_stdy2]">{{$data6['ar_no_stability_stdy2']}}</td>
-                                                    <td><input type="text" name="stability_study2[0][stability_condition_stability_stdy2]">{{$data6['stability_condition_stability_stdy2']}}</td>
-                                                    <td><input type="text" name="stability_study2[0][stability_interval_stability_stdy2]">{{$data6['stability_interval_stability_stdy2']}}</td>
-                                                    <td><input type="text" name="stability_study2[0][pack_details_if_any_stability_stdy2]">{{$data6['pack_details_if_any_stability_stdy2']}}</td>
-                                                    <td><input type="text" name="stability_study2[0][orientation_stability_stdy2]">{{$data6['orientation_stability_stdy2']}}</td>
+                                                @if (!empty($gridDatas06) && is_array($gridDatas06->data))
+                                                    @foreach ($gridDatas06->data as $gridDatas06)  
+                                                        <tr>
+                                                            <td><input disabled type="text" name="stability_study2[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][ar_no_stability_stdy2]" value="{{ isset($gridDatas06['ar_no_stability_stdy2']) ? $gridDatas06['ar_no_stability_stdy2'] : '' }}"></td>
+                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][stability_condition_stability_stdy2]" value="{{ isset($gridDatas06['stability_condition_stability_stdy2']) ? $gridDatas06['stability_condition_stability_stdy2'] : '' }}"></td>
+                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][stability_interval_stability_stdy2]" value="{{ isset($gridDatas06['stability_interval_stability_stdy2']) ? $gridDatas06['stability_interval_stability_stdy2'] : '' }}"></td>
+                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][pack_details_if_any_stability_stdy2]" value="{{ isset($gridDatas06['pack_details_if_any_stability_stdy2']) ? $gridDatas06['pack_details_if_any_stability_stdy2'] : '' }}"></td>
+                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][orientation_stability_stdy2]" value="{{ isset($gridDatas06['orientation_stability_stdy2']) ? $gridDatas06['orientation_stability_stdy2'] : '' }}"></td>
 
-                                                </tr>
-                                                @endforeach
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#stability_study2').click(function(e) {
+                                            function generateTableRow(serialNumber) {
+                                                vvar data = @json($gridDatas06);
+                                                var html = '';
+                                                html +=
+                                                    '<tr>' +
+                                                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                                                    '<td><input type="text" name="stability_study2[' + serialNumber + '][ar_no_stability_stdy2]"></td>' +
+                                                    '<td><input type="text" name="stability_study2[' + serialNumber + '][stability_condition_stability_stdy2]"></td>' +
+                                                    '<td><input type="text" name="stability_study2[' + serialNumber + '][stability_interval_stability_stdy2]"></td>' +
+                                                    '<td><input type="text" name="stability_study2[' + serialNumber + '][pack_details_if_any_stability_stdy2]"></td>'+
+                                                    '<td><input type="text" name="stability_study2[' + serialNumber + '][orientation_stability_stdy2]"></td>'+
+                                                    '</tr>';
+                                                return html;
+                                            }
+                                            var tableBody = $('#stability_study2_body tbody');
+                                            var rowCount = tableBody.children('tr').length;
+                                            var newRow = generateTableRow(rowCount + 1);
+                                            tableBody.append(newRow);
+                                        });
+                                    });
+                                </script>
 
 
                                 {{-- <div class="col-12">
@@ -632,7 +964,7 @@
                                         style="font-size: 0.8rem; font-weight: 400; cursor:pointer;">
                                     </span>
                                 </label>
-                                <textarea name="sample_Request_Approval_Comments">{{$resampling->sample_Request_Approval_Comments}}</textarea>
+                                <textarea name="sample_Request_Approval_Comments">{{$data->sample_Request_Approval_Comments}}</textarea>
                             </div>
 
                             <div class="col-12">
@@ -642,8 +974,8 @@
                                             documents</small></div>
                                     <div class="file-attachment-field">
                                         <div class="file-attachment-list" id="inv_attachment">
-                                            @if ($resampling->sample_Request_Approval_attachment)
-                                            @foreach(json_decode($resampling->sample_Request_Approval_attachment) as $file)
+                                            @if ($data->sample_Request_Approval_attachment)
+                                            @foreach(json_decode($data->sample_Request_Approval_attachment) as $file)
                                             <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
                                                 <b>{{ $file }}</b>
                                                 <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
@@ -678,11 +1010,11 @@
                                     <label for="audit type">Sample Received </label>
                                     <select  name="sample_Received" id="audit_type"  value="">
                                         <option value=""  >Enter Your Selection Here</option>
-                                        <option @if ($resampling->sample_Received == 'Facility') selected @endif
+                                        <option @if ($data->sample_Received == 'Facility') selected @endif
                                             value="Facility">Facility</option>
                                             {{-- <option @if ($data->audit_type == 'Equipment/Instrument') selected @endif
                                                 value="Equipment/Instrument">Equipment/Instrument</option> --}}
-                                                        <option @if ($resampling->sample_Received == 'Data integrity') selected @endif
+                                                        <option @if ($data->sample_Received == 'Data integrity') selected @endif
                                                             value="Data integrity">Data integrity</option>
                                                             {{-- <option @if ($data->audit_type == 'Anyother(specify)') selected @endif
                                                                 value="Anyother(specify)">Anyother(specify)</option> --}}
@@ -693,18 +1025,18 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Sample Quantity</b></label>
-                                    <input type="text" name="sample_Quantity" value="{{$resampling->sample_Quantity}}">
+                                    <input type="text" name="sample_Quantity" value="{{$data->sample_Quantity}}">
                                 </div>
                             </div>
 
 
                             <div class="group-input">
                                 <label for="customer_satisfaction_level">Sample Received Comments</label>
-                                <textarea name="sample_Received_Comments">{{$resampling->sample_Received_Comments}}</textarea>
+                                <textarea name="sample_Received_Comments">{{$data->sample_Received_Comments}}</textarea>
                             </div>
                             <div class="group-input">
                                 <label for="budget_estimates">Delay Justification</label>
-                                <textarea name="delay_Justification">{{$resampling->delay_Justification}}</textarea>
+                                <textarea name="delay_Justification">{{$data->delay_Justification}}</textarea>
                             </div>
 
                             <div class="group-input">
@@ -714,8 +1046,8 @@
                                 <div class="file-attachment-field">
                                     <div class="file-attachment-list" id="file_attchment_if_any">
 
-                                        @if ($resampling->file_attchment_pending_sample)
-                                        @foreach(json_decode($resampling->file_attchment_pending_sample) as $file)
+                                        @if ($data->file_attchment_pending_sample)
+                                        @foreach(json_decode($data->file_attchment_pending_sample) as $file)
                                         <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
                                             <b>{{ $file }}</b>
                                             <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
@@ -747,58 +1079,85 @@
                         <div class="inner-block-content">
                             <div class="row">
                                 <div class="sub-head">General Information</div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="Completed By">Submit By : </label>
-                                        {{-- <div class="static">Person datafield</div>/ --}}
+                                        <div class="static">{{ $data->submitted_by }}</div>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="Completed On">Submit On :</label>
-                                        {{-- <div class="static">17-04-2023 11:12PM</div> --}}
+                                        <div class="static">{{ $data->submitted_on }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="group-input">
+                                        <label for="Completed On">Submit Comment :</label>
+                                        <div class="static">{{ $data->submitted_comment }}</div>
                                     </div>
                                 </div>
                                 <div class="sub-head">Under Sample Request Approval</div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="HOD Review Complete By">Sample Req. Approval Done By :</label>
-                                        <div class="static"></div>
+                                        <div class="static">{{ $data->approval_done_by }}</div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="HOD Review Complete By">Sample Req. Approval Done On :</label>
-                                        <div class="static"></div>
+                                        <div class="static">{{ $data->approval_done_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="group-input">
+                                        <label for="HOD Review Complete By">Sample Req. Approval Done On :</label>
+                                        <div class="static">{{ $data->approval_done_comment }}</div>
                                     </div>
                                 </div>
 
                                 <div class="sub-head">Pending Sample Received</div>
-                                <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Completed On">Sample Received Completed By :</label>
-                                        {{-- <div class="static">17-04-2023 11:12PM</div> --}}
+                                    <div class="col-lg-4">
+                                        <div class="group-input">
+                                            <label for="Completed On">Sample Received Completed By :</label>
+                                            <div class="static">{{ $data->sample_received_by }}</div>
+                                        </div>
+                                    </div> 
+                                    <div class="col-lg-4">
+                                            <div class="group-input">
+                                                <label for="Completed On">Sample Received Completed On :</label>
+                                                <div class="static">{{ $data->sample_received_on }}</div>
+                                            </div>
+                                    </div> 
+                                    <div class="col-lg-3">
+                                        <div class="group-input">
+                                            <label for="Completed On">Sample Received Completed On :</label>
+                                            <div class="static">{{ $data->sample_received_comment }}</div>
+                                        </div>
                                     </div>
-                                </div> <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Completed On">Sample Received Completed On :</label>
-                                        {{-- <div class="static">17-04-2023 11:12PM</div> --}}
-                                    </div>
-                                </div>
+                                    
 
                                 <div class="sub-head">Cancellation</div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="Completed On">Cancel Request By :</label>
-                                        {{-- <div class="static">17-04-2023 11:12PM</div> --}}
+                                        <div class="static">{{ $data->cancelled_by }}</div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="Completed On">Cancel Request On :</label>
-                                        {{-- <div class="static">17-04-2023 11:12PM</div> --}}
+                                        <div class="static">{{ $data->cancelled_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="group-input">
+                                        <label for="Completed On">Cancel Request On :</label>
+                                        <div class="static">{{ $data->cancelled_comment }}</div>
                                     </div>
                                 </div>
 
@@ -817,6 +1176,141 @@
                 </div>
             </form>
 
+        </div>
+    </div>
+
+    <div class="modal fade" id="signature-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form action="{{ route('resampling_send_stage', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment</label>
+                            <input type="comment" name="comment">
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                        {{-- <button>Close</button> --}}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="cancel-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+    
+                <form action="{{ route('resampling_Cancle', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                        {{-- <button>Close</button> --}}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="rejection-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+    
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+    
+                <form action="{{ route('resampling_reject', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+    
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                        <button type="submit" data-bs-dismiss="modal">Submit</button>
+                        <button>Close</button>
+                    </div> -->
+                    <div class="modal-footer">
+                      <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -1066,145 +1560,10 @@ function addActionItemDetails(tableId) {
                 tableBody.append(newRow);
             });
         });
-    </script>
+    </script>   
 
-    <script>
-        $(document).ready(function() {
-
-            $('#product_material').click(function(e) {
-            function generateTableRow(serialNumber) {
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    // '<td><input type="date" name="date[]"></td>' +
-                    '<td><input type="text" name="product_material_information[0][product_material]"></td>' +
-                    '<td><input type="text" name="product_material_information[0][batch_no]"></td>' +
-                    '<td><input type="text" name="product_material_information[0][ar_no]"></td>' +
-                    '<td><input type="text" name="product_material_information[0][test_name]"></td>' +
-                    '<td><input type="text" name="product_material_information[0][instrument_name]"></td>' +
-                    '<td><input type="text" name="product_material_information[0][instrument_no]"></td>'+
-                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="text" id="agenda_date'+ serialNumber +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="product_material_information[0][date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, `agenda_date' + serialNumber +'`)" /></div></div></div></td>'+
-                    '</tr>';
-                return html;
-            }
-            var tableBody = $('#product_material_body tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-
-        $('#info_on_product').click(function(e) {
-            function generateTableRow(serialNumber) {
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    // '<td><input type="date" name="date[]"></td>' +
-                    '<td><input type="text" name="info_on_product_mat[0][item_product_code]"></td>' +
-                    '<td><input type="text" name="info_on_product_mat[0][lot_batch_no]"></td>' +
-                    '<td><input type="text" name="info_on_product_mat[0][ar_no]"></td>' +
-                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="text" id="agenda_date01" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="info_on_product_mat[0][date01]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, `agenda_date01`);" /></div></div></div></td>' +
-                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="text" id="agenda_date02" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="info_on_product_mat[0][date02]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, `agenda_date02`);" /></div></div></div></td>' +
-                    '<td><input type="text" name="info_on_product_mat[0][label_claim]"></td>'+
-                    '<td><input type="text" name="info_on_product_mat[0][pack_size]"></td>'+
-                    '</tr>';
-                return html;
-            }
-            var tableBody = $('#info_on_product_body tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-
-// 3
-
-$('#oos_details').click(function(e) {
-            function generateTableRow(serialNumber) {
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    // '<td><input type="date" name="date[]"></td>' +
-                    '<td><input type="text" name="oos_details[0][ar_no]"></td>' +
-                    '<td><input type="text" name="oos_details[0][test_name_of_OOS]"></td>' +
-                    '<td><input type="text" name="oos_details[0][results_obtained]"></td>' +
-                    '<td><input type="text" name="oos_details[0][specification_limit]"></td>'+
-                    '</tr>';
-                return html;
-            }
-            var tableBody = $('#oos_details_body tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-
-
-        // 4
-
-        $('#oot_detail').click(function(e) {
-            function generateTableRow(serialNumber) {
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="oot_detail[0][ar_no_oot]"></td>' +
-                    '<td><input type="text" name="oot_detail[0][test_name_oot]"></td>' +
-                    '<td><input type="text" name="oot_detail[0][results_obtained_oot]"></td>' +
-                    '<td><input type="text" name="oot_detail[0][initial_Interval_Details_oot]"></td>'+
-                    '<td><input type="text" name="oot_detail[0][previous_Interval_Details_oot]"></td>'+
-                    '<td><input type="text" name="oot_detail[0][difference_of_Results_oot]"></td>'+
-                    '<td><input type="text" name="oot_detail[0][initial_interview_Details_oot]"></td>'+
-                    '<td><input type="text" name="oot_detail[0][trend_Limit_oot]"></td>'+
-                    '</tr>';
-                return html;
-            }
-            var tableBody = $('#oot_detail_body tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-
-
-        // 5
-
-        $('#stability_study').click(function(e) {
-            function generateTableRow(serialNumber) {
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="stability_study[0][ar_no_stability_stdy]"></td>' +
-                    '<td><input type="text" name="stability_study[0][condition_temp_stability_stdy]"></td>' +
-                    '<td><input type="text" name="stability_study[0][interval_stability_stdy]"></td>' +
-                    '<td><input type="text" name="stability_study[0][orientation_stability_stdy]"></td>'+
-                    '<td><input type="text" name="stability_study[0][pack_details_if_any_stability_stdy]"></td>'+
-                    '</tr>';
-                return html;
-            }
-            var tableBody = $('#stability_study_body tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-
-    // 6
-
- $('#stability_study2').click(function(e) {
-            function generateTableRow(serialNumber) {
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="stability_study2[0][ar_no_stability_stdy2]"></td>' +
-                    '<td><input type="text" name="stability_study2[0][stability_condition_stability_stdy2]"></td>' +
-                    '<td><input type="text" name="stability_study2[0][stability_interval_stability_stdy2]"></td>' +
-                    '<td><input type="text" name="stability_study2[0][pack_details_if_any_stability_stdy2]"></td>'+
-                    '<td><input type="text" name="stability_study2[0][orientation_stability_stdy2]"></td>'+
-                    '</tr>';
-                return html;
-            }
-            var tableBody = $('#stability_study2_body tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-
-
+<script>
+    $(document).ready(function() {
 
             $('#check_detail ').click(function(e) {
                 function generateTableRow(serialNumber) {

@@ -27,7 +27,6 @@ class CountrySubDataController extends Controller
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
         return view("frontend.ctms.country_sub_data", compact('due_date', 'record_number'));
-        // dd($record);
     }
 
     public function country_store(Request $request)
@@ -1327,10 +1326,10 @@ class CountrySubDataController extends Controller
 
         //  $country->form_type_new = "Country-Submission-Data";
         //  $country->originator_id = Auth::user()->name;
-         $country->form_type_new = "Country-Submission-Data";
-         $country->record = ((RecordNumber::first()->value('counter')) + 1);
-         $country->initiator_id = Auth::user()->id;
-         $country->intiation_date = $request->intiation_date;
+        //  $country->form_type_new = "Country-Submission-Data";
+        //  $country->record = ((RecordNumber::first()->value('counter')) + 1);
+        //  $country->initiator_id = Auth::user()->id;
+        //  $country->intiation_date = $request->intiation_date;
          $country->short_description =($request->short_description);
          $country->assigned_to = $request->assigned_to;
          $country->due_date = $request->due_date;

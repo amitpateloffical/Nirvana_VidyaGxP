@@ -172,7 +172,11 @@ Route::group(['prefix' => 'rcms'], function () {
 
 //--------------------------------------------by pramod-------------------------------------------------------------
             Route::get('countrySingleReport/{id}', [CountrySubDataController::class, 'singleReport'])->name('supplierSingleReport');
-            Route::get('countryAuditReport/{id}', [CountrySubDataController::class, 'auditReport'])->name('supplierAuditReport');            
+            Route::get('countryAuditReport/{id}', [CountrySubDataController::class, 'auditReport'])->name('supplierAuditReport');   
+            
+//--------------------------------------------by pramod-------------------------------------------------------------
+            Route::get('resamplingSingleReport/{id}', [ResamplingController::class, 'singleReport'])->name('resamplingSingleReport');
+            Route::get('resamplingAuditReport/{id}', [ResamplingController::class, 'auditReport'])->name('resamplingAuditReport');               
 
 //---------------------------------------------------------------------------------------------------------
 
