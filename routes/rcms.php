@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CTASubmissionController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CCController;
@@ -83,7 +84,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::resource('effectiveness', EffectivenessCheckController::class);
             Route::post('send-effectiveness/{id}', [EffectivenessCheckController::class, 'stageChange']);
             Route::post('effectiveness-reject/{id}', [EffectivenessCheckController::class, 'reject']);
-            Route::post('cancel/{id}',[EffectivenessCheckController::class,'cancel'])->name('moreinfo_effectiveness');
+            Route::post('cancel/{id}', [EffectivenessCheckController::class, 'cancel'])->name('moreinfo_effectiveness');
             Route::view('helpdesk-personnel', 'frontend.rcms.helpdesk-personnel');
             Route::view('send-notification', 'frontend.rcms.send-notification');
             Route::get('new-change-control', [CCController::class, 'changecontrol']);
@@ -114,7 +115,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('LabIncidentAuditReport/{id}', [LabIncidentController::class, 'auditReport'])->name('LabIncidentAuditReport');
             //------------------------------------
 
-            
+
             Route::post('create', [AuditProgramController::class, 'create'])->name('createAuditProgram');
             Route::get('AuditProgramShow/{id}', [AuditProgramController::class, 'AuditProgramShow'])->name('ShowAuditProgram');
             Route::post('AuditStateChange/{id}', [AuditProgramController::class, 'AuditStateChange'])->name('StateChangeAuditProgram');
@@ -140,6 +141,10 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('ObservationAuditTrialShow/{id}', [ObservationController::class, 'ObservationAuditTrialShow'])->name('ShowObservationAuditTrial');
             Route::get('ObservationAuditTrialDetails/{id}', [ObservationController::class, 'ObservationAuditTrialDetails'])->name('showaudittrialobservation');
 
+            // --------------- CTA Submission -----------------------------
+            Route::get('cta-submission-SingleReport/{id}', [CTASubmissionController::class, 'singleReport'])->name('CTASubmissionSingleReport');
+            Route::get('cta-submission-AuditReport/{id}', [CTASubmissionController::class, 'auditReport'])->name('CTASubmissionAuditReport');
+            // --------------- CTA Submission end -----------------------------
 
             //----------------------------------------------By PRIYA SHRIVASTAVA------------------
             Route::post('formDivision', [FormDivisionController::class, 'formDivision'])->name('formDivision');
@@ -171,13 +176,9 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('deviation/Qa/{id}', [DeviationController::class, 'deviation_qa_more_info'])->name('deviation_qa_more_info');
             Route::post('deviationstore', [DeviationController::class, 'store'])->name('deviationstore');
             Route::post('deviationupdate/{id}', [DeviationController::class, 'update'])->name('deviationupdate');
-             Route::get('deviation', [DeviationController::class, 'deviation']);
-             Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
-             Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
-
-
-             
-
+            Route::get('deviation', [DeviationController::class, 'deviation']);
+            Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
+            Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
         }
     );
 });

@@ -13,6 +13,7 @@ use App\Http\Controllers\rcms\DesktopController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\MytaskController;
 use App\Http\Controllers\CabinateController;
+use App\Http\Controllers\CTASubmissionController;
 use App\Http\Controllers\rcms\CCController;
 use App\Http\Controllers\rcms\EffectivenessCheckController;
 use App\Http\Controllers\rcms\ObservationController;
@@ -403,7 +404,23 @@ Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
 Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
 Route::view('clinical_site', 'frontend.ctms.clinical_site');
 
-Route::view('cta_submission', 'frontend.ctms.cta_submission');
+//======================================= CTA Submission =========================================
+
+Route::get('grid',[CTASubmissionController::class,'grid']);
+
+
+Route::get('cta_submission',[CTASubmissionController::class,'CTA_submission']);
+Route::post('cta-submission/store',[CTASubmissionController::class,'CTA_submission_store'])->name('cta_submission_store');
+Route::put('cta-submission/update/{id}',[CTASubmissionController::class,'CTA_submission_update'])->name('cta_submission_update');
+Route::get('cta-submission/show/{id}',[CTASubmissionController::class,'CTA_submission_show'])->name('cta_submission_show');
+Route::post('cta-submission/stage/{id}',[CTASubmissionController::class,'CTA_submission_send_stage'])->name('cta_submission_send_stage');
+Route::post('cta-submission/cancel/{id}',[CTASubmissionController::class,'CTA_submission_cancel'])->name('cta_submission_cancel');
+Route::post('cta-submission/reject/{id}',[CTASubmissionController::class,'CTA_submission_reject'])->name('cta_submission_reject');
+Route::get('cta-submission/auditTrail/{id}',[CTASubmissionController::class,'auditTrail'])->name('cta_submission_audit_trail');
+Route::get('cta-submission/auditDetails/{id}',[CTASubmissionController::class,'auditDetails'])->name('show_cta_submissionAuditDetails');
+
+//======================================= CTA Submission end=========================================
+
 Route::view('masking', 'frontend.ctms.masking');
 Route::view('randomization', 'frontend.ctms.randomization');
 Route::view('regulatory_quary_managment', 'frontend.ctms.regulatory_quary_managment');
