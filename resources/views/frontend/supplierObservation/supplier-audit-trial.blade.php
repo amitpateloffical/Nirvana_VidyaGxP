@@ -242,7 +242,7 @@
                             <td>
                                 <div>
                                     <strong> Data Field Name
-                                        :</strong>{{ $dataDemo->activity_type ?: 'Not Applicable' }}</a>
+                                        :</strong><a href="{{ route('auditDetailsSupplier', $dataDemo->id) }}">{{ $dataDemo->activity_type ?: 'Not Applicable' }}</a>
                                 </div>
                                 <div style="margin-top: 5px;">
                                     @if ($dataDemo->activity_type == 'Activity Log')

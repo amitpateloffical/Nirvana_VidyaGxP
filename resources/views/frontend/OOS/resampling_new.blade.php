@@ -114,7 +114,7 @@
                                                 Assurance Biopharma</option>
                                             <option value="CQC" @if (old('initiator_Group') == 'CQA') selected @endif>Central
                                                 Quality Control</option>
-                                            <option value="CQC" @if (old('initiator_Group') == 'MANU') selected @endif>
+                                            <option value="MANU" @if (old('initiator_Group') == 'MANU') selected @endif>
                                                 Manufacturing</option>
                                             <option value="PSG" @if (old('initiator_Group') == 'PSG') selected @endif>Plasma
                                                 Sourcing Group</option>

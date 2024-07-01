@@ -130,6 +130,12 @@
                 querySelect.options.add(new Option('Country Record Created', '2'));
                 querySelect.options.add(new Option('Close - Done', '3'));
             }
+            else if (scopeValue === 'Resampling') {
+                querySelect.options.add(new Option('Opened', '1'));
+                querySelect.options.add(new Option('Under Sample Request Approval', '2'));
+                querySelect.options.add(new Option('Pending Sample Receive', '3'));
+                querySelect.options.add(new Option('Close - Done', '4'));
+            }
 
 
         // Add more conditions based on other scope values

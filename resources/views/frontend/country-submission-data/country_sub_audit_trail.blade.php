@@ -185,7 +185,7 @@
                         <div class="heading">
 
                             <div class="heading-new">
-                                Country Submission Data Audit Trail
+                               Country Submission Data Audit Trail
                             </div>
 
                             <div> <strong>Record ID. </strong> {{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>
@@ -242,7 +242,7 @@
                             <td>
                                 <div>
                                     <strong> Data Field Name
-                                        :</strong>{{ $dataDemo->activity_type ?: 'Not Applicable' }}</a>
+                                        :</strong><a href="{{ route('auditDetailsCountry', $dataDemo->id) }}">{{ $dataDemo->activity_type ?: 'Not Applicable' }}</a>
                                 </div>
                                 <div style="margin-top: 5px;">
                                     @if ($dataDemo->activity_type == 'Activity Log')
@@ -260,7 +260,7 @@
                                             :</strong>{{ $dataDemo->change_to ? $dataDemo->change_to : 'Not Applicable' }}
                                     @else
                                         <strong>Change To
-                                            :</strong>{{ $dataDemo->current ? $dataDemo->current : 'Not Applicable' }}
+                                            :</strong>{!!$dataDemo->current ? $dataDemo->current : 'Not Applicable'!!}
                                     @endif
                                 </div>
                                 <div style="margin-top: 5px;">

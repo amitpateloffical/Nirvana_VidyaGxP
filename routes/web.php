@@ -208,7 +208,7 @@ Route::post('supplier/stage/{id}',[SupplierController::class,'supplier_send_stag
 Route::post('supplier/cancle/{id}',[SupplierController::class,'supplier_Cancle'])->name('supplier_Cancle');
 Route::post('supplier/reject/{id}',[SupplierController::class,'supplier_reject'])->name('supplier_reject');
 Route::get('supplierAuditTrail/{id}',[SupplierController::class,'supplierAuditTrail']);
-Route::get('auditDetailsSupplier/{id}',[SupplierController::class,'auditDetailsSupplier'])->name('showsupplierAuditDetails');
+Route::get('auditDetailsSupplier/{id}',[SupplierController::class,'auditDetailsSupplier'])->name('auditDetailsSupplier');
 
 // ======================================================
 //============================Supplier Observation by pramod=======================================
@@ -220,6 +220,7 @@ Route::get('countryshow/{id}',[CountrySubDataController::class,'country_show'])-
 Route::post('country/stage/{id}',[CountrySubDataController::class,'country_send_stage'])->name('country_send_stage');
 Route::post('country/cancle/{id}',[CountrySubDataController::class,'country_Cancle'])->name('country_Cancle');
 Route::get('countryAuditTrail/{id}',[CountrySubDataController::class,'countryAuditTrail']);
+Route::get('countrySubData/auditDetails/{id}',[CountrySubDataController::class,'auditDetailsCountry'])->name('auditDetailsCountry');
 
 // =================QRM fORM=====================================
 Route::view('qrm', 'frontend.QRM.qrm');

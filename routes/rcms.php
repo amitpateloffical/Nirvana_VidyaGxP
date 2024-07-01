@@ -22,6 +22,7 @@ use App\Http\Controllers\rcms\SupplierContractController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
 use App\Http\Controllers\VerificationController;
+use App\Http\Controllers\ResamplingController;
 
 use App\Http\Controllers\AdditionalTestingController;
 

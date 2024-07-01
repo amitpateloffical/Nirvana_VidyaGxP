@@ -76,11 +76,11 @@ class DashboardController extends Controller
         $datas13 = Deviation::orderByDesc('id')->get();
         $datas14 = Supplier::orderByDesc('id')->get();
         $datas15 = CountrySubData::orderByDesc('id')->get();
-        $datas15 = MedicalDeviceRegistration::orderByDesc('id')->get();
         $datas16 = Resampling::orderByDesc('id')->get();
         $datas17 = Verification::orderByDesc('id')->get();
         $datas18 = AnalystInterview::orderByDesc('id')->get();
         $datas19 = AdditionalTesting::orderByDesc('id')->get();
+        $datas20 = MedicalDeviceRegistration::orderByDesc('id')->get();
 
 
 
@@ -363,7 +363,7 @@ class DashboardController extends Controller
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
-                "initiator_id" => $data->originator_id,
+                "initiator_id" => $data->initiator_id,
                 "intiation_date" => $data->intiation_date,
                 "stage" => $data->status,
                 "date_open" => $data->create,
@@ -383,7 +383,7 @@ class DashboardController extends Controller
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
-                "initiator_id" => $data->originator_id,
+                "initiator_id" => $data->initiator_id,
                 "intiation_date" => $data->intiation_date,
                 "stage" => $data->status,
                 "date_open" => $data->create,
@@ -391,7 +391,7 @@ class DashboardController extends Controller
             ]);
         }
 
-        foreach ($datas15 as $data) {
+        foreach ($datas20 as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
 
             array_push($table, [
@@ -884,9 +884,9 @@ class DashboardController extends Controller
         }
         elseif ($type == "Resampling") {
             $data = Resampling::find($id);
-            $single = "deviationSingleReport/". $data->id;
-            $audit = "#";
-            $parent="deviationparentchildReport/". $data->id;
+            $single = "resamplingSingleReport/". $data->id;
+            $audit = "resamplingAuditReport/" . $data->id;
+            $parent=" ". $data->id;
         }
         elseif ($type == "Verification") {
             $data = Verification::find($id);

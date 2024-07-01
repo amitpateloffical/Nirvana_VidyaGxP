@@ -131,6 +131,14 @@ $users = DB::table('users')->get();
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code" />
+                                        {{-- value="{{ Helpers::getDivisionName(session()->get('division')) }}" --}}
+                                    {{-- <input type="hidden" name="division_id" value="{{ session()->get('division') }}"> --}}
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
                                     <label for="Initiator"><b>Initiator</b></label>
                                     <input disabled type="text" name="initiator_name" value="{{ $data->initiator_name }}">
                                 </div>
@@ -140,17 +148,6 @@ $users = DB::table('users')->get();
                                     <label for="Date Due">Date of Initiation</label>
                                     <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
                                     <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Due Date</label>
-                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
-                                        <input type="date" name="due_date" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }} min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
                                 </div>
                             </div>
 
@@ -173,6 +170,19 @@ $users = DB::table('users')->get();
                                     @enderror
                                 </div>
                             </div>
+
+                            <div class="col-md-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="due-date">Due Date</label>
+                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
+                                        <input type="date" name="due_date" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }} min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            
 
                             
 

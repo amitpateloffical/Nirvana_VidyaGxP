@@ -185,7 +185,7 @@
                                         <label for="search">
                                             Assigned To <span class="text-danger"></span>
                                         </label>
-                                        <select id="select-state" placeholder="Select..." name="assign_to">
+                                        <select id="select-state" placeholder="Select..." name="assign_to" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                             <option value="">Select a value</option>
                                             @foreach ($users as $key => $value)
                                                 <option value="{{ $value->id }}"
@@ -204,15 +204,15 @@
                                         <label for="due-date">Due Date</label>
                                         <div><small class="text-primary">Please mention expected date of completion</small></div>
                                         <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}"/>
-                                            <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                            <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
+                                            <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group"><b>Initiator Group</b></label>
-                                        <select name="initiator_Group" id="initiator_group">
+                                        <select name="initiator_Group" id="initiator_group" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                             <option value="">-- Select --</option>
                                             <option value="CQA"  @if ($data->initiator_Group == 'CQA') selected @endif>
                                                 Corporate Quality Assurance</option>
@@ -274,7 +274,7 @@
                                         <label for="Short Description">Short Description<span
                                                 class="text-danger">*</span></label><span id="rchars">255</span>
                                         characters remaining
-                                    <textarea name="short_description"   id="docname" type="text"    maxlength="255" required >{{ $data->short_description }}</textarea>
+                                    <textarea name="short_description"   id="docname" type="text"    maxlength="255" required {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>{{ $data->short_description }}</textarea>
                                     {{-- <textarea name="short_description"   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $resampling->short_description }}</textarea> --}}
 
                                         {{-- <input id="docname" type="text" name="short_description" maxlength="255" required value="{{ $resampling->short_description }}"> --}}
@@ -283,48 +283,48 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="cq_Approver"><b>CQ Approver</b></label>
-                                        <input type="text" name="cq_Approver" value="{{$data->cq_Approver}}">
+                                        <input type="text" name="cq_Approver" value="{{$data->cq_Approver}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Supervisor"><b>Supervisor</b></label>
-                                        <input type="text" name="supervisor"   value="{{$data->cq_Approver}}" >
+                                        <input type="text" name="supervisor"   value="{{$data->cq_Approver}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="api_Material_Product_Name"><b>API/Material/Drug Product Name</b></label>
-                                        <input  type="text" name="api_Material_Product_Name"  value="{{$data->api_Material_Product_Name}}" >
+                                        <input  type="text" name="api_Material_Product_Name"  value="{{$data->api_Material_Product_Name}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                     </div>
                                 </div> <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="lot_Batch_Number"><b>Lot/Batch Number</b></label>
-                                        <input type="text" name="lot_Batch_Number"  value="{{$data->lot_Batch_Number}}" >
+                                        <input type="text" name="lot_Batch_Number"  value="{{$data->lot_Batch_Number}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                     </div>
                                  </div>
                                   <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for=" AR Number"><b>AR Number</b></label>
-                                    <input type="text" name="ar_Number_GI"  value="{{$data->ar_Number_GI}}" >
+                                    <input type="text" name="ar_Number_GI"  value="{{$data->ar_Number_GI}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Test Name"><b>Test Name</b></label>
-                                    <input type="text" name="test_Name_GI"  value="{{$data->test_Name_GI}}" >
+                                    <input type="text" name="test_Name_GI"  value="{{$data->test_Name_GI}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="justification_for_resampling">Justification For Resampling</label>
-                                    <textarea name="justification_for_resampling_GI">{{$data->justification_for_resampling_GI}}</textarea>
+                                    <textarea name="justification_for_resampling_GI" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>{{$data->justification_for_resampling_GI}}</textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Description">Predetermined Sampling Strategies</label>
-                                    <textarea name="predetermined_Sampling_Strategies_GI">{{$data->predetermined_Sampling_Strategies_GI}}</textarea>
+                                    <textarea name="predetermined_Sampling_Strategies_GI" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>{{$data->predetermined_Sampling_Strategies_GI}}</textarea>
                                 </div>
                             </div>
 
@@ -348,7 +348,7 @@
                                         <div class="add-btn">
                                             <div>Add</div>
                                             <input type="file" id="myfile" name="supporting_attach[]"
-                                                oninput="addMultipleFiles(this, 'supporting_attach')" multiple>
+                                                oninput="addMultipleFiles(this, 'supporting_attach')" multiple {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                         </div>
                                     </div>
                                 </div>
@@ -361,9 +361,9 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled end date">Parent-TCD(hid)</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY"  value="{{$data->parent_tcd_hid}}"/>
-                                        <input type="date" id="end_date_checkdate" name="parent_tcd_hid" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY"  value="{{$data->parent_tcd_hid}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
+                                        <input type="date" id="end_date_checkdate" name="parent_tcd_hid" value="{{$data->parent_tcd_hid}}" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
                                     </div>
                                 </div>
                             </div>
@@ -374,28 +374,28 @@
                                <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Parent) OOS No.</b></label>
-                                    <input type="text" name="parent_oos_no" value="{{$data->parent_oos_no}}">
+                                    <input type="text" name="parent_oos_no" value="{{$data->parent_oos_no}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Parent) OOT No.</b></label>
-                                    <input type="text" name="parent_oot_no"   value="{{$data->parent_oot_no}}">
+                                    <input type="text" name="parent_oot_no"   value="{{$data->parent_oot_no}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Parent) Lab Incident No.</b></label>
-                                    <input type="text" name="parent_lab_incident_no"  value="{{$data->parent_lab_incident_no}}">
+                                    <input type="text" name="parent_lab_incident_no"  value="{{$data->parent_lab_incident_no}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent)Date Opened</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" value="{{$data->parent_date_opened}}"/>
-                                        <input type="date" id="start_date_checkdate"  name="parent_date_opened" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')"/>
+                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" value="{{$data->parent_date_opened}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
+                                        <input type="date" id="start_date_checkdate"  name="parent_date_opened" value="{{$data->parent_date_opened}}" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                            oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
                                     </div>
                                 </div>
                             </div>
@@ -403,13 +403,13 @@
                                 <div class="group-input">
                                     <label for="Short Description">(Parent)Short Description<span
                                             class="text-danger"></span></label><span id="rchars"></span>
-                                    <input id="docname" type="text" name="parent_short_description" maxlength="255"  value="{{$data->parent_short_description}}" >
+                                    <input id="docname" type="text" name="parent_short_description" maxlength="255"  value="{{$data->parent_short_description}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Parent) Product/Material Name</b></label>
-                                    <input type="text" name="parent_product_material_name"  value="{{$data->parent_product_material_name}}">
+                                    <input type="text" name="parent_product_material_name"  value="{{$data->parent_product_material_name}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                 </div>
                             </div>
 
@@ -417,9 +417,9 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent)Target Closure Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY"  value="{{$data->parent_target_closure_date}}"/>
-                                        <input type="date" id="end_date_checkdate"  name="parent_target_closure_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date');checkDate('end_date_checkdate','end_date_checkdate')"/>
+                                        <input type="text" id="end_date1" readonly placeholder="DD-MMM-YYYY"  value="{{$data->parent_target_closure_date}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
+                                        <input type="date" id="end_date_checkdate"  name="parent_target_closure_date" value="{{$data->parent_target_closure_date}}" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                            oninput="handleDateInput(this, 'end_date1');checkDate('end_date_checkdate','end_date_checkdate')" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
                                     </div>
                                 </div>
                             </div>
@@ -481,7 +481,7 @@
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
-                                            Product/Material Information<button type="button" name="product_material_information" id="product_material">+</button>
+                                            Product/Material Information<button type="button" name="product_material_information" id="product_material" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
                                         </label>
                                         <table class="table table-bordered" id="product_material_body">
                                             <thead>
@@ -500,13 +500,13 @@
                                                 @if (!empty($gridDatas01) && is_array($gridDatas01->data))
                                                     @foreach ($gridDatas01->data as $gridDatas01) 
                                                         <tr>
-                                                            <td><input disabled type="text" name="product_material_information[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
-                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][product_material]" value="{{ isset($gridDatas01['product_material']) ? $gridDatas01['product_material'] : '' }}"></td>
-                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][batch_no]" value="{{ isset($gridDatas01['batch_no']) ? $gridDatas01['batch_no'] : '' }}"></td>
-                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][ar_no]" value="{{ isset($gridDatas01['ar_no']) ? $gridDatas01['ar_no'] : '' }}"></td>
-                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][test_name]" value="{{ isset($gridDatas01['test_name']) ? $gridDatas01['test_name'] : '' }}"></td>
-                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][instrument_name]" value="{{ isset($gridDatas01['instrument_name']) ? $gridDatas01['instrument_name'] : '' }}"></td>
-                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][instrument_no]" value="{{ isset($gridDatas01['instrument_no']) ? $gridDatas01['instrument_no'] : '' }}"></td>
+                                                            <td><input disabled type="text" name="product_material_information[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][product_material]" value="{{ isset($gridDatas01['product_material']) ? $gridDatas01['product_material'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][batch_no]" value="{{ isset($gridDatas01['batch_no']) ? $gridDatas01['batch_no'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][ar_no]" value="{{ isset($gridDatas01['ar_no']) ? $gridDatas01['ar_no'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][test_name]" value="{{ isset($gridDatas01['test_name']) ? $gridDatas01['test_name'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][instrument_name]" value="{{ isset($gridDatas01['instrument_name']) ? $gridDatas01['instrument_name'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="product_material_information[{{ $loop->index }}][instrument_no]" value="{{ isset($gridDatas01['instrument_no']) ? $gridDatas01['instrument_no'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                             <td>
                                                                 <div class="new-date-data-field">
                                                                     <div class="new-date-data-field">
@@ -518,6 +518,7 @@
                                                                                     type="text"
                                                                                     name="product_material_information[{{ $loop->index }}][info_date]"
                                                                                     placeholder="DD-MMM-YYYY"
+                                                                                    {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}
                                                                                     value="{{ isset($gridDatas01['info_date']) ? $gridDatas01['info_date'] : '' }}"
                                                                                 />
                                                                                 <input
@@ -526,6 +527,7 @@
                                                                                     value="{{ isset($gridDatas01['info_date']) ? $gridDatas01['info_date'] : '' }}"
                                                                                     id="date_{{ $loop->index }}_date_picker"
                                                                                     class="hide-input show_date"
+                                                                                    {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}
                                                                                     style="position: absolute; top: 0; left: 0; opacity: 0;"
                                                                                     onchange="handleDateInput(this, 'date_{{ $loop->index }}_date')"
                                                                                 />
@@ -572,7 +574,7 @@
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
-                                          Info. On Product/Material<button type="button" name="info_on_product_mat" id="info_on_product">+</button>
+                                          Info. On Product/Material<button type="button" name="info_on_product_mat" id="info_on_product" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
                                         </label>
                                         <table class="table table-bordered" id="info_on_product_body">
                                             <thead>
@@ -591,10 +593,10 @@
                                                 @if (!empty($gridDatas02) && is_array($gridDatas02->data))
                                                     @foreach ($gridDatas02->data as $gridDatas02) 
                                                             <tr>
-                                                                <td><input disabled type="text" name="info_on_product_mat[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
-                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][item_product_code]" value="{{ isset($gridDatas02['item_product_code']) ? $gridDatas02['item_product_code'] : '' }}"></td>
-                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][lot_batch_no]" value="{{ isset($gridDatas02['lot_batch_no']) ? $gridDatas02['lot_batch_no'] : '' }}"></td>
-                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][ar_no]" value="{{ isset($gridDatas02['ar_no']) ? $gridDatas02['ar_no'] : '' }}"></td>
+                                                                <td><input disabled type="text" name="info_on_product_mat[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][item_product_code]" value="{{ isset($gridDatas02['item_product_code']) ? $gridDatas02['item_product_code'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][lot_batch_no]" value="{{ isset($gridDatas02['lot_batch_no']) ? $gridDatas02['lot_batch_no'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][ar_no]" value="{{ isset($gridDatas02['ar_no']) ? $gridDatas02['ar_no'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                                 <td>
                                                                     <div class="new-date-data-field">
                                                                         <div class="group-input input-date">
@@ -605,6 +607,7 @@
                                                                                     type="text"
                                                                                     name="info_on_product_mat[{{ $loop->index }}][info_mfg_date]"
                                                                                     placeholder="DD-MMM-YYYY"
+                                                                                    {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}
                                                                                     value="{{ isset($gridDatas02['info_mfg_date']) ? $gridDatas02['info_mfg_date'] : '' }}"
                                                                                 />
                                                                                 <input
@@ -613,6 +616,7 @@
                                                                                     value="{{ isset($gridDatas02['info_mfg_date']) ? $gridDatas02['info_mfg_date'] : '' }}"
                                                                                     id="date_{{ $loop->index }}_mfg_date_picker"
                                                                                     class="hide-input show_date"
+                                                                                    {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}
                                                                                     style="position: absolute; top: 0; left: 0; opacity: 0;"
                                                                                     onchange="handleDateInput(this, 'date_{{ $loop->index }}_mfg_date')"
                                                                                 />
@@ -630,7 +634,7 @@
                                                                                     type="text"
                                                                                     name="info_on_product_mat[{{ $loop->index }}][info_expiry_date]"
                                                                                     placeholder="DD-MMM-YYYY"
-                                                                                    {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
+                                                                                    {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}
                                                                                     value="{{ isset($gridDatas02['info_expiry_date']) ? $gridDatas02['info_expiry_date'] : '' }}"
                                                                                 />
                                                                                 <input
@@ -639,6 +643,7 @@
                                                                                     value="{{ isset($gridDatas02['info_expiry_date']) ? $gridDatas02['info_expiry_date'] : '' }}"
                                                                                     id="date_{{ $loop->index }}_expiry_date_picker"
                                                                                     class="hide-input show_date"
+                                                                                    {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}
                                                                                     style="position: absolute; top: 0; left: 0; opacity: 0;"
                                                                                     onchange="handleDateInput(this, 'date_{{ $loop->index }}_expiry_date')"
                                                                                 />
@@ -646,8 +651,8 @@
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][label_claim]" value="{{ isset($gridDatas02['label_claim']) ? $gridDatas02['label_claim'] : '' }}"></td>
-                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][pack_size]" value="{{ isset($gridDatas02['pack_size']) ? $gridDatas02['pack_size'] : '' }}"></td>
+                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][label_claim]" value="{{ isset($gridDatas02['label_claim']) ? $gridDatas02['label_claim'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                                <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][pack_size]" value="{{ isset($gridDatas02['pack_size']) ? $gridDatas02['pack_size'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                             </tr>
                                                     @endforeach
                                                 @endif    
@@ -689,7 +694,7 @@
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
-                                          OOS Details<button type="button" name="oos_details" id="oos_details">+</button>
+                                          OOS Details<button type="button" name="oos_details" id="oos_details" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
                                         </label>
                                         <table class="table table-bordered" id="oos_details_body">
                                             <thead>
@@ -706,11 +711,11 @@
                                                 @if (!empty($gridDatas03) && is_array($gridDatas03->data))
                                                     @foreach ($gridDatas03->data as $gridDatas03) 
                                                         <tr>
-                                                            <td><input disabled type="text" name="oos_details[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
-                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][ar_no]" value="{{ isset($gridDatas03['ar_no']) ? $gridDatas03['ar_no'] : '' }}"></td>
-                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][test_name_of_OOS]" value="{{ isset($gridDatas03['test_name_of_OOS']) ? $gridDatas03['test_name_of_OOS'] : '' }}"></td>
-                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][results_obtained]" value="{{ isset($gridDatas03['results_obtained']) ? $gridDatas03['results_obtained'] : '' }}"></td>
-                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][specification_limit]" value="{{ isset($gridDatas03['specification_limit']) ? $gridDatas03['specification_limit'] : '' }}"></td>
+                                                            <td><input disabled type="text" name="oos_details[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][ar_no]" value="{{ isset($gridDatas03['ar_no']) ? $gridDatas03['ar_no'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][test_name_of_OOS]" value="{{ isset($gridDatas03['test_name_of_OOS']) ? $gridDatas03['test_name_of_OOS'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][results_obtained]" value="{{ isset($gridDatas03['results_obtained']) ? $gridDatas03['results_obtained'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oos_details[{{ $loop->index }}][specification_limit]" value="{{ isset($gridDatas03['specification_limit']) ? $gridDatas03['specification_limit'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -748,7 +753,7 @@
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
-                                          OOT Results<button type="button" name="oot_detail" id="oot_detail">+</button>
+                                          OOT Results<button type="button" name="oot_detail" id="oot_detail" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
                                         </label>
                                         <table class="table table-bordered" id="oot_detail_body">
                                             <thead>
@@ -768,15 +773,15 @@
                                                 @if (!empty($gridDatas04) && is_array($gridDatas04->data))
                                                     @foreach ($gridDatas04->data as $gridDatas04)
                                                         <tr>
-                                                            <td><input disabled type="text" name="oot_detail[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
-                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][ar_no_oot]" value="{{ isset($gridDatas04['ar_no_oot']) ? $gridDatas04['ar_no_oot'] : '' }}"></td>
-                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][test_name_oot]" value="{{ isset($gridDatas04['test_name_oot']) ? $gridDatas04['test_name_oot'] : '' }}"></td>
-                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][results_obtained_oot]" value="{{ isset($gridDatas04['results_obtained_oot']) ? $gridDatas04['results_obtained_oot'] : '' }}"></td>
-                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][initial_Interval_Details_oot]" value="{{ isset($gridDatas04['initial_Interval_Details_oot']) ? $gridDatas04['initial_Interval_Details_oot'] : '' }}"></td>
-                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][previous_Interval_Details_oot]" value="{{ isset($gridDatas04['previous_Interval_Details_oot']) ? $gridDatas04['previous_Interval_Details_oot'] : '' }}"></td>
-                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][difference_of_Results_oot]" value="{{ isset($gridDatas04['difference_of_Results_oot']) ? $gridDatas04['difference_of_Results_oot'] : '' }}"></td>
-                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][initial_interview_Details_oot]" value="{{ isset($gridDatas04['initial_interview_Details_oot']) ? $gridDatas04['initial_interview_Details_oot'] : '' }}"></td>
-                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][trend_Limit_oot]" value="{{ isset($gridDatas04['trend_Limit_oot']) ? $gridDatas04['trend_Limit_oot'] : '' }}"></td>
+                                                            <td><input disabled type="text" name="oot_detail[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][ar_no_oot]" value="{{ isset($gridDatas04['ar_no_oot']) ? $gridDatas04['ar_no_oot'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][test_name_oot]" value="{{ isset($gridDatas04['test_name_oot']) ? $gridDatas04['test_name_oot'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][results_obtained_oot]" value="{{ isset($gridDatas04['results_obtained_oot']) ? $gridDatas04['results_obtained_oot'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][initial_Interval_Details_oot]" value="{{ isset($gridDatas04['initial_Interval_Details_oot']) ? $gridDatas04['initial_Interval_Details_oot'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][previous_Interval_Details_oot]" value="{{ isset($gridDatas04['previous_Interval_Details_oot']) ? $gridDatas04['previous_Interval_Details_oot'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][difference_of_Results_oot]" value="{{ isset($gridDatas04['difference_of_Results_oot']) ? $gridDatas04['difference_of_Results_oot'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][initial_interview_Details_oot]" value="{{ isset($gridDatas04['initial_interview_Details_oot']) ? $gridDatas04['initial_interview_Details_oot'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="oot_detail[{{ $loop->index }}][trend_Limit_oot]" value="{{ isset($gridDatas04['trend_Limit_oot']) ? $gridDatas04['trend_Limit_oot'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -817,7 +822,7 @@
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
-                                          Details of Stability Study<button type="button" name="stability_study[]" id="stability_study">+</button>
+                                          Details of Stability Study<button type="button" name="stability_study[]" id="stability_study" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
                                         </label>
                                         <table class="table table-bordered" id="stability_study_body">
                                             <thead>
@@ -834,12 +839,12 @@
                                                 @if (!empty($gridDatas05) && is_array($gridDatas05->data))
                                                     @foreach ($gridDatas05->data as $gridDatas05)
                                                         <tr>
-                                                            <td><input disabled type="text" name="stability_study[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
-                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][ar_no_stability_stdy]" value="{{ isset($gridDatas05['ar_no_stability_stdy']) ? $gridDatas05['ar_no_stability_stdy'] : '' }}"></td>
-                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][condition_temp_stability_stdy]" value="{{ isset($gridDatas05['condition_temp_stability_stdy']) ? $gridDatas05['condition_temp_stability_stdy'] : '' }}"></td>
-                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][interval_stability_stdy]" value="{{ isset($gridDatas05['interval_stability_stdy']) ? $gridDatas05['interval_stability_stdy'] : '' }}"></td>
-                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][orientation_stability_stdy]" value="{{ isset($gridDatas05['orientation_stability_stdy']) ? $gridDatas05['orientation_stability_stdy'] : '' }}"></td>
-                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][pack_details_if_any_stability_stdy]" value="{{ isset($gridDatas05['pack_details_if_any_stability_stdy']) ? $gridDatas05['pack_details_if_any_stability_stdy'] : '' }}"></td>
+                                                            <td><input disabled type="text" name="stability_study[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][ar_no_stability_stdy]" value="{{ isset($gridDatas05['ar_no_stability_stdy']) ? $gridDatas05['ar_no_stability_stdy'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][condition_temp_stability_stdy]" value="{{ isset($gridDatas05['condition_temp_stability_stdy']) ? $gridDatas05['condition_temp_stability_stdy'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][interval_stability_stdy]" value="{{ isset($gridDatas05['interval_stability_stdy']) ? $gridDatas05['interval_stability_stdy'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][orientation_stability_stdy]" value="{{ isset($gridDatas05['orientation_stability_stdy']) ? $gridDatas05['orientation_stability_stdy'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="stability_study[{{ $loop->index }}][pack_details_if_any_stability_stdy]" value="{{ isset($gridDatas05['pack_details_if_any_stability_stdy']) ? $gridDatas05['pack_details_if_any_stability_stdy'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -878,7 +883,7 @@
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
-                                          Details of Stability Study.<button type="button" name="stability_study2" id="stability_study2">+</button>
+                                          Details of Stability Study.<button type="button" name="stability_study2" id="stability_study2" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
                                         </label>
                                         <table class="table table-bordered" id="stability_study2_body">
                                             <thead>
@@ -896,12 +901,12 @@
                                                 @if (!empty($gridDatas06) && is_array($gridDatas06->data))
                                                     @foreach ($gridDatas06->data as $gridDatas06)  
                                                         <tr>
-                                                            <td><input disabled type="text" name="stability_study2[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
-                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][ar_no_stability_stdy2]" value="{{ isset($gridDatas06['ar_no_stability_stdy2']) ? $gridDatas06['ar_no_stability_stdy2'] : '' }}"></td>
-                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][stability_condition_stability_stdy2]" value="{{ isset($gridDatas06['stability_condition_stability_stdy2']) ? $gridDatas06['stability_condition_stability_stdy2'] : '' }}"></td>
-                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][stability_interval_stability_stdy2]" value="{{ isset($gridDatas06['stability_interval_stability_stdy2']) ? $gridDatas06['stability_interval_stability_stdy2'] : '' }}"></td>
-                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][pack_details_if_any_stability_stdy2]" value="{{ isset($gridDatas06['pack_details_if_any_stability_stdy2']) ? $gridDatas06['pack_details_if_any_stability_stdy2'] : '' }}"></td>
-                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][orientation_stability_stdy2]" value="{{ isset($gridDatas06['orientation_stability_stdy2']) ? $gridDatas06['orientation_stability_stdy2'] : '' }}"></td>
+                                                            <td><input disabled type="text" name="stability_study2[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][ar_no_stability_stdy2]" value="{{ isset($gridDatas06['ar_no_stability_stdy2']) ? $gridDatas06['ar_no_stability_stdy2'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][stability_condition_stability_stdy2]" value="{{ isset($gridDatas06['stability_condition_stability_stdy2']) ? $gridDatas06['stability_condition_stability_stdy2'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][stability_interval_stability_stdy2]" value="{{ isset($gridDatas06['stability_interval_stability_stdy2']) ? $gridDatas06['stability_interval_stability_stdy2'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][pack_details_if_any_stability_stdy2]" value="{{ isset($gridDatas06['pack_details_if_any_stability_stdy2']) ? $gridDatas06['pack_details_if_any_stability_stdy2'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><input type="text" name="stability_study2[{{ $loop->index }}][orientation_stability_stdy2]" value="{{ isset($gridDatas06['orientation_stability_stdy2']) ? $gridDatas06['orientation_stability_stdy2'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
 
                                                         </tr>
                                                     @endforeach
@@ -964,7 +969,7 @@
                                         style="font-size: 0.8rem; font-weight: 400; cursor:pointer;">
                                     </span>
                                 </label>
-                                <textarea name="sample_Request_Approval_Comments">{{$data->sample_Request_Approval_Comments}}</textarea>
+                                <textarea name="sample_Request_Approval_Comments" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>{{$data->sample_Request_Approval_Comments}}</textarea>
                             </div>
 
                             <div class="col-12">
@@ -987,7 +992,7 @@
                                         <div class="add-btn">
                                             <div>Add</div>
                                             <input type="file" id="myfile" name="sample_Request_Approval_attachment[]"
-                                                oninput="addMultipleFiles(this, 'inv_attachment')" multiple>
+                                                oninput="addMultipleFiles(this, 'inv_attachment')" multiple {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                         </div>
                                     </div>
                                 </div>
@@ -1008,7 +1013,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="audit type">Sample Received </label>
-                                    <select  name="sample_Received" id="audit_type"  value="">
+                                    <select  name="sample_Received" id="audit_type"  value="" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                         <option value=""  >Enter Your Selection Here</option>
                                         <option @if ($data->sample_Received == 'Facility') selected @endif
                                             value="Facility">Facility</option>
@@ -1025,18 +1030,18 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Sample Quantity</b></label>
-                                    <input type="text" name="sample_Quantity" value="{{$data->sample_Quantity}}">
+                                    <input type="text" name="sample_Quantity" value="{{$data->sample_Quantity}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                 </div>
                             </div>
 
 
                             <div class="group-input">
                                 <label for="customer_satisfaction_level">Sample Received Comments</label>
-                                <textarea name="sample_Received_Comments">{{$data->sample_Received_Comments}}</textarea>
+                                <textarea name="sample_Received_Comments" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>{{$data->sample_Received_Comments}}</textarea>
                             </div>
                             <div class="group-input">
                                 <label for="budget_estimates">Delay Justification</label>
-                                <textarea name="delay_Justification">{{$data->delay_Justification}}</textarea>
+                                <textarea name="delay_Justification" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>{{$data->delay_Justification}}</textarea>
                             </div>
 
                             <div class="group-input">
@@ -1060,7 +1065,7 @@
                                         <div>Add</div>
                                         <input type="file" id="myfile"
                                             name="file_attchment_pending_sample[]"{{-- ignore --}}
-                                            oninput="addMultipleFiles(this, 'file_attchment_if_any')" multiple>
+                                            oninput="addMultipleFiles(this, 'file_attchment_if_any')" multiple {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>
                                     </div>
                                 </div>
                             </div>
@@ -1114,7 +1119,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="group-input">
-                                        <label for="HOD Review Complete By">Sample Req. Approval Done On :</label>
+                                        <label for="HOD Review Complete By">Sample Req. Approval Done Comment :</label>
                                         <div class="static">{{ $data->approval_done_comment }}</div>
                                     </div>
                                 </div>
@@ -1134,7 +1139,7 @@
                                     </div> 
                                     <div class="col-lg-3">
                                         <div class="group-input">
-                                            <label for="Completed On">Sample Received Completed On :</label>
+                                            <label for="Completed On">Sample Received Completed Comment :</label>
                                             <div class="static">{{ $data->sample_received_comment }}</div>
                                         </div>
                                     </div>
@@ -1156,7 +1161,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <div class="group-input">
-                                        <label for="Completed On">Cancel Request On :</label>
+                                        <label for="Completed On">Cancel Request Comment :</label>
                                         <div class="static">{{ $data->cancelled_comment }}</div>
                                     </div>
                                 </div>

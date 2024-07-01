@@ -2803,6 +2803,18 @@ class CountrySubDataController extends Controller
 
     }
 
+    public function auditDetailsCountry(Request $request, $id)
+    {
+        $detail = CountrySubAuditTrail::find($id);
+
+        $detail_data = CountrySubAuditTrail::where('activity_type', $detail->activity_type)->where('country_id', $detail->country_id)->latest()->get();
+
+        $doc = CountrySubData::where('id', $detail->country_id)->first();
+
+        $doc->origiator_name = User::find($doc->initiator_id);
+        return view("frontend.country-submission-data.audit-trail-inner", compact('detail', 'doc', 'detail_data'));
+    }
+
     public static function singleReport($id)
     {
         $data = CountrySubData::find($id);

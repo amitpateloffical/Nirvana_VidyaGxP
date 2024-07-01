@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('originator_id')->nullable();
             $table->string('form_type_new')->nullable();
+            $table->string('division_id')->nullable();
+            $table->string('division_code')->nullable();
             $table->integer('initiator_id')->nullable();
             $table->string('intiation_date')->nullable();
             $table->longText('short_description')->nullable();

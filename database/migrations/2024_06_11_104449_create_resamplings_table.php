@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('resamplings', function (Blueprint $table) {
             $table->id();
-            $table->integer('record')->nullable();//
-            $table->string('division_id')->nullable();//
-            $table->string('originator_id')->nullable();//
-            $table->string('form_type')->nullable();//
-            $table->integer('initiator_id')->nullable();//
-            $table->string('division_code')->nullable();//
-            $table->string('intiation_date')->nullable();//
+            $table->integer('record')->nullable();
+            $table->string('division_id')->nullable();
+            $table->string('originator_id')->nullable();
+            $table->string('form_type')->nullable();
+            $table->integer('initiator_id')->nullable();
+            $table->string('division_code')->nullable();
+            $table->string('intiation_date')->nullable();
             $table->string('assign_to')->nullable();
             $table->string('due_date')->nullable();
             $table->string('initiator_Group')->nullable();
