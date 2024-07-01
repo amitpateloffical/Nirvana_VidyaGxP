@@ -233,7 +233,7 @@ class AdditionalTestingController extends Controller
                 $history->origin_state = $additionaltesting->status;
                 $history->action_name = 'Submit';
                 $history->change_from = "Initiator";
-                $history->change_to = $additionaltesting->$value;
+                $history->change_to = "Opened";
                 $history->save();
             }
         }
@@ -534,6 +534,8 @@ public function send_stage(Request $request, $id)
                             $history->user_name = Auth::user()->name;
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->origin_state = $lastDocument->status;
+                            $history->change_to = "Under Add.Test Proposal";
+                            $history->change_from = $lastDocument->status;
                             $history->stage = "2";
                             $history->save();
                             $list = Helpers::getLeadAuditeeUserList();
@@ -573,6 +575,9 @@ public function send_stage(Request $request, $id)
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_to = "Under CQ Approval";
+                $history->change_from = $lastDocument->status;
+
                 $history->stage = "3";
                 $history->save();
             $changestage->update();
@@ -589,13 +594,15 @@ public function send_stage(Request $request, $id)
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->action = 'CQ Approval Complete';
-
                 $history->current = $changestage->additional_test_exe_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_to = "Under Add. Testing Execution";
+                $history->change_from = $lastDocument->status;
+
                 $history->stage = "4";
                 $history->save();
             $changestage->update();
@@ -619,6 +626,9 @@ public function send_stage(Request $request, $id)
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_to = "Check Resampling";
+                $history->change_from = $lastDocument->status;
+
                 $history->stage = "5";
                 $history->save();
             $changestage->update();
@@ -642,6 +652,9 @@ public function send_stage(Request $request, $id)
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_to = "Under Add. Testing Execution QC Review";
+                $history->change_from = $lastDocument->status;
+
                 $history->stage = "6";
                 $history->save();
             $changestage->update();
@@ -658,13 +671,15 @@ public function send_stage(Request $request, $id)
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->action = ' Add.Testing Exe. AQA Review Complete';
-
                 $history->current = $changestage->aqa_review_completed_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_to = "Under Add. Testing Execution AQA Review";
+                $history->change_from = $lastDocument->status;
+
                 $history->stage = "7";
                 $history->save();
             $changestage->update();
@@ -688,6 +703,9 @@ public function send_stage(Request $request, $id)
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to = "Close-Done";
+            $history->change_from = $lastDocument->status;
+
             $history->stage = "Close-Done";
             $history->save();
             $changestage->update();
@@ -718,12 +736,15 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                         $history = new AdditionalTestingAuditTrail();
                         $history->additional_testing_id = $id;
                         $history->activity_type = 'Activity Log';
+                        $history->action = 'More Info Required';
                         $history->current = $changestage->opened_by;
                         $history->comment = $request->comment;
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->origin_state = $lastDocument->status;
+                        $history->change_from = $lastDocument->status;
+                        $history->change_to = "Opened";
                         $history->stage = "1";
                         $history->save();
             $changestage->update();
@@ -747,6 +768,8 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                             $history->user_name = Auth::user()->name;
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->origin_state = $lastDocument->status;
+                            $history->change_from = $lastDocument->status;
+                            $history->change_to = "Under Add.Test Proposal";
                             $history->stage = "2";
                             $history->save();
                             $list = Helpers::getLeadAuditeeUserList();
@@ -780,13 +803,15 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->action = 'CQ Approval Complete';
-
                 $history->current = $changestage->additional_test_exe_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_from = $lastDocument->status;
+                $history->change_to = "Under Add. Testing Execution";
+
                 $history->stage = "4";
                 $history->save();
             $changestage->update();
@@ -803,13 +828,14 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->action = 'Resampling Close';
-
                 $history->current = $changestage->additional_test_qc_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_from = $lastDocument->status;
+                $history->change_to = "Under Add. Testing Execution QC Review";
                 $history->stage = "6";
                 $history->save();
             $changestage->update();
@@ -840,13 +866,15 @@ public function send_stageto4(Request $request, $id)
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->action = 'CQ Approval Complete';
-
                 $history->current = $changestage->additional_test_exe_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_from = $lastDocument->status;
+                $history->change_to = "Under Add. Testing Execution";
+
                 $history->stage = "4";
                 $history->save();
             $changestage->update();
@@ -876,12 +904,15 @@ public function cancel_stages(Request $request, $id)
                 $history->additional_testing_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous ="";
+                $history->action = 'Exit';
                 $history->current = $data->completed_by_close_done;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state =  $data->status;
+                $history->change_from = $lastDocument->status;
+                $history->change_to = "Closed-Cancelled";
                 $history->stage = 'Cancelled';
                 $history->save();
         $data->update();

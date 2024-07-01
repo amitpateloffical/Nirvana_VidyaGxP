@@ -841,6 +841,7 @@
 
                                     </div>
                                 </div>
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="add_test_attachment">Additional Test Attachment</label>
@@ -850,12 +851,17 @@
                                             <div class="file-attachment-list" id="add_test_attachment"></div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input type="file" id="myfile" name="add_test_attachment"
+                                                <input type="file" id="myfile" name="add_test_attachment[]"
                                                     oninput="addMultipleFiles(this, 'add_test_attachment')" multiple>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
+
+
+
+
                             </div>
 
                             <div class="button-block">
@@ -953,29 +959,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="cq_approval_attachment">CQ Approval Attachment</label>
-                                        <div><small class="text-primary">Please Attach all relevant or supporting
-                                                documents</small></div>
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="cq_approval_attachment"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="cq_approval_attachment[]"
-                                                    oninput="addMultipleFiles(this, 'cq_approval_attachment')" multiple>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
-
-
-
-
 
                             </div>
                             <div class="button-block">
@@ -1046,20 +1029,20 @@
 
                                     <div class="col-12">
                                         <div class="group-input">
-                                            <label for="aqa_review_attachment">AQA Review Attachment
-                                            </label>
+                                            <label for="aqa_review_attachment">Additional Test Attachment</label>
                                             <div><small class="text-primary">Please Attach all relevant or supporting
                                                     documents</small></div>
                                             <div class="file-attachment-field">
                                                 <div class="file-attachment-list" id="aqa_review_attachment"></div>
                                                 <div class="add-btn">
                                                     <div>Add</div>
-                                                    <input type="file"   name="aqa_review_attachment[]"
+                                                    <input type="file" id="myfile" name="aqa_review_attachment[]"
                                                         oninput="addMultipleFiles(this, 'aqa_review_attachment')" multiple>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
 
                                     {{-- <div class="row col-md-12">
                                 <div class="col-md-6 mb-4">
@@ -1172,9 +1155,11 @@
                         </div>
                     </div>
                 </div>
-        </div>
-    </div>
     </form>
+
+        </div>
+
+    </div>
 
     <script>
         VirtualSelect.init({

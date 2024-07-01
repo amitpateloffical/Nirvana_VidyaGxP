@@ -837,7 +837,7 @@ class DashboardController extends Controller
             $data = Verification::find($id);
             $single = "Vsingle_report/". $data->id;
             $audit = "Vaudit_report/".$data->id;
-            $parent="deviationparentchildReport/". $data->id;
+            $parent="/". $data->id;
         }
         elseif ($type == "Analyst Interview") {
             $data = AnalystInterview::find($id);

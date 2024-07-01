@@ -1163,7 +1163,7 @@
 
                         <div class="col-12">
                             <div class="group-input">
-                                <label for="QA Initial Attachments"> xecution Attachment</label>
+                                <label for="QA Initial Attachments"> Execution Attachment</label>
                                 <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                 <div class="file-attachment-field">
                                     <div disabled class="file-attachment-list" id="execution_attachment">
@@ -1231,10 +1231,20 @@
                                 <label for="Verification Attachments">Verification Attachment</label>
                                 {{-- <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div> --}}
                                 <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="verification_attachment"></div>
+                                    <div class="file-attachment-list" id="verification_attachment">
+                                        @if ($verification->verification_attachment)
+                                        @foreach(json_decode($verification->verification_attachment) as $file)
+                                        <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                            <b>{{ $file }}</b>
+                                            <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                            <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                        </h6>
+                                   @endforeach
+                                        @endif
+                                    </div>
                                     <div class="add-btn">
                                         <div>Add</div>
-                                        <input type="file" id="Veification_Attachment" name="verification_attachment" value="{{$verification->verification_attachment}}"
+                                        <input type="file" id="Veification_Attachment" name="verification_attachment[]" value="{{$verification->verification_attachment}}"
                                             oninput="addMultipleFiles(this, 'verification_attachment')" multiple>
                                     </div>
                                 </div>
@@ -1271,7 +1281,17 @@
                                 <label for="AQA Attachments">AQA Attachment</label>
                                 {{-- <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div> --}}
                                 <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="aqa_attachment"></div>
+                                    <div class="file-attachment-list" id="aqa_attachment">
+                                        @if ($verification->aqa_attachment)
+                                        @foreach(json_decode($verification->aqa_attachment) as $file)
+                                        <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                            <b>{{ $file }}</b>
+                                            <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                            <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                        </h6>
+                                   @endforeach
+                                        @endif
+                                    </div>
                                     <div class="add-btn">
                                         <div>Add</div>
                                         <input type="file" id="AQA_Attachment" name="aqa_attachment[]" value="{{$verification->aqa_attachment}}"

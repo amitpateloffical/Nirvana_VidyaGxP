@@ -1077,7 +1077,8 @@
                                         <div><small class="text-primary">Please Attach all relevant or supporting
                                                 documents</small></div>
                                         <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="add_test_attachment"> @if ($additionaltesting->add_test_attachment)
+                                            <div class="file-attachment-list" id="add_test_attachment">
+                                                @if ($additionaltesting->add_test_attachment)
                                                 @foreach(json_decode($additionaltesting->add_test_attachment) as $file)
                                                 <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
                                                     <b>{{ $file }}</b>
@@ -1085,7 +1086,7 @@
                                                     <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
                                                 </h6>
                                            @endforeach
-                                                @endif</div>
+                                                @endif </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
                                                 <input type="file" id="myfile" name="add_test_attachment[]" value="{{ $additionaltesting->add_test_attachment }}"
@@ -1130,8 +1131,7 @@
                                 <div class="group-input">
                                     <label for="cq_approval_attachment">CQ Approval Attachment
                                     </label>
-                                    <div><small class="text-primary">Please Attach all relevant or supporting
-                                            documents</small></div>
+                                    <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
                                     <div class="file-attachment-field">
                                         <div class="file-attachment-list" id="cq_approval_attachment">
                                             @if ($additionaltesting->cq_approval_attachment)
@@ -1301,7 +1301,6 @@
                                                     </h6>
                                                @endforeach
                                                     @endif
-
                                                 </div>
                                                 <div class="add-btn">
                                                     <div>Add</div>
@@ -1311,13 +1310,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
-
-
-
-
                                 </div>
                                 <div class="button-block">
                                     <button type="submit" class="saveButton">Save</button>
@@ -1346,37 +1338,30 @@
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">Additional Test Proposal Completed On :-</label>
-
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">CQ Approved On :-</label>
-
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">Additional Test Exe. On :-</label>
-
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">Additional Testing QC Review on :-
                                         </label>
-
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">AQA Review Completed On :-
                                         </label>
-
                                     </div>
                                 </div>
-
-
                                 <div class="col-md-6 mb-4">
                                     <div class="group-input">
                                         <label for="Description Deviation">Cancel By :-
@@ -1467,27 +1452,27 @@
             <div class="modal-header">
                 <h4 class="modal-title">Child</h4>
             </div>
-            <form action="{{ route('deviation_child_1', $additionaltesting->id) }}" method="POST">
+            <form action="{{ route('resampling_create', $additionaltesting->id) }}" method="get">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="group-input">
-                        @if ($additionaltesting->stage == 3)
+                        {{-- @if ($additionaltesting->stage == 3) --}}
                             <label for="major">
                                 <input type="radio" name="child_type" id="major"
-                                    value="rca">
-                                    RCA
+                                    value="resampling">
+                                    Resampling
                             </label>
                             <br>
-                            <label for="major">
+                            {{-- <label for="major">
                                 <input type="radio" name="child_type" id="major"
                                     value="extension">
                                     Extension
-                            </label>
-                        @endif
+                            </label> --}}
+                        {{-- @endif --}}
 
-                        @if ($additionaltesting->stage == 5)
-                            <label for="major">
+                       {{-- @if ($additionaltesting->stage == 5)
+                             <label for="major">
                                 <input type="radio" name="child_type" id="major"
                                     value="capa">
                                     CAPA
@@ -1498,7 +1483,7 @@
                                     value="extension">
                                     Extension
                             </label>
-                        @endif
+                        @endif --}}
                     </div>
 
                 </div>

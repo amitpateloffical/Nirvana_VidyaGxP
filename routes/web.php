@@ -505,7 +505,7 @@ Route::view('OOT_form', 'frontend.OOT.OOT_form');
 
 //====-------------- Resampling Form------------=========
 
-Route::view('resampling_new','frontend.OOS.resampling_new');
+Route::view('resampling_new','frontend.OOS.resampling_new')->name('resampling_new');
 Route::view('resampling_view','frontend.OOS.resampling_view');
 
 Route::post('store',[ResamplingController::class,'store'])->name('resampling_store');

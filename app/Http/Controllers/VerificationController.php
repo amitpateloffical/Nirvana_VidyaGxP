@@ -78,7 +78,7 @@ class VerificationController extends Controller
             $verification->form_type = $request->form_type;
             $verification->record_number = $request->record_number;
             $verification->status = $request->status;
-            $verification->stage = $request->stage;
+            // $verification->stage = $request->stage;
             $verification->submitted_by = $request->submitted_by;
             $verification->submitted_on = $request->submitted_on;
             $verification->cancelled_by = $request->cancelled_by;
@@ -265,7 +265,7 @@ $combinedfields = [
 
             // General information section
             $verification->record = $request->record;
-            $verification->division_id = $request->division_id;
+            $verification->division_id = 7;
             $verification->division_code = $request->division_code;
             $verification->initiator_id = $request->initiator_id;
             $verification->intiation_date = $request->intiation_date;
@@ -435,7 +435,7 @@ $combinedfields = [
     }
 
     toastr()->success('Record is Updated Successfully');
-    return redirect(url('rcms/qms-dashboard'));
+    return back();
 }
 
      public function edit($id) {
@@ -473,12 +473,16 @@ public function send_stage(Request $request, $id)
                             $history = new VerificationAuditTrail();
                             $history->verification_id = $id;
                             $history->activity_type = 'Activity Log';
+                            $history->action = 'Submit';//button who is sending to another state
                             $history->current = $changestage->analysis_completed_by;
                             $history->comment = $request->comment;
                             $history->user_id = Auth::user()->id;
                             $history->user_name = Auth::user()->name;
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->origin_state = $lastDocument->status;
+                            $history->change_to = "Analysis Completed";
+                            $history->change_from = "Opened";
+
                             $history->stage = "2";
                             $history->save();
                             $list = Helpers::getLeadAuditeeUserList();
@@ -511,12 +515,17 @@ public function send_stage(Request $request, $id)
                 $history = new VerificationAuditTrail();
                 $history->verification_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = 'Analysis Complete';//button who is sending to another state
+
                 $history->current = $changestage->qc_verification_completed_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_to = "QC Verification Complete";
+                $history->change_from = $lastDocument->status;
+
                 $history->stage = "3";
                 $history->save();
             $changestage->update();
@@ -532,12 +541,17 @@ public function send_stage(Request $request, $id)
                 $history = new VerificationAuditTrail();
                 $history->verification_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = 'QC Verification Complete';//button who is sending to another state
+
                 $history->current = $changestage->aqa_verification_completed_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_to = "AQA Verification Complete";
+                $history->change_from = $lastDocument->status;
+
                 $history->stage = "4";
                 $history->save();
             $changestage->update();
@@ -554,12 +568,17 @@ public function send_stage(Request $request, $id)
             $history = new VerificationAuditTrail();
             $history->verification_id = $id;
             $history->activity_type = 'Activity Log';
+            $history->action = 'AQA Verification Complete';//button who is sending to another state
+
             $history->current = $changestage->completed_by_close_done;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to = "Close-Done";
+            $history->change_from = $lastDocument->status;
+
             $history->stage = "Close-Done";
             $history->save();
             $changestage->update();
@@ -590,12 +609,17 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                         $history = new VerificationAuditTrail();
                         $history->verification_id = $id;
                         $history->activity_type = 'Activity Log';
+                        $history->action = 'More Info from Open';//button who is sending to another state
+
                         $history->current = $changestage->analysis_completed_by;
                         $history->comment = $request->comment;
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->origin_state = $lastDocument->status;
+                        $history->change_from = $lastDocument->status;
+                        $history->change_to = "Opened";
+
                         $history->stage = "1";
                         $history->save();
             $changestage->update();
@@ -612,12 +636,17 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                             $history = new VerificationAuditTrail();
                             $history->verification_id = $id;
                             $history->activity_type = 'Activity Log';
+                            $history->action = 'Return to Analyis in Progress';//button who is sending to another state
+
                             $history->current = $changestage->analysis_completed_by;
                             $history->comment = $request->comment;
                             $history->user_id = Auth::user()->id;
                             $history->user_name = Auth::user()->name;
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->origin_state = $lastDocument->status;
+                            $history->change_from = $lastDocument->status;
+                            $history->change_to = "Analysis Completed";
+
                             $history->stage = "2";
                             $history->save();
             $changestage->update();
@@ -633,12 +662,16 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                 $history = new VerificationAuditTrail();
                 $history->verification_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = 'Return to QC Verification';//button who is sending to another state
                 $history->current = $changestage->qc_verification_completed_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
+                $history->change_from = $lastDocument->status;
+                $history->change_to = "QC Verification Complete";
+
                 $history->stage = "3";
                 $history->save();
             $changestage->update();
@@ -654,12 +687,16 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                             $history = new VerificationAuditTrail();
                             $history->verification_id = $id;
                             $history->activity_type = 'Activity Log';
+                            $history->action = 'Return to Analysis in Progress';//button who is sending to another state
                             $history->current = $changestage->analysis_completed_by;
                             $history->comment = $request->comment;
                             $history->user_id = Auth::user()->id;
                             $history->user_name = Auth::user()->name;
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->origin_state = $lastDocument->status;
+                            $history->change_from = $lastDocument->status;
+                            $history->change_to = "Analysis Completed";
+
                             $history->stage = "2";
                             $history->save();
              $changestage->update();
@@ -689,12 +726,17 @@ public function Vsend_stage2(Request $request, $id)
                             $history = new VerificationAuditTrail();
                             $history->verification_id = $id;
                             $history->activity_type = 'Activity Log';
+                            $history->action = 'Return to Analysis in Progress';//button who is sending to another state
+
                             $history->current = $changestage->analysis_completed_by;
                             $history->comment = $request->comment;
                             $history->user_id = Auth::user()->id;
                             $history->user_name = Auth::user()->name;
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->origin_state = $lastDocument->status;
+                            $history->change_from = $lastDocument->status;
+                            $history->change_to = "Analysis Completed";
+
                             $history->stage = "2";
                             $history->save();
              $changestage->update();
@@ -707,7 +749,6 @@ public function Vsend_stage2(Request $request, $id)
         return back();
     }
 }
-
 
 public function cancel_stage(Request $request, $id)
 {
@@ -723,6 +764,8 @@ public function cancel_stage(Request $request, $id)
                 $history = new VerificationAuditTrail();
                 $history->verification_id = $id;
                 $history->activity_type = 'Activity Log';
+                $history->action = 'Cancel';//button who is sending to another state
+
                 $history->previous ="";
                 $history->current = $data->cancelled_by;
                 $history->comment = $request->comment;
@@ -730,6 +773,9 @@ public function cancel_stage(Request $request, $id)
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state =  $data->status;
+                $history->change_from = $lastDocument->status;
+                $history->change_to = "Closed-Cancelled";
+
                 $history->stage = 'Cancelled';
                 $history->save();
         $data->update();
@@ -747,8 +793,6 @@ public function AuditTrial($id)
     $today = Carbon::now()->format('d-m-y');
     $document = Verification::where('id', $id)->first();
     $document->initiator = User::where('id', $document->initiator_id)->value('name');
-
-
     return view('frontend.verification.verification_Audit_Trail', compact('audit', 'document', 'today'));
 
 }

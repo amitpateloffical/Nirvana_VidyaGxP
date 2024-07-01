@@ -49,7 +49,7 @@ class AnalystInterviewController extends Controller
         $analystinterview->parent_analyst_name = $request->parent_analyst_name;
 
         $analystinterview->record = $request->record;
-        $analystinterview->division_id = $request->division_id ?? 7;
+        $analystinterview->division_id =  7;
 
         $analystinterview->division_code = $request->division_code;
         $analystinterview->initiator_id = $request->initiator_id;
@@ -262,7 +262,7 @@ class AnalystInterviewController extends Controller
         $analystinterview->parent_analyst_name = $request->parent_analyst_name;
 
         $analystinterview->record = $request->record;
-        $analystinterview->division_id = $request->division_id ?? 7;
+        $analystinterview->division_id =  7;
 
         $analystinterview->division_code = $request->division_code;
         $analystinterview->initiator_id = $request->initiator_id;
@@ -438,7 +438,8 @@ class AnalystInterviewController extends Controller
     }
 
     toastr()->success('Record is Updated Successfully');
-    return redirect(url('rcms/qms-dashboard'));
+    return back();
+
 }
 
     public function edit($id) {
@@ -482,12 +483,16 @@ public function send_stage(Request $request, $id)
                             $history = new AnalystInterviewAuditTrail();
                             $history->analystinterview_id = $id;
                             $history->activity_type = 'Activity Log';
+                            $history->action = 'Submit';
                             $history->current = $changestage->interview_under_progress_done_by;
                             $history->comment = $request->comment;
                             $history->user_id = Auth::user()->id;
                             $history->user_name = Auth::user()->name;
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->origin_state = $lastDocument->status;
+                            $history->change_from = $lastDocument->status;
+                            $history->change_to = "Interview Under Progress";
+
                             $history->stage = "2";
                             $history->save();
                             $list = Helpers::getLeadAuditeeUserList();
@@ -522,12 +527,15 @@ public function send_stage(Request $request, $id)
             $history = new AnalystInterviewAuditTrail();
             $history->analystinterview_id = $id;
             $history->activity_type = 'Activity Log';
+            $history->action = 'Interview Complete';//button name which is sending to next stage
             $history->current = $changestage->canceled_by;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastDocument->status;
+            $history->change_to = "Close-Done";
+            $history->change_from = $lastDocument->status;
             $history->stage = "Close-Done";
             $history->save();
             $changestage->update();
@@ -558,12 +566,17 @@ public function requestmoreinfo_back_stage(Request $request, $id)
                         $history = new AnalystInterviewAuditTrail();
                         $history->analystinterview_id = $id;
                         $history->activity_type = 'Activity Log';
+                        $history->action = 'More Info From Open';
                         $history->current = $changestage->submitted_by;
                         $history->comment = $request->comment;
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->origin_state = $lastDocument->status;
+
+                        $history->change_from = $lastDocument->status;
+                        $history->change_to = "Open";
+
                         $history->stage = "1";
                         $history->save();
             $changestage->update();
@@ -594,12 +607,17 @@ public function cancel_stage(Request $request, $id)
                 $history->analystinterview_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->previous ="";
+                $history->action = 'Cancel';
+
                 $history->current = $data->canceled_by;
                 $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state =  $data->status;
+                $history->change_from = $lastDocument->status;
+                $history->change_to = "Closed-Cancelled";
+
                 $history->stage = 'Cancelled';
                 $history->save();
         $data->update();
