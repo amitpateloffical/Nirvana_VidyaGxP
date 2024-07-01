@@ -26,6 +26,7 @@ class SubjectActionItemController extends Controller
             $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
             $users = User::all();
             $qmsDevisions = QMSDivision::all();
+
             $currentDate = Carbon::now();
             $formattedDate = $currentDate->addDays(30);
             $due_date = $formattedDate->format('Y-m-d');
@@ -36,7 +37,7 @@ class SubjectActionItemController extends Controller
         public function store(Request $request){
                 //dd($request->all());
                     $item = new SubjectActionItem();
-                    $item->form_type = "Subject_action_item";
+                    $item->form_type = "Subject-Action-Item";
                     $item->record = ((RecordNumber::first()->value('counter')) + 1);
                     $item->initiator_id = Auth::user()->id;
                     $item->division_id = $request->division_id;
@@ -364,7 +365,7 @@ class SubjectActionItemController extends Controller
 
                     $item = SubjectActionItem::findOrFail($id);
 
-                    $item->form_type = "Subject_action_item";
+                    $item->form_type = "Subject-Action-Item";
                     $item->record = ((RecordNumber::first()->value('counter')) + 1);
                     $item->initiator_id = Auth::user()->id;
                     $item->division_id = $request->division_id;

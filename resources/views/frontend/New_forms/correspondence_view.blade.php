@@ -27,6 +27,7 @@
                     '<td><button type="text" class="removeRowBtn">Remove</button></td>' +
 
 
+
                     //     '</tr>';
 
                     // for (var i = 0; i < users.length; i++) {
@@ -48,12 +49,6 @@
     });
 </script>
 
-<script>
-    $(document).on('click', '.removeRowBtn', function() {
-        $(this).closest('tr').remove();
-    })
-</script>
-
 <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
@@ -64,6 +59,270 @@
     </div>
 </div>
 
+{{-- workflow css start --}}
+<style>
+    .progress-bars div {
+        flex: 1 1 auto;
+        border: 1px solid grey;
+        padding: 5px;
+        text-align: center;
+        position: relative;
+        /* border-right: none; */
+        background: white;
+    }
+
+    .state-block {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .progress-bars div.active {
+        background: green;
+        font-weight: bold;
+
+    }
+
+    #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(1) {
+        border-radius: 20px 0px 0px 20px;
+    }
+
+    #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(6) {
+        border-radius: 0px 20px 20px 0px;
+
+    }
+
+    .new_style {
+        width: 100%;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    #change-control-view>div.container-fluid>div.inner-block.state-block>div.status>div.progress-bars>div.canceled {
+        border-radius: 20px;
+    }
+
+    /*element.style{
+            border-radius:10px;
+            }*/
+</style>
+
+{{-- workflow css end --}}
+
+{{-- workflow --}}
+
+<div id="change-control-view">
+    <div class="container-fluid">
+        <div class="inner-block state-block">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="main-head">Record Workflow</div>
+
+                <div class="d-flex" style="gap:20px;">
+                    @php
+                        $userRoles = DB::table('user_roles')
+                            ->where([
+                                'user_id' => auth()->id(),
+                                'q_m_s_divisions_id' => $correspondence_data->division_id,
+                            ])
+                            ->get();
+                        $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                    @endphp
+                    <button class="button_theme1"> <a class="text-white"
+                            href="{{ route('correspondence.audit_trail', $correspondence_data->id) }}">
+                            Audit Trail </a>
+                    </button>
+
+                    @if ($correspondence_data->stage == 1 && (in_array(3, $userRoleIds) || in_array(3, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Questions Recieved
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            Cancel
+                        </button>
+                    @elseif($correspondence_data->stage == 2 && (in_array(3, $userRoleIds) || in_array(3, $userRoleIds)))
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Finalize Response
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child">
+                            Child
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            Cancel
+                        </button>
+                    @endif
+                    <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                        </a> </button>
+                </div>
+
+            </div>
+
+
+            <div class="status">
+                <div class="head">Current Status</div>
+                @if ($correspondence_data->stage == 0)
+                    <div class="progress-bars">
+                        <div class="bg-danger canceled">Closed-Cancelled</div>
+                    </div>
+                @else
+                    <div class="progress-bars d-flex" style="font-size: 15px;">
+                        @if ($correspondence_data->stage >= 1)
+                            <div class="active">Opened</div>
+                        @else
+                            <div class="">Opened</div>
+                        @endif
+
+                        @if ($correspondence_data->stage >= 2)
+                            <div class="active">Response Preparation</div>
+                        @else
+                            <div class="">Response Preparation</div>
+                        @endif
+
+                        @if ($correspondence_data->stage >= 3)
+                            <div class="bg-danger">Closed-Done</div>
+                        @else
+                            <div class="">Closed-Done</div>
+                        @endif
+
+                    </div>
+                @endif
+            </div>
+        </div>
+
+        {{-- workflow end --}}
+
+        {{-- Submit Supplier Details button Model Open --}}
+        <div class="modal fade" id="signature-modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">E-Signature</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form action="{{ route('correspondence.send_stage', $correspondence_data->id) }}" method="POST">
+                        @csrf
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="mb-3 text-justify">
+                                Please select a meaning and a outcome for this task and enter your username
+                                and password for this task. You are performing an electronic signature,
+                                which is legally binding equivalent of a hand written signature.
+                            </div>
+
+                            <div class="group-input">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" required>
+                            </div>
+                            <div class="group-input">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" required>
+                            </div>
+                            <div class="group-input">
+                                <label for="comment">Comment</label>
+                                <input type="comment" name="comment">
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <!-- <div class="modal-footer">
+                                <button type="submit" data-bs-dismiss="modal">Submit</button>
+                                <button>Close</button>
+                            </div> -->
+                        <div class="modal-footer">
+                            <button type="submit">Submit</button>
+                            <button type="button" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {{-- Submit audit passed button Model Open --}}
+
+        {{-- Cancel button Model Open --}}
+        <div class="modal fade" id="cancel-modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">E-Signature</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form action="{{ route('correspondence.cancel', $correspondence_data->id) }}" method="POST">
+                        @csrf
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="mb-3 text-justify">
+                                Please select a meaning and a outcome for this task and enter your username
+                                and password for this task. You are performing an electronic signature,
+                                which is legally binding equivalent of a hand written signature.
+                            </div>
+
+                            <div class="group-input">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" required>
+                            </div>
+                            <div class="group-input">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" required>
+                            </div>
+                            <div class="group-input">
+                                <label for="comment">Comment</label>
+                                <input type="comment" name="comment">
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <!-- <div class="modal-footer">
+                                <button type="submit" data-bs-dismiss="modal">Submit</button>
+                                <button>Close</button>
+                            </div> -->
+                        <div class="modal-footer">
+                            <button type="submit">Submit</button>
+                            <button type="button" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {{-- Cancel button Model Open --}}
+
+        {{-- ---------Child Button Model Open--------- --}}
+
+        <div class="modal fade" id="child-modal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">E-Signature</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <form action="{{ route('correspondence.child', $correspondence_data->id) }}" method="POST">
+                        @csrf
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <div class="group-input">
+                                <label style="display: flex;" for="major">
+                                    <input type="radio" name="child_type" id="child_type">
+                                    Supplier Audit
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" data-bs-dismiss="modal">Close</button>
+                            <button type="submit">Continue</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{-- ---------Child Button Model Open--------- --}}
 
 
 {{-- ! ========================================= --}}
@@ -75,13 +334,24 @@
         <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Correspondence</button>
-
-
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Signatures</button>
 
         </div>
 
-        <form action="{{ route('correspondence.store') }}" method="POST" enctype="multipart/form-data">
+        {{-- disabled field code start --}}
+
+        <?php if (in_array($correspondence_data->stage, [0, 3])) : ?>
+        <script>
+            $(document).ready(function() {
+                $("#target :input").prop("disabled", true);
+            });
+        </script>
+        <?php endif; ?>
+
+        {{-- disabled field code start --}}
+
+
+        <form id="target" action="{{ route('correspondence.update', $correspondence_data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -132,7 +402,7 @@
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span>
                                         <p>255 charaters remaining</p>
-                                        <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                        <input id="docname" type="text" name="short_description" maxlength="255" required value="{{ $correspondence_data->short_description }}">
                                 </div>
                             </div>
 
@@ -145,7 +415,7 @@
                                         <option value="">Select a value</option>
                                         @if(!empty($users))
                                             @foreach ($users as $user)
-                                               <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                               <option value="{{ $user->id }}" {{ $user->id == $correspondence_data->assigned_to ? 'selected' : '' }}>{{ $user->name }}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -169,11 +439,11 @@
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="process_application">
                                         <option value="">Select a value</option>
-                                        <option value="research-and-development">Research and Development</option>
-                                        <option value="regulatory-affairs">Regulatory Affairs</option>
-                                        <option value="quality-assurance-and-control">Quality Assurance and Control</option>
-                                        <option value="manufacturing">Manufacturing</option>
-                                        <option value="clinical-operations">Clinical Operations</option>
+                                        <option value="research-and-development" @if($correspondence_data->process_application == 'research-and-development') selected @endif>Research and Development</option>
+                                        <option value="regulatory-affairs" @if($correspondence_data->process_application == 'regulatory-affairs') selected @endif>Regulatory Affairs</option>
+                                        <option value="quality-assurance-and-control" @if($correspondence_data->process_application == 'quality-assurance-and-control') selected @endif>Quality Assurance and Control</option>
+                                        <option value="manufacturing" @if($correspondence_data->process_application == 'manufacturing') selected @endif>Manufacturing</option>
+                                        <option value="clinical-operations" @if($correspondence_data->process_application == 'clinical-operations') selected @endif>Clinical Operations</option>
                                     </select>
 
                                 </div>
@@ -181,7 +451,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>(Root Parent) Trade Name</b></label>
-                                    <input type="text" name="trade_name">
+                                    <input type="text" name="trade_name" value="{{ $correspondence_data->trade_name }}">
                                 </div>
                             </div>
 
@@ -190,11 +460,11 @@
                                     <label for="Responsible Department">How Initiated</label>
                                     <select name="how_initiated">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="general-triggers">General Triggers</option>
-                                        <option value="research-and-development">Research and Development</option>
-                                        <option value="quality-assurance-and-control">Quality Assurance and Control</option>
-                                        <option value="clinical-operations">Clinical Operations</option>
-                                        <option value="Medical Affairs">Medical Affairs</option>
+                                        <option value="general-triggers" @if($correspondence_data->how_initiated == 'general-triggers') selected @endif>General Triggers</option>
+                                        <option value="research-and-development" @if($correspondence_data->how_initiated == 'research-and-development') selected @endif>Research and Development</option>
+                                        <option value="quality-assurance-and-control" @if($correspondence_data->how_initiated == 'quality-assurance-and-control') selected @endif>Quality Assurance and Control</option>
+                                        <option value="clinical-operations" @if($correspondence_data->how_initiated == 'clinical-operations') selected @endif>Clinical Operations</option>
+                                        <option value="Medical Affairs" @if($correspondence_data->how_initiated == 'Medical Affairs') selected @endif>Medical Affairs</option>
                                     </select>
                                 </div>
                             </div>
@@ -203,11 +473,11 @@
                                     <label for="Responsible Department">Type</label>
                                     <select name="type">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="general-types">General Types</option>
-                                        <option value="research-and-development">Research and Development</option>
-                                        <option value="regulatory-affairs">Regulatory Affairs</option>
-                                        <option value="quality-assurance-and-control">Quality Assurance and Control</option>
-                                        <option value="legal-and-compliance">Legal and Compliance</option>
+                                        <option value="general-types" @if($correspondence_data->type == 'general-types') selected @endif>General Types</option>
+                                        <option value="research-and-development" @if($correspondence_data->type == 'research-and-development') selected @endif>Research and Development</option>
+                                        <option value="regulatory-affairs" @if($correspondence_data->type == 'regulatory-affairs') selected @endif>Regulatory Affairs</option>
+                                        <option value="quality-assurance-and-control" @if($correspondence_data->type == 'quality-assurance-and-control') selected @endif>Quality Assurance and Control</option>
+                                        <option value="legal-and-compliance" @if($correspondence_data->type == 'legal-and-compliance') selected @endif>Legal and Compliance</option>
                                     </select>
                                 </div>
                             </div>
@@ -218,7 +488,23 @@
                                         Please Attach all relevant or supporting documents
                                     </small>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="file_attach">
+                                            @if ($correspondence_data->file_attachments)
+                                            @foreach ($correspondence_data->file_attachments as $file)
+                                                <h6 type="button" class="file-container text-dark"
+                                                    style="background-color: rgb(243, 242, 240);">
+                                                    <b>{{ $file }}</b>
+                                                    <a href="{{ asset('upload/' . $file) }}"
+                                                        target="_blank"><i class="fa fa-eye text-primary"
+                                                            style="font-size:20px; margin-right:-10px;"></i></a>
+                                                    <a type="button" class="remove-file"
+                                                        data-file-name="{{ $file }}"><i
+                                                            class="fa-solid fa-circle-xmark"
+                                                            style="color:red; font-size:20px;"></i></a>
+                                                </h6>
+                                            @endforeach
+                                        @endif
+                                        </div>
                                         <div class="add-btn">
                                             <div>Add</div>
                                             <input type="file" id="myfile" name="file_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
@@ -232,11 +518,11 @@
                                     <label for="Responsible Department">Authority Type</label>
                                     <select name="authority_type">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="regulatory-authorities">Regulatory Authorities</option>
-                                        <option value="international-organizations">International Organizations</option>
-                                        <option value="national-regulatory-bodies">National Regulatory Bodies</option>
-                                        <option value="ethics-and-compliance-committees">Ethics and Compliance Committees</option>
-                                        <option value="quality-and-standards-organizations">Quality and Standards Organizations</option>
+                                        <option value="regulatory-authorities" @if($correspondence_data->authority_type == 'regulatory-authorities') selected @endif>Regulatory Authorities</option>
+                                        <option value="international-organizations" @if($correspondence_data->authority_type == 'international-organizations') selected @endif>International Organizations</option>
+                                        <option value="national-regulatory-bodies" @if($correspondence_data->authority_type == 'national-regulatory-bodies') selected @endif>National Regulatory Bodies</option>
+                                        <option value="ethics-and-compliance-committees" @if($correspondence_data->authority_type == 'ethics-and-compliance-committees') selected @endif>Ethics and Compliance Committees</option>
+                                        <option value="quality-and-standards-organizations" @if($correspondence_data->authority_type == 'quality-and-standards-organizations') selected @endif>Quality and Standards Organizations</option>
                                     </select>
                                 </div>
                             </div>
@@ -245,9 +531,9 @@
                                     <label for="Responsible Department">Authority</label>
                                     <select name="authority">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="occupational-safety-and-health-administration">Occupational Safety and Health Administration</option>
-                                        <option value="national-institute-for-occupational-safety-and-health">National Institute for Occupational Safety and Health</option>
-                                        <option value="international-organization-for-standardization">International Organization for Standardization</option>
+                                        <option value="occupational-safety-and-health-administration" @if($correspondence_data->authority == 'occupational-safety-and-health-administration') selected @endif>Occupational Safety and Health Administration</option>
+                                        <option value="national-institute-for-occupational-safety-and-health" @if($correspondence_data->authority == 'national-institute-for-occupational-safety-and-health') selected @endif>National Institute for Occupational Safety and Health</option>
+                                        <option value="international-organization-for-standardization" @if($correspondence_data->authority == 'international-organization-for-standardization') selected @endif>International Organization for Standardization</option>
                                     </select>
                                 </div>
                             </div>
@@ -257,7 +543,7 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Description<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="description">{{ $correspondence_data->description }}</textarea>
                                 </div>
                             </div>
 
@@ -266,11 +552,11 @@
                                     <label for="Responsible Department">Commitment Required?</label>
                                     <select name="commitment_required">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="approval-of-study-protocol">Approval of Study Protocol</option>
-                                        <option value="submission-of-research-data">Submission of Research Data</option>
-                                        <option value="participation-in-collaborative-research">Participation in Collaborative Research</option>
-                                        <option value="compliance-with-study-requirements">Compliance with Study Requirements</option>
-                                        <option value="ethics-committee-approval">Ethics Committee Approval</option>
+                                        <option value="approval-of-study-protocol" @if($correspondence_data->commitment_required == 'approval-of-study-protocol') selected @endif>Approval of Study Protocol</option>
+                                        <option value="submission-of-research-data" @if($correspondence_data->commitment_required == 'submission-of-research-data') selected @endif>Submission of Research Data</option>
+                                        <option value="participation-in-collaborative-research" @if($correspondence_data->commitment_required == 'participation-in-collaborative-research') selected @endif>Participation in Collaborative Research</option>
+                                        <option value="compliance-with-study-requirements" @if($correspondence_data->commitment_required == 'compliance-with-study-requirements') selected @endif>Compliance with Study Requirements</option>
+                                        <option value="ethics-committee-approval" @if($correspondence_data->commitment_required == 'ethics-committee-approval') selected @endif>Ethics Committee Approval</option>
                                     </select>
                                 </div>
                             </div>
@@ -279,7 +565,7 @@
                         <div class="group-input">
                             <label for="audit-agenda-grid">
                                 Action Plan (0)
-                                <button type="button" name="audit-agenda-grid" id="ReferenceDocument">+</button>
+                                <button type="button" name="action_plan" id="ReferenceDocument">+</button>
                                 <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                     (open)
                                 </span>
@@ -298,15 +584,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @php
+                                          $data = isset($grid_Data) && $grid_Data->data ? json_decode($grid_Data->data, true) : null;
+                                        @endphp
+
+                                    @if ($data && is_array($data))
+                                       @foreach ($data as $index => $item)
                                         <tr>
-                                            <td><input disabled type="text" name="action_plan[0][serial]" value="1"></td>
-                                            <td><input type="text" name="action_plan[0][Action]"></td>
-                                            <td><input type="text" name="action_plan[0][Responsible]"></td>
-                                            <td><input type="date" name="action_plan[0][Deadline]"></td>
-                                            <td><input type="text" name="action_plan[0][ItemStatus]"></td>
-                                            <td><input type="text" name="action_plan[0][Remarks]"></td>
+                                            <td><input disabled type="text" name="[{{ $index }}][serial]" value="{{ $index + 1 }}"></td>
+                                            <td><input type="text" name="action_plan[{{ $index }}][Action]" value="{{ isset($item['Action']) ? $item['Action'] : '' }}"></td>
+                                            <td><input type="text" name="action_plan[{{ $index }}][Responsible]" value="{{ isset($item['Responsible']) ? $item['Responsible'] : '' }}"></td>
+                                            <td><input type="date" name="action_plan[{{ $index }}][Deadline]" value="{{ isset($item['Deadline']) ? $item['Deadline'] : '' }}"></td>
+                                            <td><input type="text" name="action_plan[{{ $index }}][ItemStatus]" value="{{ isset($item['ItemStatus']) ? $item['ItemStatus'] : '' }}"></td>
+                                            <td><input type="text" name="action_plan[{{ $index }}][Remarks]" value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}"></td>
                                             <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                         </tr>
+                                      @endforeach
+                                    @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -318,36 +612,34 @@
                                     <label for="Responsible Department">Priority Level</label>
                                     <select name="priority_level">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="general-priority-levels">General Priority Levels</option>
-                                        <option value="detailed-priority-levels">Detailed Priority Levels</option>
-                                        <option value="specific-contexts">Specific Contexts</option>
-                                        <option value="quality-assurance-and-control">Quality Assurance and Control</option>
-                                        <option value="finance-and-procurement">Finance and Procurement</option>
+                                        <option value="general-priority-levels" @if($correspondence_data->priority_level == 'general-priority-levels') selected @endif>General Priority Levels</option>
+                                        <option value="detailed-priority-levels" @if($correspondence_data->priority_level == 'detailed-priority-levels') selected @endif>Detailed Priority Levels</option>
+                                        <option value="specific-contexts" @if($correspondence_data->priority_level == 'specific-contexts') selected @endif>Specific Contexts</option>
+                                        <option value="quality-assurance-and-control" @if($correspondence_data->priority_level == 'quality-assurance-and-control') selected @endif>Quality Assurance and Control</option>
+                                        <option value="finance-and-procurement" @if($correspondence_data->priority_level == 'finance-and-procurement') selected @endif>Finance and Procurement</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Due to Authority</b></label>
-                                    <input type="date" name="date_due_to_authority" value="">
+                                    <input type="date" name="date_due_to_authority" value="{{ $correspondence_data->date_due_to_authority }}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Scheduled Start Date</b></label>
-                                    <input type="date" name="scheduled_start_date" value="">
+                                    <input type="date" name="scheduled_start_date" value="{{ $correspondence_data->scheduled_start_date }}">
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Scheduled End Date</b></label>
-                                    <input type="date" name="scheduled_end_date" value="">
+                                    <input type="date" name="scheduled_end_date" value="{{ $correspondence_data->scheduled_end_date }}">
                                 </div>
                             </div>
-
-
                         </div>
 
                         <div class="button-block">
@@ -577,32 +869,104 @@
                 </div> -->
 
                 <div id="CCForm2" class="inner-block cctabcontent">
-                    <div class="inner-block-content">
-                        <div class="row">
-
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Actual_Amount ">Response Finalized by :</label>
-                                    <div class="static"></div>
-
+                        <div class="inner-block-content">
+                            <div class="row">
+                                <div class="sub-head">Questions Recieved</div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Victim"><b>Questions Recieved By :</b></label>
+                                        <div class="">{{ $correspondence_data->questions_recieved_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Questions Recieved On : </b></label>
+                                        <div class="date">{{ $correspondence_data->questions_recieved_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Questions Recieved Comments : </b></label>
+                                        <div class="date">{{ $correspondence_data->questions_recieved_comment }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="group-input">
+                        </div>
 
-                                    <label for="Division Code"><b>Response Finalized on :</b></label>
-                                    <div class="date"></div>
-
-
-
-
+                        <div class="inner-block-content">
+                            <div class="row">
+                                <div class="sub-head">Cancel</div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Victim"><b>Cancelled By :</b></label>
+                                        <div class="">{{ $correspondence_data->open_cancel_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Cancelled On : </b></label>
+                                        <div class="date">{{ $correspondence_data->open_cancel_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Cancelled Comments : </b></label>
+                                        <div class="date">{{ $correspondence_data->open_cancel_comment }}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="inner-block-content">
+                            <div class="row">
+                                <div class="sub-head">Finalize Response</div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Victim"><b>Finalize Responsed By :</b></label>
+                                        <div class="">{{ $correspondence_data->finalize_response_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Finalize Responsed On : </b></label>
+                                        <div class="date">{{ $correspondence_data->finalize_response_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Finalize Responsed Comments : </b></label>
+                                        <div class="date">{{ $correspondence_data->finalize_response_comment }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-
-
-
+                        <div class="inner-block-content">
+                            <div class="row">
+                                <div class="sub-head">Cancel</div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Victim"><b>Cancelled By :</b></label>
+                                        <div class="">{{ $correspondence_data->cancel_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Cancelled On : </b></label>
+                                        <div class="date">{{ $correspondence_data->cancel_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Cancelled Comments : </b></label>
+                                        <div class="date">{{ $correspondence_data->cancel_comment }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>

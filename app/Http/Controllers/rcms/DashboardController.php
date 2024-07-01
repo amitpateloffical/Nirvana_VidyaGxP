@@ -25,6 +25,7 @@ use App\Models\SubjectActionItem;
 use App\Models\Violation;
 use App\Models\FirstProductValidation;
 use App\Models\CTAAmendement;
+use App\Models\Correspondence;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -77,6 +78,7 @@ class DashboardController extends Controller
         $datas18 = Violation::orderByDesc('id')->get();
         $datas19 = FirstProductValidation::orderByDesc('id')->get();
         $datas20 = CTAAmendement::orderByDesc('id')->get();
+        $datas21 = Correspondence::orderByDesc('id')->get();
 
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -352,7 +354,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "division_id" => $data->division_id,
-                "type" => "Gcp_study",
+                "type" => "Gcp-Study",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description_gi ? $data->short_description_gi : "-",
@@ -372,7 +374,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "division_id" => $data->division_id,
-                "type" => "Supplier_contract",
+                "type" => "Supplier-Contract",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description_gi ? $data->short_description_gi : "-",
@@ -392,7 +394,7 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "division_id" => $data->division_id,
-                "type" => "Subject_action_item",
+                "type" => "Subject-Action-Item",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description_ti ? $data->short_description_ti : "-",
@@ -452,7 +454,27 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "division_id" => $data->division_id,
-                "type" => "CTA_Amendement",
+                "type" => "CTA-Amendement",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas21 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Correspondence",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
@@ -881,6 +903,12 @@ class DashboardController extends Controller
             $data = CTAAmendement::find($id);
             $single = "CTA_Amendement/SingleReport/" . $data->id;
             $audit = "CTA_Amendement/AuditTrailPdf/". $data->id;
+            $parent="/". $data->id;
+        }
+        elseif ($type == "Correspondence") {
+            $data = Correspondence::find($id);
+            $single = "correspondence/SingleReport/" . $data->id;
+            $audit = "correspondence/AuditTrailPdf/". $data->id;
             $parent="/". $data->id;
         }
 

@@ -40,7 +40,7 @@ class CTAAmendementController extends Controller
            public function store(Request $request){
                 //dd($request->all());
                     $amendement = new CTAAmendement();
-                    $amendement->form_type = "CTA_Amendement";
+                    $amendement->form_type = "CTA-Amendement";
                     $amendement->record = ((RecordNumber::first()->value('counter')) + 1);
                     $amendement->initiator_id = Auth::user()->id;
                     $amendement->division_id = $request->division_id;
@@ -957,7 +957,7 @@ class CTAAmendementController extends Controller
 
                     $amendement = CTAAmendement::findORFail($id);
 
-                    $amendement->form_type = "CTA_Amendement";
+                    $amendement->form_type = "CTA-Amendement";
                     $amendement->record = ((RecordNumber::first()->value('counter')) + 1);
                     $amendement->initiator_id = Auth::user()->id;
                     $amendement->division_id = $request->division_id;
@@ -1050,6 +1050,7 @@ class CTAAmendementController extends Controller
                     $newDataGridAmendement->identifier = 'product_material';
                     $newDataGridAmendement->data = $request->product_material;
                     $newDataGridAmendement->save();
+
 
                if($amendement_data->short_description != $amendement->short_description){
                     $history = new CTAAmendementAuditTrail();

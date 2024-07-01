@@ -83,10 +83,8 @@ return new class extends Migration
             $table->longText('actual_time_spend')->nullable();
             $table->string('documents')->nullable();
 
-
             $table->string('status')->nullable();
             $table->string('stage')->nullable();
-
 
             $table->text('submit_by')->nullable();
             $table->text('submit_on')->nullable();

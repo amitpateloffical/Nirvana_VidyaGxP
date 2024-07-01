@@ -38,7 +38,7 @@ class GcpStudyController extends Controller
         public function store(Request $request){
             //dd($request->all());
                 $study = new GcpStudy();
-                $study->form_type = "Gcp_Study";
+                $study->form_type = "Gcp-Study";
                 $study->record = ((RecordNumber::first()->value('counter')) + 1);
                 $study->initiator_id = Auth::user()->id;
                 $study->division_id = $request->division_id;
@@ -624,7 +624,7 @@ class GcpStudyController extends Controller
                     $formattedDate = $currentDate->addDays(30);
                     $due_date = $formattedDate->format('Y-m-d');
 
-                    //gridfetch
+                    //grid fetch
 
                     $g_id = $study_data->id;
                     $grid_DataA = GcpStudyGrid::where(['gcp_study_id' => $g_id, 'identifier' => 'audit_site_information'])->first();
@@ -639,7 +639,7 @@ class GcpStudyController extends Controller
 
                     $study = GcpStudy::findOrFail($id);
 
-                    $study->form_type = "Gcp_Study";
+                    $study->form_type = "Gcp-Study";
                     $study->record = ((RecordNumber::first()->value('counter')) + 1);
                     $study->initiator_id = Auth::user()->id;
                     $study->division_id = $request->division_id;

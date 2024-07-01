@@ -35,7 +35,7 @@ class SupplierContractController extends Controller
        public function store(Request $request){
             //dd($request->all());
                 $contract = new SupplierContract();
-                $contract->form_type = "Supplier_contract";
+                $contract->form_type = "Supplier-Contract";
                 $contract->record = ((RecordNumber::first()->value('counter')) + 1);
                 $contract->initiator_id = Auth::user()->id;
                 $contract->division_id = $request->division_id;
@@ -1160,9 +1160,9 @@ class SupplierContractController extends Controller
      }
 
 
-             //Single Report Start
+        //Single Report Start
 
-             public function Supplier_Contract_SingleReport(Request $request, $id){
+        public function Supplier_Contract_SingleReport(Request $request, $id){
 
                 $contract_data = SupplierContract::find($id);
                 //$users = User::all();
@@ -1244,4 +1244,5 @@ class SupplierContractController extends Controller
                     );
                     return $pdf->stream('SOP' . $id . '.pdf');
                 }
+
 }

@@ -367,7 +367,6 @@
                                                   <option value="{{ $user->id }}" {{ $user->id == $item_data->assign_to_gi ? 'selected' : '' }}>{{ $user->name }}</option>
                                                 @endforeach
                                             @endif
-
                                     </select>
                                 </div>
                             </div>
@@ -385,9 +384,7 @@
                             </div>
 
 
-
                             <div class="sub-head">Study Details</div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Root Parent) Trade Name</b></label>
@@ -398,10 +395,10 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Root Parent) Assigned To</b></label>
-                                    <select name="assign_to_sd" {{ $item_data->stage == 0 || $item_data->stage == 3 ? 'disabled' : '' }}>
+                                    <select name="assign_to_sd">
                                         <option value="">--Select--</option>
                                         <option value="manish" @if($item_data->assign_to_sd == 'manish') selected @endif>Manish</option>
-                                        <option value="pankaj" @if($item_data->assign_to_sd == 'panka-') selected @endif>Pankaj</option>
+                                        <option value="pankaj" @if($item_data->assign_to_sd == 'pankaj') selected @endif>Pankaj</option>
 
                                     </select>
                                 </div>
@@ -409,7 +406,6 @@
 
 
                             <div class="sub-head">Subject Details</div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Subject Name</b></label>
@@ -420,7 +416,7 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>( Parent) Gender</b></label>
+                                    <label for="RLS Record Number"><b>(Parent) Gender</b></label>
                                     <select name="gender_sd">
                                         <option value="">--Select--</option>
                                         <option value="male" @if($item_data->gender_sd == 'male') selected @endif>Male</option>
@@ -433,14 +429,14 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>( Parent) Date Of Birth</b></label>
+                                    <label for="RLS Record Number"><b>(Parent) Date Of Birth</b></label>
                                     <input  type="date" name="date_of_birth_sd" value="{{ $item_data->date_of_birth_sd }}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>( Parent) Race</b></label>
+                                    <label for="RLS Record Number"><b>(Parent) Race</b></label>
                                     <select name="race_sd">
                                         <option value="">--Select--</option>
                                         <option value="23" @if($item_data->race_sd == 23) selected @endif>23</option>

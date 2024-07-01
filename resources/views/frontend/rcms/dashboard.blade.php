@@ -120,6 +120,7 @@
             }
 
 
+
         // Add more conditions based on other scope values
 
     }
@@ -152,6 +153,8 @@
                                     <option value="Action Item">Action Item</option> --}}
                                     <option value="Effectiveness Check">Effectiveness Check</option>
                                     <option value="Deviation">Deviation</option>
+                                    <option value="GCP Study">GCP Study</option>
+                                    <option value="Supplier Contract">Supplier Contract</option>
                                      {{-- <option value="tms">TMS</option>  --}}
                                 </select>
                             </div>
@@ -180,7 +183,7 @@
                                         <th class="td_desc">Short Description</th>
                                         <th>Date Opened</th>
                                         <th>Originator</th>
-                                        <th> Initiation Date</th>
+                                        <th>Initiation Date</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -389,13 +392,13 @@
                                                         </a>
                                                     @endif
 
-                                                    @elseif($datas->type == 'Gcp_study')
+                                                    @elseif($datas->type == 'Gcp-Study')
                                                     <a href="{{ route('GCP_study.edit', $datas->id) }}">
                                                         {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
                                                         <a
-                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/gcp_study">
                                                             <div class="icon" onclick="showChild()"
                                                                 data-bs-toggle="tooltip" title="Related Records">
                                                                 {{-- <img src="{{ asset('user/images/parent.png') }}"
@@ -404,13 +407,13 @@
                                                         </a>
                                                     @endif
 
-                                                    @elseif($datas->type == 'Supplier_contract')
+                                                    @elseif($datas->type == 'Supplier-Contract')
                                                     <a href="{{ route('supplier_contract.edit', $datas->id) }}">
                                                         {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
                                                         <a
-                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/supplier_contract">
                                                             <div class="icon" onclick="showChild()"
                                                                 data-bs-toggle="tooltip" title="Related Records">
                                                                 {{-- <img src="{{ asset('user/images/parent.png') }}"
@@ -419,13 +422,13 @@
                                                         </a>
                                                     @endif
 
-                                                    @elseif($datas->type == 'Subject_action_item')
+                                                    @elseif($datas->type == 'Subject-Action-Item')
                                                     <a href="{{ route('subject_action_item.edit', $datas->id) }}">
                                                         {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
                                                         <a
-                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/subject_action_item">
                                                             <div class="icon" onclick="showChild()"
                                                                 data-bs-toggle="tooltip" title="Related Records">
                                                                 {{-- <img src="{{ asset('user/images/parent.png') }}"
@@ -440,7 +443,7 @@
                                                     </a>
                                                     @if (!empty($datas->parent_id))
                                                         <a
-                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/violation">
                                                             <div class="icon" onclick="showChild()"
                                                                 data-bs-toggle="tooltip" title="Related Records">
                                                                 {{-- <img src="{{ asset('user/images/parent.png') }}"
@@ -464,13 +467,28 @@
                                                         </a>
                                                     @endif
 
-                                                    @elseif($datas->type == 'CTA_Amendement')
+                                                    @elseif($datas->type == 'CTA-Amendement')
                                                     <a href="{{ route('cta_amendement.edit', $datas->id) }}">
                                                         {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
                                                         <a
-                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/cta_amendement">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+
+                                                    @elseif($datas->type == 'Correspondence')
+                                                    <a href="{{ route('correspondence.edit', $datas->id) }}">
+                                                        {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/correspondence">
                                                             <div class="icon" onclick="showChild()"
                                                                 data-bs-toggle="tooltip" title="Related Records">
                                                                 {{-- <img src="{{ asset('user/images/parent.png') }}"
