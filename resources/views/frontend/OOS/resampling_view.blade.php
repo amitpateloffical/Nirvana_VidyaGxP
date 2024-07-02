@@ -202,13 +202,18 @@
                                 <div class="col-md-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="due-date">Due Date</label>
-                                        <div><small class="text-primary">Please mention expected date of completion</small></div>
+                                        <div><small class="text-primary"> last date this record should be closed by</small></div>
+    
                                         <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
-                                            <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
+                                            <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $data->due_date ? \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') : '' }}" />
+                                            <input type="date" name="due_date"
+                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                                value="{{ $data->due_date}}" class="hide-input"
+                                                oninput="handleDateInput(this, 'due_date')" />
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group"><b>Initiator Group</b></label>

@@ -271,7 +271,7 @@
                             <td>
                                 <div>
                                     <strong> Action Name
-                                        :</strong>{{ $dataDemo->action_name ? $dataDemo->action_name : 'Not Applicable' }}
+                                        :</strong>{{ $dataDemo->action ? $dataDemo->action : 'Not Applicable' }}
 
                                 </div>
                             </td>

@@ -33,8 +33,8 @@ return new class extends Migration
             $table->string('lot_Batch_Number')->nullable();
             $table->string('ar_Number_GI')->nullable();
             $table->string('test_Name_GI')->nullable();
-            $table->string('justification_for_resampling_GI')->nullable();
-            $table->string('predetermined_Sampling_Strategies_GI')->nullable();
+            $table->longText('justification_for_resampling_GI')->nullable();
+            $table->longText('predetermined_Sampling_Strategies_GI')->nullable();
             $table->longText('supporting_attach')->nullable();
             $table->string('parent_tcd_hid')->nullable();
             $table->string('parent_oos_no')->nullable();

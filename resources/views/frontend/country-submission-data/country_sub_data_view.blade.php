@@ -13,7 +13,7 @@
 <div class="form-field-head">
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / Country Sumission Data
+        {{ Helpers::getDivisionName($data->division_id) }} /Country Sumission Data
     </div>
 </div>
 
@@ -91,9 +91,6 @@ $users = DB::table('users')->get();
                         @endif
                     </div>
                 @endif
-
-            {{-- @endif --}}
-            {{-- ---------------------------------------------------------------------------------------- --}}
         </div>
     </div>
 </div>
@@ -107,7 +104,7 @@ $users = DB::table('users')->get();
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Country Sumission Data</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Country Submission Data</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Important Dates and Persons</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Activity Log</button>
         </div>
 
         <form action="{{ route('country_update', $data->id) }}" method="POST" enctype="multipart/form-data">
@@ -174,15 +171,17 @@ $users = DB::table('users')->get();
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Due Date</label>
-                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
+                                    <div><small class="text-primary"> last date this record should be closed by</small></div>
+
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}/>
-                                        <input type="date" name="due_date" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }} min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $data->due_date ? \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') : '' }}" />
+                                        <input type="date" name="due_date"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                            value="{{ $data->due_date}}" class="hide-input"
+                                            oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
                             </div>
-
-                            
 
                             
 
@@ -1247,13 +1246,13 @@ $users = DB::table('users')->get();
                             <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="Closed on">Activate On</label>
-                                    <div class="Date">{{ $data->activate_on }}</div>
+                                    <div class="static">{{ $data->activate_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
                                     <label for="Closed on">Activate Comment</label>
-                                    <div class="Date">{{ $data->activate_comment }}</div>
+                                    <div class="static">{{ $data->activate_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -1265,13 +1264,13 @@ $users = DB::table('users')->get();
                             <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="Closed on">Close On</label>
-                                    <div class="Date">{{ $data->close_on }}</div>
+                                    <div class="static">{{ $data->close_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
                                     <label for="Closed on">Close Comment</label>
-                                    <div class="Date">{{ $data->close_comment }}</div>
+                                    <div class="static">{{ $data->close_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -1283,13 +1282,13 @@ $users = DB::table('users')->get();
                             <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="Closed on">Cancel On</label>
-                                    <div class="Date">{{ $data->cancel_on }}</div>
+                                    <div class="static">{{ $data->cancel_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
                                     <label for="Closed on">Cancel Comment</label>
-                                    <div class="Date">{{ $data->cancel_comment }}</div>
+                                    <div class="static">{{ $data->cancel_comment }}</div>
                                 </div>
                             </div>
 

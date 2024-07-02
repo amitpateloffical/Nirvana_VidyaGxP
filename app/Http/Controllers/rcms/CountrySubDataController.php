@@ -2694,14 +2694,15 @@ class CountrySubDataController extends Controller
                 $history->previous = "";
                 $history->current = $country->activate_by;
                 $history->comment = $request->comment;
-                $history->action = 'Country Record Created';
+                $history->action = 'Activate';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "Country Record Created";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Country Record Created';
+                $history->stage='Activate';
+                $history->action_name = 'Not Applicable';
 
                 $history->save();
                 $country->update();
@@ -2721,14 +2722,15 @@ class CountrySubDataController extends Controller
                 $history->previous = "";
                 $history->current = $country->close_by;
                 $history->comment = $request->comment;
-                $history->action = 'Closed - Done';
+                $history->action = 'Close';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "Closed - Done";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Closed - Done';
+                $history->stage='Close';
+                $history->action_name = 'Not Applicable';
 
                 $history->save();
                 $country->update();
@@ -2762,14 +2764,15 @@ class CountrySubDataController extends Controller
                 $history->previous = "";
                 $history->current = $country->cancel_by;
                 $history->comment = $request->comment;
-                $history->action = 'Closed - Cancelled';
+                $history->action = 'Cancel';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to = "Closed - Cancelled";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Closed - Cancelled';
+                $history->stage='Cancel';
+                $history->action_name = 'Not Applicable';
                 $history->save();
 
                 $history = new CountrySubHistory();

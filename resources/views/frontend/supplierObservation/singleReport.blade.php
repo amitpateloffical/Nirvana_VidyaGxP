@@ -175,7 +175,7 @@
                     <strong>Supplier Observation No.</strong>
                 </td>
                 <td class="w-40">
-                   {{ Helpers::divisionNameForQMS($data->division_id) }}/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
+                   {{ Helpers::divisionNameForQMS($data->division_id) }}/SO/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
@@ -367,6 +367,9 @@
                         <th class="w-20">
                             Report Issued On</th>
                         <td class="w-30">{{ $data->report_issued_on }}</td>
+                        <th class="w-20">
+                            Report Issued Comment</th>
+                        <td class="w-30">{{ $data->report_issued_comment }}</td>
                     </tr>
                     <tr>
                         <th class="w-20">Approval Received By
@@ -375,6 +378,9 @@
                         <th class="w-20">
                             Approval Received On</th>
                         <td class="w-30">{{ $data->approval_received_on }}</td>
+                        <th class="w-20">
+                            Approval Received Comment</th>
+                        <td class="w-30">{{ $data->approval_received_comment }}</td>
                     </tr>
                     <tr>
                         <th class="w-20">All CAPA Closed By
@@ -383,6 +389,9 @@
                         <th class="w-20">
                             All CAPA Closed On</th>
                         <td class="w-30">{{ $data->all_capa_closed_on }}</td>
+                        <th class="w-20">
+                            All CAPA Closed On</th>
+                        <td class="w-30">{{ $data->all_capa_closed_comment }}</td>
                     </tr>
                     <tr>
                         <th class="w-20">Approve By
@@ -391,6 +400,9 @@
                         <th class="w-20">
                             Approve On</th>
                         <td class="w-30">{{ $data->approve_on }}</td>
+                        <th class="w-20">
+                            Approve Comment</th>
+                        <td class="w-30">{{ $data->approve_comment }}</td>
                     </tr>
                 </table>
             </div>        

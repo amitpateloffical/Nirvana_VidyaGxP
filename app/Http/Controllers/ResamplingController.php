@@ -1361,14 +1361,15 @@ class ResamplingController extends Controller
                 $history->previous = "";
                 $history->current = $resampling->submitted_by;
                 $history->comment = $request->comment;
-                $history->action = 'Under Sample Request Approval';
+                $history->action = 'Submit';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "Under Sample Request Approval";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Under Sample Request Approval';
+                $history->stage='Submit';
+                $history->action_name = 'Not Applicable';
 
                 $history->save();
                 $resampling->update();
@@ -1388,14 +1389,15 @@ class ResamplingController extends Controller
                 $history->previous = "";
                 $history->current = $resampling->approval_done_by;
                 $history->comment = $request->comment;
-                $history->action = 'Pending Sample Receive';
+                $history->action = 'Sample Request Approval Complete';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "Pending Sample Receive";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Pending Sample Receive';
+                $history->stage='Sample Request Approval Complete';
+                $history->action_name = 'Not Applicable';
 
                 $history->save();
                 $resampling->update();
@@ -1415,14 +1417,15 @@ class ResamplingController extends Controller
                 $history->previous = "";
                 $history->current = $resampling->sample_received_by;
                 $history->comment = $request->comment;
-                $history->action = 'Closed - Done';
+                $history->action = 'Sample Received';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "Closed - Done";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Closed - Done';
+                $history->stage = 'Sample Received';
+                $history->action_name = 'Not Applicable';
 
                 $history->save();
                 $resampling->update();
@@ -1458,14 +1461,15 @@ class ResamplingController extends Controller
                 $history->previous = "";
                 $history->current = $resampling->cancelled_by;
                 $history->comment = $request->comment;
-                $history->action = 'Closed - Cancelled';
+                $history->action = 'Cancellation Request';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to = "Closed - Cancelled";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Closed - Cancelled';
+                $history->stage='Cancellation Request';
+                $history->action_name = 'Not Applicable';
                 $history->save();
 
                 $history = new ResamplingHistory();
@@ -1493,6 +1497,7 @@ class ResamplingController extends Controller
 
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $resampling = Resampling::find($id);
+            $lastDocument =  Resampling::find($id);
 
             if ($resampling->stage == 2) {
                 $resampling->stage = "1";
@@ -1508,14 +1513,15 @@ class ResamplingController extends Controller
                 $history->previous = "";
                 $history->current = $resampling->more_info_by;
                 $history->comment = $request->comment;
-                $history->action = 'Opened';
+                $history->action = 'More Info from Open';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "Opened";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Opened';
+                $history->stage='More Info from Open';
+                $history->action_name = 'Not Applicable';
 
                 toastr()->success('Document Sent');
                 return back();
@@ -1535,14 +1541,15 @@ class ResamplingController extends Controller
                 $history->previous = "";
                 $history->current = $resampling->submitted_by;
                 $history->comment = $request->comment;
-                $history->action = 'Under Sample Request Approval';
+                $history->action = 'More Info from Sample Request Approval';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "Under Sample Request Approval";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Under Sample Request Approval';
+                $history->stage='More Info from Sample Request Approval';
+                $history->action_name = 'Not Applicable';
 
                 toastr()->success('Document Sent');
                 return back();

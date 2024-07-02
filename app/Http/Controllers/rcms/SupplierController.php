@@ -28,7 +28,7 @@ class SupplierController extends Controller
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
-        return view("frontend.New_forms.supplier-observation", compact('due_date', 'record_number'));
+        return view("frontend.supplierObservation.supplier-observation", compact('due_date', 'record_number'));
     }
 
     public function supplier_store(Request $request)
@@ -973,14 +973,15 @@ class SupplierController extends Controller
                 $history->previous = "";
                 $history->current = $supplier->report_issued_by;
                 $history->comment = $request->comment;
-                $history->action = 'Pending Response/CAPA Plan';
+                $history->action = 'Report Issued';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "Pending Response/CAPA Plan";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Pending Response/CAPA Plan';
+                $history->stage='Report Issued';
+                $history->action_name = 'Not Applicable';
 
                 $history->save();
                 $supplier->update();
@@ -1000,14 +1001,15 @@ class SupplierController extends Controller
                 $history->previous = "";
                 $history->current = $supplier->report_issued_by;
                 $history->comment = $request->comment;
-                $history->action = 'Work in Progress';
+                $history->action = 'Approval received';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "Work in Progress";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Work in Progress';
+                $history->stage = 'Approval received';
+                $history->action_name = 'Not Applicable';
 
                 $history->save();
                 $supplier->update();
@@ -1027,14 +1029,15 @@ class SupplierController extends Controller
                 $history->previous = "";
                 $history->current = $supplier->report_issued_by;
                 $history->comment = $request->comment;
-                $history->action = 'Pending Approval';
+                $history->action = 'All CAPA Closed';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "Pending Approval";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Pending Approval';
+                $history->stage='All CAPA Closed';
+                $history->action_name = 'Not Applicable';
 
                 $history->save();
                 $supplier->update();
@@ -1054,14 +1057,15 @@ class SupplierController extends Controller
                 $history->previous = "";
                 $history->current = $supplier->report_issued_by;
                 $history->comment = $request->comment;
-                $history->action = 'Closed - Done';
+                $history->action = 'Approve';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to =   "Closed - Done";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Closed - Done';
+                $history->stage='Approve';
+                $history->action_name = 'Not Applicable';
 
                 $history->save();
                 $supplier->update();
@@ -1098,14 +1102,15 @@ class SupplierController extends Controller
                 $history->previous = "";
                 $history->current = $supplier->cancelled_by;
                 $history->comment = $request->comment;
-                $history->action = 'Closed - Cancelled';
+                $history->action = 'Cancel';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
                 $history->change_to = "Closed - Cancelled";
                 $history->change_from = $lastDocument->status;
-                $history->stage='Closed - Cancelled';
+                $history->stage='Cancel';
+                $history->action_name = 'Not Applicable';
                 $history->save();
 
                 $history = new SupplierHistory();

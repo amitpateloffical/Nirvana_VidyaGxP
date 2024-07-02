@@ -252,7 +252,7 @@
                     <strong>Country Submission Data No.</strong>
                 </td>
                 <td class="w-40">
-                    {{ Helpers::divisionNameForQMS($doc->division_id) }}/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
+                    {{ Helpers::divisionNameForQMS($doc->division_id) }}/CSD/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
@@ -327,7 +327,7 @@
                         <td>{{ $datas->created_at }}</td>
                         <td>{{ $datas->user_name }}</td>
                         <td>
-                            @if ($datas->previous == "NULL")
+                            @if ($datas->previous != "Null")
                                 Modify
                             @else
                                 New
@@ -516,7 +516,7 @@
                         <td>{{ $datas->created_at }}</td>
                         <td>{{ $datas->user_name }}</td>
                         <td>
-                            @if ($datas->previous == "NULL")
+                            @if ($datas->previous != "Null")
                                 Modify
                             @else
                                 New

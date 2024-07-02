@@ -321,51 +321,75 @@ $users = DB::table('users')->get();
                             <div class="sub-head">
                                 Signatures
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="report_issued_by">Report Issued By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="report_issued_on">Report Issued On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="report_issued_by">Report Issued Comment</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="approval_received_by">Approval received By</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="approval_received_on">Approval received On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="approval_received_on">Approval received Comment</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="all_capa_closed_by">All CAPA Closed By</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="all_capa_closed_on">All CAPA Closed On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="all_capa_closed_on">All CAPA Closed Comment</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="approve_by">Approve By</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="approve_on">Approve On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="group-input">
+                                    <label for="approve_on">Approve Comment</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>

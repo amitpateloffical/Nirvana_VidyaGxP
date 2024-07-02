@@ -209,18 +209,20 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 new-date-data-field">
+                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Due Date"> Due Date</label>
-                                    <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
-                                        <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly
-                                            placeholder="DD-MMM-YYYY" value="{{ Helpers::getdateFormat($data->due_date) }}" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : ''}}/>
-                                        <input type="date" name="due_date" {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : ''}}  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                    <label for="due-date">Due Date</label>
+                                    <div><small class="text-primary"> last date this record should be closed by</small></div>
+
+                                    <div class="calenderauditee">
+                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $data->due_date ? \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') : '' }}" />
+                                        <input type="date" name="due_date"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                            value="{{ $data->due_date}}" class="hide-input"
                                             oninput="handleDateInput(this, 'due_date')" />
-                                        </div>
-                                </div>  
-                             </div> 
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -461,13 +463,13 @@
                             <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted on">Report Issued On</label>
-                                    <div class="Date">{{ $data->report_issued_on }}</div>
+                                    <div class="static">{{ $data->report_issued_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
                                     <label for="submitted on">Report Issued Comment</label>
-                                    <div class="Date">{{ $data->report_issued_comment }}</div>
+                                    <div class="static">{{ $data->report_issued_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -479,13 +481,13 @@
                             <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted on">Approval received On</label>
-                                    <div class="Date">{{ $data->approval_received_on }}</div>
+                                    <div class="static">{{ $data->approval_received_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
                                     <label for="submitted on">Approval received Comment</label>
-                                    <div class="Date">{{ $data->approval_received_comment }}</div>
+                                    <div class="static">{{ $data->approval_received_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -497,13 +499,13 @@
                             <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted on">All CAPA Clossed On</label>
-                                    <div class="Date">{{ $data->all_capa_closed_on }}</div>
+                                    <div class="static">{{ $data->all_capa_closed_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
                                     <label for="submitted on">All CAPA Clossed Comment</label>
-                                    <div class="Date">{{ $data->all_capa_closed_comment }}</div>
+                                    <div class="static">{{ $data->all_capa_closed_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -515,13 +517,13 @@
                             <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted on">Approve On</label>
-                                    <div class="Date">{{ $data->approve_on }}</div>
+                                    <div class="static">{{ $data->approve_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
                                     <label for="submitted on">Approve Comment</label>
-                                    <div class="Date">{{ $data->approve_comment }}</div>
+                                    <div class="static">{{ $data->approve_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -533,13 +535,13 @@
                             <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted on">Reject On</label>
-                                    <div class="Date">{{ $data->reject_on }}</div>
+                                    <div class="static">{{ $data->reject_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
                                     <label for="submitted on">Reject Comment</label>
-                                    <div class="Date">{{ $data->reject_comment }}</div>
+                                    <div class="static">{{ $data->reject_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -551,13 +553,13 @@
                             <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="submitted on">Cancel On</label>
-                                    <div class="Date">{{ $data->cancelled_on }}</div>
+                                    <div class="static">{{ $data->cancelled_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
                                     <label for="submitted on">Cancel Comment</label>
-                                    <div class="Date">{{ $data->cancelled_comment }}</div>
+                                    <div class="static">{{ $data->cancelled_comment }}</div>
                                 </div>
                             </div>
                             
@@ -673,7 +675,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">Child</h4>
             </div>
-            <form action="" method="">
+            <form action="capa" method="POST">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">

@@ -32,7 +32,7 @@ $users = DB::table('users')->get();
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Country Sumission Data</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Country Submission Data</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Important Dates and Persons</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Activity Log</button>
         </div>
 
         <form action="{{ route('country_store') }}" method="POST" enctype="multipart/form-data">
