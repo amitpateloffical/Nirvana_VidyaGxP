@@ -3446,6 +3446,12 @@ class SupplierController extends Controller
          return view('frontend.forms.deviation_new', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','pre'));
 
      }
+     if ($request->revision == "RCA") {
+        $supplierA->originator = User::where('id', $supplierA->initiator_id)->value('name');
+    //    $pre = Deviation::all();
+        return view('frontend.forms.root-cause-analysis', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','pre'));
+
+    }
 
     }
 }

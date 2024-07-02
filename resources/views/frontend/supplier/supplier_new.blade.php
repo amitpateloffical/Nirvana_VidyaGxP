@@ -172,6 +172,12 @@ $users = DB::table('users')->select('id', 'name')->get();
                                     <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
+                            <script>
+                                var maxLength = 255;
+                                $('#docname').keyup(function() {
+                                    var textlen = maxLength - $(this).val().length;
+                                    $('#rchars').text(textlen);});
+                            </script>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Supplier.">Supplier</label>

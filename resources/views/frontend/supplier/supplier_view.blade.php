@@ -428,6 +428,12 @@ $users = DB::table('users')->select('id', 'name')->get();
                                     <textarea id="docname" type="text" name="short_description" value="{{ $data->short_description }}" maxlength="255" required>{{ $data->short_description  }}</textarea>
                                 </div> 
                             </div>
+                            <script>
+                                var maxLength = 255;
+                                $('#docname').keyup(function() {
+                                    var textlen = maxLength - $(this).val().length;
+                                    $('#rchars').text(textlen);});
+                            </script>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Supplier.">Supplier</label>

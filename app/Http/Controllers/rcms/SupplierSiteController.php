@@ -3092,7 +3092,6 @@ class SupplierSiteController extends Controller
                 //      }
                 //   }
                 $supplierSite->update();
-                
                 toastr()->success('Pending CFT Review');
                 return back();
             }
@@ -3389,17 +3388,14 @@ class SupplierSiteController extends Controller
         $changeControl = OpenStage::find(1);
         $hod = User::get();
         $pre = CC::all();
-
         if (!empty($changeControl->cft)) $cft = explode(',', $changeControl->cft);
         if ($request->revision == "Action-Item") {
             $cc->originator = User::where('id', $cc->initiator_id)->value('name');
             return view('frontend.forms.action-item', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id'));
-
         }
         if ($request->revision == "changecontrol") {
             $cc->originator = User::where('id', $cc->initiator_id)->value('name');
             return view('frontend.change-control.new-change-control', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','hod','cft','pre'));
-
         }
         if ($request->revision == "capa-child") {
             $cc->originator = User::where('id', $cc->initiator_id)->value('name');
@@ -3409,8 +3405,11 @@ class SupplierSiteController extends Controller
             $cc->originator = User::where('id', $cc->initiator_id)->value('name');
             $pre = Deviation::all();
             return view('frontend.forms.deviation_new', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','pre'));
-
         }
-
+        if ($request->revision == "RCA") {
+            $cc->originator = User::where('id', $cc->initiator_id)->value('name');
+        //    $pre = Deviation::all();
+            return view('frontend.forms.root-cause-analysis', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','pre'));
+        }
     }
 }
