@@ -348,6 +348,11 @@ $users = DB::table('users')
 
             <form id="auditform" action="{{ route('deviationstore') }}" method="post" enctype="multipart/form-data">
                 @csrf
+
+                @if(!empty($parent_id))
+                    <input type="hidden" name="parent_id" value="{{ $parent_id }}">
+                    <input type="hidden" name="parent_type" value="{{ $parent_type }}">
+                @endif
                 <div id="step-form">
 
                     <!-- General information content -->

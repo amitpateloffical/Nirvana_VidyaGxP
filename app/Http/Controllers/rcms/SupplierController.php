@@ -20,9 +20,14 @@ use PDF;
 use App\Models\{RecordNumber,
 Supplier,
 SupplierGrid,
-User,
 SupplierAuditTrail,
-RoleGroup
+RoleGroup,
+AuditReviewersDetails,
+CC,
+Deviation,
+User,
+OpenStage,
+Capa
 };
 
 class SupplierController extends Controller
@@ -232,7 +237,22 @@ class SupplierController extends Controller
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $supplier->status;
         $history->change_to =   "Opened";
-        $history->change_from = "Initiator";
+        $history->change_from = "Initiation";
+        $history->action_name = 'Create';
+        $history->save();
+
+        $history = new SupplierAuditTrail;
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Short Description';
+        $history->previous = "Null";
+        $history->current = $request->short_description;
+        $history->comment = "Not Applicable";
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $supplier->status;
+        $history->change_to =   "Opened";
+        $history->change_from = "Initiation";
         $history->action_name = 'Create';
         $history->save();
 
@@ -247,7 +267,7 @@ class SupplierController extends Controller
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $supplier->status;
         $history->change_to =   "Opened";
-        $history->change_from = "Initiator";
+        $history->change_from = "Initiation";
         $history->action_name = 'Create';
         $history->save();
 
@@ -262,7 +282,7 @@ class SupplierController extends Controller
         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
         $history->origin_state = $supplier->status;
         $history->change_to =   "Opened";
-        $history->change_from = "Initiator";
+        $history->change_from = "Initiation";
         $history->action_name = 'Create';
         $history->save();
 
@@ -278,7 +298,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -295,7 +315,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -312,7 +332,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -335,7 +355,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -351,7 +371,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -367,7 +387,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -383,7 +403,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -399,7 +419,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -415,7 +435,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -431,7 +451,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -447,7 +467,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -463,7 +483,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -479,7 +499,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -495,7 +515,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -511,7 +531,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -527,7 +547,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -543,7 +563,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -559,7 +579,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -575,7 +595,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -591,7 +611,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -607,7 +627,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -623,7 +643,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -639,7 +659,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -655,7 +675,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -671,7 +691,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -687,7 +707,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -703,7 +723,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -719,7 +739,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -735,7 +755,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -751,7 +771,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -767,7 +787,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -783,7 +803,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -799,7 +819,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -815,7 +835,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -831,7 +851,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -847,7 +867,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -863,7 +883,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -879,7 +899,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -895,7 +915,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -911,7 +931,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -927,7 +947,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -943,7 +963,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -959,7 +979,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -975,7 +995,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -991,7 +1011,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1007,7 +1027,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1023,7 +1043,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1039,7 +1059,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1055,7 +1075,7 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1071,14 +1091,14 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
         if(!empty($request->quality_system_ranking)){
             $history = new SupplierAuditTrail;
             $history->supplier_id = $supplier->id;
-            $history->activity_type = 'Quality Systems Weight';
+            $history->activity_type = 'Quality Systems Ranking';
             $history->previous = "Null";
             $history->current = $supplier->quality_system_ranking;
             $history->comment = "Not Applicable";
@@ -1087,7 +1107,353 @@ class SupplierController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $supplier->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+
+
+
+
+
+
+
+
+
+
+        if(!empty($request->car_generated)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = '# of CAR generated';
+            $history->previous = "Null";
+            $history->current = $supplier->car_generated;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->car_generated_weight)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = '# of CAR generated Weight';
+            $history->previous = "Null";
+            $history->current = $supplier->car_generated_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->closure_time)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'CAR Closure Time';
+            $history->previous = "Null";
+            $history->current = $supplier->closure_time;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->closure_time_weight)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'CAR Closure Time Weight';
+            $history->previous = "Null";
+            $history->current = $supplier->closure_time_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->end_user_satisfaction)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'End-User Satisfaction';
+            $history->previous = "Null";
+            $history->current = $supplier->end_user_satisfaction;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->end_user_satisfaction_weight)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'End-User Satisfaction Weight';
+            $history->previous = "Null";
+            $history->current = $supplier->end_user_satisfaction_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->QA_reviewer_feedback)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'QA Reviewer Feedback';
+            $history->previous = "Null";
+            $history->current = $supplier->QA_reviewer_feedback;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->QA_reviewer_comment)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'QA Reviewer Comment';
+            $history->previous = "Null";
+            $history->current = $supplier->QA_reviewer_comment;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->last_audit_date)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Last Audit Date';
+            $history->previous = "Null";
+            $history->current = $supplier->last_audit_date;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->next_audit_date)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Next Audit Date';
+            $history->previous = "Null";
+            $history->current = $supplier->next_audit_date;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->audit_frequency)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Audit Frequency';
+            $history->previous = "Null";
+            $history->current = $supplier->audit_frequency;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->last_audit_result)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Last Audit Result';
+            $history->previous = "Null";
+            $history->current = $supplier->last_audit_result;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->facility_type)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Facility Type';
+            $history->previous = "Null";
+            $history->current = $supplier->facility_type;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->nature_of_employee)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Number of Employees';
+            $history->previous = "Null";
+            $history->current = $supplier->nature_of_employee;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->technical_support)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Access to Technical Support';
+            $history->previous = "Null";
+            $history->current = $supplier->technical_support;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->survice_supported)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Services Supported';
+            $history->previous = "Null";
+            $history->current = $supplier->survice_supported;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->reliability)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Reliability';
+            $history->previous = "Null";
+            $history->current = $supplier->reliability;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->revenue)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Revenue';
+            $history->previous = "Null";
+            $history->current = $supplier->revenue;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->client_base)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Client Base';
+            $history->previous = "Null";
+            $history->current = $supplier->client_base;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->previous_audit_result)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Previous Audit Results';
+            $history->previous = "Null";
+            $history->current = $supplier->previous_audit_result;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
+            $history->action_name = 'Create';
+            $history->save();
+        }
+        if(!empty($request->QA_head_comment)){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'QA Head Comment';
+            $history->previous = "Null";
+            $history->current = $supplier->QA_head_comment;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $supplier->status;
+            $history->change_to =   "Opened";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1276,6 +1642,1206 @@ class SupplierController extends Controller
         $certificationData->data = $request->certificationData;
         $certificationData->update();
 
+        if($lastDocument->short_description != $request->short_description){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Short Description';
+            $history->previous = $lastDocument->short_description;
+            $history->current = $request->short_description;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supplier_contact_person != $request->supplier_contact_person){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier Contact Person';
+            $history->previous = $lastDocument->supplier_contact_person;
+            $history->current = $request->supplier_contact_person;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supplier_products != $request->supplier_products){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier Product';
+            $history->previous = $lastDocument->supplier_products;
+            $history->current = $request->supplier_products;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->description != $request->description){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Description';
+            $history->previous = $lastDocument->description;
+            $history->current = $request->description;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supplier_type != $request->supplier_type){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier Type';
+            $history->previous = $lastDocument->supplier_type;
+            $history->current = $request->supplier_type;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supplier_sub_type != $request->supplier_sub_type){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier Sub Type';
+            $history->previous = $lastDocument->supplier_sub_type;
+            $history->current = $request->supplier_sub_type;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supplier_other_type != $request->supplier_other_type){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Other Type';
+            $history->previous = $lastDocument->supplier_other_type;
+            $history->current = $request->supplier_other_type;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supply_from != $request->supply_from){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supply from';
+            $history->previous = $lastDocument->supply_from;
+            $history->current = $request->supply_from;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supply_to != $request->supply_to){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supply To';
+            $history->previous = $lastDocument->supply_to;
+            $history->current = $request->supply_to;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supplier_website != $request->supplier_website){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier Web Site';
+            $history->previous = $lastDocument->supplier_website;
+            $history->current = $request->supplier_website;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->related_url != $request->related_url){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Related URLs';
+            $history->previous = $lastDocument->related_url;
+            $history->current = $request->related_url;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->related_quality_events != $request->related_quality_events){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Related Quality Events';
+            $history->previous = $lastDocument->related_quality_events;
+            $history->current = $request->related_quality_events;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->HOD_feedback != $request->HOD_feedback){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'HOD Feedback';
+            $history->previous = $lastDocument->HOD_feedback;
+            $history->current = $request->HOD_feedback;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->HOD_comment != $request->HOD_comment){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'HOD Comment';
+            $history->previous = $lastDocument->HOD_comment;
+            $history->current = $request->HOD_comment;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supplier_name != $request->supplier_name){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier Name';
+            $history->previous = $lastDocument->supplier_name;
+            $history->current = $request->supplier_name;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supplier_id != $request->supplier_id){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier ID';
+            $history->previous = $lastDocument->supplier_id;
+            $history->current = $request->supplier_id;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->manufacturer_name != $request->manufacturer_name){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Manufacturer Name';
+            $history->previous = $lastDocument->manufacturer_name;
+            $history->current = $request->manufacturer_name;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->manufacturer_id != $request->manufacturer_id){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Manufacturer Id';
+            $history->previous = $lastDocument->manufacturer_id;
+            $history->current = $request->manufacturer_id;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->vendor_name != $request->vendor_name){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Vendor Name';
+            $history->previous = $lastDocument->vendor_name;
+            $history->current = $request->vendor_name;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->vendor_id != $request->vendor_id){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Vendor ID';
+            $history->previous = $lastDocument->vendor_id;
+            $history->current = $request->vendor_id;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->contact_person != $request->contact_person){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Contact Person';
+            $history->previous = $lastDocument->contact_person;
+            $history->current = $request->contact_person;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->other_contacts != $request->other_contacts){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Other Contacts';
+            $history->previous = $lastDocument->other_contacts;
+            $history->current = $request->other_contacts;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supplier_serivce != $request->supplier_serivce){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier Services';
+            $history->previous = $lastDocument->supplier_serivce;
+            $history->current = $request->supplier_serivce;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->zone != $request->zone){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Zone';
+            $history->previous = $lastDocument->zone;
+            $history->current = $request->zone;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->country != $request->country){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Country';
+            $history->previous = $lastDocument->country;
+            $history->current = $request->country;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->state != $request->state){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'State';
+            $history->previous = $lastDocument->state;
+            $history->current = $request->state;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->city != $request->city){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'City';
+            $history->previous = $lastDocument->city;
+            $history->current = $request->city;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->address != $request->address){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Address';
+            $history->previous = $lastDocument->address;
+            $history->current = $request->address;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->suppplier_web_site != $request->suppplier_web_site){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier Web Site';
+            $history->previous = $lastDocument->suppplier_web_site;
+            $history->current = $request->suppplier_web_site;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->iso_certified_date != $request->iso_certified_date){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'ISO Certification date';
+            $history->previous = $lastDocument->iso_certified_date;
+            $history->current = $request->iso_certified_date;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->suppplier_contacts != $request->suppplier_contacts){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Contract';
+            $history->previous = $lastDocument->suppplier_contacts;
+            $history->current = $request->suppplier_contacts;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->related_non_conformance != $request->related_non_conformance){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Related Non Conformances';
+            $history->previous = $lastDocument->related_non_conformance;
+            $history->current = $request->related_non_conformance;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->suppplier_agreement != $request->suppplier_agreement){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier Contracts/Agreements';
+            $history->previous = $lastDocument->suppplier_agreement;
+            $history->current = $request->suppplier_agreement;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->regulatory_history != $request->regulatory_history){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Regulatory History';
+            $history->previous = $lastDocument->regulatory_history;
+            $history->current = $request->regulatory_history;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->distribution_sites != $request->distribution_sites){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Distribution Sites';
+            $history->previous = $lastDocument->distribution_sites;
+            $history->current = $request->distribution_sites;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->manufacturing_sited != $request->manufacturing_sited){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Manufacturing Sites';
+            $history->previous = $lastDocument->manufacturing_sited;
+            $history->current = $request->manufacturing_sited;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->quality_management != $request->quality_management){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Quality Management';
+            $history->previous = $lastDocument->quality_management;
+            $history->current = $request->quality_management;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->bussiness_history != $request->bussiness_history){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Business History';
+            $history->previous = $lastDocument->bussiness_history;
+            $history->current = $request->bussiness_history;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->performance_history != $request->performance_history){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Performance History';
+            $history->previous = $lastDocument->performance_history;
+            $history->current = $request->performance_history;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->compliance_risk != $request->compliance_risk){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Compliance Risk';
+            $history->previous = $lastDocument->compliance_risk;
+            $history->current = $request->compliance_risk;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->cost_reduction != $request->cost_reduction){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Cost Reduction';
+            $history->previous = $lastDocument->cost_reduction;
+            $history->current = $request->cost_reduction;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->cost_reduction_weight != $request->cost_reduction_weight){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Cost Reduction Weight';
+            $history->previous = $lastDocument->cost_reduction_weight;
+            $history->current = $request->cost_reduction_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->payment_term != $request->payment_term){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Payment Terms';
+            $history->previous = $lastDocument->payment_term;
+            $history->current = $request->payment_term;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->payment_term_weight != $request->payment_term_weight){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Payment Terms Weight';
+            $history->previous = $lastDocument->payment_term_weight;
+            $history->current = $request->payment_term_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->lead_time_days != $request->lead_time_days){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Lead Time Days';
+            $history->previous = $lastDocument->lead_time_days;
+            $history->current = $request->lead_time_days;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->lead_time_days_weight != $request->lead_time_days_weight){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Lead Time Days Weight';
+            $history->previous = $lastDocument->lead_time_days_weight;
+            $history->current = $request->lead_time_days_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->ontime_delivery != $request->ontime_delivery){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'On-Time Delivery';
+            $history->previous = $lastDocument->ontime_delivery;
+            $history->current = $request->ontime_delivery;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->ontime_delivery_weight != $request->ontime_delivery_weight){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'On-Time Delivery Weight';
+            $history->previous = $lastDocument->ontime_delivery_weight;
+            $history->current = $request->ontime_delivery_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supplier_bussiness_planning != $request->supplier_bussiness_planning){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier Business Planning';
+            $history->previous = $lastDocument->supplier_bussiness_planning;
+            $history->current = $request->supplier_bussiness_planning;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->supplier_bussiness_planning_weight != $request->supplier_bussiness_planning_weight){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Supplier Business Weight';
+            $history->previous = $lastDocument->supplier_bussiness_planning_weight;
+            $history->current = $request->supplier_bussiness_planning_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->rejection_ppm != $request->rejection_ppm){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Rejection in PPM';
+            $history->previous = $lastDocument->rejection_ppm;
+            $history->current = $request->rejection_ppm;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->rejection_ppm_weight != $request->rejection_ppm_weight){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Rejection in PPM Weight';
+            $history->previous = $lastDocument->rejection_ppm_weight;
+            $history->current = $request->rejection_ppm_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->quality_system != $request->quality_system){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Quality Systems';
+            $history->previous = $lastDocument->quality_system;
+            $history->current = $request->quality_system;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->quality_system_ranking != $request->quality_system_ranking){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Quality Systems Ranking';
+            $history->previous = $lastDocument->quality_system_ranking;
+            $history->current = $request->quality_system_ranking;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->car_generated != $request->car_generated){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = '# of CAR generated';
+            $history->previous = $lastDocument->car_generated;
+            $history->current = $request->car_generated;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->car_generated_weight != $request->car_generated_weight){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = '# of CAR generated Weight';
+            $history->previous = $lastDocument->car_generated_weight;
+            $history->current = $request->car_generated_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->closure_time != $request->closure_time){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'CAR Closure Time';
+            $history->previous = $lastDocument->closure_time;
+            $history->current = $request->closure_time;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->closure_time_weight != $request->closure_time_weight){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'CAR Closure Time Weight';
+            $history->previous = $lastDocument->closure_time_weight;
+            $history->current = $request->closure_time_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->end_user_satisfaction != $request->end_user_satisfaction){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'End-User Satisfaction';
+            $history->previous = $lastDocument->end_user_satisfaction;
+            $history->current = $request->end_user_satisfaction;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->end_user_satisfaction_weight != $request->end_user_satisfaction_weight){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'End-User Satisfaction Weight';
+            $history->previous = $lastDocument->end_user_satisfaction_weight;
+            $history->current = $request->end_user_satisfaction_weight;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->QA_reviewer_feedback != $request->QA_reviewer_feedback){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'QA Reviewer Feedback';
+            $history->previous = $lastDocument->QA_reviewer_feedback;
+            $history->current = $request->QA_reviewer_feedback;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->QA_reviewer_comment != $request->QA_reviewer_comment){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'QA Reviewer Comment';
+            $history->previous = $lastDocument->QA_reviewer_comment;
+            $history->current = $request->QA_reviewer_comment;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->last_audit_date != $request->last_audit_date){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Last Audit Date';
+            $history->previous = $lastDocument->last_audit_date;
+            $history->current = $request->last_audit_date;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->next_audit_date != $request->next_audit_date){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Next Audit Date';
+            $history->previous = $lastDocument->next_audit_date;
+            $history->current = $request->next_audit_date;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->audit_frequency != $request->audit_frequency){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Audit Frequency';
+            $history->previous = $lastDocument->audit_frequency;
+            $history->current = $request->audit_frequency;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->last_audit_result != $request->last_audit_result){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Last Audit Result';
+            $history->previous = $lastDocument->last_audit_result;
+            $history->current = $request->last_audit_result;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->facility_type != $request->facility_type){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Facility Type';
+            $history->previous = $lastDocument->facility_type;
+            $history->current = $request->facility_type;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->nature_of_employee != $request->nature_of_employee){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Number of Employees';
+            $history->previous = $lastDocument->nature_of_employee;
+            $history->current = $request->nature_of_employee;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->technical_support != $request->technical_support){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Access to Technical Support';
+            $history->previous = $lastDocument->technical_support;
+            $history->current = $request->technical_support;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->survice_supported != $request->survice_supported){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Services Supported';
+            $history->previous = $lastDocument->survice_supported;
+            $history->current = $request->survice_supported;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->reliability != $request->reliability){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Reliability';
+            $history->previous = $lastDocument->reliability;
+            $history->current = $request->reliability;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->revenue != $request->revenue){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Revenue';
+            $history->previous = $lastDocument->revenue;
+            $history->current = $request->revenue;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->client_base != $request->client_base){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Client Base';
+            $history->previous = $lastDocument->client_base;
+            $history->current = $request->client_base;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->previous_audit_result != $request->previous_audit_result){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'Previous Audit Results';
+            $history->previous = $lastDocument->previous_audit_result;
+            $history->current = $request->previous_audit_result;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
+        if($lastDocument->QA_head_comment != $request->QA_head_comment){
+            $history = new SupplierAuditTrail;
+            $history->supplier_id = $lastDocument->id;
+            $history->activity_type = 'QA Head Comment';
+            $history->previous = $lastDocument->QA_head_comment;
+            $history->current = $request->QA_head_comment;
+            $history->comment = "Not Applicable";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastDocument->status;
+            $history->action_name = 'Update';
+            $history->save();
+        }
 
         return back();
     }
@@ -1819,7 +3385,67 @@ class SupplierController extends Controller
         }
     }
 
-    public function supplierChild(Request $request, $id){
+    public function store_audit_review(Request $request, $id)
+    {
+            $history = new AuditReviewersDetails;
+            $history->doc_id = $id;
+            $history->user_id = Auth::user()->id;
+            $history->type = $request->type;
+            $history->reviewer_comment = $request->reviewer_comment;
+            $history->reviewer_comment_by = Auth::user()->name;
+            $history->reviewer_comment_on = Carbon::now()->toDateString();
+            $history->save();
+
+        return redirect()->back();
+    }
+
+    public function supplier_child(Request $request, $id)
+    {
+        $cc = Supplier::find($id);
+        $cft = [];
+        $parent_id = $id;
+        $parent_type = "Supplier";
+        $old_record = Capa::select('id', 'division_id', 'record')->get();
+        $record_number = ((RecordNumber::first()->value('counter')) + 1);
+        $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->addDays(30);
+        $due_date = $formattedDate->format('d-M-Y');
+        $parent_intiation_date = Capa::where('id', $id)->value('intiation_date');
+        $parent_record =  ((RecordNumber::first()->value('counter')) + 1);
+        $parent_record = str_pad($parent_record, 4, '0', STR_PAD_LEFT);
+        $parent_initiator_id = $id;
+        $changeControl = OpenStage::find(1);
+        $hod = User::get();
+        $pre = CC::all();
+
+        if (!empty($changeControl->cft)) $cft = explode(',', $changeControl->cft);
+
+        // Debugging to check the revision value
+
+
+        if ($request->revision == "Action-Item") {
+            $cc->originator = User::where('id', $cc->initiator_id)->value('name');
+            return view('frontend.forms.action-item', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id'));
+
+        }
+        // dd($request->revision,$request->revision == "changecontrol");
+        if ($request->revision == "changecontrol") {
+            $cc->originator = User::where('id', $cc->initiator_id)->value('name');
+            return view('frontend.change-control.new-change-control', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','hod','cft','pre'));
+
+        }
+
+        if ($request->revision == "capa-child") {
+            $cc->originator = User::where('id', $cc->initiator_id)->value('name');
+           return view('frontend.forms.capa', compact('record_number', 'due_date', 'parent_id', 'parent_type', 'old_record', 'cft'));
+        }
+        if ($request->revision == "deviation") {
+         $cc->originator = User::where('id', $cc->initiator_id)->value('name');
+        $pre = Deviation::all();
+         return view('frontend.forms.deviation_new', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','pre'));
+
+     }
 
     }
 }

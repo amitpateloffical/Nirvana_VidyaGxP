@@ -338,7 +338,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Record Number</b></label>
-                                    <input type="text" value="{{ $data->record }}" readonly>
+                                    <input type="text" value="{{ Helpers::getDivisionName($data->division_id) }}/SUPPLIER/{{ date('Y') }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -496,7 +496,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                 <div class="group-input">
                                     <label for="Type..">Type</label>
                                     <select name="supplier_type">
-                                        <option>Enter Your Selection Here</option>
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="CRO" @if($data->supplier_type == "CRO") selected @endif>CRO</option>
                                         <option value="F&B" @if($data->supplier_type == "F&B") selected @endif>F&B</option>
                                         <option value="Finished Goods" @if($data->supplier_type == "Finished Goods") selected @endif>Finished Goods</option>
@@ -512,7 +512,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                 <div class="group-input">
                                     <label for="Sub Type.">Sub Type</label>
                                     <select name="supplier_sub_type">
-                                        <option>Enter Your Selection Here</option>
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="Other" @if($data->supplier_type == "Other") selected @endif>Other</option>
                                         <option value="Vendor" @if($data->supplier_type == "Vendor") selected @endif>Vendor</option>
                                         <option value="Finished Goods" @if($data->supplier_type == "Finished Goods") selected @endif>Finished Goods</option>
@@ -821,7 +821,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                 <div class="group-input">
                                     <label for="Zone">Zone</label>
                                     <select name="zone">
-                                        <option>Enter Your Selection Here</option>
+                                        <option value="">Enter Your Selection Here</option>
                                         <option>Asia</option>
                                         <option>Europe</option>
                                         <option>Africa</option>
@@ -836,6 +836,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                 <div class="group-input">
                                     <label for="Country">Country</label>
                                     <select name="country" class="form-select country" aria-label="Default select example" onchange="loadStates()">
+                                        <option value="">Select Country</option>
                                         <option value="{{ $data->country }}" selected>{{ $data->country }}</option>
                                     </select>
                                 </div>
@@ -1080,7 +1081,7 @@ $users = DB::table('users')->select('id', 'name')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="CPayment Terms Weight">Payment Terms Weight</label>
+                                    <label for="Payment Terms Weight">Payment Terms Weight</label>
                                     <select name="payment_term_weight" id="payment_term_weight">
                                         <option value="">Enter Your Selection Here</option>
                                         @for ($i = 1; $i <= 10; $i++)
@@ -1093,7 +1094,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                 <div class="group-input">
                                     <label for="Lead Time Days">Lead Time Days</label>
                                     <select name="lead_time_days" name="lead_time_days">
-                                        <option>Enter Your Selection Here</option>
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="> 11 Days" @if($data->lead_time_days == "> 11 Days") selected @endif> > 11 Days</option>
                                         <option value="6 - 10" @if($data->lead_time_days == "6 - 10") selected @endif>6 - 10</option>
                                         <option value="3 -5" @if($data->lead_time_days == "3 -5") selected @endif>3 -5</option>
@@ -1969,36 +1970,54 @@ $users = DB::table('users')->select('id', 'name')->get();
             <div class="modal fade" id="child-modal">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
+            
+                        <!-- Modal Header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">E-Signature</h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            <h4 class="modal-title">Child</h4>
                         </div>
-                        <form action="{{ url('rcms/supplier-child', $data->id) }}" method="POST">
+                        <form action="{{ route('supplier_child_1', $data->id) }}" method="POST">
                             @csrf
+                            <!-- Modal body -->
                             <div class="modal-body">
-                                <div class="mb-3 text-justify">
-                                    Please select a meaning and a outcome for this task and enter your username
-                                    and password for this task. You are performing an electronic signature,
-                                    which is legally binding equivalent of a hand written signature.
-                                </div>
                                 <div class="group-input">
-                                    <label for="username">Username <span class="text-danger">*</span></label>
-                                    <input type="text" name="username" required>
+                                    {{-- @if ($data->stage == 2) --}}
+                                        <label for="major">
+                                            <input type="radio" name="revision" id="major"
+                                                value="changecontrol">
+                                                Change Control
+                                        </label>
+                                        {{-- <br> --}}
+                                        <label for="major">
+                                            <input type="radio" name="revision" id="major"
+                                                value="Action-Item">
+                                                Action Item
+                                        </label>
+                                    {{-- @endif --}}
+                                    
+                                    {{-- @if ($data->stage == 5) --}}
+                                        <label for="major">
+                                            <input type="radio" name="revision" id="major"
+                                                value="capa-child">
+                                                CAPA
+                                        </label>
+                                        {{-- <br> --}}
+                                        <label for="major">
+                                            <input type="radio" name="revision" id="major"
+                                                value="deviation">
+                                               Deviation
+                                        </label>
+                                    {{-- @endif --}}
                                 </div>
-                                <div class="group-input">
-                                    <label for="password">Password <span class="text-danger">*</span></label>
-                                    <input type="password" name="password" required>
-                                </div>
-                                <div class="group-input">
-                                    <label for="comment">Comment</label>
-                                    <input type="comment" name="comments">
-                                </div>
+            
                             </div>
+            
+                            <!-- Modal footer -->
                             <div class="modal-footer">
-                                <button type="submit" data-bs-dismiss="modal">Submit</button>
                                 <button type="button" data-bs-dismiss="modal">Close</button>
+                                <button type="submit">Continue</button>
                             </div>
                         </form>
+            
                     </div>
                 </div>
             </div>
