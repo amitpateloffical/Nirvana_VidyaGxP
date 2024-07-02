@@ -74,7 +74,7 @@
 
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('SupplierCreate') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -95,7 +95,7 @@
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" disabled name="record_number" value="">
+                                    <input type="text" disabled name="initiator_name" value="">
 
 
                                 </div>
@@ -104,7 +104,7 @@
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date of Initiation</b></label>
 
-                                    <input disabled type="date" name="division_code" value="">
+                                    <input disabled type="date" name="intiation_date" value="">
 
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
 
                                     <label for="RLS Record Number"><b>Auditee/Supplier</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" name="audit_suppllier_as" value="">
 
 
                                 </div>
@@ -160,7 +160,7 @@
 
                                     <label class="" for="RLS Record Number" class="mb-4"><b>Contract Person</b></label>
                                     <p class="text-primary">Supplie main contract</p>
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" name="contract_person" value="">
 
 
                                 </div>
@@ -171,7 +171,7 @@
 
                                     <label for="RLS Record Number"><b>CRO/Vendor</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" name="cro_vendor" value="">
 
 
                                 </div>
@@ -180,7 +180,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Priority List</label>
-                                    <select name="departments">
+                                    <select name="priority_list">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -194,7 +194,7 @@
 
                                     <label for="RLS Record Number"><b>Manufacturer</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" name="manufacturer" value="">
 
 
                                 </div>
@@ -203,7 +203,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Type</label>
-                                    <select name="departments">
+                                    <select name="type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -224,7 +224,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Year</label>
-                                    <select name="departments">
+                                    <select name="year">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
@@ -239,7 +239,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Quarter</label>
-                                    <select name="departments">
+                                    <select name="quarter">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
@@ -254,10 +254,10 @@
                                         Please Attach all relevant or supporting documents
                                     </small>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="file_attachments"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="file_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
 
@@ -266,7 +266,7 @@
                             <div class="pt-3 col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related URL</label>
-                                    <select name="departments">
+                                    <select name="related_url">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
@@ -277,7 +277,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Zone</label>
-                                    <select name="departments">
+                                    <select name="zone">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
@@ -289,7 +289,7 @@
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Country</b></label>
                                     <p class="text-primary">Auto filter according to selected zone</p>
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" name="country" value="">
 
                                 </div>
                             </div>
@@ -297,7 +297,7 @@
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>City</b></label>
                                     <p class="text-primary">Auto filter according to selected country</p>
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" name="city" value="">
 
                                 </div>
                             </div>
@@ -306,7 +306,7 @@
                                 <div class="group-input">
                                     <label for="Responsible Department">State/District</label>
                                     <p class="text-primary">Auto selected according to City</p>
-                                    <select name="departments">
+                                    <select name="state_district">
 
 
                                         <option value="">Enter Your Selection Here</option>
@@ -322,7 +322,7 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Scope<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="scope"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -356,7 +356,7 @@
                                     <label for="start_date">Scheduled end Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="end_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
@@ -364,7 +364,7 @@
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Assigned To</b></label>
                                     <p class="text-primary">Person responsible</p>
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" name="assigned_to_ap" value="">
 
                                 </div>
                             </div>
@@ -372,7 +372,7 @@
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>CRO/Vendor</b></label>
 
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" name="cro_vendor_ap" value="">
 
                                 </div>
                             </div>
@@ -381,7 +381,7 @@
                                     <label for="start_date">Date response due</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="date_response_due" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
@@ -431,7 +431,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Co-Auditors <span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
+                                    <textarea name="co_auditors"></textarea>
                                 </div>
                             </div>
 
@@ -440,7 +440,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Distribution List <span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
+                                    <textarea name="distribution_list"></textarea>
                                 </div>
                             </div>
 
@@ -449,7 +449,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Scope <span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
+                                    <textarea name="scope_ap"></textarea>
                                 </div>
                             </div>
 
@@ -458,7 +458,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Comments <span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
+                                    <textarea name="comments_ap"></textarea>
                                 </div>
                             </div>
 
@@ -483,7 +483,7 @@
                                     <label for="start_date">Actual start Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="actual_start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
@@ -492,20 +492,20 @@
                                     <label for="start_date">Actual end Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="actual_end_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Executive Summary <span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
+                                    <textarea name="executive_summary"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Audit Result</label>
-                                    <select name="departments">
+                                    <select name="audit_result">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="">1</option>
                                         <option value="">2</option>
@@ -523,7 +523,7 @@
                                     <label for="start_date">Date of Response</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="date_of_response" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
@@ -534,10 +534,10 @@
                                         Please Attach all relevant or supporting documents
                                     </small>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="fileattachment_as"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="fileattachment_as[]" oninput="addMultipleFiles(this, 'fileattachment_as')" multiple>
                                         </div>
                                     </div>
 
@@ -547,7 +547,7 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Response Summary <span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
+                                    <textarea name="response_summary"></textarea>
                                 </div>
                             </div>
 

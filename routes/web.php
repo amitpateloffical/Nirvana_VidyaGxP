@@ -6,6 +6,7 @@ use App\Http\Controllers\rcms\InternalauditController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\TMSController;
 use App\Http\Controllers\RiskManagementController;
+use App\Http\Controllers\SupplierAuditController;
 use App\Http\Controllers\ChangeControlController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DocumentDetailsController;
@@ -531,6 +532,16 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 //! ============================================
 //!                    External Audit
 //! ============================================
+
+
+
+
+// ========================================Audit Supplier ================================================= 
+Route::post('SupplierCreate', [SupplierAuditController::class, 'create'])->name('SupplierCreate');
+
+
+// ========================================Audit Supplier ================================================= 
+
 
 
 // ===============OOt form==========================\
