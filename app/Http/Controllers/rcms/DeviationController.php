@@ -2090,14 +2090,18 @@ class DeviationController extends Controller
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
 
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Document is Submitted By " . Auth::user()->name);
-                                }
-                            );
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                    ['data' => $deviation],
+                                    function ($message) use ($email) {
+                                        $message->to($email)
+                                            ->subject("Document is Submitted By " . Auth::user()->name);
+                                    }
+                                );
+                            } catch (\Throwable $e) {
+                                //throw $th;
+                            }
                         }
                     }
                 }
@@ -2149,14 +2153,18 @@ class DeviationController extends Controller
                     if ($u->q_m_s_divisions_id == $deviation->division_id) {
                         $email = Helpers::getInitiatorEmail($u->user_id);
                         if ($email !== null) {
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $deviation],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject("Plan Approved By " . Auth::user()->name);
-                                }
-                            );
+                            try {
+                                Mail::send(
+                                    'mail.view-mail',
+                                    ['data' => $deviation],
+                                    function ($message) use ($email) {
+                                        $message->to($email)
+                                            ->subject("Plan Approved By " . Auth::user()->name);
+                                    }
+                                );
+                            } catch (\Throwable $e) {
+                                //throw $th;
+                            }
                         }
                     }
                 }
