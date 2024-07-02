@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('external_audit_trail_suppliers', function (Blueprint $table) {
 
             $table->id();
-            $table->string('audtit_id')->nullable();
+            $table->string('audit_id')->nullable();
             $table->text('supplier_id')->nullable();
             $table->text('type')->nullable();
             $table->text('area_of_audit')->nullable();
