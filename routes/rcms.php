@@ -18,6 +18,7 @@ use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
 use App\Http\Controllers\rcms\SupplierController;
+use App\Http\Controllers\rcms\SupplierSiteController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -156,6 +157,21 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('sendToPendingSupplierAudit/{id}', [SupplierController::class, 'sendToPendingSupplierAudit'])->name('sendToPendingSupplierAudit');
             Route::post('supplier_child/{id}', [SupplierController::class, 'supplier_child'])->name('supplier_child_1');            
             Route::post('store_audit_review/{id}', [SupplierController::class, 'store_audit_review'])->name('store_audit_review');
+
+            /*********** Supplier Site Routes ************/
+            Route::get('supplier-site', [SupplierSiteController::class, 'index']);
+            Route::post('supplier-site-store', [SupplierSiteController::class, 'store'])->name('supplier-site-store');
+            Route::get('supplier-site-show/{id}', [SupplierSiteController::class, 'show']);
+            Route::post('supplier-site-update/{id}', [SupplierSiteController::class, 'update'])->name('supplier-site-update');
+            Route::get('supplier-single-report/{id}', [SupplierSiteController::class, 'singleReport']);
+            Route::get('supplier-audit-trail/{id}', [SupplierSiteController::class, 'auditTrail']);
+            Route::get('supplier-audit-trail-pdf/{id}', [SupplierSiteController::class, 'auditTrailPdf']);
+            Route::post('supplier-site-send-stage/{id}', [SupplierSiteController::class, 'supplierSendStage'])->name('supplier-site-send-stage');
+            Route::post('sendTo-supplier-site-approved/{id}', [SupplierSiteController::class, 'sendToSupplierApproved'])->name('sendTo-supplier-site-approved');
+            Route::post('supplier-site-close-cancelled/{id}', [SupplierSiteController::class, 'cancelDocument'])->name('supplier-site-close-cancelled');
+            Route::post('supplier-site-approved-to-obselete/{id}', [SupplierSiteController::class, 'supplierApprovedToObselete'])->name('supplier-site-approved-to-obselete');
+            Route::post('sendToPendingSupplierSiteAudit/{id}', [SupplierSiteController::class, 'sendToPendingSupplierAudit'])->name('sendToPendingSupplierSiteAudit');
+            Route::post('suppliersite_child/{id}', [SupplierSiteController::class, 'supplier_child'])->name('suppliersite_child');
 
             //----------------------------------------------By PRIYA SHRIVASTAVA------------------
             Route::post('formDivision', [FormDivisionController::class, 'formDivision'])->name('formDivision');

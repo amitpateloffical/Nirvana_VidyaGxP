@@ -199,7 +199,7 @@ $users = DB::table('users')->select('id', 'name')->get();
     
         <div class="division-bar">
             <strong>Site Division/Project</strong> :
-            QMS-North America / Supplier
+            QMS-North America / Supplier Site
         </div>
     
     </div>
@@ -219,7 +219,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                         $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
 
                     @endphp
-                    <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/supplier-audit-trail', $data->id) }}"> Audit Trail </a> </button>
+                    <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/supplier-site-audit-trail', $data->id) }}"> Audit Trail </a> </button>
 
                     @if ($data->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -329,7 +329,7 @@ $users = DB::table('users')->select('id', 'name')->get();
             </div>
 
             <!--  Contract Tab content -->
-            <form action="{{ route('supplier-update', $data->id) }} }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('supplier-site-update', $data->id) }} }}" method="POST" enctype="multipart/form-data">
             @csrf
 
                 <div id="CCForm1" class="inner-block cctabcontent">
@@ -338,7 +338,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Record Number</b></label>
-                                    <input type="text" value="{{ Helpers::getDivisionName($data->division_id) }}/SUPPLIER/{{ date('Y') }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}" readonly>
+                                    <input type="text" value="{{ Helpers::getDivisionName($data->division_id) }}/SS/{{ date('Y') }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -1784,7 +1784,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <h4 class="modal-title">E-Signature</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <form action="{{ url('rcms/supplier-send-stage', $data->id) }}" method="POST">
+                        <form action="{{ url('rcms/supplier-site-send-stage', $data->id) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 text-justify">
@@ -1822,7 +1822,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <h4 class="modal-title">E-Signature</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <form action="{{ url('rcms/supplier-approved-to-obselete', $data->id) }}" method="POST">
+                        <form action="{{ url('rcms/supplier-site-approved-to-obselete', $data->id) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 text-justify">
@@ -1860,7 +1860,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <h4 class="modal-title">E-Signature</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <form action="{{ url('rcms/sendToPendingSupplierAudit', $data->id) }}" method="POST">
+                        <form action="{{ url('rcms/sendToPendingSupplierSiteAudit', $data->id) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 text-justify">
@@ -1898,7 +1898,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <h4 class="modal-title">E-Signature</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <form action="{{ url('rcms/sendTo-supplier-approved', $data->id) }}" method="POST">
+                        <form action="{{ url('rcms/sendTo-supplier-site-approved', $data->id) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 text-justify">
@@ -1936,7 +1936,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <h4 class="modal-title">E-Signature</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <form action="{{ url('rcms/supplier-close-cancelled', $data->id) }}" method="POST">
+                        <form action="{{ url('rcms/supplier-site-close-cancelled', $data->id) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 text-justify">
@@ -1975,7 +1975,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                         <div class="modal-header">
                             <h4 class="modal-title">Child</h4>
                         </div>
-                        <form action="{{ route('supplier_child_1', $data->id) }}" method="POST">
+                        <form action="{{ route('suppliersite_child', $data->id) }}" method="POST">
                             @csrf
                             <!-- Modal body -->
                             <div class="modal-body">
@@ -2005,12 +2005,6 @@ $users = DB::table('users')->select('id', 'name')->get();
                                             <input type="radio" name="revision" id="major"
                                                 value="deviation">
                                                Deviation
-                                        </label>
-
-                                        <label for="major">
-                                            <input type="radio" name="revision" id="major"
-                                                value="RCA">
-                                                Root Cause Analysis
                                         </label>
                                     {{-- @endif --}}
                                 </div>

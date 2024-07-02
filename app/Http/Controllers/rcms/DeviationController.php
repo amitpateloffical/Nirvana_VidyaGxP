@@ -78,6 +78,8 @@ class DeviationController extends Controller
         //  $deviation->record_number = $request->record_number;
         $deviation->division_id = $request->division_id;
         $deviation->assign_to = $request->assign_to;
+        $deviation->parent_id = $request->parent_id;
+        $deviation->parent_type = $request->parent_type;
         $deviation->due_date = $request->due_date;
         $deviation->intiation_date = $request->intiation_date;
         $deviation->Initiator_Group = $request->Initiator_Group;

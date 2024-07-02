@@ -41,6 +41,8 @@ use Illuminate\Support\Facades\Hash;
         $root = new RootCauseAnalysis();
         $root->form_type = "Root-cause-analysis"; 
         $root->originator_id = $request->originator_id;
+        $deviation->parent_id = $request->parent_id;
+        $deviation->parent_type = $request->parent_type;
         $root->date_opened = $request->date_opened;
         $root->division_id = $request->division_id;
         $root->priority_level = $request->priority_level;

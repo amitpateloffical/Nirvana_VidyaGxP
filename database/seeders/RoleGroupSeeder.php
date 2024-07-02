@@ -2421,7 +2421,8 @@ $sites = [
 ];
 
 $processes = [
-    'Supplier'
+    'Supplier',
+    'Supplier Site'
 ];
 
 $roles = [
