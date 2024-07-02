@@ -5548,9 +5548,9 @@ section#pdf-page .watermark {
 
 
 #child-modal .group-input label:nth-child(1) {
-    font-weight: bold;
-    margin-bottom: 10px;
-    display: block;
+    /* font-weight: bold;
+    margin-bottom: 10px; */
+    display: flex;
 }
 
 #child-modal .example {

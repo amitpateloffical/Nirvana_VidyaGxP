@@ -41,10 +41,13 @@ $users = DB::table('users')->get();
 
         <form action="{{ route('root_store')}}" method="POST" enctype="multipart/form-data">
             @csrf
-
+            @if(!empty($parent_id))
+            <input type="hidden" name="parent_id" value="{{ $parent_id }}">
+            <input type="hidden" name="parent_type" value="{{ $parent_type }}">
+        @endif
             <div id="step-form">
                 <!--Investigation-->
-
+                
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
