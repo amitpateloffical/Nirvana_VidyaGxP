@@ -2413,5 +2413,48 @@ foreach ($cft_roles as $role) {
     $group->save();
 }
 
+
+///354
+$sites = [
+    'Corporate/India',
+    'Dewas/India'
+];
+
+$processes = [
+    'Supplier'
+];
+
+$roles = [
+    'Initiator',
+    'Reviewer',
+    'Approver',
+    'HOD/Designee',
+    'QA',
+    'CFT/SME',
+    'Trainer',
+    'FP',
+    'View Only'
+];
+
+$start_from_id = 354;
+
+foreach ($sites as $site)
+{
+    foreach ($processes as $process)
+    {
+        foreach ($roles as $role)
+        {
+            $group  = new RoleGroup();
+            $group->id = $start_from_id;
+            $group->name = "$site-$process- $role";
+            $group->description = "$site-$process- $role";
+            $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
+            $group->save();
+
+            $start_from_id++;
+        }
+    }
+}
+
 }
 }

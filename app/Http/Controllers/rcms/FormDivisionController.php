@@ -37,7 +37,9 @@ class FormDivisionController extends Controller
             return redirect()->route('CC.create');
         } elseif ($request->process_name == "Management Review") {
             return redirect('meeting');
-        }elseif ($request->process_name == "New Document") {
+        } elseif ($request->process_name == "Supplier") {
+            return redirect('rcms/supplier');
+        } elseif ($request->process_name == "New Document") {
 
             $new = new SetDivision;
             $new->division_id = $request->division_id;

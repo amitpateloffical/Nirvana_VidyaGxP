@@ -17,6 +17,7 @@ use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\rcms\SupplierController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -139,6 +140,21 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('boostStage/{id}', [ObservationController::class, 'boostStage'])->name('updatestageobservation');
             Route::get('ObservationAuditTrialShow/{id}', [ObservationController::class, 'ObservationAuditTrialShow'])->name('ShowObservationAuditTrial');
             Route::get('ObservationAuditTrialDetails/{id}', [ObservationController::class, 'ObservationAuditTrialDetails'])->name('showaudittrialobservation');
+
+            /*********** Supplier Routes ************/
+            Route::get('supplier', [SupplierController::class, 'index']);
+            Route::post('supplier-store', [SupplierController::class, 'store'])->name('supplier-store');
+            Route::get('supplier-show/{id}', [SupplierController::class, 'show']);
+            Route::post('supplier-update/{id}', [SupplierController::class, 'update'])->name('supplier-update');
+            Route::get('supplier-single-report/{id}', [SupplierController::class, 'singleReport']);
+            Route::get('supplier-audit-trail/{id}', [SupplierController::class, 'auditTrail']);
+            Route::get('supplier-audit-trail-pdf/{id}', [SupplierController::class, 'auditTrailPdf']);
+            Route::post('supplier-send-stage/{id}', [SupplierController::class, 'supplierSendStage'])->name('supplier-send-stage');
+            Route::post('sendTo-supplier-approved/{id}', [SupplierController::class, 'sendToSupplierApproved'])->name('sendTo-supplier-approved');
+            Route::post('supplier-close-cancelled/{id}', [SupplierController::class, 'cancelDocument'])->name('supplier-close-cancelled');
+            Route::post('supplier-approved-to-obselete/{id}', [SupplierController::class, 'supplierApprovedToObselete'])->name('supplier-approved-to-obselete');
+            Route::post('sendToPendingSupplierAudit/{id}', [SupplierController::class, 'sendToPendingSupplierAudit'])->name('sendToPendingSupplierAudit');
+            Route::post('supplier-child/{id}', [SupplierController::class, 'supplierChild'])->name('supplier-child');
 
 
             //----------------------------------------------By PRIYA SHRIVASTAVA------------------
