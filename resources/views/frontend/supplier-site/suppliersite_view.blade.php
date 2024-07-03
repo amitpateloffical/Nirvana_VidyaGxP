@@ -46,8 +46,10 @@ $users = DB::table('users')->select('id', 'name')->get();
         #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(1) {
             border-radius: 20px 0px 0px 20px;
         }
+
         #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(6) {
             border-radius: 0px 20px 20px 0px;
+
         }
     </style>
     <style>
@@ -192,25 +194,33 @@ $users = DB::table('users')->select('id', 'name')->get();
             $(this).closest('tr').remove();
         })
     </script>
+
     <div class="form-field-head">
+    
         <div class="division-bar">
             <strong>Site Division/Project</strong> :
-             {{ Helpers::getDivisionName($data->division_id) }} / Supplier
+            {{ Helpers::getDivisionName($data->division_id) }} / Supplier Site
         </div>
+    
     </div>
+
     <div id="change-control-fields">
         <div class="container-fluid">
+            
         <div class="inner-block state-block">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="main-head">Record Workflow </div>
+
                 <div class="d-flex" style="gap:20px;">
                     @php
                         $userRoles = DB::table('user_roles')
                             ->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => 1])
                             ->get();
                         $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+
                     @endphp
-                    <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/supplier-audit-trail', $data->id) }}"> Audit Trail </a> </button>
+                    <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/supplier-site-audit-trail', $data->id) }}"> Audit Trail </a> </button>
+
                     @if ($data->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                             Submit Supplier Details
@@ -231,9 +241,6 @@ $users = DB::table('users')->select('id', 'name')->get();
                         </button>
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                             Audit Failed
-                        </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
-                            Child
                         </button>
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#send-to-supplier-approve">
                             Conditionally Approved
@@ -322,7 +329,7 @@ $users = DB::table('users')->select('id', 'name')->get();
             </div>
 
             <!--  Contract Tab content -->
-            <form action="{{ route('supplier-update', $data->id) }} }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('supplier-site-update', $data->id) }} }}" method="POST" enctype="multipart/form-data">
             @csrf
 
                 <div id="CCForm1" class="inner-block cctabcontent">
@@ -331,13 +338,14 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Record Number</b></label>
-                                    <input type="text" value="{{ Helpers::getDivisionName($data->division_id) }}/SUPPLIER/{{ date('Y') }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}" readonly>
+                                    <input type="text" value="{{ Helpers::getDivisionName($data->division_id) }}/SS/{{ date('Y') }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Division</b></label>
-                                    <input type="text" readonly id="division_id" value="{{ Helpers::getDivisionName($data->division_id) }}">
+                                    
+                                    <input type="text"  readonly id="division_id" value="{{ Helpers::getDivisionName($data->division_id) }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -1323,7 +1331,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                     <input type="text" name="total_score"  id="total_score" readonly>
                                 </div>
                             </div> --}}
-                        </div> 
+                        </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1804,7 +1812,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <h4 class="modal-title">E-Signature</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <form action="{{ url('rcms/supplier-send-stage', $data->id) }}" method="POST">
+                        <form action="{{ url('rcms/supplier-site-send-stage', $data->id) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 text-justify">
@@ -1842,7 +1850,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <h4 class="modal-title">E-Signature</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <form action="{{ url('rcms/supplier-approved-to-obselete', $data->id) }}" method="POST">
+                        <form action="{{ url('rcms/supplier-site-approved-to-obselete', $data->id) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 text-justify">
@@ -1880,7 +1888,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <h4 class="modal-title">E-Signature</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <form action="{{ url('rcms/sendToPendingSupplierAudit', $data->id) }}" method="POST">
+                        <form action="{{ url('rcms/sendToPendingSupplierSiteAudit', $data->id) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 text-justify">
@@ -1918,7 +1926,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <h4 class="modal-title">E-Signature</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <form action="{{ url('rcms/sendTo-supplier-approved', $data->id) }}" method="POST">
+                        <form action="{{ url('rcms/sendTo-supplier-site-approved', $data->id) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 text-justify">
@@ -1956,7 +1964,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <h4 class="modal-title">E-Signature</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
-                        <form action="{{ url('rcms/supplier-close-cancelled', $data->id) }}" method="POST">
+                        <form action="{{ url('rcms/supplier-site-close-cancelled', $data->id) }}" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="mb-3 text-justify">
@@ -1995,32 +2003,26 @@ $users = DB::table('users')->select('id', 'name')->get();
                         <div class="modal-header">
                             <h4 class="modal-title">Child</h4>
                         </div>
-                        <form action="{{ route('supplier_child_1', $data->id) }}" method="POST" target="_blank">
+                        <form action="{{ route('suppliersite_child', $data->id) }}" method="POST">
                             @csrf
                             <!-- Modal body -->
                             <div class="modal-body">
                                 <div class="group-input">
-                                    @if ($data->stage == 2)
-                                        
+                                    {{-- @if ($data->stage == 2) --}}
                                         <label for="major">
                                             <input type="radio" name="revision" id="major"
-                                                value="RA">
-                                              Supplier Risk Assessment
+                                                value="changecontrol">
+                                                Change Control
                                         </label>
+                                        {{-- <br> --}}
                                         <label for="major">
                                             <input type="radio" name="revision" id="major"
-                                                value="SA">
-                                               Supplier Audit
+                                                value="Action-Item">
+                                                Action Item
                                         </label>
-                                    @endif
-                                    @if ($data->stage == 3)
-                                    <label for="major">
-                                        <input type="radio" name="revision" id="major"
-                                            value="SA">
-                                           Supplier Audit
-                                    </label>
-                                    @endif
-                                    @if ($data->stage == 5)
+                                    {{-- @endif --}}
+                                    
+                                    {{-- @if ($data->stage == 5) --}}
                                         <label for="major">
                                             <input type="radio" name="revision" id="major"
                                                 value="capa-child">
@@ -2036,30 +2038,9 @@ $users = DB::table('users')->select('id', 'name')->get();
                                         <label for="major">
                                             <input type="radio" name="revision" id="major"
                                                 value="RCA">
-                                                Root Cause Analysis
+                                              Root Cause Analysis
                                         </label>
-                                        <label for="major">
-                                            <input type="radio" name="revision" id="major"
-                                                value="changecontrol">
-                                                Change Control
-                                        </label>
-                                        {{-- <br> --}}
-                                        <label for="major">
-                                            <input type="radio" name="revision" id="major"
-                                                value="Action-Item">
-                                                Action Item
-                                        </label>
-                                        <label for="major">
-                                            <input type="radio" name="revision" id="major"
-                                                value="RA">
-                                              Supplier Risk Assessment
-                                        </label>
-                                        <label for="major">
-                                            <input type="radio" name="revision" id="major"
-                                                value="SA">
-                                               Supplier Audit
-                                        </label>
-                                    @endif
+                                    {{-- @endif --}}
                                 </div>
             
                             </div>

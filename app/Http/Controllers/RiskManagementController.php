@@ -61,7 +61,7 @@ class RiskManagementController extends Controller
         $data->Initiator_Group = $request->Initiator_Group;
         $data->initiator_group_code = $request->initiator_group_code;
         $data->departments = implode(',', $request->departments);
-        $data->team_members = implode(',', $request->team_members);
+        // $data->team_members = implode(',', $request->team_members);
         $data->source_of_risk = $request->source_of_risk;
         $data->source_of_risk2 = $request->source_of_risk2;
         $data->type = $request->type;

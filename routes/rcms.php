@@ -18,6 +18,7 @@ use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
 use App\Http\Controllers\rcms\SupplierController;
+use App\Http\Controllers\rcms\SupplierSiteController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -157,6 +158,21 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('supplier_child/{id}', [SupplierController::class, 'supplier_child'])->name('supplier_child_1');            
             Route::post('store_audit_review/{id}', [SupplierController::class, 'store_audit_review'])->name('store_audit_review');
 
+            /*********** Supplier Site Routes ************/
+            Route::get('supplier-site', [SupplierSiteController::class, 'index']);
+            Route::post('supplier-site-store', [SupplierSiteController::class, 'store'])->name('supplier-site-store');
+            Route::get('supplier-site-show/{id}', [SupplierSiteController::class, 'show']);
+            Route::post('supplier-site-update/{id}', [SupplierSiteController::class, 'update'])->name('supplier-site-update');
+            Route::get('supplier-single-report/{id}', [SupplierSiteController::class, 'singleReport']);
+            Route::get('supplier-site-audit-trail/{id}', [SupplierSiteController::class, 'auditTrail']);
+            Route::get('supplier-site-audit-trail-pdf/{id}', [SupplierSiteController::class, 'auditTrailPdf']);
+            Route::post('supplier-site-send-stage/{id}', [SupplierSiteController::class, 'supplierSendStage'])->name('supplier-site-send-stage');
+            Route::post('sendTo-supplier-site-approved/{id}', [SupplierSiteController::class, 'sendToSupplierApproved'])->name('sendTo-supplier-site-approved');
+            Route::post('supplier-site-close-cancelled/{id}', [SupplierSiteController::class, 'cancelDocument'])->name('supplier-site-close-cancelled');
+            Route::post('supplier-site-approved-to-obselete/{id}', [SupplierSiteController::class, 'supplierApprovedToObselete'])->name('supplier-site-approved-to-obselete');
+            Route::post('sendToPendingSupplierSiteAudit/{id}', [SupplierSiteController::class, 'sendToPendingSupplierAudit'])->name('sendToPendingSupplierSiteAudit');
+            Route::post('suppliersite_child/{id}', [SupplierSiteController::class, 'supplier_child'])->name('suppliersite_child');
+
             //----------------------------------------------By PRIYA SHRIVASTAVA------------------
             Route::post('formDivision', [FormDivisionController::class, 'formDivision'])->name('formDivision');
             Route::get('ExternalAuditSingleReport/{id}', [AuditeeController::class, 'singleReport'])->name('ExternalAuditSingleReport');
@@ -190,6 +206,11 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviation', [DeviationController::class, 'deviation']);
              Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
+             Route::post('launch-extension-qrm/{id}', [DeviationController::class, 'launchExtensionQrm'])->name('launch-extension-qrm');             
+            Route::post('launch-extension-investigation/{id}', [DeviationController::class, 'launchExtensionInvestigation'])->name('launch-extension-investigation');
+            Route::post('launch-extension-deviation/{id}', [DeviationController::class, 'launchExtensionDeviation'])->name('launch-extension-deviation');
+            Route::post('launch-extension-capa/{id}', [DeviationController::class, 'launchExtensionCapa'])->name('launch-extension-capa');
+            Route::post('deviation/pending_initiator_update/{id}', [DeviationController::class, 'pending_initiator_update'])->name('pending_initiator_update');
 
 
              

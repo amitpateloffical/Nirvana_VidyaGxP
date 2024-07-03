@@ -52,7 +52,7 @@ $users = DB::table('users')->select('id', 'name')->get();
     
         <div class="division-bar">
             <strong>Site Division/Project</strong> :
-            {{ Helpers::getDivisionName(session()->get('division')) }} / Supplier
+            {{ Helpers::getDivisionName(session()->get('division')) }} / Supplier Site
         </div>
     
     </div>
@@ -73,7 +73,7 @@ $users = DB::table('users')->select('id', 'name')->get();
             </div>
 
             <!--  Contract Tab content -->
-            <form action="{{ route('supplier-store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('supplier-site-store') }}" method="POST" enctype="multipart/form-data">
             @csrf
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
@@ -81,7 +81,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Record Number</b></label>
-                                    <input type="text" value="{{ Helpers::getDivisionName(session()->get('division')) }}/SUPPLIER/{{ date('Y') }}/{{ str_pad($record_numbers, 4, '0', STR_PAD_LEFT) }}">
+                                    <input type="text" value="{{ Helpers::getDivisionName(session()->get('division')) }}/SS/{{ date('Y') }}/{{ str_pad($record_numbers, 4, '0', STR_PAD_LEFT) }}">
                                     <input type="hidden" name="record" id="record">
                                 </div>
                             </div>

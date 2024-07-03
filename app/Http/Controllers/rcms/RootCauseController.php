@@ -41,6 +41,8 @@ use Illuminate\Support\Facades\Hash;
         $root = new RootCauseAnalysis();
         $root->form_type = "Root-cause-analysis"; 
         $root->originator_id = $request->originator_id;
+        $root->parent_id = $request->parent_id;
+        $root->parent_type = $request->parent_type;
         $root->date_opened = $request->date_opened;
         $root->division_id = $request->division_id;
         $root->priority_level = $request->priority_level;
@@ -841,16 +843,18 @@ use Illuminate\Support\Facades\Hash;
                     if($u->q_m_s_divisions_id == $root->division_id){
                         $email = Helpers::getInitiatorEmail($u->user_id);
                          if ($email !== null) {
-                        
-                      
-                          Mail::send(
-                              'mail.view-mail',
-                               ['data' => $root],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Document sent ".Auth::user()->name);
-                            }
-                          );
+                          try {
+                            Mail::send(
+                                'mail.view-mail',
+                                 ['data' => $root],
+                              function ($message) use ($email) {
+                                  $message->to($email)
+                                      ->subject("Document sent ".Auth::user()->name);
+                              }
+                            );
+                          } catch (\Throwable $e) {
+                            //throw $th;
+                          }
                         }
                  } 
               }

@@ -215,8 +215,6 @@ Route::post('root/reject/{id}', [RootCauseController::class, 'root_reject'])->na
 Route::get('rootAuditTrial/{id}', [RootCauseController::class, 'rootAuditTrial']);
 Route::get('auditDetailsRoot/{id}', [RootCauseController::class, 'auditDetailsroot'])->name('showrootAuditDetails');
 
-
-
 // ====================================InternalauditController=======================
 Route::post('internalauditreject/{id}', [InternalauditController::class, 'RejectStateChange']);
 Route::post('InternalAuditCancel/{id}', [InternalauditController::class, 'InternalAuditCancel']);
