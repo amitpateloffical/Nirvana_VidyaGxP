@@ -116,6 +116,9 @@
             });
         });
     </script>
+    @php
+    $division = DB::table('divisions')->get();
+     @endphp
     <script>
         $(document).ready(function() {
             $('#ObservationAdd').click(function(e) {
@@ -233,12 +236,12 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <div class="group-input">
+                                <div class="group-input">
                                         <label for="Division Code"><b>Site/Location Code</b></label>
                                         <input readonly type="text" name="division_code"
                                             value="{{ Helpers::getDivisionName(session()->get('division')) }}">
                                         <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
-                                        {{-- <div class="static">{{ Helpers::getDivisionName(session()->get('division')) }}</div> --}}
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

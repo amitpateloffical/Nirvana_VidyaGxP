@@ -22,11 +22,12 @@ return new class extends Migration
             $table->text('area_of_audit')->nullable();
             $table->text('start_date')->nullable();
             $table->text('end_date')->nullable();
+            $table->text('start_time')->nullable();
             $table->text('end_time')->nullable();
             $table->text('auditor')->nullable();
             $table->text('auditee')->nullable();
             $table->text('remark')->nullable();
-            $table->string('activity_type');
+            $table->string('activity_type')->nullable();
             $table->longText('previous')->nullable();
             $table->string('stage')->nullable();
             $table->longText('current')->nullable();
@@ -34,10 +35,10 @@ return new class extends Migration
             $table->text('action_name')->nullable();
             $table->text('change_from')->nullable();
             $table->text('change_to')->nullable();
-            $table->string('user_id');
-            $table->string('user_name');
-            $table->string('origin_state');
-            $table->string('user_role');
+            $table->string('user_id')->nullable();
+            $table->string('user_name')->nullable();
+            $table->string('origin_state')->nullable();
+            $table->string('user_role')->nullable();
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\ActionItem;
 use App\Models\Capa;
 use App\Models\CC;
+use Illuminate\Support\Facades\App;
 use App\Models\EffectivenessCheck;
 use App\Models\Extension;
 use App\Models\InternalAudit;
@@ -18,6 +19,7 @@ use App\Models\Supplier;
 use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 use App\Models\Deviation;
+use App\Models\SupplierAudit;
 use App\Models\MedicalDeviceRegistration;
 use Helpers;
 use App\Models\User;
@@ -69,6 +71,27 @@ class DashboardController extends Controller
         $datas13 = Deviation::orderByDesc('id')->get();
         $datas15 = MedicalDeviceRegistration::orderByDesc('id')->get();
         $supplier = Supplier::orderByDesc('id')->get();
+        $supplierAudit =  SupplierAudit ::orderByDesc('id')->get();
+        
+        foreach ($supplierAudit as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_id ? $data->parent_id : "-",
+                "record" => $data->record,
+                "type" => "Supplier-Audit",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "division_id" => $data->division_id,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
 
 
         foreach ($datas as $data) {
@@ -705,6 +728,12 @@ class DashboardController extends Controller
     {
 
 
+        if ($type == "Supplier-Audit") {
+            $data = SupplierAudit::find($id);
+            $audit =route('SupplierAuditTrialReport', $data->id);
+            $single = route('SupplierSingleReport', $data->id);
+            $parent = "childReport/". $data->id;
+        }
         if ($type == "Change-Control") {
             $data = CC::find($id);
             $single = "change_control_single_pdf/" . $data->id;

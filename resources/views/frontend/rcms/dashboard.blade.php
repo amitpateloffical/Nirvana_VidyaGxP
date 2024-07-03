@@ -204,6 +204,17 @@
                                                                 class="w-100 h-100"> --}}
                                                         </div>
                                                     </a>
+                                                    @elseif ($datas->type == 'Supplier-Audit')
+                                                    <a href="{{ route('showSupplierAudit', $datas->id) }}">
+                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    <a href="{{ url('rcms/qms-dashboard', $datas->id) }}/Supplier-Audit">
+                                                        <div class="icon" onclick="showChild()" data-bs-toggle="tooltip"
+                                                            title="Related Records">
+                                                            {{-- <img src="{{ asset('user/images/single.png') }}" alt="..."
+                                                                class="w-100 h-100"> --}}
+                                                        </div>
+                                                    </a>
                                                     {{-- -----------------------by pankaj-------------------- --}}
                                                 @elseif ($datas->type == 'Internal-Audit')
                                                     <a href="{{ route('showInternalAudit', $datas->id) }}">
