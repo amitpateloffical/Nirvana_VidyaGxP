@@ -37,6 +37,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\newForm\MedicalRegistrationController;
 use App\Http\Controllers\newForm\LabController;
 use App\Http\Controllers\newForm\FieldController;
+use App\Http\Controllers\newForm\FollowupController;
+use App\Http\Controllers\newForm\StudyController;
 use App\Http\Controllers\newForm\ContractController;
 
 
@@ -156,6 +158,7 @@ Route::get('medicalupdate/{id}/edit',[MedicalRegistrationController::class,'medi
 Route::put('medicalupdated/{id}',[MedicalRegistrationController::class,'medicalUpdate'])->name('medical.update');
 Route::get('medical_audit/{id}',[MedicalRegistrationController::class,'medicalAudit'])->name('medical.audit');
 Route::get('medical_audit_details/{id}',[MedicalRegistrationController::class,'medicalAuditDetails'])->name('medical.auditDetails');
+Route::post('Correspondence',[MedicalRegistrationController::class,'CorrespondenceChild'])->name('Correspondence_show');
 
 
     // Route::get('/your-route', [YourController::class, 'yourMethod']);
@@ -186,8 +189,35 @@ Route::middleware(['auth'])->group(function () {
 
 
 });
+  //======================================followup======================
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('followup_task', [FollowupController::class,'index']);
+    Route::post('followup_store',[FollowupController::class,'store'])->name('followup_store');
+    Route::get('followup_update/{id}/show',[FollowupController::class,'view'])->name('followup_view');
+    Route::put('followup_update/{id}',[FollowupController::class,'followupUpdate'])->name('followup_update');
+    Route::get('followup_auditDetails/{id}',[FollowupController::class,'followupAuditDetails'])->name('followup.auditDetails');
 
 
+
+
+});
+
+
+//===============================study========================================
+
+//Route::view('study', 'frontend.ctms.study');
+
+
+Route::middleware(['auth'])->group(function () {
+Route::get('study', [StudyController::class,'index']);
+Route::post('study_store',[StudyController::class,'store'])->name('study_store');
+Route::get('study_update/{id}/show',[StudyController::class,'show'])->name('study_view');
+Route::put('study_update/{id}',[StudyController::class,'studyUpdate'])->name('study_update');
+
+
+
+});
 
 
 // ====================================Capa=======================
@@ -429,7 +459,7 @@ Route::view('violation', 'frontend.ctms.violation');
 Route::view('subject', 'frontend.ctms.subject');
 Route::view('subject_action_item', 'frontend.ctms.subject_action_item');
 
-Route::view('study', 'frontend.ctms.study');
+// Route::view('study', 'frontend.ctms.study');
 
 Route::view('serious_adverse_event', 'frontend.ctms.serious_adverse_event');
 Route::view('monitoring_visit', 'frontend.ctms.monitoring_visit');
@@ -577,7 +607,7 @@ Route::view('OOT_form', 'frontend.OOT.OOT_form');
 Route::view('recommended_action_new', 'frontend.OOS.recommended_action');
 
 // ========follow up task===============
-Route::view('follow_up_task', 'frontend.newform.follow_up_task');
+Route::view('follow_up_task', 'frontend.newform.follow_up_task')->name('follow_up_task');
 
 // ========Analyst Interview===============
 Route::view('analyst_interview', 'frontend.newform.analyst_interview');

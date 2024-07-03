@@ -131,7 +131,7 @@
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 Classify
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target=" #cancel-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target=" #more-info-required-modal">
                                 Reject
                             </button>
                             <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
@@ -147,15 +147,17 @@
                         @elseif(
                             $data->stage == 4 &&
                                 (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
-                            <button class="button_theme1" data-bs-toggle="modal" name="widthrown"
-                                data-bs-target="#cancel-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" name="Withdraw" data-bs-target="#cancel-modal">
                                 Withdraw
                             </button>
-                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancelled">
                                 Refused
                             </button>
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                 Approval Received
+                            </button>
+                            <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                                Child
                             </button>
 
                             {{-- @elseif($data->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
@@ -198,32 +200,43 @@
                             <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                                 Initiator Updated Complete
                                             </button> -->
+
                         @elseif($data->stage == 5 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
                             {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                            Obsolete
+                                Withdraw
                         </button> --}}
+                        @elseif($data->stage == 6 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
+                        {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                            Refused
+                    </button> --}}
+                    @elseif($data->stage == 7 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal1">
+                        Child
+                </button>
+
                         @endif
+
                         <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
                             </a> </button>
                     </div>
                 </div>
 
-
+{{-- ====================================================================================================================================== --}}
                 <div class="status">
                     <div class="head">Current Status</div>
                     @if ($data->stage == 0)
                         <div class="progress-bars ">
                             <div class="bg-danger">Closed-Cancelled</div>
                         </div>
-                    @elseif ($data->stage == 6)
-                        {{-- @if ($data->stage == 6) --}}
+                    {{-- @elseif ($data->stage == 6)
+                        {{-- @if ($data->stage == 6)
                         <div class="progress-bars ">
                             <div class="bg-danger">Closed - Withdraw</div>
                         </div>
                     @elseif ($data->stage == 7)
                     <div class="progress-bars ">
                         <div class="bg-danger">Closed - Not Approved</div>
-                    </div>
+                    </div> --}}
                     @else
                         <div class="progress-bars d-flex" style="font-size: 15px;">
 
@@ -248,44 +261,44 @@
                             @if ($data->stage >= 4)
                                 <div class="active"> Pending Registration Approval</div>
                             @else
-                                <div class=""> Pending Registration
-                                    Approval</div>
+                                <div class=""> Pending Registration Approval</div>
                             @endif
 
 
-
-                            {{-- @if ($data->stage >= 6)
-                        <div class="active"> Closed - Withdrawn</div>
-                        @else
-                        <div class=""> Closed - Withdrawn</div>
-                        @endif
-                        @if ($data->stage >= 7)
-                        <div class="active"> Closed – Not Approved</div>
-                        @else
-                        <div class=""> Closed – Not Approved</div>
-                        @endif --}}
-                            @if ($data->stage >= 5)
-                                <div class="bg-danger"> Closed –Approved
-                                </div>
+                            @if($data->stage == 5)
+                            <div class="bg-danger">Closed - Withdrawn</div>
+                            @elseif ($data->stage == 6)
+                            <div class="bg-danger">Closed – Not Approved</div>
+                            @elseif ($data->stage == 7)
+                            <div class="bg-danger"> Closed –Approved</div>
                             @else
-                                <div class=""> Closed –Approved
-                                </div>
+                            <div class=""> Closed –Approved</div>
                             @endif
-                            {{-- @if ($data->stage >= 8)
-                        <div class="active"> Closed - Cancelled</div>
-                        @else
-                        <div class=""> Closed - Cancelled</div>
-                        @endif
-                        @if ($data->stage >= 9)
-                        <div class="bg-danger">Closed - Done</div>
-                        @else
-                        <div class="">Closed - Done</div>
-                        @endif --}}
-                            {{-- @endif --}}
+
+{{--
+                            @if ($data->stage >= 5)
+                            <div class="active">Closed - Withdrawn</div>
+                           @else
+                            <div class="">Closed - Withdrawn</div>
+                           @endif
+
+                           @if ($data->stage >= 6)
+                           <div class="active"> Closed – Not Approved</div>
+                          @else
+                           <div class="">Closed – Not Approved</div>
+                          @endif
+
+                          @if ($data->stage >= 7)
+                         <div class="bg-danger"> Closed –Approved
+                          </div>
+                           @else
+                        <div class=""> Closed –Approved
+                         </div>
+                          @endif --}}
+
                         </div>
                     @endif
 
-                    {{-- ---------------------------------------------------------------------------------------- --}}
                 </div>
             </div>
 
@@ -321,19 +334,18 @@
 
                                         <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                        <input type="text" name="initiator_id"
+                                        <input disabled="text" name="initiator_id"
                                             value="{{ $data->initiator_id ?? Auth::user()->name }}">
 
                                         {{-- <input type="text"  name="initiator_id" value="{{ $validation->initiator_id=Auth::user()->id }}">  --}}
-
 
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Date Due"><b>Date of Initiation</b></label>
-                                        <input disabled type="text" value="{{ date('d-M-Y') }}" name="initiation_date">
-                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date">
+                                        <input disabled type="text" value="{{ date('d-M-Y') }}" name="date_of_initiation">
+                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="date_of_initiation">
                                     </div>
                                 </div>
 
@@ -352,15 +364,23 @@
                                     </div>
                                 </div>
 
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="RLS Record Number"><b>Record Number</b></label>
+                                        <input disabled type="text" name="record_number"
+                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/MR/{{ date('Y') }}/{{$data->record_number }}">
+                                    </div>
+                                </div>
 
                                 <div class="col-12">
                                     <div class="group-input">
-                                        <label for="Short Description">Short Description<span class="text-danger">*</span>
-                                            <p>255 characters remaining</p>
-                                            <input id="docname" type="text" name="short_description"
-                                                value="{{ $data->short_description }}" maxlength="255" required>
+                                        <label for="Short Description">Short Description<span class="text-danger">*</span></label>
+                                        <p>255 characters remaining</p>
+                                        <input id="docname" type="text" name="short_description"
+                                            value="{{ $data->short_description }}" maxlength="255" required>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="group-input">
@@ -397,12 +417,15 @@
                                                 <input type="text" id="due_date_gi" readonly placeholder="DD-MMM-YYYY"
                                                     value="{{ $date->format('j-F-Y') }}" />
                                                 <input type="date" name="due_date_gi"
-                                                    min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                                    min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}"
                                                     value="{{ $data->due_date_gi }}" class="hide-input"
                                                     oninput="handleDateInput(this, 'due_date_gi')" />
                                             </div>
                                         </div>
                                     </div>
+
+
+
                                     <div class="col-md-6">
                                         <div class="group-input">
                                             <label for="search">
@@ -485,18 +508,17 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Responsible Department">Zone</label>
-                                        <select name="zone_departments">
+                                        <select name="zone_departments" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>
                                             <option value="">Enter Your Selection Here</option>
-
-                                            <option value="Asia" @if ($data->zone_departments == 'Asia') selected @endif>Asia</option>
-                                            <option value="Europe" @if ($data->zone_departments == 'Europe') selected @endif>Europe</option>
-                                            <option value="North America" @if ($data->zone_departments == 'North America') selected @endif>North America</option>
-                                            <option value="South America" @if ($data->zone_departments == 'South America') selected @endif>South America</option>
-                                            <option value="Africa" @if ($data->zone_departments == 'Africa') selected @endif>Africa</option>
-                                            <option value="Australia" @if ($data->zone_departments == 'Australia') selected @endif>Australia</option>
-                                            <option value="Antarctica" @if ($data->zone_departments== 'Antarctica') selected @endif>Antarctica</option>
-
+                                            <option value="asia" @if ($data->zone_departments == "asia") selected @endif>Asia</option>
+                                            <option value="europe" @if ($data->zone_departments == "europe") selected @endif>Europe</option>
+                                            <option value="africa" @if ($data->zone_departments == "africa") selected @endif>Africa</option>
+                                            <option value="central-america" @if ($data->zone_departments == "central-america") selected @endif>Central America</option>
+                                            <option value="south-america" @if ($data->zone_departments == "south-america") selected @endif>South America</option>
+                                            <option value="oceania" @if ($data->zone_departments == "oceania") selected @endif>Oceania</option>
+                                            <option value="north-america" @if ($data->zone_departments == "north-america") selected @endif>North America</option>
                                         </select>
+
                                     </div>
                                 </div>
 
@@ -505,7 +527,12 @@
 
                                         <label for="RLS Record Number"><b>Country</b></label>
                                         <p class="text-primary">Auto filter according to selected zone</p>
-                                        <select name="country_number">
+                                        <select name="country_number" class="form-select country" aria-label="Default select example" onchange="loadStates()" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>
+                                            <option value="{{ $data->country_number }}" selected>{{ $data->country_number }}</option>
+                                        </select>
+
+
+                                        {{-- <select name="country_number">
                                             <option value="">Select Country</option>
                                             <option value="">Enter Your Selection Here</option>
                                             <option value="1" @if ($data->country_number == 1) selected @endif>1
@@ -515,7 +542,7 @@
                                             <option value="3" @if ($data->country_number == 3) selected @endif>3
                                             </option>
 
-                                        </select>
+                                        </select> --}}
 
 
 
@@ -676,8 +703,8 @@
                                                     <td><input type="text" class="numberDetail"          name="packagedetail[0][PrimaryPackaging]"></td>
                                                     <td><input type="text" class="Document_Remarks"      name="packagedetail[0][Material]"></td>
                                                     <td><input type="text" class="Document_Remarks"      name="packagedetail[0][PackSize]"></td>
-                                                    <td><input type="date"class="Document_Remarks"       name="packagedetail[0][StorageCondition]">
-                                                    </td><td><input type="date" class="Document_Remarks" name="packagedetail[0][SecondaryPackaging]"></td>
+                                                    <td><input type="date"class="Document_Remarks"       name="packagedetail[0][StorageCondition]"></td>
+                                                    <td><input type="date" class="Document_Remarks"      name="packagedetail[0][SecondaryPackaging]"></td>
                                                     <td><input type="text" class="Document_Remarks"      name="packagedetail[0][Remarks]"></td>
                                                     {{-- <td><button type="text" class="removeRowBtn">Remove</button></td> --}}
                                                 @endif
@@ -720,11 +747,11 @@
                                             <label for="Responsible Department">Related Dossier Document</label>
                                             <select name="dossier_departments">
                                                 <option value="">Enter Your Selection Here</option>
-                                                <option value="1" @if ($data->dossier_departments == 1) selected @endif>1
+                                                <option value="1" @if ($data->dossier_departments == '1') selected @endif>1
                                                 </option>
-                                                <option value="2" @if ($data->dossier_departments == 2) selected @endif>2
+                                                <option value="2" @if ($data->dossier_departments == '2') selected @endif>2
                                                 </option>
-                                                <option value="3" @if ($data->dossier_departments == 3) selected @endif>3
+                                                <option value="3" @if ($data->dossier_departments == '3') selected @endif>3
                                                 </option>
                                             </select>
                                         </div>
@@ -734,7 +761,7 @@
 
                                     <div class="col-12">
                                         <div class="group-input">
-                                            <label for="Description"> Description<span class="text-danger">*</span>
+                                            <label for="Description">Description<span class="text-danger">*</span>
                                                 <p>255 characters remaining</p>
                                                 <textarea placeholder="" name="description"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>{{ $data->description }}</textarea>
                                                 {{-- <textarea placeholder="" name="Description" {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->Description }}</textarea> --}}
@@ -808,41 +835,183 @@
                         <div class="inner-block-content">
                             <div class="row">
 
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="group-input">
-                                        <label for="Actual_Amount ">Submitted by :</label>
-                                        <div class="static"></div>
+                                        <label for="submitted by">Assign Responsible By :</label>
+                                        <div class="">{{ $data->assign_by }}</div>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="group-input">
 
-                                        <label for="Division Code"><b>Submitted on :</b></label>
-                                        <div class="date"></div>
+                                        <label for="Division Code"><b>Assign Responsible On :</b></label>
+                                        <div class="">{{ $data->assign_on }}</div>
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="group-input">
-                                        <label for="Actual_Amount ">Approved by :</label>
-                                        <div class="static"></div>
-
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="">{{ $data->comment }}</div>
                                     </div>
                                 </div>
-                                <div class="col-6">
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Cancel By :</label>
+                                        <div class="">{{ $data->cancel_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
                                     <div class="group-input">
 
-                                        <label for="Division Code"><b>Approved on :</b></label>
-                                        <div class="date"></div>
+                                        <label for="Division Code"><b>Cancel On :</b></label>
+                                        <div class="">{{ $data->cancel_on }}</div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="button-block">
-                                <button type="submit" class="saveButton">Save</button>
-                                <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="">{{ $data->cancel_comment }}</div>
+                                    </div>
+                                </div>
 
-                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                        Exit </a> </button>
-                            </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Classify By :</label>
+                                        <div class="">{{ $data->classify_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+
+                                        <label for="Division Code"><b>Classify On :</b></label>
+                                        <div class="">{{ $data->classify_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="">{{ $data->classify_comment }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Reject By :</label>
+                                        <div class="">{{ $data->reject_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+
+                                        <label for="Division Code"><b>Reject On :</b></label>
+                                        <div class="">{{ $data->reject_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="">{{ $data->reject_comment }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Submit To Regulator By :</label>
+                                        <div class="">{{ $data->submit_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+
+                                        <label for="Division Code"><b>Submit To Regulator On :</b></label>
+                                        <div class="">{{ $data->submit_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="">{{ $data->submit_comment }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Cancelled By :</label>
+                                        <div class="">{{ $data->cancelled_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+
+                                        <label for="Division Code"><b>Cancelled On :</b></label>
+                                        <div class="">{{ $data->cancelled_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="">{{ $data->cancelled_comment }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Refused By :</label>
+                                        <div class="">{{ $data->refused_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Refused On :</b></label>
+                                        <div class="">{{ $data->refused_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="">{{ $data->refused_comment }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Withdraw By :</label>
+                                        <div class="">{{ $data->withdraw_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Withdraw On :</b></label>
+                                        <div class="">{{ $data->withdraw_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="">{{ $data->withdraw_comment }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Approval Received By :</label>
+                                        <div class="">{{ $data->received_by }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Approval Received On :</b></label>
+                                        <div class="">{{ $data->received_on }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="">{{ $data->received_comment }}</div>
+                                    </div>
+                                </div>
+
                         </div>
                     </div>
                 </div>
@@ -1076,6 +1245,125 @@
         });
     </script>
 
+<script>
+    function loadStates() {
+        let country = $('.country').val();
+        $.ajax({
+            url: '/get-states',
+            method: 'GET',
+            data: { country: country },
+            success: function (data) {
+                $('.state').html(data);
+            }
+        });
+    }
+
+    function loadCities() {
+        let state = $('.state').val();
+        $.ajax({
+            url: '/get-cities',
+            method: 'GET',
+            data: { state: state },
+            success: function (data) {
+                $('.city').html(data);
+            }
+        });
+    }
+</script>
+
+    {{--Country Statecity API--}}
+<script>
+
+
+    var config = {
+        cUrl: 'https://api.countrystatecity.in/v1',
+        ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+    };
+
+    var countrySelect = document.querySelector('.country'),
+        stateSelect = document.querySelector('.state'),
+        citySelect = document.querySelector('.city');
+
+    function loadCountries() {
+        let apiEndPoint = `${config.cUrl}/countries`;
+
+        $.ajax({
+            url: apiEndPoint,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country.iso2;
+                    option.textContent = country.name;
+                    countrySelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading countries:', error);
+            }
+        });
+    }
+
+    function loadStates() {
+        stateSelect.disabled = false;
+        stateSelect.innerHTML = '<option value="">Select State</option>';
+
+        const selectedCountryCode = countrySelect.value;
+
+        $.ajax({
+            url: `${config.cUrl}/countries/${selectedCountryCode}/states`,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.iso2;
+                    option.textContent = state.name;
+                    stateSelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading states:', error);
+            }
+        });
+    }
+
+    function loadCities() {
+        citySelect.disabled = false;
+        citySelect.innerHTML = '<option value="">Select City</option>';
+
+        const selectedCountryCode = countrySelect.value;
+        const selectedStateCode = stateSelect.value;
+
+        $.ajax({
+            url: `${config.cUrl}/countries/${selectedCountryCode}/states/${selectedStateCode}/cities`,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.id;
+                    option.textContent = city.name;
+                    citySelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading cities:', error);
+            }
+        });
+    }
+    $(document).ready(function() {
+        loadCountries();
+    });
+
+
+</script>
+{{--Country Statecity API End--}}
+
 
     <script>
         // Function to calculate and populate the due date field with a date 30 days from now
@@ -1110,6 +1398,63 @@
             return day + '-' + monthNames[monthIndex] + '-' + year;
         }
     </script>
+
+
+ <div class="modal fade" id="child-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Child</h4>
+            </div>
+            <form action="{{ route('Correspondence_show', $data ->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        @if ($data->stage == 2)
+                        <label style="display: flex;" for="major">
+                            <input type="radio" name="child_type" id="major" value="correspondence">
+                            Correspondence
+                        </label>
+                        @else($national->stage == 3)
+
+                        <label style="display: flex;" for="major">
+                            <input type="radio" name="child_type" id="major" value="variation">
+                            Variation
+                        </label>
+
+                        <label for="major">
+                            <input type="radio" name="child_type" id="major" value="renewal">
+                            Renewal
+                        </label>
+
+                        <label for="major">
+                            <input type="radio" name="child_type" id="major" value="correspondence">
+                            correspondence
+                        </label>
+                        <label style="display: flex;" for="major">
+                            <input type="radio" name="child_type" id="major" value="variation">
+                            Variation
+                        </label>
+
+                        @endif
+
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                    <button type="submit">Continue</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 
     <!-- signature model -->
@@ -1210,6 +1555,58 @@
             </div>
         </div>
     </div>
+
+
+    {{-- new child  --}}
+    <div class="modal fade" id="cancelled">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">E-Signature</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form action="{{ route('canceltwo', $data->id) }}" method="POST">
+                    @csrf
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="mb-3 text-justify">
+                            Please select a meaning and a outcome for this task and enter your username
+                            and password for this task. You are performing an electronic signature,
+                            which is legally binding equivalent of a hand written signature.
+                        </div>
+                        <div class="group-input">
+                            <label for="username">Username <span class="text-danger">*</span></label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="password">Password <span class="text-danger">*</span></label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <div class="group-input">
+                            <label for="comment">Comment <span class="text-danger">*</span></label>
+                            <input type="comment" name="comment" required>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <!-- <div class="modal-footer">
+                            <button type="submit" data-bs-dismiss="modal">Submit</button>
+                            <button>Close</button>
+                        </div> -->
+                    <div class="modal-footer">
+                        <button type="submit">Submit</button>
+                        <button type="button" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
     <div class="modal fade" id="deviationIsCFTRequired">

@@ -9,6 +9,9 @@
         display: none;
     }
 </style>
+@php
+$users = DB::table('users')->get();
+@endphp
 
 <script>
     function calculateRiskAnalysis(selectElement) {
@@ -53,7 +56,7 @@ $users = DB::table('users')->get();
             <!-- <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signatures</button> -->
         </div>
 
-        <form action="{{ route('observationstore') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('followup_store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div id="step-form">
 
@@ -68,11 +71,14 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent) Date Opened</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="parent_date_opened"  placeholder="DD-MM-YYYY" />
-                                        <input type="date" id="start_date_checkdate" name="parent_date_opened"
-                                         min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                         class="hide-input" oninput="handleDateInput(this, 'parent_date_opened');
-                                         checkDate('start_date_checkdate','end_date_checkdate')" />
+
+
+                                    {{-- Format the date as desired --}}
+                                    <input type="text" id="parent_date" readonly placeholder="DD-MMM-YYYY"/>
+                                    <input type="date" name="parent_date"
+                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                         class="hide-input"
+                                        oninput="handleDateInput(this, 'parent_date')" />
                                     </div>
                                 </div>
                             </div>
@@ -80,24 +86,29 @@ $users = DB::table('users')->get();
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Description">(Parent) Observation</label>
-                                    <textarea name="parent_observation"></textarea>
+                                    <textarea name="Parent_observation" ></textarea>
                                 </div>
                             </div>
+
+
 
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Description">(Parent) Classification</label>
                                     <select name="parent_classification">
                                         <option value="">Enter Your Selection Here</option>
-
+                                        <option value="PC-1">PC-1</option>
+                                        <option value="PC-1">PC-2</option>
+                                        <option value="PC-1">PC-3</option>
                                     </select>
                                 </div>
                             </div>
 
+
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Description">(Parent) CAPA Taken/Proposed</label>
-                                    <textarea name="parent_capa_taken_proposed"></textarea>
+                                    <textarea name="capa_taken"></textarea>
                                 </div>
                             </div>
 
@@ -105,8 +116,15 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent) TCD for Closure of Audit Task</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="parent_tcd_for_closure_of_audit_task" readonly placeholder="DD-MM-YYYY" />
-                                        <input type="date" id="start_date_checkdate" name="parent_tcd_for_closure_of_audit_task" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'parent_tcd_for_closure_of_audit_task');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        {{-- <input type="text" id="parent_tcd_for_closure_of_audit_task" readonly placeholder="DD-MM-YYYY" /> --}}
+
+                                    {{-- Format the date as desired --}}
+                                    <input type="text" id="tcd_date" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="date" name="tcd_date"
+                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                         class="hide-input"
+                                        oninput="handleDateInput(this, 'tcd_date')" />
+                                        {{-- <input type="date" id="start_date_checkdate" name="tcd_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'tcd_date');checkDate('start_date_checkdate','end_date_checkdate')" /> --}}
                                     </div>
                                 </div>
                             </div>
@@ -115,10 +133,11 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Record Number</b></label>
-                                    <input disabled type="text" name="record_number">
+                                    <input type="text" name="record_number"  value="{{ Helpers::getDivisionName(session()->get('division')) }}/FU/{{ date('Y') }}/{{ $record_number }}">
+                                 </div>
 
-                                </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Division Code</b></label>
@@ -127,25 +146,43 @@ $users = DB::table('users')->get();
                                     {{-- <div class="static">QMS-North America</div> --}}
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="originator">Initiator</label>
-                                    <input disabled type="text">
+                                    <label for="Originator"><b>Initiator</b></label>
+
+                                    <input disabled type="text" name="originator_id"
+                                        value="{{ $task->originator_id ?? Auth::user()->name }}">
+
+                                    {{-- <input disabled type="text" name="Originator" value=""> --}}
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="date_opened">Date of Initiation</label>
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="initiation_date">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date">
                                 </div>
                             </div>
 
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>Assigned to</b></label>
-                                    <input type="text" name="assigned_to">
+                                    <label for="If Others">Assigned To</label>
+                                    <select name="assigned_to" onchange="">
+
+                                        <option value="">Select a value</option>
+                                        <option value="">-- select --</option>
+                                            @if ($users->isNotEmpty())
+                                                @foreach ($users as $user)
+                                                    <option value='{{ $user->id }}'>{{ $user->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        {{-- <option value="">-- select --</option>
+                                        <option value=""></option> --}}
+
+                                    </select>
                                 </div>
                             </div>
 
@@ -159,7 +196,7 @@ $users = DB::table('users')->get();
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Description">Follow-up Task Description</label>
-                                    <textarea name="follow_up_task_description"></textarea>
+                                    <textarea name="followup_Desc"></textarea>
                                 </div>
                             </div>
 
@@ -195,21 +232,6 @@ $users = DB::table('users')->get();
                                         </div>
                                     </div>
                                 </div>
-
-
-                            <!-- <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RLS Record Number"><b>Follow-up Task Submit By</b></label>
-                                    <input type="text" name="assignee">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RLS Record Number"><b>Follow-up Task Submit On</b></label>
-                                    <input type="text" name="assignee">
-                                </div>
-                            </div> -->
-
                         </div>
                         <div class="button-block">
                             <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
@@ -228,8 +250,8 @@ $users = DB::table('users')->get();
 
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Description">Compliance Execution Details</label>
-                                    <textarea name="compliance_execution_details"></textarea>
+                                    <label for="Compliance Execution Details">Compliance Execution Details</label>
+                                    <textarea name="execution_details"></textarea>
                                 </div>
                             </div>
 
@@ -244,17 +266,42 @@ $users = DB::table('users')->get();
                             </div>
 
                             <div class="group-input">
+                                <label for="Attached File">Execution Attachment</label>
+                                <div>
+                                    <small class="text-primary">
+                                        Please Attach all relevant or supporting documents
+                                    </small>
+                                </div>
+                                <div class="file-attachment-field">
+                                    <div class="file-attachment-list" id="execution_attachment">
+
+
+                                    </div>
+                                    <div class="add-btn">
+                                        <div>Add</div>
+                                        <input type="file" id="HOD_Attachments" name="execution_attachment[]"
+                                            oninput="addMultipleFiles(this, 'execution_attachment')" multiple>
+
+                                        {{-- <input type="file" id="myfile" name="file_attachment" oninput="" multiple> --}}
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {{-- <div class="group-input">
                                 <label for="file_attchment_if_any">Execution Attachment</label>
                                 <div><small class="text-primary">Please Attach all relevant or supporting
                                         documents</small></div>
                                 <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="execution_attachment"></div>
+                                    <div class="file-attachment-list" id="file_attchment_if_any"></div>
                                     <div class="add-btn">
                                         <div>Add</div>
-                                        <input type="file" id="myfile" name="execution_attachment" {{-- ignore --}} oninput="addMultipleFiles(this, 'execution_attachment')" multiple>
+                                        <input type="file" id="myfile" name="execution_attachment"  oninput="addMultipleFiles(this, 'file_attchment_if_any')" multiple>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
+
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -262,143 +309,10 @@ $users = DB::table('users')->get();
                                     <textarea name="delay_justification"></textarea>
                                 </div>
                             </div>
+
+
 <!--
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Country">Execution Complete By</label>
-                                    <input type="text" name="country">
-                                </div>
-                            </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Country">Execution Complete On</label>
-                                    <input type="text" name="country">
-                                </div>
-                            </div> -->
-
-                            <!-- {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="date_Response_due">Date Response Due</label>
-                                        <input type="date" name="date_Response_due2" />
-                                    </div>
-                                </div> --}}
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date ">
-                                    <label for="date_Response_due1">Date Response Due</label>
-                                    <div class="calenderauditee">
-                                        <input type="text" name="date_response_due1" id="date_Response_due" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_Response_due_checkdate" class="hide-input" oninput="handleDateInput(this, 'date_Response_due');checkDate('date_Response_due_checkdate','date_due_checkdate')" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date ">
-                                    <label for="date_due"> Due Date</label>
-                                    <div class="calenderauditee">
-                                        <input type="text" name="capa_date_due" id="date_due" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_due_checkdate" class="hide-input" oninput="handleDateInput(this, 'date_due');checkDate('date_Response_due_checkdate','date_due_checkdate')" />
-                                    </div>
-                                </div>
-                            </div>
-                            {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="date_due">Date Due</label>
-                                        <input type="date" name="capa_date_due">
-                                    </div>
-                                </div> --}}
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="assign_to2">Assigned To</label>
-                                    <select name="assign_to2">
-                                        <option value="">-- Select --</option>
-                                        @foreach ($users as $data)
-                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="cro_vendor">CRO/Vendor</label>
-                                        <select name="cro_vendor">
-                                            <option value="">-- Select --</option>
-                                            <option title="Amit Guru" value="1">
-                                                Amit Guru
-                                            </option>
-                                            <option title="Shaleen Mishra" value="2">
-                                                Shaleen Mishra
-                                            </option>
-                                            <option title="Vikas Prajapati" value="3">
-                                                Vikas Prajapati
-                                            </option>
-                                            <option title="Anshul Patel" value="4">
-                                                Anshul Patel
-                                            </option>
-                                            <option title="Amit Patel" value="5">
-                                                Amit Patel
-                                            </option>
-                                            <option title="Madhulika Mishra" value="6">
-                                                Madhulika Mishra
-                                            </option>
-                                            <option title="Jim Kim" value="7">
-                                                Jim Kim
-                                            </option>
-                                            <option title="Akash Asthana" value="8">
-                                                Akash Asthana
-                                            </option>
-                                            <option title="Not Applicable" value="9">
-                                                Not Applicable
-                                            </option>
-                                            {{-- @foreach ($users as $data)
-                                            <option value="{{ $data->id }}">{{ $data->name }}</option>
-                            @endforeach --}}
-                            </select>
-                        </div>
-                    </div> --}}
-                    <div class="col-12">
-                        <div class="group-input">
-                            <label for="action-plan-grid">
-                                Action Plan<button type="button" name="action-plan-grid" id="observation_table">+</button>
-                            </label>
-                            <table class="table table-bordered" id="observation">
-                                <thead>
-                                    <tr>
-                                        <th>S.No</th>
-                                        <th>Action</th>
-                                        <th>Responsible</th>
-                                        <th>Deadline</th>
-                                        <th>Item Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                    <td><input type="text" name="action[]"></td>
-                                    {{-- <td><input type="text" name="responsible[]"></td> --}}
-                                    <td> <select id="select-state" placeholder="Select..." name="responsible[]">
-                                            <option value="">Select a value</option>
-                                            @foreach ($users as $data)
-                                            <option value="{{ $data->id }}">{{ $data->name }}
-                                            </option>
-                                            @endforeach
-                                        </select></td>
-                                    {{-- <td><input type="text" name="deadline[]"></td> --}}
-                                    <td>
-                                        <div class="group-input new-date-data-field mb-0">
-                                            <div class="input-date ">
-                                                <div class="calenderauditee">
-                                                    <input type="text" id="deadline' + serialNumber +'" readonly placeholder="DD-MMM-YYYY" />
-                                                    <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" name="deadline[]" class="hide-input" oninput="handleDateInput(this, `deadline' + serialNumber +'`)" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><input type="text" name="item_status[]"></td>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-12">
                         <div class="group-input">
                             <label for="comments">Comments</label>
                             <textarea name="comments"></textarea>
@@ -417,38 +331,33 @@ $users = DB::table('users')->get();
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <!-- <div class="col-12">
-                    <div class="sub-head"></div>
-                </div>
-                <div class="col-12">
-                    <div class="group-input">
-                        <label for="impact">Impact</label>
-                        <select name="impact">
-                            <option value="">-- Select --</option>
-                            <option value="1">High</option>
-                            <option value="2">Medium</option>
-                            <option value="3">Low</option>
-                            <option value="4">None</option>
-                        </select>
-                    </div>
-                </div> -->
+
 
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Description">Verification Comments</label>
-                                    <textarea name="verification_commentss"></textarea>
+                                    <textarea name="varification_comments"></textarea>
                                 </div>
                             </div>
 
-                            <div class="group-input">
-                                <label for="file_attchment_if_any">Verification Attachment</label>
-                                <div><small class="text-primary">Please Attach all relevant or supporting
-                                        documents</small></div>
-                                <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="file_attchment_if_any"></div>
-                                    <div class="add-btn">
-                                        <div>Add</div>
-                                        <input type="file" id="myfile" name="verification_attachment" {{-- ignore --}} oninput="addMultipleFiles(this, 'file_attchment_if_any')" multiple>
+
+
+                                <div class="group-input">
+                                    <label for="Attached File">Verification Attachment</label>
+                                    <div>
+                                        <small class="text-primary">
+                                            Please Attach all relevant or supporting documents
+                                        </small>
+                                    </div>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="verification_attachment"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="HOD_Attachments" name="verification_attachment[]"
+                                                oninput="addMultipleFiles(this, 'verification_attachment')" multiple>
+
+                                            {{-- <input type="file" id="myfile" name="file_attachment" oninput="" multiple> --}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -459,80 +368,14 @@ $users = DB::table('users')->get();
                             <div class="sub-head">Cancellation</div>
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Description">Cancellation Remarks</label>
+                                    <label for="Cancellation Remarks">Cancellation Remarks</label>
                                     <textarea name="cancellation_remarks"></textarea>
                                 </div>
                             </div>
 
-                            <!-- <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Country">Cancellation Done By</label>
-                                    <input type="text" name="country">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Country">Cancellation Done On</label>
-                                    <input type="text" name="country">
-                                </div>
-                            </div> -->
 
 
-                            <!--
-                <div class="col-12">
-                    <div class="group-input">
-                        <label for="impact_analysis">Impact Analysis</label>
-                        <textarea name="impact_analysis"></textarea>
-                    </div>
-                </div> -->
-                            <!-- <div class="col-12">
-                    <div class="sub-head">Risk Analysis</div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Severity Rate">Severity Rate</label>
-                        <select name="severity_rate" id="analysisR" onchange='calculateRiskAnalysis(this)'>
-                            <option value="">Enter Your Selection Here</option>
-                            <option value="1">Negligible</option>
-                            <option value="2">Moderate</option>
-                            <option value="3">Major</option>
-                            <option value="4">Fatal</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Occurrence">Occurrence</label>
-                        <select name="occurrence" id="analysisP" onchange='calculateRiskAnalysis(this)'>
-                            <option value="">Enter Your Selection Here</option>
-                            <option value="5">Extremely Unlikely</option>
-                            <option value="4">Rare</option>
-                            <option value="3">Unlikely</option>
-                            <option value="2">Likely</option>
-                            <option value="1">Very Likely</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="Detection">Detection</label>
-                        <select name="detection" id="analysisN" onchange='calculateRiskAnalysis(this)'>
-                            <option value="">Enter Your Selection Here</option>
-                            <option value="5">Impossible</option>
-                            <option value="4">Rare</option>
-                            <option value="3">Unlikely</option>
-                            <option value="2">Likely</option>
-                            <option value="1">Very Likely</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="group-input">
-                        <label for="RPN">RPN</label>
-                        <input type="text" name="analysisRPN" id="analysisRPN" readonly>
-                    </div>
-                </div> -->
+
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>

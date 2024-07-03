@@ -49,8 +49,8 @@ class LabController extends Controller
         $lab->record = $newRecordNumber;
 
         $lab->initiator_id = Auth::user()->id;
-        $lab->parent_id = $request->parent_id;
-        $lab->parent_type = $request->parent_type;
+        // $lab->parent_id = $request->parent_id;
+        // $lab->parent_type = $request->parent_type;
         $lab->intiation_date = $request->intiation_date;
         $lab->division_id = $request->division_id;
         $lab->originator_id = Auth::user()->id;
@@ -58,7 +58,7 @@ class LabController extends Controller
         // $lab->initiator_id = $request->initiator_id;
         $lab->short_description = $request->short_description;
         $lab->divison_code = $request->divison_code;
-       // $lab->record = $request->record;
+      // $lab->record_number = $request->record_number;
         $lab->general_initiator_group = $request->general_initiator_group;
         $lab->initiator_group_code = $request->initiator_group_code;
         $lab->form_type = $request->form_type;
@@ -375,8 +375,8 @@ class LabController extends Controller
         $lab1 =  LabTest::find($id);
 
         $lab1->initiator_id = Auth::user()->id;
-        $lab1->parent_id = $request->parent_id;
-        $lab1->parent_type = $request->parent_type;
+        // $lab1->parent_id = $request->parent_id;
+        // $lab1->parent_type = $request->parent_type;
         $lab1->intiation_date = $request->intiation_date;
         $lab1->division_id = $request->division_id;
         $lab1->originator_id = Auth::user()->id;
@@ -700,10 +700,11 @@ class LabController extends Controller
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            // Remove or comment out the line below if the column is not needed
+
             // $history->origin_state = $lastDocument->status;
-            $history->change_from = 'old_value';
-            $history->change_to = 'new_value';
+
+            $history->change_from ='$lab1->status';
+            $history->change_to = 'Not Applicable';
             $history->stage = 'Submitted';
             $history->action_name = 'Submitted';
             $history->save();
@@ -748,10 +749,10 @@ class LabController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                // $history->origin_state = $lastDocument->status;
-                 $history->change_from = 'old_value';
-                 $history->change_to = 'new_value';
-                $history->stage='Submitted';
-                $history->action_name ='Submitted';
+               $history->change_from ='$lab1->status';
+               $history->change_to = 'Not Applicable';
+               $history->stage = 'Submitted';
+               $history->action_name = 'Submitted';
                 $history->save();
                 $list = Helpers::getHodUserList();
                     foreach ($list as $u) {
@@ -795,10 +796,10 @@ class LabController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 //$history->origin_state = $lastDocument->status;
-                $history->change_from = 'old_value';
-                $history->change_to = 'new_value';
-                $history->stage='Submitted';
-                $history->action_name ='Submitted';
+                $history->change_from ='$lab1->status';
+                $history->change_to = 'Not Applicable';
+                $history->stage = 'Submitted';
+                $history->action_name = 'Submitted';
                 $history->save();
                 $list = Helpers::getHodUserList();
                     foreach ($list as $u) {
@@ -844,10 +845,10 @@ class LabController extends Controller
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                // $history->origin_state = $lastDocument->status;
 
-               $history->change_from = 'old_value';
-                $history->change_to = 'new_value';
-                $history->stage='Submitted';
-                $history->action_name ='Submitted';
+               $history->change_from ='$lab1->status';
+               $history->change_to = 'Not Applicable';
+               $history->stage = 'Submitted';
+               $history->action_name = 'Submitted';
                 $history->save();
                 $list = Helpers::getHodUserList();
                     foreach ($list as $u) {
@@ -895,10 +896,10 @@ class LabController extends Controller
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                // $history->origin_state = $lastDocument->status;
 
-               $history->change_from = 'old_value';
-                $history->change_to = 'new_value';
-                $history->stage='Submitted';
-                $history->action_name ='Submitted';
+               $history->change_from ='$lab1->status';
+               $history->change_to = 'Not Applicable';
+               $history->stage = 'Submitted';
+               $history->action_name = 'Submitted';
                 $history->save();
                 $list = Helpers::getHodUserList();
                     foreach ($list as $u) {
@@ -943,10 +944,10 @@ class LabController extends Controller
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
               //  $history->origin_state = $lastDocument->status;
 
-              $history->change_from = 'old_value';
-                $history->change_to = 'new_value';
-                $history->stage='Submitted';
-                $history->action_name ='Submitted';
+              $history->change_from ='$lab1->status';
+              $history->change_to = 'Not Applicable';
+              $history->stage = 'Submitted';
+              $history->action_name = 'Submitted';
                 $history->save();
                 $list = Helpers::getHodUserList();
                     foreach ($list as $u) {

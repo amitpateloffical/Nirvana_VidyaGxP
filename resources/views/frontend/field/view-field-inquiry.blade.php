@@ -144,7 +144,7 @@
                 {{-- ---------------------------------------------------------------------------------------- --}}
                 </div>
                 </div>
-
+            </div>
 
     <div id="change-control-fields">
 
@@ -156,13 +156,13 @@
                 <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
             </div>
 
-            {{-- <script>
+            <script>
                 $(document).ready(function() {
                     <?php if (in_array($field->stage, [3])): ?>
                         $("#target :input").prop("disabled", true);
                     <?php endif; ?>
                 });
-            </script> --}}
+            </script>
 
 
             <form id="target" action="{{ route('field_update', $field->id) }}" method="POST" enctype="multipart/form-data">
@@ -1419,6 +1419,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="cft-not-reqired">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

@@ -122,18 +122,19 @@
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                       <label for="RLS Record Number"><b>Initiator</b></label>
-                                          <input disabled type="text" name="initiator_id"
+                                        <label for="RLS Record Number"><b>Initiator</b></label>
+                                        <input disabled type="text" name="initiator_id"
                                             value="{{ $data->initiator_id ?? Auth::user()->name }}">
-                                      </div>
+                                    </div>
                                 </div>
 
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Date Due"><b>Date of Initiation</b></label>
-                                        <input disabled type="text" value="{{ date('d-M-Y') }}" name="initiation_date">
-                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date">
+                                        <input disabled type="text" value="{{ date('d-M-Y') }}"
+                                            name="date_of_initiation">
+                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="date_of_initiation">
                                     </div>
                                 </div>
 
@@ -151,11 +152,11 @@
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
-                                        <label for="record_number"><b>Record Number</b></label>
-                                        {{-- <input type="text" id="record_number" name="record_number" placeholder="Enter Record Number" value="{{ old('record_number') }}"> --}}
-                                        <input disabled type="text" name="record_number"
-                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/MEDICAL_DEVICE_REGISTRATION/{{ date('Y') }}/{{ $record_number }}">
+                                        <label for="RLS Record Number"><b>Record Number</b></label>
+                                        <input  disabled type="text" name="record_number"
+                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/MR/{{ date('Y') }}/{{ $record_number }}">
                                     </div>
+
                                 </div>
 
 
@@ -190,28 +191,6 @@
 
 
 
-
-
-
-
-
-
-                                {{-- <div class="col-md-6">
-                                <div class="group-input">
-                                    <label for="search">
-                                        Assigned To <span class="text-danger"></span>
-                                    </label>
-                                    <select id="select-assign-to" placeholder="Select..." name="assign_to">
-                                        <option value="">Select a value</option>
-                                        <option value="Vibha">Vibha</option>
-                                        <option value="Shruti" @if (isset($data->assign_to) && $data->assign_to == 'Shruti') selected @endif>Shruti</option>
-                                        <option value="Monika" @if (isset($data->assign_to) && $data->assign_to == 'Monika') selected @endif>Monika</option>
-                                    </select>
-                                </div>
-                            </div> --}}
-
-
-
                                 <div class="col-md-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="due-date">Date Due</label>
@@ -219,56 +198,14 @@
                                         </div>
                                         <div class="calenderauditee">
                                             <input type="text" id="due_date_gi" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="due_date_gi"
+                                            <input  type="date" name="due_date_gi"
                                                 min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                                 class="hide-input" oninput="handleDateInput(this, 'due_date_gi')" />
                                         </div>
                                     </div>
                                 </div>
 
-
-
-
-                                {{-- <div class="group-input">
-                                            <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                            {{-- <input  type="text" value="" name="due_date_gi"> --}}
-                                {{-- <input type="date" value="" name="due_date_gi">
-                                        </div> --}}
-                                {{-- <div class="calenderauditee">
-                                            <input type="text" id="due_date_gi"  placeholder="DD-MMM-YYYY" />
-                                            <input type="date" id="due_date_gi" name="due_date_gi" min="{{ \Carbon\Carbon::now()->format('d-m-y') }}" class="hide-input" oninput="handleDateInput(this, 'due_date_')" />
-                                        </div> --}}
-
                             </div>
-
-
-
-
-                            {{--
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <div class="calenderauditee">
-
-                                        <input type="text" id="due_date_gi" readonly placeholder="DD-MMM-YYYY"  />
-                                        <input type="date" name="due_date_gi" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  class="hide-input" oninput="handleDateInput(this)" />
-                                    </div>
-                                </div>
-                            </div> --}}
-                            {{-- -------------------------------------------------------------------------------------------------------------------- --}}
-
-                            {{-- <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-primary">Please mention the expected date of completion</p>
-                                    <div class="calenderauditee">
-                                        <input type="hidden" id="due_date" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="due_date_gi" name="due_date_gi" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="" />
-                                    </div>
-                                </div>
-                            </div> --}}
-
-
 
 
 
@@ -335,72 +272,31 @@
                                         <label for="Responsible Department">Zone</label>
                                         <select name="zone_departments">
                                             <option value="">Enter Your Selection Here</option>
-                                            <option value="Asia">Asia</option>
-                                            <option value="Europe">Europe</option>
-                                            <option value="North America">North America</option>
-                                            <option value="South America">South America</option>
-                                            <option value="Africa">Africa</option>
-                                            <option value="Australia">Australia</option>
-                                            <option value="Antarctica">Antarctica</option>
-
-
-
-                                            {{-- <option value="1">1</option>
-                                        <option value="2">2</option>
-                                         <option value="3">3</option> --}}
-
-
+                                            <option value="asia" >Asia</option>
+                                            <option value="europe" >Europe</option>
+                                            <option value="africa">Africa</option>
+                                            <option value="central-america">Central America</option>
+                                            <option value="south-america" >South America</option>
+                                            <option value="oceania">Oceania</option>
+                                            <option value="north-america">North America</option>
                                         </select>
                                     </div>
                                 </div>
-
-
-
-
-
-
-
-
-                                {{-- <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Zone</label>
-                                    <select name="zone_departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                </div>
-                            </div> --}}
 
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="country"><b>Country</b></label>
                                         <p class="text-primary">Auto filter according to selected zone</p>
-                                        <select name="country_number">
-                                            <option value="">Select Country</option>
+                                        <select name="country_number" class="form-select country" aria-label="Default select example"
+                                        onchange="loadStates()" >
 
-                                            <option value="">Enter Your Selection Here</option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
                                         </select>
 
                                     </div>
                                 </div>
 
-                                {{-- <div class="col-lg-6">
-                                <div class="group-input">
 
-                                    <label for="RLS Record Number"><b>Country</b></label>
-                                    <p class="text-primary">Auto filter according to selected zone</p>
-
-                                    <input type="text" name="country_number" value="">
-
-
-                                </div>
-                            </div> --}}
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -516,19 +412,9 @@
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                             <div class="row">
 
-
-                                {{-- <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Description"> Description<span class="text-danger"></span></label>
-                                        <p>255 characters remaining</p>
-                                        <textarea placeholder="" name="Description"></textarea>
-                                </div>
-                            </div>
-                            </div> --}}
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -548,40 +434,26 @@
                                             <option value="2">2</option>
                                             <option value="3">3</option>
                                         </select>
-
-
                                     </div>
                                 </div>
-
-
-
 
                                 <div class="col-lg-12">
                                     <div class="group-input">
                                         <label for="Responsible Department">Related Dossier Document</label>
                                         <select name="dossier_departments">
                                             <option value="">Enter Your Selection Here</option>
-                                            <option value="person1">1</option>
-                                            <option value="person2">2</option>
-                                            <option value="person3">3</option>
-
-
-
-                                        </select>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                      </select>
                                     </div>
                                 </div>
-
-
-
-
-
 
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Description"> Description<span class="text-danger">*</span>
                                             <p>255 characters remaining</p>
-                                            <textarea placeholder=""  name="description" maxlength="255"
-                                                required></textarea>
+                                            <textarea placeholder="" name="description" maxlength="255" required></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -600,71 +472,12 @@
 
 
 
-
-
-
-
-
-
-
-
-
-                                {{--
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="new-date-data-field">
-                                        <div class="group-input input-date">
-                                            <label for="due-date"> Planned Submission Date <span class="text-danger"></span></label>
-
-                                                <div class="calenderauditee">
-                                                    <input type="text"  id="planned_submission_date"  readonly placeholder="DD-MM-YYYY" />
-                                                    <input type="date" name="planned_submission_date" value=""
-                                                    class="hide-input"
-                                                    oninput="handleDateInput(this,'planned_submission_date')"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div> --}}
-
-                                {{-- <div class="new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="due-date">Planned Submission Date  <span class="text-danger"></span></label>
-
-                                            <div class="calenderauditee">
-                                                <input type="text" id="planned_submission_date"  readonly placeholder="DD-MMM-YYYY" />
-                                                <input type="date" name="planned_submission_date" value=""
-                                                class="hide-input"
-                                                oninput="handleDateInput(this,'planned_submission_date')"/>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-
-
-                                {{--
-                                <div class="col-lg-6">
-                                    <div class="new-date-data-field">
-                                        <div class="group-input input-date">
-                                            <label for="due-date">Actual Submission Date  <span class="text-danger"></span></label>
-
-                                                <div class="calenderauditee">
-                                                    <input type="text"  id="actual_submission_date"  readonly placeholder="DD-MM-YYYY" />
-                                                    <input type="date" name="actual_submission_date" value=""
-                                                    class="hide-input"
-                                                    oninput="handleDateInput(this,'actual_submission_date')"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                </div>
-                            </div> --}}
-
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Date">Actual Submission Date</label>
                                         <input type="date" name="actual_submission_date">
                                     </div>
                                 </div>
-
-
                             </div>
 
 
@@ -684,47 +497,7 @@
                                     </div>
                                 </div>
 
-
-
-
                             </div>
-
-
-
-                            {{-- =========================== Actual Approval Dates======================== --}}
-                            {{-- <div class="col-lg-6">
-                                    <div class="new-date-data-field">
-                                        <div class="group-input input-date">
-                                            <label for="due-date">Actual Approval Date <span class="text-danger"></span></label>
-
-                                                <div class="calenderauditee">
-                                                    <input type="text"  id="actual_approval_date"  readonly placeholder="DD-MM-YYYY" />
-                                                    <input type="date" name="actual_approval_date" value=""
-                                                    class="hide-input"
-                                                    oninput="handleDateInput(this, 'actual_approval_date')"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="new-date-data-field">
-                                            <div class="group-input input-date">
-                                                <label for="due-date">Actual Rejection Date <span class="text-danger"></span></label>
-
-                                                    <div class="calenderauditee">
-                                                        <input type="text"  id="actual_rejection_date"  readonly placeholder="DD-MM-YYYY" />
-                                                        <input type="date" name="actual_rejection_date" value=""
-                                                        class="hide-input"
-                                                        oninput="handleDateInput(this, 'actual_rejection_date')"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> --}}
-
-
-
-
 
                             <div class="row">
                                 <div class="col-lg-6">
@@ -739,8 +512,6 @@
                                     </div>
                                 </div>
 
-
-
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Date">Next Renewal Date</label>
@@ -748,48 +519,9 @@
                                     </div>
                                 </div>
 
-
-
-
-
-
-                                {{-- <div class="col-lg-6">
-                                    <div class="new-date-data-field">
-                                        <div class="group-input input-date">
-                                            <label for="due-date">Next Renewal Date<span class="text-danger"></span></label>
-
-                                                <div class="calenderauditee">
-                                                    <input type="text"  id="next_renewal_date"  readonly placeholder="DD-MM-YYYY" />
-                                                    <input type="date" name="next_renewal_date" value=""
-                                                    class="hide-input"
-                                                    oninput="handleDateInput(this, 'next_renewal_date')"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                     </div> --}}
-
                             </div>
 
 
-
-
-
-
-
-
-                            {{-- <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Next Renewal Date <span class="text-danger"></span></label>
-
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date"  placeholder="DD-MMM-YYYY"value="" />
-                                        <input type="date" name="next_renewal_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hidden-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div> --}}
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
 
@@ -805,46 +537,180 @@
                         <div class="inner-block-content">
                             <div class="row">
 
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="group-input">
-                                        <label for="Actual_Amount ">Submitted by :</label>
+                                        <label for="submitted by">Assign Responsible By :</label>
                                         <div class="static"></div>
-
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
                                     <div class="group-input">
-
-                                        <label for="Division Code"><b>Submitted on :</b></label>
-                                        <div class="date"></div>
-
-
-
-
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="Actual_Amount ">Approved by :</label>
+                                        <label for="Division Code"><b>Assign Responsible On :</b></label>
                                         <div class="static"></div>
-
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Cancel By :</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
                                     <div class="group-input">
 
-                                        <label for="Division Code"><b>Approved on :</b></label>
-                                        <div class="date"></div>
-
-
-
-
+                                        <label for="Division Code"><b>Cancel On :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="static"></div>
                                     </div>
                                 </div>
 
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Classify By :</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
 
+                                        <label for="Division Code"><b>Classify On :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
 
-                            </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Reject By :</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Reject On :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Submit To Regulator By :</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Submit To Regulator On :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Cancelled By :</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+
+                                        <label for="Division Code"><b>Cancelled On :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Refused By :</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Refused On :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Withdraw By :</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Withdraw On :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="submitted by">Approval Received By :</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Approval Received On :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Comment :</b></label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
+
+                        </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -854,11 +720,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
-
         </div>
         </form>
 
@@ -947,6 +809,103 @@
             }
         }
     </script>
+
+
+    {{--Country Statecity API--}}
+<script>
+
+
+    var config = {
+        cUrl: 'https://api.countrystatecity.in/v1',
+        ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+    };
+
+    var countrySelect = document.querySelector('.country'),
+        stateSelect = document.querySelector('.state'),
+        citySelect = document.querySelector('.city');
+
+    function loadCountries() {
+        let apiEndPoint = `${config.cUrl}/countries`;
+
+        $.ajax({
+            url: apiEndPoint,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country.iso2;
+                    option.textContent = country.name;
+                    countrySelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading countries:', error);
+            }
+        });
+    }
+
+    function loadStates() {
+        stateSelect.disabled = false;
+        stateSelect.innerHTML = '<option value="">Select State</option>';
+
+        const selectedCountryCode = countrySelect.value;
+
+        $.ajax({
+            url: `${config.cUrl}/countries/${selectedCountryCode}/states`,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.iso2;
+                    option.textContent = state.name;
+                    stateSelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading states:', error);
+            }
+        });
+    }
+
+    function loadCities() {
+        citySelect.disabled = false;
+        citySelect.innerHTML = '<option value="">Select City</option>';
+
+        const selectedCountryCode = countrySelect.value;
+        const selectedStateCode = stateSelect.value;
+
+        $.ajax({
+            url: `${config.cUrl}/countries/${selectedCountryCode}/states/${selectedStateCode}/cities`,
+            headers: {
+                "X-CSCAPI-KEY": config.ckey
+            },
+            success: function(data) {
+                data.forEach(city => {
+                    const option = document.createElement('option');
+                    option.value = city.id;
+                    option.textContent = city.name;
+                    citySelect.appendChild(option);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading cities:', error);
+            }
+        });
+    }
+    $(document).ready(function() {
+        loadCountries();
+    });
+
+
+</script>
+{{--Country Statecity API End--}}
+
+
+
     <script>
         $(document).ready(function() {
             $('#Witness_details').click(function(e) {
@@ -1071,44 +1030,4 @@
 
 
 
-
-
-
-
-
-
-
-
-
-    {{-- <script>
-    // Function to calculate and populate the due date field with a date 30 days from now
-    document.addEventListener("DOMContentLoaded", function() {
-        // Get the current date
-        var currentDate = new Date();
-        // Add 30 days to the current date
-        var dueDate = new Date(currentDate.setDate(currentDate.getDate() + 30));
-        //formate the due date as 'DD-MM-YYYY'
-        var formattedDueDate = formatDate(dueDate);
-
-        // Populate the due date input field
-        document.getElementById("due_date").value = formattedDueDate;
-    });
-
-    // Function to format the date as 'DD-MM-YYYY'
-    function formatDate(date) {
-        var day = date.getDate();
-        var month = date.getMonth() + 1;
-        var year = date.getFullYear();
-
-        // Pad single digit day and month with leading zero
-        if (day < 10) {
-            day = '0' + day;
-        }
-        if (month < 10) {
-            month = '0' + month;
-        }
-
-        return day + '-' + month + '-' + year;
-    }
-</script> --}}
 @endsection

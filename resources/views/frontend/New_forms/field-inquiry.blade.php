@@ -10,6 +10,10 @@
     }
 </style>
 
+@php
+$users = DB::table('users')->get();
+@endphp
+
 <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
@@ -70,18 +74,22 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="search">
-                                        Assigned To <span class="text-danger"></span>
-                                    </label>
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
-                                        <option value="">Select a value</option>
-                                        <option value="">Pankaj Jat</option>
-                                        <option value="">Gaurav</option>
-                                        <option value="">Manish</option>
-                                    </select>
+                                    <label for="If Others">Assigned To</label>
+                                    <select name="assigned_to" onchange="">
 
+                                        <option value="">Select a value</option>
+                                        <option value="">-- select --</option>
+                                            @if ($users->isNotEmpty())
+                                                @foreach ($users as $user)
+                                                    <option value='{{ $user->id }}'>{{ $user->name }}</option>
+                                                @endforeach
+                                            @endif
+                                        {{-- <option value="">-- select --</option>
+                                        <option value=""></option> --}}
+
+                                    </select>
                                 </div>
                             </div>
 

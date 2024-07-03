@@ -16,9 +16,12 @@ use App\Models\Auditee;
 use App\Models\AuditProgram;
 use App\Models\RootCauseAnalysis;
 use App\Models\FieldInquiry;
+use App\Models\FollowUpTask;
 use App\Models\Observation;
 use App\Models\Deviation;
 use App\Models\MedicalDeviceRegistration;
+use App\Models\MedicalDeviceAudit;
+use App\Models\Study;
 use App\Models\LabTest;
 use Helpers;
 use App\Models\User;
@@ -71,6 +74,9 @@ class DashboardController extends Controller
         $datas15 = MedicalDeviceRegistration::orderByDesc('id')->get();
         $datas16 =  LabTest::orderByDesc('id')->get();
         $datas17 =  FieldInquiry::orderByDesc('id')->get();
+        $datas18 =  FollowUpTask::orderByDesc('id')->get();
+        $datas19 =  Study::orderByDesc('id')->get();
+
 
 
 
@@ -348,12 +354,12 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "division_id" => $data->division_id,
-                "type" => "MedicalDeviceRegistration",
+                "type" => "Medical Device Registration",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
                 "initiator_id" => $data->initiator_id,
-                "intiation_date" => $data->intiation_date,
+                "intiation_date" => $data->date_of_initiation,
                 "stage" => $data->status,
                 "date_open" => $data->create,
                 "date_close" => $data->updated_at,
@@ -398,6 +404,46 @@ class DashboardController extends Controller
                 "date_close" => $data->updated_at,
             ]);
         }
+
+        foreach ($datas18 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Follow Up Task",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->initiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+         }
+
+         foreach ($datas19 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Study",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+         }
 
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
         // return $table;
@@ -553,6 +599,35 @@ class DashboardController extends Controller
                         "short_description" => $data->short_description ? $data->short_description : "-",
                         "initiator_id" => $data->initiator_id,
                         "intiation_date" => $data->intiation_date,
+                        "stage" => $data->status,
+                        "date_open" => $data->created_at,
+                        "date_close" => $data->updated_at,
+                    ]);
+                }
+                foreach ($datas1 as $data) {
+                    array_push($table, [
+                        "id" => $data->id,
+                        "parent" => $data->cc_id ? $data->cc_id : "-",
+                        "record" => $data->record,
+                        "type" => "Medical Device Registration",
+                        "short_description" => $data->short_description ? $data->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "intiation_date" => $data->date_of_initiation,
+                        "stage" => $data->status,
+                        "date_open" => $data->created_at,
+                        "date_close" => $data->updated_at,
+                    ]);
+                }
+
+                foreach ($datas1 as $data) {
+                    array_push($table, [
+                        "id" => $data->id,
+                        "parent" => $data->cc_id ? $data->cc_id : "-",
+                        "record" => $data->record,
+                        "type" => "Study",
+                        "short_description" => $data->short_description ? $data->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "intiation_date" => $data->date_of_intiation,
                         "stage" => $data->status,
                         "date_open" => $data->created_at,
                         "date_close" => $data->updated_at,
@@ -726,6 +801,30 @@ class DashboardController extends Controller
                     ]
                 );
             }
+
+            if ($data->parent_type == "Medical Device Registration") {
+                $data2 = MedicalDeviceRegistration::where('id', $data->parent_id)->first();
+                $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
+                array_push(
+                    $table,
+                    [
+                        "id" => $data2->id,
+                        "parent" => $data2->parent_record ? $data2->parent_record : "-",
+                        "record" => $data2->record,
+                        "type" => "Medical Device Registration",
+                        "parent_id" => $data2->parent_id,
+                        "parent_type" => $data2->parent_type,
+                        "division_id" => $data2->division_id,
+                        "short_description" => $data2->short_description ? $data2->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "intiation_date" => $data2->date_of_initiation,
+                        "stage" => $data2->status,
+                        "date_open" => $data2->create,
+                        "date_close" => $data2->updated_at,
+                    ]
+                );
+            }
+
             if ($data->parent_type == "Field Inquiry") {
                 $data2 = FieldInquiry::where('id', $data->parent_id)->first();
                 $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
@@ -748,6 +847,54 @@ class DashboardController extends Controller
                     ]
                 );
             }
+
+            if ($data->parent_type == "Follow Up Task") {
+                $data2 = FollowUpTask::where('id', $data->parent_id)->first();
+                $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
+                array_push(
+                    $table,
+                    [
+                        "id" => $data2->id,
+                        "parent" => $data2->parent_record ? $data2->parent_record : "-",
+                        "record" => $data2->record,
+                        "type" => "Follow Up Task",
+                        "parent_id" => $data2->parent_id,
+                        "parent_type" => $data2->parent_type,
+                        "division_id" => $data2->division_id,
+                        "short_description" => $data2->short_description ? $data2->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "initiation_date" => $data2->initiation_date,
+                        "stage" => $data2->status,
+                        "date_open" => $data2->create,
+                        "date_close" => $data2->updated_at,
+                    ]
+                );
+            }
+
+
+            if ($data->parent_type == "Study") {
+                $data2 = Study::where('id', $data->parent_id)->first();
+                $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
+                array_push(
+                    $table,
+                    [
+                        "id" => $data2->id,
+                        "parent" => $data2->parent_record ? $data2->parent_record : "-",
+                        "record" => $data2->record,
+                        "type" => "Study",
+                        "parent_id" => $data2->parent_id,
+                        "parent_type" => $data2->parent_type,
+                        "division_id" => $data2->division_id,
+                        "short_description" => $data2->short_description ? $data2->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "initiation_date" => $data2->intiation_date,
+                        "stage" => $data2->status,
+                        "date_open" => $data2->create,
+                        "date_close" => $data2->updated_at,
+                    ]
+                );
+            }
+
         } else {
             return redirect(url('rcms/qms-dashboard'));
         }
@@ -823,7 +970,14 @@ class DashboardController extends Controller
             $single = "deviationSingleReport/". $data->id;
             $audit = "#";
             $parent="deviationparentchildReport/". $data->id;
-        } elseif ($type == "LabTest") {
+
+        }elseif ($type == "Medical Device Registration") {
+                $data =   MedicalDeviceRegistration::find($id);
+                $single = "medical_device_singleReport/". $data->id;
+                $audit = "medical_device_auditReport/". $data->id;
+                $parent="deviationparentchildReport/". $data->id;
+            }
+         elseif ($type == "LabTest") {
             $data = LabTest::find($id);
             $single = "lab_audit_singleReport/". $data->id;
             $audit = "lab_auditReport/". $data->id;
@@ -836,11 +990,26 @@ class DashboardController extends Controller
             $parent="deviationparentchildReport/". $data->id;
         }
 
+        elseif ($type == "Follow Up Task") {
+            $data = FollowUpTask::find($id);
+            $single = "followup_audit_singleReport/". $data->id;
+            $audit = "followup_auditReport/". $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+        }
+
+        elseif ($type == "Study") {
+            $data = Study::find($id);
+            $single = "study_audit_singleReport/". $data->id;
+            $audit = "study_auditReport/". $data->id;
+            $parent="deviationparentchildReport/". $data->id;
+        }
+
+
 
         $html = '';
         $html = '<div class="block">
         <div class="record_no">
-            Record No. ' . str_pad($data->record_number, 4, '0', STR_PAD_LEFT) .
+            Record No. ' . str_pad($data->record, 4, '0', STR_PAD_LEFT) .
             '</div>
         <div class="division">
         ' . Helpers::getDivisionName(session()->get('division')) . '/ ' . $type . '

@@ -185,12 +185,12 @@
                         <div class="heading">
 
                             <div class="heading-new">
-                            Lab Test Audit Trail
+                            Follow Up Task Audit Trail
                             </div>
 
                             <div> <strong>Record ID. </strong> {{ str_pad($document->record_number, 4, '0', STR_PAD_LEFT) }}</div>
                             <div style="margin-bottom: 5px;  font-weight: bold;"> Originator
-                                :{{ $lab->originator_id ?? Auth::user()->name }}</div>
+                                :{{ $task->originator_id ?? Auth::user()->name }}</div>
                             <div style="margin-bottom: 5px; font-weight: bold;">Short Description :
                                 {{ $document->short_description }}</div>
                             <div style="margin-bottom: 5px;  font-weight: bold;">Due Date : {{ $document->due_date }}</div>
@@ -238,7 +238,7 @@
                             <td>
                                 <div>
                                     <strong> Data Field Name :</strong><a
-                                        href="{{ url('lab_audit_details', $dataDemo->id) }}">{{  $dataDemo->activity_type  ? : 'Not Applicable' }}</a>
+                                        href="{{ url('followup_auditDetails', $dataDemo->id) }}">{{  $dataDemo->activity_type  ? : 'Not Applicable' }}</a>
                                 </div>
                                 <div style="margin-top: 5px;">
                                     @if ($dataDemo->activity_type == 'Activity Log')

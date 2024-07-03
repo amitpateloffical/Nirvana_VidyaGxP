@@ -20,6 +20,7 @@ use App\Http\Controllers\rcms\DeviationController;
 use App\Http\Controllers\newForm\MedicalRegistrationController;
 use App\Http\Controllers\newForm\LabController;
 use App\Http\Controllers\newForm\FieldController;
+use App\Http\Controllers\newForm\FollowupController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,11 @@ Route::group(['prefix' => 'rcms'], function () {
         function () {
 
             Route::get('field_auditTrail/{id}',[FieldController::class,'fieldAuditTrail'])->name('field_auditTrail');
+            Route::get('followup_auditTrail/{id}',[FollowupController::class,'followupAuditTrail'])->name('followup_auditTrail');
+            Route::get('medical_Device_auditTrail/{id}',[MedicalRegistrationController::class,'MedicalAuditTrail'])->name('medical_Device_auditTrail');
+
+
+
             Route::resource('CC', CCController::class);
             Route::resource('actionItem', ActionItemController::class);
             Route::post('action-stage-cancel/{id}', [ActionItemController::class, 'actionStageCancel']);
@@ -181,13 +187,22 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
 
+
              Route::post('medical_device/stage/{id}', [MedicalRegistrationController::class, 'medical_registration_send_stage'])->name('medical_registration_send_stage');
              Route::post('medical_device/cancel/{id}', [MedicalRegistrationController::class, 'medical_deviceCancel'])->name('medical_deviceCancel');
+             Route::post('medical/cancel/{id}', [MedicalRegistrationController::class, 'canceltwo'])->name('canceltwo');
+            // Route::post('medical_three/cancel/{id}', [MedicalRegistrationController::class, 'cancelthree'])->name('cancelthree');
              Route::post('medical_device/reject/{id}', [MedicalRegistrationController::class, 'medical_device_reject'])->name('medical_device_reject');
              Route::post('medical_device/check/{id}', [MedicalRegistrationController::class, 'check'])->name('check');
              Route::post('medical_device/check2/{id}', [MedicalRegistrationController::class, 'check2'])->name('check2');
              Route::post('medical_device/check3/{id}', [MedicalRegistrationController::class, 'check3'])->name('check3');
              Route::post('medical_device/cftnotreqired/{id}', [MedicalRegistrationController::class, 'cftnotreqired'])->name('cftnotreqired');
+             Route::get('medical_device_auditReport/{id}',[MedicalRegistrationController::class, 'medicalauditReport']);
+             Route::get('medical_device_singleReport/{id}',[MedicalRegistrationController::class, 'medicalauditSingleReport']);
+
+
+              Route::post('medical_device_qa/{id}', [MedicalRegistrationController::class, 'medical_qa_more_info'])->name('medical_qa_more_info');
+
 
              Route::post('lab_test/cancel/{id}', [LabController::class, 'lab_Cancel'])->name('lab_Cancel');
              Route::post('lab_test/stage/{id}', [LabController::class, 'lab_sends_stage'])->name('lab_send_stage');
@@ -206,6 +221,16 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::post('field_inquiry/stage/{id}', [FieldController::class, 'field_sends_stage'])->name('field_sends_stage');
              Route::get('field_auditReport/{id}',[FieldController::class, 'fieldauditReport']);
              Route::get('field_audit_singleReport/{id}',[FieldController::class, 'fieldauditSingleReport']);
+
+             Route::get('followup_auditReport/{id}',[FollowupController::class, 'followupauditReport']);
+             Route::get('followup_audit_singleReport/{id}',[FollowupController::class, 'followupauditSingleReport']);
+             Route::post('followup_task/stage/{id}', [FollowupController::class, 'followup_sends_stage'])->name('followup_sends_stage');
+             Route::post('followup_task/reject/{id}', [FollowupController::class, 'followup_task_reject'])->name('followup_task_reject');
+             Route::post('followup_test_qa/{id}', [FollowupController::class, 'followup_qa_more_info'])->name('followup_qa_more_info');
+             Route::post('followup_task/cancel/{id}', [FollowupController::class, 'followup_Cancel'])->name('followup_Cancel');
+
+
+
 
 
 

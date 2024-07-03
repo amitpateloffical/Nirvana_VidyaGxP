@@ -13,22 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('medical_registration_audits', function (Blueprint $table) {
+        Schema::create('follow_up_task_audits', function (Blueprint $table) {
             $table->id();
-            $table->string('medical_id')->nullable();
-            $table->string('activity_type')->nullable();
+            $table->string('task_id');
+            $table->string('activity_type');
             $table->longText('previous')->nullable();
             $table->longText('current')->nullable();
             $table->longText('comment')->nullable();
-            $table->string('user_id')->nullable();
-            $table->string('user_name')->nullable();
-            $table->string('user_role')->nullable();
-            $table->string('change_to')->nullable();
-            $table->string('change_from')->nullable();
-            $table->string('action_name')->nullable();
+            $table->string('user_id');
+            $table->string('user_name');
+            // $table->string('origin_state');
+            $table->string('user_role');
+            $table->string('change_to');
+            $table->string('change_from');
+            $table->string('action_name');
             $table->string('stage')->nullable();
             $table->softDeletes();
-
             $table->timestamps();
         });
     }
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('medical_registration_audits');
+        Schema::dropIfExists('follow_up_task_audits');
     }
 };
