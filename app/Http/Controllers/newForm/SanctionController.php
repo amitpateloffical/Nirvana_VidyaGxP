@@ -95,7 +95,7 @@ class SanctionController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->comment = "Not Applicable";
                 $validation2->save();
@@ -113,7 +113,7 @@ class SanctionController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -130,7 +130,7 @@ class SanctionController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -147,7 +147,7 @@ class SanctionController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to = "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -163,7 +163,7 @@ class SanctionController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -181,7 +181,7 @@ class SanctionController extends Controller
             //     $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
             //     $validation2->change_to =   "Opened";
-            //     $validation2->change_from = "Initiator";
+            //     $validation2->change_from = "Initiation";
             //     $validation2->action_name = 'Create';
 
             //     $validation2->save();
@@ -199,7 +199,7 @@ class SanctionController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -216,7 +216,7 @@ class SanctionController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -233,7 +233,7 @@ class SanctionController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -251,7 +251,7 @@ class SanctionController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -268,7 +268,7 @@ class SanctionController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }

@@ -41,7 +41,7 @@
 </style>
 
 @php
-    $users = DB::table('users')->get();
+$users = DB::table('users')->get();
 @endphp
 
 
@@ -63,7 +63,7 @@
 <div id="change-control-fields">
     <div class="container-fluid">
 
-    <div class="inner-block state-block">
+        <div class="inner-block state-block">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="main-head">Record Workflow </div>
 
@@ -77,44 +77,44 @@
 
                     @if ($calibration->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                      Initiate Calibration
+                        Initiate Calibration
 
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                         Cancel
                     </button>
                     @elseif($calibration->stage == 2 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal" >
-                      Within Limits 
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                        Within Limits
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                      Out of Limits
+                        Out of Limits
                     </button>
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                       Cancel
                     </button> -->
                     @elseif($calibration->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                      Complete Actions
+                        Complete Actions
 
-                      <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
-                                        Child
-                      </button> 
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                            Child
+                        </button>
 
-                    @elseif(
-                    $calibration->stage == 4 &&
-                    (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
+                        @elseif(
+                        $calibration->stage == 4 &&
+                        (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
 
-                    <button class="button_theme1" data-bs-toggle="modal" name="test_not_required" data-bs-target="#signature-modal">
-                      QA Approval
-                    </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                     Additional Work Required
-                    </button>
-                    
-                    @endif
-                    <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
-                    </a> </button>
+                        <button class="button_theme1" data-bs-toggle="modal" name="test_not_required" data-bs-target="#signature-modal">
+                            QA Approval
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                            Additional Work Required
+                        </button>
+
+                        @endif
+                        <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                            </a> </button>
                 </div>
             </div>
 
@@ -144,13 +144,13 @@
                     @else
                     <div class="">Pending Out of Limits Actions</div>
                     @endif
-               
+
                     @if ($calibration->stage >= 4)
                     <div class="active">Pending QA Approval</div>
                     @else
                     <div class="">Pending QA Approval</div>
                     @endif
-                
+
 
                     <!-- @if ($calibration->stage >= 5)
                     <div class="active">Approved Equipment</div>
@@ -172,7 +172,7 @@
                     @else
                     <div class="">Active Document</div>
                     @endif -->
-                    @if ($calibration->stage >= 5) 
+                    @if ($calibration->stage >= 5)
                     <div class="bg-danger">Closed - done</div>
                     @else
                     <div class="">Closed - done</div>
@@ -182,7 +182,7 @@
                 @endif
                 {{-- ---------------------------------------------------------------------------------------- --}}
             </div>
-        </div> 
+        </div>
 
 
 
@@ -208,7 +208,7 @@
                             Basic Information
                         </div> <!-- RECORD NUMBER -->
                         <div class="row">
-                        <div class="col-12">
+                            <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description</label>
                                     <p class="text-primary">Short Description to be presented on dekstop</p>
@@ -222,10 +222,11 @@
                                     <p class="text-primary">When was this record opened?</p>
                                     <!-- <input disabled type="date" name="division_code" value="">
                                     <input type="hidden" name="initiation_date" value=""> -->
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
+                                    <input disabled type="text" value="{{ Carbon::parse($calibration->initiation_date)->format('d-m-y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ $calibration->initiation_date }}" id="initiation_date" name="initiation_date">
                                 </div>
                             </div>
+
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
@@ -245,17 +246,15 @@
                                     </label>
                                     <p class="text-primary">Person responsible</p>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
-                                            <option value="assign_to">Select a value</option>
-                                            @foreach ($users as $datas)
-                                                        @if(Helpers::checkUserRolesassign_to($datas))
-                                                            <option value="{{ $datas->id }}"
-                                                                {{ $calibration->assign_to == $datas->id ? 'selected' : '' }}
-                                                                {{-- @if ($data->assign_to == $datas->id) selected @endif --}}>
-                                                                {{ $datas->name }}
-                                                            </option>
-                                                        @endif    
-                                            @endforeach
-                                        </select>
+                                        <option value="assign_to">Select a value</option>
+                                        @foreach ($users as $datas)
+                                        @if(Helpers::checkUserRolesassign_to($datas))
+                                        <option value="{{ $datas->id }}" {{ $calibration->assign_to == $datas->id ? 'selected' : '' }} {{-- @if ($data->assign_to == $datas->id) selected @endif --}}>
+                                            {{ $datas->name }}
+                                        </option>
+                                        @endif
+                                        @endforeach
+                                    </select>
 
                                 </div>
                             </div>
@@ -269,8 +268,8 @@
 
                                 </div>
                             </div>
-                          
-                            
+
+
                             <div class="col-md-12">
                                 <div class="group-input">
                                     <label for="Description">(Parent)Description</label>
@@ -285,13 +284,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Device Condition_M">Device Condition_M</label>
-                          
+
                                     <select name="device_condition_m" onchange="">
-                                            <option value="1" {{ $calibration->device_condition_m == 1 ? 'selected' : '' }}>1</option>
-                                            <option value="2" {{ $calibration->device_condition_m == 2 ? 'selected' : '' }}>2</option>
-                                            <option value="3" {{ $calibration->device_condition_m == 3 ? 'selected' : '' }}>3</option>
-                                            <option value="4" {{ $calibration->device_condition_m == 4 ? 'selected' : '' }}>4</option>
-                                    </select>       
+                                        <option value="1" {{ $calibration->device_condition_m == 1 ? 'selected' : '' }}>1</option>
+                                        <option value="2" {{ $calibration->device_condition_m == 2 ? 'selected' : '' }}>2</option>
+                                        <option value="3" {{ $calibration->device_condition_m == 3 ? 'selected' : '' }}>3</option>
+                                        <option value="4" {{ $calibration->device_condition_m == 4 ? 'selected' : '' }}>4</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -394,7 +393,7 @@
                                 <!-- <label for="Approved By">Approved Type : </label> -->
                                 <label for="Approved By">Approved By : </label>
                                 <div class="static">{{Auth::user()->name}}</div>
-                               
+
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -405,9 +404,9 @@
                         </div>
 
                         <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
+                            <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                           
+
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
@@ -591,7 +590,7 @@
 
 
 
-        
+
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">E-Signature</h4>
@@ -880,7 +879,7 @@
                     <div class="group-input">
                         @if ($calibration->stage == 3)
                         <label style="display: flex;" for="major">
-                            <input  type="radio" name="child_type" id="major" value="pm">
+                            <input type="radio" name="child_type" id="major" value="pm">
                             Action Item
                         </label>
 

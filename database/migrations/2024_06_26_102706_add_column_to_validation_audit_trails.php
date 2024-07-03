@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('national_approval_grids', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('national_id')->nullable();
-            $table->string('identifier')->nullable();
-            $table->longtext('data')->nullable();
-
-            $table->timestamps();
+        Schema::table('validation_audit_trails', function (Blueprint $table) {
+            $table->string('action')->nullable();
         });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('national_approval_grids');
+        Schema::table('validation_audit_trails', function (Blueprint $table) {
+            //
+        });
     }
 };

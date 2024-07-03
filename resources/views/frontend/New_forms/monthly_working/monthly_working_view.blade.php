@@ -63,7 +63,7 @@ $users = DB::table('users')->get();
     <div class="container-fluid">
 
 
-    <div class="inner-block state-block">
+        <div class="inner-block state-block">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="main-head">Record Workflow </div>
 
@@ -81,7 +81,7 @@ $users = DB::table('users')->get();
                     </button> -->
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                         Close
-                    </button>         
+                    </button>
                     @elseif($monthly->stage == 2 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Obsolete
@@ -162,17 +162,21 @@ $users = DB::table('users')->get();
 
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiation"><b>Date of Initiation</b></label>
-
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
+                                    @if(isset($monthly) && $monthly->initiation_date)
+                                    <input disabled type="text" value="{{ \Carbon\Carbon::parse($monthly->initiation_date)->format('d-M-Y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ $monthly->initiation_date }}" id="initiation_date" name="initiation_date">
+                                    @else
+                                    <input disabled type="text" value="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="initiation_date" name="initiation_date">
+                                    @endif
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
-                            <div class="group-input">
+                                <div class="group-input">
                                     <label for="RLS Record Number">Record Number</label>
                                     <input disabled type="text" name="record" value="{{ Helpers::getDivisionName($monthly->division_id) }}/MW/{{ Helpers::year($monthly->created_at) }}/{{ $monthly->record }}">
                                 </div>
@@ -191,7 +195,7 @@ $users = DB::table('users')->get();
                                 </div> --}}
 
 
-                                <div class="col-md-6 new-date-data-field">
+                            <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <p class="text-primary"> last date this record should be closed by</p>
@@ -257,7 +261,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Country">Country</label>
                                     <select name="country" class="form-select country" value="" aria-label="Default select example" onchange="loadStates()">
-                                        <option value="{{$monthly->country}}" selected >{{$monthly->country}}</option>
+                                        <option value="{{$monthly->country}}" selected>{{$monthly->country}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -266,7 +270,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="State">State</label>
                                     <select name="state" class="form-select state" aria-label="Default select example" onchange="loadCities()">
-                                        <option value="{{$monthly->state}}" selected >{{$monthly->state}}</option>
+                                        <option value="{{$monthly->state}}" selected>{{$monthly->state}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -275,7 +279,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="City">City</label>
                                     <select name="city" class="form-select city" aria-label="Default select example">
-                                    <option value="{{$monthly->city}}" selected >{{$monthly->city}}</option>
+                                        <option value="{{$monthly->city}}" selected>{{$monthly->city}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -285,10 +289,10 @@ $users = DB::table('users')->get();
 
                                     <label for="Year"> Year<span class="text-danger"></span></label>
                                     <select name="year">
-                                    <option value="2024" @if ($monthly->year == 2024) selected @endif>2024</option>
-                                    <option value="2025" @if ($monthly->year == 2025) selected @endif>2025</option>
-                                    <option value="2026" @if ($monthly->year == 2026) selected @endif>2026</option>
-                                    <option value="2027" @if ($monthly->year == 2027) selected @endif>2027</option>
+                                        <option value="2024" @if ($monthly->year == 2024) selected @endif>2024</option>
+                                        <option value="2025" @if ($monthly->year == 2025) selected @endif>2025</option>
+                                        <option value="2026" @if ($monthly->year == 2026) selected @endif>2026</option>
+                                        <option value="2027" @if ($monthly->year == 2027) selected @endif>2027</option>
 
                                     </select>
                                 </div>
@@ -299,18 +303,18 @@ $users = DB::table('users')->get();
 
                                     <label for="Month"> Month<span class="text-danger"></span></label>
                                     <select name="month">
-                                    <option value="Jan" @if ($monthly->month == "Jan") selected @endif>Jan</option>
-                                    <option value="Feb" @if ($monthly->month == "Feb") selected @endif>Feb</option>
-                                    <option value="March" @if ($monthly->month == "March") selected @endif>March</option>
-                                    <option value="April" @if ($monthly->month == "April") selected @endif>April</option>
-                                    <option value="May" @if ($monthly->month == "May") selected @endif>May</option>
-                                    <option value="June" @if ($monthly->month == "June") selected @endif>June</option>
-                                    <option value="July" @if ($monthly->month == "July") selected @endif>July</option>
-                                    <option value="Aug" @if ($monthly->month == "Aug") selected @endif>Aug</option>
-                                    <option value="Sept" @if ($monthly->month == "Sept") selected @endif>Sept</option>
-                                    <option value="Oct" @if ($monthly->month == "Oct") selected @endif>Oct</option>
-                                    <option value="Nov" @if ($monthly->month == "Nov") selected @endif>Nov</option>
-                                    <option value="Dec" @if ($monthly->month == "Dec") selected @endif>Dec</option>
+                                        <option value="Jan" @if ($monthly->month == "Jan") selected @endif>Jan</option>
+                                        <option value="Feb" @if ($monthly->month == "Feb") selected @endif>Feb</option>
+                                        <option value="March" @if ($monthly->month == "March") selected @endif>March</option>
+                                        <option value="April" @if ($monthly->month == "April") selected @endif>April</option>
+                                        <option value="May" @if ($monthly->month == "May") selected @endif>May</option>
+                                        <option value="June" @if ($monthly->month == "June") selected @endif>June</option>
+                                        <option value="July" @if ($monthly->month == "July") selected @endif>July</option>
+                                        <option value="Aug" @if ($monthly->month == "Aug") selected @endif>Aug</option>
+                                        <option value="Sept" @if ($monthly->month == "Sept") selected @endif>Sept</option>
+                                        <option value="Oct" @if ($monthly->month == "Oct") selected @endif>Oct</option>
+                                        <option value="Nov" @if ($monthly->month == "Nov") selected @endif>Nov</option>
+                                        <option value="Dec" @if ($monthly->month == "Dec") selected @endif>Dec</option>
 
                                     </select>
                                 </div>
@@ -327,7 +331,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label>Hours Own Employess</label>
                                     <input type="number" name="hours_own_emp" value="{{$monthly->hours_own_emp}}">
-                                </div>  
+                                </div>
                             </div>
 
                             <div class="col-lg-6">
@@ -341,7 +345,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label>Hours Of Contractors</label>
                                     <input type="number" name="hours_of_contractors" value="{{$monthly->hours_of_contractors}}">
-                                </div>    
+                                </div>
                             </div>
 
 
@@ -360,7 +364,7 @@ $users = DB::table('users')->get();
                 <div id="CCForm5" class="inner-block cctabcontent">
                     <div class="inner-block-content">
 
-                        <div class="row">   
+                        <div class="row">
 
                             <div class="col-lg-6">
                                 <div class="group-input">

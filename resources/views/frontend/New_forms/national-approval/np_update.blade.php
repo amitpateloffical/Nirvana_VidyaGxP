@@ -258,11 +258,11 @@ $users = DB::table('users')->get();
         </div>
 
         <script>
-                $(document).ready(function() {
-                    <?php if (in_array($national->stage, [4, 5, 6,7])): ?>
-                        $("#target :input").prop("disabled", true);
-                    <?php endif; ?>
-                });
+            $(document).ready(function() {
+                <?php if (in_array($national->stage, [4, 5, 6, 7])) : ?>
+                    $("#target :input").prop("disabled", true);
+                <?php endif; ?>
+            });
         </script>
 
         <form id="target" action="{{ route('national_approval.update', $national->id) }}" method="POST" enctype="multipart/form-data">
@@ -302,10 +302,17 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiation"><b>Date of Initiation</b></label>
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
+                                    @if(isset($national) && $national->initiation_date)
+                                    <input disabled type="text" value="{{ \Carbon\Carbon::parse($national->initiation_date)->format('d-M-Y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ $national->initiation_date }}" id="initiation_date" name="initiation_date">
+                                    @else
+                                    <input disabled type="text" value="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="initiation_date" name="initiation_date">
+                                    @endif
                                 </div>
                             </div>
+
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <!-- <label for="RLS Record Number">Record Number</label> -->
@@ -340,6 +347,35 @@ $users = DB::table('users')->get();
                                     </div>
                                 </div>
                             </div>
+
+
+                            <script>
+                                function handleDateInput(dateInput, displayId) {
+                                    const date = new Date(dateInput.value);
+                                    const options = {
+                                        day: '2-digit',
+                                        month: 'short',
+                                        year: 'numeric'
+                                    };
+                                    const formattedDate = date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
+                                    document.getElementById(displayId).value = formattedDate;
+                                }
+
+                                // Initialize the due_date display on page load
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const dateInput = document.querySelector('input[name="due_date"]');
+                                    if (dateInput.value) {
+                                        handleDateInput(dateInput, 'due_date');
+                                    }
+                                });
+                            </script>
+
+
+
+
+
+
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Procedure Type">(Parent) Procedure Type</label>
@@ -351,7 +387,7 @@ $users = DB::table('users')->get();
                                         <option value="4" @if ($national->procedure_type == 4) selected @endif>4</option>
                                     </select>
                                 </div>
-                            </div>  
+                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Procedure Type">Planned Subnission Date</label>
@@ -487,15 +523,15 @@ $users = DB::table('users')->get();
                                     var row = table.insertRow(rowCount);
 
                                     row.innerHTML = `
-            <td><input disabled type="text" name="details[${rowCount}][serial]" value="${rowCount + 1}"></td>
-            <td><input type="text" name="details[${rowCount}][primary_packaging]"></td>
-            <td><input type="text" name="details[${rowCount}][material]"></td>
-            <td><input type="text" name="details[${rowCount}][pack_size]"></td>
-            <td><input type="text" name="details[${rowCount}][shelf_life]"></td>
-            <td><input type="text" name="details[${rowCount}][storage_condition]"></td>
-            <td><input type="text" name="details[${rowCount}][secondary_packaging]"></td>
-            <td><input type="text" name="details[${rowCount}][remarks]"></td>
-        `;
+                                        <td><input disabled type="text" name="details[${rowCount}][serial]" value="${rowCount + 1}"></td>
+                                        <td><input type="text" name="details[${rowCount}][primary_packaging]"></td>
+                                        <td><input type="text" name="details[${rowCount}][material]"></td>
+                                        <td><input type="text" name="details[${rowCount}][pack_size]"></td>
+                                        <td><input type="text" name="details[${rowCount}][shelf_life]"></td>
+                                        <td><input type="text" name="details[${rowCount}][storage_condition]"></td>
+                                        <td><input type="text" name="details[${rowCount}][secondary_packaging]"></td>
+                                        <td><input type="text" name="details[${rowCount}][remarks]"></td>
+                                    `;
                                 });
                             </script>
                             <div class="col-lg-6">
@@ -555,7 +591,7 @@ $users = DB::table('users')->get();
                                         <option value="">cfgg</option> 
                                     </select> -->
                                     <select name="approval_status" value="{{$national->approval_status}}">
-                                    <option value="">Enter Your Selection Here</option>
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if ($national->approval_status == 1) selected @endif>1</option>
                                         <option value="2" @if ($national->approval_status == 2) selected @endif>2</option>
                                         <option value="3" @if ($national->approval_status == 3) selected @endif>3</option>
@@ -908,7 +944,7 @@ $users = DB::table('users')->get();
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            
+
             <form action="{{ url('deviationIsCFTRequired', $national->id) }}" method="POST">
                 @csrf
                 <!-- Modal body -->

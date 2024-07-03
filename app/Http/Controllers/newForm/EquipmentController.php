@@ -102,7 +102,7 @@ class EquipmentController extends Controller
 
                 // dd($validation2->validation_id);
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->comment = "Not Applicable";
                 $validation2->save();
@@ -120,7 +120,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -137,7 +137,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -154,7 +154,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -171,7 +171,7 @@ class EquipmentController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -189,7 +189,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -207,7 +207,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -224,7 +224,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -241,7 +241,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -259,7 +259,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -276,7 +276,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -293,7 +293,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -310,7 +310,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -327,7 +327,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -344,7 +344,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -361,7 +361,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -378,7 +378,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -396,7 +396,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -413,7 +413,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -431,7 +431,7 @@ class EquipmentController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -524,7 +524,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->initiation_date != $request->initiation_date){
+            if ($lastDocument->initiation_date != $request->initiation_date) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Initiation Date';
@@ -542,7 +542,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->assign_to != $request->assign_to){
+            if ($lastDocument->assign_to != $request->assign_to) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Assign To';
@@ -560,7 +560,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->assign_due_date != $request->assign_due_date){
+            if ($lastDocument->assign_due_date != $request->assign_due_date) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = ' Assign Due Date';
@@ -578,7 +578,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-           if ($lastDocument->type != $request->type){
+            if ($lastDocument->type != $request->type) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Type';
@@ -596,7 +596,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->number_id != $request->number_id){
+            if ($lastDocument->number_id != $request->number_id) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Number IDs';
@@ -615,7 +615,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->site_name != $request->site_name){
+            if ($lastDocument->site_name != $request->site_name) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Site Name';
@@ -626,14 +626,14 @@ class EquipmentController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-    
+
                 $validation2->change_to =   "Not applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if ($lastDocument->building != $request->building){
+            if ($lastDocument->building != $request->building) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Building';
@@ -644,7 +644,7 @@ class EquipmentController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-         
+
                 $validation2->change_to =   "Not applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
@@ -662,7 +662,7 @@ class EquipmentController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-       
+
                 $validation2->change_to =   "Not applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
@@ -670,7 +670,7 @@ class EquipmentController extends Controller
             }
 
 
-            if ($lastDocument->rooms != $request->rooms){
+            if ($lastDocument->rooms != $request->rooms) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Room';
@@ -681,14 +681,14 @@ class EquipmentController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-   
+
                 $validation2->change_to =   "Not applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if ($lastDocument->description != $request->description){
+            if ($lastDocument->description != $request->description) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Description';
@@ -705,7 +705,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->comments != $request->comments){
+            if ($lastDocument->comments != $request->comments) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Comments';
@@ -722,7 +722,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->file_attechment != $request->file_attechment){
+            if ($lastDocument->file_attechment != $request->file_attechment) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'File Attachment';
@@ -740,11 +740,11 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->pm_frequency != $request->pm_frequency){
+            if ($lastDocument->pm_frequency != $request->pm_frequency) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'PM Frequency';
-                $validation2->previous =$lastDocument->pm_frequency;
+                $validation2->previous = $lastDocument->pm_frequency;
                 $validation2->current = $request->pm_frequency;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -758,7 +758,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-           if ($lastDocument->calibration_frequency != $request->calibration_frequency){
+            if ($lastDocument->calibration_frequency != $request->calibration_frequency) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Calibration Frequency';
@@ -775,7 +775,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->preventive_maintenance_plan != $request->preventive_maintenance_plan){
+            if ($lastDocument->preventive_maintenance_plan != $request->preventive_maintenance_plan) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Preventive Maintenance Plan';
@@ -792,7 +792,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->calibration_information != $request->calibration_information){
+            if ($lastDocument->calibration_information != $request->calibration_information) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Calibration Information';
@@ -810,7 +810,7 @@ class EquipmentController extends Controller
             }
 
 
-           if ($lastDocument->next_pm_date != $request->next_pm_date){
+            if ($lastDocument->next_pm_date != $request->next_pm_date) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Next PM Date';
@@ -828,7 +828,7 @@ class EquipmentController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->next_calibration_date != $request->next_calibration_date){
+            if ($lastDocument->next_calibration_date != $request->next_calibration_date) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Next Calibration Date';
@@ -846,7 +846,7 @@ class EquipmentController extends Controller
             }
 
 
-            if ($lastDocument->maintenance_history != $request->maintenance_history){
+            if ($lastDocument->maintenance_history != $request->maintenance_history) {
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $equipment->id;
                 $validation2->activity_type = 'Maintenance History';
@@ -857,7 +857,7 @@ class EquipmentController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-         
+
                 $validation2->change_to =   "Not applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
@@ -1178,14 +1178,14 @@ class EquipmentController extends Controller
                     'isPhpEnabled' => true,
                 ]);
 
-                $pdf->setPaper('A4');
-                $pdf->render();
-                $canvas = $pdf->getDomPDF()->getCanvas();
-                $height = $canvas->get_height();
-                $width = $canvas->get_width();
-                $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
-                $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
-                return $pdf->stream('Equipment' . $id . '.pdf');
+            $pdf->setPaper('A4');
+            $pdf->render();
+            $canvas = $pdf->getDomPDF()->getCanvas();
+            $height = $canvas->get_height();
+            $width = $canvas->get_width();
+            $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+            $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
+            return $pdf->stream('Equipment' . $id . '.pdf');
 
 
             // $pdf->setPaper('A4');

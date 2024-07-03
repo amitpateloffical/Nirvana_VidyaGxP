@@ -227,7 +227,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label>Hours Own Employess</label>
                                     <input type="number" name="hours_own_emp">
-                                </div>  
+                                </div>
                             </div>
 
                             <div class="col-lg-6">
@@ -241,7 +241,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label>Hours Of Contractors</label>
                                     <input type="number" name="hours_of_contractors">
-                                </div>    
+                                </div>
                             </div>
 
 

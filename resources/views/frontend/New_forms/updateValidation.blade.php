@@ -330,11 +330,16 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
-
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="intiation_date">
+                                    @if(isset($validation) && $validation->intiation_date)
+                                    <input disabled type="text" value="{{ \Carbon\Carbon::parse($validation->initiation_date)->format('d-M-Y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ $validation->intiation_date }}" id="initiation_date" name="intiation_date">
+                                    @else
+                                    <input disabled type="text" value="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="initiation_date" name="intiation_date">
+                                    @endif
                                 </div>
                             </div>
+
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -369,16 +374,31 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <div class="calenderauditee">
-                                        <!-- <input type="text" id="assign_due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ \Helpers::getdateFormat($validation->assign_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" /> -->
-                                        <!-- <input type="text" id="assign_due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $validation->assign_due_date }}" />
-                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $validation->assign_due_date }}" class="hide-input" oninput="handleDateInput(this)" /> -->
 
                                         <input type="text" id="assign_due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ \Helpers::getdateFormat($validation->assign_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'assign_due_date')" />
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- <div class="col-md-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="assign_due_date_display" readonly placeholder="DD-MM-YY" />
+                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ \Helpers::getdateFormat($validation->assign_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'assign_due_date_display')" />
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- <script>
+                                function handleDateInput(dateInput, displayId) {
+                                    const date = new Date(dateInput.value);
+                                    const formattedDate = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getFullYear()).slice(-2)}`;
+                                    document.getElementById(displayId).value = formattedDate;
+                                }
+                            </script> -->
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -570,14 +590,14 @@ $users = DB::table('users')->get();
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                    Affected Equipment(0)
+                                    Affected Equipment({{ is_array($details) ? count($details) : 0 }})
                                     <button type="button" name="affected_equipments" id="Affected_equipment_add">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Affected_equipment_Table">
+                                    <table class="table table-bordered" id="Details-table">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -590,18 +610,39 @@ $users = DB::table('users')->get();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="equipment_name_code[]" value="{{$validation->equipment_name_code }}"></td>
-                                            <td><input type="text" name="equipment_id[]" value="{{$validation->equipment_id}}"></td>
-                                            <td><input type="text" name="asset_no[]" value="{{$validation->asset_no}}"></td>
-                                            <td><input type="text" name="remarks[]" value="{{$validation->remarks}}"></td>
 
+                                            @if (is_array($details))
+                                            @foreach($details as $index => $detail)
+                                            <tr>
+                                                <td><input disabled type="text" name="details[{{ $index }}][serial]" value="{{ $index + 1 }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][equipment_name_code]" value="{{ $detail['equipment_name_code'] ?? '' }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][equipment_id]" value="{{ $detail['equipment_id'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][asset_no]" value="{{ $detail['asset_no'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][remarks]" value="{{ $detail['remarks'] ?? ''}}"></td>
+                                            </tr>
+                                            @endforeach
+                                            @endif
                                         </tbody>
 
                                     </table>
                                 </div>
                             </div>
 
+                            <script>
+                                document.getElementById('Affected_equipment_add').addEventListener('click', function() {
+                                    var table = document.getElementById('Details-table').getElementsByTagName('tbody')[0];
+                                    var rowCount = table.rows.length;
+                                    var row = table.insertRow(rowCount);
+
+                                    row.innerHTML = `
+                                        <td><input disabled type="text" name="details[${rowCount}][serial]" value="${rowCount + 1}"></td>
+                                        <td><input type="text" name="details[${rowCount}][equipment_name_code]"></td>
+                                        <td><input type="text" name="details[${rowCount}][equipment_id]"></td>
+                                        <td><input type="text" name="details[${rowCount}][asset_no]"></td>
+                                        <td><input type="text" name="details[${rowCount}][remarks]"></td>
+                                    `;
+                                });
+                            </script>
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
@@ -612,7 +653,7 @@ $users = DB::table('users')->get();
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Affected_item_Table">
+                                    <table class="table table-bordered" id="Details-table">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -623,19 +664,37 @@ $users = DB::table('users')->get();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="item_type[]" value="{{$validation->item_type}}"></td>
-                                            <td><input type="text" name="item_name[]" value="{{$validation->item_name}}"></td>
-                                            <td><input type="text" name="item_no[]" value="{{$validation->item_remarks}}"></td>
-                                            <td><input type="text" name="item_remarks[]" value="{{$validation->item_remarks}}"></td>
-
+                                            @if (is_array($details))
+                                            @foreach($details as $index => $detail)
+                                            <tr>
+                                                <td><input disabled type="text" name="details[{{ $index }}][serial]" value="{{ $index + 1 }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][item_type]" value="{{ $detail['item_type'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][item_name]" value="{{ $detail['item_name'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][item_no]" value="{{ $detail['item_no'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][item_remarks]" value="{{ $detail['item_remarks'] ?? ''}}"></td>
+                                            </tr>
+                                            @endforeach
+                                            @endif
 
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
+                            <script>
+                                document.getElementById('Affected_item_add').addEventListener('click', function() {
+                                    var table = document.getElementById('Details-table').getElementsByTagName('tbody')[0];
+                                    var rowCount = table.rows.length;
+                                    var row = table.insertRow(rowCount);
 
+                                    row.innerHTML = `
+                                        <td><input disabled type="text" name="details[${rowCount}][serial]" value="${rowCount + 1}"></td>
+                                        <td><input type="text" name="details[${rowCount}][item_type]"></td>
+                                        <td><input type="text" name="details[${rowCount}][item_name]"></td>
+                                        <td><input type="text" name="details[${rowCount}][item_no]"></td>
+                                        <td><input type="text" name="details[${rowCount}][item_remarks]"></td>
+                                    `;
+                                });
+                            </script>
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
@@ -646,7 +705,7 @@ $users = DB::table('users')->get();
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Affected_facilities_Table">
+                                    <table class="table table-bordered" id="Details-table">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -659,16 +718,37 @@ $users = DB::table('users')->get();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="facility_location[]" value="{{$validation->facility_location}}"></td>
-                                            <td><input type="text" name="facility_type[]" value="{{$validation->facility_type}}"></td>
-                                            <td><input type="text" name="facility_name[]" value="{{$validation->facility_name}}"></td>
-                                            <td><input type="text" name="facility_remarks[]" value="{{$validation->facility_remarks}}"></td>
+                                            @if (is_array($details))
+                                            @foreach($details as $index => $detail)
+                                            <tr>
+                                                <td><input disabled type="text" name="details[{{ $index }}][serial]" value="{{ $index + 1 }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][facility_location]" value="{{ $detail['facility_location'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][facility_type]" value="{{ $detail['facility_type'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][facility_name]" value="{{ $detail['facility_name'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][facility_remarks]" value="{{ $detail['facility_remarks'] ?? ''}}"></td>
+                                            </tr>
+                                            @endforeach
+                                            @endif
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
+                            <script>
+                                document.getElementById('Affected_facilities_add').addEventListener('click', function() {
+                                    var table = document.getElementById('Details-table').getElementsByTagName('tbody')[0];
+                                    var rowCount = table.rows.length;
+                                    var row = table.insertRow(rowCount);
+
+                                    row.innerHTML = `
+                                        <td><input disabled type="text" name="details[${rowCount}][serial]" value="${rowCount + 1}"></td>
+                                        <td><input type="text" name="details[${rowCount}][facility_location]"></td>
+                                        <td><input type="text" name="details[${rowCount}][facility_type]"></td>
+                                        <td><input type="text" name="details[${rowCount}][facility_name]"></td>
+                                        <td><input type="text" name="details[${rowCount}][facility_remarks]"></td>
+                                    `;
+                                });
+                            </script>
+
 
 
                             <div class="col-lg-6">
@@ -848,7 +928,7 @@ $users = DB::table('users')->get();
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="SummaryOfResults_Table">
+                                    <table class="table table-bordered" id="Details-table">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -859,24 +939,44 @@ $users = DB::table('users')->get();
                                                 <th style="width: 15%">Test-Result</th>
                                                 <th style="width: 15%">Test-Accepted</th>
                                                 <th style="width: 15%">Remarks</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="deviation_occured[]" value="{{$validation->deviation_occured }}"></td>
-                                            <td><input type="text" name="test_name[]" value="{{$validation->test_name }}"></td>
-                                            <td><input type="text" name="test_number[]" value="{{$validation->test_number }}"></td>
-                                            <td><input type="text" name="test_method[]" value="{{$validation->test_method }}"></td>
-                                            <td><input type="text" name="test_result[]" value="{{$validation->test_result }}"></td>
-                                            <td><input type="text" name="test_accepted[]" value="{{$validation->test_accepted }}"></td>
-                                            <td><input type="text" name="remarks[]" value="{{$validation->remarks }}"></td>
 
+                                            @if (is_array($details))
+                                            @foreach($details as $index => $detail)
+                                            <tr>
+                                                <td><input disabled type="text" name="details[{{ $index }}][serial]" value="{{ $index + 1 }}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][deviation_occured]" value="{{ $detail['deviation_occured'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][test_name]" value="{{ $detail['test_name'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][test_number]" value="{{ $detail['test_number'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][test_method]" value="{{ $detail['test_method'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][test_result]" value="{{ $detail['test_result'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][test_accepted]" value="{{ $detail['test_accepted'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $index }}][remarks]" value="{{ $detail['remarks'] ?? ''}}"></td>
+                                            </tr>
+                                            @endforeach
+                                            @endif
                                         </tbody>
 
                                     </table>
                                 </div>
                             </div>
+                            <script>
+                                document.getElementById('SummaryOfResults_add').addEventListener('click', function() {
+                                    var table = document.getElementById('Details-table').getElementsByTagName('tbody')[0];
+                                    var rowCount = table.rows.length;
+                                    var row = table.insertRow(rowCount);
+
+                                    row.innerHTML = `
+                                        <td><input disabled type="text" name="details[${rowCount}][serial]" value="${rowCount + 1}"></td>
+                                        <td><input type="text" name="details[${rowCount}][facility_location]"></td>
+                                        <td><input type="text" name="details[${rowCount}][facility_type]"></td>
+                                        <td><input type="text" name="details[${rowCount}][facility_name]"></td>
+                                        <td><input type="text" name="details[${rowCount}][facility_remarks]"></td>
+                                    `;
+                                });
+                            </script>
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -907,25 +1007,25 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Submitted Protocol By</label>
-                                    <div class="static">{{Auth::user()->name}}</div>
+                                    <div class="static">{{$validation->submitted_by}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted on">Submitted Protocol On</label>
-                                    <div class="Date">{{$validation->intiation_date}}</div>
+                                    <div class="Date">{{$validation->submitted_on}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reviewed by">Cancelled By</label>
-                                    <div class="static">{{Auth::user()->name}}</div>
+                                    <label for="cancelled by">Cancelled By</label>
+                                    <div class="static">{{$validation->cancelled_by}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Cancelled on">Cancelled On</label>
-                                    <div class="Date">{{$validation->assign_due_date}}</div>
+                                    <div class="Date">{{$validation->cancelled_on}}</div>
                                 </div>
                             </div>
 
@@ -933,13 +1033,13 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reviewed by">Review By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{$validation->review_by}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Review on">Review On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{$validation->review_on}}</div>
                                 </div>
                             </div>
 
@@ -949,26 +1049,26 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Plan_Approved_by1">1st Final Approval By</label>
-                                    <div class="static">{{$validation->final_approval_1_by}}</div>
+                                    <div class="static">{{$validation->approved_by}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Plan_Approved_on1">1st Final Approval On</label>
-                                    <div class="Date">{{$validation->final_approval_2_on }}</div>
+                                    <div class="Date">{{$validation->approved_on }}</div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Plan_Approved_by2">2nd Final Approval By</label>
-                                    <div class="static">{{ $validation->final_approval_2_by}}</div>
+                                    <div class="static">{{ $validation->final_approved_by}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Plan_Approved_on2">2nd Final Approval On</label>
-                                    <div class="Date">{{$validation->final_approval_2_on }}</div>
+                                    <div class="Date">{{$validation->final_approved_on }}</div>
                                 </div>
                             </div>
 
@@ -976,13 +1076,13 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Report_by">Report Reject By</label>
-                                    <div class="static">{{$validation->report_reject_by}}</div>
+                                    <div class="static">{{$validation->rejected_by}}</div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Report_on">Report Reject On</label>
-                                    <div class="Date">{{$validation->report_reject_on}}</div>
+                                    <div class="Date">{{$validation->rejected_on}}</div>
                                 </div>
                             </div>
 
@@ -1708,9 +1808,9 @@ console.error(xhr.responseText); // Log error response
                         @if ($validation->stage == 6)
                         <label for="major">
                             <input type="radio" name="child_type" id="major" value="vd">
-                           Validation Deviation
+                            Validation Deviation
                         </label>
-                        
+
                         @endif
                     </div>
 

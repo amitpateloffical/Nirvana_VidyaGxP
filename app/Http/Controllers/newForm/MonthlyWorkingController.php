@@ -20,17 +20,19 @@ use Illuminate\Support\Facades\Hash;
 
 class MonthlyWorkingController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $old_record = MonthlyWorking::select('id', 'division_id', 'record')->get();
         $record_number = ((RecordNumber::first()->value('counter')) + 1);
         $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
-        return view('frontend.New_forms.monthly_working.monthly_working', compact( 'record_number', 'currentDate', 'formattedDate', 'due_date'));
+        return view('frontend.New_forms.monthly_working.monthly_working', compact('record_number', 'currentDate', 'formattedDate', 'due_date'));
     }
 
-    public function monthly_workingStore(Request $request){
+    public function monthly_workingStore(Request $request)
+    {
         try {
             $recordCounter = RecordNumber::first();
             $newRecordNumber = $recordCounter->counter + 1;
@@ -67,7 +69,7 @@ class MonthlyWorkingController extends Controller
             $monthly->hours_of_contractors = $request->hours_of_contractors;
             $monthly->save();
 
-               //===========audit trails ===========//
+            //===========audit trails ===========//
             if (!empty($request->short_description)) {
                 $validation2 = new MonthlyWorkingAudit();
                 $validation2->monthlyworking_id = $monthly->id;
@@ -79,7 +81,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->comment = "Not Applicable";
                 $validation2->save();
@@ -97,7 +99,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -114,7 +116,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -131,7 +133,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -148,7 +150,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -166,7 +168,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -184,7 +186,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -201,7 +203,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -218,7 +220,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -236,7 +238,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -253,7 +255,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -270,7 +272,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -286,7 +288,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -303,7 +305,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -320,7 +322,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -334,12 +336,14 @@ class MonthlyWorkingController extends Controller
         }
     }
 
-    public function monthly_workingEdit($id){
+    public function monthly_workingEdit($id)
+    {
         $monthly = MonthlyWorking::find($id);
         return view('frontend.New_forms.monthly_working.monthly_working_view', compact('monthly'));
     }
 
-    public function monthly_workingUpdate(Request $request, $id){
+    public function monthly_workingUpdate(Request $request, $id)
+    {
 
         try {
 
@@ -371,263 +375,263 @@ class MonthlyWorkingController extends Controller
             $monthly->update();
 
 
-                 //===========audit trails ===========//
-                 if ($lastDocument->short_description != $request->short_description) {
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->previous = $lastDocument->short_description ;
-                    $validation2->current = $request->short_description;
-                    $validation2->activity_type = 'Short Description';
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = $lastDocument->status;
-                    $validation2->action_name = 'Update';
-                
-                    $validation2->save();
-                }
-    
-                if ($lastDocument->initiation_date != $request->initiation_date) {
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Date of Initiation';
-                    $validation2->previous = $lastDocument->initiation_date;
-                    $validation2->current = $request->initiation_date;
-                    $validation2->comment = "Not Applicable";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = $lastDocument->status;
-                    $validation2->action_name = 'Update';
-                    $validation2->save();
-                }
-                if ($lastDocument->assign_to != $request->assign_to) {
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Assign To';
-                    $validation2->previous = $lastDocument->assign_to;
-                    $validation2->current = $request->assign_to;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-                    $validation2->save();
-                }
-    
-                if ($lastDocument->due_date != $request->due_date) {
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Due Date';
-                    $validation2->previous = $lastDocument->due_date;
-                    $validation2->current = $request->due_date;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-    
-                    $validation2->save();
-                }
-                if ($lastDocument->description != $request->description){
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Description';
-                    $validation2->previous = $lastDocument->description;
-                    $validation2->current = $request->description;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-    
-                    $validation2->save();
-                }
-    
-                if ($lastDocument->zone != $request->zone){
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Zone';
-                    $validation2->previous = $lastDocument->zone;
-                    $validation2->current = $request->zone;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-    
-                    $validation2->save();
-                }
-    
-                if ($lastDocument->country != $request->country){
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Country';
-                    $validation2->previous = $lastDocument->country;
-                    $validation2->current = $request->country;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-                    $validation2->save();
-                }
-    
-                if ($lastDocument->state != $request->state) {
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'State';
-                    $validation2->previous = $lastDocument->state;
-                    $validation2->current = $request->state;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-                    $validation2->save();
-                }
-    
-                if ($lastDocument->city != $request->city){
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'City';
-                    $validation2->previous = $lastDocument->city;
-                    $validation2->current = $request->city;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-                    $validation2->save();
-                }
-    
-    
-                if ($lastDocument->year != $request->year) {
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Year';
-                    $validation2->previous = $lastDocument->year;
-                    $validation2->current = $request->year;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-                    $validation2->save();
-                }
-    
-                if ($lastDocument->month != $request->month){
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Month';
-                    $validation2->previous = $lastDocument->month;
-                    $validation2->current = $request->month;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-                    $validation2->save();
-                }
-    
-                if ($lastDocument->number_of_own_emp != $request->number_of_own_emp){
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Number Of Own Employess';
-                    $validation2->previous = $lastDocument->number_of_own_emp;
-                    $validation2->current = $request->number_of_own_emp;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-                    $validation2->save();
-                }
-                if ($lastDocument->hours_own_emp != $request->hours_own_emp){
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Hours Own Employess';
-                    $validation2->previous = $lastDocument->hours_own_emp;
-                    $validation2->current = $request->hours_own_emp;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-                    $validation2->save();
-                }
-    
-                if ($lastDocument->number_of_contractors != $request->number_of_contractors){
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Number Of Contractors';
-                    $validation2->previous = $lastDocument->number_of_contractors;
-                    $validation2->current = $request->number_of_contractors;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-                    $validation2->save();
-                }
-    
-                if ($lastDocument->hours_of_contractors != $request->hours_of_contractors){
-                    $validation2 = new MonthlyWorkingAudit();
-                    $validation2->monthlyworking_id = $monthly->id;
-                    $validation2->activity_type = 'Hours Of Contractors';
-                    $validation2->previous = $lastDocument->hours_of_contractors;
-                    $validation2->current = $request->hours_of_contractors;
-                    $validation2->comment = "NA";
-                    $validation2->user_id = Auth::user()->id;
-                    $validation2->user_name = Auth::user()->name;
-                    $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    
-                    $validation2->change_to =   "Not Applicable";
-                    $validation2->change_from = "$lastDocument->status";
-                    $validation2->action_name = 'Update';
-                    $validation2->save();
-                }
-    
-    
+            //===========audit trails ===========//
+            if ($lastDocument->short_description != $request->short_description) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->previous = $lastDocument->short_description;
+                $validation2->current = $request->short_description;
+                $validation2->activity_type = 'Short Description';
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+
+                $validation2->save();
+            }
+
+            if ($lastDocument->initiation_date != $request->initiation_date) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Date of Initiation';
+                $validation2->previous = $lastDocument->initiation_date;
+                $validation2->current = $request->initiation_date;
+                $validation2->comment = "Not Applicable";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+            if ($lastDocument->assign_to != $request->assign_to) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Assign To';
+                $validation2->previous = $lastDocument->assign_to;
+                $validation2->current = $request->assign_to;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->due_date != $request->due_date) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Due Date';
+                $validation2->previous = $lastDocument->due_date;
+                $validation2->current = $request->due_date;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+
+                $validation2->save();
+            }
+            if ($lastDocument->description != $request->description) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Description';
+                $validation2->previous = $lastDocument->description;
+                $validation2->current = $request->description;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+
+                $validation2->save();
+            }
+
+            if ($lastDocument->zone != $request->zone) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Zone';
+                $validation2->previous = $lastDocument->zone;
+                $validation2->current = $request->zone;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+
+                $validation2->save();
+            }
+
+            if ($lastDocument->country != $request->country) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Country';
+                $validation2->previous = $lastDocument->country;
+                $validation2->current = $request->country;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->state != $request->state) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'State';
+                $validation2->previous = $lastDocument->state;
+                $validation2->current = $request->state;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->city != $request->city) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'City';
+                $validation2->previous = $lastDocument->city;
+                $validation2->current = $request->city;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+
+            if ($lastDocument->year != $request->year) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Year';
+                $validation2->previous = $lastDocument->year;
+                $validation2->current = $request->year;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->month != $request->month) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Month';
+                $validation2->previous = $lastDocument->month;
+                $validation2->current = $request->month;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->number_of_own_emp != $request->number_of_own_emp) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Number Of Own Employess';
+                $validation2->previous = $lastDocument->number_of_own_emp;
+                $validation2->current = $request->number_of_own_emp;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+            if ($lastDocument->hours_own_emp != $request->hours_own_emp) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Hours Own Employess';
+                $validation2->previous = $lastDocument->hours_own_emp;
+                $validation2->current = $request->hours_own_emp;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->number_of_contractors != $request->number_of_contractors) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Number Of Contractors';
+                $validation2->previous = $lastDocument->number_of_contractors;
+                $validation2->current = $request->number_of_contractors;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+            if ($lastDocument->hours_of_contractors != $request->hours_of_contractors) {
+                $validation2 = new MonthlyWorkingAudit();
+                $validation2->monthlyworking_id = $monthly->id;
+                $validation2->activity_type = 'Hours Of Contractors';
+                $validation2->previous = $lastDocument->hours_of_contractors;
+                $validation2->current = $request->hours_of_contractors;
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = "$lastDocument->status";
+                $validation2->action_name = 'Update';
+                $validation2->save();
+            }
+
+
 
 
             toastr()->success("Monthly is updated Successfully");
@@ -638,7 +642,8 @@ class MonthlyWorkingController extends Controller
         }
     }
 
-    public function audit_monthly_working($id){
+    public function audit_monthly_working($id)
+    {
         $audit = MonthlyWorkingAudit::where('monthlyworking_id', $id)->orderByDESC('id')->paginate();
         $today = Carbon::now()->format('d-m-y');
         $document = MonthlyWorking::where('id', $id)->first();
@@ -789,5 +794,4 @@ class MonthlyWorkingController extends Controller
 
         return redirect()->back()->with('error', 'Monthly Working not found.');
     }
-
 }

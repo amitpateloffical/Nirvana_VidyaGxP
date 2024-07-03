@@ -74,7 +74,7 @@ class CalibrationController extends Controller
             if (!empty($request->short_description)) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->short_description;
                 $validation2->activity_type = 'Short Description';
                 $validation2->user_id = Auth::user()->id;
@@ -83,7 +83,7 @@ class CalibrationController extends Controller
 
                 // dd($validation2->validation_id);
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -92,7 +92,7 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Date Of Opened';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->initiation_date;
                 $validation2->comment = "Not Applicable";
                 $validation2->user_id = Auth::user()->id;
@@ -100,7 +100,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -109,7 +109,7 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Assign To';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->assign_to;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -117,7 +117,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -126,7 +126,7 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = ' Due Date';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->due_date;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -134,7 +134,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -144,14 +144,14 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Originator';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->originator;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -161,7 +161,7 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Device Condition M';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->device_condition_m;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -169,7 +169,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -179,7 +179,7 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Replace Parts M';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->replace_parts_m;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -187,7 +187,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -196,7 +196,7 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Calibration Rating M';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->calibration_rating_m;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -204,7 +204,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -213,7 +213,7 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Update Software M';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->update_software_m;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -221,7 +221,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -231,7 +231,7 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Replace Betteries M';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->replace_betteries_m;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -239,7 +239,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -248,7 +248,7 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Description';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->description;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -256,7 +256,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -265,7 +265,7 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Parent Equipment Name M';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->parent_equipment_name_m;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -273,7 +273,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -282,7 +282,7 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Parent Equipment Type M';
-                $validation2->previous = $lastDocument->short_description;
+                $validation2->previous = 'null';
                 $validation2->current = $request->parent_equipment_type_m;
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
@@ -290,7 +290,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -303,12 +303,14 @@ class CalibrationController extends Controller
         }
     }
 
-    public function calibrationEdit($id){
+    public function calibrationEdit($id)
+    {
         $calibration = Calibration::findOrFail($id);
         return view('frontend.New_forms.calibration.calibration_view', compact('calibration'));
     }
 
-    public function calibrationUpdate(Request $request, $id){
+    public function calibrationUpdate(Request $request, $id)
+    {
         if (!$request->short_description) {
             toastr()->info("Short Description is required");
             return redirect()->back()->withInput();
@@ -323,7 +325,7 @@ class CalibrationController extends Controller
 
 
             $calibration = Calibration::findOrFail($id);
-            
+
             $lastDocument = Calibration::findOrFail($id);
 
             $calibration->parent_id = $request->parent_id;
@@ -359,7 +361,7 @@ class CalibrationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                $validation2->change_to =   "Not Applicable ";
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
 
@@ -377,14 +379,14 @@ class CalibrationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-             
-                $validation2->change_to =   "Not Applicable ";
+
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if ($lastDocument->assign_to != $request->assign_to){
+            if ($lastDocument->assign_to != $request->assign_to) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Assign To';
@@ -396,16 +398,16 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
 
-                $validation2->change_to =   "Not Applicable ";
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if ($lastDocument->due_date != $request->due_date){
+            if ($lastDocument->due_date != $request->due_date) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
-                $validation2->activity_type = ' Due Date';
+                $validation2->activity_type = 'Due Date';
                 $validation2->previous = $lastDocument->due_date;
                 $validation2->current = $request->due_date;
                 $validation2->comment = "NA";
@@ -414,14 +416,14 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
 
-                $validation2->change_to =   "Not Applicable ";
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-            if ($lastDocument->originator != $request->originator){
+            if ($lastDocument->originator != $request->originator) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Originator';
@@ -432,14 +434,14 @@ class CalibrationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                $validation2->change_to =   "Not Applicable ";
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-            if ($lastDocument->device_condition_m != $request->device_condition_m){
+            if ($lastDocument->device_condition_m != $request->device_condition_m) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Device Condition M';
@@ -451,14 +453,14 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
 
-                $validation2->change_to =   "Not Applicable ";
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-            if ($lastDocument->replace_parts_m != $request->replace_parts_m){
+            if ($lastDocument->replace_parts_m != $request->replace_parts_m) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Replace Parts M';
@@ -470,13 +472,13 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
 
-                $validation2->change_to =   "Not Applicable ";
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if ($lastDocument->calibration_rating_m != $request->calibration_rating_m){
+            if ($lastDocument->calibration_rating_m != $request->calibration_rating_m) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Calibration Rating M';
@@ -488,13 +490,13 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
 
-                $validation2->change_to =   "Not Applicable ";
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if ($lastDocument->update_software_m != $request->update_software_m){
+            if ($lastDocument->update_software_m != $request->update_software_m) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Update Software M';
@@ -513,7 +515,7 @@ class CalibrationController extends Controller
             }
 
 
-            if ($lastDocument->replace_betteries_m != $request->replace_betteries_m){
+            if ($lastDocument->replace_betteries_m != $request->replace_betteries_m) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Replace Betteries M';
@@ -525,13 +527,13 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
 
-                $validation2->change_to =   "Not Applicable ";
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if ($lastDocument->description != $request->description){
+            if ($lastDocument->description != $request->description) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Description';
@@ -542,13 +544,13 @@ class CalibrationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                $validation2->change_to =   "Not Applicable ";
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if ($lastDocument->parent_equipment_name_m != $request->parent_equipment_name_m){
+            if ($lastDocument->parent_equipment_name_m != $request->parent_equipment_name_m) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Parent Equipment Name M';
@@ -559,13 +561,13 @@ class CalibrationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                $validation2->change_to =   "Not Applicable ";
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if ($lastDocument->parent_equipment_type_m != $request->parent_equipment_type_m){
+            if ($lastDocument->parent_equipment_type_m != $request->parent_equipment_type_m) {
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Parent Equipment Type M';
@@ -576,7 +578,7 @@ class CalibrationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                $validation2->change_to =   "Not Applicable ";
+                $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
@@ -590,7 +592,8 @@ class CalibrationController extends Controller
         }
     }
 
-    public function calibration_send_stage(Request $request, $id){
+    public function calibration_send_stage(Request $request, $id)
+    {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $equipment = Calibration::find($id);
 
@@ -771,13 +774,13 @@ class CalibrationController extends Controller
         $data = Calibration::find($id);
         if (!empty($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
-    
+
             $doc = CalibrationAudit::where('calibration_id', $data->id)->first();
             $detail_data = CalibrationAudit::where('activity_type', $data->activity_type)
-                                          ->where('calibration_id', $data->calibration_id)
-                                          ->latest()
-                                          ->get();
-    
+                ->where('calibration_id', $data->calibration_id)
+                ->latest()
+                ->get();
+
             // pdf related work
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
@@ -786,26 +789,26 @@ class CalibrationController extends Controller
                 'doc',
                 'data'
             ))
-            ->setOptions([
-                'defaultFont' => 'sans-serif',
-                'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled' => true,
-                'isPhpEnabled' => true, 
-            ]);
-    
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                ]);
+
             $pdf->setPaper('A4');
             $pdf->render();
             $canvas = $pdf->getDomPDF()->getCanvas();
             $height = $canvas->get_height();
             $width = $canvas->get_width();
-    
+
             $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
-    
+
             // Ensure that the text parameter is a string
             $text = 'Sample Watermark';  // Replace with actual text if needed
             // Ensure the color is an array of three integers
             $color = [0, 0, 0];  // RGB color array
-    
+
             $canvas->page_text(
                 $width / 4,
                 $height / 2,
@@ -817,10 +820,10 @@ class CalibrationController extends Controller
                 6, // Character spacing
                 -20 // Angle
             );
-    
+
             return $pdf->stream('SOP' . $id . '.pdf');
         }
-    
+
         // Handle the case where the $data is empty or not found
         return redirect()->back()->with('error', 'Calibration not found.');
     }
@@ -830,17 +833,15 @@ class CalibrationController extends Controller
         $doc = Calibration::findOrFail($id);
         if (!empty($doc)) {
             $doc->originator = User::where('id', $doc->initiator_id)->value('name');
-        } 
-        else {
-             $datas = ActionItem::find($id);
+        } else {
+            $datas = ActionItem::find($id);
 
             if (empty($datas)) {
                 $datas = Extension::find($id);
                 $doc = Calibration::find($datas->calibration_id);
                 $doc->originator = User::where('id', $doc->initiator_id)->value('name');
                 $doc->created_at = $datas->created_at;
-            } 
-        else {
+            } else {
                 $doc = Calibration::find($datas->calibration_id);
                 $doc->originator = User::where('id', $doc->initiator_id)->value('name');
                 $doc->created_at = $datas->created_at;

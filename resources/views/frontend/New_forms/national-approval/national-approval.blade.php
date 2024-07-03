@@ -392,7 +392,7 @@ $users = DB::table('users')->get();
                                     <input type="date" name="actual_approval_date">
                                 </div>
                             </div>
-                            
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actual Withdrawn Date">Actual Withdrawn Date</label>

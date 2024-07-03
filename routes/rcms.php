@@ -3,6 +3,7 @@
 use App\Http\Controllers\demo\DemoValidationController;
 use App\Http\Controllers\newForm\CalibrationController;
 use App\Http\Controllers\newForm\EquipmentController;
+use App\Http\Controllers\newForm\MonthlyWorkingController;
 use App\Http\Controllers\newForm\NationalApprovalController;
 use App\Http\Controllers\newForm\SanctionController;
 use App\Http\Controllers\rcms\ActionItemController;
@@ -77,7 +78,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('summary/{id}', [CCController::class, 'summery_pdf']);
             Route::get('audit/{id}', [CCController::class, 'audit_pdf']);
 
-            
+
 
 
             Route::get('ccView/{id}/{type}', [DashboardController::class, 'ccView'])->name('ccView');
@@ -91,7 +92,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::resource('effectiveness', EffectivenessCheckController::class);
             Route::post('send-effectiveness/{id}', [EffectivenessCheckController::class, 'stageChange']);
             Route::post('effectiveness-reject/{id}', [EffectivenessCheckController::class, 'reject']);
-            Route::post('cancel/{id}',[EffectivenessCheckController::class,'cancel'])->name('moreinfo_effectiveness');
+            Route::post('cancel/{id}', [EffectivenessCheckController::class, 'cancel'])->name('moreinfo_effectiveness');
             Route::view('helpdesk-personnel', 'frontend.rcms.helpdesk-personnel');
             Route::view('send-notification', 'frontend.rcms.send-notification');
             Route::get('new-change-control', [CCController::class, 'changecontrol']);
@@ -122,7 +123,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('LabIncidentAuditReport/{id}', [LabIncidentController::class, 'auditReport'])->name('LabIncidentAuditReport');
             //------------------------------------
 
-            
+
             Route::post('create', [AuditProgramController::class, 'create'])->name('createAuditProgram');
             Route::get('AuditProgramShow/{id}', [AuditProgramController::class, 'AuditProgramShow'])->name('ShowAuditProgram');
             Route::post('AuditStateChange/{id}', [AuditProgramController::class, 'AuditStateChange'])->name('StateChangeAuditProgram');
@@ -179,80 +180,79 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('deviation/Qa/{id}', [DeviationController::class, 'deviation_qa_more_info'])->name('deviation_qa_more_info');
             Route::post('deviationstore', [DeviationController::class, 'store'])->name('deviationstore');
             Route::post('deviationupdate/{id}', [DeviationController::class, 'update'])->name('deviationupdate');
-             Route::get('deviation', [DeviationController::class, 'deviation']);
-             Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
-             Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
+            Route::get('deviation', [DeviationController::class, 'deviation']);
+            Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
+            Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
             // Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
-             Route::post('send-vali/{id}',[DemoValidationController::class,'stageChange'])->name('stageChange');
-             Route::post('validation/stage/{id}', [DemoValidationController::class, 'validation_send_stage'])->name('validation_send_stage');
-             Route::post('validation_rejects',[DemoValidationController::class,'validation_reject'])->name('validation_reject');
-             Route::post('validation/cancel/{id}', [DemoValidationController::class, 'validationCancel'])->name('validationCancel');
-             Route::post('validation/check/{id}', [DemoValidationController::class, 'check'])->name('validation_check');
-             Route::post('validation/check2/{id}', [DemoValidationController::class, 'check2'])->name('validation_check2');
-             Route::post('validation/check3/{id}', [DemoValidationController::class, 'check3'])->name('validation_check3');
-             Route::get('validationSingleReport/{id}', [DemoValidationController::class, 'singleReport'])->name('validationSingleReport');
-             Route::get('/audit_validationPdf/{id}', [DemoValidationController::class, 'audit_pdf2']);
+            Route::post('send-child/{id}', [DemoValidationController::class, 'stageChange'])->name('stageChange');
+            Route::post('validation/stage/{id}', [DemoValidationController::class, 'validation_send_stage'])->name('validation_send_stage');
+            Route::post('validation_rejects', [DemoValidationController::class, 'validation_reject'])->name('validation_reject');
+            Route::post('validation/cancel/{id}', [DemoValidationController::class, 'validationCancel'])->name('validationCancel');
+            Route::post('validation/check/{id}', [DemoValidationController::class, 'check'])->name('validation_check');
+            Route::post('validation/check2/{id}', [DemoValidationController::class, 'check2'])->name('validation_check2');
+            Route::post('validation/check3/{id}', [DemoValidationController::class, 'check3'])->name('validation_check3');
+            Route::get('validationSingleReport/{id}', [DemoValidationController::class, 'singleReport'])->name('validationSingleReport');
+            Route::get('/audit_validationPdf/{id}', [DemoValidationController::class, 'audit_pdf2']);
 
-             Route::get('vali_summary/{id}', [DemoValidationController::class, 'valiSummery_pdf']);
-             Route::get('vali_audit/{id}', [DemoValidationController::class, 'valiAudit_pdf']);
+            Route::get('vali_summary/{id}', [DemoValidationController::class, 'valiSummery_pdf']);
+            Route::get('vali_audit/{id}', [DemoValidationController::class, 'valiAudit_pdf']);
 
 
             //  Route::post('send-vali/{id}',[DemoValidationController::class,'stageChange'])->name('stageChange');
-             Route::post('equipment/stage/{id}', [EquipmentController::class, 'equipment_send_stage'])->name('equipment_send_stage');
-             Route::post('equipment_rejects',[EquipmentController::class,'equipment_reject'])->name('equipment_reject');
-             Route::post('equipment/cancel/{id}', [EquipmentController::class, 'equipmentCancel'])->name('equipmentCancel');
-             Route::post('equipment/check/{id}', [EquipmentController::class, 'check'])->name('equipment_check');
-             Route::post('equipment/check2/{id}', [EquipmentController::class, 'check2'])->name('equipment_check2');
-             Route::post('equipment/check3/{id}', [EquipmentController::class, 'check3'])->name('equipment_check3');
-             Route::get('equipmentSingleReport/{id}', [EquipmentController::class, 'singleReport'])->name('equipmentSingleReport');
-             Route::get('/audit_pdf/{id}', [EquipmentController::class, 'audit_pdf1']);
+            Route::post('equipment/stage/{id}', [EquipmentController::class, 'equipment_send_stage'])->name('equipment_send_stage');
+            Route::post('equipment_rejects', [EquipmentController::class, 'equipment_reject'])->name('equipment_reject');
+            Route::post('equipment/cancel/{id}', [EquipmentController::class, 'equipmentCancel'])->name('equipmentCancel');
+            Route::post('equipment/check/{id}', [EquipmentController::class, 'check'])->name('equipment_check');
+            Route::post('equipment/check2/{id}', [EquipmentController::class, 'check2'])->name('equipment_check2');
+            Route::post('equipment/check3/{id}', [EquipmentController::class, 'check3'])->name('equipment_check3');
+            Route::get('equipmentSingleReport/{id}', [EquipmentController::class, 'singleReport'])->name('equipmentSingleReport');
+            Route::get('/audit_pdf/{id}', [EquipmentController::class, 'audit_pdf1']);
 
 
-             Route::post('calibration/stage/{id}', [CalibrationController::class, 'calibration_send_stage'])->name('calibration_send_stage');
-             Route::post('calibration_rejects',[CalibrationController::class,'calibration_reject'])->name('calibration_reject');
-             Route::post('calibration/cancel/{id}', [CalibrationController::class, 'calibrationCancel'])->name('calibrationCancel');
-             Route::post('calibration/check/{id}', [CalibrationController::class, 'check'])->name('calibration_check');
-             Route::post('calibration/check2/{id}', [CalibrationController::class, 'check2'])->name('calibration_check2');
-             Route::post('calibration/check3/{id}', [CalibrationController::class, 'check3'])->name('calibration_check3');
-             Route::get('calibrationSingleReport/{id}', [CalibrationController::class, 'singleReport'])->name('calibrationSingleReport');
-             Route::get('/audit/{id}', [CalibrationController::class, 'audit_pdf']);
-             
-             //============National Approval ============
-             Route::post('national_approval/stage/{id}', [NationalApprovalController::class, 'nationalApproval_send_stage'])->name('national_approval_send_stage');
-             Route::post('national_approval_rejects',[NationalApprovalController::class,'nationalApproval_reject'])->name('nationalApprovalReject');
-             Route::post('national_approval/cancel/{id}', [NationalApprovalController::class, 'national_approvalCancel'])->name('nationalApprovalCancel');
-             Route::post('national_approval/check/{id}', [NationalApprovalController::class, 'check'])->name('national_approval_check');
-             Route::post('np_qa_more_info/{id}', [NationalApprovalController::class, 'np_qa_more_info'])->name('np_qa_more_info');
-             Route::post('national_approval/check2/{id}', [NationalApprovalController::class, 'check2'])->name('national_approval_check2');
-             Route::post('national_approval/check3/{id}', [NationalApprovalController::class, 'check3'])->name('national_approval_check3');
-             Route::get('national_approvalSingleReport/{id}', [NationalApprovalController::class, 'singleReport'])->name('national_approvalSingleReport');
-             Route::get('/np_audit/{id}', [NationalApprovalController::class, 'audit1_pdf']);
+            Route::post('calibration/stage/{id}', [CalibrationController::class, 'calibration_send_stage'])->name('calibration_send_stage');
+            Route::post('calibration_rejects', [CalibrationController::class, 'calibration_reject'])->name('calibration_reject');
+            Route::post('calibration/cancel/{id}', [CalibrationController::class, 'calibrationCancel'])->name('calibrationCancel');
+            Route::post('calibration/check/{id}', [CalibrationController::class, 'check'])->name('calibration_check');
+            Route::post('calibration/check2/{id}', [CalibrationController::class, 'check2'])->name('calibration_check2');
+            Route::post('calibration/check3/{id}', [CalibrationController::class, 'check3'])->name('calibration_check3');
+            Route::get('calibrationSingleReport/{id}', [CalibrationController::class, 'singleReport'])->name('calibrationSingleReport');
+            Route::get('/audit/{id}', [CalibrationController::class, 'audit_pdf']);
+
+            //============National Approval ============
+            Route::post('national_approval/stage/{id}', [NationalApprovalController::class, 'nationalApproval_send_stage'])->name('national_approval_send_stage');
+            Route::post('national_approval_rejects', [NationalApprovalController::class, 'nationalApproval_reject'])->name('nationalApprovalReject');
+            Route::post('national_approval/cancel/{id}', [NationalApprovalController::class, 'national_approvalCancel'])->name('nationalApprovalCancel');
+            Route::post('national_approval/check/{id}', [NationalApprovalController::class, 'check'])->name('national_approval_check');
+            Route::post('np_qa_more_info/{id}', [NationalApprovalController::class, 'np_qa_more_info'])->name('np_qa_more_info');
+            Route::post('national_approval/check2/{id}', [NationalApprovalController::class, 'check2'])->name('national_approval_check2');
+            Route::post('national_approval/check3/{id}', [NationalApprovalController::class, 'check3'])->name('national_approval_check3');
+            Route::get('national_approvalSingleReport/{id}', [NationalApprovalController::class, 'singleReport'])->name('national_approvalSingleReport');
+            Route::get('/np_audit/{id}', [NationalApprovalController::class, 'audit1_pdf']);
 
 
-             //============ Sanction =============
-             Route::post('sanction/stage/{id}', [SanctionController::class, 'sanction_send_stage'])->name('sanction_send_stage');
-             Route::post('sanction',[SanctionController::class,'sanction_reject'])->name('sanctionReject');
-             Route::post('sanction/cancel/{id}', [SanctionController::class, 'sanctionCancel'])->name('sanctionCancel');
-             Route::post('sanction/check/{id}', [SanctionController::class, 'check'])->name('sanction_check');
-             Route::post('sanction_qa_more_info/{id}', [SanctionController::class, 'sanction_qa_more_info'])->name('sanction_qa_more_info');
-             Route::post('sanction/check2/{id}', [SanctionController::class, 'check2'])->name('sanction_check2');
-             Route::post('sanction/check3/{id}', [SanctionController::class, 'check3'])->name('sanction_check3');
-             Route::get('sanctionSingleReport/{id}', [SanctionController::class, 'singleReport'])->name('sanctionSingleReport');
-             Route::get('/audit/{id}', [SanctionController::class, 'audit2_pdf']);
+            //============ Sanction =============
+            Route::post('sanction/stage/{id}', [SanctionController::class, 'sanction_send_stage'])->name('sanction_send_stage');
+            Route::post('sanction', [SanctionController::class, 'sanction_reject'])->name('sanctionReject');
+            Route::post('sanction/cancel/{id}', [SanctionController::class, 'sanctionCancel'])->name('sanctionCancel');
+            Route::post('sanction/check/{id}', [SanctionController::class, 'check'])->name('sanction_check');
+            Route::post('sanction_qa_more_info/{id}', [SanctionController::class, 'sanction_qa_more_info'])->name('sanction_qa_more_info');
+            Route::post('sanction/check2/{id}', [SanctionController::class, 'check2'])->name('sanction_check2');
+            Route::post('sanction/check3/{id}', [SanctionController::class, 'check3'])->name('sanction_check3');
+            Route::get('sanctionSingleReport/{id}', [SanctionController::class, 'singleReport'])->name('sanctionSingleReport');
+            Route::get('/audit/{id}', [SanctionController::class, 'audit2_pdf']);
 
 
-                          //============ Sanction =============
-             Route::post('monthly',[SanctionController::class,'monthly_reject'])->name('monthlyReject');
-             Route::post('monthly/cancel/{id}', [SanctionController::class, 'monthlynCancel'])->name('monthlyCancel');
-             Route::post('monthly/check/{id}', [SanctionController::class, 'check'])->name('monthly_check');
-             Route::post('monthly_qa_more_info/{id}', [SanctionController::class, 'monthly_qa_more_info'])->name('monthly_qa_more_info');
-             Route::post('monthly/check2/{id}', [SanctionController::class, 'check2'])->name('monthly_check2');
-             Route::post('monthly/check3/{id}', [SanctionController::class, 'check3'])->name('monthly_check3');
-             Route::post('sanction/stage/{id}', [SanctionController::class, 'monthly_send_stage'])->name('monthly_send_stage');
-             Route::get('monthlySingleReport/{id}', [SanctionController::class, 'singleReport'])->name('monthlySingleReport');
-             Route::get('/audit/{id}', [SanctionController::class, 'audit2_pdf']);
-
+            //============ Sanction =============
+            Route::post('monthly', [MonthlyWorkingController::class, 'monthly_reject'])->name('monthlyReject');
+            Route::post('monthly/cancel/{id}', [MonthlyWorkingController::class, 'monthlynCancel'])->name('monthlyCancel');
+            Route::post('monthly/check/{id}', [MonthlyWorkingController::class, 'check'])->name('monthly_check');
+            Route::post('monthly_qa_more_info/{id}', [MonthlyWorkingController::class, 'monthly_qa_more_info'])->name('monthly_qa_more_info');
+            Route::post('monthly/check2/{id}', [MonthlyWorkingController::class, 'check2'])->name('monthly_check2');
+            Route::post('monthly/check3/{id}', [MonthlyWorkingController::class, 'check3'])->name('monthly_check3');
+            Route::post('monthlyWorking/stage/{id}', [MonthlyWorkingController::class, 'monthly_send_stage'])->name('monthly_send_stage');
+            Route::get('monthlySingleReport/{id}', [MonthlyWorkingController::class, 'singleReport'])->name('monthlySingleReport');
+            Route::get('/audit/{id}', [MonthlyWorkingController::class, 'audit2_pdf']);
         }
     );
 });

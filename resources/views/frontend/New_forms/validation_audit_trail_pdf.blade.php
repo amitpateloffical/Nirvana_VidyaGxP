@@ -151,11 +151,11 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                 Validation Audit Trial Report
+                    Validation Audit Trial Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
-                        <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
+                        <img src="https://navin.mydemosoftware.com/public/user/images/logo.png" alt="" class="w-100">
                     </div>
                 </td>
             </tr>
@@ -166,7 +166,7 @@
                     <!-- <strong>Change Control No.</strong> -->
                 </td>
                 <td class="w-40">
-                   {{ Helpers::getDivisionName($doc->division_id) }}/Validation/{{ Helpers::year($doc->created_at)}}/ {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
+                    {{ Helpers::getDivisionName($doc->division_id) }}/Validation/{{ Helpers::year($doc->created_at)}}/ {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
@@ -198,11 +198,11 @@
                     <td class="w-50">
                         <strong>End Date (GMT) :</strong>
                         @if ($doc->stage >= 9)
-                            {{ Helpers::getDateFormat($doc->updated_at) }}
+                        {{ Helpers::getDateFormat($doc->updated_at) }}
                         @endif
                     </td>
                 </tr>
-               
+
             </table>
         </div>
 
@@ -215,32 +215,32 @@
                     <th>Change Type</th>
                 </tr>
                 @foreach ($data as $datas)
-                    <tr>
-                        <td>
-                            <div>{{ $datas->activity_type }}</div>
-                            <div>
-                                <div><strong>Changed From :</strong></div>
-                                @if(!empty($datas->previous))
-                                <div>{{ $datas->previous }}</div>
-                                @else
-                                <div>Null</div>
-                                @endif
-                            </div>
-                            <div>
-                                <div><strong>Changed To :</strong></div>
-                                <div>{{ $datas->current }}</div>
-                            </div>
-                        </td>
-                        <td>{{ Helpers::getDateFormat($datas->created_at) }}</td>
-                        <td>{{ $datas->user_name }}</td>
-                        <td>
-                            @if ($datas->previous != "NULL")
-                                Modify
+                <tr>
+                    <td>
+                        <div>{{ $datas->activity_type }}</div>
+                        <div>
+                            <div><strong>Changed From :</strong></div>
+                            @if(!empty($datas->previous))
+                            <div>{{ $datas->previous }}</div>
                             @else
-                                New
+                            <div>Null</div>
                             @endif
-                        </td>
-                    </tr>
+                        </div>
+                        <div>
+                            <div><strong>Changed To :</strong></div>
+                            <div>{{ $datas->current }}</div>
+                        </div>
+                    </td>
+                    <td>{{ Helpers::getDateFormat($datas->created_at) }}</td>
+                    <td>{{ $datas->user_name }}</td>
+                    <td>
+                        @if ($datas->previous != "NULL")
+                        Modify
+                        @else
+                        New
+                        @endif
+                    </td>
+                </tr>
                 @endforeach
             </table>
         </div>

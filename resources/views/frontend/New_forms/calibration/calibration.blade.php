@@ -10,7 +10,7 @@
     }
 </style>
 @php
-    $users = DB::table('users')->get();
+$users = DB::table('users')->get();
 @endphp
 
 <div class="form-field-head">
@@ -53,7 +53,7 @@
                             Basic Information
                         </div> <!-- RECORD NUMBER -->
                         <div class="row">
-                        <div class="col-12">
+                            <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description</label>
                                     <p class="text-primary">Short Description to be presented on dekstop</p>
@@ -61,17 +61,16 @@
                                 </div>
                             </div>
                             <div class="group-input">
-                                        <label for="RLS Record Number">Record Number</label>
-                                        <input disabled type="text" name="record"
-                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/CALIBRATION/{{ date('Y') }}/{{ $record_number }}">
+                                <label for="RLS Record Number">Record Number</label>
+                                <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/CALIBRATION/{{ date('Y') }}/{{ $record_number }}">
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Opened</b></label>
                                     <p class="text-primary">When was this record opened?</p>
-                                    <input disabled type="date" name="division_code" value="">
-                                    <input type="hidden" name="initiation_date" value="">
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
                                 </div>
                             </div>
 
@@ -98,13 +97,13 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         @foreach ($users as $key => $value)
-                                            <option value="{{ $value->id }}">
-                                                {{ $value->name }}
-                                            </option>
+                                        <option value="{{ $value->id }}">
+                                            {{ $value->name }}
+                                        </option>
                                         @endforeach
                                     </select>
                                     @error('assigned_user_id')
-                                        <p class="text-danger">{{ $message }}</p>
+                                    <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                     </select>
 
@@ -251,20 +250,20 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Approved By">Approved Type : </label>
-                               
+
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Approved on">Approved On : </label>
-                             
+
                             </div>
                         </div>
 
                         <div class="button-block">
-                        <button type="submit" class="saveButton">Save</button>
+                            <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                           
+
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>

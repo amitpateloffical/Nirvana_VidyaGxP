@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('validations', function (Blueprint $table) {
             $table->id();
-           
+
             // General Information
             $table->unsignedBigInteger('parent_id')->nullable();;
             $table->string('parent_type')->nullable();;
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('divison_code')->nullable();
             $table->string('general_initiator_group')->nullable();
             $table->string('initiator_group_code')->nullable();
-      
+
             $table->string('form_type')->nullable();
             $table->text('due_date')->nullable();
 
@@ -49,7 +49,7 @@ return new class extends Migration
             $table->longtext('comments')->nullable();
             $table->longtext('document_link')->nullable();
             $table->longtext('test_action')->nullable();
-            
+
             $table->string('related_record')->nullable();
 
             // Tests Required Section
@@ -57,36 +57,36 @@ return new class extends Migration
             $table->longtext('reference_document')->nullable();
             $table->longtext('reference_link')->nullable();
             $table->longtext('additional_references')->nullable();
-             $table->integer('record')->nullable();
-         
+            $table->integer('record')->nullable();
 
-                       // Affected Equipment fields
-                       $table->string('equipment_name_code')->nullable();
-                       $table->string('equipment_id')->nullable();
-                       $table->string('asset_no')->nullable();
-                       $table->text('remarks')->nullable();
-           
-                       // Affected Items fields
-                       $table->string('item_type')->nullable();
-                       $table->string('item_name')->nullable();
-                       $table->string('item_no')->nullable();
-           
-                       // Affected Facilities fields
-                       $table->string('facility_location')->nullable();
-                       $table->string('facility_type')->nullable();
-                       $table->string('facility_name')->nullable();
 
-                    $table->json('deviation_occurred')->nullable();
-                    $table->json('test_name')->nullable();
-                    $table->json('test_number')->nullable();
-                    $table->json('test_method')->nullable();
-                    $table->json('test_result')->nullable();
-                    $table->json('test_accepted')->nullable();
-                    $table->json('test_remarks')->nullable();
+            // Affected Equipment fields
+            $table->string('equipment_name_code')->nullable();
+            $table->string('equipment_id')->nullable();
+            $table->string('asset_no')->nullable();
+            $table->text('remarks')->nullable();
+
+            // Affected Items fields
+            $table->string('item_type')->nullable();
+            $table->string('item_name')->nullable();
+            $table->string('item_no')->nullable();
+
+            // Affected Facilities fields
+            $table->string('facility_location')->nullable();
+            $table->string('facility_type')->nullable();
+            $table->string('facility_name')->nullable();
+
+            $table->json('deviation_occurred')->nullable();
+            $table->json('test_name')->nullable();
+            $table->json('test_number')->nullable();
+            $table->json('test_method')->nullable();
+            $table->json('test_result')->nullable();
+            $table->json('test_accepted')->nullable();
+            $table->json('test_remarks')->nullable();
 
             // Affected Items Section
             $table->json('affected_items')->nullable();
-        
+
 
             $table->json('affected_equipments')->nullable();
 
@@ -122,15 +122,22 @@ return new class extends Migration
             $table->json('record_history')->nullable();
 
             $table->string('submitted_by')->nullable();
-            $table->string('evaluated_by')->nullable();           
+            $table->string('review_by')->nullable();
             $table->string('cancelled_by')->nullable();
             $table->string('cancelled_on')->nullable();
             $table->string('approved_on')->nullable();
             $table->string('rejected_on')->nullable();
+            $table->string('approved_by')->nullable();
+            $table->string('rejected_by')->nullable();
             $table->string('completed_on')->nullable();
             $table->string('submitted_on')->nullable();
-            $table->string('evaluated_on')->nullable();
-            
+            $table->string('review_on')->nullable();
+
+            $table->string('final_approved_by')->nullable();
+            $table->string('final_approved_on')->nullable();
+            $table->string('obsolete_by')->nullable();
+            $table->string('onsolete_on')->nullable();
+
             $table->timestamps();
         });
     }

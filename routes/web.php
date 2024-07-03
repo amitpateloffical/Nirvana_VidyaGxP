@@ -69,8 +69,8 @@ Route::view('rcms_check', 'frontend.rcms.makePassword');
 
 Route::get('/', [UserLoginController::class, 'userlogin']);
 Route::view('forgot-password', 'frontend.forgot-password');
-Route::get('reset-password/{token}', [UserLoginController::class,'resetPage']);
-Route::post('reset-password', [UserLoginController::class,'UpdateNewPassword']);
+Route::get('reset-password/{token}', [UserLoginController::class, 'resetPage']);
+Route::post('reset-password', [UserLoginController::class, 'UpdateNewPassword']);
 Route::get('forgetPassword-user', [UserLoginController::class, 'forgetPassword']);
 
 // Route::view('dashboard', 'frontend.dashboard');
@@ -94,9 +94,9 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     //Route::post('set/division', [DocumentController::class, 'division'])->name('division_submit');
     Route::post('dcrDivision', [DocumentController::class, 'dcrDivision'])->name('dcrDivision_submit');
     Route::get('documents/generatePdf/{id}', [DocumentController::class, 'createPDF']);
-    
+
     Route::get('documents/reviseCreate/{id}', [DocumentController::class, 'revise_create']);
-    
+
     Route::get('documents/printPDF/{id}', [DocumentController::class, 'printPDF']);
     Route::get('documents/viewpdf/{id}', [DocumentController::class, 'viewPdf']);
     Route::resource('documentsContent', DocumentContentController::class);
@@ -146,7 +146,7 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     //-----------------------QMS----------------
     // Route::get('qms-dashboard', [RcmsDashboardController::class, 'index']);
 });
-       
+
 // ====================================Capa=======================
 Route::get('capa', [CapaController::class, 'capa']);
 Route::post('capastore', [CapaController::class, 'capastore'])->name('capastore');
@@ -186,7 +186,7 @@ Route::post('reject_Risk/{id}', [RiskManagementController::class, 'RejectStateCh
 
 Route::get('riskAuditTrial/{id}', [RiskManagementController::class, 'riskAuditTrial']);
 Route::get('auditDetailsrisk/{id}', [RiskManagementController::class, 'auditDetailsrisk'])->name('showriskAuditDetails');
-Route::post('child/{id}',[RiskManagementController::class,'child'])->name('riskAssesmentChild');
+Route::post('child/{id}', [RiskManagementController::class, 'child'])->name('riskAssesmentChild');
 
 
 
@@ -307,14 +307,14 @@ Route::view('audit-pdf', 'frontend.documents.audit-pdf');
 //!                    RCMS
 //! ============================================
 
-Route::get('chart-data',[DesktopController::class, 'fetchChartData']);
-Route::get('chart-data-releted',[DesktopController::class, 'fetchChartDataDepartmentReleted']);
-Route::get('chart-data-initialDeviationCategory',[DesktopController::class, 'fetchChartDataInitialDeviationCategory']);
-Route::get('chart-data-postCategorizationOfDeviation',[DesktopController::class, 'fetchChartDataPostCategorizationOfDeviation']);
-Route::get('chart-data-capa',[DesktopController::class, 'fetchChartDataCapa']);
+Route::get('chart-data', [DesktopController::class, 'fetchChartData']);
+Route::get('chart-data-releted', [DesktopController::class, 'fetchChartDataDepartmentReleted']);
+Route::get('chart-data-initialDeviationCategory', [DesktopController::class, 'fetchChartDataInitialDeviationCategory']);
+Route::get('chart-data-postCategorizationOfDeviation', [DesktopController::class, 'fetchChartDataPostCategorizationOfDeviation']);
+Route::get('chart-data-capa', [DesktopController::class, 'fetchChartDataCapa']);
 
-Route::get('chart-data-dep',[DesktopController::class, 'fetchChartDataDepartment']);
-Route::get('chart-data-statuswise',[DesktopController::class, 'fatchStatuswise']);
+Route::get('chart-data-dep', [DesktopController::class, 'fetchChartDataDepartment']);
+Route::get('chart-data-statuswise', [DesktopController::class, 'fatchStatuswise']);
 
 Route::view('rcms_login', 'frontend.rcms.login');
 
@@ -414,7 +414,7 @@ Route::view('renewal', 'frontend.new_forms.renewal');
 //! ============================================
 // Route::view('validation', 'frontend.new_forms.validation');
 //Validation form  route
-Route::get('/validation',[DemoValidationController::class,'validationIndex'])->name('create');
+Route::get('/validation', [DemoValidationController::class, 'validationIndex'])->name('create');
 Route::post('/validation-create', [DemoValidationController::class, 'store'])->name('validation_store');
 Route::get('/validation/{id}/edit', [DemoValidationController::class, 'validationEdit'])->name('validation.edit');
 Route::put('/validation/{id}', [DemoValidationController::class, 'validationUpdate'])->name('validation.update');
@@ -425,7 +425,7 @@ Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValid
 //=============================
 //              New Forms - Equipment
 //=============================
-Route::get('equipmentCreate', [EquipmentController::class,'equipmentIndex'])->name('create');
+Route::get('equipmentCreate', [EquipmentController::class, 'equipmentIndex'])->name('create');
 Route::post('/equipmentCreate', [EquipmentController::class, 'equipmentStore'])->name('equipment.store');
 Route::get('/equipment/{id}/edit', [EquipmentController::class, 'equipmentEdit'])->name('equipment.edit');
 Route::put('/equipment/{id}', [EquipmentController::class, 'equipmentUpdate'])->name('equipment.update');
@@ -436,7 +436,7 @@ Route::post('equipment_child/{id}', [EquipmentController::class, 'equipment_chil
 
 // =============== New forms - Calibration =================
 
-Route::get('calibration',[CalibrationController::class, 'calibrationIndex']);
+Route::get('calibration', [CalibrationController::class, 'calibrationIndex']);
 Route::post('/calibrationCreate', [CalibrationController::class, 'calibrationStore'])->name('calibration.store');
 Route::get('/calibration/{id}/edit', [CalibrationController::class, 'calibrationEdit'])->name('calibration.edit');
 Route::put('/calibration/{id}', [CalibrationController::class, 'calibrationUpdate'])->name('calibration.update');
@@ -472,7 +472,7 @@ Route::view('commitment', 'frontend.Registration-Tracking.commitment');
 //=================== National  Approval ====================//
 Route::get('national-approval', [NationalApprovalController::class, 'index']);
 Route::post('/nationalApproval', [NationalApprovalController::class, 'npStore'])->name('national_approval.store');
-Route::get('/national_approval/{id}/edit',[NationalApprovalController::class, 'npEdit'])->name('national_approval.edit');
+Route::get('/national_approval/{id}/edit', [NationalApprovalController::class, 'npEdit'])->name('national_approval.edit');
 Route::put('/np_update/{id}', [NationalApprovalController::class, 'npUpdate'])->name('national_approval.update');
 Route::post('np_child/{id}', [NationalApprovalController::class, 'np_child_1'])->name('np_child_1');
 Route::get('audit_trail_np/{id}', [NationalApprovalController::class, 'audit_NationalApproval']);
@@ -483,7 +483,7 @@ Route::get('npAuditTrialDetails/{id}', [NationalApprovalController::class, 'nati
 // Route::view('sanction', 'frontend.ehs.sanction');
 Route::get('sanction', [SanctionController::class, 'index']);
 Route::post('/sanction', [SanctionController::class, 'sanctionStore'])->name('sanction.store');
-Route::get('/sanction/{id}/edit',[SanctionController::class, 'sanctionEdit'])->name('sanction.edit');
+Route::get('/sanction/{id}/edit', [SanctionController::class, 'sanctionEdit'])->name('sanction.edit');
 Route::put('/sanction_update/{id}', [SanctionController::class, 'sanctionUpdate'])->name('sanction.update');
 Route::post('sanction_child/{id}', [SanctionController::class, 'sanction_child_1'])->name('sanction_child_1');
 Route::get('audit_trail_sanction/{id}', [SanctionController::class, 'audit_Sanction']);
@@ -494,7 +494,7 @@ Route::get('sanctionAuditTrialDetails/{id}', [SanctionController::class, 'sancti
 
 Route::get('monthly_working', [MonthlyWorkingController::class, 'index']);
 Route::post('/monthly_working', [MonthlyWorkingController::class, 'monthly_workingStore'])->name('monthly_working.store');
-Route::get('/monthly_working/{id}/edit',[MonthlyWorkingController::class, 'monthly_workingEdit'])->name('monthly_working.edit');
+Route::get('/monthly_working/{id}/edit', [MonthlyWorkingController::class, 'monthly_workingEdit'])->name('monthly_working.edit');
 Route::put('/monthly_working_update/{id}', [MonthlyWorkingController::class, 'monthly_workingUpdate'])->name('monthly_working.update');
 Route::post('monthly_working_child/{id}', [MonthlyWorkingController::class, 'monthly_working_child_1'])->name('monthly_working_child_1');
 Route::get('audit_trail_monthly_working/{id}', [MonthlyWorkingController::class, 'audit_monthly_working']);

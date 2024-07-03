@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('national_approval_grids', function (Blueprint $table) {
+        Schema::create('validation_grids', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('national_id')->nullable();
+
+            $table->unsignedBigInteger('validation_id')->nullable();
             $table->string('identifier')->nullable();
             $table->longtext('data')->nullable();
 
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('national_approval_grids');
+        Schema::dropIfExists('validation_grids');
     }
 };

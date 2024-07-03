@@ -30,10 +30,11 @@ class NationalApprovalController extends Controller
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
+
         return view('frontend.New_forms.national-approval.national-approval', compact('old_record', 'record_number', 'currentDate', 'formattedDate', 'due_date'));
     }
 
-     public function npStore(Request $request)
+    public function npStore(Request $request)
     {
 
         try {
@@ -110,7 +111,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -127,7 +128,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -143,7 +144,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->comment = "Not Applicable";
                 $validation2->save();
@@ -161,7 +162,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -178,7 +179,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -195,7 +196,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -212,7 +213,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -230,7 +231,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -248,7 +249,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -265,7 +266,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -282,7 +283,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -300,7 +301,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -317,7 +318,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -334,7 +335,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -351,7 +352,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -368,7 +369,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -385,7 +386,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -402,7 +403,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -423,6 +424,7 @@ class NationalApprovalController extends Controller
         $packagingDetails = NationalApprovalGrid::where('national_id', $id)->where('identifier', 'details')->first();
 
         $details = $packagingDetails ? json_decode($packagingDetails->data, true) : [];
+        // $national->formatted_initiation_date = Carbon::parse($national->initiation_date)->format('d-m-y');
 
         return view('frontend.New_forms.national-approval.np_update', compact('national', 'details'));
     }
@@ -509,7 +511,7 @@ class NationalApprovalController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->manufacturer != $request->manufacture)  {
+            if ($lastDocument->manufacturer != $request->manufacture) {
                 $validation2 = new NationalApprovalAudit();
                 $validation2->nationalApproval_id = $national1->id;
                 $validation2->activity_type = '(Root Parent) Trade Name';
@@ -526,7 +528,7 @@ class NationalApprovalController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->trade_name != $request->trade_name)  {
+            if ($lastDocument->trade_name != $request->trade_name) {
                 $validation2 = new NationalApprovalAudit();
                 $validation2->nationalApproval_id = $national1->id;
                 $validation2->previous = $lastDocument->short_description;
@@ -543,7 +545,7 @@ class NationalApprovalController extends Controller
                 $validation2->save();
             }
 
-            if ($lastDocument->initiation_date != $request->initiation_date)  {
+            if ($lastDocument->initiation_date != $request->initiation_date) {
                 $validation2 = new NationalApprovalAudit();
                 $validation2->nationalApproval_id = $national1->id;
                 $validation2->activity_type = 'Initiation Date';
@@ -812,8 +814,6 @@ class NationalApprovalController extends Controller
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $equipment = NationalApproval::find($id);
             $lastDocument = NationalApproval::find($id);
-            // $nationalDetails = NationalApprovalStage::withoutTrashed()->where(['status' => 'In-progress', 'nationa_id' => $id])->distinct('national_user_id')->count();
-
 
             if (!$equipment) {
                 toastr()->error('National Approval not found');
@@ -825,19 +825,22 @@ class NationalApprovalController extends Controller
                 $equipment->status = "Authority Assessment";
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
-                // $equipment->submit_comment = $request->comment;
+                $equipment->submit_comment = $request->comment;
 
                 $validation2 = new NationalApprovalAudit();
                 $validation2->national_id = $id;
                 $validation2->activity_type = 'Activity Log';
-                $validation2->previous = "";
                 $validation2->current = $equipment->submit_by;
                 $validation2->comment = $request->comment;
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_from = $lastDocument->status;
-                // $validation2->stage = 'Plan Proposed';
+                $validation2->action = 'submit';
+                $validation2->change_to = "Authority Assessment";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -849,18 +852,21 @@ class NationalApprovalController extends Controller
 
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
-                // $equipment->submit_comment = $request->comment;
+                $equipment->submit_comment = $request->comment;
 
                 $validation2 = new NationalApprovalAudit();
                 $validation2->national_id = $id;
                 $validation2->activity_type = 'Activity Log';
-                $validation2->previous = "";
                 $validation2->current = $equipment->submit_by;
                 $validation2->comment = $request->comment;
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'submit';
+                $validation2->change_to = "Approved";
+                $validation2->stage = 'Submited';
+                $validation2->save();
 
                 $equipment->update();
                 toastr()->success('Document Sent');
@@ -873,18 +879,21 @@ class NationalApprovalController extends Controller
 
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
-                // $equipment->submit_comment = $request->comment;
+                $equipment->submit_comment = $request->comment;
 
                 $validation2 = new NationalApprovalAudit();
                 $validation2->national_id = $id;
                 $validation2->activity_type = 'Activity Log';
-                $validation2->previous = "";
                 $validation2->current = $equipment->submit_by;
                 $validation2->comment = $request->comment;
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'submit';
+                $validation2->change_to = "Approved";
+                $validation2->stage = 'Submited';
+                $validation2->save();
 
                 $equipment->update();
                 toastr()->success('Document Sent');
@@ -894,6 +903,26 @@ class NationalApprovalController extends Controller
             if ($equipment->stage == 4) {
                 $equipment->stage = "3";
                 $equipment->status = "Update Ongoing";
+
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+                $equipment->submit_comment = $request->comment;
+
+                $validation2 = new NationalApprovalAudit();
+                $validation2->national_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'submit';
+                $validation2->change_to = "Update Ongoing";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();

@@ -1,8 +1,8 @@
 @extends('frontend.layout.main')
 @section('container')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.js"></script>
 <style>
     textarea.note-codable {
         display: none !important;
@@ -24,7 +24,11 @@
 
         // Format date to DD-MMM-YYYY
         function formatDateToDisplay(date) {
-            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            const options = {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            };
             return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
         }
 
@@ -47,7 +51,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Function to format a date to DD-MMM-YYYY
         function formatDate(date) {
-            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            const options = {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            };
             return new Date(date).toLocaleDateString('en-GB', options).replace(/ /g, '-');
         }
 
@@ -95,9 +103,9 @@
     });
 </script> -->
 
-    @php
-        $users = DB::table('users')->get();
-    @endphp
+@php
+$users = DB::table('users')->get();
+@endphp
 <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
@@ -145,20 +153,19 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="RLS Record Number">Record Number</label>
-                                        <input disabled type="text" name="record"
-                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/VALIDATION/{{ date('Y') }}/{{ $record_number }}">
-                                    
-                                    </div>
+                                <div class="group-input">
+                                    <label for="RLS Record Number">Record Number</label>
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/VALIDATION/{{ date('Y') }}/{{ $record_number }}">
+
                                 </div>
-                                        <div class="col-lg-6">
-                                        <div class="group-input">
-                                            <label for="Division Code"><b>Date Of Initiation</b></label>
-                                            <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
-                                            <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="intiation_date">
-                                        </div>
-                                       </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Date Of Initiation</b></label>
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="intiation_date">
+                                </div>
+                            </div>
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -176,30 +183,30 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         @foreach ($users as $key => $value)
-                                            <option value="{{ $value->id }}">
-                                                {{ $value->name }}
-                                            </option>
+                                        <option value="{{ $value->id }}">
+                                            {{ $value->name }}
+                                        </option>
                                         @endforeach
                                     </select>
                                     @error('assigned_user_id')
-                                        <p class="text-danger">{{ $message }}</p>
+                                    <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
 
                             <div class="col-md-6 new-date-data-field">
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <div>
-                                        <small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
-                                    </div>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="assign_due_date_display" readonly placeholder="DD-MMM-YYYY">
-                                        <input type="hidden" name="assign_due_date" id="assign_due_date">
+                                <div class="col-md-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                        <div>
+                                            <small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
+                                        </div>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="assign_due_date_display" readonly placeholder="DD-MMM-YYYY">
+                                            <input type="hidden" name="assign_due_date" id="assign_due_date">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
                             </div>
 
@@ -221,9 +228,9 @@
                                     <label for="validation_due_date">Date Due <span class="text-danger"></span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                    <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                   
+                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+
                                     </div>
                                 </div>
                             </div>
@@ -396,13 +403,14 @@
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Affected Equipment(0)
-                                    <button type="button" name="equipment" id="Affected_equipment_add">+</button>
+                                    <button type="button" name="details" id="Affected_equipment_add">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
                                     </span>
                                 </label>
+
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Affected_equipment_Table">
+                                    <table class="table table-bordered" id="Details-table">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -410,23 +418,54 @@
                                                 <th style="width: 16%">Equipment ID</th>
                                                 <th style="width: 16%">Asset No</th>
                                                 <th style="width: 16%">Remarks</th>
-
-
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="equipment_name_code[]"></td>
-                                            <td><input type="text" name="equipment_id[]"></td>
-                                            <td><input type="text" name="asset_no[]"></td>
-                                            <td><input type="text" name="remarks[]"></td>
+                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
+                                            <td><input type="text" name="details[0][equipment_name_code]"></td>
+                                            <td><input type="text" name="details[0][equipment_id]"></td>
+                                            <td><input type="text" name="details[0][asset_no]"></td>
+                                            <td><input type="text" name="details[0][remarks]"></td>
 
                                         </tbody>
 
                                     </table>
                                 </div>
                             </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Affected_equipment_add').click(function(e) {
+                                        function generateTableRow(serialNumber) {
+                                            var html = '';
+                                            html += '<tr>' +
+                                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
+                                                '"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber +
+                                                '][equipment_name_code]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][equipment_id]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][asset_no]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][remarks]"></td>' +
+                                                // '<td><button type="text" class="removeRowBtn" >Remove</button></td>' +
+                                                '</tr>';
 
+                                            // for (var i = 0; i < users.length; i++) {
+                                            //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                                            // }
+
+                                            // html += '</select></td>' +
+
+                                            '</tr>';
+
+                                            return html;
+                                        }
+
+                                        var tableBody = $('#Details-table tbody');
+                                        var rowCount = tableBody.children('tr').length;
+                                        var newRow = generateTableRow(rowCount + 1);
+                                        tableBody.append(newRow);
+                                    });
+                                });
+                            </script>
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
@@ -437,7 +476,7 @@
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Affected_item_Table">
+                                    <table class="table table-bordered" id="Details-table">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -448,19 +487,50 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="item_type[]"></td>
-                                            <td><input type="text" name="item_name[]"></td>
-                                            <td><input type="text" name="item_no[]"></td>
-                                            <td><input type="text" name="item_remarks[]"></td>
-
-
+                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
+                                            <td><input type="text" name="details[0][item_type]"></td>
+                                            <td><input type="text" name="details[0][item_name]"></td>
+                                            <td><input type="text" name="details[0][item_no]"></td>
+                                            <td><input type="text" name="details[0][item_remarks]"></td>
                                         </tbody>
 
                                     </table>
                                 </div>
                             </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Affected_item_add').click(function(e) {
+                                        function generateTableRow(serialNumber) {
+                                            var html = '';
+                                            html += '<tr>' +
+                                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
+                                                '"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber +
+                                                '][item_type]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][item_name]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][item_no]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][item_remarks]"></td>' +
+                                                // '<td><button type="text" class="removeRowBtn" >Remove</button></td>' +
+                                                '</tr>';
 
+                                            // for (var i = 0; i < users.length; i++) {
+                                            //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                                            // }
+
+                                            // html += '</select></td>' +
+
+                                            '</tr>';
+
+                                            return html;
+                                        }
+
+                                        var tableBody = $('#Details-table tbody');
+                                        var rowCount = tableBody.children('tr').length;
+                                        var newRow = generateTableRow(rowCount + 1);
+                                        tableBody.append(newRow);
+                                    });
+                                });
+                            </script>
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
@@ -471,7 +541,7 @@
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Affected_facilities_Table">
+                                    <table class="table table-bordered" id="Details-table">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -482,17 +552,52 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="facility_location[]"></td>
-                                            <td><input type="text" name="facility_type[]"></td>
-                                            <td><input type="text" name="facility_name[]"></td>
-                                            <td><input type="text" name="facility_remarks[]"></td>
+                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
+                                            <td><input type="text" name="details[0][facility_location]"></td>
+                                            <td><input type="text" name="details[0][facility_type]"></td>
+                                            <td><input type="text" name="details[0][facility_name]"></td>
+                                            <td><input type="text" name="details[0][facility_remarks]"></td>
+
                                         </tbody>
 
                                     </table>
                                 </div>
                             </div>
 
+                            <script>
+                                $(document).ready(function() {
+                                    $('#Affected_facilities_add').click(function(e) {
+                                        function generateTableRow(serialNumber) {
+                                            var html = '';
+                                            html += '<tr>' +
+                                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
+                                                '"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber +
+                                                '][facility_location]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][facility_type]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][facility_name]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][facility_remarks]"></td>' +
+                                                // '<td><button type="text" class="removeRowBtn" >Remove</button></td>' +
+                                                '</tr>';
+
+                                            // for (var i = 0; i < users.length; i++) {
+                                            //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                                            // }
+
+                                            // html += '</select></td>' +
+
+                                            '</tr>';
+
+                                            return html;
+                                        }
+
+                                        var tableBody = $('#Details-table tbody');
+                                        var rowCount = tableBody.children('tr').length;
+                                        var newRow = generateTableRow(rowCount + 1);
+                                        tableBody.append(newRow);
+                                    });
+                                });
+                            </script>
 
 
                             <div class="col-lg-6">
@@ -635,7 +740,7 @@
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="SummaryOfResults_Table">
+                                    <table class="table table-bordered" id="Details-table">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -650,20 +755,59 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="deviation_occured[]"></td>
-                                            <td><input type="text" name="test_name[]"></td>
-                                            <td><input type="text" name="test_number[]"></td>
-                                            <td><input type="text" name="test_method[]"></td>
-                                            <td><input type="text" name="test_result[]"></td>
-                                            <td><input type="text" name="test_accepted[]"></td>
-                                            <td><input type="text" name="remarks[]"></td>
 
+                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
+                                            <td><input type="text" name="details[0][deviation_occured]"></td>
+                                            <td><input type="text" name="details[0][test_name]"></td>
+                                            <td><input type="text" name="details[0][test_number]"></td>
+                                            <td><input type="text" name="details[0][test_method]"></td>
+                                            <td><input type="text" name="details[0][test_result]"></td>
+                                            <td><input type="text" name="details[0][test_accepted]"></td>
+                                            <td><input type="text" name="details[0][remarks]"></td>
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
+
+                            <script>
+                                $(document).ready(function() {
+                                    $('#SummaryOfResults_add').click(function(e) {
+                                        function generateTableRow(serialNumber) {
+                                            var html = '';
+                                            html += '<tr>' +
+                                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
+                                                '"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber +
+                                                '][deviation_occured]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][test_name]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][test_number]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][test_method]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][test_result]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][test_accepted]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][remarks]"></td>' +
+                                                // '<td><button type="text" class="removeRowBtn" >Remove</button></td>' +
+                                                '</tr>';
+
+                                            // for (var i = 0; i < users.length; i++) {
+                                            //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                                            // }
+
+                                            // html += '</select></td>' +
+
+                                            '</tr>';
+
+                                            return html;
+                                        }
+
+                                        var tableBody = $('#Details-table tbody');
+                                        var rowCount = tableBody.children('tr').length;
+                                        var newRow = generateTableRow(rowCount + 1);
+                                        tableBody.append(newRow);
+                                    });
+                                });
+                            </script>
+
+
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -693,25 +837,25 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="submitted by">Submitted Protocol By</label>
+                                    <label for="submitted_by">Submitted Protocol By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="submitted on">Submitted Protocol On</label>
+                                    <label for="submitted_on">Submitted Protocol On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reviewed by">Cancelled By</label>
+                                    <label for="cancelled_by">Cancelled By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Cancelled on">Cancelled On</label>
+                                    <label for="Cancelled_on">Cancelled On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
@@ -719,13 +863,13 @@
                             <div class="sub-head">Review</div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reviewed by">Review By</label>
+                                    <label for="review_by">Review By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Review on">Review On</label>
+                                    <label for="review_on">Review On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
@@ -735,13 +879,13 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Plan_Approved_by1">1st Final Approval By</label>
+                                    <label for="approved_by">1st Final Approval By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Plan_Approved_on1">1st Final Approval On</label>
+                                    <label for="approved_on">1st Final Approval On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
@@ -787,7 +931,7 @@
                             </div>
 
                             <div class="button-block">
-                                
+
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
                                 <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
@@ -796,7 +940,7 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
         </form>
 
     </div>
@@ -973,7 +1117,7 @@
                     '<td><input type="text" name="Test-Method[]"></td>' +
                     '<td><input type="text" name="Test-Result[]"></td>' +
                     '<td><input type="text" name="Test-Accepted[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>'+
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
                     '</tr>';
 
@@ -999,7 +1143,7 @@
                     '<td><input type="text" name="EquipmentName/Code[]"></td>' +
                     '<td><input type="text" name="EquipmentID[]"></td>' +
                     '<td><input type="text" name="AssetNo[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>'+
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
                     '</tr>';
 
@@ -1025,7 +1169,7 @@
                     '<td><input type="text" name="ItemType[]"></td>' +
                     '<td><input type="text" name="ItemName[]"></td>' +
                     '<td><input type="text" name="ItemNo[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>'+
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
                     '</tr>';
 
@@ -1050,7 +1194,7 @@
                     '<td><input type="text" name="Facility-Location[]"></td>' +
                     '<td><input type="text" name="Facility-Type[]"></td>' +
                     '<td><input type="text" name="Facility-Name[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>'+
+                    '<td><input type="text" name="Remarks[]"></td>' +
 
                     '</tr>';
 

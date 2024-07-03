@@ -18,7 +18,7 @@ use App\Models\RoleGroup;
 use App\Models\User;
 
 use App\Models\RecordNumber;
-
+use App\Models\ValidationGrid;
 
 class DemoValidationController extends Controller
 {
@@ -34,7 +34,7 @@ class DemoValidationController extends Controller
     }
     public function store(Request $request)
     {
-       
+
 
         $request->validate([
             'file_attachment.*' => 'required|mimes:jpg,png,pdf,doc,docx|max:2048',
@@ -46,7 +46,6 @@ class DemoValidationController extends Controller
 
             $recordCounter->counter = $newRecordNumber;
             $recordCounter->save();
-
 
             $validation = new Validation();
 
@@ -106,13 +105,7 @@ class DemoValidationController extends Controller
             $validation->reference_link = $request->input('reference_link');
             $validation->additional_references = $request->input('additional_references');
 
-            // Affected Items Section
-            $affectedItems = [
-                'equipment' => $request->input('equipment'),
-                'items' => $request->input('items'),
-                'facilities' => $request->input('facilities')
-            ];
-            $validation->affected_items = json_encode($affectedItems);
+
 
 
             if (!empty($request->items_attachment)) {
@@ -126,38 +119,6 @@ class DemoValidationController extends Controller
                 }
                 $validation->items_attachment = json_encode($files);
             }
-
-            $equipmentNameCode = $request->input('equipment_name_code');
-            $validation->equipment_name_code = is_array($equipmentNameCode) ? implode(', ', $equipmentNameCode) : $equipmentNameCode;
-
-            $equipmentId = $request->input('equipment_id');
-            $validation->equipment_id = is_array($equipmentId) ? implode(', ', $equipmentId) : $equipmentId;
-
-            $assetNo = $request->input('asset_no');
-            $validation->asset_no = is_array($assetNo) ? implode(', ', $assetNo) : $assetNo;
-
-            $remarks = $request->input('remarks');
-            $validation->remarks = is_array($remarks) ? implode(', ', $remarks) : $remarks;
-
-            // Handle Affected Items
-            $itemType = $request->input('item_type');
-            $validation->item_type = is_array($itemType) ? implode(', ', $itemType) : $itemType;
-
-            $itemName = $request->input('item_name');
-            $validation->item_name = is_array($itemName) ? implode(', ', $itemName) : $itemName;
-
-            $itemNo = $request->input('item_no');
-            $validation->item_no = is_array($itemNo) ? implode(', ', $itemNo) : $itemNo;
-
-            // Handle Affected Facilities
-            $facilityLocation = $request->input('facility_location');
-            $validation->facility_location = is_array($facilityLocation) ? implode(', ', $facilityLocation) : $facilityLocation;
-
-            $facilityType = $request->input('facility_type');
-            $validation->facility_type = is_array($facilityType) ? implode(', ', $facilityType) : $facilityType;
-
-            $facilityName = $request->input('facility_name');
-            $validation->facility_name = is_array($facilityName) ? implode(', ', $facilityName) : $facilityName;
 
 
             // Document Decision
@@ -203,40 +164,15 @@ class DemoValidationController extends Controller
 
             $validation->test_actions_comments = $request->input('test_actions_comments');
 
-            // Record Type History
-            $recordHistory = [
-                'submitted_protocol' => [
-                    'by' => $request->input('submitted_protocol_by'),
-                    'on' => $request->input('submitted_protocol_on')
-                ],
-                'cancelled' => [
-                    'by' => $request->input('cancelled_by'),
-                    'on' => $request->input('cancelled_on')
-                ],
-                'review' => [
-                    'by' => $request->input('review_by'),
-                    'on' => $request->input('review_on')
-                ],
-                'final_approval_1' => [
-                    'by' => $request->input('final_approval_1_by'),
-                    'on' => $request->input('final_approval_1_on')
-                ],
-                'final_approval_2' => [
-                    'by' => $request->input('final_approval_2_by'),
-                    'on' => $request->input('final_approval_2_on')
-                ],
-                'report_reject' => [
-                    'by' => $request->input('report_reject_by'),
-                    'on' => $request->input('report_reject_on')
-                ],
-                'obsolete' => [
-                    'by' => $request->input('obsolete_by'),
-                    'on' => $request->input('obsolete_on')
-                ]
-            ];
-            $validation->record_history = json_encode($recordHistory);
-
             $validation->save();
+
+            // Grid Start
+            $validation_id = $validation->id;
+            $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'details'])->firstOrCreate();
+            $newDataGridErrata->validation_id = $validation_id;
+            $newDataGridErrata->identifier = 'details';
+            $newDataGridErrata->data = $request->details;
+            $newDataGridErrata->save();
 
             if (!empty($request->short_description)) {
                 $validation2 = new ValidationAudit();
@@ -247,9 +183,9 @@ class DemoValidationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                
+
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -266,7 +202,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -283,7 +219,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -300,7 +236,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -317,7 +253,7 @@ class DemoValidationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -335,7 +271,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -353,7 +289,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -370,7 +306,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -387,7 +323,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -405,7 +341,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -422,7 +358,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -439,7 +375,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -449,14 +385,14 @@ class DemoValidationController extends Controller
                 $validation2->validation_id = $validation->id;
                 $validation2->activity_type = 'Download Templates';
                 $validation2->previous = "Null";
-                $validation2->current = $request->file_attechment;
+                $validation2->current = json_encode($request->file_attechment);
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -473,7 +409,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -490,7 +426,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -507,7 +443,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -524,7 +460,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -542,7 +478,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "Initiator";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -556,11 +492,15 @@ class DemoValidationController extends Controller
     }
 
 
-
     public function validationEdit($id)
     {
         $validation = Validation::findOrFail($id);
-        return view('frontend.new_forms.updateValidation', compact('validation'));
+
+        $packagingDetails = ValidationGrid::where('validation_id', $id)->where('identifier', 'details')->first();
+
+        $details = $packagingDetails ? json_decode($packagingDetails->data, true) : [];
+
+        return view('frontend.new_forms.updateValidation', compact('validation', 'details'));
     }
 
     public function validationUpdate(Request $request, $id)
@@ -580,9 +520,7 @@ class DemoValidationController extends Controller
             $lastDocument =  Validation::findOrFail($id);
 
             // General Information
-            // $validation->parent_id = $request->input('parent_id');
-            // $validation->parent_type = $request->input('parent_type');
-            // $validations->initiator_id = Auth::user()->id;
+
             $validations->intiation_date = $request->intiation_date;
             $validations->short_description = $request->input('short_description');
             $validations->assign_to = $request->input('assign_to');
@@ -595,7 +533,6 @@ class DemoValidationController extends Controller
             $validations->purpose = $request->input('purpose');
             $validations->validation_category = $request->input('validation_category');
             $validations->validation_sub_category = $request->input('validation_sub_category');
-            // $validation->file_attechment = $request->input('file_attechment');
             $validations->related_record = $request->input('related_record');
             $validations->document_link = $request->input('document_link');
             $validations->file_attechment = $request->file_attechment;
@@ -620,13 +557,7 @@ class DemoValidationController extends Controller
             $validations->reference_link = $request->input('reference_link');
             $validations->additional_references = $request->input('additional_references');
 
-            // Affected Items Section
-            $affectedItems = [
-                'equipment' => $request->input('equipment'),
-                'items' => $request->input('items'),
-                'facilities' => $request->input('facilities')
-            ];
-            $validations->affected_items = json_encode($affectedItems);
+
 
             // Attachments
             if (!empty($request->items_attachment)) {
@@ -641,40 +572,6 @@ class DemoValidationController extends Controller
                 $validations->items_attachment = json_encode($files);
             }
 
-            $validations->additional_attachment_items = $request->input('additional_attachment_items');
-
-
-            $equipmentNameCode = $request->input('equipment_name_code');
-            $validations->equipment_name_code = is_array($equipmentNameCode) ? implode(', ', $equipmentNameCode) : $equipmentNameCode;
-
-            $equipmentId = $request->input('equipment_id');
-            $validations->equipment_id = is_array($equipmentId) ? implode(', ', $equipmentId) : $equipmentId;
-
-            $assetNo = $request->input('asset_no');
-            $validations->asset_no = is_array($assetNo) ? implode(', ', $assetNo) : $assetNo;
-
-            $remarks = $request->input('remarks');
-            $validations->remarks = is_array($remarks) ? implode(', ', $remarks) : $remarks;
-
-            // Handle Affected Items
-            $itemType = $request->input('item_type');
-            $validations->item_type = is_array($itemType) ? implode(', ', $itemType) : $itemType;
-
-            $itemName = $request->input('item_name');
-            $validations->item_name = is_array($itemName) ? implode(', ', $itemName) : $itemName;
-
-            $itemNo = $request->input('item_no');
-            $validations->item_no = is_array($itemNo) ? implode(', ', $itemNo) : $itemNo;
-
-            // Handle Affected Facilities
-            $facilityLocation = $request->input('facility_location');
-            $validations->facility_location = is_array($facilityLocation) ? implode(', ', $facilityLocation) : $facilityLocation;
-
-            $facilityType = $request->input('facility_type');
-            $validations->facility_type = is_array($facilityType) ? implode(', ', $facilityType) : $facilityType;
-
-            $facilityName = $request->input('facility_name');
-            $validations->facility_name = is_array($facilityName) ? implode(', ', $facilityName) : $facilityName;
 
 
             // Document Decision
@@ -701,74 +598,14 @@ class DemoValidationController extends Controller
                 $validations->result_attachment = json_encode($files);
             }
 
-            $deviationOccurred = $request->input('deviation_occurred');
-            $validations->deviation_occurred = is_array($deviationOccurred) ? implode(', ', $deviationOccurred) : $deviationOccurred;
-
-            $testName = $request->input('test_name');
-            $validations->test_name = is_array($testName) ? implode(', ', $testName) : $testName;
-
-            $testNumber = $request->input('test_number');
-            $validations->test_number = is_array($testNumber) ? implode(', ', $testNumber) : $testNumber;
-
-            $testMethod = $request->input('test_method');
-            $validations->test_method = is_array($testMethod) ? implode(', ', $testMethod) : $testMethod;
-
-            $testResult = $request->input('test_result');
-            $validations->test_result = is_array($testResult) ? implode(', ', $testResult) : $testResult;
-
-            $testAccepted = $request->input('test_accepted');
-            $validations->test_accepted = is_array($testAccepted) ? implode(', ', $testAccepted) : $testAccepted;
-
-            $remarks = $request->input('remarks');
-            $validations->remarks = is_array($remarks) ? implode(', ', $remarks) : $remarks;
-            // $validations->deviation_occurred = json_encode($request->input('deviation_occurred'));
-            // $validations->test_name = json_encode($request->input('test_name'));
-            // $validations->test_number = json_encode($request->input('test_number'));
-            // $validations->test_method = json_encode($request->input('test_method'));
-            // $validations->test_result = json_encode($request->input('test_result'));
-            // $validations->test_accepted = json_encode($request->input('test_accepted'));
-            // $validations->remarks = json_encode($request->input('remarks'));
-
-            // Summary of Results
-            $summaryOfResults = $request->input('summary_of_results');
-            $validations->summary_of_results = json_encode($summaryOfResults);
-
-            $validations->test_actions_comments = $request->input('test_actions_comments');
-
-            // Record Type History
-            $recordHistory = [
-                'submitted_protocol' => [
-                    'by' => $request->input('submitted_protocol_by'),
-                    'on' => $request->input('submitted_protocol_on')
-                ],
-                'cancelled' => [
-                    'by' => $request->input('cancelled_by'),
-                    'on' => $request->input('cancelled_on')
-                ],
-                'review' => [
-                    'by' => $request->input('review_by'),
-                    'on' => $request->input('review_on')
-                ],
-                'final_approval_1' => [
-                    'by' => $request->input('final_approval_1_by'),
-                    'on' => $request->input('final_approval_1_on')
-                ],
-                'final_approval_2' => [
-                    'by' => $request->input('final_approval_2_by'),
-                    'on' => $request->input('final_approval_2_on')
-                ],
-                'report_reject' => [
-                    'by' => $request->input('report_reject_by'),
-                    'on' => $request->input('report_reject_on')
-                ],
-                'obsolete' => [
-                    'by' => $request->input('obsolete_by'),
-                    'on' => $request->input('obsolete_on')
-                ]
-            ];
-            $validations->record_history = json_encode($recordHistory);
-
             $validations->update();
+
+            $validation_id = $validations->id;
+            $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'details'])->firstOrCreate();
+            $newDataGridErrata->validation_id = $validation_id;
+            $newDataGridErrata->identifier = 'details';
+            $newDataGridErrata->data = $request->details;
+            $newDataGridErrata->save();
 
 
             if ($lastDocument->short_description != $request->short_description) {
@@ -782,13 +619,13 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
-         
+
                 $validation2->save();
             }
 
-            if ($lastDocument->intiation_date != $request->intiation_date){
+            if ($lastDocument->intiation_date != $request->intiation_date) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Intiation Date';
@@ -799,10 +636,10 @@ class DemoValidationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-            
-                   $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
-                $validation2->action_name = 'Update';             
+
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
@@ -817,7 +654,7 @@ class DemoValidationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -833,13 +670,13 @@ class DemoValidationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-            if ($lastDocument->validation_type != $request->validation_type)  {
+            if ($lastDocument->validation_type != $request->validation_type) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Validation Type';
@@ -848,16 +685,16 @@ class DemoValidationController extends Controller
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
-                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');    
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-           if ($lastDocument->validation_due_date != $request->validation_due_date) {
+            if ($lastDocument->validation_due_date != $request->validation_due_date) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Validation Due Date';
@@ -869,13 +706,13 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
 
                 $validation2->save();
             }
 
-            if ($lastDocument->notify_type != $request->notify_type)  {
+            if ($lastDocument->notify_type != $request->notify_type) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Notify Type';
@@ -887,7 +724,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -904,7 +741,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -921,7 +758,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -939,7 +776,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -956,12 +793,12 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-            if ($lastDocument->validation_sub_category != $request->validation_sub_category)  {
+            if ($lastDocument->validation_sub_category != $request->validation_sub_category) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Validation Sub Category';
@@ -973,7 +810,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -990,12 +827,12 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
 
-        if ($lastDocument->related_record != $request->related_record) {
+            if ($lastDocument->related_record != $request->related_record) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Related Records';
@@ -1007,7 +844,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -1024,7 +861,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -1041,7 +878,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -1058,7 +895,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -1075,7 +912,7 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Not Applicable";
-                $validation2->change_from = $lastDocument->stage;
+                $validation2->change_from = $lastDocument->status;
                 $validation2->action_name = 'Update';
                 $validation2->save();
             }
@@ -1117,43 +954,26 @@ class DemoValidationController extends Controller
                 $validation->status = "Review";
                 $validation->submitted_by = Auth::user()->name;
                 $validation->submitted_on = Carbon::now()->format('d-M-Y');
-                // $validation->submit_comment = $request->comment;
-                // $validation = new ValidationAudit();
-                // $validation->validation_id = $id;
-                // $validation->activity_type = 'Activity Log';
-                // $validation->previous = "";
-                // $validation->current = $validation->submit_by;
-                // $validation->comment = $request->comment;
-                // $validation->user_id = Auth::user()->id;
-                // $validation->user_name = Auth::user()->name;
-                // $validation->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                // // $validation->origin_state = $lastDocument->status;
-                // $validation->stage = 'Plan Proposed';
-                // $validation->save();
+                $validation->comments = $request->comments;
 
-                // $list = Helpers::getHodUserList();
-                // foreach ($list as $u) {
-                    // if ($u->q_m_s_divisions_id == $validation->division_id) {
-                    //     $email = Helpers::getInitiatorEmail($u->user_id);
-                    //     if ($email !== null) {
+                $validation1 = new ValidationAudit();
 
-                    //         Mail::send(
-                    //             'mail.view-mail',
-                    //             ['data' => $validation],
-                    //             function ($message) use ($email) {
-                    //                 $message->to($email)
-                    //                     ->subject("Document is Submitted By " . Auth::user()->name);
-                    //             }
-                    //         );
-                    //     }
-                    // }
-                // }
+                $validation1->validation_id = $id;
+                $validation1->activity_type = 'Activity Log';
+                $validation1->previous = "";
+                $validation1->current = $validation->submitted_by;
+                $validation1->comment = $request->comment;
+                $validation1->user_id = Auth::user()->id;
+                $validation1->user_name = Auth::user()->name;
+                $validation1->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation1->change_from = $lastDocument->status;
+                $validation1->action = 'submit';
+                $validation1->change_to = 'Review';
+                $validation1->stage = 'Submited';
+                $validation1->save();
 
                 $validation->update();
-                // $validation->submitted_by = Auth::user()->name;
-                // $validation->submitted_on = Carbon::now()->format('d-M-Y');
-                // $validation->submit_comment = $request->comment;
-                $validation->update();
+
                 toastr()->success('Document Sent');
                 return back();
             }
@@ -1161,6 +981,25 @@ class DemoValidationController extends Controller
             if ($validation->stage == 2) {
                 $validation->stage = "3";
                 $validation->status = "Protocol Approval";
+                $validation->review_by = Auth::user()->name;
+                $validation->review_on = Carbon::now()->format('d-M-Y');
+                $validation->comments = $request->comments;
+
+                $validation1 = new ValidationAudit();
+                $validation1->validation_id = $id;
+                $validation1->activity_type = 'Activity Log';
+                $validation1->previous = "";
+                $validation1->current = $validation->review_by;
+                $validation1->comment = $request->comment;
+                $validation1->user_id = Auth::user()->id;
+                $validation1->user_name = Auth::user()->name;
+                $validation1->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation1->change_from = $lastDocument->status;
+                $validation1->action = 'submit';
+                $validation1->change_to = 'Protocol Approval';
+                $validation1->stage = 'Submited';
+                $validation1->save();
+
                 $validation->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -1169,19 +1008,56 @@ class DemoValidationController extends Controller
             if ($validation->stage == 3) {
                 $validation->stage = "4";
                 $validation->status = "Test in Progress";
+                $validation->approved_by = Auth::user()->name;
+                $validation->approved_on = Carbon::now()->format('d-M-Y');
+                $validation->comments = $request->comments;
+
+                $validation1 = new ValidationAudit();
+                $validation1->validation_id = $id;
+                $validation1->activity_type = 'Activity Log';
+                $validation1->previous = "";
+                $validation1->current = $validation->approved_by;
+                $validation1->comment = $request->comment;
+                $validation1->user_id = Auth::user()->id;
+                $validation1->user_name = Auth::user()->name;
+                $validation1->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation1->change_from = $lastDocument->status;
+                $validation1->action = 'submit';
+                $validation1->change_to = 'Test in Progress';
+                $validation1->stage = 'Submited';
+                $validation1->save();
+
                 $validation->update();
                 toastr()->success('Document Sent');
                 return back();
             }
 
             if ($validation->stage == 4) {
-               
-                    $validation->stage = "5";
-                    $validation->status = "Deviation in Progress";
-                    $validation->update();
-                    toastr()->success('Document Sent');
-                    return back();
-       
+
+                $validation->stage = "5";
+                $validation->status = "Deviation in Progress";
+
+                $validation->final_approved_by = Auth::user()->name;
+                $validation->final_approved_on = Carbon::now()->format('d-M-Y');
+                $validation->comments = $request->comments;
+
+                $validation1 = new ValidationAudit();
+                $validation1->validation_id = $id;
+                $validation1->activity_type = 'Activity Log';
+                $validation1->previous = "";
+                $validation1->current = $validation->final_approved_by;
+                $validation1->comment = $request->comment;
+                $validation1->user_id = Auth::user()->id;
+                $validation1->user_name = Auth::user()->name;
+                $validation1->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation1->change_from = $lastDocument->status;
+                $validation1->action = 'submit';
+                $validation1->change_to = 'Deviation in Progress';
+                $validation1->stage = 'Submited';
+
+                $validation->update();
+                toastr()->success('Document Sent');
+                return back();
             }
 
             if ($validation->stage == 5) {
@@ -1225,12 +1101,33 @@ class DemoValidationController extends Controller
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $validation = Validation::find($id);
-
+            $lastDocument = Validation::find($id);
 
 
             if ($validation->stage == 1) {
                 $validation->stage = "0";
                 $validation->status = "Closed-Cancelled";
+
+                $validation->cancelled_by = Auth::user()->name;
+                $validation->cancelled_on = Carbon::now()->format('d-M-Y');
+                $validation->comments = $request->comments;
+
+                $validation1 = new ValidationAudit();
+
+                $validation1->validation_id = $id;
+                $validation1->activity_type = 'Activity Log';
+                $validation1->previous = "";
+                $validation1->current = $validation->cancelled_by;
+                $validation1->comment = $request->comment;
+                $validation1->user_id = Auth::user()->id;
+                $validation1->user_name = Auth::user()->name;
+                $validation1->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation1->change_from = $lastDocument->status;
+                $validation1->action = 'cancelled';
+                $validation1->change_to = 'Closed-Cancelled';
+                $validation1->stage = 'Cancelled';
+                $validation1->save();
+
                 $validation->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -1326,19 +1223,23 @@ class DemoValidationController extends Controller
         }
     }
 
+    public function stageChange()
+    {
+        return 'validation deviation';
+    }
 
     public function singleReport($id)
     {
         $data = Validation::find($id);
         if (!empty($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
-    
+
             $doc = ValidationAudit::where('validation_id', $data->id)->first();
             $detail_data = ValidationAudit::where('activity_type', $data->activity_type)
-                                          ->where('validation_id', $data->validation_id)
-                                          ->latest()
-                                          ->get();
-    
+                ->where('validation_id', $data->validation_id)
+                ->latest()
+                ->get();
+
             // pdf related work
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
@@ -1347,26 +1248,26 @@ class DemoValidationController extends Controller
                 'doc',
                 'data'
             ))
-            ->setOptions([
-                'defaultFont' => 'sans-serif',
-                'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled' => true,
-                'isPhpEnabled' => true, 
-            ]);
-    
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                ]);
+
             $pdf->setPaper('A4');
             $pdf->render();
             $canvas = $pdf->getDomPDF()->getCanvas();
             $height = $canvas->get_height();
             $width = $canvas->get_width();
-    
+
             $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
-    
+
             // Ensure that the text parameter is a string
             $text = 'Sample Watermark';  // Replace with actual text if needed
             // Ensure the color is an array of three integers
             $color = [0, 0, 0];  // RGB color array
-    
+
             $canvas->page_text(
                 $width / 4,
                 $height / 2,
@@ -1378,16 +1279,17 @@ class DemoValidationController extends Controller
                 6, // Character spacing
                 -20 // Angle
             );
-    
+
             return $pdf->stream('SOP' . $id . '.pdf');
         }
-    
+
         // Handle the case where the $data is empty or not found
         return redirect()->back()->with('error', 'Validation not found.');
     }
-    
-    public function ValidationAuditTrialDetails($id) {
-    
+
+    public function ValidationAuditTrialDetails($id)
+    {
+
         $detail = ValidationAudit::find($id);
         $detail_data = ValidationAudit::where('activity_type', $detail->activity_type)->where('validation_id', $detail->validation_id)->latest()->get();
         $doc = ValidationAudit::where('id', $detail->validation_id)->first();
@@ -1400,17 +1302,15 @@ class DemoValidationController extends Controller
         $doc = Validation::findOrFail($id);
         if (!empty($doc)) {
             $doc->originator = User::where('id', $doc->initiator_id)->value('name');
-        } 
-        else {
-             $datas = ActionItem::find($id);
+        } else {
+            $datas = ActionItem::find($id);
 
             if (empty($datas)) {
                 $datas = Extension::find($id);
                 $doc = Validation::find($datas->validation_id);
                 $doc->originator = User::where('id', $doc->initiator_id)->value('name');
                 $doc->created_at = $datas->created_at;
-            } 
-        else {
+            } else {
                 $doc = Validation::find($datas->validation_id);
                 $doc->originator = User::where('id', $doc->initiator_id)->value('name');
                 $doc->created_at = $datas->created_at;
@@ -1451,5 +1351,4 @@ class DemoValidationController extends Controller
 
         return $pdf->stream('SOP' . $id . '.pdf');
     }
-
 }
