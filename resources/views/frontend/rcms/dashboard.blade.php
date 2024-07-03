@@ -36,15 +36,13 @@
             querySelect.options.add(new Option('Pending Actions Completion', '5'));
             querySelect.options.add(new Option('Closed - Done', '6'));
 
-        }
-        else if (scopeValue === 'audit_program') {
+        } else if (scopeValue === 'audit_program') {
             querySelect.options.add(new Option('Opened', '1'));
             querySelect.options.add(new Option('Pending Approval', '2'));
             querySelect.options.add(new Option('Pending Audit', '3'));
             querySelect.options.add(new Option('Closed - Done', '4'));
 
-        }
-         else if (scopeValue === 'lab_incident') {
+        } else if (scopeValue === 'lab_incident') {
             querySelect.options.add(new Option('Opened', '1'));
             querySelect.options.add(new Option('Pending Incident Review ', '2'));
             querySelect.options.add(new Option('Pending Investigation', '3'));
@@ -76,50 +74,42 @@
             querySelect.options.add(new Option('In Progress', '2'));
             querySelect.options.add(new Option('Close - Done', '3'));
 
+        } else if (scopeValue === 'extension') {
+            querySelect.options.add(new Option('Opened', '1'));
+            querySelect.options.add(new Option('Pending Approval', '2'));
+            querySelect.options.add(new Option('Close - Done', '3'));
+
+        } else if (scopeValue === 'documents') {
+            querySelect.options.add(new Option('Opened', '1'));
+            querySelect.options.add(new Option('Close - Cancel', '2'));
+            querySelect.options.add(new Option('Close - Done', '3'));
+
+        } else if (scopeValue === 'observation') {
+            querySelect.options.add(new Option('Opened', '1'));
+            querySelect.options.add(new Option('Pending CAPA Plan', '2'));
+            querySelect.options.add(new Option('Pending Approval', '3'));
+            querySelect.options.add(new Option('Pending Final Approval', '4'));
+            querySelect.options.add(new Option('Close - Done', '5'));
+        } else if (scopeValue === 'action_item') {
+            querySelect.options.add(new Option('Opened', '1'));
+            querySelect.options.add(new Option('Work in Progress', '2'));
+            querySelect.options.add(new Option('Close - Done', '3'));
+
+        } else if (scopeValue === 'effectiveness_check') {
+            querySelect.options.add(new Option('Opened', '1'));
+            querySelect.options.add(new Option('Check Effectiveness', '2'));
+            querySelect.options.add(new Option('Close - Done', '3'));
+
+        } else if (scopeValue === 'CC') {
+            querySelect.options.add(new Option('Opened', '1'));
+            querySelect.options.add(new Option('Under HOD Review', '2'));
+            querySelect.options.add(new Option('Pending QA Review', '3'));
+            querySelect.options.add(new Option('CFT Review', '4'));
+            querySelect.options.add(new Option('Pending Change Implementation', '5'));
+            querySelect.options.add(new Option('Close - Done', '6'));
         }
-        else if (scopeValue === 'extension') {
-                querySelect.options.add(new Option('Opened', '1'));
-                querySelect.options.add(new Option('Pending Approval', '2'));
-                querySelect.options.add(new Option('Close - Done', '3'));
 
-            }
-        else if (scopeValue === 'documents') {
-                querySelect.options.add(new Option('Opened', '1'));
-                querySelect.options.add(new Option('Close - Cancel', '2'));
-                querySelect.options.add(new Option('Close - Done', '3'));
 
-            }
-            else if (scopeValue === 'observation') {
-                querySelect.options.add(new Option('Opened', '1'));
-                querySelect.options.add(new Option('Pending CAPA Plan', '2'));
-                querySelect.options.add(new Option('Pending Approval', '3'));
-                querySelect.options.add(new Option('Pending Final Approval', '4'));
-                querySelect.options.add(new Option('Close - Done', '5'));
-            }
-
-            else if (scopeValue === 'action_item') {
-                querySelect.options.add(new Option('Opened', '1'));
-                querySelect.options.add(new Option('Work in Progress', '2'));
-                querySelect.options.add(new Option('Close - Done', '3'));
-
-            }
-
-            else if (scopeValue === 'effectiveness_check') {
-                querySelect.options.add(new Option('Opened', '1'));
-                querySelect.options.add(new Option('Check Effectiveness', '2'));
-                querySelect.options.add(new Option('Close - Done', '3'));
-
-            }
-            else if (scopeValue === 'CC') {
-                querySelect.options.add(new Option('Opened', '1'));
-                querySelect.options.add(new Option('Under HOD Review', '2'));
-                querySelect.options.add(new Option('Pending QA Review', '3'));
-                querySelect.options.add(new Option('CFT Review', '4'));
-                querySelect.options.add(new Option('Pending Change Implementation', '5'));
-                querySelect.options.add(new Option('Close - Done', '6'));
-            }
-
-            
         // Add more conditions based on other scope values
 
     }
@@ -128,11 +118,11 @@
     <div id="rcms-dashboard">
         <div class="container-fluid">
             <div class="dash-grid">
-                
+
                 <div>
                     <div class="inner-block scope-table" style="height: calc(100vh - 170px); padding: 0;">
-                        
-                       <div class="grid-block">
+
+                        <div class="grid-block">
                             <div class="group-input">
                                 <label for="scope">Process</label>
                                 <select id="scope" name="form">
@@ -152,12 +142,12 @@
                                     <option value="Action Item">Action Item</option> --}}
                                     <option value="Effectiveness Check">Effectiveness Check</option>
                                     <option value="Deviation">Deviation</option>
-                                     {{-- <option value="tms">TMS</option>  --}}
+                                    {{-- <option value="tms">TMS</option>  --}}
                                 </select>
                             </div>
                             <div class="group-input">
                                 <label for="query">Criteria</label>
-                                <select id="query" name="stage" >
+                                <select id="query" name="stage">
                                     <option value="">All Records</option>
                                     <option value="Closed">Closed Records</option>
                                     <option value="Opened">Opened Records</option>
@@ -171,7 +161,7 @@
                         </div>
                         <div class="main-scope-table">
                             <table class="table table-bordered" id="auditTable">
-                                <thead >
+                                <thead>
                                     <tr>
                                         <th>Record</th>
                                         {{-- <th>Parent ID</th> --}}
@@ -261,7 +251,6 @@
                                                             </div>
                                                         </a>
                                                     @endif
-                                                    
                                                 @elseif ($datas->type == 'Audit-Program')
                                                     <a href="{{ route('ShowAuditProgram', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
@@ -291,6 +280,20 @@
                                                         </a>
                                                     @endif
                                                     {{-- ----------------------------------------------- --}}
+                                                @elseif ($datas->type == 'MonitoringVisit')
+                                                    <a href="{{ route('monitoring_visit_view', $datas->id) }}">
+                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/MonitoringVisit">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
                                                 @elseif($datas->type == 'Action-Item')
                                                     <a href="{{ route('actionItem.show', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
@@ -360,7 +363,7 @@
                                                             </div>
                                                         </a>
                                                     @endif
-                                                    @elseif($datas->type == 'Deviation')
+                                                @elseif($datas->type == 'Deviation')
                                                     <a href="{{ route('devshow', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
@@ -388,8 +391,7 @@
                                                             </div>
                                                         </a>
                                                     @endif
-
-                                                    @elseif($datas->type == 'MedicalDeviceRegistration')
+                                                @elseif($datas->type == 'MedicalDeviceRegistration')
                                                     <a href="{{ route('medical_edit', $datas->id) }}">
                                                         {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
@@ -403,7 +405,6 @@
                                                             </div>
                                                         </a>
                                                     @endif
-                                                
                                                 @endif
                                             </td>
                                             {{-- @if ($datas->parent != '-')
@@ -443,7 +444,7 @@
                                                 data-type="{{ $datas->type }}" data-bs-toggle="modal"
                                                 data-bs-target="#record-modal">
                                                 {{-- {{ $datas->assign_to }} --}}
-                                            {{ Helpers::getInitiatorName($datas->initiator_id) }}
+                                                {{ Helpers::getInitiatorName($datas->initiator_id) }}
                                                 {{-- {{ $datas->initiator_id }} --}}
                                             </td>
                                             <td class="viewdetails" data-id="{{ $datas->id }}"
@@ -463,7 +464,7 @@
                                 </tbody>
                             </table>
                         </div>
-                     {{-- <div class="scope-pagination">
+                        {{-- <div class="scope-pagination">
                             {{ $datag->links() }}
                         </div>  --}}
                     </div>

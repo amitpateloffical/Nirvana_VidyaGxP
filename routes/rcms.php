@@ -1,23 +1,23 @@
 <?php
 
+use App\Http\Controllers\MonitoringVisitController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
-use App\Http\Controllers\rcms\CCController;
-use App\Http\Controllers\rcms\DashboardController;
-use App\Http\Controllers\rcms\EffectivenessCheckController;
-use App\Http\Controllers\rcms\ExtensionController;
-use App\Http\Controllers\rcms\InternalauditController;
-use App\Http\Controllers\rcms\LabIncidentController;
-use App\Http\Controllers\rcms\ObservationController;
-use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\rcms\AuditProgramController;
 use App\Http\Controllers\rcms\CapaController;
+use App\Http\Controllers\rcms\CCController;
+use App\Http\Controllers\rcms\DashboardController;
+use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\rcms\EffectivenessCheckController;
+use App\Http\Controllers\rcms\ExtensionController;
 use App\Http\Controllers\rcms\FormDivisionController;
+use App\Http\Controllers\rcms\InternalauditController;
+use App\Http\Controllers\rcms\LabIncidentController;
 use App\Http\Controllers\rcms\ManagementReviewController;
+use App\Http\Controllers\rcms\ObservationController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
-use App\Http\Controllers\rcms\DeviationController;
-use App\Models\EffectivenessCheck;
+use App\Http\Controllers\UserLoginController;
 use Illuminate\Support\Facades\Route;
 
 // ============================================
@@ -56,7 +56,6 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('extensionSingleReport/{id}', [ExtensionController::class, 'singleReport'])->name('extensionSingleReport');
             Route::get('extensionAuditReport/{id}', [ExtensionController::class, 'auditReport'])->name('extensionAuditReport');
 
-
             Route::post('send-At/{id}', [ActionItemController::class, 'stageChange']);
             Route::post('send-rejection-field/{id}', [CCController::class, 'stagereject']);
             Route::post('send-cft-field/{id}', [CCController::class, 'stageCFTnotReq']);
@@ -83,7 +82,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::resource('effectiveness', EffectivenessCheckController::class);
             Route::post('send-effectiveness/{id}', [EffectivenessCheckController::class, 'stageChange']);
             Route::post('effectiveness-reject/{id}', [EffectivenessCheckController::class, 'reject']);
-            Route::post('cancel/{id}',[EffectivenessCheckController::class,'cancel'])->name('moreinfo_effectiveness');
+            Route::post('cancel/{id}', [EffectivenessCheckController::class, 'cancel'])->name('moreinfo_effectiveness');
             Route::view('helpdesk-personnel', 'frontend.rcms.helpdesk-personnel');
             Route::view('send-notification', 'frontend.rcms.send-notification');
             Route::get('new-change-control', [CCController::class, 'changecontrol']);
@@ -114,7 +113,6 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('LabIncidentAuditReport/{id}', [LabIncidentController::class, 'auditReport'])->name('LabIncidentAuditReport');
             //------------------------------------
 
-            
             Route::post('create', [AuditProgramController::class, 'create'])->name('createAuditProgram');
             Route::get('AuditProgramShow/{id}', [AuditProgramController::class, 'AuditProgramShow'])->name('ShowAuditProgram');
             Route::post('AuditStateChange/{id}', [AuditProgramController::class, 'AuditStateChange'])->name('StateChangeAuditProgram');
@@ -127,9 +125,6 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('auditProgramSingleReport/{id}', [AuditProgramController::class, 'singleReport'])->name('auditProgramSingleReport');
             Route::get('auditProgramAuditReport/{id}', [AuditProgramController::class, 'auditReport'])->name('auditProgramAuditReport');
 
-
-
-
             Route::get('observationshow/{id}', [ObservationController::class, 'observationshow'])->name('showobservation');
             Route::post('observationstore', [ObservationController::class, 'observationstore'])->name('observationstore');
             Route::post('observationupdate/{id}', [ObservationController::class, 'observationupdate'])->name('observationupdate');
@@ -139,7 +134,6 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('boostStage/{id}', [ObservationController::class, 'boostStage'])->name('updatestageobservation');
             Route::get('ObservationAuditTrialShow/{id}', [ObservationController::class, 'ObservationAuditTrialShow'])->name('ShowObservationAuditTrial');
             Route::get('ObservationAuditTrialDetails/{id}', [ObservationController::class, 'ObservationAuditTrialDetails'])->name('showaudittrialobservation');
-
 
             //----------------------------------------------By PRIYA SHRIVASTAVA------------------
             Route::post('formDivision', [FormDivisionController::class, 'formDivision'])->name('formDivision');
@@ -171,13 +165,14 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('deviation/Qa/{id}', [DeviationController::class, 'deviation_qa_more_info'])->name('deviation_qa_more_info');
             Route::post('deviationstore', [DeviationController::class, 'store'])->name('deviationstore');
             Route::post('deviationupdate/{id}', [DeviationController::class, 'update'])->name('deviationupdate');
-             Route::get('deviation', [DeviationController::class, 'deviation']);
-             Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
-             Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
+            Route::get('deviation', [DeviationController::class, 'deviation']);
+            Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
+            Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
-
-             
+            Route::get('MonitoringVisitSingleReport/{id}', [MonitoringVisitController::class, 'SingleReport'])->name('MonitoringVisitSingleReport');
+            Route::get('MonitoringVisitAuditReport/{id}', [MonitoringVisitController::class, 'AuditReport'])->name('MonitoringVisitAuditReport');
 
         }
+
     );
 });
