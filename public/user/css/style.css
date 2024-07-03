@@ -4247,12 +4247,15 @@ section#pdf-page .watermark {
 }
 
 #change-control-fields .inner-block .main-head {
-    padding: 15px;
-    color: white;
-    background: #4274da;
+    padding: 7px;
+    color: black;
+    /* background: #4274da; */
+    background-image: linear-gradient(120deg, #ea8900 0%, #ff9c4594 100%);
+
     margin-bottom: 0;
-    font-weight: bold;
-    font-size: 1.2rem;
+    border-radius: 5px;
+    /* font-weight: bold; */
+    font-size: 15px;
 }
 
 #change-control-fields .inner-block .inner-block-content {

@@ -47,7 +47,7 @@ $users = DB::table('users')->select('id', 'name')->get();
             border-radius: 20px 0px 0px 20px;
         }
 
-        #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(9) {
+        #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(6) {
             border-radius: 0px 20px 20px 0px;
 
         }
@@ -196,12 +196,10 @@ $users = DB::table('users')->select('id', 'name')->get();
     </script>
 
     <div class="form-field-head">
-    
         <div class="division-bar">
             <strong>Site Division/Project</strong> :
-            QMS-North America / Supplier
+             {{ Helpers::getDivisionName($data->division_id) }} / Supplier
         </div>
-    
     </div>
 
     <div id="change-control-fields">
@@ -241,6 +239,9 @@ $users = DB::table('users')->select('id', 'name')->get();
                         </button>
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                             Audit Failed
+                        </button>
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                            Child
                         </button>
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#send-to-supplier-approve">
                             Conditionally Approved
@@ -344,8 +345,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Division</b></label>
-                                    <input type="text" value="">
-                                    <input type="hidden" name="division_id" id="division_id" value="{{ $data->division_id }}">
+                                    <input type="text" readonly id="division_id" value="{{ Helpers::getDivisionName($data->division_id) }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -1981,26 +1981,32 @@ $users = DB::table('users')->select('id', 'name')->get();
                         <div class="modal-header">
                             <h4 class="modal-title">Child</h4>
                         </div>
-                        <form action="{{ route('supplier_child_1', $data->id) }}" method="POST">
+                        <form action="{{ route('supplier_child_1', $data->id) }}" method="POST" target="_blank">
                             @csrf
                             <!-- Modal body -->
                             <div class="modal-body">
                                 <div class="group-input">
-                                    {{-- @if ($data->stage == 2) --}}
+                                    @if ($data->stage == 2)
+                                        
                                         <label for="major">
                                             <input type="radio" name="revision" id="major"
-                                                value="changecontrol">
-                                                Change Control
+                                                value="RA">
+                                              Supplier Risk Assessment
                                         </label>
-                                        {{-- <br> --}}
                                         <label for="major">
                                             <input type="radio" name="revision" id="major"
-                                                value="Action-Item">
-                                                Action Item
+                                                value="SA">
+                                               Supplier Audit
                                         </label>
-                                    {{-- @endif --}}
-                                    
-                                    {{-- @if ($data->stage == 5) --}}
+                                    @endif
+                                    @if ($data->stage == 3)
+                                    <label for="major">
+                                        <input type="radio" name="revision" id="major"
+                                            value="SA">
+                                           Supplier Audit
+                                    </label>
+                                    @endif
+                                    @if ($data->stage == 5)
                                         <label for="major">
                                             <input type="radio" name="revision" id="major"
                                                 value="capa-child">
@@ -2018,7 +2024,28 @@ $users = DB::table('users')->select('id', 'name')->get();
                                                 value="RCA">
                                                 Root Cause Analysis
                                         </label>
-                                    {{-- @endif --}}
+                                        <label for="major">
+                                            <input type="radio" name="revision" id="major"
+                                                value="changecontrol">
+                                                Change Control
+                                        </label>
+                                        {{-- <br> --}}
+                                        <label for="major">
+                                            <input type="radio" name="revision" id="major"
+                                                value="Action-Item">
+                                                Action Item
+                                        </label>
+                                        <label for="major">
+                                            <input type="radio" name="revision" id="major"
+                                                value="RA">
+                                              Supplier Risk Assessment
+                                        </label>
+                                        <label for="major">
+                                            <input type="radio" name="revision" id="major"
+                                                value="SA">
+                                               Supplier Audit
+                                        </label>
+                                    @endif
                                 </div>
             
                             </div>

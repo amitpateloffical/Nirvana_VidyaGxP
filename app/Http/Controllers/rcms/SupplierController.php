@@ -27,7 +27,8 @@ CC,
 Deviation,
 User,
 OpenStage,
-Capa
+Capa,
+    RiskManagement
 };
 
 class SupplierController extends Controller
@@ -3433,7 +3434,6 @@ class SupplierController extends Controller
         if ($request->revision == "changecontrol") {
             $supplierA->originator = User::where('id', $supplierA->initiator_id)->value('name');
             return view('frontend.change-control.new-change-control', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','hod','cft','pre'));
-
         }
 
         if ($request->revision == "capa-child") {
@@ -3444,13 +3444,17 @@ class SupplierController extends Controller
          $supplierA->originator = User::where('id', $supplierA->initiator_id)->value('name');
         $pre = Deviation::all();
          return view('frontend.forms.deviation_new', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','pre'));
-
      }
      if ($request->revision == "RCA") {
         $supplierA->originator = User::where('id', $supplierA->initiator_id)->value('name');
     //    $pre = Deviation::all();
         return view('frontend.forms.root-cause-analysis', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','pre'));
-
+    }
+    if ($request->revision == "RA") {
+        $supplierA->originator = User::where('id', $supplierA->initiator_id)->value('name');
+    //    $pre = Deviation::all();
+    $old_record = RiskManagement::select('id', 'division_id', 'record')->get();
+        return view('frontend.forms.risk-management', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','pre','old_record','old_record'));
     }
 
     }

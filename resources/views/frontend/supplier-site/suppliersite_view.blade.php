@@ -199,7 +199,7 @@ $users = DB::table('users')->select('id', 'name')->get();
     
         <div class="division-bar">
             <strong>Site Division/Project</strong> :
-            QMS-North America / Supplier Site
+            {{ Helpers::getDivisionName($data->division_id) }} / Supplier Site
         </div>
     
     </div>
@@ -344,8 +344,8 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Division</b></label>
-                                    <input type="text" value="">
-                                    <input type="hidden" name="division_id" id="division_id" value="{{ $data->division_id }}">
+                                    
+                                    <input type="text"  readonly id="division_id" value="{{ Helpers::getDivisionName($data->division_id) }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">

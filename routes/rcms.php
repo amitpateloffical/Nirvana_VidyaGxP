@@ -164,8 +164,8 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('supplier-site-show/{id}', [SupplierSiteController::class, 'show']);
             Route::post('supplier-site-update/{id}', [SupplierSiteController::class, 'update'])->name('supplier-site-update');
             Route::get('supplier-single-report/{id}', [SupplierSiteController::class, 'singleReport']);
-            Route::get('supplier-audit-trail/{id}', [SupplierSiteController::class, 'auditTrail']);
-            Route::get('supplier-audit-trail-pdf/{id}', [SupplierSiteController::class, 'auditTrailPdf']);
+            Route::get('supplier-site-audit-trail/{id}', [SupplierSiteController::class, 'auditTrail']);
+            Route::get('supplier-site-audit-trail-pdf/{id}', [SupplierSiteController::class, 'auditTrailPdf']);
             Route::post('supplier-site-send-stage/{id}', [SupplierSiteController::class, 'supplierSendStage'])->name('supplier-site-send-stage');
             Route::post('sendTo-supplier-site-approved/{id}', [SupplierSiteController::class, 'sendToSupplierApproved'])->name('sendTo-supplier-site-approved');
             Route::post('supplier-site-close-cancelled/{id}', [SupplierSiteController::class, 'cancelDocument'])->name('supplier-site-close-cancelled');
