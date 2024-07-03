@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('deviations', function (Blueprint $table) {
-            $table->integer('parent_id')->nullable();
-            $table->text('parent_type')->nullable();
-
+        Schema::table('launch_extensions', function (Blueprint $table) {
+            $table->string('deviation_id')->nullable()->after('id');
         });
     }
 
@@ -27,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('deviations', function (Blueprint $table) {
+        Schema::table('launch_extensions', function (Blueprint $table) {
             //
         });
     }

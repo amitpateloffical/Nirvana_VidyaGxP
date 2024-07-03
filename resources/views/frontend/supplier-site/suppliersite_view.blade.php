@@ -47,7 +47,7 @@ $users = DB::table('users')->select('id', 'name')->get();
             border-radius: 20px 0px 0px 20px;
         }
 
-        #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(9) {
+        #change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(6) {
             border-radius: 0px 20px 20px 0px;
 
         }
@@ -325,7 +325,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">QA Reviewer</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Risk Assessment</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm7')">QA Head Reviewer</button>
-                <button class="cctablinks" onclick="openCity(event, 'CCForm8')">Signatures</button>
+                <button class="cctablinks" onclick="openCity(event, 'CCForm8')">Activity Log</button>
             </div>
 
             <!--  Contract Tab content -->
@@ -509,9 +509,31 @@ $users = DB::table('users')->select('id', 'name')->get();
                                         <option value="Grower" @if($data->supplier_type == "Grower") selected @endif>Grower</option>
                                         <option value="Legal" @if($data->supplier_type == "Legal") selected @endif>Legal</option>
                                         <option value="Midecinal + Medical Devices" @if($data->supplier_type == "Midecinal + Medical Devices") selected @endif>Midecinal + Medical Devices</option>
-                                        <option value="Other" @if($data->supplier_type == "Other") selected @endif>Other</option>
                                         <option value="Vendor" @if($data->supplier_type == "Vendor") selected @endif>Vendor</option>
+                                        <option value="Other" @if($data->supplier_type == "Other") selected @endif>Other</option>
+
                                     </select>
+                                </div>
+                            </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#suplier_other').hide();
+                            
+                                    $('[name="supplier_type"]').change(function() {
+                                        if ($(this).val() === 'Other') {
+                                            $('#suplier_other').show();
+                                            $('#suplier_other ').show();
+                                        } else {
+                                            $('#suplier_other').hide();
+                                            $('#suplier_other ').hide();
+                                        }
+                                    });
+                                });
+                            </script>
+                             <div id="suplier_other" class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="">Other <span  class="text-danger">*</span></label>
+                                    <input  type="text">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -618,7 +640,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{-- <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Of Complaints/Deviations"># Of Complaints/Deviations</label>
                                     <input type="text" name="">
@@ -629,7 +651,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                     <label for="total demerit points">Total Demerit Points</label>
                                     <input type="text" name="" id="totalDemeritPoints">
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
 
                         <div class="button-block">
@@ -1282,7 +1304,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-12 sub-head">
+                            {{-- <div class="col-12 sub-head">
                                 Total Score
                             </div>
                             <div class="col-lg-6">
@@ -1308,7 +1330,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                     <label for="Total Score">Total Score</label>
                                     <input type="text" name="total_score"  id="total_score" readonly>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
@@ -1518,7 +1540,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                 </div>
                             </div>
 
-                            <div class="sub-head">
+                            {{-- <div class="sub-head">
                                 Results
                             </div>
                             <div class="col-lg-6">
@@ -1544,7 +1566,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                                     <label for="Total Available Score">Risk Assessment Total</label>
                                     <input type="text" name="risk_assessment_total" id="risk_assessment_total" readonly>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
