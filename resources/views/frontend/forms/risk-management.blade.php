@@ -176,6 +176,11 @@
                     @csrf
                     <div id="step-form">
 
+                        @if(!empty($parent_id))                            
+                            <input type="hidden" name="parent_id" value="{{ $parent_id }}">
+                            <input type="hidden" name="parent_type" value="{{ $parent_type }}">
+                        @endif
+
                         <!-- Risk Management Tab content -->
                         <div id="CCForm1" class="inner-block cctabcontent">
 

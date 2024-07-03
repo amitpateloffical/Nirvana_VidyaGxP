@@ -3456,6 +3456,12 @@ class SupplierController extends Controller
     $old_record = RiskManagement::select('id', 'division_id', 'record')->get();
         return view('frontend.forms.risk-management', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','pre','old_record','old_record'));
     }
+    if ($request->revision == "SA") {
+        $supplierA->originator = User::where('id', $supplierA->initiator_id)->value('name');
+    //    $pre = Deviation::all();
+    $old_record = RiskManagement::select('id', 'division_id', 'record')->get();
+        return view('frontend.New_forms.supplier_audit', compact('record_number', 'due_date', 'parent_id', 'parent_type','parent_intiation_date','parent_record','parent_initiator_id','pre','old_record','old_record'));
+    }
 
     }
 }

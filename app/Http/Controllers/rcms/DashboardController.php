@@ -216,7 +216,7 @@ class DashboardController extends Controller
 
             array_push($table, [
                 "id" => $data->id,
-                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "parent" => $data->parent_id ? $data->parent_id : "-",
                 "record" => $data->record,
                 "type" => "Risk-Assesment",
                 "parent_id" => $data->parent_id,

@@ -50,6 +50,8 @@ class RiskManagementController extends Controller
         $data->form_type = "risk-assesment";
         $data->division_id = $request->division_id;
         $data->division_code = $request->division_code;
+        $data->parent_id = $request->parent_id;
+        $data->parent_type = $request->parent_type;
         //$data->record_number = $request->record_number;
         $data->record = ((RecordNumber::first()->value('counter')) + 1);
         $data->initiator_id = Auth::user()->id;

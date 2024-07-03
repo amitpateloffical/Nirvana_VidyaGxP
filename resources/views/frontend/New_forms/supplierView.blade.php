@@ -188,7 +188,7 @@ function addMultipleFiles(input, block_id) {
 
         <div class="division-bar">
             <strong>Site Division/Project</strong> :
-            {{ Helpers::getDivisionName($data->division_id) }} / External Audit
+            {{ Helpers::getDivisionName($data->division_id) }} / Supplier Audit
         </div>
     </div>
 
@@ -363,7 +363,7 @@ function addMultipleFiles(input, block_id) {
                                                 <input type="hidden" name="record_number">
                                                 {{-- <div class="static">QMS-EMEA/IA/{{ Helpers::year($data->created_at) }}/{{ $data->record }}</div> --}}
                                                 <input disabled type="text"
-                                                    value="{{ Helpers::getDivisionName($data->division_id) }}/EA/{{ Helpers::year($data->created_at) }}/{{ $data->record }}">
+                                                    value="{{ Helpers::getDivisionName($data->division_id) }}/SA/{{ Helpers::year($data->created_at) }}/{{ $data->record }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
