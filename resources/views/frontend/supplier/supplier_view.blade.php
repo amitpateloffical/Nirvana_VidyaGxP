@@ -350,7 +350,7 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiation"><b>Initiation Date</b></label>
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                    <input disabled type="text" value="{{ Helpers::getdateFormat($data->intiation_date) }}" >
                                 </div>
                             </div>
 

@@ -115,6 +115,8 @@ class DeviationController extends Controller
         # -------------new-----------
         //  $deviation->record_number = $request->record_number;
         $deviation->division_id = $request->division_id;
+        $deviation->parent_id = $request->parent_id;
+        $deviation->parent_type = $request->parent_type;
         $deviation->assign_to = $request->assign_to;
         $deviation->Facility = $request->Facility;
         $deviation->due_date = $request->due_date;
@@ -5395,10 +5397,6 @@ if ($deviation->stage == 5) {
             $width = $canvas->get_width();
             $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
             $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
-
-            $filePath = public_path('user/pdf/'. $id .'.pdf');
-            file_put_contents($filePath, $pdf->output());
-
             return $pdf->stream('Deviation' . $id . '.pdf');
         }
     }

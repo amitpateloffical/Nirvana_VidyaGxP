@@ -1412,9 +1412,9 @@
                                     </div>
                                     Save
                                 </button>
-                                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"
+                                <button style=" justify-content: center; width: 4rem; " type="button"
                                     id="ChangeNextButton" class="nextButton">Next</button>
-                                <button style=" justify-content: center; width: 4rem; margin-left: auto;"type="button"> <a
+                                <button style=" justify-content: center; width: 4rem; "type="button"> <a
                                         href="{{ url('rcms/qms-dashboard') }}" class="text-white">Exit</a> </button>
 
                             </div>
@@ -1457,11 +1457,11 @@
                             </div>
                             <div class="button-block">
                                 <button type="submit" style=" justify-content: center; width: 4rem; margin-left: auto;" class="saveButton">Save </button>
-                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
-                                    <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="backButton">Back</button>
+                                <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; ">
+                                    <button type="button" style=" justify-content: center; width: 4rem; " class="backButton">Back</button>
                                 </a>
-                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                <button type="button" style=" justify-content: center; width: 4rem; " class="nextButton" onclick="nextStep()">Next</button>
+                                <button type="button" style=" justify-content: center; width: 4rem; "> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
                                         {{-- <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
                                         class="button  launch_extension" data-bs-toggle="modal"

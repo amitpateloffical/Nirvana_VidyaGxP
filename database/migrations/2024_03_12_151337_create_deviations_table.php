@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('record')->nullable();
             $table->tinyText('division_id')->nullable();
             $table->tinyText('initiator_group_code')->nullable();
-            $table->date('intiation_date')->nullable();
+            $table->text('intiation_date')->nullable();
             $table->string('form_type')->nullable();
             $table->integer('record_number')->nullable();
             $table->integer('assign_to')->nullable();

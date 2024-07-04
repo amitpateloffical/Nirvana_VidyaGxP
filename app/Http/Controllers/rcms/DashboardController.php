@@ -213,7 +213,6 @@ class DashboardController extends Controller
         }
         foreach ($datas6 as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
-
             array_push($table, [
                 "id" => $data->id,
                 "parent" => $data->parent_id ? $data->parent_id : "-",
@@ -232,7 +231,6 @@ class DashboardController extends Controller
         }
         foreach ($datas7 as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
-
             array_push($table, [
                 "id" => $data->id,
                 "parent" => $data->parent_record ? $data->parent_record : "-",
@@ -269,7 +267,6 @@ class DashboardController extends Controller
         }
         foreach ($datas9 as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
-
             array_push($table, [
                 "id" => $data->id,
                 "parent" => $data->parent_record ? $data->parent_record : "-",
@@ -813,7 +810,7 @@ class DashboardController extends Controller
             $data = Deviation::find($id);
             $single = "deviationSingleReport/". $data->id;
             $audit = "#";
-            $parent="deviationparentchildReport/". $data->id;
+            $parent="#";
         } elseif ($type == "Supplier") {
             $data = Supplier::find($id);
             // $single = "deviationSingleReport/". $data->id;
