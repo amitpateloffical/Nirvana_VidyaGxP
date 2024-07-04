@@ -561,5 +561,7 @@ Route::get('singleReport/{id}', [SupplierAuditController::class, 'singleReport']
 
 // ================================= Supplier Audit======================================================== 
 
+Route::view('scar_new', 'frontend.scar.scar_new');
+
 
 
