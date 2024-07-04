@@ -686,7 +686,7 @@
                                                 Building 1
                                             </option>
                                             <option
-                                                value="Building2"{{ $data->building == 'Building 2' ? 'selected' : '' }}>
+                                                value="Building 2"{{ $data->building == 'Building 2' ? 'selected' : '' }}>
                                                 Building 2
                                             </option>
                                             <option
