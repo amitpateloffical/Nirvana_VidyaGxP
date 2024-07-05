@@ -98,7 +98,7 @@
                                         <label for="due-date">Due Date</label>
                                         <div><small class="text-primary">Please mention expected date of completion</small></div>
                                         <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
                                             <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                         </div>
                                     </div>
@@ -251,7 +251,7 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled end date">Parent-TCD(hid)</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="parent_tcd" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="parent_tcd" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="parent_tcd_hid"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'parent_tcd')" />
@@ -284,7 +284,7 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent)Date Opened</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="start_date" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" id="start_date_checkdate"  name="parent_date_opened" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                             oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')"/>
                                     </div>
@@ -319,7 +319,7 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent)Target Closure Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="parent_target_closure" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="parent_target_closure" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="parent_target_closure_date"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'parent_target_closure')" />
@@ -397,6 +397,7 @@
                                                     <th>Instrument Name</th>
                                                     <th>Instrument No.</th>
                                                     <th>Instru. Caliberation Due Date</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -418,7 +419,7 @@
                                                                             id="date_0_date"
                                                                             type="text"
                                                                             name="product_material_information[0][info_date]"
-                                                                            placeholder="DD-MMM-YYYY"
+                                                                            placeholder="DD-MM-YYYY"
                                                                         />
                                                                         <input
                                                                             type="date"
@@ -433,6 +434,7 @@
                                                                 </div>
                                                             </div>
                                                     </td>
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -455,7 +457,8 @@
                                                 '<td><input type="text" name="product_material_information[' + serialNumber + '][test_name]"></td>' +
                                                 '<td><input type="text" name="product_material_information[' + serialNumber + '][instrument_name]"></td>' +
                                                 '<td><input type="text" name="product_material_information[' + serialNumber + '][instrument_no]"></td>'+
-                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input class="click_date" id="date_'+ serialNumber +'_date" type="text" name="product_material_information[' + serialNumber + '][info_date]" placeholder="DD-MMM-YYYY"/><input type="date" name="product_material_information[' + serialNumber + '][info_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_'+ serialNumber +'_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_date\')"/></div></div></div></td>' +
+                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input class="click_date" id="date_'+ serialNumber +'_date" type="text" name="product_material_information[' + serialNumber + '][info_date]" placeholder="DD-MM-YYYY"/><input type="date" name="product_material_information[' + serialNumber + '][info_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_'+ serialNumber +'_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_date\')"/></div></div></div></td>' +
+                                                '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
                                                 '</tr>';
                                             return html;
                                         }
@@ -465,6 +468,12 @@
                                         tableBody.append(newRow);
                                       });
                                 });  
+                            </script>
+
+                            <script>
+                                $(document).on('click', '.removeRowBtn', function() {
+                                    $(this).closest('tr').remove();
+                                })
                             </script>
 
                                 <div class="col-12">
@@ -483,6 +492,7 @@
                                                     <th>Expiry Date</th>
                                                     <th>Label Claim </th>
                                                     <th>Pack Size </th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -500,7 +510,7 @@
                                                                         id="date_0_mfg_date"
                                                                         type="text"
                                                                         name="info_on_product_mat[0][info_mfg_date]"
-                                                                        placeholder="DD-MMM-YYYY"
+                                                                        placeholder="DD-MM-YYYY"
                                                                     />
                                                                     <input
                                                                         type="date"
@@ -524,7 +534,7 @@
                                                                         id="date_0_expiry_date"
                                                                         type="text"
                                                                         name="info_on_product_mat[0][info_expiry_date]"
-                                                                        placeholder="DD-MMM-YYYY"
+                                                                        placeholder="DD-MM-YYYY"
                                                                     />
                                                                     <input
                                                                         type="date"
@@ -541,6 +551,7 @@
                                                      </td>
                                                     <td><input type="text" name="info_on_product_mat[0][label_claim]"></td>
                                                     <td><input type="text" name="info_on_product_mat[0][pack_size]"></td>
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -558,10 +569,11 @@
                                                     '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][item_product_code]"></td>' +
                                                     '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][lot_batch_no]"></td>' +
                                                     '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][ar_no]"></td>' +
-                                                    '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_mfg_date" type="text" name="info_on_product_mat[' + serialNumber + '][info_mfg_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="info_on_product_mat[' + serialNumber + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_mfg_date\')" /> </div></div></div></td>' +
-                                                    '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_expiry_date" type="text" name="info_on_product_mat[' + serialNumber + '][info_expiry_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="info_on_product_mat[' + serialNumber + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_expiry_date\')" /> </div></div></div></td>' +
+                                                    '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_mfg_date" type="text" name="info_on_product_mat[' + serialNumber + '][info_mfg_date]" placeholder="DD-MM-YYYY" /> <input type="date" name="info_on_product_mat[' + serialNumber + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_mfg_date\')" /> </div></div></div></td>' +
+                                                    '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_expiry_date" type="text" name="info_on_product_mat[' + serialNumber + '][info_expiry_date]" placeholder="DD-MM-YYYY" /> <input type="date" name="info_on_product_mat[' + serialNumber + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_expiry_date\')" /> </div></div></div></td>' +
                                                     '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][label_claim]"></td>'+
                                                     '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][pack_size]"></td>'+
+                                                    '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
                                                     '</tr>';
                                                 return html;
                                             }
@@ -588,6 +600,7 @@
                                                     <th>Test Name of OOS</th>
                                                     <th>Results obtained</th>
                                                     <th>Specification Limit</th>
+                                                    <th>Action</th>
                                                     {{-- <th>Instru. Caliberation Due Date</th> --}}
                                                 </tr>
                                             </thead>
@@ -598,6 +611,7 @@
                                                     <td><input type="text" name="oos_details[0][test_name_of_OOS]"></td>
                                                     <td><input type="text" name="oos_details[0][results_obtained]"></td>
                                                     <td><input type="text" name="oos_details[0][specification_limit]"></td>
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -617,6 +631,7 @@
                                                     '<td><input type="text" name="oos_details[' + serialNumber + '][test_name_of_OOS]"></td>' +
                                                     '<td><input type="text" name="oos_details[' + serialNumber + '][results_obtained]"></td>' +
                                                     '<td><input type="text" name="oos_details[' + serialNumber + '][specification_limit]"></td>'+
+                                                    '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
                                                     '</tr>';
                                                 return html;
                                             }
@@ -646,6 +661,7 @@
                                                     <th>%Difference of Results</th>
                                                     <th>Initial Interview Details</th>
                                                     <th>Trend Limit</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -659,6 +675,7 @@
                                                     <td><input type="text" name="oot_detail[0][difference_of_Results_oot]"></td>
                                                     <td><input type="text" name="oot_detail[0][initial_interview_Details_oot]"></td>
                                                     <td><input type="text" name="oot_detail[0][trend_Limit_oot]"></td>
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -681,6 +698,7 @@
                                                 '<td><input type="text" name="oot_detail[' + serialNumber + '][difference_of_Results_oot]"></td>'+
                                                 '<td><input type="text" name="oot_detail[' + serialNumber + '][initial_interview_Details_oot]"></td>'+
                                                 '<td><input type="text" name="oot_detail[' + serialNumber + '][trend_Limit_oot]"></td>'+
+                                                '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
                                                 '</tr>';
                                             return html;
                                         }
@@ -707,6 +725,7 @@
                                                     <th>Interval</th>
                                                     <th>Orientation</th>
                                                     <th>Pack Details(if any)</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -717,6 +736,7 @@
                                                     <td><input type="text" name="stability_study[0][interval_stability_stdy]"></td>
                                                     <td><input type="text" name="stability_study[0][orientation_stability_stdy]"></td>
                                                     <td><input type="text" name="stability_study[0][pack_details_if_any_stability_stdy]"></td>
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -736,6 +756,7 @@
                                                     '<td><input type="text" name="stability_study[' + serialNumber + '][interval_stability_stdy]"></td>' +
                                                     '<td><input type="text" name="stability_study[' + serialNumber + '][orientation_stability_stdy]"></td>'+
                                                     '<td><input type="text" name="stability_study[' + serialNumber + '][pack_details_if_any_stability_stdy]"></td>'+
+                                                    '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
                                                     '</tr>';
                                                 return html;
                                             }
@@ -763,7 +784,7 @@
                                                     <th>Stability Interval</th>
                                                     <th>Pack Details(if any)</th>
                                                     <th>Orientation</th>
-
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -774,7 +795,7 @@
                                                     <td><input type="text" name="stability_study2[0][stability_interval_stability_stdy2]"></td>
                                                     <td><input type="text" name="stability_study2[0][pack_details_if_any_stability_stdy2]"></td>
                                                     <td><input type="text" name="stability_study2[0][orientation_stability_stdy2]"></td>
-
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -794,6 +815,7 @@
                                                     '<td><input type="text" name="stability_study2[' + serialNumber + '][stability_interval_stability_stdy2]"></td>' +
                                                     '<td><input type="text" name="stability_study2[' + serialNumber + '][pack_details_if_any_stability_stdy2]"></td>'+
                                                     '<td><input type="text" name="stability_study2[' + serialNumber + '][orientation_stability_stdy2]"></td>'+
+                                                    '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
                                                     '</tr>';
                                                 return html;
                                             }
@@ -927,57 +949,82 @@
                         <div class="inner-block-content">
                             <div class="row">
                                 <div class="sub-head">General Information</div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="Completed By">Submit By : </label>
                                         {{-- <div class="static">Person datafield</div>/ --}}
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="Completed On">Submit On :</label>
                                         {{-- <div class="static">17-04-2023 11:12PM</div> --}}
                                     </div>
                                 </div>
+                                <div class="col-lg-3">
+                                    <div class="group-input">
+                                        <label for="Completed On">Submit Comment :</label>
+                                        {{-- <div class="static">17-04-2023 11:12PM</div> --}}
+                                    </div>
+                                </div>
                                 <div class="sub-head">Under Sample Request Approval</div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="HOD Review Complete By">Sample Req. Approval Done By :</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="HOD Review Complete By">Sample Req. Approval Done On :</label>
                                         <div class="static"></div>
                                     </div>
                                 </div>
+                                <div class="col-lg-3">
+                                    <div class="group-input">
+                                        <label for="HOD Review Complete By">Sample Req. Approval Done Comment :</label>
+                                        <div class="static"></div>
+                                    </div>
+                                </div>
 
                                 <div class="sub-head">Pending Sample Received</div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="Completed On">Sample Received Completed By :</label>
                                         {{-- <div class="static">17-04-2023 11:12PM</div> --}}
                                     </div>
-                                </div> <div class="col-lg-6">
+                                </div> 
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="Completed On">Sample Received Completed On :</label>
+                                        {{-- <div class="static">17-04-2023 11:12PM</div> --}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="group-input">
+                                        <label for="Completed On">Sample Received Completed Comment :</label>
                                         {{-- <div class="static">17-04-2023 11:12PM</div> --}}
                                     </div>
                                 </div>
 
                                 <div class="sub-head">Cancellation</div>
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="Completed On">Cancel Request By :</label>
                                         {{-- <div class="static">17-04-2023 11:12PM</div> --}}
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <div class="group-input">
                                         <label for="Completed On">Cancel Request On :</label>
+                                        {{-- <div class="static">17-04-2023 11:12PM</div> --}}
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="group-input">
+                                        <label for="Completed On">Cancel Request Comment :</label>
                                         {{-- <div class="static">17-04-2023 11:12PM</div> --}}
                                     </div>
                                 </div>
@@ -1186,7 +1233,7 @@ function addActionItemDetails(tableId) {
             cell2.innerHTML = "<input type='text' name='short_desc[]'>";
 
             var cell3 = newRow.insertCell(2);
-            cell3.innerHTML = '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="date_due' + currentRowCount +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="date_due[]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_due' + currentRowCount +'_checkdate"  class="hide-input" oninput="handleDateInput(this, `date_due' + currentRowCount +'`);checkDate(`date_due' + currentRowCount +'_checkdate`,`date_closed' + currentRowCount +'_checkdate`)" /></div></div></div></td>';
+            cell3.innerHTML = '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="date_due' + currentRowCount +'" readonly placeholder="DD-MM-YYYY" /><input type="date" name="date_due[]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_due' + currentRowCount +'_checkdate"  class="hide-input" oninput="handleDateInput(this, `date_due' + currentRowCount +'`);checkDate(`date_due' + currentRowCount +'_checkdate`,`date_closed' + currentRowCount +'_checkdate`)" /></div></div></div></td>';
 
             var cell4 = newRow.insertCell(3);
             cell4.innerHTML = "<input type='text' name='site[]'>";
@@ -1204,7 +1251,7 @@ function addActionItemDetails(tableId) {
             cell6.innerHTML = "<input type='text' name='current_status[]'>";
 
             var cell7 = newRow.insertCell(6);
-            cell7.innerHTML = '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="date_closed' + currentRowCount +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="date_closed[]"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  id="date_closed'+ currentRowCount +'_checkdate" class="hide-input" oninput="handleDateInput(this, `date_closed' + currentRowCount +'`);checkDate(`date_due' + currentRowCount +'_checkdate`,`date_closed' + currentRowCount +'_checkdate`)" /></div></div></div></td>';
+            cell7.innerHTML = '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="date_closed' + currentRowCount +'" readonly placeholder="DD-MM-YYYY" /><input type="date" name="date_closed[]"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  id="date_closed'+ currentRowCount +'_checkdate" class="hide-input" oninput="handleDateInput(this, `date_closed' + currentRowCount +'`);checkDate(`date_due' + currentRowCount +'_checkdate`,`date_closed' + currentRowCount +'_checkdate`)" /></div></div></div></td>';
 
             var cell8 = newRow.insertCell(7);
             cell8.innerHTML = "<input type='text' name='remark[]'>";

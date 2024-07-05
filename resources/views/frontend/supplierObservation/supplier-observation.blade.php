@@ -33,7 +33,7 @@ $users = DB::table('users')->get();
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Supplier Observation</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Impact Analysis</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Activity Log</button>
         </div>
 
         <form action="{{ route('supplier_store') }}" method="POST" enctype="multipart/form-data">
@@ -113,7 +113,7 @@ $users = DB::table('users')->get();
                                     <label for="due-date">Due Date</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
@@ -319,7 +319,7 @@ $users = DB::table('users')->get();
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head">
-                                Signatures
+                                Activity Log
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">

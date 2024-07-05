@@ -205,9 +205,9 @@
                                         <div><small class="text-primary"> last date this record should be closed by</small></div>
     
                                         <div class="calenderauditee">
-                                            <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $data->due_date ? \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') : '' }}" />
+                                            <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" value="{{ $data->due_date ? \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') : '' }}" />
                                             <input type="date" name="due_date"
-                                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                                min="{{ \Carbon\Carbon::now()->format('d-m-y') }}"
                                                 value="{{ $data->due_date}}" class="hide-input"
                                                 oninput="handleDateInput(this, 'due_date')" />
                                         </div>
@@ -366,7 +366,7 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled end date">Parent-TCD(hid)</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_date" readonly placeholder="DD-MMM-YYYY"  value="{{$data->parent_tcd_hid}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
+                                        <input type="text" id="end_date" readonly placeholder="DD-MM-YYYY"  value="{{$data->parent_tcd_hid}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
                                         <input type="date" id="end_date_checkdate" name="parent_tcd_hid" value="{{$data->parent_tcd_hid}}" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                             oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
                                     </div>
@@ -398,7 +398,7 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent)Date Opened</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" value="{{$data->parent_date_opened}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
+                                        <input type="text" id="start_date" readonly placeholder="DD-MM-YYYY" value="{{$data->parent_date_opened}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
                                         <input type="date" id="start_date_checkdate"  name="parent_date_opened" value="{{$data->parent_date_opened}}" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                             oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
                                     </div>
@@ -422,7 +422,7 @@
                                 <div class="group-input input-date">
                                     <label for="Scheduled Start Date">(Parent)Target Closure Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_date1" readonly placeholder="DD-MMM-YYYY"  value="{{$data->parent_target_closure_date}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
+                                        <input type="text" id="end_date1" readonly placeholder="DD-MM-YYYY"  value="{{$data->parent_target_closure_date}}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
                                         <input type="date" id="end_date_checkdate"  name="parent_target_closure_date" value="{{$data->parent_target_closure_date}}" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                             oninput="handleDateInput(this, 'end_date1');checkDate('end_date_checkdate','end_date_checkdate')" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}/>
                                     </div>
@@ -499,6 +499,7 @@
                                                     <th>Instrument Name</th>
                                                     <th>Instrument No.</th>
                                                     <th>Instru. Caliberation Due Date</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -522,7 +523,7 @@
                                                                                     id="date_{{ $loop->index }}_date"
                                                                                     type="text"
                                                                                     name="product_material_information[{{ $loop->index }}][info_date]"
-                                                                                    placeholder="DD-MMM-YYYY"
+                                                                                    placeholder="DD-MM-YYYY"
                                                                                     {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}
                                                                                     value="{{ isset($gridDatas01['info_date']) ? $gridDatas01['info_date'] : '' }}"
                                                                                 />
@@ -536,9 +537,10 @@
                                                                                     style="position: absolute; top: 0; left: 0; opacity: 0;"
                                                                                     onchange="handleDateInput(this, 'date_{{ $loop->index }}_date')"
                                                                                 />
-                                                                    </div>
-                                                                </div>
+                                                                           </div>
+                                                                        </div>
                                                             </td>
+                                                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -564,7 +566,8 @@
                                                 '<td><input type="text" name="product_material_information[' + serialNumber + '][test_name]"></td>' +
                                                 '<td><input type="text" name="product_material_information[' + serialNumber + '][instrument_name]"></td>' +
                                                 '<td><input type="text" name="product_material_information[' + serialNumber + '][instrument_no]"></td>'+
-                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_date" type="text" name="financial_transection[' + serialNumber + '][info_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="financial_transection[' + indexDetail + '][info_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_date\')" /> </div> </div></div></td>' +
+                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_date" type="text" name="financial_transection[' + serialNumber + '][info_date]" placeholder="DD-MM-YYYY" /> <input type="date" name="financial_transection[' + indexDetail + '][info_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_date\')" /> </div> </div></div></td>' +
+                                                '<td><button type="button" class="removeRowBtn">Remove</button></td>' +
                                                 '</tr>';
                                             return html;
                                         }
@@ -574,6 +577,12 @@
                                         tableBody.append(newRow);
                                     });
                                 });
+                            </script>
+
+                            <script>
+                                $(document).on('click', '.removeRowBtn', function() {
+                                    $(this).closest('tr').remove();
+                                })
                             </script>
 
                                 <div class="col-12">
@@ -592,6 +601,7 @@
                                                     <th>Expiry Date</th>
                                                     <th>Label Claim </th>
                                                     <th>Pack Size </th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -611,7 +621,7 @@
                                                                                     id="date_{{ $loop->index }}_mfg_date"
                                                                                     type="text"
                                                                                     name="info_on_product_mat[{{ $loop->index }}][info_mfg_date]"
-                                                                                    placeholder="DD-MMM-YYYY"
+                                                                                    placeholder="DD-MM-YYYY"
                                                                                     {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}
                                                                                     value="{{ isset($gridDatas02['info_mfg_date']) ? $gridDatas02['info_mfg_date'] : '' }}"
                                                                                 />
@@ -638,7 +648,7 @@
                                                                                     id="date_{{ $loop->index }}_expiry_date"
                                                                                     type="text"
                                                                                     name="info_on_product_mat[{{ $loop->index }}][info_expiry_date]"
-                                                                                    placeholder="DD-MMM-YYYY"
+                                                                                    placeholder="DD-MM-YYYY"
                                                                                     {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}
                                                                                     value="{{ isset($gridDatas02['info_expiry_date']) ? $gridDatas02['info_expiry_date'] : '' }}"
                                                                                 />
@@ -658,6 +668,7 @@
                                                                 </td>
                                                                 <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][label_claim]" value="{{ isset($gridDatas02['label_claim']) ? $gridDatas02['label_claim'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                                 <td><input type="text" name="info_on_product_mat[{{ $loop->index }}][pack_size]" value="{{ isset($gridDatas02['pack_size']) ? $gridDatas02['pack_size'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                                <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                             </tr>
                                                     @endforeach
                                                 @endif    
@@ -679,10 +690,11 @@
                                                     '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][item_product_code]"></td>' +
                                                     '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][lot_batch_no]"></td>' +
                                                     '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][ar_no]"></td>' +
-                                                    '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_mfg_date" type="text" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_mfg_date\')" /> </div> </div></div></td>' +
-                                                '<td>  <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_expiry_date" type="text" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_expiry_date\')" /> </div> </div></div></td>' +
+                                                    '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_mfg_date" type="text" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" placeholder="DD-MM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_mfg_date\')" /> </div> </div></div></td>' +
+                                                '<td>  <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_expiry_date" type="text" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" placeholder="DD-MM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_expiry_date\')" /> </div> </div></div></td>' +
                                                     '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][label_claim]"></td>'+
                                                     '<td><input type="text" name="info_on_product_mat[' + serialNumber + '][pack_size]"></td>'+
+                                                    '<td><button type="button" class="removeRowBtn">Remove</button></td>' +
                                                     '</tr>';
                                                 return html;
                                             }
@@ -709,6 +721,7 @@
                                                     <th>Test Name of OOS</th>
                                                     <th>Results obtained</th>
                                                     <th>Specification Limit</th>
+                                                    <th>Action</th>
                                                     {{-- <th>Instru. Caliberation Due Date</th> --}}
                                                 </tr>
                                             </thead>
@@ -721,6 +734,7 @@
                                                             <td><input type="text" name="oos_details[{{ $loop->index }}][test_name_of_OOS]" value="{{ isset($gridDatas03['test_name_of_OOS']) ? $gridDatas03['test_name_of_OOS'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                             <td><input type="text" name="oos_details[{{ $loop->index }}][results_obtained]" value="{{ isset($gridDatas03['results_obtained']) ? $gridDatas03['results_obtained'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                             <td><input type="text" name="oos_details[{{ $loop->index }}][specification_limit]" value="{{ isset($gridDatas03['specification_limit']) ? $gridDatas03['specification_limit'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -743,6 +757,7 @@
                                                     '<td><input type="text" name="oos_details[' + serialNumber + '][test_name_of_OOS]"></td>' +
                                                     '<td><input type="text" name="oos_details[' + serialNumber + '][results_obtained]"></td>' +
                                                     '<td><input type="text" name="oos_details[' + serialNumber + '][specification_limit]"></td>'+
+                                                    '<td><button type="button" class="removeRowBtn">Remove</button></td>' +
                                                     '</tr>';
                                                 return html;
                                             }
@@ -772,6 +787,7 @@
                                                     <th>%Difference of Results</th>
                                                     <th>Initial Interview Details</th>
                                                     <th>Trend Limit</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -787,6 +803,7 @@
                                                             <td><input type="text" name="oot_detail[{{ $loop->index }}][difference_of_Results_oot]" value="{{ isset($gridDatas04['difference_of_Results_oot']) ? $gridDatas04['difference_of_Results_oot'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                             <td><input type="text" name="oot_detail[{{ $loop->index }}][initial_interview_Details_oot]" value="{{ isset($gridDatas04['initial_interview_Details_oot']) ? $gridDatas04['initial_interview_Details_oot'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                             <td><input type="text" name="oot_detail[{{ $loop->index }}][trend_Limit_oot]" value="{{ isset($gridDatas04['trend_Limit_oot']) ? $gridDatas04['trend_Limit_oot'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -812,6 +829,7 @@
                                                     '<td><input type="text" name="oot_detail[' + serialNumber + '][difference_of_Results_oot]"></td>'+
                                                     '<td><input type="text" name="oot_detail[' + serialNumber + '][initial_interview_Details_oot]"></td>'+
                                                     '<td><input type="text" name="oot_detail[' + serialNumber + '][trend_Limit_oot]"></td>'+
+                                                    '<td><button type="button" class="removeRowBtn">Remove</button></td>' +
                                                     '</tr>';
                                                 return html;
                                             }
@@ -838,6 +856,7 @@
                                                     <th>Interval</th>
                                                     <th>Orientation</th>
                                                     <th>Pack Details(if any)</th>
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -850,6 +869,7 @@
                                                             <td><input type="text" name="stability_study[{{ $loop->index }}][interval_stability_stdy]" value="{{ isset($gridDatas05['interval_stability_stdy']) ? $gridDatas05['interval_stability_stdy'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                             <td><input type="text" name="stability_study[{{ $loop->index }}][orientation_stability_stdy]" value="{{ isset($gridDatas05['orientation_stability_stdy']) ? $gridDatas05['orientation_stability_stdy'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                             <td><input type="text" name="stability_study[{{ $loop->index }}][pack_details_if_any_stability_stdy]" value="{{ isset($gridDatas05['pack_details_if_any_stability_stdy']) ? $gridDatas05['pack_details_if_any_stability_stdy'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
+                                                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -872,6 +892,7 @@
                                                     '<td><input type="text" name="stability_study[' + serialNumber + '][interval_stability_stdy]"></td>' +
                                                     '<td><input type="text" name="stability_study[' + serialNumber + '][orientation_stability_stdy]"></td>'+
                                                     '<td><input type="text" name="stability_study[' + serialNumber + '][pack_details_if_any_stability_stdy]"></td>'+
+                                                    '<td><button type="button" class="removeRowBtn">Remove</button></td>' +
                                                     '</tr>';
                                                 return html;
                                             }
@@ -899,7 +920,7 @@
                                                     <th>Stability Interval</th>
                                                     <th>Pack Details(if any)</th>
                                                     <th>Orientation</th>
-
+                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -912,7 +933,7 @@
                                                             <td><input type="text" name="stability_study2[{{ $loop->index }}][stability_interval_stability_stdy2]" value="{{ isset($gridDatas06['stability_interval_stability_stdy2']) ? $gridDatas06['stability_interval_stability_stdy2'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                             <td><input type="text" name="stability_study2[{{ $loop->index }}][pack_details_if_any_stability_stdy2]" value="{{ isset($gridDatas06['pack_details_if_any_stability_stdy2']) ? $gridDatas06['pack_details_if_any_stability_stdy2'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
                                                             <td><input type="text" name="stability_study2[{{ $loop->index }}][orientation_stability_stdy2]" value="{{ isset($gridDatas06['orientation_stability_stdy2']) ? $gridDatas06['orientation_stability_stdy2'] : '' }}" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}></td>
-
+                                                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                         </tr>
                                                     @endforeach
                                                 @endif
@@ -935,6 +956,7 @@
                                                     '<td><input type="text" name="stability_study2[' + serialNumber + '][stability_interval_stability_stdy2]"></td>' +
                                                     '<td><input type="text" name="stability_study2[' + serialNumber + '][pack_details_if_any_stability_stdy2]"></td>'+
                                                     '<td><input type="text" name="stability_study2[' + serialNumber + '][orientation_stability_stdy2]"></td>'+
+                                                    '<td><button type="button" class="removeRowBtn">Remove</button></td>' +
                                                     '</tr>';
                                                 return html;
                                             }
@@ -1510,7 +1532,7 @@ function addActionItemDetails(tableId) {
             cell2.innerHTML = "<input type='text' name='short_desc[]'>";
 
             var cell3 = newRow.insertCell(2);
-            cell3.innerHTML = '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="date_due' + currentRowCount +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="date_due[]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_due' + currentRowCount +'_checkdate"  class="hide-input" oninput="handleDateInput(this, `date_due' + currentRowCount +'`);checkDate(`date_due' + currentRowCount +'_checkdate`,`date_closed' + currentRowCount +'_checkdate`)" /></div></div></div></td>';
+            cell3.innerHTML = '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="date_due' + currentRowCount +'" readonly placeholder="DD-MM-YYYY" /><input type="date" name="date_due[]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_due' + currentRowCount +'_checkdate"  class="hide-input" oninput="handleDateInput(this, `date_due' + currentRowCount +'`);checkDate(`date_due' + currentRowCount +'_checkdate`,`date_closed' + currentRowCount +'_checkdate`)" /></div></div></div></td>';
 
             var cell4 = newRow.insertCell(3);
             cell4.innerHTML = "<input type='text' name='site[]'>";
@@ -1528,7 +1550,7 @@ function addActionItemDetails(tableId) {
             cell6.innerHTML = "<input type='text' name='current_status[]'>";
 
             var cell7 = newRow.insertCell(6);
-            cell7.innerHTML = '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="date_closed' + currentRowCount +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="date_closed[]"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  id="date_closed'+ currentRowCount +'_checkdate" class="hide-input" oninput="handleDateInput(this, `date_closed' + currentRowCount +'`);checkDate(`date_due' + currentRowCount +'_checkdate`,`date_closed' + currentRowCount +'_checkdate`)" /></div></div></div></td>';
+            cell7.innerHTML = '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="date_closed' + currentRowCount +'" readonly placeholder="DD-MM-YYYY" /><input type="date" name="date_closed[]"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  id="date_closed'+ currentRowCount +'_checkdate" class="hide-input" oninput="handleDateInput(this, `date_closed' + currentRowCount +'`);checkDate(`date_due' + currentRowCount +'_checkdate`,`date_closed' + currentRowCount +'_checkdate`)" /></div></div></div></td>';
 
             var cell8 = newRow.insertCell(7);
             cell8.innerHTML = "<input type='text' name='remark[]'>";

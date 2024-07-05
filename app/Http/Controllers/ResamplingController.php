@@ -1321,7 +1321,8 @@ class ResamplingController extends Controller
 
     }
 
-    public function resampling_show($id) {
+    public function resampling_show($id)
+    {
         $data = Resampling::find($id);
         if(empty($data)) {
             toastr()->error('Invalid ID.');

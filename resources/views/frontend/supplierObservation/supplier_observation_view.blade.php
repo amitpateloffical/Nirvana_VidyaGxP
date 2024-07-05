@@ -131,7 +131,7 @@
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Supplier Observation</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Impact Analysis</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Activity Log</button>
         </div>
 
         <form action="{{ route('supplier_update', $data->id) }}" method="POST" enctype="multipart/form-data">
@@ -215,7 +215,7 @@
                                     <div><small class="text-primary"> last date this record should be closed by</small></div>
 
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $data->due_date ? \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') : '' }}" />
+                                        <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" value="{{ $data->due_date ? \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') : '' }}" />
                                         <input type="date" name="due_date"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                             value="{{ $data->due_date}}" class="hide-input"
@@ -452,7 +452,7 @@
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head">
-                                Signatures
+                                Activity Log
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">

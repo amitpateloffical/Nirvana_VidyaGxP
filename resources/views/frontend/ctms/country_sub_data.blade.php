@@ -101,7 +101,7 @@ $users = DB::table('users')->get();
                                     <label for="due-date">Due Date</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
@@ -264,6 +264,7 @@ $users = DB::table('users')->get();
                                                 <th style="width: 15%">Disposition</th>
                                                 <th style="width: 15%">Comments</th>
                                                 <th style="width: 15%">Remarks</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -279,7 +280,7 @@ $users = DB::table('users')->get();
                                                                 id="date_0_mfg_date"
                                                                 type="text"
                                                                 name="serial_number_gi[0][info_mfg_date]"
-                                                                placeholder="DD-MMM-YYYY"
+                                                                placeholder="DD-MM-YYYY"
                                                             />
                                                             <input
                                                                 type="date"
@@ -303,7 +304,7 @@ $users = DB::table('users')->get();
                                                                 id="date_0_expiry_date"
                                                                 type="text"
                                                                 name="serial_number_gi[0][info_expiry_date]"
-                                                                placeholder="DD-MMM-YYYY"
+                                                                placeholder="DD-MM-YYYY"
                                                             />
                                                             <input
                                                                 type="date"
@@ -321,11 +322,18 @@ $users = DB::table('users')->get();
                                             <td><input type="text" name="serial_number_gi[0][info_disposition]"></td>
                                             <td><input type="text" name="serial_number_gi[0][info_comments]"></td>
                                             <td><input type="text" name="serial_number_gi[0][info_remarks]"></td>
+                                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                                         </tbody>
 
                                     </table>
                                 </div>
                             </div>
+
+                            <script>
+                                $(document).on('click', '.removeRowBtn', function() {
+                                    $(this).closest('tr').remove();
+                                })
+                            </script>
 
                             <script>
                                 $(document).ready(function() {
@@ -337,11 +345,12 @@ $users = DB::table('users')->get();
                                                 '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                                                 '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_product_name]"></td>' +
                                                 '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_batch_number]"></td>' +
-                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_mfg_date" type="text" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_mfg_date\')" /> </div></div></div></td>' +
-                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_expiry_date" type="text" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" placeholder="DD-MMM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_expiry_date\')" /> </div></div></div></td>' +
+                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_mfg_date" type="text" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" placeholder="DD-MM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_mfg_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_mfg_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_mfg_date\')" /> </div></div></div></td>' +
+                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input id="date_'+ serialNumber +'_expiry_date" type="text" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" placeholder="DD-MM-YYYY" /> <input type="date" name="serial_number_gi[' + serialNumber + '][info_expiry_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ serialNumber +'_expiry_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_expiry_date\')" /> </div></div></div></td>' +
                                                 '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_disposition]"></td>' +
                                                 '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_comments]"></td>' +
                                                 '<td><input type="text" name="serial_number_gi[' + serialNumber + '][info_remarks]"></td>' +
+                                                '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
                                                 '</tr>';
                             
                                             return html;
@@ -680,6 +689,7 @@ $users = DB::table('users')->get();
                                                 <th style="width: 15%">Currency Used</th>
                                                 <th style="width: 15%">Comments</th>
                                                 <th style="width: 15%">Remarks</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -695,7 +705,7 @@ $users = DB::table('users')->get();
                                                                 id="date_0_date"
                                                                 type="text"
                                                                 name="financial_transection[0][info_date]"
-                                                                placeholder="DD-MMM-YYYY"
+                                                                placeholder="DD-MM-YYYY"
                                                             />
                                                             <input
                                                                 type="date"
@@ -714,6 +724,7 @@ $users = DB::table('users')->get();
                                             <td><input type="text" name="financial_transection[0][info_currency_used]"></td>
                                             <td><input type="text" name="financial_transection[0][info_comments]"></td>
                                             <td><input type="text" name="financial_transection[0][info_remarks]"></td>
+                                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                                         </tbody>
 
                                     </table>
@@ -730,11 +741,12 @@ $users = DB::table('users')->get();
                                                 '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                                                 '<td><input type="text" name="financial_transection[' + serialNumber + '][info_transaction]"></td>' +
                                                 '<td><input type="text" name="financial_transection[' + serialNumber + '][info_transaction_type]"></td>' +
-                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input class="click_date" id="date_'+ serialNumber +'_date" type="text" name="financial_transection[' + serialNumber + '][info_date]" placeholder="DD-MMM-YYYY"/><input type="date" name="financial_transection[' + serialNumber + '][info_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_'+ serialNumber +'_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_date\')"/></div></div></div></td>' +
+                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input class="click_date" id="date_'+ serialNumber +'_date" type="text" name="financial_transection[' + serialNumber + '][info_date]" placeholder="DD-MM-YYYY"/><input type="date" name="financial_transection[' + serialNumber + '][info_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_'+ serialNumber +'_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_date\')"/></div></div></div></td>' +
                                                 '<td><input type="number" name="financial_transection[' + serialNumber + '][info_amount]"></td>' +
                                                 '<td><input type="text" name="financial_transection[' + serialNumber + '][info_currency_used]"></td>' +
                                                 '<td><input type="text" name="financial_transection[' + serialNumber + '][info_comments]"></td>' +
                                                 '<td><input type="text" name="financial_transection[' + serialNumber + '][info_remarks]"></td>' +
+                                                '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
                                                 '</tr>';
                             
                                             return html;
@@ -763,9 +775,10 @@ $users = DB::table('users')->get();
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Ingredient Type</th>
                                                 <th style="width: 16%">Ingredient Name</th>
-                                                <th style="width: 16%">Ingredient Strength</th>
+                                                <th style="width: 15%">Ingredient Strength</th>
                                                 <th style="width: 15%">Comments</th>
                                                 <th style="width: 15%">Remarks</th>
+                                                <th style="width: 1%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -775,6 +788,7 @@ $users = DB::table('users')->get();
                                             <td><input type="text" name="ingredi[0][info_ingredient_strength]"></td>
                                             <td><input type="text" name="ingredi[0][info_comments]"></td>
                                             <td><input type="text" name="ingredi[0][info_remarks]"></td>
+                                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                                         </tbody>
 
                                     </table>
@@ -824,7 +838,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="Annual IB Due Date">Annual IB Update Date Due</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="annual_ib" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="annual_ib" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="annual_IB_update_date_due"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'annual_ib')" />
@@ -836,7 +850,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="Date of 1st IB">Date of 1st IB</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="first_IB" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="first_IB" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="date_of_first_IB"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'first_IB')" />
@@ -848,7 +862,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="Date of 1st Protocol">Date of 1st Protocol</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="first_protocol" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="first_protocol" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="date_of_first_protocol"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'first_protocol')" />
@@ -860,7 +874,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="Date Safety Report">Date Safety Report</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="safety_report" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="safety_report" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="date_safety_report"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'safety_report')" />
@@ -872,7 +886,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="Date Trial Active">Date Trial Active</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="trial_active" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="trial_active" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="date_trial_active"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'trial_active')" />
@@ -884,7 +898,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="End of Study Report Date">End of Study Report Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="study_report_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="study_report_date" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="end_of_study_report_date"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'study_report_date')" />
@@ -896,7 +910,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="End of Study Synopsis Date">End of Study Synopsis Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="study_synopsis_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="study_synopsis_date" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="end_of_study_synopsis_date"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'study_synopsis_date')" />
@@ -908,7 +922,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="End of Trial Date">End of Trial Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_of_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="end_of_date" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="end_of_trial_date"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'end_of_date')" />
@@ -920,7 +934,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="Last Visit">Last Visit</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="visit_last" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="visit_last" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="last_visit"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'visit_last')" />
@@ -932,7 +946,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="Next Visit">Next Visit</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="visit_next" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="visit_next" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="next_visit"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'visit_next')" />
@@ -944,7 +958,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="Ethics Commitee Approval">Ethics Commitee Approval</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="commitee_approval" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="text" id="commitee_approval" readonly placeholder="DD-MM-YYYY" />
                                         <input type="date" name="ethics_commitee_approval"
                                             min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
                                             class="hide-input" oninput="handleDateInput(this, 'commitee_approval')" />
@@ -1202,6 +1216,7 @@ $users = DB::table('users')->get();
                 '<td><input type="text" name="ingredi[' + serialNumber + '][info_ingredient_strength]"></td>' +
                 '<td><input type="text" name="ingredi[' + serialNumber + '][info_comments]"></td>' +
                 '<td><input type="text" name="ingredi[' + serialNumber + '][info_remarks]"></td>' +
+                '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
                 '</tr>';
 
                 return html;
