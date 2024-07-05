@@ -188,7 +188,7 @@
 
         <div class="division-bar">
             <strong>Site Division/Project</strong> :
-            {{ Helpers::getDivisionName(session()->get('division')) }} / External Audit
+            {{ Helpers::getDivisionName(session()->get('division')) }} / Supplier Audit
         </div>
     </div>
 
@@ -230,9 +230,9 @@
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
-                                        <!-- <input disabled type="text" name="record_number"
-                                            value="/EA/{{ date('Y') }}/{{ $record_number }}"> -->
-                                        {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
+                                        <input disabled type="text" name="record_number"
+                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/SA/{{ date('y') }}/{{ $record_number }}">
+                                        <!-- {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}} -->
                                     </div>
                                 </div>
                                 <div class="col-lg-6">

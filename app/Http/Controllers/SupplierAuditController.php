@@ -35,23 +35,18 @@ class SupplierAuditController extends Controller
 
     public function create(Request $request)
     {
-        //$request->dd();
-        //  return $request->audit_start_date;
-        //  die;
 
 
-        // if (!$request->short_description) {
-        //     toastr()->error("Short description is required");
-        //     return redirect()->back()->withInput();
-        // }
+        if (!$request->short_description) {
+            toastr()->error("Short description is required");
+            return redirect()->back()->withInput();
+        }
 
         $internalAudit = new SupplierAudit();
-        $internalAudit->form_type = "External-audit";
+        $internalAudit->form_type = "Supplier-audit";
         $internalAudit->record = ((RecordNumber::first()->value('counter')) + 1);
         $internalAudit->initiator_id = Auth::user()->id;
         $internalAudit->division_id = $request->division_id;
-        //$internalAudit->parent_id = $request->parent_id;
-        //$internalAudit->parent_type = $request->parent_type;
         $internalAudit->division_code = $request->division_code;
         $internalAudit->intiation_date = $request->intiation_date;
         $internalAudit->assign_to = $request->assign_to;
@@ -61,7 +56,6 @@ class SupplierAuditController extends Controller
         $internalAudit->short_description = $request->short_description;
         $internalAudit->audit_type = $request->audit_type;
         $internalAudit->if_other = $request->if_other;
-
         $internalAudit->initiated_through = $request->initiated_through;
         $internalAudit->initiated_if_other = $request->initiated_if_other;
         $internalAudit->others = $request->others;
@@ -70,8 +64,6 @@ class SupplierAuditController extends Controller
         $internalAudit->due_date_extension = $request->due_date_extension;
         $internalAudit->initial_comments = $request->initial_comments;
         $internalAudit->severity_level = $request->severity_level;
-
-
         $internalAudit->start_date = $request->start_date;
         $internalAudit->end_date = $request->end_date;
         $internalAudit->audit_agenda = $request->audit_agenda;
@@ -98,6 +90,8 @@ class SupplierAuditController extends Controller
         $internalAudit->status = 'Opened';
         $internalAudit->stage = 1;
         $internalAudit->external_agencies = $request->external_agencies;
+
+// File Attachments
 
 
         if (!empty($request->file_attachment_guideline)) {
@@ -176,7 +170,6 @@ class SupplierAuditController extends Controller
         }
 
      
-        //return $internalAudit;
         $internalAudit->save();
 
         $record = RecordNumber::first();
@@ -184,8 +177,7 @@ class SupplierAuditController extends Controller
         $record->update();
 
         // -----------------grid---- Audit Agenda 
-        $data3 = new ExternalAuditTrailSupplier();
-      //  $request->dd();
+        $data3 = new ExternalAuditGridSupplier();
         $data3->audit_id = $internalAudit->id;
         $data3->type = "external_audit";
         if (!empty($request->audit)) {
@@ -214,7 +206,8 @@ class SupplierAuditController extends Controller
         }
 
         $data3->save();
-         // -----------------grid ---- Observation Details
+
+        // -----------------grid ---- Observation Details
         $data4 = new ExternalAuditGridSupplier();
         $data4->audit_id = $internalAudit->id;
         $data4->type = "Observation_field_Auditee";
@@ -275,8 +268,11 @@ class SupplierAuditController extends Controller
         if (!empty($request->remark_observation)) {
             $data4->remark = serialize($request->remark_observation);
         }
-        //dd($data4);
         $data4->save();
+
+        // AuditTrail----------------------------------------
+
+
         if (!empty($internalAudit->date)) {
             $history = new ExternalAuditTrailSupplier();
             $history->supplier_id = $internalAudit->id;
@@ -287,6 +283,9 @@ class SupplierAuditController extends Controller
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->origin_state = $internalAudit->status;
             $history->save();
         }
@@ -301,6 +300,9 @@ class SupplierAuditController extends Controller
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->origin_state = $internalAudit->status;
             $history->save();
         }
@@ -315,6 +317,9 @@ class SupplierAuditController extends Controller
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->origin_state = $internalAudit->status;
             $history->save();
         }
@@ -329,6 +334,9 @@ class SupplierAuditController extends Controller
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->origin_state = $internalAudit->status;
             $history->save();
         }
@@ -343,6 +351,9 @@ class SupplierAuditController extends Controller
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->origin_state = $internalAudit->status;
             $history->save();
         }
@@ -358,6 +369,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -372,6 +386,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -386,6 +403,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -400,6 +420,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -414,36 +437,12 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
-        // if (!empty($internalAudit->Facility)) {
-        //     $history = new ExternalAuditTrailSupplier();
-        //     $history->supplier_id = $internalAudit->id;
-        //     $history->activity_type = 'Facility Name';
-        //     $history->previous = "Null";
-        //     $history->current = $internalAudit->Facility;
-        //     $history->comment = "NA";
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $internalAudit->status;
-        //     $history->save();
-        // }
-
-        // if (!empty($internalAudit->Group)) {
-        //     $history = new ExternalAuditTrailSupplier();
-        //     $history->supplier_id = $internalAudit->id;
-        //     $history->activity_type = 'Group Name';
-        //     $history->previous = "Null";
-        //     $history->current = $internalAudit->Group;
-        //     $history->comment = "NA";
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $internalAudit->status;
-        //     $history->save();
-        // }
 
         if (!empty($internalAudit->material_name)) {
             $history = new ExternalAuditTrailSupplier();
@@ -456,6 +455,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -470,6 +472,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -484,6 +489,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -498,13 +506,16 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
         if (!empty($internalAudit->Auditor_Details)) {
             $history = new ExternalAuditTrailSupplier();
             $history->supplier_id = $internalAudit->id;
-            $history->activity_type = 'External Auditor Details';
+            $history->activity_type = 'Supplier Auditor Details';
             $history->previous = "Null";
             $history->current = $internalAudit->Auditor_Details;
             $history->comment = "NA";
@@ -512,6 +523,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -526,6 +540,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -540,6 +557,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -554,6 +574,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -568,6 +591,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -582,6 +608,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -596,6 +625,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -610,6 +642,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -624,6 +659,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -638,6 +676,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -652,6 +693,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -666,6 +710,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -680,6 +727,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -694,6 +744,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -708,6 +761,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -722,6 +778,9 @@ class SupplierAuditController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $internalAudit->status;
+            $history->change_to ='Opened';
+            $history->change_from = 'Initiator';
+            $history->action_name = "Create";
             $history->save();
         }
 
@@ -880,32 +939,33 @@ class SupplierAuditController extends Controller
         }
 
         $internalAudit->update();
-        $data3 = ExternalAuditGridSupplier::where('audit_id',$internalAudit->id)->where('type','external_audit')->first();
-        if (!empty($request->audit)) {
-            $data3->area_of_audit = serialize($request->audit);
+        $data3 = ExternalAuditGridSupplier::where('audit_id', $internalAudit->id)->where('type', 'external_audit')->first();
+        // dd($data3);
+        if($data3){
+
+    $fields = [
+        'audit' => 'area_of_audit',
+        'scheduled_start_date' => 'start_date',
+        'scheduled_start_time' => 'start_time',
+        'scheduled_end_date' => 'end_date',
+        'scheduled_end_time' => 'end_time',
+        'auditor' => 'auditor',
+        'auditee' => 'auditee',
+        'remark' => 'remark'
+    ];
+    
+    foreach ($fields as $requestField => $modelField) {
+        if (!empty($request->$requestField)) {
+            $data3->$modelField = serialize($request->$requestField);
         }
-        if (!empty($request->scheduled_start_date)) {
-            $data3->start_date = serialize($request->scheduled_start_date);
+    }
+    
+    $data3->update();
+}else{
+            // ===================
         }
-        if (!empty($request->scheduled_start_time)) {
-            $data3->start_time = serialize($request->scheduled_start_time);
-        }
-        if (!empty($request->scheduled_end_date)) {
-            $data3->end_date = serialize($request->scheduled_end_date);
-        }
-        if (!empty($request->scheduled_end_time)) {
-            $data3->end_time = serialize($request->scheduled_end_time);
-        }
-        if (!empty($request->auditor)) {
-            $data3->auditor = serialize($request->auditor);
-        }
-        if (!empty($request->auditee)) {
-            $data3->auditee = serialize($request->auditee);
-        }
-        if (!empty($request->remark)) {
-            $data3->remark = serialize($request->remark);
-        }
-        $data3->update();
+        
+        // dd($data3);
 
         $data4 = ExternalAuditGridSupplier::where('audit_id',$internalAudit->id)->where('type','Observation_field_Auditee')->first();
 
@@ -1167,7 +1227,7 @@ class SupplierAuditController extends Controller
 
             $history = new ExternalAuditTrailSupplier();
             $history->supplier_id = $id;
-            $history->activity_type = 'External Auditor Details';
+            $history->activity_type = 'Supplier Auditor Details';
             $history->previous = $lastDocument->Auditor_Details;
             $history->current = $internalAudit->Auditor_Details;
             $history->comment = $request->date_comment;
@@ -1579,7 +1639,7 @@ class SupplierAuditController extends Controller
                 $changeControl->status = "Closed - Done";
                 $changeControl->update();
                 $history = new AuditeeHistory();
-                $history->type = "External Audit";
+                $history->type = "Supplier Audit";
                 $history->doc_id = $id;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -1607,7 +1667,7 @@ class SupplierAuditController extends Controller
                         $history->save();
                   $changeControl->update();
                 $history = new AuditeeHistory();
-                $history->type = "External Audit";
+                $history->type = "Supplier Audit";
                 $history->doc_id = $id;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -1622,7 +1682,7 @@ class SupplierAuditController extends Controller
                 $changeControl->status = "Opened";
                 $changeControl->update();
                 $history = new AuditeeHistory();
-                $history->type = "External Audit";
+                $history->type = "Supplier Audit";
                 $history->doc_id = $id;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -1663,7 +1723,7 @@ class SupplierAuditController extends Controller
                         $history->save();
                 $changeControl->update();
                 $history = new AuditeeHistory();
-                $history->type = "External Audit";
+                $history->type = "Supplier Audit";
                 $history->doc_id = $id;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -1691,7 +1751,7 @@ class SupplierAuditController extends Controller
                 $history->save();
                 $changeControl->update();
                 $history = new AuditeeHistory();
-                $history->type = "External Audit";
+                $history->type = "Supplier Audit";
                 $history->doc_id = $id;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -1719,7 +1779,7 @@ class SupplierAuditController extends Controller
                 $history->save();
                 $changeControl->update();
                 $history = new AuditeeHistory();
-                $history->type = "External Audit";
+                $history->type = "Supplier Audit";
                 $history->doc_id = $id;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;

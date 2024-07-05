@@ -188,7 +188,7 @@ function addMultipleFiles(input, block_id) {
 
         <div class="division-bar">
             <strong>Site Division/Project</strong> :
-            {{ Helpers::getDivisionName($data->division_id) }} / External Audit
+            {{ Helpers::getDivisionName($data->division_id) }} / Supplier Audit
         </div>
     </div>
 
@@ -210,7 +210,7 @@ function addMultipleFiles(input, block_id) {
                         <!-- {{-- <button class="button_theme1" onclick="window.print();return false;"
                             class="new-doc-btn">Print</button> --}} -->
                         <button class="button_theme1"> <a class="text-white"
-                                href="{{ route('ShowexternalAuditTrial', $data->id) }}"> Audit Trail </a> </button>
+                                href="{{ route('ShowexternalAuditTrials', $data->id) }}"> Audit Trail </a> </button>
 
                         @if ($data->stage == 1 && (in_array(13, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -363,7 +363,7 @@ function addMultipleFiles(input, block_id) {
                                                 <input type="hidden" name="record_number">
                                                 {{-- <div class="static">QMS-EMEA/IA/{{ Helpers::year($data->created_at) }}/{{ $data->record }}</div> --}}
                                                 <input disabled type="text"
-                                                    value="{{ Helpers::getDivisionName($data->division_id) }}/EA/{{ Helpers::year($data->created_at) }}/{{ $data->record }}">
+                                                    value="{{ Helpers::getDivisionName($data->division_id) }}/SA/{{ date('y') }}/{{ $data->record }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">

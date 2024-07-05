@@ -39,7 +39,11 @@ class FormDivisionController extends Controller
             return redirect('meeting');
         } elseif ($request->process_name == "Supplier") {
             return redirect('rcms/supplier');
-        } elseif ($request->process_name == "New Document") {
+
+        } elseif ($request->process_name == "Supplier Audit") {
+            return redirect('supplier_audit_index');
+        }
+        elseif ($request->process_name == "New Document") {
 
             $new = new SetDivision;
             $new->division_id = $request->division_id;
