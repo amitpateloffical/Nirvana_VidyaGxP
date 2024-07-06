@@ -77,7 +77,9 @@ class ProcessSeeder extends Seeder
             "Effective Check",
             "Deviation",
             "Supplier",
+            "Supplier Audit",
             "Supplier Site"
+            
         ];
 
         // Loop through each process name

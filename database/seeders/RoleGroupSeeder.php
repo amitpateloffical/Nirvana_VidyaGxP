@@ -2422,6 +2422,7 @@ $sites = [
 
 $processes = [
     'Supplier',
+    'Supplier Audit',
     'Supplier Site'
 ];
 
