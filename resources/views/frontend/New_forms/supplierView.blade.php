@@ -405,84 +405,49 @@ function addMultipleFiles(input, block_id) {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="group-input">
-                                                <label for="due-date">Due Date <span class="text-danger"></span></label>
-                                                <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
-                                                <input readonly type="text"
-                                                    value="{{ Helpers::getdateFormat($data->due_date) }}"
-                                                    name="due_date"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="group-input">
-                                                <label for="Initiator Group"><b>Initiator Group</b></label>
-                                                <select name="Initiator_Group" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
-                                                     id="initiator_group">
-                                                    <option value="CQA"
-                                                        @if ($data->Initiator_Group == 'CQA') selected @endif>Corporate
-                                                        Quality Assurance</option>
-                                                    <option value="QAB"
-                                                        @if ($data->Initiator_Group == 'QAB') selected @endif>Quality
-                                                        Assurance Biopharma</option>
-                                                    <option value="CQC"
-                                                        @if ($data->Initiator_Group == 'CQC') selected @endif>Central
-                                                        Quality Control</option>
-                                                    <option value="MANU"
-                                                        @if ($data->Initiator_Group == 'MANU') selected @endif>Manufacturing
-                                                    </option>
-                                                    <option value="PSG"
-                                                        @if ($data->Initiator_Group == 'PSG') selected @endif>Plasma
-                                                        Sourcing Group</option>
-                                                    <option value="CS"
-                                                        @if ($data->Initiator_Group == 'CS') selected @endif>Central
-                                                        Stores</option>
-                                                    <option value="ITG"
-                                                        @if ($data->Initiator_Group == 'ITG') selected @endif>Information
-                                                        Technology Group</option>
-                                                    <option value="MM"
-                                                        @if ($data->Initiator_Group == 'MM') selected @endif>Molecular
-                                                        Medicine</option>
-                                                    <option value="CL"
-                                                        @if ($data->Initiator_Group == 'CL') selected @endif>Central
-                                                        Laboratory</option>
-                                                    <option value="TT"
-                                                        @if ($data->Initiator_Group == 'TT') selected @endif>Tech
-                                                        team</option>
-                                                    <option value="QA"
-                                                        @if ($data->Initiator_Group == 'QA') selected @endif>Quality
-                                                        Assurance</option>
-                                                    <option value="QM"
-                                                        @if ($data->Initiator_Group == 'QM') selected @endif>Quality
-                                                        Management</option>
-                                                    <option value="IA"
-                                                        @if ($data->Initiator_Group == 'IA') selected @endif>IT
-                                                        Administration</option>
-                                                    <option value="ACC"
-                                                        @if ($data->Initiator_Group == 'ACC') selected @endif>Accounting
-                                                    </option>
-                                                    <option value="LOG"
-                                                        @if ($data->Initiator_Group == 'LOG') selected @endif>Logistics
-                                                    </option>
-                                                    <option value="SM"
-                                                        @if ($data->Initiator_Group == 'SM') selected @endif>Senior
-                                                        Management</option>
-                                                    <option value="BA"
-                                                        @if ($data->Initiator_Group == 'BA') selected @endif>Business
-                                                        Administration</option>
+                                        <div class="container">
+    <!-- Due Date Display -->
+    <div class="col-md-6">
+        <div class="group-input">
+            <label for="due-date">Due Date <span class="text-danger"></span></label>
+            <div>
+                <small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
+            </div>
+            <input readonly type="text" id="due_date_display" placeholder="DD-MMM-YYYY" value="{{ \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') }}" name="due_date" {{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}>
+        </div>
+    </div>
+</div>
+<div class="col-lg-6">
+<div class="group-input">
+    <label for="Initiator Group"><b>Initiator Group</b><span class="text-danger">*</span></label>
+    <select name="Initiator_Group" {{ $data->stage == 0 || $data->stage == 10 ? "disabled" : "" }} id="initiator_group">
+        <option value="CQA" @if ($data->Initiator_Group == 'CQA') selected @endif>Corporate Quality Assurance</option>
+        <option value="QAB" @if ($data->Initiator_Group == 'QAB') selected @endif>Quality Assurance Biopharma</option>
+        <option value="CQC" @if ($data->Initiator_Group == 'CQC') selected @endif>Central Quality Control</option>
+        <option value="MANU" @if ($data->Initiator_Group == 'MANU') selected @endif>Manufacturing</option>
+        <option value="PSG" @if ($data->Initiator_Group == 'PSG') selected @endif>Plasma Sourcing Group</option>
+        <option value="CS" @if ($data->Initiator_Group == 'CS') selected @endif>Central Stores</option>
+        <option value="ITG" @if ($data->Initiator_Group == 'ITG') selected @endif>Information Technology Group</option>
+        <option value="MM" @if ($data->Initiator_Group == 'MM') selected @endif>Molecular Medicine</option>
+        <option value="CL" @if ($data->Initiator_Group == 'CL') selected @endif>Central Laboratory</option>
+        <option value="TT" @if ($data->Initiator_Group == 'TT') selected @endif>Tech team</option>
+        <option value="QA" @if ($data->Initiator_Group == 'QA') selected @endif>Quality Assurance</option>
+        <option value="QM" @if ($data->Initiator_Group == 'QM') selected @endif>Quality Management</option>
+        <option value="IA" @if ($data->Initiator_Group == 'IA') selected @endif>IT Administration</option>
+        <option value="ACC" @if ($data->Initiator_Group == 'ACC') selected @endif>Accounting</option>
+        <option value="LOG" @if ($data->Initiator_Group == 'LOG') selected @endif>Logistics</option>
+        <option value="SM" @if ($data->Initiator_Group == 'SM') selected @endif>Senior Management</option>
+        <option value="BA" @if ($data->Initiator_Group == 'BA') selected @endif>Business Administration</option>
+    </select>
+</div>
 
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="group-input">
-                                                <label for="Initiator Group Code">Initiator Group Code</label>
-                                                <input type="text" name="initiator_group_code"{{ $data->stage == 0 || $data->stage == 6 ? 'disabled' : '' }}
-                                                    value="{{ $data->Initiator_Group }}" id="initiator_group_code"
-                                                    readonly>
-
-                                            </div>
-                                        </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Initiator Group Code">Initiator Group Code</label>
+                                        <input type="text" id="initiator_group_code"  name="initiator_group_code" {{ $data->stage == 0 || $data->stage == 10 ? "disabled" : "" }} value="{{$data->initiator_group_code}}" readonly>
+                                    </div>
+                                </div>
                                         {{-- <div class="col-12">
                                             <div class="group-input">
                                                 <label for="Short Description">Short Description <span
