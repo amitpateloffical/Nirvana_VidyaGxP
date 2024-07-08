@@ -265,7 +265,7 @@
                         <td class="w-80" colspan="3">
                             @if ($data->due_date)
                                 {{-- {{ $data->due_date }} --}}
-                                {{ \Carbon\Carbon::parse($data->due_date)->format('d/m/Y') }}
+                                {{ \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') }}
                             @else
                                 Not Applicable
                             @endif
@@ -505,7 +505,7 @@
                             <th class="w-20">Date Follow-Up Letter Sent</th>
                             <td class="w-30">
                                 @if ($data->follow_up_start_date)
-                                    {{ \Carbon\Carbon::parse($data->follow_up_start_date)->format('d/m/Y') }}
+                                    {{ \Carbon\Carbon::parse($data->follow_up_start_date)->format('d-M-Y') }}
                                     {{-- {{ $data->follow_up_start_date }} --}}
                                 @else
                                     Not Applicable
@@ -514,7 +514,7 @@
                             <th class="w-20">Date Follow-Up Completed</th>
                             <td class="w-30">
                                 @if ($data->follow_up_end_date)
-                                    {{ \Carbon\Carbon::parse($data->follow_up_end_date)->format('d/m/Y') }}
+                                    {{ \Carbon\Carbon::parse($data->follow_up_end_date)->format('d-M-Y') }}
 
                                     {{-- {{ $data->follow_up_end_date }} --}}
                                 @else
@@ -526,7 +526,7 @@
                             <th class="w-20">Date Of Visit</th>
                             <td class="w-30">
                                 @if ($data->visit_start_date)
-                                    {{ \Carbon\Carbon::parse($data->visit_start_date)->format('d/m/Y') }}
+                                    {{ \Carbon\Carbon::parse($data->visit_start_date)->format('d-M-Y') }}
 
                                     {{-- {{ $data->visit_start_date }} --}}
                                 @else
@@ -536,7 +536,7 @@
                             <th class="w-20">Date Return From Visit</th>
                             <td class="w-30">
                                 @if ($data->visit_end_date)
-                                    {{ \Carbon\Carbon::parse($data->visit_end_date)->format('d/m/Y') }}
+                                    {{ \Carbon\Carbon::parse($data->visit_end_date)->format('d-M-Y') }}
 
                                     {{-- {{ $data->visit_end_date }} --}}
                                 @else
@@ -548,7 +548,7 @@
                             <th class="w-20">Date Report Completed</th>
                             <td class="w-30">
                                 @if ($data->report_complete_start_date)
-                                    {{ \Carbon\Carbon::parse($data->report_complete_start_date)->format('d/m/Y') }}
+                                    {{ \Carbon\Carbon::parse($data->report_complete_start_date)->format('d-M-Y') }}
 
                                     {{-- {{ $data->report_complete_start_date }} --}}
                                 @else
@@ -558,7 +558,7 @@
                             <th class="w-20">Site Final Close-Out Date</th>
                             <td class="w-30">
                                 @if ($data->report_complete_end_date)
-                                    {{ \Carbon\Carbon::parse($data->report_complete_end_date)->format('d/m/Y') }}
+                                    {{ \Carbon\Carbon::parse($data->report_complete_end_date)->format('d-M-Y') }}
 
                                     {{-- {{ $data->report_complete_end_date }} --}}
                                 @else
@@ -687,7 +687,7 @@
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td class="td">
-                                                {{ isset($grid_Data['Date']) ? \Carbon\Carbon::parse($grid_Data['Date'])->format('d/m/Y') : 'N/A' }}
+                                                {{ isset($grid_Data['Date']) ? \Carbon\Carbon::parse($grid_Data['Date'])->format('d-M-Y') : 'N/A' }}
                                             </td>
                                             <td class="td">
                                                 {{ isset($grid_Data['Responsible']) ? $grid_Data['Responsible'] : 'N/A' }}
@@ -696,10 +696,10 @@
                                                 {{ isset($grid_Data['Item_Description']) ? $grid_Data['Item_Description'] : 'N/A' }}
                                             </td>
                                             <td class="td">
-                                                {{ isset($grid_Data['Sent_Date']) ? \Carbon\Carbon::parse($grid_Data['Sent_Date'])->format('d/m/Y') : 'N/A' }}
+                                                {{ isset($grid_Data['Sent_Date']) ? \Carbon\Carbon::parse($grid_Data['Sent_Date'])->format('d-M-Y') : 'N/A' }}
                                             </td>
                                             <td class="td">
-                                                {{ isset($grid_Data['Return_Date']) ? \Carbon\Carbon::parse($grid_Data['Return_Date'])->format('d/m/Y') : 'N/A' }}
+                                                {{ isset($grid_Data['Return_Date']) ? \Carbon\Carbon::parse($grid_Data['Return_Date'])->format('d-M-Y') : 'N/A' }}
                                             </td>
                                             <td class="td">
                                                 {{ isset($grid_Data['Comments']) ? $grid_Data['Comments'] : 'N/A' }}
@@ -752,11 +752,11 @@
                                         </td>
 
                                         <td>
-                                            {{ isset($grid_Data1['ExpiryDate']) ? \Carbon\Carbon::parse($grid_Data1['ExpiryDate'])->format('d/m/Y') : 'N/A' }}
+                                            {{ isset($grid_Data1['ExpiryDate']) ? \Carbon\Carbon::parse($grid_Data1['ExpiryDate'])->format('d-M-Y') : 'N/A' }}
                                         </td>
 
                                         <td>
-                                            {{ isset($grid_Data1['ManufacturedDate']) ? \Carbon\Carbon::parse($grid_Data1['ManufacturedDate'])->format('d/m/Y') : 'N/A' }}
+                                            {{ isset($grid_Data1['ManufacturedDate']) ? \Carbon\Carbon::parse($grid_Data1['ManufacturedDate'])->format('d-M-Y') : 'N/A' }}
                                         </td>
 
                                         <td>
@@ -812,11 +812,11 @@
                                             </td>
 
                                             <td class="td">
-                                                {{ isset($grid_Data2['ExpiryDate1']) ? \Carbon\Carbon::parse($grid_Data2['ExpiryDate1'])->format('d/m/Y') : 'N/A' }}
+                                                {{ isset($grid_Data2['ExpiryDate1']) ? \Carbon\Carbon::parse($grid_Data2['ExpiryDate1'])->format('d-M-Y') : 'N/A' }}
                                             </td>
 
                                             <td class="td">
-                                                {{ isset($grid_Data2['ManufacturedDate1']) ? \Carbon\Carbon::parse($grid_Data2['ManufacturedDate1'])->format('d/m/Y') : 'N/A' }}
+                                                {{ isset($grid_Data2['ManufacturedDate1']) ? \Carbon\Carbon::parse($grid_Data2['ManufacturedDate1'])->format('d-M-Y') : 'N/A' }}
                                             </td>
 
                                             <td class="td">

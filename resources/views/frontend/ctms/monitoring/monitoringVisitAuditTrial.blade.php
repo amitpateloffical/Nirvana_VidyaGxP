@@ -242,7 +242,7 @@
                         <div style="margin-bottom: 5px; font-weight: bold;">Short Description :
                             {{ $document->short_description }}</div>
                         <div style="margin-bottom: 5px;  font-weight: bold;">Due Date :
-                            {{ \Carbon\Carbon::parse($document->due_date)->format('d/m/Y') }}</div>
+                            {{ \Carbon\Carbon::parse($document->due_date)->format('d-M-Y') }}</div>
 
                     </div>
         </div>
@@ -292,7 +292,7 @@
                                     <strong>Change From :</strong>
                                     @if ($dataDemo->change_from)
                                         @if (strtotime($dataDemo->change_from))
-                                            {{ \Carbon\Carbon::parse($dataDemo->change_from)->format('d/m/Y') }}
+                                            {{ \Carbon\Carbon::parse($dataDemo->change_from)->format('d-M-Y') }}
                                         @else
                                             {{ str_replace(',', ', ', $dataDemo->change_from) }}
                                         @endif
@@ -305,7 +305,7 @@
                                     <strong>Change From :</strong>
                                     @if (!empty(strip_tags($dataDemo->previous)))
                                         @if (strtotime($dataDemo->previous))
-                                            {{ \Carbon\Carbon::parse($dataDemo->previous)->format('d/m/Y') }}
+                                            {{ \Carbon\Carbon::parse($dataDemo->previous)->format('d-M-Y') }}
                                         @else
                                             {!! $dataDemo->previous !!}
                                         @endif
@@ -322,14 +322,14 @@
                                 @if ($dataDemo->activity_type == 'Activity Log')
                                     <strong>Change To :</strong>
                                     @if (strtotime($dataDemo->change_to))
-                                        {{ \Carbon\Carbon::parse($dataDemo->change_to)->format('d/m/Y') }}
+                                        {{ \Carbon\Carbon::parse($dataDemo->change_to)->format('d-M-Y') }}
                                     @else
                                         {!! str_replace(',', ', ', $dataDemo->change_to) ?: 'Not Applicable' !!}
                                     @endif
                                 @else
                                     <strong>Change To :</strong>
                                     @if (strtotime($dataDemo->current))
-                                        {{ \Carbon\Carbon::parse($dataDemo->current)->format('d/m/Y') }}
+                                        {{ \Carbon\Carbon::parse($dataDemo->current)->format('d-M-Y') }}
                                     @else
                                         {!! !empty(strip_tags($dataDemo->current)) ? $dataDemo->current : 'Not Applicable' !!}
                                     @endif
@@ -356,7 +356,7 @@
                             </div>
                             <div style="margin-top: 5px;"> <strong>Performed On
                                     :</strong>
-                                {{ $dataDemo->created_at ? \Carbon\Carbon::parse($dataDemo->created_at)->format('d/m/Y H:i:s') : 'Not Applicable' }}
+                                {{ $dataDemo->created_at ? \Carbon\Carbon::parse($dataDemo->created_at)->format('d-M-Y H:i:s') : 'Not Applicable' }}
 
                                 {{-- {{ $dataDemo->created_at ? $dataDemo->created_at : 'Not Applicable' }} --}}
                             </div>

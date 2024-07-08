@@ -19,7 +19,7 @@
         </div> --}}
         <div class="division-bar">
             <strong>Site Division/Project</strong> :
-            / CTMS_Monitoring Visit
+            {{ Helpers::getDivisionName($data->division_id) }} / CTMS_Monitoring Visit
         </div>
     </div>
 
@@ -404,7 +404,8 @@
                                     @endif --}}
                                     <div class="group-input">
                                         <label for="Initiator">Initiator</label>
-                                        <input disabled type="text" name="initiator_id" value="{{ Auth::user()->name }}">
+                                        <input disabled type="text" name="initiator_id"
+                                            value="{{ Auth::user()->name }}">
                                     </div>
                                 </div>
                                 {{-- <div class="col-lg-6">
@@ -416,7 +417,7 @@
                                     </div>
                                 </div> --}}
 
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Date Opened">Date of Initiation</label>
                                         @if (isset($data) && $data->intiation_date)
@@ -427,7 +428,22 @@
                                             <input disabled type="text" value="" name="intiation_date_display">
                                         @endif
                                     </div>
+                                </div> --}}
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Date Opened">Date of Initiation</label>
+                                        @if (isset($data) && $data->intiation_date)
+                                            <input disabled type="text"
+                                                value="{{ \Carbon\Carbon::parse($data->intiation_date)->format('d-M-Y') }}"
+                                                name="intiation_date_display" id="initiation_date">
+                                        @else
+                                            <input disabled type="text" value="" name="intiation_date_display"
+                                                id="initiation_date">
+                                        @endif
+                                    </div>
                                 </div>
+
 
                                 <div class="col-md-6">
 
@@ -452,7 +468,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6 new-date-data-field">
+                                {{-- <div class="col-md-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="due-date">Due Date <span class="text-danger"></span></label>
                                         <p class="text-primary">Please mention expected date of completion</p>
@@ -466,6 +482,25 @@
                                             <input type="date" name="due_date" value="{{ $data->due_date ?? '' }}"
                                                 class="hide-input" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}"
                                                 oninput="handleDateInput(this, 'due_date')" />
+                                        </div>
+                                    </div>
+                                </div> --}}
+
+                                <div class="col-md-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="due-date">Due Date <span class="text-danger"></span></label>
+                                        <p class="text-primary">Please mention expected date of completion</p>
+                                        <div class="calenderauditee">
+                                            @php
+                                                $Date = isset($data->due_date) ? new \DateTime($data->due_date) : null;
+                                            @endphp
+
+                                            <input type="text" id="due_date_display" readonly placeholder="DD-MM-YYYY"
+                                                value="{{ $Date ? $Date->format('d-M-Y') : '' }}" />
+                                            <input type="date" name="due_date" id="due_date"
+                                                value="{{ $data->due_date ?? '' }}" class="hide-input"
+                                                min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}"
+                                                oninput="handleDateInput(this, 'due_date')" readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -1777,6 +1812,29 @@
         $('#docname').keyup(function() {
             var textlen = maxLength - $(this).val().length;
             $('#rchars').text(textlen);
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const initiationDateInput = document.getElementById("initiation_date");
+            const dueDateDisplay = document.getElementById("due_date_display");
+            const dueDateInput = document.querySelector("input[name='due_date']");
+
+            if (initiationDateInput && initiationDateInput.value) {
+                const initiationDate = new Date(initiationDateInput.value);
+                const dueDate = new Date(initiationDate);
+                dueDate.setDate(dueDate.getDate() + 30);
+
+                const formattedDueDate = dueDate.toISOString().split('T')[0];
+                const displayDueDate = dueDate.toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                }).replace(/ /g, '-');
+
+                dueDateDisplay.value = displayDueDate;
+                dueDateInput.value = formattedDueDate;
+            }
         });
     </script>
 @endsection

@@ -20,7 +20,7 @@
         </div> --}}
         <div class="division-bar">
             <strong>Site Division/Project</strong> :
-            / CTMS_Monitoring Visit
+            {{ Helpers::getDivisionName(session()->get('division')) }} / CTMS_Monitoring Visit
         </div>
     </div>
 
@@ -392,7 +392,7 @@
                                     </div>
                                 </div> --}}
 
-                                <div class="col-lg-6">
+                                {{-- <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Date Opened">Date of Initiation</label>
                                         @if (isset($data) && $data->intiation_date)
@@ -407,7 +407,26 @@
                                             <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
                                         @endif
                                     </div>
+                                </div> --}}
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Date Opened">Date of Initiation</label>
+                                        @if (isset($data) && $data->intiation_date)
+                                            <input disabled type="text"
+                                                value="{{ \Carbon\Carbon::parse($data->intiation_date)->format('d-M-Y') }}"
+                                                name="intiation_date_display">
+                                            <input type="hidden" value="{{ $data->intiation_date }}" name="intiation_date"
+                                                id="initiation_date">
+                                        @else
+                                            <input disabled type="text" value="{{ date('d-M-Y') }}"
+                                                name="intiation_date_display">
+                                            <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date"
+                                                id="initiation_date">
+                                        @endif
+                                    </div>
                                 </div>
+
 
                                 <div class="col-md-6">
                                     <div class="group-input">
@@ -425,7 +444,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6 new-date-data-field">
+                                {{-- <div class="col-md-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="due-date">Due Date <span class="text-danger"></span></label>
                                         <p class="text-primary">Please mention expected date of completion</p>
@@ -436,7 +455,21 @@
                                                 oninput="handleDateInput(this, 'due_date')" />
                                         </div>
                                     </div>
+                                </div> --}}
+
+                                <div class="col-md-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="due-date">Due Date <span class="text-danger"></span></label>
+                                        <p class="text-primary">Please mention expected date of completion</p>
+                                        <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}"value="" name="due_date"> -->
+                                        <div class="calenderauditee">
+                                            <input type="text" id="due_date_display" readonly placeholder="DD-MM-YYYY" />
+                                            <input type="date" name="due_date" value="" class="hide-input"
+                                                oninput="handleDateInput(this, 'due_date')" />
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
@@ -1468,6 +1501,29 @@
         $('#docname').keyup(function() {
             var textlen = maxLength - $(this).val().length;
             $('#rchars').text(textlen);
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const initiationDateInput = document.getElementById("initiation_date");
+            const dueDateDisplay = document.getElementById("due_date_display");
+            const dueDateInput = document.querySelector("input[name='due_date']");
+
+            if (initiationDateInput && initiationDateInput.value) {
+                const initiationDate = new Date(initiationDateInput.value);
+                const dueDate = new Date(initiationDate);
+                dueDate.setDate(dueDate.getDate() + 30);
+
+                const formattedDueDate = dueDate.toISOString().split('T')[0];
+                const displayDueDate = dueDate.toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric'
+                }).replace(/ /g, '-');
+
+                dueDateDisplay.value = displayDueDate;
+                dueDateInput.value = formattedDueDate;
+            }
         });
     </script>
 @endsection
