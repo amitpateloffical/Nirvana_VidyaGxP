@@ -38,7 +38,7 @@ class GcpStudyController extends Controller
         public function store(Request $request){
             //dd($request->all());
                 $study = new GcpStudy();
-                $study->form_type = "Gcp-Study";
+                $study->form_type = "Gcp-study";
                 $study->record = ((RecordNumber::first()->value('counter')) + 1);
                 $study->initiator_id = Auth::user()->id;
                 $study->division_id = $request->division_id;
@@ -114,23 +114,26 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
                 }
 
                 if(!empty($request->assign_to_gi)){
+
+                    $assigned_to_name = User::where('id', $request->assign_to_gi)->value('name');
+
                     $history = new GcpStudyAuditTrail();
                     $history->gcp_study_id = $study->id;
                     $history->previous = "Null";
-                    $history->current = $request->assign_to_gi;
+                    $history->current = $assigned_to_name;
                     $history->activity_type = 'Assigned To';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -140,17 +143,37 @@ class GcpStudyController extends Controller
                     $history = new GcpStudyAuditTrail();
                     $history->gcp_study_id = $study->id;
                     $history->previous = "Null";
-                    $history->current = $request->due_date;
+                    $history->current = date('d-M-Y', strtotime($request->due_date));
                     $history->activity_type = 'Date Due';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
                 }
+
+                //$departments = [
+                //    'CQA' => 'Corporate Quality Assurance',
+                //    'QAB' => 'Quality Assurance Biopharma',
+                //    'CQC' => 'Central Quality Control',
+                //    'MANU' => 'Manufacturing',
+                //    'PSG' => 'Plasma Sourcing Group',
+                //    'CS' => 'Central Stores',
+                //    'ITG' => 'Information Technology Group',
+                //    'MM' => 'Molecular Medicine',
+                //    'CL' => 'Central Laboratory',
+                //    'TT' => 'Tech team',
+                //    'QA' => 'Quality Assurance',
+                //    'QM' => 'Quality Management',
+                //    'IA' => 'IT Administration',
+                //    'ACC' => 'Accounting',
+                //    'LOG' => 'Logistics',
+                //    'SM' => 'Senior Management',
+                //    'BA' => 'Business Administration'
+                //];
 
                 if(!empty($request->department_gi)){
                     $history = new GcpStudyAuditTrail();
@@ -162,7 +185,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -178,7 +201,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -194,7 +217,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -210,7 +233,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -226,7 +249,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -242,7 +265,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -258,7 +281,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -274,7 +297,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -290,7 +313,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -306,7 +329,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -322,7 +345,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -337,7 +360,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -355,7 +378,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -370,7 +393,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -385,7 +408,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -400,7 +423,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -415,7 +438,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -430,7 +453,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -445,7 +468,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -460,7 +483,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -475,7 +498,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -493,7 +516,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -508,7 +531,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -523,7 +546,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -538,7 +561,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -553,7 +576,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -568,7 +591,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -583,7 +606,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -598,7 +621,7 @@ class GcpStudyController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -639,7 +662,7 @@ class GcpStudyController extends Controller
 
                     $study = GcpStudy::findOrFail($id);
 
-                    $study->form_type = "Gcp-Study";
+                    $study->form_type = "Gcp-study";
                     $study->record = ((RecordNumber::first()->value('counter')) + 1);
                     $study->initiator_id = Auth::user()->id;
                     $study->division_id = $request->division_id;
@@ -715,24 +738,36 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->short_description_gi) || $study_data->short_description_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
                     }
 
                     if($study_data->assign_to_gi != $study->assign_to_gi){
+
+                        $previous_assigned_to_name = User::where('id', $study_data->assign_to_gi)->value('name');
+                        $current_assigned_to_name = User::where('id', $study->assign_to_gi)->value('name');
+
                         $history = new GcpStudyAuditTrail();
                         $history->gcp_study_id = $study->id;
-                        $history->previous = $study_data->assign_to_gi;
-                        $history->current = $study->assign_to_gi;
+                        $history->previous = $previous_assigned_to_name;
+                        $history->current = $current_assigned_to_name;
                         $history->activity_type = 'Assigned To';
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->assign_to_gi) || $study_data->assign_to_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -748,11 +783,36 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->due_date) || $study_data->due_date === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
                     }
+
+                    //$departments = [
+                    //    'CQA' => 'Corporate Quality Assurance',
+                    //    'QAB' => 'Quality Assurance Biopharma',
+                    //    'CQC' => 'Central Quality Control',
+                    //    'MANU' => 'Manufacturing',
+                    //    'PSG' => 'Plasma Sourcing Group',
+                    //    'CS' => 'Central Stores',
+                    //    'ITG' => 'Information Technology Group',
+                    //    'MM' => 'Molecular Medicine',
+                    //    'CL' => 'Central Laboratory',
+                    //    'TT' => 'Tech team',
+                    //    'QA' => 'Quality Assurance',
+                    //    'QM' => 'Quality Management',
+                    //    'IA' => 'IT Administration',
+                    //    'ACC' => 'Accounting',
+                    //    'LOG' => 'Logistics',
+                    //    'SM' => 'Senior Management',
+                    //    'BA' => 'Business Administration'
+                    //];
+
                     if($study_data->department_gi != $study->department_gi){
                         $history = new GcpStudyAuditTrail();
                         $history->gcp_study_id = $study->id;
@@ -764,7 +824,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->department_gi) || $study_data->department_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -780,7 +844,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->study_number_sd) || $study_data->study_number_sd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -796,7 +864,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->name_of_product_sd) || $study_data->name_of_product_sd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -812,7 +884,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->study_title_sd) || $study_data->study_title_sd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -828,7 +904,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->study_type_sd) || $study_data->study_type_sd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -844,7 +924,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->study_protocol_number_sd) || $study_data->study_protocol_number_sd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -860,7 +944,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->description_sd) || $study_data->description_sd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -876,7 +964,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->comments_sd) || $study_data->comments_sd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -892,7 +984,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->related_studies_ai) || $study_data->related_studies_ai === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -908,7 +1004,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->document_link_ai) || $study_data->document_link_ai === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -924,7 +1024,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->appendiceis_ai) || $study_data->appendiceis_ai === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -940,7 +1044,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->related_audits_ai) || $study_data->related_audits_ai === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -959,7 +1067,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->generic_product_name_gcpd) || $study_data->generic_product_name_gcpd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -975,7 +1087,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->indication_name_gcpd) || $study_data->indication_name_gcpd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -992,7 +1108,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->clinical_study_manager_gcpd) || $study_data->clinical_study_manager_gcpd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1008,7 +1128,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->clinical_expert_gcpd) || $study_data->clinical_expert_gcpd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1024,7 +1148,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->phase_level_gcpd) || $study_data->phase_level_gcpd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1040,7 +1168,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->therapeutic_area_gcpd) || $study_data->therapeutic_area_gcpd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1056,7 +1188,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->ind_no_gcpd) || $study_data->ind_no_gcpd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1072,7 +1208,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->number_of_centers_gcpd) || $study_data->number_of_centers_gcpd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1088,7 +1228,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->of_subjects_gcpd) || $study_data->of_subjects_gcpd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1107,7 +1251,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->initiation_date_i) || $study_data->initiation_date_i === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1123,7 +1271,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->study_start_date) || $study_data->study_start_date === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1139,7 +1291,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->study_end_date) || $study_data->study_end_date === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1155,7 +1311,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->study_protocol) || $study_data->study_protocol === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1171,7 +1331,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->first_subject_in) || $study_data->first_subject_in === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1187,7 +1351,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->last_subject_out) || $study_data->last_subject_out === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1203,7 +1371,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->databse_lock) || $study_data->databse_lock === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -1219,7 +1391,11 @@ class GcpStudyController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $study_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($study_data->integrated_ctr) || $study_data->integrated_ctr === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 

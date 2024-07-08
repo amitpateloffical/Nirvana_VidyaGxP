@@ -183,24 +183,23 @@
 
                     <table>
                         <div class="heading">
-
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="heading-new">
-                                    Audit Trail
-                                </div>
-                                <div class="d-flex" style="gap:15px; margin-right: 20px;"><button type="button"> <a class="text-white" href="{{ route('supplier_contract.edit', $document->id) }}">
-                                    Back </a>
-                                </button> <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                    Exit </a> </button>
-                                </div>
-                              </div>
+                          <div class="d-flex justify-content-between align-items-center">
+                            <div class="heading-new">
+                                Audit Trail
+                            </div>
+                            <div class="d-flex" style="gap:15px; margin-right: 20px;"><button type="button"> <a class="text-white" href="{{ route('contract_testing_lab_audit.edit', $document->id) }}">
+                                Back </a>
+                            </button> <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
+                                Exit </a> </button>
+                            </div>
+                          </div>
 
                             <div> <strong>Record ID. </strong> {{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>
                             <div style="margin-bottom: 5px;  font-weight: bold;"> Originator
                                 : {{ $document->originator ? $document->originator : '' }}</div>
                             <div style="margin-bottom: 5px; font-weight: bold;">Short Description :
-                                {{ $document->short_description_gi }}</div>
-                            <div style="margin-bottom: 5px;  font-weight: bold;">Due Date : {{ $document->due_date }}</div>
+                                {{ $document->short_description }}</div>
+                            <div style="margin-bottom: 5px;  font-weight: bold;">Due Date : {{ \Carbon\Carbon::parse($document->due_date)->format('d-M-Y') }}</div>
 
                         </div>
         </div>
@@ -279,7 +278,7 @@
                                         :</strong>{{ $dataDemo->user_name ? $dataDemo->user_name : 'Not Applicable' }}
                                 </div>
                                 <div style="margin-top: 5px;"> <strong>Performed On
-                                        :</strong>{{ $dataDemo->created_at ? $dataDemo->created_at : 'Not Applicable' }}
+                                        :</strong>{{ \Carbon\Carbon::parse($dataDemo->created_at )->format('d-M-Y h:i A') }}
                                 </div>
                                 <div style="margin-top: 5px;"><strong> Comments
                                         :</strong>{{ $dataDemo->comment ? $dataDemo->comment : 'Not Applicable' }}</div>

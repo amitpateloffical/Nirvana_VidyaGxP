@@ -282,7 +282,7 @@
                                     <label for="RLS Record Number"><b>Country</b></label>
                                     <p class="text-primary">Auto filter according to selected zone</p>
                                     <select name="country" class="form-select country" aria-label="Default select example" onchange="loadStates()">
-                                        <option selected>Select Country</option>
+                                        <option value="">Select Country</option>
                                     </select>
                                 </div>
                             </div>
@@ -292,7 +292,7 @@
                                     <label  for="Responsible Department">State/District</label>
                                     <p class="text-primary">Auto selected according to country</p>
                                     <select name="state" class="form-select state" aria-label="Default select example" onchange="loadCities()">
-                                        <option selected>Select State/District</option>
+                                        <option value="">Select State/District</option>
                                     </select>
 
                                 </div>
@@ -303,7 +303,7 @@
                                     <label for="RLS Record Number"><b>City</b></label>
                                     <p class="text-primary">Auto filter according to selected state</p>
                                     <select name="city" class="form-select city" aria-label="Default select example">
-                                        <option selected>Select City</option>
+                                        <option value="">Select City</option>
                                     </select>
                                 </div>
                             </div>

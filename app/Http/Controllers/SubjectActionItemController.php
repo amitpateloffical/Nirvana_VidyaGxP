@@ -91,16 +91,19 @@ class SubjectActionItemController extends Controller
                 //Audit Trail store start
 
                 if(!empty($request->assign_to_gi)){
+
+                    $assigned_to_name = User::where('id', $request->assign_to_gi)->value('name');
+
                     $history = new SubjectActionItemAuditTrail();
                     $history->subject_action_item_id = $item->id;
                     $history->previous = "Null";
-                    $history->current = $request->assign_to_gi;
+                    $history->current = $assigned_to_name;
                     $history->activity_type = 'Assigned To';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -110,13 +113,13 @@ class SubjectActionItemController extends Controller
                     $history = new SubjectActionItemAuditTrail();
                     $history->subject_action_item_id = $item->id;
                     $history->previous = "Null";
-                    $history->current = $request->due_date;
+                    $history->current = date('d-M-Y', strtotime($request->due_date));
                     $history->activity_type = 'Date Due';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -131,12 +134,13 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
                 }
                 if(!empty($request->assign_to_sd)){
+
                     $history = new SubjectActionItemAuditTrail();
                     $history->subject_action_item_id = $item->id;
                     $history->previous = "Null";
@@ -146,7 +150,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -161,7 +165,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -176,7 +180,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -191,7 +195,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -206,7 +210,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -221,7 +225,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -236,7 +240,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -251,7 +255,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -266,7 +270,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -281,7 +285,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -296,7 +300,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -311,7 +315,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -326,7 +330,7 @@ class SubjectActionItemController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "CS/CTM";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -416,17 +420,25 @@ class SubjectActionItemController extends Controller
                     $newDataGridItem->save();
 
                 if($item_data->assign_to_gi != $item->assign_to_gi){
+
+                    $previous_assigned_to_name = User::where('id', $item_data->assign_to_gi)->value('name');
+                    $current_assigned_to_name = User::where('id', $item->assign_to_gi)->value('name');
+
                     $history = new SubjectActionItemAuditTrail();
                     $history->subject_action_item_id = $item->id;
-                    $history->previous = $item_data->assign_to_gi;
-                    $history->current = $item->assign_to_gi;
+                    $history->previous = $previous_assigned_to_name;
+                    $history->current = $current_assigned_to_name;
                     $history->activity_type = 'Assigned To';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->assign_to_gi) || $item_data->assign_to_gi === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -443,7 +455,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->due_date) || $item_data->due_date === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -459,7 +475,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->trade_name_sd) || $item_data->trade_name_sd === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -475,7 +495,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->assign_to_sd) || $item_data->assign_to_sd === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -491,7 +515,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->subject_name_sd) || $item_data->subject_name_sd === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -507,7 +535,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->gender_sd) || $item_data->gender_sd === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -523,7 +555,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->date_of_birth_sd) || $item_data->date_of_birth_sd === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -539,7 +575,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->race_sd) || $item_data->race_sd === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -555,7 +595,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->short_description_ti) || $item_data->short_description_ti === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -571,7 +615,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->clinical_efficacy_ti) || $item_data->clinical_efficacy_ti === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -587,7 +635,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->carry_over_effect_ti) || $item_data->carry_over_effect_ti === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -603,7 +655,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->last_monitered_ti) || $item_data->last_monitered_ti === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -619,7 +675,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->total_doses_recieved_ti) || $item_data->total_doses_recieved_ti === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -635,7 +695,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->treatment_effect_ti) || $item_data->treatment_effect_ti === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -651,7 +715,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->comments_ti) || $item_data->comments_ti === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -667,7 +735,11 @@ class SubjectActionItemController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $item_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($item_data->summary_ti) || $item_data->summary_ti === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 

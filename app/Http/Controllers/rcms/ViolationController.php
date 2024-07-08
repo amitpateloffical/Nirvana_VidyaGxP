@@ -67,21 +67,6 @@ class ViolationController extends Controller
                       $violation->file_attachments = $files;
                     }
 
-
-                    //if (!empty($request->file_attachments)) {
-                    //    $files = [];
-                    //    if ($request->hasFile('file_attachments')) {
-                    //        foreach ($request->file('file_attachments') as $file) {
-                    //            $name = $request->name . 'file_attachments' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    //            $file->move('upload/', $name);
-                    //            $files[] = $name;
-                    //        }
-                    //    }
-                    //    $violation->file_attachments = json_encode($files);
-                    //}
-
-
-
                     $violation->description = $request->description;
                     $violation->zone = $request->zone;
                     $violation->country_id = $request->country_id;
@@ -133,23 +118,26 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
                 }
 
                 if(!empty($request->assign_to)){
+
+                    $assigned_to_name = User::where('id', $request->assign_to)->value('name');
+
                     $history = new ViolationAuditTrail();
                     $history->violation_id = $violation->id;
                     $history->previous = "Null";
-                    $history->current = $request->assign_to;
+                    $history->current = $assigned_to_name;
                     $history->activity_type = 'Assigned To';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -159,13 +147,13 @@ class ViolationController extends Controller
                     $history = new ViolationAuditTrail();
                     $history->violation_id = $violation->id;
                     $history->previous = "Null";
-                    $history->current = $request->due_date;
+                    $history->current = date('d-M-Y', strtotime($request->due_date));
                     $history->activity_type = 'Due Date';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -181,7 +169,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -197,7 +185,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -213,7 +201,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -237,7 +225,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to = "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -255,7 +243,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -271,7 +259,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -287,7 +275,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -305,7 +293,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -321,7 +309,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -337,7 +325,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -353,7 +341,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -369,7 +357,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -385,7 +373,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -401,7 +389,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -417,7 +405,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -433,7 +421,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -449,7 +437,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -465,7 +453,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -481,7 +469,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -497,7 +485,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -513,7 +501,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -528,7 +516,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -543,7 +531,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -558,7 +546,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -573,7 +561,7 @@ class ViolationController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -690,24 +678,36 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->short_description) || $violation_data->short_description === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
                 }
 
                 if($violation_data->assign_to != $violation->assign_to){
+
+                    $previous_assigned_to_name = User::where('id', $violation_data->assign_to)->value('name');
+                    $current_assigned_to_name = User::where('id', $violation->assign_to)->value('name');
+
                     $history = new ViolationAuditTrail();
                     $history->violation_id = $violation->id;
-                    $history->previous = $violation_data->assign_to;
-                    $history->current = $violation->assign_to;
+                    $history->previous = $previous_assigned_to_name;
+                    $history->current = $current_assigned_to_name;
                     $history->activity_type = 'Assigned To';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->assign_to) || $violation_data->assign_to === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -724,7 +724,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->due_date) || $violation_data->due_date === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -741,7 +745,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->type) || $violation_data->type === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -758,7 +766,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->other_type) || $violation_data->other_type === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -775,7 +787,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->related_url) || $violation_data->related_url === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -792,7 +808,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->file_attachments) || $violation_data->file_attachments === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -809,7 +829,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->description) || $violation_data->description === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -827,7 +851,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->zone) || $violation_data->zone === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -845,7 +873,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->country_id) || $violation_data->country_id === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -862,7 +894,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->state_id) || $violation_data->state_id === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -879,7 +915,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->city_id) || $violation_data->city_id === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -896,7 +936,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->site_name_id) || $violation_data->site_name_id === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -913,7 +957,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->building_id) || $violation_data->building_id === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -930,7 +978,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->flore_id) || $violation_data->flore_id === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -947,7 +999,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->room_id) || $violation_data->room_id === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -964,7 +1020,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->date_occured) || $violation_data->date_occured === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -981,7 +1041,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->notification_date) || $violation_data->notification_date === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -998,7 +1062,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->severity_rate) || $violation_data->severity_rate === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1015,7 +1083,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->occurance) || $violation_data->occurance === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1032,7 +1104,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->detection) || $violation_data->detection === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1043,13 +1119,17 @@ class ViolationController extends Controller
                     $history->violation_id = $violation->id;
                     $history->previous = $violation_data->rpn;
                     $history->current = $violation->rpn;
-                    $history->activity_type = 'RPNmanufacturer';
+                    $history->activity_type = 'RPN';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->rpn) || $violation_data->rpn === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1066,7 +1146,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->manufacturer) || $violation_data->manufacturer === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1083,7 +1167,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->date_sent) || $violation_data->date_sent === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1100,7 +1188,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->date_returned) || $violation_data->date_returned === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1117,7 +1209,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->follow_up) || $violation_data->follow_up === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1134,7 +1230,11 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->summary) || $violation_data->summary === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1151,13 +1251,14 @@ class ViolationController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $violation_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($violation_data->Comments) || $violation_data->Comments === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
-
                 }
-
-
 
                     toastr()->success("Record is Updated Successfully");
                     return back();

@@ -276,11 +276,11 @@
                         which is legally binding equivalent of a hand written signature.
                     </div>
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" name="password" required>
                     </div>
                     <div class="group-input">
@@ -324,11 +324,11 @@
                         which is legally binding equivalent of a hand written signature.
                     </div>
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" name="password" required>
                     </div>
                     <div class="group-input">
@@ -430,8 +430,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Date Opened">Date of Initiation</label>
-                                    <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                                    <input readonly type="text" value="{{ date('d-M-Y', strtotime($violation_data->intiation_date)) }}" name="intiation_date">
+                                    <input type="hidden" value="{{ date('Y-m-d', strtotime($violation_data->intiation_date)) }}" name="intiation_date">
                                 </div>
                             </div>
 

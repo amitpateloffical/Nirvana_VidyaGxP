@@ -49,6 +49,13 @@
     });
 </script>
 
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
+</script>
+
+
 <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
@@ -210,11 +217,11 @@
                             </div>
 
                             <div class="group-input">
-                                <label for="username">Username</label>
+                                <label for="username">Username <span class="text-danger">*</span></label>
                                 <input type="text" name="username" required>
                             </div>
                             <div class="group-input">
-                                <label for="password">Password</label>
+                                <label for="password">Password <span class="text-danger">*</span></label>
                                 <input type="password" name="password" required>
                             </div>
                             <div class="group-input">
@@ -260,11 +267,11 @@
                             </div>
 
                             <div class="group-input">
-                                <label for="username">Username</label>
+                                <label for="username">Username <span class="text-danger">*</span></label>
                                 <input type="text" name="username" required>
                             </div>
                             <div class="group-input">
-                                <label for="password">Password</label>
+                                <label for="password">Password <span class="text-danger">*</span></label>
                                 <input type="password" name="password" required>
                             </div>
                             <div class="group-input">
@@ -348,7 +355,7 @@
         </script>
         <?php endif; ?>
 
-        {{-- disabled field code start --}}
+        {{-- disabled field code end --}}
 
 
         <form id="target" action="{{ route('correspondence.update', $correspondence_data->id) }}" method="POST" enctype="multipart/form-data">
@@ -393,8 +400,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date of Initiation</b></label>
-                                    <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                                    <input readonly type="text" value="{{ date('d-M-Y', strtotime($correspondence_data->intiation_date)) }}" name="intiation_date">
+                                    <input type="hidden" value="{{ date('Y-m-d', strtotime($correspondence_data->intiation_date)) }}" name="intiation_date">
                                 </div>
                             </div>
 
@@ -489,7 +496,7 @@
                                     </small>
                                     <div class="file-attachment-field">
                                         <div class="file-attachment-list" id="file_attach">
-                                            @if ($correspondence_data->file_attachments)
+                                          @if ($correspondence_data->file_attachments)
                                             @foreach ($correspondence_data->file_attachments as $file)
                                                 <h6 type="button" class="file-container text-dark"
                                                     style="background-color: rgb(243, 242, 240);">
@@ -503,7 +510,7 @@
                                                             style="color:red; font-size:20px;"></i></a>
                                                 </h6>
                                             @endforeach
-                                        @endif
+                                          @endif
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>

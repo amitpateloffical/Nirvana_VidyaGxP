@@ -453,11 +453,11 @@ border-radius:10px;
                     </div>
 
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" name="password" required>
                     </div>
                     <div class="group-input">
@@ -503,11 +503,11 @@ border-radius:10px;
                     </div>
                     <input type="hidden" name="type" value="cancel">
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" name="password" required>
                     </div>
                     <div class="group-input">
@@ -553,11 +553,11 @@ border-radius:10px;
                     </div>
 
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" class="new_style" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" class="new_style" name="password" required>
                     </div>
                     <div class="group-input">
@@ -603,11 +603,11 @@ border-radius:10px;
                     </div>
                     <input type="hidden" name="type" value="not_approved">
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" class="new_style" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" class="new_style" name="password" required>
                     </div>
                     <div class="group-input">
@@ -653,11 +653,11 @@ border-radius:10px;
                     </div>
                     <input type="hidden" name="type" value="not_approved">
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" class="new_style" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" class="new_style" name="password" required>
                     </div>
                     <div class="group-input">
@@ -703,11 +703,11 @@ border-radius:10px;
                     </div>
                     <input type="hidden" name="type" value="no_condition">
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" class="new_style" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" class="new_style" name="password" required>
                     </div>
                     <div class="group-input">
@@ -753,11 +753,11 @@ border-radius:10px;
                     </div>
                     <input type="hidden" name="type" value="early_termination">
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" class="new_style" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" class="new_style" name="password" required>
                     </div>
                     <div class="group-input">
@@ -851,8 +851,8 @@ border-radius:10px;
                             <div class="col-lg-6">
                                 <div class="group-input ">
                                     <label for="Date Of Initiation"><b>Date Of Initiation</b></label>
-                                    <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                                    <input readonly type="text" value="{{ date('d-M-Y', strtotime($amendement_data->intiation_date)) }}" name="intiation_date">
+                                    <input type="hidden" value="{{ date('d-M-Y', strtotime($amendement_data->intiation_date)) }}" name="intiation_date">
                                 </div>
                             </div>
 

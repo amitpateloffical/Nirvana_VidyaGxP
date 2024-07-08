@@ -21,6 +21,9 @@ use App\Http\Controllers\GcpStudyController;
 use App\Http\Controllers\SupplierContractController;
 use App\Http\Controllers\SubjectActionItemController;
 use App\Http\Controllers\rcms\ViolationController;
+use App\Http\Controllers\rcms\CTAAmendementController;
+use App\Http\Controllers\rcms\CorrespondenceController;
+use App\Http\Controllers\rcms\ContractTestingLabAuditController;
 use App\Http\Controllers\rcms\FirstProductValidationController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
@@ -278,8 +281,85 @@ Route::group(['prefix' => 'rcms'], function () {
 
        //-------------------------------- Violation Route End ---------------------------------------
 
+     //-------------------------------- CTA Amendement Route Strat ---------------------------------------
 
-//-------------------------------- Violation Route Strat ---------------------------------------
+        //form
+        Route::get('/cta_amendement', [CTAAmendementController::class,'index'])->name('cta_amendement.index');
+        Route::post('/cta_amendement_store', [CTAAmendementController::class,'store'])->name('cta_amendement.store');
+        Route::get('/cta_amendement_edit/{id}', [CTAAmendementController::class, 'edit'])->name('cta_amendement.edit')->middleware('auth');
+        Route::post('/cta_amendement_update/{id}', [CTAAmendementController::class, 'update'])->name('cta_amendement.update')->middleware('auth');
+
+
+        ////workflow
+        Route::post('/cta_amendement_stage_send/{id}', [CTAAmendementController::class, 'CTA_Amendement_send_stage'])->name('cta_amendement.send_stage');
+        Route::post('/cta_amendement_cancel/{id}', [CTAAmendementController::class, 'CTA_Amendement_cancel'])->name('cta_amendement.cancel');
+        Route::post('/cta_amendement_send/{id}', [CTAAmendementController::class, 'CTA_Amendement_send'])->name('cta_amendement.send');
+
+
+        //singlereport
+        Route::get('CTA_Amendement/SingleReport/{id}', [CTAAmendementController::class, 'CTA_AmendementSingleReport'])->name('cta_amendement.SingleReport');
+
+        ////audittrail
+        Route::get('CTA_Amendement/AuditTrail/{id}', [CTAAmendementController::class, 'CTA_AmendementAuditTrial'])->name('cta_amendement.audit_trail');
+        Route::get('CTA_Amendement/AuditTrailPdf/{id}', [CTAAmendementController::class, 'CTA_AmendementAuditTrailPdf'])->name('cta_amendement.auditTrailPdf');
+
+
+
+       //-------------------------------- CTA Amendement Route End ---------------------------------------
+
+
+//-------------------------------- Correspondence Route Strat ---------------------------------------
+
+        //form
+        Route::get('/correspondence', [CorrespondenceController::class,'index'])->name('correspondence.index');
+        Route::post('/correspondence_store', [CorrespondenceController::class,'store'])->name('correspondence.store');
+        Route::get('/correspondence_edit/{id}', [CorrespondenceController::class, 'edit'])->name('correspondence.edit')->middleware('auth');
+        Route::post('/correspondence_update/{id}', [CorrespondenceController::class, 'update'])->name('correspondence.update')->middleware('auth');
+
+
+        ////workflow
+        Route::post('/correspondence_send_stage/{id}', [CorrespondenceController::class, 'Correspondence_send_stage'])->name('correspondence.send_stage');
+        Route::post('/correspondence_cancel/{id}', [CorrespondenceController::class, 'Correspondence_cancel'])->name('correspondence.cancel');
+        Route::post('/correspondence_child/{id}', [CorrespondenceController::class, 'Correspondence_child'])->name('correspondence.child');
+
+        //singlereport
+        Route::get('correspondence/SingleReport/{id}', [CorrespondenceController::class, 'CorrespondenceSingleReport'])->name('correspondence.SingleReport');
+
+        ////audittrail
+        Route::get('correspondence/AuditTrail/{id}', [CorrespondenceController::class, 'CorrespondenceAuditTrial'])->name('correspondence.audit_trail');
+        Route::get('correspondence/AuditTrailPdf/{id}', [CorrespondenceController::class, 'CorrespondenceAuditTrailPdf'])->name('correspondence.auditTrailPdf');
+
+
+
+       //-------------------------------- Correspondence Route End ---------------------------------------
+
+//-------------------------------- Contract Testing Lab Audit Route Strat ---------------------------------------
+
+        //form
+        Route::get('/ctl_audit', [ContractTestingLabAuditController::class,'index'])->name('contract_testing_lab_audit.index');
+        Route::post('/ctl_audit_store', [ContractTestingLabAuditController::class,'store'])->name('contract_testing_lab_audit.store');
+        Route::get('/ctl_audit_edit/{id}', [ContractTestingLabAuditController::class, 'edit'])->name('contract_testing_lab_audit.edit')->middleware('auth');
+        Route::post('/ctl_audit_update/{id}', [ContractTestingLabAuditController::class, 'update'])->name('contract_testing_lab_audit.update')->middleware('auth');
+
+
+        ////workflow
+        Route::post('/ctl_audit_send_stage/{id}', [ContractTestingLabAuditController::class, 'CTL_Audit_send_stage'])->name('ctl_audit.send_stage');
+        Route::post('/ctl_audit_cancel/{id}', [ContractTestingLabAuditController::class, 'CTL_Audit_cancel'])->name('ctl_audit.cancel');
+        Route::post('/ctl_audit_reject/{id}', [ContractTestingLabAuditController::class, 'CTL_Audit_reject'])->name('ctl_audit.reject');
+        Route::post('/ctl_audit_child/{id}', [ContractTestingLabAuditController::class, 'CTL_Audit_child'])->name('ctl_audit.child');
+
+        //singlereport
+        Route::get('ctl_audit/SingleReport/{id}', [ContractTestingLabAuditController::class, 'CTL_auditSingleReport'])->name('ctl_audit.SingleReport');
+
+        ////audittrail
+        Route::get('ctl_audit/AuditTrail/{id}', [ContractTestingLabAuditController::class, 'CTL_AuditTrial'])->name('ctl_audit.audit_trail');
+        Route::get('ctl_audit/AuditTrailPdf/{id}', [ContractTestingLabAuditController::class, 'CTL_AuditTrailPdf'])->name('ctl_audit.auditTrailPdf');
+
+
+
+       //-------------------------------- Contract Testing Lab Audit Route End ---------------------------------------
+
+//-------------------------------- first_product_validation Route Strat ---------------------------------------
 
         //form
         Route::get('/first_product_validation', [FirstProductValidationController::class,'index'])->name('first_product_validation.index');
@@ -303,7 +383,7 @@ Route::group(['prefix' => 'rcms'], function () {
 
 
 
-       //-------------------------------- Violation Route End ---------------------------------------
+       //-------------------------------- first_product_validation Route End ---------------------------------------
 
 
 

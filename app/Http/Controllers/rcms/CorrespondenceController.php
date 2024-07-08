@@ -100,23 +100,26 @@ class CorrespondenceController extends Controller{
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Regulatory Affairs";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
                 }
 
                     if(!empty($request->assigned_to)){
+
+                        $assigned_to_name = User::where('id', $request->assigned_to)->value('name');
+
                         $history = new CorrespondenceAuditTrail();
                         $history->correspondence_id = $correspondence->id;
                         $history->previous = "Null";
-                        $history->current = $request->assigned_to;
+                        $history->current = $assigned_to_name;
                         $history->activity_type = 'Assigned To';
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -126,13 +129,13 @@ class CorrespondenceController extends Controller{
                         $history = new CorrespondenceAuditTrail();
                         $history->correspondence_id = $correspondence->id;
                         $history->previous = "Null";
-                        $history->current = $request->due_date;
+                        $history->current = date('d-M-Y', strtotime($request->due_date));
                         $history->activity_type = 'Date Due';
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -148,7 +151,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -164,7 +167,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -180,7 +183,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -196,7 +199,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -212,7 +215,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -228,7 +231,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -244,7 +247,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -260,7 +263,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -276,7 +279,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -292,7 +295,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -308,7 +311,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -324,7 +327,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -340,7 +343,7 @@ class CorrespondenceController extends Controller{
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_to =   "Opened";
-                        $history->change_from = "Regulatory Affairs";
+                        $history->change_from = "Initiation";
                         $history->action_name = 'Create';
                         $history->comment = "Not Applicable";
                         $history->save();
@@ -443,24 +446,36 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->short_description) || $correspondence_data->short_description === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
                     }
 
                     if($correspondence_data->assigned_to != $correspondence->assigned_to){
+
+                        $previous_assigned_to_name = User::where('id', $correspondence_data->assigned_to)->value('name');
+                        $current_assigned_to_name = User::where('id', $correspondence->assigned_to)->value('name');
+
                         $history = new CorrespondenceAuditTrail();
                         $history->correspondence_id = $correspondence->id;
-                        $history->previous = $correspondence_data->assigned_to;
-                        $history->current = $correspondence->assigned_to;
+                        $history->previous = $previous_assigned_to_name;
+                        $history->current = $current_assigned_to_name;
                         $history->activity_type = 'Assigned To';
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->assigned_to) || $correspondence_data->assigned_to === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -477,7 +492,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->due_date) || $correspondence_data->due_date === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -494,7 +513,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->process_application) || $correspondence_data->process_application === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -511,7 +534,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->trade_name) || $correspondence_data->trade_name === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -528,7 +555,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->how_initiated) || $correspondence_data->how_initiated === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -545,7 +576,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->type) || $correspondence_data->type === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -562,7 +597,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->file_attachments) || $correspondence_data->file_attachments === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -579,7 +618,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->authority_type) || $correspondence_data->authority_type === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -596,7 +639,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->authority) || $correspondence_data->authority === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -613,7 +660,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->description) || $correspondence_data->description === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -630,7 +681,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->commitment_required) || $correspondence_data->commitment_required === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -647,7 +702,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->priority_level) || $correspondence_data->priority_level === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -664,7 +723,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->date_due_to_authority) || $correspondence_data->date_due_to_authority === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -681,7 +744,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->scheduled_start_date) || $correspondence_data->scheduled_start_date === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -698,7 +765,11 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $correspondence_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($correspondence_data->scheduled_end_date) || $correspondence_data->scheduled_end_date === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 

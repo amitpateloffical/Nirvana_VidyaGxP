@@ -42,7 +42,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm10')">Signatures</button>
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('contract_testing_lab_audit.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -57,16 +57,17 @@
                             <div class="sub-head">
                                 Parent Record Information
                             </div>
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"><b>(Parent) Date Opened</b></label>
-                                    <input type="date" name="date_opened" value="">
+                                    <label for="Date_Opened"><b>(Parent) Date Opened</b></label>
+                                    <input type="date" name="date_opened">
                                 </div>
-                            </div>
+                            </div>--}}
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiation"><b>(parent) Audit Scheduled for the year</b></label>
                                      <select name="audit_scheduled_for_the_year">
+                                         <option value="">Enter Your Selection Here</option>
                                          <option value="2022">2022</option>
                                          <option value="2023">2023</option>
                                          <option value="2024">2024</option>
@@ -77,7 +78,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="group-input">
                                     <label for="ctl_audit_schedule_no">(Parent) CTL Audit Schedule No.</label>
                                     <input type="number" name="ctl_audit_schedule_no">
@@ -91,25 +92,22 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator">CTL Audit No.</label>
-                                    <input disabled type="text" name="record">
-                                    {{--value="{{ Helpers::getDivisionName(session()->get('division')) }}/Correspondence/{{ date('Y') }}/{{ $record_number }}"--}}
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTL_Audit/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code</b></label>
-                                    <input readonly type="text" name="division_code">
-                                    {{--value="{{ Helpers::getDivisionName(session()->get('division')) }}"--}}
-                                    <input type="hidden" name="division_id">
-                                    {{--value="{{ session()->get('division') }}"--}}
+                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Originator</b></label>
-                                    <input disabled type="text" name="Initiator" value="">
+                                    <input disabled type="text" name="Initiator" value="{{ Auth()->user()->name; }}">
                                 </div>
                             </div>
 
@@ -134,9 +132,11 @@
                                     <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
+                                    <select id="select-state" placeholder="Select..." name="assigned_to">
                                         <option value="">Select a value</option>
-                                        <option value=""></option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -146,8 +146,10 @@
                                     <label for="due-date">Date Due</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}">
+                                        {{--<input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />--}}
+                                        {{--<input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />--}}
                                     </div>
                                 </div>
                             </div>
@@ -167,14 +169,14 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Customer_Name">Application Sites</label>
-                                     <select multiple name="application_sites[]">
-                                       <option value="ML00">ML00</option>
-                                       <option value="ML01">ML01</option>
-                                       <option value="ML02">ML02</option>
-                                       <option value="ML03">ML03</option>
-                                       <option value="ML04">ML04</option>
-                                       <option value="ML05">ML05</option>
+                                    @php
+                                      $divisions = DB::table('q_m_s_divisions')->where('status', 1)->get();
+                                    @endphp
+                                    <label for="Application_Sites">Application Sites</label>
+                                     <select multiple name="application_sites[]" id="application_sites">
+                                       @foreach ($divisions as $division)
+                                         <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                       @endforeach
                                      </select>
                                 </div>
                             </div>
@@ -182,6 +184,7 @@
                                 <div class="group-input">
                                     <label for="Customer_organization">New Existing Laboratory</label>
                                     <select name="new_existing_laboratory">
+                                        <option value="">Enter your selection here</option>
                                         <option value="ML00">ML00</option>
                                         <option value="ML01">ML01</option>
                                         <option value="ML02">ML02</option>
@@ -239,14 +242,23 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Name_of_Lead_Auditor">Name of Lead Auditor</label>
-                                    <input type="text" name="name_of_lead_auditor">
+                                    <select name="name_of_lead_auditor">
+                                       <option value="">Enter Your Selection Here</option>
+                                       @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                       @endforeach
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Name_of_Co_Auditor">Name(s) of Co-Auditor</label>
-                                    <textarea name="name_of_co_auditor"></textarea>
+                                    <select name="name_of_co_auditor[]" multiple id="name_of_co_auditor">
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                     </select>
                                 </div>
                             </div>
 
@@ -262,9 +274,12 @@
                                     <label for="Propose_of_Audit">Propose of Audit.</label>
                                     <select name="propose_of_audit">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="regulatory-compliance">Regulatory Compliance</option>
+                                        <option value="quality-control">Quality Control</option>
+                                        <option value="process-improvement">Process Improvement</option>
+                                        <option value="validation-and-verification">Validation and Verification</option>
+                                        <option value="risk-assessment">Risk Assessment</option>
+                                        <option value="internal-audit">Internal Audit</option>
                                     </select>
                                 </div>
                             </div>
@@ -280,14 +295,22 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Other_Information">Other Information (If Any)</label>
-                                    <textarea name="other_information"></textarea>
+                                    <textarea name="other_information_gi"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
+                                     @php
+                                      $users = DB::table('users')->get();
+                                     @endphp
                                     <label for="QA_Approver">QA Approver</label>
-                                    <input type="text" name="qa_approver">
+                                      <select name="qa_approver">
+                                       <option value="">Enter Your Selection Here</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                      </select>
                                 </div>
                             </div>
 
@@ -300,16 +323,16 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="file_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="proposal_attachments" oninput="" multiple>
+                                            <input type="file" id="myfile" name="proposal_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="CTL_Audit_Proposal_By">CTL Audit Proposal By</label>
                                     <input type="text" name="ctl_audit_proposal_by">
@@ -321,6 +344,10 @@
                                     <label for="CTL_Audit_Proposal_By">CTL Audit Proposal On</label>
                                     <input type="date" name="ctl_audit_proposal_on">
                                 </div>
+                            </div>--}}
+
+                            <div class="sub-head">
+                                Cancellation
                             </div>
 
                             <div class="col-lg-12">
@@ -330,7 +357,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Cancellation_Initiated_By">Cancellation Initiated By</label>
                                     <input type="text" name="cancellation_initiated_by">
@@ -341,219 +368,6 @@
                                 <div class="group-input">
                                     <label for="Cancellation_Initiated_On">Cancellation Initiated On</label>
                                     <input type="date" name="cancellation_initiated_on">
-                                </div>
-                            </div>
-
-                            {{--<div class="sub-head">
-                                Location Information
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Event_Location">Event Location</label>
-                                    <select name="Event_Location">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Other_Event_Location">Other Event Location</label>
-                                    <input type="text" name="Other_Event_Location">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Zone">Zone</label>
-                                    <select name="Zone">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Country">Country</label>
-                                    <input type="text" name="Country">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="State_District">State/District</label>
-                                    <input type="text" name="State_District">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="City">City</label>
-                                    <select name="City">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Department">Department(s)</label>
-                                    <select name="Department">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Countries">Countries</label>
-                                    <select name="Countries">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="sub-head">
-                                Product Information
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Manufacturer">Manufacturer</label>
-                                    <input type="text" name="Manufacturer">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Reported_Manufacturer">Reported to Manufacturer</label>
-                                    <select name="Reported_Manufacturer">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="group-input">
-                                <label for="audit-agenda-grid">
-                                    Product/Material(0)
-                                    <button type="button" name="audit-agenda-grid" id="Product_Material">+</button>
-                                    <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                        (Launch Instruction)
-                                    </span>
-                                </label>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="Product-Material-field-instruction-modal">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 5%">Row#</th>
-                                                <th style="width: 12%">Product Name</th>
-                                                <th style="width: 16%">Batch Number</th>
-                                                <th style="width: 16%">Expiry Date</th>
-                                                <th style="width: 16%">ManuFactured Date</th>
-                                                <th style="width: 15%">Disposition</th>
-                                                <th style="width: 15%">Comment</th>
-                                                <th style="width: 15%">Remarks</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="IDnumber[]"></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Related_Suppliers">Related Suppliers</label>
-                                    <select name="Related_Suppliers">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Trade_name">Trade Name</label>
-                                    <input type="text" name="Trade_name">
-                                </div>
-                            </div>
-
-                            <div class="sub-head">
-                                Additional Data
-                            </div>
-
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Attached_Files">Attached Files</label>
-                                    <div>
-                                        <small class="text-primary">
-                                            Please Attach all relevant or supporting documents
-                                        </small>
-                                    </div>
-                                    <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
-                                        <div class="add-btn">
-                                            <div>Add</div>
-                                            <input type="file" id="myfile" name="Attached_Files" oninput="" multiple>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Attached_Pictures">Attached Pictures</label>
-                                    <div>
-                                        <small class="text-primary">
-                                            Please Attach all relevant or supporting documents
-                                        </small>
-                                    </div>
-                                    <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
-                                        <div class="add-btn">
-                                            <div>Add</div>
-                                            <input type="file" id="myfile" name="Attached_Pictures" oninput="" multiple>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Related_URLs">Related URLs</label>
-                                    <select name="Related_URLs">
-                                        <option value="">Enter Your Selection Here</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Web_Search">Web Search</label>
-                                    <input type="text" name="Web_Search">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Related_Events">Related Events</label>
-                                    <input type="text" name="Related_Events">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Similar_Complains">Similar Complains</label>
-                                    <input type="text" name="Similar_Complains">
                                 </div>
                             </div>--}}
 
@@ -566,6 +380,8 @@
                         </div>
                     </div>
                 </div>
+
+                {{--CTL Audit Preparation--}}
 
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
@@ -603,14 +419,16 @@
                                     <label for="Communication_And_Others">Communication & Others</label>
                                     <select name="communication_and_others">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="communication">Communication</option>
+                                        <option value="training-and-development">Training and Development</option>
+                                        <option value="customer-feedback">Customer Feedback</option>
+                                        <option value="incident-investigation">Incident Investigation</option>
+                                        <option value="performance-review">Performance Review</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="CTL_Audit_Preparation_By">CTL Audit Preparation By</label>
                                     <input type="text" name="ctl_audit_preparation_by">
@@ -622,7 +440,7 @@
                                     <label for="CTL_Audit_Preparation_On">CTL Audit Preparation On</label>
                                     <input type="date" name="ctl_audit_preparation_on">
                                 </div>
-                            </div>
+                            </div>--}}
 
 
                             <div class="button-block">
@@ -636,6 +454,7 @@
                     </div>
                 </div>
 
+                {{--CTL Audit Execution--}}
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -665,9 +484,12 @@
                                     <label for="Audit_Enclosures">Audit Enclosures</label>
                                     <select name="audit_enclosures">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="risk-assessments">Risk Assessments</option>
+                                        <option value="supplier-audits">Supplier Audits</option>
+                                        <option value="non-conformance-reports">Non-Conformance Reports</option>
+                                        <option value="follow-up-reports">Follow-Up Reports</option>
+                                        <option value="validation-protocols">Validation Protocols</option>
+                                        <option value="validation-reports">Validation Reports</option>
                                     </select>
                                 </div>
                             </div>
@@ -679,7 +501,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-6">
+                            {{--<div class="col-6">
                                 <div class="group-input">
                                     <label for="CTL_Audit_Details_Updated_By">CTL Audit Details Updated By</label>
                                     <input type="text" name="ctl_audit_details_updated_by">
@@ -691,7 +513,7 @@
                                     <label for="CTL_Audit_Details_Updated_On">CTL Audit Details Updated On</label>
                                     <input type="date" name="ctl_audit_details_updated_on">
                                 </div>
-                            </div>
+                            </div>--}}
 
                         </div>
                         <div class="button-block">
@@ -704,6 +526,9 @@
                     </div>
                 </div>
 
+
+                {{--Audit Report Prep. & Approval--}}
+
                 <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -715,7 +540,7 @@
                              <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Auditee(s) (0)
-                                    <button type="button" name="audit-agenda-grid" id="Auditee">+</button>
+                                    <button type="button" name="auditee" id="Auditee">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
@@ -731,9 +556,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                          <tr>
+                                            <td><input disabled type="text" name="auditee[0][serial]" value="1"></td>
+                                            <td><input type="text" name="auditee[0][Name]"></td>
+                                            <td><input type="text" name="auditee[0][DesignationPosition]"></td>
+                                            <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                          </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -742,7 +570,7 @@
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Key Personnel Met During Audit(0)
-                                    <button type="button" name="audit-agenda-grid" id="Key_Personnel_Met_During_Audit">+</button>
+                                    <button type="button" name="key_personnel_met_during_audit" id="Key_Personnel_Met_During_Audit">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
@@ -758,10 +586,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="IDnumber[]"></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
+                                            <td><input disabled type="text" name="key_personnel_met_during_audit[0][serial]" value="1"></td>
+                                            <td><input type="text" name="key_personnel_met_during_audit[0][Name]"></td>
+                                            <td><input type="text" name="key_personnel_met_during_audit[0][DesignationPosition]"></td>
+                                            <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                         </tbody>
                                     </table>
                                 </div>
@@ -812,8 +640,8 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="corrective_actions_agreed">Corrective Actions Agreed</label>
-                                    <textarea name="Corrective_Actions_Agreed"></textarea>
+                                    <label for="Corrective_Actions_Agreed">Corrective Actions Agreed</label>
+                                    <textarea name="corrective_actions_agreed"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -859,17 +687,24 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-6">
                                 <div class="group-input">
                                     <label for="CTL_Audit_Report">CTL Audit Report</label>
-                                    <select name="ctl_audit_report">
-                                      <option value="">Enter Your Selection</option>
-                                      <option value="1">1</option>
-                                      <option value="2">2</option>
-                                      <option value="3">3</option>
-                                    </select>
+                                    <div>
+                                        <small class="text-primary">
+                                            Please Attach all relevant or supporting documents
+                                        </small>
+                                    </div>
+                                    <div class="file-attachment-field">
+                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="add-btn">
+                                            <div>Add</div>
+                                            <input type="file" id="myfile" name="ctl_audit_report[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -883,14 +718,16 @@
                                     <label for="Supportive_Documents">Supportive Documents</label>
                                     <select name="supportive_documents">
                                       <option value="">Enter Your Selection</option>
-                                      <option value="1">1</option>
-                                      <option value="2">2</option>
-                                      <option value="3">3</option>
+                                      <option value="Training Manuals">Training Manuals</option>
+                                      <option value="Equipment Manuals">Equipment Manuals</option>
+                                      <option value="Calibration Records">Calibration Records</option>
+                                      <option value="Quality Control Data">Quality Control Data</option>
+                                      <option value="Incident Reports">Incident Reports</option>
                                     </select>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="CTL_Audit_Report_Prepared_By">CTL Audit Report Prepared By</label>
                                     <input type="text" name="ctl_audit_report_prepared_by">
@@ -902,7 +739,7 @@
                                     <label for="CTL_Audit_Report_Prepared_By">CTL Audit Report Prepared On</label>
                                     <input type="date" name="ctl_audit_report_prepared_on">
                                 </div>
-                            </div>
+                            </div>--}}
 
                         </div>
                         <div class="button-block">
@@ -914,6 +751,8 @@
                         </div>
                     </div>
                 </div>
+
+                {{--CTL Audit Report Issueance--}}
 
                 <div id="CCForm5" class="inner-block cctabcontent">
                     <div class="inner-block-content">
@@ -969,16 +808,16 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="file_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attachments_if_any" oninput="" multiple>
+                                            <input type="file" id="myfile" name="file_attachments_if_any[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="CTL_Audit_Report_Issued_By">CTL Audit Report Issued By</label>
                                     <input type="text" name="ctl_audit_report_issued_by">
@@ -989,7 +828,7 @@
                                     <label for="CTL_Audit_Report_Issued_On">CTL Audit Report Issued On</label>
                                     <input type="date" name="ctl_audit_report_issued_on">
                                 </div>
-                            </div>
+                            </div>--}}
 
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -1001,6 +840,8 @@
                         </div>
                     </div>
                 </div>
+
+                {{--Pending CTL Response--}}
 
                 <div id="CCForm6" class="inner-block cctabcontent">
                     <div class="inner-block-content">
@@ -1019,8 +860,8 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="final_Response_Received_On">Final Response Received On</label>
-                                    <input type="date" name="final_Response_Received_On">
+                                    <label for="Final_Response_Received_On">Final Response Received On</label>
+                                    <input type="date" name="final_response_received_on">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -1028,8 +869,11 @@
                                     <label for="Response_Received_Within_TCD">Response Received Within TCD</label>
                                     <select name="response_received_within_tcd">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
+                                        <option value="Partially">Partially</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Follow-Up Required">Follow-Up Required</option>
+                                        <option value="Under Review">Under Review</option>
+                                        <option value="Escalated">Escalated</option>
                                     </select>
                                 </div>
                             </div>
@@ -1048,7 +892,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="group-input">
                                     <label for="CTL_Response_Report">CTL Response Report</label>
                                     <div>
@@ -1057,16 +901,16 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="file_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="ctl_response_report" oninput="" multiple>
+                                            <input type="file" id="myfile" name="ctl_response_report[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="CTL_Response_Detail_Updated_By">CTL Response Detail Updated By</label>
                                     <input type="text" name="ctl_response_detail_updated_by">
@@ -1078,7 +922,7 @@
                                     <label for="CTL_Response_Detail_Updated_On">CTL Response Detail Updated On</label>
                                     <input type="text" name="ctl_response_detail_updated_on">
                                 </div>
-                            </div>
+                            </div>--}}
 
 
                         </div>
@@ -1093,6 +937,7 @@
                     </div>
                 </div>
 
+                {{--CTL Audit Compliance--}}
 
                 <div id="CCForm7" class="inner-block cctabcontent">
                     <div class="inner-block-content">
@@ -1110,8 +955,11 @@
                                     <label for="Audit_Task_Required">Audit Task Required?</label>
                                     <select name="audit_task_required">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
+                                        <option value="Document Review">Document Review</option>
+                                        <option value="Interview Staff">Interview Staff</option>
+                                        <option value="Inspect Facilities">Inspect Facilities</option>
+                                        <option value="Check Equipment Calibration">Check Equipment Calibration</option>
+                                        <option value="Review Training Records">Review Training Records</option>
                                     </select>
                                 </div>
                             </div>
@@ -1128,8 +976,12 @@
                                     <label for="Follow_Up_Task_Required">Follow Up Task Required</label>
                                     <select name="follow_up_task_required">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
+                                        <option value="Perform Re-Audit">Perform Re-Audit</option>
+                                        <option value="Implement Process Improvements">Implement Process Improvements</option>
+                                        <option value="Verify CAPA Implementation">Verify CAPA Implementation</option>
+                                        <option value="Review and Approve Changes">Review and Approve Changes</option>
+                                        <option value="Complete Risk Assessments">Complete Risk Assessments</option>
+                                        <option value="Provide Status Updates">Provide Status Updates</option>
                                     </select>
                                 </div>
                             </div>
@@ -1139,8 +991,11 @@
                                     <label for="Follow_Up_Task_Ref_No">Follow-Up Task Ref. No</label>
                                     <select name="follow_up_task_ref_no">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
+                                        <option value="Ref-002">Ref-002</option>
+                                        <option value="Ref-003">Ref-003</option>
+                                        <option value="Ref-004">Ref-004</option>
+                                        <option value="Ref-005">Ref-005</option>
+                                        <option value="Ref-006">Ref-006</option>
                                     </select>
                                 </div>
                             </div>
@@ -1157,8 +1012,10 @@
                                     <label for="Response_Review">Response Review</label>
                                     <select name="response_review">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
+                                        <option value="capa-procedure-document">CAPA Procedure Document</option>
+                                        <option value="risk-assessment-documentation">Risk Assessment Documentation</option>
+                                        <option value="capa-procedure-document">Root Cause Analysis Documentation</option>
+                                        <option value="response-evaluation-criteria">Response Evaluation Criteria</option>
                                     </select>
                                 </div>
                             </div>
@@ -1184,7 +1041,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="group-input">
                                     <label for="Audit_Closure_Report">Audit Closure Report</label>
                                     <div>
@@ -1193,16 +1050,16 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="file_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="audit_closure_report" oninput="" multiple>
+                                            <input type="file" id="myfile" name="audit_closure_report[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="group-input">
                                     <label for="Response_File_Attachments">Response File Attachments</label>
                                     <div>
@@ -1211,16 +1068,16 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="file_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="response_file_attachments" oninput="" multiple>
+                                            <input type="file" id="myfile" name="response_file_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="CTL_Response_Acceptance_By">CTL Response Acceptance By</label>
                                     <input type="text" name="ctl_response_acceptance_by">
@@ -1232,7 +1089,7 @@
                                     <label for="CTL_Response_Acceptance_on">CTL Response Acceptance On</label>
                                     <input type="date" name="ctl_response_acceptance_on">
                                 </div>
-                            </div>
+                            </div>--}}
 
                         </div>
 
@@ -1246,10 +1103,18 @@
                     </div>
                 </div>
 
+                {{--CTL Audit Compliance Approval--}}
 
                 <div id="CCForm8" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
+
+                            <div class="col-lg-12">
+                                <div class="group-input">
+                                    <label for="Approval_Comments">Approval Comments</label>
+                                    <textarea name="approval_comments"></textarea>
+                                </div>
+                            </div>
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -1260,16 +1125,16 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="file_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="approval_attachments" oninput="" multiple>
+                                            <input type="file" id="myfile" name="approval_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Audit_Compliance_Approved_By">Audit Compliance Approved By</label>
                                     <input type="text" name="audit_compliance_approved_by">
@@ -1281,7 +1146,8 @@
                                     <label for="Audit_Compliance_Approved_On">Audit Compliance Approved On</label>
                                     <input type="date" name="audit_compliance_approved_on">
                                 </div>
-                            </div>
+                            </div>--}}
+
                         </div>
 
                         <div class="button-block">
@@ -1293,6 +1159,9 @@
                         </div>
                     </div>
                 </div>
+
+
+                {{--Audit Conclusion--}}
 
                 <div id="CCForm9" class="inner-block cctabcontent">
                     <div class="inner-block-content">
@@ -1308,8 +1177,10 @@
                                     <label for="All_Observation_Closed">All Observation Closed</label>
                                     <select name="all_observation_closed">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
+                                        <option value="reporting-and-metrics">Reporting and Metrics</option>
+                                        <option value="review-and-approval">Review and Approval</option>
+                                        <option value="verification-and-validation">Verification and Validation</option>
+                                        <option value="action-plan-development">Action Plan Development</option>
                                     </select>
                                 </div>
                             </div>
@@ -1345,16 +1216,16 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id=""></div>
+                                        <div class="file-attachment-list" id="file_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="audit_closure_attachments" oninput="" multiple>
+                                            <input type="file" id="myfile" name="audit_closure_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="CTL_Audit_Closure_Done_By">CTL Audit Closure Done By</label>
                                     <input type="date" name="ctl_audit_closure_done_by">
@@ -1366,7 +1237,7 @@
                                     <label for="CTL_Audit_Closure_Done_On">CTL Audit Closure Done On</label>
                                     <input type="date" name="ctl_audit_closure_done_on">
                                 </div>
-                            </div>
+                            </div>--}}
 
                         </div>
 
@@ -1462,7 +1333,7 @@
 
 <script>
     VirtualSelect.init({
-        ele: '#related_records, #hod'
+        ele: '#related_records, #hod, #application_sites, #name_of_co_auditor'
     });
 
     function openCity(evt, cityName) {
@@ -1524,9 +1395,9 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="text" name="auditee[' + serialNumber + '][Name]"></td>' +
+                    '<td><input type="text" name="auditee[' + serialNumber + '][DesignationPosition]"></td>' +
+                    '<td><button type="text" class="removeRowBtn">Remove</button></td>' +
                     '</tr>';
 
                 return html;
@@ -1547,9 +1418,9 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="text" name="key_personnel_met_during_audit[' + serialNumber + '][Name]"></td>' +
+                    '<td><input type="text" name="key_personnel_met_during_audit[' + serialNumber + '][DesignationPosition]"></td>' +
+                    '<td><button type="text" class="removeRowBtn">Remove</button></td>' +
                     '</tr>';
 
                 return html;
@@ -1562,6 +1433,13 @@
         });
     });
 </script>
+
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
+</script>
+
 
 <script>
     $(document).ready(function() {

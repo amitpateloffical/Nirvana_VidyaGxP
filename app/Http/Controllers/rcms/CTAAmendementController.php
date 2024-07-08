@@ -150,23 +150,26 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
                 }
 
                 if(!empty($request->assigned_to)){
+
+                    $assigned_to_name = User::where('id', $request->assigned_to)->value('name');
+
                     $history = new CTAAmendementAuditTrail();
                     $history->cta_amendement_id = $amendement->id;
                     $history->previous = "Null";
-                    $history->current = $request->assigned_to;
+                    $history->current = $assigned_to_name;
                     $history->activity_type = 'Assigned To';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -176,13 +179,13 @@ class CTAAmendementController extends Controller
                     $history = new CTAAmendementAuditTrail();
                     $history->cta_amendement_id = $amendement->id;
                     $history->previous = "Null";
-                    $history->current = $request->due_date;
+                    $history->current = date('d-M-Y', strtotime($request->due_date));
                     $history->activity_type = 'Date Due';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -198,7 +201,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -214,7 +217,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -230,7 +233,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -246,7 +249,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -262,7 +265,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -278,7 +281,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -294,7 +297,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -310,7 +313,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -326,7 +329,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -342,7 +345,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -358,7 +361,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -374,7 +377,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -390,7 +393,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -406,7 +409,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -422,7 +425,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -438,7 +441,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -454,7 +457,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -470,7 +473,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -486,7 +489,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -502,7 +505,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -518,7 +521,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -534,7 +537,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -550,7 +553,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -566,7 +569,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -582,7 +585,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -598,7 +601,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -614,7 +617,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -630,7 +633,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -646,7 +649,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -662,7 +665,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -678,7 +681,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -694,7 +697,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -710,7 +713,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -726,7 +729,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -742,7 +745,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -758,7 +761,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -774,7 +777,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -790,7 +793,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -806,7 +809,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -822,7 +825,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -838,7 +841,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -854,7 +857,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -870,7 +873,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -886,7 +889,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -902,7 +905,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -918,7 +921,7 @@ class CTAAmendementController extends Controller
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_to =   "Opened";
-                    $history->change_from = "Initiator";
+                    $history->change_from = "Initiation";
                     $history->action_name = 'Create';
                     $history->comment = "Not Applicable";
                     $history->save();
@@ -1063,24 +1066,36 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->short_description) || $amendement_data->short_description === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
                 }
 
                 if($amendement_data->assigned_to != $amendement->assigned_to){
+
+                    $previous_assigned_to_name = User::where('id', $amendement_data->assigned_to)->value('name');
+                    $current_assigned_to_name = User::where('id', $amendement->assigned_to)->value('name');
+
                     $history = new CTAAmendementAuditTrail();
                     $history->cta_amendement_id = $amendement->id;
-                    $history->previous = $amendement_data->assigned_to;
-                    $history->current = $amendement->assigned_to;
+                    $history->previous = $previous_assigned_to_name;
+                    $history->current = $current_assigned_to_name;
                     $history->activity_type = 'Assigned To';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->assigned_to) || $amendement_data->assigned_to === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1097,7 +1112,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->due_date) || $amendement_data->due_date === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1114,7 +1133,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->type) || $amendement_data->type === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1131,7 +1154,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->other_type) || $amendement_data->other_type === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1148,7 +1175,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->attached_files) || $amendement_data->attached_files === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1165,7 +1196,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->description) || $amendement_data->description === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1182,7 +1217,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->zone) || $amendement_data->zone === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1199,7 +1238,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->country) || $amendement_data->country === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1216,7 +1259,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->state) || $amendement_data->state === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1233,7 +1280,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->city) || $amendement_data->city === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1250,7 +1301,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->procedure_number) || $amendement_data->procedure_number === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1267,7 +1322,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->project_code) || $amendement_data->project_code === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1284,7 +1343,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->registration_number) || $amendement_data->registration_number === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1301,7 +1364,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->other_authority) || $amendement_data->other_authority === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1318,7 +1385,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->authority_type) || $amendement_data->authority_type === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1335,7 +1406,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->authority) || $amendement_data->authority === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1352,7 +1427,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->year) || $amendement_data->year === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1369,7 +1448,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->registration_status) || $amendement_data->registration_status === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1386,7 +1469,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->car_clouser_time_weight) || $amendement_data->car_clouser_time_weight === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1403,7 +1490,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->outcome) || $amendement_data->outcome === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1420,7 +1511,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->trade_name) || $amendement_data->trade_name === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1437,7 +1532,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->estimated_man_hours) || $amendement_data->estimated_man_hours === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1454,7 +1553,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->comments) || $amendement_data->comments === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1471,7 +1574,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->manufaturer) || $amendement_data->manufaturer === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1488,7 +1595,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->actual_submission_date) || $amendement_data->actual_submission_date === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1505,7 +1616,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->actual_rejection_date) || $amendement_data->actual_rejection_date === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1522,7 +1637,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->actual_withdrawn_date) || $amendement_data->actual_withdrawn_date === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1539,7 +1658,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->inquiry_date) || $amendement_data->inquiry_date === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1556,7 +1679,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->planned_submission_date) || $amendement_data->planned_submission_date === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1573,7 +1700,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->planned_date_sent_to_affiliate) || $amendement_data->planned_date_sent_to_affiliate === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1590,7 +1721,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->effective_date) || $amendement_data->effective_date === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1607,7 +1742,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->additional_assignees) || $amendement_data->additional_assignees === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1624,7 +1763,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->additional_investigators) || $amendement_data->additional_investigators === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1641,7 +1784,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->approvers) || $amendement_data->approvers === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1658,7 +1805,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->negotiation_team) || $amendement_data->negotiation_team === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1675,7 +1826,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->trainer) || $amendement_data->trainer === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1692,7 +1847,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->root_cause_description) || $amendement_data->root_cause_description === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1709,7 +1868,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->reason_for_non_approval) || $amendement_data->reason_for_non_approval === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1726,7 +1889,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->reason_for_withdrawal) || $amendement_data->reason_for_withdrawal === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1743,7 +1910,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->justification_rationale) || $amendement_data->justification_rationale === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1760,7 +1931,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->meeting_minutes) || $amendement_data->meeting_minutes === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1777,7 +1952,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->rejection_reason) || $amendement_data->rejection_reason === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1794,7 +1973,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->effectiveness_check_summary) || $amendement_data->effectiveness_check_summary === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1811,7 +1994,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->decision) || $amendement_data->decision === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1828,7 +2015,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->summary) || $amendement_data->summary === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1845,7 +2036,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->documents_affected) || $amendement_data->documents_affected === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1862,7 +2057,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->actual_time_spend) || $amendement_data->actual_time_spend === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -1879,7 +2078,11 @@ class CTAAmendementController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    $history->action_name = 'Update';
+                    if (is_null($amendement_data->documents) || $amendement_data->documents === '') {
+                        $history->action_name = 'New';
+                    } else {
+                        $history->action_name = 'Update';
+                    }
                     $history->comment = "Not Applicable";
                     $history->save();
 
@@ -2364,9 +2567,9 @@ class CTAAmendementController extends Controller
                         // dd($document);
 
                         return view('frontend.ctms.cta_amendementAuditTrail',compact('document','audit','today'));
-                    }
+            }
 
-                //Audit Trail Report Start
+            //Audit Trail Report Start
 
            public function CTA_AmendementAuditTrailPdf($id)
                 {

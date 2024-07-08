@@ -174,11 +174,11 @@
                         which is legally binding equivalent of a hand written signature.
                     </div>
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" name="password" required>
                     </div>
                     <div class="group-input">
@@ -221,11 +221,11 @@
                     </div>
                     <input type="hidden" value="issue_report" id="type" name="type" >
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input class="new_style" type="text" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input class="new_style" type="password" name="password" required>
                     </div>
                     <div class="group-input">
@@ -272,11 +272,11 @@
                         which is legally binding equivalent of a hand written signature.
                     </div>
                     <div class="group-input">
-                        <label for="username">Username</label>
+                        <label for="username">Username <span class="text-danger">*</span></label>
                         <input type="text" name="username" required>
                     </div>
                     <div class="group-input">
-                        <label for="password">Password</label>
+                        <label for="password">Password <span class="text-danger">*</span></label>
                         <input type="password" name="password" required>
                     </div>
                     <div class="group-input">
@@ -422,8 +422,8 @@
                                     <label for="Date of Initiation"><b>Date of Initiation</b></label>
                                     <div><span class="text-primary">When was this record opened?</span>
                                     </div>
-                                    <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                        <input type="hidden" value="{{ date('d-m-Y') }}" name="intiation_date">
+                                    <input readonly type="text" value="{{ date('d-M-Y', strtotime($study_data->intiation_date)) }}" name="intiation_date">
+                                    <input type="hidden" value="{{ date('d-M-Y', strtotime($study_data->intiation_date)) }}" name="intiation_date">
                                 </div>
                             </div>
                             <div class="col-lg-12">

@@ -106,23 +106,26 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
             }
 
             if(!empty($request->assign_to_gi)){
+
+                $assigned_to_name = User::where('id', $request->assign_to_gi)->value('name');
+
                 $history = new SupplierContractAuditTrail();
                 $history->supplier_contract_id = $contract->id;
                 $history->previous = "Null";
-                $history->current = $request->assign_to_gi;
+                $history->current = $assigned_to_name;
                 $history->activity_type = 'Assigned To';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -132,13 +135,13 @@ class SupplierContractController extends Controller
                 $history = new SupplierContractAuditTrail();
                 $history->supplier_contract_id = $contract->id;
                 $history->previous = "Null";
-                $history->current = $request->due_date;
+                $history->current = date('d-M-Y', strtotime($request->due_date));
                 $history->activity_type = 'Date Due';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -154,7 +157,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -170,7 +173,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -186,7 +189,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -202,7 +205,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -218,7 +221,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -234,7 +237,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -250,7 +253,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -266,7 +269,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -282,7 +285,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -298,7 +301,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -314,7 +317,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -330,7 +333,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -346,7 +349,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -362,7 +365,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -378,7 +381,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -394,7 +397,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -410,7 +413,7 @@ class SupplierContractController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->change_to =   "Opened";
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->action_name = 'Create';
                 $history->comment = "Not Applicable";
                 $history->save();
@@ -444,7 +447,7 @@ class SupplierContractController extends Controller
 
                       $contract = SupplierContract::findOrFail($id);
 
-                      $contract->form_type = "Supplier_contract";
+                      $contract->form_type = "Supplier-Contract";
                       $contract->record = ((RecordNumber::first()->value('counter')) + 1);
                       $contract->initiator_id = Auth::user()->id;
                       $contract->division_id = $request->division_id;
@@ -515,24 +518,36 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->short_description_gi) || $contract_data->short_description_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
                     }
 
                 if($contract_data->assign_to_gi != $contract->assign_to_gi){
+
+                        $previous_assigned_to_name = User::where('id', $contract_data->assign_to_gi)->value('name');
+                        $current_assigned_to_name = User::where('id', $contract->assign_to_gi)->value('name');
+
                         $history = new SupplierContractAuditTrail();
                         $history->supplier_contract_id = $contract->id;
-                        $history->previous = $contract_data->assign_to_gi;
-                        $history->current = $contract->assign_to_gi;
+                        $history->previous = $previous_assigned_to_name;
+                        $history->current = $current_assigned_to_name;
                         $history->activity_type = 'Assigned To';
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->assign_to_gi) || $contract_data->assign_to_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -549,7 +564,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->due_date) || $contract_data->due_date === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -566,7 +585,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->supplier_list_gi) || $contract_data->supplier_list_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -583,7 +606,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->distribution_list_gi) || $contract_data->distribution_list_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -600,7 +627,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->description_gi) || $contract_data->description_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -617,7 +648,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->manufacturer_gi) || $contract_data->manufacturer_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -634,7 +669,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->priority_level_gi) || $contract_data->priority_level_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -651,7 +690,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->zone_gi) || $contract_data->zone_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -668,7 +711,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->country) || $contract_data->country === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -685,7 +732,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->state) || $contract_data->state === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -702,7 +753,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->city) || $contract_data->city === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -719,7 +774,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->type_gi) || $contract_data->type_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -736,7 +795,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->other_type) || $contract_data->other_type === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -753,7 +816,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->file_attachments_gi) || $contract_data->file_attachments_gi === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -770,7 +837,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->actual_start_date_cd) || $contract_data->actual_start_date_cd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -787,7 +858,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->actual_end_date_cd) || $contract_data->actual_end_date_cd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -804,7 +879,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->suppplier_list_cd) || $contract_data->suppplier_list_cd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -821,7 +900,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->negotiation_team_cd) || $contract_data->negotiation_team_cd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 
@@ -838,7 +921,11 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from =   $contract_data->status;
                         $history->change_to = "Not Applicable";
-                        $history->action_name = 'Update';
+                        if (is_null($contract_data->comments_cd) || $contract_data->comments_cd === '') {
+                            $history->action_name = 'New';
+                        } else {
+                            $history->action_name = 'Update';
+                        }
                         $history->comment = "Not Applicable";
                         $history->save();
 

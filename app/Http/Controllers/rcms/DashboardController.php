@@ -26,6 +26,7 @@ use App\Models\Violation;
 use App\Models\FirstProductValidation;
 use App\Models\CTAAmendement;
 use App\Models\Correspondence;
+use App\Models\ContractTestingLabAudit;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -79,6 +80,7 @@ class DashboardController extends Controller
         $datas19 = FirstProductValidation::orderByDesc('id')->get();
         $datas20 = CTAAmendement::orderByDesc('id')->get();
         $datas21 = Correspondence::orderByDesc('id')->get();
+        $datas22 = ContractTestingLabAudit::orderByDesc('id')->get();
 
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -486,6 +488,26 @@ class DashboardController extends Controller
             ]);
         }
 
+        foreach ($datas22 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "CTL-Audit",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
         // return $table;
         // $paginatedData = json_encode($table);
@@ -875,19 +897,19 @@ class DashboardController extends Controller
             $audit = "#";
             $parent="deviationparentchildReport/". $data->id;
         }
-        elseif ($type == "Gcp_study") {
+        elseif ($type == "Gcp-Study") {
             $data = GcpStudy::find($id);
             $single = "GCP_study/SingleReport/" . $data->id;
             $audit = "GCP_study/AuditTrailPdf/". $data->id;
             $parent="/". $data->id;
         }
-        elseif ($type == "Supplier_contract") {
+        elseif ($type == "Supplier-Contract") {
             $data = SupplierContract::find($id);
             $single = "supplier_contract/SingleReport/" . $data->id;
             $audit = "supplier_contract/AuditTrailPdf/". $data->id;
             $parent="/". $data->id;
         }
-        elseif ($type == "Subject_action_item") {
+        elseif ($type == "Subject-Action-Item") {
             $data = SubjectActionItem::find($id);
             $single = "subject_action_item/SingleReport/" . $data->id;
             $audit = "subject_action_item/AuditTrailPdf/". $data->id;
@@ -899,7 +921,7 @@ class DashboardController extends Controller
             $audit = "Violation/AuditTrailPdf/". $data->id;
             $parent="/". $data->id;
         }
-        elseif ($type == "CTA_Amendement") {
+        elseif ($type == "CTA-Amendement") {
             $data = CTAAmendement::find($id);
             $single = "CTA_Amendement/SingleReport/" . $data->id;
             $audit = "CTA_Amendement/AuditTrailPdf/". $data->id;
@@ -909,6 +931,12 @@ class DashboardController extends Controller
             $data = Correspondence::find($id);
             $single = "correspondence/SingleReport/" . $data->id;
             $audit = "correspondence/AuditTrailPdf/". $data->id;
+            $parent="/". $data->id;
+        }
+        elseif ($type == "CTL-Audit") {
+            $data = ContractTestingLabAudit::find($id);
+            $single = "ctl_audit/SingleReport/" . $data->id;
+            $audit = "ctl_audit/AuditTrailPdf/". $data->id;
             $parent="/". $data->id;
         }
 

@@ -385,7 +385,7 @@ Route::view('study', 'frontend.ctms.study');
 Route::view('serious_adverse_event', 'frontend.ctms.serious_adverse_event');
 Route::view('monitoring_visit', 'frontend.ctms.monitoring_visit');
 Route::view('investigational_nda_anda', 'frontend.ctms.investigational_nda_anda');
-Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
+//Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
 Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
 Route::view('clinical_site', 'frontend.ctms.clinical_site');
 
@@ -451,7 +451,8 @@ Route::view('oos-form', 'frontend.OOS.oos-form');
 
 //Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
 Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');
-Route::view('correspondence', 'frontend.New_forms.correspondence');
+//Route::view('correspondence', 'frontend.New_forms.correspondence');
+//Route::view('contract_testing_lab_audit', 'frontend.New_forms.contract_testing_lab_audit');
 //Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
 Route::view('read_and_understand', 'frontend.New_forms.read_and_understand');
 Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
