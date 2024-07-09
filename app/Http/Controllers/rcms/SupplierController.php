@@ -489,8 +489,13 @@ class SupplierController extends Controller
               return redirect()->back();
          }
          
-        $lastData =  Supplier::find($id);
+        // $lastData =  Supplier::find($id);
         $supplier =  Supplier::find($id);
+
+        $lastDocument = Supplier::find($id);
+        $lastdata = Supplier::find($id);
+        $lastDocumentRecord = Supplier::find($supplier->id);
+        $lastDocumentStatus = $lastDocumentRecord ? $lastDocumentRecord->status : null;
 
         $supplier->intiation_date = $request->intiation_date;
         $supplier->short_description =($request->short_description);
@@ -540,400 +545,459 @@ class SupplierController extends Controller
          $supplier->rpn = $request->rpn;
          $supplier->update();
 
-         if ($lastData->originator_id != $supplier->originator_id || !empty($request->comment)) {
-            // return 'history';
-            $history = new SupplierAuditTrail();
-            $history->supplier_id = $id;
-            $history->activity_type = 'Initiated By';
-            $history->previous = $lastData->originator_id;
-            $history->current = $supplier->originator_id;
-            $history->comment = $request->comment;
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+
+        if($lastDocument->originator_id !=$supplier->originator_id || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Initiated By')
+                     ->exists();
+        $history = new SupplierAuditTrial();
+        $history->supplier_id = $supplier->id;
+        $history->activity_type = 'Initiated By';
+        $history->previous =  $lastDocument->originator_id;
+        $history->current = $supplier->originator_id;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state= $lastDocument->status;
+        $history->change_to= "Not Applicable";
+        $history->change_from= $lastDocument->status;
+        $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+        $history->save();    
         }
 
-        if ($lastData->short_description != $supplier->short_description || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->short_description !=$supplier->short_description || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Short Discription')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
-            $history->activity_type = 'Short Description';
-            $history->previous = $lastData->short_description;
+            $history->supplier_id = $supplier->id;
+            $history->activity_type = 'Short Discription';
+            $history->previous =  $lastDocument->short_description;
             $history->current = $supplier->short_description;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->criticality != $supplier->criticality || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->criticality !=$supplier->criticality || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Criticality')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Criticality';
-            $history->previous = $lastData->criticality;
+            $history->previous =  $lastDocument->criticality;
             $history->current = $supplier->criticality;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->priority_level != $supplier->priority_level || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->priority_level !=$supplier->priority_level || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Priority Level')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Priority Level';
-            $history->previous = $lastData->priority_level;
+            $history->previous =  $lastDocument->priority_level;
             $history->current = $supplier->priority_level;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->auditee != $supplier->auditee || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->auditee !=$supplier->auditee || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Auditee')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Auditee';
-            $history->previous = $lastData->auditee;
+            $history->previous =  $lastDocument->auditee;
             $history->current = $supplier->auditee;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->contact_person != $supplier->contact_person || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->contact_person !=$supplier->contact_person || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Contact Person')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Contact Person';
-            $history->previous = $lastData->contact_person;
+            $history->previous =  $lastDocument->contact_person;
             $history->current = $supplier->contact_person;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->due_date != $supplier->due_date || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->due_date !=$supplier->due_date || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Due Date')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Due Date';
-            $history->previous = $lastData->due_date;
+            $history->previous =  $lastDocument->due_date;
             $history->current = $supplier->due_date;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->assigned_to != $supplier->assigned_to || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->assigned_to !=$supplier->assigned_to || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Assigned To')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Assigned To';
-            $history->previous = $lastData->assigned_to;
+            $history->previous =  $lastDocument->assigned_to;
             $history->current = $supplier->assigned_to;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->descriptions != $supplier->descriptions || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->descriptions !=$supplier->descriptions || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Descriptions')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Descriptions';
-            $history->previous = $lastData->descriptions;
+            $history->previous =  $lastDocument->descriptions;
             $history->current = $supplier->descriptions;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->attached_file != $supplier->attached_file || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->attached_file !=$supplier->attached_file || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Attached File')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Attached File';
-            $history->previous = $lastData->attached_file;
+            $history->previous =  $lastDocument->attached_file;
             $history->current = $supplier->attached_file;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->attached_picture != $supplier->attached_picture || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->attached_picture !=$supplier->attached_picture || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Attached Picture')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Attached Picture';
-            $history->previous = $lastData->attached_picture;
+            $history->previous =  $lastDocument->attached_picture;
             $history->current = $supplier->attached_picture;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->Manufacturer != $supplier->Manufacturer || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->Manufacturer !=$supplier->Manufacturer || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Manufacturer')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Manufacturer';
-            $history->previous = $lastData->Manufacturer;
+            $history->previous =  $lastDocument->Manufacturer;
             $history->current = $supplier->Manufacturer;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->type != $supplier->type || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->type !=$supplier->type || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Type')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Type';
-            $history->previous = $lastData->type;
+            $history->previous =  $lastDocument->type;
             $history->current = $supplier->type;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->product != $supplier->product || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->product !=$supplier->product || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Product')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Product';
-            $history->previous = $lastData->product;
+            $history->previous =  $lastDocument->product;
             $history->current = $supplier->product;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->proposed_actions != $supplier->proposed_actions || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->proposed_actions !=$supplier->proposed_actions || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Proposed Actions')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Proposed Actions';
-            $history->previous = $lastData->proposed_actions;
+            $history->previous =  $lastDocument->proposed_actions;
             $history->current = $supplier->proposed_actions;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->comments != $supplier->comments || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->comments !=$supplier->comments || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Comments')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Comments';
-            $history->previous = $lastData->comments;
+            $history->previous =  $lastDocument->comments;
             $history->current = $supplier->comments;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->impact != $supplier->impact || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->impact !=$supplier->impact || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Impact')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Impact';
-            $history->previous = $lastData->impact;
+            $history->previous =  $lastDocument->impact;
             $history->current = $supplier->impact;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->impact_analysis != $supplier->impact_analysis || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->impact_analysis !=$supplier->impact_analysis || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Impact Analysis')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Impact Analysis';
-            $history->previous = $lastData->impact_analysis;
+            $history->previous =  $lastDocument->impact_analysis;
             $history->current = $supplier->impact_analysis;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->severity_rate != $supplier->severity_rate || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->severity_rate !=$supplier->severity_rate || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Severity Rate')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Severity Rate';
-            $history->previous = $lastData->severity_rate;
+            $history->previous =  $lastDocument->severity_rate;
             $history->current = $supplier->severity_rate;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->occurence != $supplier->occurence || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->occurence !=$supplier->occurence || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Occurence')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Occurence';
-            $history->previous = $lastData->occurence;
+            $history->previous =  $lastDocument->occurence;
             $history->current = $supplier->occurence;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->detection != $supplier->detection || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->detection !=$supplier->detection || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'Detection')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'Detection';
-            $history->previous = $lastData->detection;
+            $history->previous =  $lastDocument->detection;
             $history->current = $supplier->detection;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->rpn != $supplier->rpn || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->rpn !=$supplier->rpn || !empty($request->comment)) {
+            $lastDocumentAuditTrail = SupplierAuditTrial::where('supplier_id', $supplier->id)
+                     ->where('activity_type', 'RPN')
+                     ->exists();
             $history = new SupplierAuditTrial();
-            $history->supplier_id = $id;
+            $history->supplier_id = $supplier->id;
             $history->activity_type = 'RPN';
-            $history->previous = $lastData->rpn;
+            $history->previous =  $lastDocument->rpn;
             $history->current = $supplier->rpn;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name=$lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
         toastr()->success("Record is update Successfully");
@@ -951,7 +1015,10 @@ class SupplierController extends Controller
         $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $data->assign_to_name = User::where('id', $data->assigned_to)->value('name');
         $data->initiator_name = User::where('id', $data->initiator_id)->value('name');
-        return view('frontend.supplierObservation.supplier_observation_view', compact('data'));
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->addDays(30);
+        $due_date = $formattedDate->format('Y-m-d');
+        return view('frontend.supplierObservation.supplier_observation_view', compact('data','due_date'));
     }
 
     public function supplier_send_stage(Request $request, $id)
@@ -1220,9 +1287,10 @@ class SupplierController extends Controller
         $doc = Supplier::find($id);
         $doc->originator = User::where('id', $doc->initiator_id)->value('name');
         $data = SupplierAuditTrial::where('supplier_id', $doc->id)->orderByDesc('id')->get();
+        $audit = SupplierAuditTrial::where('supplier_id', $id)->orderByDESC('id')->get()->unique('activity_type');
         $pdf = App::make('dompdf.wrapper');
         $time = Carbon::now();
-        $pdf = PDF::loadview('frontend.supplierObservation.auditReport', compact('data', 'doc'))
+        $pdf = PDF::loadview('frontend.supplierObservation.auditReport', compact('data', 'doc','audit'))
             ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,

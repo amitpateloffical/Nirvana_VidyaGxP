@@ -672,8 +672,13 @@ class ResamplingController extends Controller
               return redirect()->back();
          }
 
-         $lastData =  Resampling::find($id);
+        //  $lastData =  Resampling::find($id);
          $resampling = Resampling::find($id); 
+
+        $lastDocument = Resampling::find($id);
+        $lastdata = Resampling::find($id);
+        $lastDocumentRecord = Resampling::find($resampling->id);
+        $lastDocumentStatus = $lastDocumentRecord ? $lastDocumentRecord->status : null;
 
         //  $resampling->form_type = "Resampling";
         // $resampling->originator_id = Auth::user()->name;
@@ -810,508 +815,575 @@ class ResamplingController extends Controller
         $stability_studys2->update();
 
 
-        if ($lastData->short_description != $resampling->short_description || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->short_description !=$resampling->short_description || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Short Discription')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
-            $history->activity_type = 'Short Description';
-            $history->previous = $lastData->short_description;
+            $history->resampling_id = $resampling->id;
+            $history->activity_type = 'Short Discription';
+            $history->previous =  $lastDocument->short_description;
             $history->current = $resampling->short_description;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->assign_to != $resampling->assign_to || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->assign_to !=$resampling->assign_to || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Assign To')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
-            $history->activity_type = 'Assigned To';
-            $history->previous = $lastData->assign_to;
+            $history->resampling_id = $resampling->id;
+            $history->activity_type = 'Assign To';
+            $history->previous =  $lastDocument->assign_to;
             $history->current = $resampling->assign_to;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->due_date != $resampling->due_date || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->due_date !=$resampling->due_date || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Due Date')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Due Date';
-            $history->previous = $lastData->due_date;
+            $history->previous =  $lastDocument->due_date;
             $history->current = $resampling->due_date;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->initiator_Group != $resampling->initiator_Group || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->initiator_Group !=$resampling->initiator_Group || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Initiator Group')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Initiator Group';
-            $history->previous = $lastData->initiator_Group;
+            $history->previous =  $lastDocument->initiator_Group;
             $history->current = $resampling->initiator_Group;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->cq_Approver != $resampling->cq_Approver || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->cq_Approver !=$resampling->cq_Approver || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'CQ Approver')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'CQ Approver';
-            $history->previous = $lastData->cq_Approver;
+            $history->previous =  $lastDocument->cq_Approver;
             $history->current = $resampling->cq_Approver;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->supervisor != $resampling->supervisor || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->supervisor !=$resampling->supervisor || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Supervisor')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Supervisor';
-            $history->previous = $lastData->supervisor;
+            $history->previous =  $lastDocument->supervisor;
             $history->current = $resampling->supervisor;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->api_Material_Product_Name != $resampling->api_Material_Product_Name || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->api_Material_Product_Name !=$resampling->api_Material_Product_Name || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'API Material Product Name')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'API Material Product Name';
-            $history->previous = $lastData->api_Material_Product_Name;
+            $history->previous =  $lastDocument->api_Material_Product_Name;
             $history->current = $resampling->api_Material_Product_Name;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->lot_Batch_Number != $resampling->lot_Batch_Number || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->lot_Batch_Number !=$resampling->lot_Batch_Number || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'LOT Batch Number')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'LOT Batch Number';
-            $history->previous = $lastData->lot_Batch_Number;
+            $history->previous =  $lastDocument->lot_Batch_Number;
             $history->current = $resampling->lot_Batch_Number;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->ar_Number_GI != $resampling->ar_Number_GI || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->ar_Number_GI !=$resampling->ar_Number_GI || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'AR Number')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'AR Number';
-            $history->previous = $lastData->ar_Number_GI;
+            $history->previous =  $lastDocument->ar_Number_GI;
             $history->current = $resampling->ar_Number_GI;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->test_Name_GI != $resampling->test_Name_GI || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->test_Name_GI !=$resampling->test_Name_GI || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Test Name')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Test Name';
-            $history->previous = $lastData->test_Name_GI;
+            $history->previous =  $lastDocument->test_Name_GI;
             $history->current = $resampling->test_Name_GI;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->justification_for_resampling_GI != $resampling->justification_for_resampling_GI || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->justification_for_resampling_GI !=$resampling->justification_for_resampling_GI || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Justification For Resampling')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Justification For Resampling';
-            $history->previous = $lastData->justification_for_resampling_GI;
+            $history->previous =  $lastDocument->justification_for_resampling_GI;
             $history->current = $resampling->justification_for_resampling_GI;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->predetermined_Sampling_Strategies_GI != $resampling->predetermined_Sampling_Strategies_GI || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->predetermined_Sampling_Strategies_GI !=$resampling->predetermined_Sampling_Strategies_GI || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Predetermined Sampling Strategies')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Predetermined Sampling Strategies';
-            $history->previous = $lastData->predetermined_Sampling_Strategies_GI;
+            $history->previous =  $lastDocument->predetermined_Sampling_Strategies_GI;
             $history->current = $resampling->predetermined_Sampling_Strategies_GI;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->supporting_attach != $resampling->supporting_attach || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->supporting_attach !=$resampling->supporting_attach || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Supporting Attach')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Supporting Attach';
-            $history->previous = $lastData->supporting_attach;
+            $history->previous =  $lastDocument->supporting_attach;
             $history->current = $resampling->supporting_attach;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->parent_tcd_hid != $resampling->parent_tcd_hid || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->parent_tcd_hid !=$resampling->parent_tcd_hid || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Parent TCD HID')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Parent TCD HID';
-            $history->previous = $lastData->parent_tcd_hid;
+            $history->previous =  $lastDocument->parent_tcd_hid;
             $history->current = $resampling->parent_tcd_hid;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->parent_oos_no != $resampling->parent_oos_no || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->parent_oos_no !=$resampling->parent_oos_no || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Parent OOS No')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Parent OOS No';
-            $history->previous = $lastData->parent_oos_no;
+            $history->previous =  $lastDocument->parent_oos_no;
             $history->current = $resampling->parent_oos_no;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->parent_oot_no != $resampling->parent_oot_no || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->parent_oot_no !=$resampling->parent_oot_no || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Parent OOT No')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Parent OOT No';
-            $history->previous = $lastData->parent_oot_no;
+            $history->previous =  $lastDocument->parent_oot_no;
             $history->current = $resampling->parent_oot_no;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->parent_lab_incident_no != $resampling->parent_lab_incident_no || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->parent_lab_incident_no !=$resampling->parent_lab_incident_no || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Parent Lab Incident No')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Parent Lab Incident No';
-            $history->previous = $lastData->parent_lab_incident_no;
+            $history->previous =  $lastDocument->parent_lab_incident_no;
             $history->current = $resampling->parent_lab_incident_no;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->parent_date_opened != $resampling->parent_date_opened || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->parent_date_opened !=$resampling->parent_date_opened || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Parent Date Opened')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Parent Date Opened';
-            $history->previous = $lastData->parent_date_opened;
+            $history->previous =  $lastDocument->parent_date_opened;
             $history->current = $resampling->parent_date_opened;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->parent_short_description != $resampling->parent_short_description || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->parent_short_description !=$resampling->parent_short_description || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Parent Short Description')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Parent Short Description';
-            $history->previous = $lastData->parent_date_opened;
-            $history->current = $resampling->parent_date_opened;
+            $history->previous =  $lastDocument->parent_short_description;
+            $history->current = $resampling->parent_short_description;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->parent_product_material_name != $resampling->parent_product_material_name || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->parent_product_material_name !=$resampling->parent_product_material_name || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Parent Product Material Name')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Parent Product Material Name';
-            $history->previous = $lastData->parent_product_material_name;
+            $history->previous =  $lastDocument->parent_product_material_name;
             $history->current = $resampling->parent_product_material_name;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->parent_target_closure_date != $resampling->parent_target_closure_date || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->parent_target_closure_date !=$resampling->parent_target_closure_date || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Parent Target Closure Date')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Parent Target Closure Date';
-            $history->previous = $lastData->parent_target_closure_date;
+            $history->previous =  $lastDocument->parent_target_closure_date;
             $history->current = $resampling->parent_target_closure_date;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->sample_Request_Approval_Comments != $resampling->sample_Request_Approval_Comments || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->sample_Request_Approval_Comments !=$resampling->sample_Request_Approval_Comments || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Sample Request Approval Comments')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Sample Request Approval Comments';
-            $history->previous = $lastData->sample_Request_Approval_Comments;
+            $history->previous =  $lastDocument->sample_Request_Approval_Comments;
             $history->current = $resampling->sample_Request_Approval_Comments;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->sample_Request_Approval_attachment != $resampling->sample_Request_Approval_attachment || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->sample_Request_Approval_attachment !=$resampling->sample_Request_Approval_attachment || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Sample Request Approval Attachment')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Sample Request Approval Attachment';
-            $history->previous = $lastData->sample_Request_Approval_attachment;
+            $history->previous =  $lastDocument->sample_Request_Approval_attachment;
             $history->current = $resampling->sample_Request_Approval_attachment;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->sample_Received != $resampling->sample_Received || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->sample_Received !=$resampling->sample_Received || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Sample Received')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Sample Received';
-            $history->previous = $lastData->sample_Received;
+            $history->previous =  $lastDocument->sample_Received;
             $history->current = $resampling->sample_Received;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->sample_Quantity != $resampling->sample_Quantity || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->sample_Quantity !=$resampling->sample_Quantity || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Sample Quantity')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Sample Quantity';
-            $history->previous = $lastData->sample_Quantity;
+            $history->previous =  $lastDocument->sample_Quantity;
             $history->current = $resampling->sample_Quantity;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->sample_Received_Comments != $resampling->sample_Received_Comments || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->sample_Received_Comments !=$resampling->sample_Received_Comments || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Sample Received Comments')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Sample Received Comments';
-            $history->previous = $lastData->sample_Received_Comments;
+            $history->previous =  $lastDocument->sample_Received_Comments;
             $history->current = $resampling->sample_Received_Comments;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->delay_Justification != $resampling->delay_Justification || !empty($request->comment)) {
-            // return 'history';
+
+        if($lastDocument->delay_Justification !=$resampling->delay_Justification || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'Delay Justification')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'Delay Justification';
-            $history->previous = $lastData->delay_Justification;
+            $history->previous =  $lastDocument->delay_Justification;
             $history->current = $resampling->delay_Justification;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
-        if ($lastData->file_attchment_pending_sample != $resampling->file_attchment_pending_sample || !empty($request->comment)) {
-            // return 'history';
+        if($lastDocument->file_attchment_pending_sample !=$resampling->file_attchment_pending_sample || !empty($request->comment)) {
+            $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
+                     ->where('activity_type', 'File Attchment Pending Sample')
+                     ->exists();
             $history = new ResamplingAuditTrail();
-            $history->resampling_id = $id;
+            $history->resampling_id = $resampling->id;
             $history->activity_type = 'File Attchment Pending Sample';
-            $history->previous = $lastData->file_attchment_pending_sample;
+            $history->previous =  $lastDocument->file_attchment_pending_sample;
             $history->current = $resampling->file_attchment_pending_sample;
             $history->comment = $request->comment;
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $lastData->status;
-            $history->change_to =   "Not Applicable";
-            $history->change_from = $lastData->status;
-            $history->action_name = 'Update';
-            $history->save();
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
         }
 
 
@@ -1341,7 +1413,11 @@ class ResamplingController extends Controller
         $gridDatas05 = Resampling_Grid::where(['r_id' => $resampling_id,'identifer' => 'StabilityStudy1'])->first();
         $gridDatas06 = Resampling_Grid::where(['r_id' => $resampling_id,'identifer' => 'StabilityStudy2'])->first();
 
-        return view('frontend.OOS.resampling_view', compact('data', 'gridDatas01', 'gridDatas02', 'gridDatas03', 'gridDatas04', 'gridDatas05', 'gridDatas06','resampling_id'));
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->addDays(30);
+        $due_date = $formattedDate->format('Y-m-d');
+
+        return view('frontend.OOS.resampling_view', compact('data', 'gridDatas01', 'gridDatas02', 'gridDatas03', 'gridDatas04', 'gridDatas05', 'gridDatas06','resampling_id','due_date'));
     }
 
     public function resampling_send_stage(Request $request, $id)
@@ -1625,9 +1701,10 @@ class ResamplingController extends Controller
         $doc = Resampling::find($id);
         $doc->originator = User::where('id', $doc->initiator_id)->value('name');
         $data = ResamplingAuditTrail::where('resampling_id', $doc->id)->orderByDesc('id')->get();
+        $audit = ResamplingAuditTrail::where('resampling_id', $id)->orderByDESC('id')->get()->unique('activity_type');
         $pdf = App::make('dompdf.wrapper');
         $time = Carbon::now();
-        $pdf = PDF::loadview('frontend.OOS.auditReport', compact('data', 'doc'))
+        $pdf = PDF::loadview('frontend.OOS.auditReport', compact('data', 'doc','audit'))
             ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,
