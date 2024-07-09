@@ -485,7 +485,6 @@ Route::view('employee', 'frontend.forms.employee');
 
 Route::view('requirement-template', 'frontend.forms.requirement-template');
 
-Route::view('scar', 'frontend.forms.scar');
 
 Route::view('external-audit', 'frontend.forms.external-audit');
 
@@ -556,12 +555,6 @@ Route::get('auditReport/{id}', [SupplierAuditController::class, 'auditReport'])-
 Route::get('singleReport/{id}', [SupplierAuditController::class, 'singleReport'])->name('SupplierSingleReport');
 
 
-
-
-
-// ================================= Supplier Audit======================================================== 
-
-Route::view('scar_new', 'frontend.scar.scar_new');
 
 
 

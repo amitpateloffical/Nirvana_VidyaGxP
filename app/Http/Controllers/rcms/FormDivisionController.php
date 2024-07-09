@@ -41,6 +41,8 @@ class FormDivisionController extends Controller
             return redirect('rcms/supplier');
         } elseif ($request->process_name == "Supplier Site") {
             return redirect('rcms/supplier-site');
+        } elseif ($request->process_name == "SCAR") {
+            return redirect('rcms/scar');
         } elseif ($request->process_name == "New Document") {
 
             $new = new SetDivision;

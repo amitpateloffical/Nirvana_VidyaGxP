@@ -14,31 +14,21 @@ $users = DB::table('users')->select('id', 'name')->get();
 </style>
 
 <div class="form-field-head">
-    {{-- <div class="pr-id">
-            New Child
-        </div> --}}
     <div class="division-bar">
         <strong>Site Division/Project</strong> :
-        / SCAR 
+        {{ Helpers::getDivisionName(session()->get('division')) }} / SCAR 
     </div>
 </div>
 
-
-
-{{-- ! ========================================= --}}
-{{-- !               DATA FIELDS                 --}}
-{{-- ! ========================================= --}}
 <div id="change-control-fields">
     <div class="container-fluid">
 
-        <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">General Information</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Activity Log</button>
-
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('scar-store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -55,14 +45,14 @@ $users = DB::table('users')->select('id', 'name')->get();
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>Record Number</b></label>
-                                    <input type="text" name="record" value="">
+                                    <label for="SCAR Record Number"><b>Record Number</b></label>
+                                    <input type="text" disabled value="{{ Helpers::getDivisionName(session()->get('division')) }}/SCAR/{{ date('Y') }}/{{ str_pad($record_numbers, 4, '0', STR_PAD_LEFT) }}">
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"><b>Division</b></label>
+                                    <label for="Division"><b>Division</b></label>
                                     <input disabled type="text" name="division_id" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
                                     <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
@@ -70,36 +60,34 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="initiator_id" id="initiator_id" value="{{Auth::user()->name}}">
+                                    <input disabled type="text" name="initiator_id" id="initiator_id" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiation"><b>Initiation Date</b></label>
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                                    <label for="Initiation Date"><b>Initiation Date</b></label>
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="initiation_date">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date">
                                 </div>
                             </div>
-                            
-                            
-                          
+                        
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Date Due</label>
-                                    {{-- <div><small class="text-primary">Please mention expected date of completion</small></div> --}}
+                                    <label for="Due Date">Date Due</label>
                                     <div class="calenderauditee">
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="text" id="due_date" name="due_date" readonly placeholder="DD-MM-YYYY" value="{{ $due_date }}"/>
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" value="{{ $due_date }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="search">Assigned To <span class="text-danger"></span>
+                                    <label for="Assign To">Assigned To <span class="text-danger"></span>
                                     </label>
-                                    <select id="select-state" name="assign_to">
+                                    <select id="assign_to" name="assign_to">
                                         <option value="">Select a value</option>
                                         @if(!empty($users))
                                             @foreach($users as $user)
@@ -124,107 +112,136 @@ $users = DB::table('users')->select('id', 'name')->get();
                                     $('#rchars').text(textlen);});
                             </script>
                              
-                            
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="SCAR Name">SCAR Name</label>
-                                    <input type="text" name="scar_name" value="">
+                                    <input type="text" name="scar_name" placeholder="Enter SCAR Name">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Owner">Owner</label>
-                                    <input type="text" name="owner_name" value="">
+                                    <input type="text" name="owner_name" placeholder="Enter Owner Name">
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Follow Up Date</label>
-                                    <input type="text" name="followup_date" value="">
+
+
+                            <div class="col-md-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Follow Up Date">Follow Up Date</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="followup_date" placeholder="DD-MM-YYYY" />
+                                        <input type="date" name="followup_date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input" oninput="handleDateInput(this, 'followup_date')" />
+                                    </div>
                                 </div>
                             </div>
                           
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Supplier Site</label>
+                                    <label for="Supplier Site">Supplier Site</label>
                                     <select name="supplier_site">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="">Select Supplier Site</option>
+                                        @if(!empty($supplierData))
+                                            @foreach($supplierData as $supplier)
+                                                <option value="{{ $supplier->distribution_sites }}">{{ $supplier->distribution_sites }}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Supplier Product</label>
+                                    <label for="Supplier Product">Supplier Product</label>
                                     <select name="supplier_product">
-                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="">Select Supplier Product</option>
+                                        @if(!empty($supplierData))
+                                            @foreach($supplierData as $supplier)
+                                                <option value="{{ $supplier->supplier_products }}">{{ $supplier->supplier_products }}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Supplier Site Contact Email</label>
-                                 <input type="text" name="supplier_site_contact_email" value="">
+                                    <label for="Supplier Site Contact Email">Supplier Site Contact Email</label>
+                                    <input type="text" name="supplier_site_contact_email">
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Description</label>
-                                   <textarea name="description" id="description" cols="30" value="" name=""></textarea>
+                                    <label for="Description">Description</label>
+                                   <textarea name="description" id="description" cols="30" ></textarea>
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Recommended Action</label>
-                                   <textarea name="" id="" cols="30" value="" name="recommended_action"></textarea>
+                                    <label for="Recommended Action">Recommended Action</label>
+                                   <textarea id="recommended_action" cols="30" value="" name="recommended_action"></textarea>
                                 </div>
                             </div>
+
                             <div class="sub-head">
-                                Supplier Responce
+                                Supplier Response
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Nonconformance</label>
-                                    <select name="non_conformance">
+                                    <label for="Non Conformance">Non Conformance</label>
+                                    <textarea id="non_conformance" cols="30" value="" name="non_conformance"></textarea>
+                                    <!-- <select name="non_conformance">
                                         <option value="">Enter Your Selection Here</option>
-                                    </select>
+                                    </select> -->
                                 </div>
                             </div>
+
+
+                            <div class="col-md-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Expected Closure Date">Expected Closure Date</label>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="expected_closure_date" placeholder="DD-MM-YYYY" />
+                                        <input type="date" name="expected_closure_date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input" oninput="handleDateInput(this, 'expected_closure_date')" />
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Expected Closure Date</label>
-                                   <input type="date" name="expected_closure_date" value="">
+                                    <label for="Expected Closure Time">Expected Closure Time</label>
+                                   <input type="time" name="expected_closure_time">
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Expected Closure Time</label>
-                                   <input type="time" name="expected_closure_time" value="">
-                                </div>
-                            </div>
+
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Root Cause</label>
-                                   <textarea name="" id="" cols="30" value="" name="root_cause"></textarea>
+                                    <label for="Root Cause">Root Cause</label>
+                                   <textarea id="root_cause" cols="30" name="root_cause"></textarea>
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Risk Analysis</label>
-                                   <textarea name="" id="" cols="30" value="risk_analysis" name=""></textarea>
+                                    <label for="Risk Analysis">Risk Analysis</label>
+                                   <textarea cols="30" id="risk_analysis" name="risk_analysis"></textarea>
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Responsible Department">Effectiveness Check Summary</label>
-                                   <textarea name="" id="" cols="30" value="" name="effectiveness_check_summary"></textarea>
+                                    <label for="Effectiveness Check Summary">Effectiveness Check Summary</label>
+                                   <textarea cols="30" name="effectiveness_check_summary" id="effectiveness_check_summary"></textarea>
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Responsible Department">CAPA Plan</label>
-                                   <textarea name="" id="" cols="30" value="" name="capa_plan"></textarea>
+                                    <label for="CAPA Plan">CAPA Plan</label>
+                                   <textarea id="capa_plan" cols="30" name="capa_plan"></textarea>
                                 </div>
                             </div>
                            
@@ -232,18 +249,12 @@ $users = DB::table('users')->select('id', 'name')->get();
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                        Exit </a> </button>
+                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit</a></button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- ============================================================================================================== -->
-           
-
-
-         
+            </div>         
 
             <style>
                 #step-form>div {
@@ -302,58 +313,6 @@ $users = DB::table('users')->select('id', 'name')->get();
                         currentStep--;
                     }
                 }
-            </script>
-            <script>
-                $(document).ready(function() {
-                    $('#AuditSiteInformation').click(function(e) {
-                        function generateTableRow(serialNumber) {
-
-                            var html =
-                                '<tr>' +
-                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                                '<td><input type="text" name="WitnessName[]"></td>' +
-                                '<td><input type="text" name="WitnessType[]"></td>' +
-                                '<td><input type="text" name="ItemDescriptions[]"></td>' +
-                                '<td><input type="text" name="Comments[]"></td>' +
-                                '<td><input type="text" name="Remarks[]"></td>' +
-                                '</tr>';
-
-                            return html;
-                        }
-
-                        var tableBody = $('#AuditSiteInformation_details tbody');
-                        var rowCount = tableBody.children('tr').length;
-                        var newRow = generateTableRow(rowCount + 1);
-                        tableBody.append(newRow);
-                    });
-                });
-            </script>
-            <script>
-                $(document).ready(function() {
-                    $('#StudySiteInformation').click(function(e) {
-                        function generateTableRow(serialNumber) {
-
-                            var html =
-                                '<tr>' +
-                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                                '<td><input type="text" name="[]"></td>' +
-                                '<td><input type="text" name="[]"></td>' +
-                                '<td><input type="text" name="[]"></td>' +
-                                '<td><input type="text" name="[]"></td>' +
-                                '<td><input type="text" name="[]"></td>' +
-                                '<td><input type="text" name="[]"></td>' +
-                                '<td><input type="text" name="[]"></td>' +
-                                '</tr>';
-
-                            return html;
-                        }
-
-                        var tableBody = $('#StudySiteInformation_details tbody');
-                        var rowCount = tableBody.children('tr').length;
-                        var newRow = generateTableRow(rowCount + 1);
-                        tableBody.append(newRow);
-                    });
-                });
             </script>
 
             <script>

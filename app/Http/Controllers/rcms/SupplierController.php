@@ -1112,16 +1112,6 @@ class SupplierController extends Controller
             $history->action_name = 'Create';
             $history->save();
         }
-
-
-
-
-
-
-
-
-
-
         if(!empty($request->car_generated)){
             $history = new SupplierAuditTrail;
             $history->supplier_id = $supplier->id;
@@ -2843,7 +2833,6 @@ class SupplierController extends Controller
             $history->action_name = 'Update';
             $history->save();
         }
-
         return back();
     }
 

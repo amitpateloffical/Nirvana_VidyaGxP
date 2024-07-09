@@ -19,6 +19,7 @@ use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
 use App\Http\Controllers\rcms\SupplierController;
 use App\Http\Controllers\rcms\SupplierSiteController;
+use App\Http\Controllers\rcms\SCARController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -173,6 +174,19 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('sendToPendingSupplierSiteAudit/{id}', [SupplierSiteController::class, 'sendToPendingSupplierAudit'])->name('sendToPendingSupplierSiteAudit');
             Route::post('suppliersite_child/{id}', [SupplierSiteController::class, 'supplier_child'])->name('suppliersite_child');
 
+            /*********** SCAR Routes ************/
+            Route::get('scar', [SCARController::class, 'index']);
+            Route::post('scar-store', [SCARController::class, 'store'])->name('scar-store');
+            Route::get('scar-show/{id}', [SCARController::class, 'show']);
+            Route::post('scar-update/{id}', [SCARController::class, 'update'])->name('scar-update');
+            Route::get('scar-single-report/{id}', [SCARController::class, 'singleReport']);
+            Route::get('scar-audit-trail/{id}', [SCARController::class, 'auditTrail']);
+            Route::get('scar-audit-trail-pdf/{id}', [SCARController::class, 'auditTrailPdf']);
+            Route::post('scar-send-stage/{id}', [SCARController::class, 'sendStage'])->name('scar-send-stage');
+            Route::post('scar-close-cancelled/{id}', [SCARController::class, 'sendToCancel'])->name('scar-close-cancelled');
+            Route::post('scar-reject-stage/{id}', [SCARController::class, 'rejectStage'])->name('scar-reject-stage');
+
+        
             //----------------------------------------------By PRIYA SHRIVASTAVA------------------
             Route::post('formDivision', [FormDivisionController::class, 'formDivision'])->name('formDivision');
             Route::get('ExternalAuditSingleReport/{id}', [AuditeeController::class, 'singleReport'])->name('ExternalAuditSingleReport');
