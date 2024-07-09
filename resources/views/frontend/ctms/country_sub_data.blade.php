@@ -96,15 +96,20 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
 
-                            <div class="col-md-6 new-date-data-field">
+                            <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Due Date</label>
-                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
+                                    <label for="Due Date"> Due Date </label>
+                                    <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY"
+                                        value="{{ \Carbon\Carbon::parse($due_date)->format('d-M-Y') }}" />
+                                    <input type="hidden" name="due_date" id="due_date_input"
+                                        value="{{ $due_date }}" />
+
+                                    {{-- <input type="hidden" value="{{ $due_date }}" name="due_date">
+                                    <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}"> --}}
+                                    {{-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                        value="" name="due_date"> --}}
                                 </div>
+
                             </div>
 
                             
@@ -127,7 +132,7 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="other_type">Other Type</label>
-                                    <input type="text" name="other_type" id="">
+                                    <input type="text" name="other_type">
                                 </div>
                             </div>
 
@@ -159,7 +164,7 @@ $users = DB::table('users')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="related_urls">Related URLs</label>
+                                    <label for="Related URLs">Related URLs</label>
                                     <select name="related_urls">
                                         <option value="0">Enter Your Selection Here</option>
                                         <option value="1">Type 1</option>
@@ -171,8 +176,8 @@ $users = DB::table('users')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="descriptions">Descriptions</label>
-                                    <textarea name="descriptions" id="" cols="30" rows="3"></textarea>
+                                    <label for="Descriptions">Descriptions</label>
+                                    <textarea name="descriptions" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
 
@@ -182,7 +187,7 @@ $users = DB::table('users')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="zone">Zone</label>
+                                    <label for="Zone">Zone</label>
                                     <select name="zone">
                                         <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
@@ -193,7 +198,7 @@ $users = DB::table('users')->get();
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="country">Country</label>
+                                    <label for="Country">Country</label>
                                     <select name="country">
                                         <option value="0">Enter Your Selection Here</option>
                                         <option value="1">1</option>
@@ -204,8 +209,8 @@ $users = DB::table('users')->get();
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="city">City</label>
-                                    <input type="city" name="city">
+                                    <label for="City">City</label>
+                                    <input type="text" name="city">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -1073,6 +1078,9 @@ $users = DB::table('users')->get();
                 <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
+                            <div class="sub-head">
+                                Activity Log
+                            </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="Closed by">Activate By</label>

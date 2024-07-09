@@ -44,6 +44,8 @@ class SupplierController extends Controller
          $supplier->originator_id = Auth::user()->name;
          $supplier->record = ((RecordNumber::first()->value('counter')) + 1);
          $supplier->initiator_id = Auth::user()->id;
+         $supplier->division_id = $request->division_id;
+         $supplier->division_code = $request->division_code;
          $supplier->intiation_date = $request->intiation_date;
          $supplier->short_description =($request->short_description);
          $supplier->assigned_to = $request->assigned_to;

@@ -41,6 +41,8 @@ class CountrySubDataController extends Controller
          $country->originator_id = Auth::user()->name;
          $country->record = ((RecordNumber::first()->value('counter')) + 1);
          $country->initiator_id = Auth::user()->id;
+         $country->division_id = $request->division_id;
+         $country->division_code = $request->division_code;
          $country->intiation_date = $request->intiation_date;
          $country->short_description =($request->short_description);
          $country->assigned_to = $request->assigned_to;
@@ -1449,7 +1451,7 @@ class CountrySubDataController extends Controller
         $ingredient->data = $request->ingredi;
         $ingredient->update();
 
-        if($lastDocument->originator_id !=$resampling->originator_id || !empty($request->comment)) {
+        if($lastDocument->originator_id !=$country->originator_id || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Originator Id')
                      ->exists();
@@ -1469,7 +1471,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->short_description !=$resampling->short_description || !empty($request->comment)) {
+        if($lastDocument->short_description !=$country->short_description || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Short Description')
                      ->exists();
@@ -1489,7 +1491,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->assigned_to !=$resampling->assigned_to || !empty($request->comment)) {
+        if($lastDocument->assigned_to !=$country->assigned_to || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Assigned To')
                      ->exists();
@@ -1509,7 +1511,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->due_date !=$resampling->due_date || !empty($request->comment)) {
+        if($lastDocument->due_date !=$country->due_date || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Due Date')
                      ->exists();
@@ -1529,7 +1531,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->type !=$resampling->type || !empty($request->comment)) {
+        if($lastDocument->type !=$country->type || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Type')
                      ->exists();
@@ -1550,7 +1552,7 @@ class CountrySubDataController extends Controller
         }
 
 
-        if($lastDocument->other_type !=$resampling->other_type || !empty($request->comment)) {
+        if($lastDocument->other_type !=$country->other_type || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Other Type')
                      ->exists();
@@ -1570,7 +1572,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->attached_files !=$resampling->attached_files || !empty($request->comment)) {
+        if($lastDocument->attached_files !=$country->attached_files || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Attached Files')
                      ->exists();
@@ -1590,7 +1592,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->related_urls !=$resampling->related_urls || !empty($request->comment)) {
+        if($lastDocument->related_urls !=$country->related_urls || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Related Urls')
                      ->exists();
@@ -1610,7 +1612,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->descriptions !=$resampling->descriptions || !empty($request->comment)) {
+        if($lastDocument->descriptions !=$country->descriptions || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Descriptions')
                      ->exists();
@@ -1630,7 +1632,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->zone !=$resampling->zone || !empty($request->comment)) {
+        if($lastDocument->zone !=$country->zone || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Zone')
                      ->exists();
@@ -1650,7 +1652,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->country !=$resampling->country || !empty($request->comment)) {
+        if($lastDocument->country !=$country->country || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Country')
                      ->exists();
@@ -1670,7 +1672,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->city !=$resampling->city || !empty($request->comment)) {
+        if($lastDocument->city !=$country->city || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'City')
                      ->exists();
@@ -1690,7 +1692,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->state_district !=$resampling->state_district || !empty($request->comment)) {
+        if($lastDocument->state_district !=$country->state_district || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'State District')
                      ->exists();
@@ -1710,7 +1712,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->manufacturer !=$resampling->manufacturer || !empty($request->comment)) {
+        if($lastDocument->manufacturer !=$country->manufacturer || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Manufacturer')
                      ->exists();
@@ -1730,7 +1732,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->number_id !=$resampling->number_id || !empty($request->comment)) {
+        if($lastDocument->number_id !=$country->number_id || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Number Id')
                      ->exists();
@@ -1750,7 +1752,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->project_code !=$resampling->project_code || !empty($request->comment)) {
+        if($lastDocument->project_code !=$country->project_code || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Project Code')
                      ->exists();
@@ -1770,7 +1772,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->authority_type !=$resampling->authority_type || !empty($request->comment)) {
+        if($lastDocument->authority_type !=$country->authority_type || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Authority Type')
                      ->exists();
@@ -1790,7 +1792,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->authority !=$resampling->authority || !empty($request->comment)) {
+        if($lastDocument->authority !=$country->authority || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Authority')
                      ->exists();
@@ -1810,7 +1812,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->priority_level !=$resampling->priority_level || !empty($request->comment)) {
+        if($lastDocument->priority_level !=$country->priority_level || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Priority Level')
                      ->exists();
@@ -1830,7 +1832,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->other_authority !=$resampling->other_authority || !empty($request->comment)) {
+        if($lastDocument->other_authority !=$country->other_authority || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Other Authority')
                      ->exists();
@@ -1850,7 +1852,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->approval_status !=$resampling->approval_status || !empty($request->comment)) {
+        if($lastDocument->approval_status !=$country->approval_status || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Approval Status')
                      ->exists();
@@ -1870,7 +1872,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->managed_by_company !=$resampling->managed_by_company || !empty($request->comment)) {
+        if($lastDocument->managed_by_company !=$country->managed_by_company || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Managed By Company')
                      ->exists();
@@ -1890,7 +1892,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->marketing_status !=$resampling->marketing_status || !empty($request->comment)) {
+        if($lastDocument->marketing_status !=$country->marketing_status || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Marketing Status')
                      ->exists();
@@ -1910,7 +1912,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->therapeutic_area !=$resampling->therapeutic_area || !empty($request->comment)) {
+        if($lastDocument->therapeutic_area !=$country->therapeutic_area || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Therapeutic Area')
                      ->exists();
@@ -1930,7 +1932,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->end_of_trial_date_status !=$resampling->end_of_trial_date_status || !empty($request->comment)) {
+        if($lastDocument->end_of_trial_date_status !=$country->end_of_trial_date_status || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'End of Trial Date Status')
                      ->exists();
@@ -1950,7 +1952,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->protocol_type !=$resampling->protocol_type || !empty($request->comment)) {
+        if($lastDocument->protocol_type !=$country->protocol_type || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Protocol Type')
                      ->exists();
@@ -1970,7 +1972,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->registration_status !=$resampling->registration_status || !empty($request->comment)) {
+        if($lastDocument->registration_status !=$country->registration_status || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Registration Status')
                      ->exists();
@@ -1991,7 +1993,7 @@ class CountrySubDataController extends Controller
         }
 
 
-        if($lastDocument->unblinded_SUSAR_to_CEC !=$resampling->unblinded_SUSAR_to_CEC || !empty($request->comment)) {
+        if($lastDocument->unblinded_SUSAR_to_CEC !=$country->unblinded_SUSAR_to_CEC || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Unblinded SUSAR To CEC')
                      ->exists();
@@ -2012,7 +2014,7 @@ class CountrySubDataController extends Controller
         }
 
 
-        if($lastDocument->trade_name !=$resampling->trade_name || !empty($request->comment)) {
+        if($lastDocument->trade_name !=$country->trade_name || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Trade Name')
                      ->exists();
@@ -2032,7 +2034,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->dosage_form !=$resampling->dosage_form || !empty($request->comment)) {
+        if($lastDocument->dosage_form !=$country->dosage_form || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Dosage Form')
                      ->exists();
@@ -2053,7 +2055,7 @@ class CountrySubDataController extends Controller
         }
 
 
-        if($lastDocument->photocure_trade_name !=$resampling->photocure_trade_name || !empty($request->comment)) {
+        if($lastDocument->photocure_trade_name !=$country->photocure_trade_name || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Photocure Trade Name')
                      ->exists();
@@ -2073,7 +2075,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->currency !=$resampling->currency || !empty($request->comment)) {
+        if($lastDocument->currency !=$country->currency || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Currency')
                      ->exists();
@@ -2093,7 +2095,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->attacehed_payments !=$resampling->attacehed_payments || !empty($request->comment)) {
+        if($lastDocument->attacehed_payments !=$country->attacehed_payments || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Attacehed Payments')
                      ->exists();
@@ -2113,7 +2115,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->follow_up_documents !=$resampling->follow_up_documents || !empty($request->comment)) {
+        if($lastDocument->follow_up_documents !=$country->follow_up_documents || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Follow Up Documents')
                      ->exists();
@@ -2133,7 +2135,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->hospitals !=$resampling->hospitals || !empty($request->comment)) {
+        if($lastDocument->hospitals !=$country->hospitals || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Hospitals')
                      ->exists();
@@ -2153,7 +2155,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->vendors !=$resampling->vendors || !empty($request->comment)) {
+        if($lastDocument->vendors !=$country->vendors || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Vendors')
                      ->exists();
@@ -2173,7 +2175,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
         
-        if($lastDocument->INN !=$resampling->INN || !empty($request->comment)) {
+        if($lastDocument->INN !=$country->INN || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'INN')
                      ->exists();
@@ -2193,7 +2195,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->route_of_administration !=$resampling->route_of_administration || !empty($request->comment)) {
+        if($lastDocument->route_of_administration !=$country->route_of_administration || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Route of Administration')
                      ->exists();
@@ -2213,7 +2215,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->first_IB_version !=$resampling->first_IB_version || !empty($request->comment)) {
+        if($lastDocument->first_IB_version !=$country->first_IB_version || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'First IB Version')
                      ->exists();
@@ -2233,7 +2235,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->first_protocol_version !=$resampling->first_protocol_version || !empty($request->comment)) {
+        if($lastDocument->first_protocol_version !=$country->first_protocol_version || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'First Protocol Version')
                      ->exists();
@@ -2253,7 +2255,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->eudraCT_number !=$resampling->eudraCT_number || !empty($request->comment)) {
+        if($lastDocument->eudraCT_number !=$country->eudraCT_number || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'EudraCT Number')
                      ->exists();
@@ -2273,7 +2275,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->budget !=$resampling->budget || !empty($request->comment)) {
+        if($lastDocument->budget !=$country->budget || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Budget')
                      ->exists();
@@ -2293,7 +2295,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->phase_of_study !=$resampling->phase_of_study || !empty($request->comment)) {
+        if($lastDocument->phase_of_study !=$country->phase_of_study || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Phase of Study')
                      ->exists();
@@ -2313,7 +2315,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->related_clinical_trials !=$resampling->related_clinical_trials || !empty($request->comment)) {
+        if($lastDocument->related_clinical_trials !=$country->related_clinical_trials || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Related Clinical Trials')
                      ->exists();
@@ -2333,7 +2335,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->data_safety_notes !=$resampling->data_safety_notes || !empty($request->comment)) {
+        if($lastDocument->data_safety_notes !=$country->data_safety_notes || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Data Safety Notes')
                      ->exists();
@@ -2353,7 +2355,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->comments !=$resampling->comments || !empty($request->comment)) {
+        if($lastDocument->comments !=$country->comments || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Comments')
                      ->exists();
@@ -2373,7 +2375,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->annual_IB_update_date_due !=$resampling->annual_IB_update_date_due || !empty($request->comment)) {
+        if($lastDocument->annual_IB_update_date_due !=$country->annual_IB_update_date_due || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Annual IB Update Date Due')
                      ->exists();
@@ -2393,7 +2395,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->date_of_first_IB !=$resampling->date_of_first_IB || !empty($request->comment)) {
+        if($lastDocument->date_of_first_IB !=$country->date_of_first_IB || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Date of First IB')
                      ->exists();
@@ -2413,7 +2415,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->date_of_first_protocol !=$resampling->date_of_first_protocol || !empty($request->comment)) {
+        if($lastDocument->date_of_first_protocol !=$country->date_of_first_protocol || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Date of First Protocol')
                      ->exists();
@@ -2433,7 +2435,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->date_safety_report !=$resampling->date_safety_report || !empty($request->comment)) {
+        if($lastDocument->date_safety_report !=$country->date_safety_report || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Date Safety Report')
                      ->exists();
@@ -2453,7 +2455,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->date_trial_active !=$resampling->date_trial_active || !empty($request->comment)) {
+        if($lastDocument->date_trial_active !=$country->date_trial_active || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Date Trial Active')
                      ->exists();
@@ -2473,7 +2475,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->end_of_study_report_date !=$resampling->end_of_study_report_date || !empty($request->comment)) {
+        if($lastDocument->end_of_study_report_date !=$country->end_of_study_report_date || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'End of Study Report Date')
                      ->exists();
@@ -2493,7 +2495,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->end_of_study_synopsis_date !=$resampling->end_of_study_synopsis_date || !empty($request->comment)) {
+        if($lastDocument->end_of_study_synopsis_date !=$country->end_of_study_synopsis_date || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'End of Study Synopsis Date')
                      ->exists();
@@ -2513,7 +2515,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->end_of_trial_date !=$resampling->end_of_trial_date || !empty($request->comment)) {
+        if($lastDocument->end_of_trial_date !=$country->end_of_trial_date || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'End of Trial Date')
                      ->exists();
@@ -2533,7 +2535,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->last_visit !=$resampling->last_visit || !empty($request->comment)) {
+        if($lastDocument->last_visit !=$country->last_visit || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Last Visit')
                      ->exists();
@@ -2553,7 +2555,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->next_visit !=$resampling->next_visit || !empty($request->comment)) {
+        if($lastDocument->next_visit !=$country->next_visit || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Next Visit')
                      ->exists();
@@ -2573,7 +2575,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->ethics_commitee_approval !=$resampling->ethics_commitee_approval || !empty($request->comment)) {
+        if($lastDocument->ethics_commitee_approval !=$country->ethics_commitee_approval || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Ethics Commitee Approval')
                      ->exists();
@@ -2593,7 +2595,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->safety_impact_risk !=$resampling->safety_impact_risk || !empty($request->comment)) {
+        if($lastDocument->safety_impact_risk !=$country->safety_impact_risk || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'Safety Impact Risk')
                      ->exists();
@@ -2613,7 +2615,7 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        if($lastDocument->CROM !=$resampling->CROM || !empty($request->comment)) {
+        if($lastDocument->CROM !=$country->CROM || !empty($request->comment)) {
             $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
                      ->where('activity_type', 'CROM')
                      ->exists();
@@ -2633,131 +2635,145 @@ class CountrySubDataController extends Controller
             $history->save();    
         }
 
-        // if ($lastData->lead_investigator != $country->lead_investigator || !empty($request->comment)) {
-        //     // return 'history';
-        //     $history = new CountrySubAuditTrail();
-        //     $history->country_id = $id;
-        //     $history->activity_type = 'Lead Investigator';
-        //     $history->previous = $lastData->lead_investigator;
-        //     $history->current = $country->lead_investigator;
-        //     $history->comment = $request->comment;
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $lastData->status;
-        //     $history->change_to =   "Not Applicable";
-        //     $history->change_from = $lastData->status;
-        //     $history->action_name = 'Update';
-        //     $history->save();
-        // }
+        if($lastDocument->lead_investigator !=$country->lead_investigator || !empty($request->comment)) {
+            $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
+                     ->where('activity_type', 'Lead Investigator')
+                     ->exists();
+            $history = new CountrySubAuditTrail();
+            $history->country_id = $country->id;
+            $history->activity_type = 'Lead Investigator';
+            $history->previous =  $lastDocument->lead_investigator;
+            $history->current = $country->lead_investigator;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
+        }
 
-        // if ($lastData->sponsor != $country->sponsor || !empty($request->comment)) {
-        //     // return 'history';
-        //     $history = new CountrySubAuditTrail();
-        //     $history->country_id = $id;
-        //     $history->activity_type = 'Sponsor';
-        //     $history->previous = $lastData->sponsor;
-        //     $history->current = $country->sponsor;
-        //     $history->comment = $request->comment;
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $lastData->status;
-        //     $history->change_to =   "Not Applicable";
-        //     $history->change_from = $lastData->status;
-        //     $history->action_name = 'Update';
-        //     $history->save();
-        // }
+        if($lastDocument->sponsor !=$country->sponsor || !empty($request->comment)) {
+            $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
+                     ->where('activity_type', 'Sponsor')
+                     ->exists();
+            $history = new CountrySubAuditTrail();
+            $history->country_id = $country->id;
+            $history->activity_type = 'Sponsor';
+            $history->previous =  $lastDocument->sponsor;
+            $history->current = $country->sponsor;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
+        }
 
-        // if ($lastData->additional_investigators != $country->additional_investigators || !empty($request->comment)) {
-        //     // return 'history';
-        //     $history = new CountrySubAuditTrail();
-        //     $history->country_id = $id;
-        //     $history->activity_type = 'Additional Investigators';
-        //     $history->previous = $lastData->additional_investigators;
-        //     $history->current = $country->additional_investigators;
-        //     $history->comment = $request->comment;
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $lastData->status;
-        //     $history->change_to =   "Not Applicable";
-        //     $history->change_from = $lastData->status;
-        //     $history->action_name = 'Update';
-        //     $history->save();
-        // }
+        if($lastDocument->additional_investigators !=$country->additional_investigators || !empty($request->comment)) {
+            $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
+                     ->where('activity_type', 'Additional Investigators')
+                     ->exists();
+            $history = new CountrySubAuditTrail();
+            $history->country_id = $country->id;
+            $history->activity_type = 'Additional Investigators';
+            $history->previous =  $lastDocument->additional_investigators;
+            $history->current = $country->additional_investigators;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
+        }
 
-        // if ($lastData->clinical_events_committee != $country->clinical_events_committee || !empty($request->comment)) {
-        //     // return 'history';
-        //     $history = new CountrySubAuditTrail();
-        //     $history->country_id = $id;
-        //     $history->activity_type = 'Clinical Events Committee';
-        //     $history->previous = $lastData->clinical_events_committee;
-        //     $history->current = $country->clinical_events_committee;
-        //     $history->comment = $request->comment;
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $lastData->status;
-        //     $history->change_to =   "Not Applicable";
-        //     $history->change_from = $lastData->status;
-        //     $history->action_name = 'Update';
-        //     $history->save();
-        // }
+        if($lastDocument->clinical_events_committee !=$country->clinical_events_committee || !empty($request->comment)) {
+            $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
+                     ->where('activity_type', 'Clinical Events Committee')
+                     ->exists();
+            $history = new CountrySubAuditTrail();
+            $history->country_id = $country->id;
+            $history->activity_type = 'Clinical Events Committee';
+            $history->previous =  $lastDocument->clinical_events_committee;
+            $history->current = $country->clinical_events_committee;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
+        }
 
-        // if ($lastData->clinical_research_team != $country->clinical_research_team || !empty($request->comment)) {
-        //     // return 'history';
-        //     $history = new CountrySubAuditTrail();
-        //     $history->country_id = $id;
-        //     $history->activity_type = 'Clinical Research Team';
-        //     $history->previous = $lastData->clinical_research_team;
-        //     $history->current = $country->clinical_research_team;
-        //     $history->comment = $request->comment;
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $lastData->status;
-        //     $history->change_to =   "Not Applicable";
-        //     $history->change_from = $lastData->status;
-        //     $history->action_name = 'Update';
-        //     $history->save();
-        // }
+        if($lastDocument->clinical_research_team !=$country->clinical_research_team || !empty($request->comment)) {
+            $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
+                     ->where('activity_type', 'Clinical Research Team')
+                     ->exists();
+            $history = new CountrySubAuditTrail();
+            $history->country_id = $country->id;
+            $history->activity_type = 'Clinical Research Team';
+            $history->previous =  $lastDocument->clinical_research_team;
+            $history->current = $country->clinical_research_team;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
+        }
 
-        // if ($lastData->data_safety_monitoring_board != $country->data_safety_monitoring_board || !empty($request->comment)) {
-        //     // return 'history';
-        //     $history = new CountrySubAuditTrail();
-        //     $history->country_id = $id;
-        //     $history->activity_type = 'Data Safety Monitoring Board';
-        //     $history->previous = $lastData->data_safety_monitoring_board;
-        //     $history->current = $country->data_safety_monitoring_board;
-        //     $history->comment = $request->comment;
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $lastData->status;
-        //     $history->change_to =   "Not Applicable";
-        //     $history->change_from = $lastData->status;
-        //     $history->action_name = 'Update';
-        //     $history->save();
-        // }
+        if($lastDocument->data_safety_monitoring_board !=$country->data_safety_monitoring_board || !empty($request->comment)) {
+            $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
+                     ->where('activity_type', 'Data Safety Monitoring Board')
+                     ->exists();
+            $history = new CountrySubAuditTrail();
+            $history->country_id = $country->id;
+            $history->activity_type = 'Data Safety Monitoring Board';
+            $history->previous =  $lastDocument->data_safety_monitoring_board;
+            $history->current = $country->data_safety_monitoring_board;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
+        }
 
-        // if ($lastData->distribution_list != $country->distribution_list || !empty($request->comment)) {
-        //     // return 'history';
-        //     $history = new CountrySubAuditTrail();
-        //     $history->country_id = $id;
-        //     $history->activity_type = 'Distribution List';
-        //     $history->previous = $lastData->distribution_list;
-        //     $history->current = $country->distribution_list;
-        //     $history->comment = $request->comment;
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $lastData->status;
-        //     $history->change_to =   "Not Applicable";
-        //     $history->change_from = $lastData->status;
-        //     $history->action_name = 'Update';
-        //     $history->save();
-        // }
+        if($lastDocument->distribution_list !=$country->distribution_list || !empty($request->comment)) {
+            $lastDocumentAuditTrail = CountrySubAuditTrail::where('country_id', $country->id)
+                     ->where('activity_type', 'Distribution List')
+                     ->exists();
+            $history = new CountrySubAuditTrail();
+            $history->country_id = $country->id;
+            $history->activity_type = 'Distribution List';
+            $history->previous =  $lastDocument->distribution_list;
+            $history->current = $country->distribution_list;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state= $lastDocument->status;
+            $history->change_to= "Not Applicable";
+            $history->change_from= $lastDocument->status;
+            $history->action_name = $lastDocumentAuditTrail ? "Update" : "New"; 
+            $history->save();    
+        }
 
         toastr()->success("Record is update Successfully");
         return back();

@@ -179,6 +179,16 @@
                             </div>
                         </tr>
                     </table>
+                    <div class="buttons-new">
+                        <a class="text-white" href="{{ url('/suppliershow/' . $document->id) }}">
+                            <button class="button_theme1">
+                                Back
+                            </button>
+                        </a>
+                        <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> <button class="button_theme1">
+                                Exit
+                        </a> </button>
+                    </div>
 
 
                     <table>

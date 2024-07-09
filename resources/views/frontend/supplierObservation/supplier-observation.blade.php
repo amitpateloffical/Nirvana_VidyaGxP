@@ -62,9 +62,11 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code</b></label>
-                                    <input readonly type="text" name="division_code"
+                                    <input disabled type="text" name="division_code"
                                         value="{{ Helpers::getDivisionName(session()->get('division')) }}">
-                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                    <input type="hidden" name="division_id"
+                                        value="{{ session()->get('division') }}">
+                                    {{-- <div class="static">QMS-North America</div> --}}
                                 </div>
                             </div>
 
@@ -108,14 +110,13 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
 
-                            <div class="col-md-6 new-date-data-field">
+                            <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Due Date</label>
-                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
+                                    <label for="Due Date"> Due Date </label>
+                                    <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY"
+                                        value="{{ \Carbon\Carbon::parse($due_date)->format('d-M-Y') }}" />
+                                    <input type="hidden" name="due_date" id="due_date_input"
+                                        value="{{ $due_date }}" />
                                 </div>
                             </div>
 

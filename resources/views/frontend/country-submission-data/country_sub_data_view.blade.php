@@ -168,26 +168,27 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
 
-                            <div class="col-md-6 new-date-data-field">
+                            <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Due Date</label>
-                                    <div><small class="text-primary"> last date this record should be closed by</small></div>
+                                    <label for="Due Date"> Due Date </label>
+                                    <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY"
+                                        value="{{ \Carbon\Carbon::parse($due_date)->format('d-M-Y') }}" />
+                                    <input type="hidden" name="due_date" id="due_date_input"
+                                        value="{{ $due_date }}" />
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" value="{{ $data->due_date ? \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') : '' }}" />
-                                        <input type="date" name="due_date"
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                            value="{{ $data->due_date}}" class="hide-input"
-                                            oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
+                                    {{-- <input type="hidden" value="{{ $due_date }}" name="due_date">
+                                    <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}"> --}}
+                                    {{-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                        value="" name="due_date"> --}}
                                 </div>
+
                             </div>
 
                             
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="type">Type</label>
+                                    <label for="Type">Type</label>
                                     <select name="type" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
                                         <option value="1" @if ($data->type =='1') selected @endif>Type 1</option>
@@ -200,7 +201,7 @@ $users = DB::table('users')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="other_type">Other Type</label>
+                                    <label for="Other Type">Other Type</label>
                                     <input type="text" name="other_type" value="{{ $data->other_type }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
                                 </div>
                             </div>
@@ -238,12 +239,12 @@ $users = DB::table('users')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="related_urls">Related URLs</label>
+                                    <label for="Related URLs">Related URLs</label>
                                     <select name="related_urls" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
-                                        <option value="1" @if ($data->type =='1') selected @endif>Type 1</option>
-                                        <option value="2" @if ($data->type =='2') selected @endif>Type 2</option>
-                                        <option value="3" @if ($data->type =='3') selected @endif>Type 3</option>
+                                        <option value="1" @if ($data->related_urls =='1') selected @endif>Type 1</option>
+                                        <option value="2" @if ($data->related_urls =='2') selected @endif>Type 2</option>
+                                        <option value="3" @if ($data->related_urls =='3') selected @endif>Type 3</option>
                                     </select>
                                 </div>
                             </div>
@@ -261,40 +262,40 @@ $users = DB::table('users')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="zone">Zone</label>
+                                    <label for="Zone">Zone</label>
                                     <select name="zone" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
-                                        <option value="1" @if ($data->type =='1') selected @endif>1</option>
-                                        <option value="2" @if ($data->type =='2') selected @endif>2</option>
-                                        <option value="3" @if ($data->type =='3') selected @endif>3</option>
+                                        <option value="1" @if ($data->zone =='1') selected @endif>1</option>
+                                        <option value="2" @if ($data->zone =='2') selected @endif>2</option>
+                                        <option value="3" @if ($data->zone =='3') selected @endif>3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="country">Country</label>
+                                    <label for="Country">Country</label>
                                     <select name="country" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
-                                        <option value="1" @if ($data->type =='1') selected @endif>1</option>
-                                        <option value="2" @if ($data->type =='2') selected @endif>2</option>
-                                        <option value="3" @if ($data->type =='3') selected @endif>3</option>
+                                        <option value="1" @if ($data->country =='1') selected @endif>1</option>
+                                        <option value="2" @if ($data->country =='2') selected @endif>2</option>
+                                        <option value="3" @if ($data->country =='3') selected @endif>3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="city">City</label>
-                                    <input type="city" name="city" value="{{ $data->city }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
+                                    <input type="text" name="city" value="{{ $data->city }}" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="state_district">State/District</label>
+                                    <label for="State District">State/District</label>
                                     <select name="state_district" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>
                                         <option value="0">Enter Your Selection Here</option>
-                                        <option value="1" @if ($data->type =='1') selected @endif>1</option>
-                                        <option value="2" @if ($data->type =='2') selected @endif>2</option>
-                                        <option value="3" @if ($data->type =='3') selected @endif>3</option>
+                                        <option value="1" @if ($data->state_district =='1') selected @endif>1</option>
+                                        <option value="2" @if ($data->state_district =='2') selected @endif>2</option>
+                                        <option value="3" @if ($data->state_district =='3') selected @endif>3</option>
                                     </select>
                                 </div>
                             </div>
@@ -1251,6 +1252,9 @@ $users = DB::table('users')->get();
                 <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
+                            <div class="sub-head">
+                                Activity Log
+                            </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="Closed by">Activate By</label>
