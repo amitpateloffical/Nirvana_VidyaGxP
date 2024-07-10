@@ -186,6 +186,22 @@
         </table>
     </header>
 
+    <footer>
+        <table>
+            <tr>
+                <td class="w-30">
+                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
+                </td>
+                <td class="w-40">
+                    <strong>Printed By :</strong> {{ Auth::user()->name }}
+                </td>
+                {{--<td class="w-30">
+                    <strong>Page :</strong> 1 of 2
+                </td>--}}
+            </tr>
+        </table>
+    </footer>
+
 
     <div class="inner-block">
         <div class="content-table">
@@ -240,7 +256,7 @@
 
                     <tr>
                         <th class="w-20">Date Due</th>
-                        <td class="w-80">{{ $study_data->due_date }}</td>
+                        <td class="w-80">{{ date('d-M-Y', strtotime($study_data->due_date)) }}</td>
 
                         <th class="w-20">Department</th>
                         <td class="w-80">{{ $study_data->department_gi }}</td>
@@ -290,24 +306,25 @@
                         </td>
                     </tr>
                     <tr>
-
                         <th class="w-20">Study Protocol Number</th>
                         <td class="w-80">{{ $study_data->study_protocol_number_sd }}</td>
+                    </tr>
+                </table>
 
-                        <th class="w-20">Description</th>
-                        <td class="w-80">{{ $study_data->description_sd }}</td>
+
+                <table>
+                    <tr>
+                        <th class="w-10">Description</th>
+                        <td class="w-90">{{ $study_data->description_sd }}</td>
                     </tr>
 
                     <tr>
-
-                        <th class="w-20">Comments</th>
-                        <td class="w-80">{{ $study_data->comments_sd }}</td>
-
-                    </tr>
-
+                        <th class="w-10">Comments</th>
+                        <td class="w-90">{{ $study_data->comments_sd }}</td>
                     </tr>
                 </table>
             </div>
+
             <div class="block">
                 <div class="block-head">
                     Additional Information
@@ -453,8 +470,8 @@
                 <div class="border-table">
                     <table>
                         <tr class="table_bg">
-                            <th class="w-20">SR no.</th>
-                            <th class="w-20">Number</th>
+                            <th class="w-10">SR no.</th>
+                            <th class="w-10">Number</th>
                             <th class="w-20">Audit Frequency</th>
                             <th class="w-20">Current</th>
                             <th class="w-20">CRO</th>
@@ -463,7 +480,7 @@
                         @if ($grid_DataA && is_array($grid_DataA->data))
                             @foreach ($grid_DataA->data as $grid_Data)
                                 <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $loop->index + 1 }}.</td>
                                     <td>{{ isset($grid_Data['Number']) ? $grid_Data['Number'] : '' }}
                                     </td>
                                     <td>{{ isset($grid_Data['AuditFrequency']) ? $grid_Data['AuditFrequency'] : '' }}</td>
@@ -495,19 +512,19 @@
                     <div class="border-table">
                         <table>
                             <tr class="table_bg">
-                                <th class="w-20">SR no.</th>
+                                <th class="w-10">SR no.</th>
                                 <th class="w-20">Audit Site</th>
-                                <th class="w-20">Site No.</th>
+                                <th class="w-10">Site No.</th>
                                 <th class="w-20">Investigator</th>
                                 <th class="w-20">First Patient in Date</th>
-                                <th class="w-20">Enrolled No.</th>
+                                <th class="w-10">Enrolled No.</th>
                                 <th class="w-20">Current</th>
                                 <th class="w-20">Remark</th>
                             </tr>
                             @if ($grid_DataS && is_array($grid_DataS->data))
                                 @foreach ($grid_DataS->data as $grid_Data)
                                     <tr>
-                                        <td>{{ $loop->index + 1 }}</td>
+                                        <td>{{ $loop->index + 1 }}.</td>
                                         <td>{{ isset($grid_Data['AuditSite']) ? $grid_Data['AuditSite'] : '' }}</td>
                                         <td>{{ isset($grid_Data['SiteNo']) ? $grid_Data['SiteNo'] : '' }}</td>
                                         <td>{{ isset($grid_Data['Investigator']) ? $grid_Data['Investigator'] : '' }}</td>
@@ -615,21 +632,6 @@
         </div>
     </div>
 
-    <footer>
-        <table>
-            <tr>
-                <td class="w-30">
-                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
-                </td>
-                <td class="w-40">
-                    <strong>Printed By :</strong> {{ Auth::user()->name }}
-                </td>
-                {{--<td class="w-30">
-                    <strong>Page :</strong> 1 of 2
-                </td>--}}
-            </tr>
-        </table>
-    </footer>
 
 </body>
 

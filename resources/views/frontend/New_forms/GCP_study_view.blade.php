@@ -760,7 +760,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 4%">Row#</th>
-                                        <th style="width: 12%">Number</th>
+                                        <th style="width: 10%">Number</th>
                                         <th style="width: 16%">Audit Frequency</th>
                                         <th style="width: 16%"> Current</th>
                                         <th style="width: 16%"> CRO</th>
@@ -803,10 +803,10 @@
                                     <tr>
                                         <th style="width: 4%">Row#</th>
                                         <th style="width: 12%">Audit Site</th>
-                                        <th style="width: 16%">Site No.</th>
+                                        <th style="width: 10%">Site No.</th>
                                         <th style="width: 16%"> Investigator</th>
                                         <th style="width: 16%"> First Patient in Date</th>
-                                        <th style="width: 16%">Enrolled No.</th>
+                                        <th style="width: 10%">Enrolled No.</th>
                                         <th style="width: 16%">Current</th>
                                         <th style="width: 16%">Remark</th>
                                         <th style="width: 16%">Action</th>
@@ -1149,7 +1149,7 @@
                             '<tr>' +
                                 '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
                                 '<td><input type="text" name="audit_site_information[' + serialNumber + '][Number]"></td>' +
-                                '<td><input type="text" name="audit_site_information[' + serialNumber + '][Audit Frequency]"></td>' +
+                                '<td><input type="text" name="audit_site_information[' + serialNumber + '][AuditFrequency]"></td>' +
                                 '<td><input type="text" name="audit_site_information[' + serialNumber + '][Current]"></td>' +
                                 '<td><input type="text" name="audit_site_information[' + serialNumber + '][CRO]"></td>' +
                                 '<td><input type="text" name="audit_site_information[' + serialNumber + '][Remark]"></td>' +
@@ -1177,8 +1177,8 @@
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][AuditSite]"></td>' +
                                 '<td><input type="number" name="study_site_information[' + serialNumber + '][SiteNo]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Investigator]"></td>' +
-                                '<td><input type="date" name="study_site_information[' + serialNumber + '][First Patient in Date]"></td>' +
-                                '<td><input type="number" name="study_site_information[' + serialNumber + '][Enrolled No.]"></td>' +
+                                '<td><input type="date" name="study_site_information[' + serialNumber + '][FirstPatientInDate]"></td>' +
+                                '<td><input type="number" name="study_site_information[' + serialNumber + '][EnrolledNo]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Current]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Remark]"></td>' +
                                 '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +

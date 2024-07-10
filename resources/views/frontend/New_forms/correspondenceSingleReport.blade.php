@@ -186,6 +186,21 @@
         </table>
     </header>
 
+    <footer>
+        <table>
+            <tr>
+                <td class="w-30">
+                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
+                </td>
+                <td class="w-40">
+                    <strong>Printed By :</strong> {{ Auth::user()->name }}
+                </td>
+                {{--<td class="w-30">
+                    <strong>Page :</strong> 1 of 1
+                </td>--}}
+            </tr>
+        </table>
+    </footer>
 
     <div class="inner-block">
         <div class="content-table">
@@ -237,7 +252,7 @@
 
                     <tr>
                          <th class="w-20">Date Due</th>
-                           <td class="w-80">{{ $correspondence_data->due_date }}</td>
+                           <td class="w-80">{{ date('d-M-Y', strtotime($correspondence_data->due_date)) }}</td>
 
                            <th class="w-20">Process/Application</th>
                            <td class="w-80">{{ $correspondence_data->process_application }}</td>
@@ -287,15 +302,6 @@
                                 @endif
                             </td>
 
-                            <th class="w-20">Description</th>
-                            <td class="w-30">
-                                @if ($correspondence_data->description)
-                                    {{ $correspondence_data->description }}
-
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
                             <th class="w-20">Commitment Required</th>
                             <td class="w-30">
                                 @if ($correspondence_data->commitment_required)
@@ -303,6 +309,23 @@
 
                                 @endif
                             </td>
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr>
+                            <th class="w-10">Description</th>
+                            <td class="w-90">
+                                @if ($correspondence_data->description)
+                                    {{ $correspondence_data->description }}
+
+                                @endif
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr>
                             <th class="w-20">Priority Level</th>
                             <td class="w-30">
                                 @if ($correspondence_data->priority_level)
@@ -310,37 +333,30 @@
 
                                 @endif
                             </td>
-                        </tr>
 
-                        <tr>
                             <th class="w-20">Date Due to Authority</th>
                             <td class="w-30">
                                 @if ($correspondence_data->date_due_to_authority)
-                                    {{ $correspondence_data->date_due_to_authority }}
-
-                                @endif
-                            </td>
-
-                            <th class="w-20">Scheduled Start Datescheduled_start_date</th>
-                            <td class="w-30">
-                                @if ($correspondence_data->scheduled_start_date)
-                                    {{ $correspondence_data->scheduled_start_date }}
+                                    {{ date('d-M-Y', strtotime($correspondence_data->date_due_to_authority)) }}
 
                                 @endif
                             </td>
                         </tr>
+
                         <tr>
+                            <th class="w-20">Scheduled Start date</th>
+                            <td class="w-30">{{ date('d-M-Y', strtotime($correspondence_data->scheduled_start_date)) }}
+                            </td>
+
                             <th class="w-20">Scheduled End Date</th>
                             <td class="w-30">
                                 @if ($correspondence_data->scheduled_end_date)
-                                    {{ $correspondence_data->scheduled_end_date }}
+                                    {{ date('d-M-Y', strtotime($correspondence_data->scheduled_end_date)) }}
 
                                 @endif
                             </td>
-
                         </tr>
 
-                        </tr>
                     </table>
                 </div>
 
@@ -353,7 +369,7 @@
                 <div class="border-table">
                     <table>
                         <tr class="table_bg">
-                            <th class="w-20">Sr. No.</th>
+                            <th class="w-10">Sr. No.</th>
                             <th class="w-20">Action</th>
                             <th class="w-20">Responsible</th>
                             <th class="w-20">Deadline</th>
@@ -368,7 +384,7 @@
                          @if ($data && is_array($data))
                              @foreach ($data as $index => $item)
                                 <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $loop->index + 1 }}.</td>
                                     <td>{{ isset($item['Action']) ? $item['Action'] : '' }}</td>
                                     <td>{{ isset($item['Responsible']) ? $item['Responsible'] : '' }}</td>
                                     <td>{{ isset($item['Deadline']) ? $item['Deadline'] : '' }}</td>
@@ -390,22 +406,6 @@
                 {{-- </div> --}}
             </div>
         <div>
-
-    <footer>
-        <table>
-            <tr>
-                <td class="w-30">
-                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
-                </td>
-                <td class="w-40">
-                    <strong>Printed By :</strong> {{ Auth::user()->name }}
-                </td>
-                {{--<td class="w-30">
-                    <strong>Page :</strong> 1 of 1
-                </td>--}}
-            </tr>
-        </table>
-    </footer>
 
 </body>
 

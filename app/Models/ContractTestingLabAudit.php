@@ -10,6 +10,7 @@ class ContractTestingLabAudit extends Model
     use HasFactory;
 
     protected $casts = [
+
         'proposal_attachments' => 'array',
         'ctl_audit_report' => 'array',
         'file_attachments_if_any' => 'array',
@@ -18,5 +19,6 @@ class ContractTestingLabAudit extends Model
         'response_file_attachments' => 'array',
         'approval_attachments' => 'array',
         'audit_closure_attachments' => 'array'
+
       ];
 }

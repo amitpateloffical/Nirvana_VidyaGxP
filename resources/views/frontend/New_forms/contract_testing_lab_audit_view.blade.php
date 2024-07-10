@@ -432,7 +432,7 @@ border-radius:10px;
                                Audit Task
 
                         </label>
-         
+
                         <label style="display: flex;" for="major">
                             <input type="radio" name="child_type1" id="child_type1" value="follow_up_task">
                                Follow Up Task
@@ -896,7 +896,7 @@ border-radius:10px;
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Audit_Aenda_Sent_On">Audit Aenda Sent On</label>
+                                    <label for="Audit_Aenda_Sent_On">Audit Agenda Sent On</label>
                                     <input type="date" name="audit_agenda_sent_on" value="{{ $audit_data->audit_agenda_sent_on }}">
                                 </div>
                             </div>
@@ -1215,7 +1215,7 @@ border-radius:10px;
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach">
+                                        <div class="file-attachment-list" id="file_attach1">
                                             @if ($audit_data->ctl_audit_report)
                                             @foreach ($audit_data->ctl_audit_report as $file)
                                                 <h6 type="button" class="file-container text-dark"
@@ -1234,7 +1234,7 @@ border-radius:10px;
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="ctl_audit_report[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="ctl_audit_report[]" oninput="addMultipleFiles(this, 'file_attach1')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -1316,7 +1316,7 @@ border-radius:10px;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Report_Acknowledged_On">Report Acknowledged On</label>
-                                    <input type="text" name="report_acknowledged_on" value="{{ $audit_data->report_acknowledged_on }}">
+                                    <input type="date" name="report_acknowledged_on" value="{{ $audit_data->report_acknowledged_on }}">
                                 </div>
                             </div>
 
@@ -1343,7 +1343,7 @@ border-radius:10px;
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach">
+                                        <div class="file-attachment-list" id="file_attach2">
                                           @if ($audit_data->file_attachments_if_any)
                                             @foreach ($audit_data->file_attachments_if_any as $file)
                                                 <h6 type="button" class="file-container text-dark"
@@ -1362,7 +1362,7 @@ border-radius:10px;
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attachments_if_any[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="file_attachments_if_any[]" oninput="addMultipleFiles(this, 'file_attach2')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -1452,7 +1452,7 @@ border-radius:10px;
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach">
+                                        <div class="file-attachment-list" id="file_attach3">
                                             @if ($audit_data->ctl_response_report)
                                             @foreach ($audit_data->ctl_response_report as $file)
                                                 <h6 type="button" class="file-container text-dark"
@@ -1471,7 +1471,7 @@ border-radius:10px;
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="ctl_response_report[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="ctl_response_report[]" oninput="addMultipleFiles(this, 'file_attach3')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -1617,7 +1617,7 @@ border-radius:10px;
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach">
+                                        <div class="file-attachment-list" id="file_attach4">
                                             @if ($audit_data->audit_closure_report)
                                             @foreach ($audit_data->audit_closure_report as $file)
                                                 <h6 type="button" class="file-container text-dark"
@@ -1636,7 +1636,7 @@ border-radius:10px;
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="audit_closure_report[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="audit_closure_report[]" oninput="addMultipleFiles(this, 'file_attach4')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -1651,7 +1651,7 @@ border-radius:10px;
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach">
+                                        <div class="file-attachment-list" id="file_attach5">
                                             @if ($audit_data->response_file_attachments)
                                             @foreach ($audit_data->response_file_attachments as $file)
                                                 <h6 type="button" class="file-container text-dark"
@@ -1670,7 +1670,7 @@ border-radius:10px;
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="response_file_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="response_file_attachments[]" oninput="addMultipleFiles(this, 'file_attach5')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -1724,7 +1724,7 @@ border-radius:10px;
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach">
+                                        <div class="file-attachment-list" id="file_attach6">
                                             @if ($audit_data->approval_attachments)
                                             @foreach ($audit_data->approval_attachments as $file)
                                                 <h6 type="button" class="file-container text-dark"
@@ -1743,7 +1743,7 @@ border-radius:10px;
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="approval_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="approval_attachments[]" oninput="addMultipleFiles(this, 'file_attach6')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -1831,7 +1831,7 @@ border-radius:10px;
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach">
+                                        <div class="file-attachment-list" id="file_attach7">
                                             @if ($audit_data->audit_closure_attachments)
                                             @foreach ($audit_data->audit_closure_attachments as $file)
                                                 <h6 type="button" class="file-container text-dark"
@@ -1850,7 +1850,7 @@ border-radius:10px;
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="audit_closure_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="audit_closure_attachments[]" oninput="addMultipleFiles(this, 'file_attach7')" multiple>
                                         </div>
                                     </div>
                                 </div>

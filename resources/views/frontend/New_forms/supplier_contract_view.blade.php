@@ -523,7 +523,7 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="group-input">
-                                                <label for="Initiator"> Record Number </label>
+                                                <label for="Initiator">Record Number </label>
                                                 <input disabled type="text" name="record"
                                                     value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier_Contract/{{ date('Y') }}/{{ $record_number }}">
                                             </div>
@@ -596,10 +596,10 @@
                                         <div class="col-lg-6 new-date-data-field">
                                             <div class="group-input input-date">
                                                 <label for="Due Date">Due Date</label>
-                                                <div><small class="text-primary">If revising Due Date, kindly mention
+                                                {{--<div><small class="text-primary">If revising Due Date, kindly mention
                                                         revision
                                                         reason in "Due Date Extension Justification" data field.</small>
-                                                </div>
+                                                </div>--}}
                                                 <div class="calenderauditee">
                                                     <input readonly type="text"
                                                         value="{{ Helpers::getdateFormat($contract_data->due_date) }}"
@@ -656,16 +656,16 @@
                                                 <select name="distribution_list_gi">
                                                     <option value="">Enter Your Selection Here</option>
                                                     <option value="internal-stakeholders"
-                                                        @if ($contract_data->supplier_list_gi == 'internal-stakeholders') selected @endif>Internal
+                                                        @if ($contract_data->distribution_list_gi == 'internal-stakeholders') selected @endif>Internal
                                                         Stakeholders</option>
                                                     <option value="external-stakeholders"
-                                                        @if ($contract_data->supplier_list_gi == 'external-stakeholders') selected @endif>External
+                                                        @if ($contract_data->distribution_list_gi == 'external-stakeholders') selected @endif>External
                                                         Stakeholders</option>
                                                     <option value="project-specific-stakeholders"
-                                                        @if ($contract_data->supplier_list_gi == 'project-specific-stakeholders') selected @endif>Project-Specific
+                                                        @if ($contract_data->distribution_list_gi == 'project-specific-stakeholders') selected @endif>Project-Specific
                                                         Stakeholders</option>
                                                     <option value="miscellaneous"
-                                                        @if ($contract_data->supplier_list_gi == 'miscellaneous') selected @endif>Miscellaneous
+                                                        @if ($contract_data->distribution_list_gi == 'miscellaneous') selected @endif>Miscellaneous
                                                     </option>
                                                 </select>
                                             </div>

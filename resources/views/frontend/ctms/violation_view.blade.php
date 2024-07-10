@@ -505,7 +505,7 @@
                                 <label for="search">
                                     Related URL <span class="text-danger"></span>
                                 </label>
-                                <select id="related_url" placeholder="Select...">
+                                <select id="related_url" name="related_url">
                                     <option value="">Select a value</option>
                                     <option value="fda-gmp-guidelines" @if($violation_data->related_url == 'fda-gmp-guidelines') selected @endif>FDA GMP Guidelines</option>
                                     <option value="who-gmp-guidelines" @if($violation_data->related_url == 'who-gmp-guidelines') selected @endif>WHO GMP Guidelines</option>
@@ -700,8 +700,8 @@
                             <div class="group-input input-date">
                                 <label for="date_occured">Date Occured</lable>
                                     <div class="calenderauditee">
-                                        <input type="text" value="{{ $violation_data->date_occured }}" id="date_occured" name="date_occured" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->date_occured }}" id="end_date_checkdate" name="date_occured" class="hide-input" oninput="handleDateInput(this, 'date_occured');checkDate('start_date_checkdate','end_date_checkdate')"/>
+                                        <input type="text" value="{{ date('d-M-Y', strtotime($violation_data->date_occured)) }}" id="date_occured" name="date_occured" placeholder="DD-MMM-YYYY" />
+                                        <input type="date" value="{{ date('d-M-Y', strtotime($violation_data->date_occured)) }}" id="end_date_checkdate" name="date_occured" class="hide-input" oninput="handleDateInput(this, 'date_occured');checkDate('start_date_checkdate','end_date_checkdate')"/>
                                     </div>
                               </div>
                         </div>
@@ -710,8 +710,8 @@
                             <div class="group-input input-date">
                                 <label for="notification_date">Notification Date</lable>
                                     <div class="calenderauditee">
-                                        <input type="text" value="{{ $violation_data->notification_date }}" id="notification_date" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->notification_date }}" id="notification_date" name="notification_date" class="hide-input" oninput="handleDateInput(this, 'notification_date');checkDate('start_date_checkdate','end_date_checkdate')"/>
+                                        <input type="text" value="{{ \Carbon\Carbon::parse($violation_data->notification_date)->format('d-M-Y') }}" id="notification_date" placeholder="DD-MMM-YYYY" />
+                                        <input type="date" value="{{ \Carbon\Carbon::parse($violation_data->notification_date)->format('d-M-Y') }}" id="notification_date" name="notification_date" class="hide-input" oninput="handleDateInput(this, 'notification_date');checkDate('start_date_checkdate','end_date_checkdate')"/>
                                     </div>
                               </div>
                         </div>
@@ -771,9 +771,6 @@
                                     <option value="severity-scale" @if($violation_data->rpn == 'severity-scale') selected @endif>Severity(S)Scale</option>
                                     <option value="detection-scale" @if($violation_data->rpn == 'detection-scale') selected @endif>Detection(D)Scale</option>
                                 </select>
-
-
-
                             </div>
                         </div>
 
@@ -838,8 +835,8 @@
                             <div class="group-input input-date">
                                 <label for="date_sent">Date Sent</lable>
                                     <div class="calenderauditee">
-                                        <input type="text" value="{{ $violation_data->date_sent }}" name="date_sent" id="date_sent" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->date_sent }}" id="date_sent" name="date_sent" class="hide-input" oninput="handleDateInput(this, 'date_sent');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="text" value="{{ \Carbon\Carbon::parse($violation_data->date_sent)->format('d-M-Y') }}" name="date_sent" id="date_sent" placeholder="DD-MMM-YYYY" />
+                                        <input type="date" value="{{ \Carbon\Carbon::parse($violation_data->date_sent)->format('d-M-Y') }}" id="date_sent" name="date_sent" class="hide-input" oninput="handleDateInput(this, 'date_sent');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
 
 
@@ -850,8 +847,8 @@
                             <div class="group-input input-date">
                                 <label for="date_returned">Date Returned</lable>
                                     <div class="calenderauditee">
-                                        <input type="text" value="{{ $violation_data->date_returned }}" id="date_returned" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $violation_data->date_returned }}" id="date_returned" name="date_returned" class="hide-input" oninput="handleDateInput(this, 'date_returned');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="text" value="{{ \Carbon\Carbon::parse($violation_data->date_returned)->format('d-M-Y') }}" id="date_returned" placeholder="DD-MMM-YYYY" />
+                                        <input type="date" value="{{ \Carbon\Carbon::parse($violation_data->date_returned)->format('d-M-Y') }}" id="date_returned" name="date_returned" class="hide-input" oninput="handleDateInput(this, 'date_returned');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                             </div>
                         </div>

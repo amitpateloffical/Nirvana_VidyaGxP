@@ -186,6 +186,21 @@
         </table>
     </header>
 
+    <footer>
+        <table>
+            <tr>
+                <td class="w-30">
+                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
+                </td>
+                <td class="w-40">
+                    <strong>Printed By :</strong> {{ Auth::user()->name }}
+                </td>
+                {{--<td class="w-30">
+                    <strong>Page :</strong> 1 of 1
+                </td>--}}
+            </tr>
+        </table>
+    </footer>
 
     <div class="inner-block">
         <div class="content-table">
@@ -242,17 +257,16 @@
                          <th class="w-20">Date Due</th>
                            <td class="w-80">{{ $contract_data->due_date }}</td>
 
+                           <th class="w-20">Supplier List</th>
+                           <td class="w-30">
+                               @if ($contract_data->supplier_list_gi)
+                                   {{ $contract_data->supplier_list_gi }}
+
+                               @endif
+                           </td>
                     </tr>
 
                     <tr>
-                         <th class="w-20">Supplier List</th>
-                            <td class="w-30">
-                                @if ($contract_data->supplier_list_gi)
-                                    {{ $contract_data->supplier_list_gi }}
-
-                                @endif
-                            </td>
-
                          <th class="w-20">Distribution List</th>
                             <td class="w-30">
                                 @if ($contract_data->distribution_list_gi)
@@ -262,32 +276,41 @@
                             </td>
                      </tr>
 
+                </table>
+
+                <table>
                       <tr>
-                         <th class="w-20">Description</th>
-                            <td class="w-30">
+                            <th class="w-10">Description</th>
+                            <td class="w-90">
                                 @if ($contract_data->description_gi)
                                     {{ $contract_data->description_gi }}
 
                                 @endif
                             </td>
-                         <th class="w-20">Manufacturer</th>
+                      </tr>
+                </table>
+
+                <table>
+
+                    <tr>
+                        <th class="w-20">Manufacturer</th>
                             <td class="w-30">
                                 @if ($contract_data->manufacturer_gi)
                                     {{ $contract_data->manufacturer_gi }}
 
                                 @endif
                             </td>
-                      </tr>
 
-                      <tr>
-                         <th class="w-20">Priority level</th>
+                            <th class="w-20">Priority level</th>
                             <td class="w-30">
                                 @if ($contract_data->priority_level_gi)
                                     {{ $contract_data->priority_level_gi }}
 
                                 @endif
                             </td>
+                      </tr>
 
+                      <tr>
                             <th class="w-20">Zone</th>
                             <td class="w-30">
                                 @if ($contract_data->zone_gi)
@@ -295,33 +318,35 @@
 
                                 @endif
                             </td>
-                        </tr>
-                        <tr>
+
                             <th class="w-20">Country</th>
                             <td class="w-30">
-                                @if ($contract_data->country_id)
-                                    {{ $contract_data->country_id }}
-
-                                @endif
-                            </td>
-                            <th class="w-20">State/District</th>
-                            <td class="w-30">
-                                @if ($contract_data->state_id)
-                                    {{ $contract_data->state_id }}
+                                @if ($contract_data->country)
+                                    {{ $contract_data->country }}
 
                                 @endif
                             </td>
                         </tr>
 
                         <tr>
-                            <th class="w-20">City</th>
+                            <th class="w-20">State/District</th>
                             <td class="w-30">
-                                @if ($contract_data->city_id)
-                                    {{ $contract_data->city_id }}
+                                @if ($contract_data->state)
+                                    {{ $contract_data->state }}
 
                                 @endif
                             </td>
 
+                            <th class="w-20">City</th>
+                            <td class="w-30">
+                                @if ($contract_data->city)
+                                    {{ $contract_data->city }}
+
+                                @endif
+                            </td>
+                        </tr>
+
+                        <tr>
                             <th class="w-20">Type</th>
                             <td class="w-30">
                                 @if ($contract_data->type_gi)
@@ -329,8 +354,7 @@
 
                                 @endif
                             </td>
-                        </tr>
-                        <tr>
+
                             <th class="w-20">Other type</th>
                             <td class="w-30">
                                 @if ($contract_data->other_type)
@@ -338,10 +362,8 @@
 
                                 @endif
                             </td>
-
                         </tr>
 
-                        </tr>
                     </table>
                 </div>
                 <div class="block">
@@ -352,10 +374,10 @@
 
                         <tr>
                             <th class="w-20">Actual start Date</th>
-                            <td class="w-80">{{ $contract_data->actual_start_date_cd }}</td>
+                            <td class="w-80">{{ date('d-M-Y', strtotime($contract_data->actual_start_date_cd)) }}</td>
 
                             <th class="w-20">Actual end Date</th>
-                            <td class="w-80">{{ $contract_data->actual_end_date_cd }}</td>
+                            <td class="w-80">{{ date('d-M-Y', strtotime($contract_data->actual_end_date_cd)) }}</td>
                         </tr>
 
                         <tr>
@@ -363,16 +385,19 @@
                             <th class="w-20">Suppplier List</th>
                             <td class="w-80">{{ $contract_data->suppplier_list_cd }}</td>
 
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr>
                             <th class="w-20">Negotiation Team</th>
                             <td class="w-80">{{ $contract_data->negotiation_team_cd }}</td>
                         </tr>
 
                         <tr>
+                            <th class="w-10">Comments</th>
+                            <td class="w-90">{{ $contract_data->comments_cd }}</td>
 
-                            <th class="w-20">Comments</th>
-                            <td class="w-80">{{ $contract_data->comments_cd }}</td>
-
-                        </tr>
                         </tr>
                     </table>
                 </div>
@@ -386,7 +411,7 @@
                 <div class="border-table">
                     <table>
                         <tr class="table_bg">
-                            <th class="w-20">Sr. No.</th>
+                            <th class="w-10">Sr. No.</th>
                             <th class="w-20">Transaction</th>
                             <th class="w-20">Transaction Type</th>
                             <th class="w-20">Date</th>
@@ -402,7 +427,7 @@
                          @if ($data && is_array($data))
                              @foreach ($data as $index => $item)
                                 <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $loop->index + 1 }}.</td>
                                     <td>{{ isset($item['Transaction']) ? $item['Transaction'] : '' }}
                                     </td>
                                     <td>{{ isset($item['TransactionType']) ? $item['TransactionType'] : '' }}</td>
@@ -426,22 +451,6 @@
                 {{-- </div> --}}
             </div>
         <div>
-
-    <footer>
-        <table>
-            <tr>
-                <td class="w-30">
-                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
-                </td>
-                <td class="w-40">
-                    <strong>Printed By :</strong> {{ Auth::user()->name }}
-                </td>
-                {{--<td class="w-30">
-                    <strong>Page :</strong> 1 of 1
-                </td>--}}
-            </tr>
-        </table>
-    </footer>
 
 </body>
 

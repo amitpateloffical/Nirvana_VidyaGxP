@@ -410,12 +410,12 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 4%">Row#</th>
-                                        <th style="width: 12%">Number</th>
+                                        <th style="width: 10%">Number</th>
                                         <th style="width: 16%">Audit Frequency</th>
                                         <th style="width: 16%"> Current</th>
                                         <th style="width: 16%"> CRO</th>
                                         <th style="width: 16%">Remark</th>
-                                        <th style="width: 16%">Action</th>
+                                        <th style="width: 12%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -425,7 +425,7 @@
                                     <td><input type="text" name="audit_site_information[0][Current]"></td>
                                     <td><input type="text" name="audit_site_information[0][CRO]"></td>
                                     <td><input type="text" name="audit_site_information[0][Remark]"></td>
-                                    <td><input readonly type="text"></td>
+                                    <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                 </tbody>
 
                             </table>
@@ -446,13 +446,13 @@
                                     <tr>
                                         <th style="width: 4%">Row#</th>
                                         <th style="width: 12%">Audit Site</th>
-                                        <th style="width: 16%">Site No.</th>
-                                        <th style="width: 16%"> Investigator</th>
-                                        <th style="width: 16%"> First Patient in Date</th>
-                                        <th style="width: 16%">Enrolled No.</th>
+                                        <th style="width: 10%">Site No.</th>
+                                        <th style="width: 16%">Investigator</th>
+                                        <th style="width: 16%">First Patient in Date</th>
+                                        <th style="width: 10%">Enrolled No.</th>
                                         <th style="width: 16%">Current</th>
                                         <th style="width: 16%">Remark</th>
-                                        <th style="width: 16%">Action</th>
+                                        <th style="width: 12%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -677,7 +677,7 @@
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][AuditSite]"></td>' +
                                 '<td><input type="number" name="study_site_information[' + serialNumber + '][SiteNo]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Investigator]"></td>' +
-                                '<td><input type="date" name="study_site_information[' + serialNumber + '][FirstPatient in Date]"></td>' +
+                                '<td><input type="date" name="study_site_information[' + serialNumber + '][FirstPatientInDate]"></td>' +
                                 '<td><input type="number" name="study_site_information[' + serialNumber + '][EnrolledNo]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Current]"></td>' +
                                 '<td><input type="text" name="study_site_information[' + serialNumber + '][Remark]"></td>' +

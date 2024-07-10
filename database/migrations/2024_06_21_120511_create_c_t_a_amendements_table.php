@@ -51,7 +51,7 @@ return new class extends Migration
             $table->longText('comments')->nullable();
 
             //Product Information
-            $table->string('manufaturer')->nullable();
+            $table->string('manufacturer')->nullable();
 
             //Important Dates
             $table->string('actual_submission_date')->nullable();

@@ -1148,13 +1148,13 @@ border-radius:10px;
 
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Manufaturer">Manufaturer</label>
-                                    <select name="manufaturer">
+                                    <label for="manufacturer">Manufacturer</label>
+                                    <select name="manufacturer">
                                         <option value="">-- select --</option>
-                                        <option value="sponsor-manufacturer"@if($amendement_data->manufaturer == 'sponsor-manufacturer') selected @endif>Sponsor Manufacturer</option>
-                                        <option value="contract-manufacturing-organization"@if($amendement_data->manufaturer == 'contract-manufacturing-organization') selected @endif>Contract Manufacturing Organization</option>
-                                        <option value="in-house-manufacturing"@if($amendement_data->manufaturer == 'in-house-manufacturing') selected @endif>In-house Manufacturing</option>
-                                        <option value="academic-institution"@if($amendement_data->manufaturer == 'academic-institution') selected @endif>Academic Institution</option>
+                                        <option value="sponsor-manufacturer"@if($amendement_data->manufacturer == 'sponsor-manufacturer') selected @endif>Sponsor Manufacturer</option>
+                                        <option value="contract-manufacturing-organization"@if($amendement_data->manufacturer == 'contract-manufacturing-organization') selected @endif>Contract Manufacturing Organization</option>
+                                        <option value="in-house-manufacturing"@if($amendement_data->manufacturer == 'in-house-manufacturing') selected @endif>In-house Manufacturing</option>
+                                        <option value="academic-institution"@if($amendement_data->manufacturer == 'academic-institution') selected @endif>Academic Institution</option>
                                     </select>
                                 </div>
                             </div>

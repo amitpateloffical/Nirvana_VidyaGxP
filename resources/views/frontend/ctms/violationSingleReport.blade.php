@@ -186,6 +186,22 @@
         </table>
     </header>
 
+    <footer>
+        <table>
+            <tr>
+                <td class="w-30">
+                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
+                </td>
+                <td class="w-40">
+                    <strong>Printed By :</strong> {{ Auth::user()->name }}
+                </td>
+                {{--<td class="w-30">
+                    <strong>Page :</strong> 1 of 2
+                </td>--}}
+            </tr>
+        </table>
+    </footer>
+
 
     <div class="inner-block">
         <div class="content-table">
@@ -227,7 +243,7 @@
                         <td class="w-80">{{ $violation_data->a_originator }}</td>
 
                         <th class="w-20">Date Due</th>
-                        <td class="w-80">{{ $violation_data->due_date }}</td>
+                        <td class="w-80">{{ date('d-M-Y', strtotime($violation_data->due_date)) }}</td>
                     </tr>
 
                     <tr>
@@ -251,8 +267,8 @@
                     <tr>
                         <th class="w-20">Other Type</th>
                         <td class="w-30">
-                            @if ($violation_data->trade_name_sd)
-                                {{ $violation_data->trade_name_sd }}
+                            @if ($violation_data->other_type)
+                                {{ $violation_data->other_type }}
 
                             @endif
                         </td>
@@ -265,10 +281,12 @@
                             @endif
                         </td>
                     </tr>
+                </table>
 
+                <table>
                     <tr>
-                        <th class="w-20">Description</th>
-                        <td class="w-30">
+                        <th class="w-10">Description</th>
+                        <td class="w-90">
                             @if ($violation_data->description)
                                 {{ $violation_data->description }}
 
@@ -276,6 +294,7 @@
                         </td>
                     </tr>
                 </table>
+
             </div>
             <div class="block">
                 <div class="block-head">
@@ -364,7 +383,7 @@
                         <th class="w-20">Date Occured</th>
                         <td class="w-30">
                             @if ($violation_data->date_occured)
-                                {{ $violation_data->date_occured }}
+                                {{ date('d-M-Y', strtotime($violation_data->date_occured)) }}
 
                             @endif
                         </td>
@@ -372,7 +391,7 @@
                         <th class="w-20">Notification Date</th>
                         <td class="w-30">
                             @if ($violation_data->notification_date)
-                                {{ $violation_data->notification_date }}
+                                {{ date('d-M-Y', strtotime($violation_data->notification_date)) }}
 
                             @endif
                         </td>
@@ -427,7 +446,7 @@
                         <th class="w-20">Date Sent</th>
                         <td class="w-30">
                             @if ($violation_data->date_sent)
-                                {{ $violation_data->date_sent }}
+                                {{ date('d-M-Y', strtotime($violation_data->date_sent)) }}
 
                             @endif
                         </td>
@@ -438,13 +457,18 @@
                         <th class="w-20">Date Returned</th>
                         <td class="w-30">
                             @if ($violation_data->date_returned)
-                                {{ $violation_data->date_returned }}
+                                {{ date('d-M-Y', strtotime($violation_data->date_returned)) }}
 
                             @endif
                         </td>
+                    </tr>
+                </table>
 
+                <table>
+
+                    <tr>
                         <th class="w-20">Follow Up</th>
-                        <td class="w-30">
+                        <td class="w-90">
                             @if ($violation_data->follow_up)
                                 {{ $violation_data->follow_up }}
 
@@ -454,22 +478,24 @@
 
                     <tr>
                         <th class="w-20">Summary</th>
-                        <td class="w-30">
+                        <td class="w-80">
                             @if ($violation_data->summary)
                                 {{ $violation_data->summary }}
 
                             @endif
                         </td>
+                    </tr>
 
+                    <tr>
                         <th class="w-20">Comments</th>
-                        <td class="w-30">
+                        <td class="w-80">
                             @if ($violation_data->Comments)
                                 {{ $violation_data->Comments }}
 
                             @endif
                         </td>
-
                     </tr>
+
                 </table>
             </div>
 
@@ -482,11 +508,11 @@
                 <div class="border-table">
                     <table>
                         <tr class="table_bg">
-                            <th class="w-20">Sr. no.</th>
+                            <th class="w-10">Sr. no.</th>
                             <th class="w-20">Product Name</th>
-                            <th class="w-20">Batch Number</th>
-                            <th class="w-20">Expiry Date</th>
-                            <th class="w-20">Manufactured Date</th>
+                            <th class="w-10">Batch Number</th>
+                            <th class="w-10">Expiry Date</th>
+                            <th class="w-10">Manufactured Date</th>
                             <th class="w-20">Disposition</th>
                             <th class="w-20">Comment</th>
                             <th class="w-20">Remarks</th>
@@ -499,7 +525,7 @@
                             @if ($data && is_array($data))
                                 @foreach ($data as $index => $item)
                                 <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $loop->index + 1 }}.</td>
                                     <td>{{ isset($item['ProductName']) ? $item['ProductName'] : '' }}</td>
                                     <td>{{ isset($item['BatchNumber']) ? $item['BatchNumber'] : '' }}</td>
                                     <td>{{ isset($item['ExpiryDate']) ? $item['ExpiryDate'] : '' }}</td>
@@ -524,22 +550,6 @@
             </div>
         <div>
 
-
-    <footer>
-        <table>
-            <tr>
-                <td class="w-30">
-                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
-                </td>
-                <td class="w-40">
-                    <strong>Printed By :</strong> {{ Auth::user()->name }}
-                </td>
-                {{--<td class="w-30">
-                    <strong>Page :</strong> 1 of 2
-                </td>--}}
-            </tr>
-        </table>
-    </footer>
 
 </body>
 

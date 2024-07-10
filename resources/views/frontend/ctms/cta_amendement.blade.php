@@ -568,8 +568,8 @@
 
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Manufaturer">Manufaturer</label>
-                                    <select name="manufaturer">
+                                    <label for="manufacturer">Manufacturer</label>
+                                    <select name="manufacturer">
                                         <option value="">-- select --</option>
                                         <option value="sponsor-manufacturer">Sponsor Manufacturer</option>
                                         <option value="contract-manufacturing-organization">Contract Manufacturing Organization</option>

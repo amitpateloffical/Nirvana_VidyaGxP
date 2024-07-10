@@ -4070,7 +4070,7 @@ class ContractTestingLabAuditController extends Controller
 
                 //return view('frontend.ctms.serious_adverse_event');
             }else{
-                //return redirect(route('contract_testing_lab_audit.index')); 
+                //return redirect(route('contract_testing_lab_audit.index'));
             }
 
         }

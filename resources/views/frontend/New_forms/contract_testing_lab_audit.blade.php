@@ -395,7 +395,7 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Audit_Aenda_Sent_On">Audit Aenda Sent On</label>
+                                    <label for="Audit_Aenda_Sent_On">Audit Agenda Sent On</label>
                                     <input type="date" name="audit_agenda_sent_on">
                                 </div>
                             </div>
@@ -539,7 +539,7 @@
 
                              <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                    Auditee(s) (0)
+                                    Auditee(s)
                                     <button type="button" name="auditee" id="Auditee">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
@@ -569,7 +569,7 @@
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                    Key Personnel Met During Audit(0)
+                                    Key Personnel Met During Audit
                                     <button type="button" name="key_personnel_met_during_audit" id="Key_Personnel_Met_During_Audit">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
@@ -696,10 +696,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="file_attach1"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="ctl_audit_report[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="ctl_audit_report[]" oninput="addMultipleFiles(this, 'file_attach1')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -781,7 +781,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Report_Acknowledged_On">Report Acknowledged On</label>
-                                    <input type="text" name="report_acknowledged_on">
+                                    <input type="date" name="report_acknowledged_on">
                                 </div>
                             </div>
 
@@ -808,10 +808,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="file_attach2"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attachments_if_any[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="file_attachments_if_any[]" oninput="addMultipleFiles(this, 'file_attach2')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -901,10 +901,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="file_attach3"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="ctl_response_report[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="ctl_response_report[]" oninput="addMultipleFiles(this, 'file_attach3')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -1050,10 +1050,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="file_attach4"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="audit_closure_report[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="audit_closure_report[]" oninput="addMultipleFiles(this, 'file_attach4')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -1068,10 +1068,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="file_attach5"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="response_file_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="response_file_attachments[]" oninput="addMultipleFiles(this, 'file_attach5')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -1125,10 +1125,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="file_attach6"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="approval_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="approval_attachments[]" oninput="addMultipleFiles(this, 'file_attach6')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -1216,10 +1216,10 @@
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="file_attach7"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="audit_closure_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="audit_closure_attachments[]" oninput="addMultipleFiles(this, 'file_attach7')" multiple>
                                         </div>
                                     </div>
                                 </div>

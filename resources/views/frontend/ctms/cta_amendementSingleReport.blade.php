@@ -186,6 +186,21 @@
         </table>
     </header>
 
+    <footer>
+        <table>
+            <tr>
+                <td class="w-30">
+                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
+                </td>
+                <td class="w-40">
+                    <strong>Printed By :</strong> {{ Auth::user()->name }}
+                </td>
+                {{--<td class="w-30">
+                    <strong>Page :</strong> 1 of 1
+                </td>--}}
+            </tr>
+        </table>
+    </footer>
 
     <div class="inner-block">
         <div class="content-table">
@@ -226,21 +241,17 @@
                             <td class="w-30">
                                 @if ($amendement_data->short_description)
                                     {{ $amendement_data->short_description }}
-                                @else
-                                    Not Applicable
                                 @endif
                             </td>
 
                         <th class="w-20">Assign To</th>
-
                           <td class="w-80">{{ $amendement_data->assign_to_gi }}</td>
-
 
                     </tr>
 
                     <tr>
                          <th class="w-20">Date Due</th>
-                           <td class="w-80">{{ $amendement_data->due_date }}</td>
+                           <td class="w-80">{{ date('d-M-Y', strtotime($amendement_data->due_date)) }}</td>
 
                            <th class="w-20">Type</th>
                            <td class="w-30">
@@ -259,26 +270,23 @@
 
                                 @endif
                             </td>
+                    </tr>
+                    </table>
 
-                            <th class="w-20">Description</th>
-                            <td class="w-30">
+                    <table>
+                        <tr>
+                            <th class="w-15">Description</th>
+                            <td class="w-85">
                                 @if ($amendement_data->description)
                                     {{ $amendement_data->description }}
 
                                 @endif
                             </td>
-                     </tr>
+                        </tr>
+                    </table>
 
-                      <tr>
-
-                         <th class="w-20">Manufacturer</th>
-                            <td class="w-30">
-                                @if ($amendement_data->description)
-                                    {{ $amendement_data->description }}
-
-                                @endif
-                            </td>
-
+                    <table>
+                        <tr>
                             <th class="w-20">Zone</th>
                             <td class="w-30">
                                 @if ($amendement_data->zone)
@@ -286,16 +294,17 @@
 
                                 @endif
                             </td>
-                      </tr>
-                      <tr>
-                          <th class="w-20">Country</th>
+
+                            <th class="w-20">Country</th>
                             <td class="w-30">
                                 @if ($amendement_data->country)
                                     {{ $amendement_data->country }}
 
                                 @endif
                             </td>
-                          <th class="w-20">State/District</th>
+                      </tr>
+                      <tr>
+                            <th class="w-20">State/District</th>
                             <td class="w-30">
                                 @if ($amendement_data->state)
                                     {{ $amendement_data->state }}
@@ -303,8 +312,6 @@
                                 @endif
                             </td>
 
-                        </tr>
-                        <tr>
                             <th class="w-20">City</th>
                             <td class="w-30">
                                 @if ($amendement_data->city)
@@ -312,8 +319,8 @@
 
                                 @endif
                             </td>
-
                         </tr>
+
                     </table>
                 </div>
 
@@ -370,13 +377,20 @@
                             <th class="w-20">Estimated Man-Hours</th>
                             <td class="w-80">{{ $amendement_data->estimated_man_hours }}</td>
                         </tr>
+                    </table>
 
+                    <table>
                         <tr>
-                            <th class="w-20">Comments</th>
-                            <td class="w-80">{{ $amendement_data->comments }}</td>
+                            <th class="w-15">Comments</th>
+                            <td class="w-85">{{ $amendement_data->comments }}</td>
 
-                            <th class="w-20">Manufaturer</th>
-                            <td class="w-80">{{ $amendement_data->manufaturer }}</td>
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr>
+                            <th class="w-20">Manufacturer</th>
+                            <td class="w-80">{{ $amendement_data->manufacturer }}</td>
                         </tr>
                     </table>
                 </div>
@@ -390,11 +404,11 @@
                 <div class="border-table">
                     <table>
                         <tr class="table_bg">
-                            <th class="w-20">Sr. No.</th>
+                            <th class="w-10">Sr. No.</th>
                             <th class="w-20">Product Name</th>
-                            <th class="w-20">Batch Number</th>
-                            <th class="w-20">Expiry Date</th>
-                            <th class="w-20">Manufactured Date</th>
+                            <th class="w-10">Batch Number</th>
+                            <th class="w-10">Expiry Date</th>
+                            <th class="w-10">Manufactured Date</th>
                             <th class="w-20">Disposition</th>
                             <th class="w-20">Comments</th>
                             <th class="w-20">Remarks</th>
@@ -406,7 +420,7 @@
                              @if ($data && is_array($data))
                                @foreach ($data as $index => $item)
                                 <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $loop->index + 1 }}.</td>
                                     <td>{{ isset($item['ProductName']) ? $item['ProductName'] : '' }}
                                     </td>
                                     <td>{{ isset($item['BatchNumber']) ? $item['BatchNumber'] : '' }}</td>
@@ -440,31 +454,31 @@
 
                     <tr>
                         <th class="w-20">Actual Submission Date</th>
-                        <td class="w-80">{{ $amendement_data->actual_submission_date }}</td>
+                        <td class="w-30">{{ date('d-M-Y', strtotime($amendement_data->actual_submission_date)) }}</td>
 
                         <th class="w-20">Actual Rejection Date</th>
-                        <td class="w-80">{{ $amendement_data->actual_rejection_date }}</td>
+                        <td class="w-30">{{ date('d-M-Y', strtotime($amendement_data->actual_rejection_date)) }}</td>
                     </tr>
 
                     <tr>
                         <th class="w-20">Actual Withdrawn Date</th>
-                        <td class="w-80">{{ $amendement_data->actual_withdrawn_date }}</td>
+                        <td class="w-30">{{ date('d-M-Y', strtotime($amendement_data->actual_withdrawn_date)) }}</td>
 
                         <th class="w-20">Inquiry Date</th>
-                        <td class="w-80">{{ $amendement_data->inquiry_date }}</td>
+                        <td class="w-30">{{ date('d-M-Y', strtotime($amendement_data->inquiry_date)) }}</td>
                     </tr>
 
                     <tr>
                         <th class="w-20">Planned Submission Date</th>
-                        <td class="w-80">{{ $amendement_data->planned_submission_date }}</td>
+                        <td class="w-30">{{ date('d-M-Y', strtotime($amendement_data->planned_submission_date)) }}</td>
 
                         <th class="w-20">Planned Date Sent To Affiliate</th>
-                        <td class="w-80">{{ $amendement_data->planned_date_sent_to_affiliate }}</td>
+                        <td class="w-30">{{ date('d-M-Y', strtotime($amendement_data->planned_date_sent_to_affiliate)) }}</td>
                     </tr>
 
                     <tr>
                         <th class="w-20">Effective Date</th>
-                        <td class="w-80">{{ $amendement_data->effective_date }}</td>
+                        <td class="w-30">{{ date('d-M-Y', strtotime($amendement_data->effective_date)) }}</td>
                     </tr>
                 </table>
             </div>
@@ -478,7 +492,9 @@
                     <tr>
                         <th class="w-20">Additional Assignees</th>
                         <td class="w-80">{{ $amendement_data->additional_assignees }}</td>
+                    </tr>
 
+                    <tr>
                         <th class="w-20">Additional Investigators</th>
                         <td class="w-80">{{ $amendement_data->additional_investigators }}</td>
                     </tr>
@@ -486,7 +502,9 @@
                     <tr>
                         <th class="w-20">Approvers</th>
                         <td class="w-80">{{ $amendement_data->approvers }}</td>
+                    </tr>
 
+                    <tr>
                         <th class="w-20">Negotiation Team</th>
                         <td class="w-80">{{ $amendement_data->negotiation_team }}</td>
                     </tr>
@@ -510,7 +528,9 @@
                     <tr>
                         <th class="w-20">Root Cause Description</th>
                         <td class="w-80">{{ $amendement_data->root_cause_description }}</td>
+                    </tr>
 
+                    <tr>
                         <th class="w-20">Reason for Non-Approval</th>
                         <td class="w-80">{{ $amendement_data->reason_for_non_approval }}</td>
                     </tr>
@@ -518,7 +538,9 @@
                     <tr>
                         <th class="w-20">Reason for Withdrawal</th>
                         <td class="w-80">{{ $amendement_data->reason_for_withdrawal }}</td>
+                    </tr>
 
+                    <tr>
                         <th class="w-20">Justification/Rationale</th>
                         <td class="w-80">{{ $amendement_data->justification_rationale }}</td>
                     </tr>
@@ -526,7 +548,9 @@
                     <tr>
                         <th class="w-20">Meeting Minutes</th>
                         <td class="w-80">{{ $amendement_data->meeting_minutes }}</td>
+                    </tr>
 
+                    <tr>
                         <th class="w-20">Rejection Reason</th>
                         <td class="w-80">{{ $amendement_data->rejection_reason }}</td>
                     </tr>
@@ -534,7 +558,9 @@
                     <tr>
                         <th class="w-20">Effectiveness Check Summary</th>
                         <td class="w-80">{{ $amendement_data->effectiveness_check_summary }}</td>
+                    </tr>
 
+                    <tr>
                         <th class="w-20">Decision</th>
                         <td class="w-80">{{ $amendement_data->decision }}</td>
                     </tr>
@@ -542,38 +568,25 @@
                     <tr>
                         <th class="w-20">Summary</th>
                         <td class="w-80">{{ $amendement_data->summary }}</td>
+                    </tr>
+                </table>
 
+                <table>
+                    <tr>
                         <th class="w-20">Documents Affected</th>
                         <td class="w-80">{{ $amendement_data->documents_affected }}</td>
+
+                        <th class="w-20">Actual Time Spend</th>
+                        <td class="w-80">{{ $amendement_data->actual_time_spend }}</td>
                     </tr>
 
                     <tr>
-                        <th class="w-20">Actual Time Spend</th>
-                        <td class="w-80">{{ $amendement_data->actual_time_spend }}</td>
-
                         <th class="w-20">Documents</th>
                         <td class="w-80">{{ $amendement_data->documents }}</td>
                     </tr>
 
                 </table>
             </div>
-
-
-        <footer>
-            <table>
-                <tr>
-                    <td class="w-30">
-                        <strong>Printed On :</strong> {{ date('d-M-Y') }}
-                    </td>
-                    <td class="w-40">
-                        <strong>Printed By :</strong> {{ Auth::user()->name }}
-                    </td>
-                    {{--<td class="w-30">
-                        <strong>Page :</strong> 1 of 1
-                    </td>--}}
-                </tr>
-            </table>
-        </footer>
 
 </body>
 

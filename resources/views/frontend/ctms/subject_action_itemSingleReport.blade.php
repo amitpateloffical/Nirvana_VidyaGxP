@@ -186,6 +186,21 @@
         </table>
     </header>
 
+    <footer>
+        <table>
+            <tr>
+                <td class="w-30">
+                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
+                </td>
+                <td class="w-40">
+                    <strong>Printed By :</strong> {{ Auth::user()->name }}
+                </td>
+                {{--<td class="w-30">
+                    <strong>Page :</strong> 1 of 1
+                </td>--}}
+            </tr>
+        </table>
+    </footer>
 
     <div class="inner-block">
         <div class="content-table">
@@ -222,14 +237,21 @@
                         <td class="w-30">{{ Helpers::getdateFormat($item_data->created_at) }}</td>
                     </tr>
                     <tr>
+                        <th class="w-20">Short Description</th>
+                        <td class="w-30">
+                            @if ($item_data->short_description_ti)
+                                {{ $item_data->short_description_ti }}
+
+                            @endif
+                        </td>
 
                         <th class="w-20">Assign To</th>
                         <td class="w-80">{{ $item_data->a_originator }}</td>
-
-                        <th class="w-20">Date Due</th>
-                        <td class="w-80">{{ $item_data->due_date }}</td>
                     </tr>
 
+                    <tr>
+                        <th class="w-20">Date Due</th>
+                        <td class="w-80">{{ date('d-M-Y', strtotime($item_data->due_date)) }}</td>
                     </tr>
                 </table>
             </div>
@@ -288,7 +310,7 @@
                         <th class="w-20">Date Of Birth</th>
                         <td class="w-30">
                             @if ($item_data->date_of_birth_sd)
-                                {{ $item_data->date_of_birth_sd }}
+                                {{ date('d-M-Y', strtotime($item_data->date_of_birth_sd)) }}
 
                             @endif
                         </td>
@@ -312,14 +334,6 @@
                 <table>
 
                     <tr>
-                        <th class="w-20">Short Description</th>
-                        <td class="w-30">
-                            @if ($item_data->short_description_ti)
-                                {{ $item_data->short_description_ti }}
-
-                            @endif
-                        </td>
-
                         <th class="w-20">Clinical Efficacy</th>
                         <td class="w-30">
                             @if ($item_data->clinical_efficacy_ti)
@@ -327,9 +341,7 @@
 
                             @endif
                         </td>
-                    </tr>
 
-                    <tr>
                         <th class="w-20">Carry Over Effect</th>
                         <td class="w-30">
                             @if ($item_data->carry_over_effect_ti)
@@ -337,7 +349,9 @@
 
                             @endif
                         </td>
+                    </tr>
 
+                    <tr>
                         <th class="w-20">Last Monitered</th>
                         <td class="w-30">
                             @if ($item_data->last_monitered_ti)
@@ -346,9 +360,6 @@
                             @endif
                         </td>
 
-                    </tr>
-
-                    <tr>
                         <th class="w-20">Total Doses Recieved</th>
                         <td class="w-30">
                             @if ($item_data->total_doses_recieved_ti)
@@ -357,6 +368,9 @@
                             @endif
                         </td>
 
+                    </tr>
+
+                    <tr>
                         <th class="w-20">Treatment Effect</th>
                         <td class="w-30">
                             @if ($item_data->treatment_effect_ti)
@@ -366,17 +380,22 @@
                         </td>
                     </tr>
 
+                </table>
+
+                <table>
                     <tr>
                         <th class="w-20">Comments</th>
-                        <td class="w-30">
+                        <td class="w-80">
                             @if ($item_data->comments_ti)
                                 {{ $item_data->comments_ti }}
 
                             @endif
                         </td>
+                    </tr>
 
+                    <tr>
                         <th class="w-20">Summary</th>
-                        <td class="w-30">
+                        <td class="w-80">
                             @if ($item_data->summary_ti)
                                 {{ $item_data->summary_ti }}
 
@@ -394,8 +413,8 @@
                 <div class="border-table">
                     <table>
                         <tr class="table_bg">
-                            <th class="w-20">Sr. no.</th>
-                            <th class="w-20">Number</th>
+                            <th class="w-10">Sr. no.</th>
+                            <th class="w-10">Number</th>
                             <th class="w-20"> Date</th>
                             <th class="w-20">Sent Date</th>
                             <th class="w-20">Returned Date</th>
@@ -410,7 +429,7 @@
                             @if ($data && is_array($data))
                               @foreach ($data as $index => $item)
                                 <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $loop->index + 1 }}.</td>
                                     <td>{{ isset($item['Number']) ? $item['Number'] : '' }}</td>
                                     <td>{{ isset($item['Date']) ? $item['Date'] : '' }}</td>
                                     <td>{{ isset($item['SentDate']) ? $item['SentDate'] : '' }}</td>
@@ -443,7 +462,7 @@
                     <div class="border-table">
                         <table>
                             <tr class="table_bg">
-                                <th class="w-20">SR no.</th>
+                                <th class="w-10">SR no.</th>
                                 <th class="w-20">Item Description</th>
                                 <th class="w-20"> Date</th>
                                 <th class="w-20">Sent Date</th>
@@ -457,7 +476,7 @@
                              @if ($data && is_array($data))
                                 @foreach ($data as $index => $item)
                                     <tr>
-                                        <td>{{ $loop->index + 1 }}</td>
+                                        <td>{{ $loop->index + 1 }}.</td>
                                         <td>{{ isset($item['ItemDescription']) ? $item['ItemDescription'] : '' }}</td>
                                         <td>{{ isset($item['Date']) ? $item['Date'] : '' }}</td>
                                         <td>{{ isset($item['SentDate']) ? $item['SentDate'] : '' }}</td>
@@ -480,21 +499,7 @@
                 </div>
             <div>
 
-    <footer>
-        <table>
-            <tr>
-                <td class="w-30">
-                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
-                </td>
-                <td class="w-40">
-                    <strong>Printed By :</strong> {{ Auth::user()->name }}
-                </td>
-                {{--<td class="w-30">
-                    <strong>Page :</strong> 1 of 1
-                </td>--}}
-            </tr>
-        </table>
-    </footer>
+
 
 </body>
 
