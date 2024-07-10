@@ -13,7 +13,7 @@
             <div class="dashboard-container">
 
                 <div class="row">
-                    <div class="col-lg-9">
+                    <div class="col-lg-12">
                         <div class="dashboard-left-block">
                             <div class="inner-block main-block">
                                 <div class="top">
@@ -61,7 +61,7 @@
                                     </div>
                                 </div>
                             </div> 
-                            <div class="row">
+                            {{-- <div class="row">
                                  <div class="col-12">
                                     <div class="inner-block search-block">
                                         <div class="title">
@@ -85,11 +85,11 @@
                                         </div>
                                     </div>
                                 </div> 
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     
-                     <div class="col-lg-3">
+                     {{-- <div class="col-lg-3">
                         <div class="dashboard-right-block">
                             <div class="inner-block recent-record">
                                 <div class="head">
@@ -139,16 +139,16 @@
                                 <a herf="#" class="link">Go to Helpdesk</a>
                             </div>
                         </div>
-                    </div> 
+                    </div>  --}}
                 </div>
 
 
 
                 <div>
 
-                        <div class="inner-block calendar-block">
+                        {{-- <div class="inner-block calendar-block">
                             <div style="height: 100px;" id='calendar'></div>
-                        </div>
+                        </div> --}}
                    <div class="row">
                         <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
@@ -158,20 +158,24 @@
                         </div>
                         <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
-                            <div class="head">Corporate Document By Status</div>
-                            <div id="chart-22"></div>
+                            {{-- <div class="head">Corporate Document By Status</div> --}}
+                            {{-- <div id="chart-22"></div> --}}
+                        <div id="chart-24"></div>
+
                            
                         </div>
                         </div>
                         <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
                             <div class="head">Corporate Document By Department</div>
-                            <div id="chart-23"></div>
+                            {{-- <div id="chart-23"></div> --}}
+                        <div id="chart-25"></div>
+
                             
                         </div>
                         </div>
                         </div>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-lg-4">
                         <div class="inner-block table-block cal-table">
                         <div class="head">Training Records By Status</div>
@@ -193,8 +197,8 @@
 
                               </div>
                             </div>
-                        </div>
-                         <div class="inner-block table-block cal-table">
+                        </div> --}}
+                         {{-- <div class="inner-block table-block cal-table">
                             <div class="head">Batch Failure Rate</div>
                             <div class="table-container">
                                 <table class="table table-bordered">
@@ -252,15 +256,15 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                        <div class="inner-block chart-block">
+                        </div> --}}
+                        {{-- <div class="inner-block chart-block">
                             <div class="chart-container">
                                 <div class="head">
                                     Documents By Status
                                 </div>
                                 <canvas id="chart"></canvas>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="inner-block chart-block">
                             <div class="chart-container">
@@ -289,7 +293,7 @@
                             </div>
                         </div>
 
-                        <div class="inner-block table-block">
+                        {{-- <div class="inner-block table-block">
                             <div class="head">Batch Failure Rate</div>
                             <div class="table-container">
                                 <table class="table table-bordered">
@@ -353,7 +357,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                        </div> 
+                        </div>  --}}
 
                          <div class="inner-block chart-block">
                             <div class="chart-container">
@@ -2094,7 +2098,7 @@ var options = {
         }],
           chart: {
           type: 'bar',
-          height: 200
+          height: 370
         },
         plotOptions: {
           bar: {
@@ -2207,7 +2211,7 @@ var options = {
           }
         ],
           chart: {
-          height: 200,
+          height: 310,
           type: 'bar'
         },
         plotOptions: {
@@ -3711,8 +3715,6 @@ var options = {
 
         var chart16 = new ApexCharts(document.querySelector("#chart-16"), options16);
         chart16.render();
-
-
         var options17 = {
             series: [{
                 name: 'Number of EC Failure',
@@ -3789,8 +3791,6 @@ var options = {
 
         var chart18 = new ApexCharts(document.querySelector("#chart-18"), options18);
         chart18.render();
-
-
 
         var options19 = {
             series: [{
