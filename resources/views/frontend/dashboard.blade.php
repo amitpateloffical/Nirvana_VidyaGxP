@@ -39,1197 +39,42 @@
                                 <div class="inner-block chart-block">
                                     <div class="chart-container">
                                         <div class="head">
-                                            Batch Failure Rate (Term)
+                                            Deviations and Complaints by Supplier
                                         </div>
                                         <div id="chart-18"></div>
                                     </div>
                                 </div>
-                                <div class="inner-block chart-block">
-                                    <div class="chart-container">
+                                
+                                    <div class="inner-block table-block cal-table">
                                         <div class="head">
-                                            Batch Failure Rate (Term)
+                                            Average Scorecard Ranking
                                         </div>
-                                        <div id="chart-19"></div>
+                                    <div id="chart-24"></div>
                                     </div>
-                                </div>
-                                <div class="inner-block chart-block">
-                                    <div class="chart-container">
-                                        <div class="head">
-                                            Batch Failure Rate (Term)
-                                        </div>
-                                        <div id="chart-20"></div>
-                                    </div>
-                                </div>
+                                   
                             </div> 
-                            {{-- <div class="row">
-                                 <div class="col-12">
-                                    <div class="inner-block search-block">
-                                        <div class="title">
-                                            Search Documents
-                                        </div>
-                                        <div class="links">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <a href="/basic-search">
-                                                        <i class="fa-solid fa-magnifying-glass"></i>&nbsp;
-                                                        Basic Search
-                                                    </a>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div data-bs-toggle="modal" data-bs-target="#advanced-search">
-                                                        <i class="fa-brands fa-searchengin"></i>&nbsp;
-                                                        Advanced Search
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div> --}}
-                        </div>
-                    </div>
-                    
-                     {{-- <div class="col-lg-3">
-                        <div class="dashboard-right-block">
-                            <div class="inner-block recent-record">
-                                <div class="head">
-                                    Recent Records
-                                </div>
-                                <div class="record-list">
-                                    <div>
-                                        <div class="icon">
-                                            <i class="fa-solid fa-gauge-high"></i>
-                                        </div>
-                                        <div><a href="{{ url('change-control') }}">Manage Change Controls</a></div>
-                                    </div>
-                                    <div>
-                                        <div class="icon">
-                                            <i class="fa-solid fa-gauge-high"></i>
-                                        </div>
-                                        <div><a href="{{ url('rcms/send-notification') }}">Send Notification</a></div>
-                                    </div>
-                                    <div>
-                                        <div class="icon">
-                                            <i class="fa-solid fa-gauge-high"></i>
-                                        </div>
-                                        <div><a href="/send-notification">Training History</a></div>
-                                    </div>
-                                    <div>
-                                        <div class="icon">
-                                            <i class="fa-solid fa-gauge-high"></i>
-                                        </div>
-                                        <div><a href="/send-notification">Overdue CAPA - Investigation Phase</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="inner-block date-block">
-                                <div class="day">
-                                    {{ date('d') }} {{ date('M') }} {{ date('Y') }}
-                                </div>
-                                <div class="login">
-                                    <strong>Login :</strong>
-                                    {{ date('h:i A') }}
-                                </div>
-                            </div>
-                            <div class="inner-block help-block">
-                                <div class="title">Help</div>
-                                <div class="slogan">
-                                    We are ready to help you with your queries.
-                                </div>
-                                <a herf="#" class="link">Go to Helpdesk</a>
-                            </div>
-                        </div>
-                    </div>  --}}
-                </div>
-
-
-
-                <div>
-
-                        {{-- <div class="inner-block calendar-block">
-                            <div style="height: 100px;" id='calendar'></div>
-                        </div> --}}
-                   <div class="row">
-                        <div class="col-lg-4">
-                        <div class="inner-block table-block cal-table">
-                            <div class="head">Corporate Document By Type</div>
-                            <div id="chart-21"></div>
-                        </div>
-                        </div>
-                        <div class="col-lg-4">
-                        <div class="inner-block table-block cal-table">
-                            {{-- <div class="head">Corporate Document By Status</div> --}}
-                            {{-- <div id="chart-22"></div> --}}
-                        <div id="chart-24"></div>
-
                            
                         </div>
-                        </div>
-                        <div class="col-lg-4">
-                        <div class="inner-block table-block cal-table">
-                            <div class="head">Corporate Document By Department</div>
-                            {{-- <div id="chart-23"></div> --}}
-                        <div id="chart-25"></div>
-
-                            
-                        </div>
-                        </div>
-                        </div>
-                        {{-- <div class="row">
-                            <div class="col-lg-4">
-                        <div class="inner-block table-block cal-table">
-                        <div class="head">Training Records By Status</div>
-                        <div id="chart-24"></div>
-
-                              </div>
-                            </div>
-                            <div class="col-lg-4">
-                        <div class="inner-block table-block cal-table">
-                        <div class="head">Training Records By Content Type</div>
-                        <div id="chart-25"></div>
-
-                              </div>
-                            </div>
-                            <div class="col-lg-4">
-                        <div class="inner-block table-block cal-table">
-                        <div class="head">Overdue Training Records</div>
-                        <div id="chart-26"></div>
-
-                              </div>
-                            </div>
-                        </div> --}}
-                         {{-- <div class="inner-block table-block cal-table">
-                            <div class="head">Batch Failure Rate</div>
-                            <div class="table-container">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Document Number</th>
-                                            <th>Created Date</th>
-                                            <th>Division/Process</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>QMS-North America/WI/2023/SOP-00001</td>
-                                            <td>2023-04-16 01:25:43</td>
-                                            <td>QMS-North America/Deviation</td>
-                                            <td><a href="#">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>QMS-North America/WI/2023/SOP-00001</td>
-                                            <td>2023-04-16 01:25:43</td>
-                                            <td>QMS-North America/Deviation</td>
-                                            <td><a href="#">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>QMS-North America/WI/2023/SOP-00001</td>
-                                            <td>2023-04-16 01:25:43</td>
-                                            <td>QMS-North America/Deviation</td>
-                                            <td><a href="#">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>QMS-North America/WI/2023/SOP-00001</td>
-                                            <td>2023-04-16 01:25:43</td>
-                                            <td>QMS-North America/Deviation</td>
-                                            <td><a href="#">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>QMS-North America/WI/2023/SOP-00001</td>
-                                            <td>2023-04-16 01:25:43</td>
-                                            <td>QMS-North America/Deviation</td>
-                                            <td><a href="#">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>QMS-North America/WI/2023/SOP-00001</td>
-                                            <td>2023-04-16 01:25:43</td>
-                                            <td>QMS-North America/Deviation</td>
-                                            <td><a href="#">View</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>QMS-North America/WI/2023/SOP-00001</td>
-                                            <td>2023-04-16 01:25:43</td>
-                                            <td>QMS-North America/Deviation</td>
-                                            <td><a href="#">View</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div> --}}
-                        {{-- <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Documents By Status
-                                </div>
-                                <canvas id="chart"></canvas>
-                            </div>
-                        </div> --}}
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Documents By Type
-                                </div>
-                                <canvas id="chart2"></canvas>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Documents By Department
-                                </div>
-                                <canvas id="chart3"></canvas>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Overdue Status
-                                </div>
-                                <canvas id="chart4"></canvas>
-                            </div>
-                        </div>
-
-                        {{-- <div class="inner-block table-block">
-                            <div class="head">Batch Failure Rate</div>
-                            <div class="table-container">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Term(Month)</th>
-                                            <th>Number of Batch Failure</th>
-                                            <th>Number of Batch Success</th>
-                                            <th>Batch Failure Rate</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.02</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.03</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.04</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.05</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.06</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.07</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.08</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>  --}}
-
-                         <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Batch Failure Rate (Term)
-                                </div>
-                                <div id="chart-5"></div>
-                            </div>
-                        </div>
-
-                        <div class="inner-block table-block">
-                            <div class="head">Number of Deviation PR's per Batch per Class (Term)</div>
-                            <div class="table-container">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Term(Month)</th>
-                                            <th>Class</th>
-                                            <th>Number of Deviation PR's</th>
-                                            <th>Number of Batch</th>
-                                            <th>Deviation Rate</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>Class 1</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.02</td>
-                                            <td>Class 1</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.03</td>
-                                            <td>Class 1</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.04</td>
-                                            <td>Class 1</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.05</td>
-                                            <td>Class 1</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.06</td>
-                                            <td>Class 1</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.07</td>
-                                            <td>Class 1</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.08</td>
-                                            <td>Class 1</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Number of Deviation PR's per Batch per Class (Term)
-                                </div>
-                                <div id="chart-10"></div>
-                            </div>
-                        </div>
-
-                        <div class="inner-block table-block">
-                            <div class="head">Invalid Result OOS Rate (Term)</div>
-                            <div class="table-container">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Term(Month)</th>
-                                            <th>Number of IOOSR Occurance</th>
-                                            <th>Number of OOS PR's</th>
-                                            <th>IOOSR Occurance</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.02</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.03</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.04</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.05</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.06</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.07</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.08</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Invalid Result OOS Rate (Term)
-                                </div>
-                                <div id="chart-11"></div>
-                            </div>
-                        </div> 
-
-                         <div class="inner-block table-block">
-                            <div class="head">Effectivenss Check Failure Rate (Term)</div>
-                            <div class="table-container">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Month</th>
-                                            <th>Number of EC Failure</th>
-                                            <th>Number of RC PR's</th>
-                                            <th>EC Failure Rate</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.02</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.03</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.04</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.05</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.06</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.07</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.08</td>
-                                            <td>3</td>
-                                            <td>9</td>
-                                            <td>33.33%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Effectivenss Check Failure Rate (Term)
-                                </div>
-                                <div id="chart-12"></div>
-                            </div>
-                        </div>
-
-                        <div class="inner-block table-block">
-                            <div class="head">Change Control Extension Rate (Term)</div>
-                            <div class="table-container">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Month</th>
-                                            <th>Number of Extension PR's</th>
-                                            <th>Number of Change Control PR's</th>
-                                            <th>Extension Rate</th>
-                                            <th>On Time Rate</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Change Control Extension Rate (Term)
-                                </div>
-                                <div id="chart-13"></div>
-                            </div>
-                        </div>
-
-                        <div class="inner-block table-block">
-                            <div class="head">Deviation Extension Rate (Term)</div>
-                            <div class="table-container">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Term (Month)</th>
-                                            <th>Number of Extension PR's</th>
-                                            <th>Number of Deviation PR's</th>
-                                            <th>Extension Rate</th>
-                                            <th>On Time Rate</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Deviation Extension Rate (Term)
-                                </div>
-                                <div id="chart-7"></div>
-                            </div>
-                        </div>
-
-                        <div class="inner-block table-block">
-                            <div class="head">CAPA Extension Rate (Term)</div>
-                            <div class="table-container">
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Term (Month)</th>
-                                            <th>Number of Extension PR's</th>
-                                            <th>Number of CAPA PR's</th>
-                                            <th>Extension Rate</th>
-                                            <th>On Time Rate</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2022.01</td>
-                                            <td>30</td>
-                                            <td>99</td>
-                                            <td>33.33%</td>
-                                            <td>33.34</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    CAPA Extension Rate (Term)
-                                </div>
-                                <div id="chart-9"></div>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Deviation Extension Rate (Term)
-                                </div>
-                                <div id="chart-8"></div>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    CAPA Extension Rate (Term)
-                                </div>
-                                <div id="chart-6"></div>
-                            </div>
-                        </div> --}}
-
-                        {{-- <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Batch Failure Rate (Term)
-                                </div>
-                                <div id="chart-14"></div>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Effectiveness Check Failure Rate (Term)
-                                </div>
-                                <div id="chart-15"></div>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    Deviation Extension Rate (Term)
-                                </div>
-                                <div id="chart-16"></div>
-                            </div>
-                        </div>
-
-                        <div class="inner-block chart-block">
-                            <div class="chart-container">
-                                <div class="head">
-                                    CAPA Extension Rate (Term)
-                                </div>
-                                <div id="chart-17"></div>
-                            </div>
-                        </div>
+                    </div>
                 </div>
+                <div>
 
-
-                <div class="inner-block overview-table-block">
-                    <div class="main-head">
-                        DMS Overview
+                   <div class="row">
+                        <div class="col-lg-6">
+                        <div class="inner-block table-block cal-table">
+                            <div class="head">Average Risk Score</div>
+                            <div id="chart-35"></div>
+                        </div>
+                        </div>
+   
+                        <div class="col-lg-6">
+                        <div class="inner-block table-block cal-table">
+                            <div class="head">Last Audit Score by Supplier</div>
+                            {{-- <div id="chart-23"></div> --}}
+                        <div id="chart-25"></div>  
+                        </div>
                     </div>
-                    <div class="overview-table">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Record</th>
-                                    <th>Document Type</th>
-                                    <th>Division</th>
-                                    <th>Short Description</th>
-                                    <th>Created Date Time</th>
-                                    <th>Created By</th>
-                                    <th>Modify Date/Time</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>QMS-North America/WI/2023/SOP-00001</td>
-                                    <td>Work Instruction</td>
-                                    <td>QMS-North America</td>
-                                    <td>Implementation of New SOP</td>
-                                    <td>2023-04-16 01:25:43</td>
-                                    <td>Shaleen Mishra</td>
-                                    <td>2023-04-16 01:25:43</td>
-                                    <td>Approved</td>
-                                    <td>
-                                        <div class="action-dropdown">
-                                            <div class="action-down-btn">Action <i class="fa-solid fa-angle-down"></i>
-                                            </div>
-                                            <div class="action-block">
-                                                <a href="#">View</a>
-                                                <a href="#">Edit</a>
-                                                <button type="submit">Delete</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>QMS-Japan/SOP/2023/SOP-00001</td>
-                                    <td>Standard Operating Procedure</td>
-                                    <td>QMS-Japan</td>
-                                    <td>SOP for Deviation</td>
-                                    <td>2023-04-16 01:25:43</td>
-                                    <td>Amit Guru</td>
-                                    <td>2023-04-16 01:25:43</td>
-                                    <td>Approved</td>
-                                    <td>
-                                        <div class="action-dropdown">
-                                            <div class="action-down-btn">Action <i class="fa-solid fa-angle-down"></i>
-                                            </div>
-                                            <div class="action-block">
-                                                <a href="#">View</a>
-                                                <a href="#">Edit</a>
-                                                <button type="submit">Delete</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>DMS-South Korea/STP/2023 /SOP-00001</td>
-                                    <td>STP</td>
-                                    <td>DMS-South Korea</td>
-                                    <td>Test Document</td>
-                                    <td>2023-04-16 01:25:43</td>
-                                    <td>Shaleen Mishra</td>
-                                    <td>2023-04-16 01:25:43</td>
-                                    <td>Approved</td>
-                                    <td>
-                                        <div class="action-dropdown">
-                                            <div class="action-down-btn">Action <i class="fa-solid fa-angle-down"></i>
-                                            </div>
-                                            <div class="action-block">
-                                                <a href="#">View</a>
-                                                <a href="#">Edit</a>
-                                                <button type="submit">Delete</button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div> --}}
-
+                 </div>    
             </div>
         </div>
     </div>
@@ -1894,7 +739,82 @@
     <script>
         setInterval(updateTime, 1000);
     </script>
+  <script>
+                        
+    var options = {
+      series: [{
+      name: 'Servings',
+      data: [44, 55, 41, 67, 22, 43, 21, 33, 45, ]
+    }],
+      annotations: {
+      points: [{
+        x: 'Bananas',
+        seriesIndex: 0,
+        label: {
+          borderColor: '#775DD0',
+          offsetY: 0,
+          style: {
+            color: '#fff',
+            background: '#775DD0',
+          },
+          text: 'Bananas are good',
+        }
+      }]
+    },
+    chart: {
+      height: 310,
+      type: 'bar',
+    },
+    plotOptions: {
+      bar: {
+        borderRadius: 10,
+        columnWidth: '50%',
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      width: 0
+    },
+    grid: {
+      row: {
+        colors: ['#fff', '#f2f2f2']
+      }
+    },
+    xaxis: {
+      labels: {
+        rotate: -45
+      },
+      
+      categories: [ 'Ships Today', 'Supply or Die', 'Why Supply Stuff', 'Shadow Supplier', 'Supply Supplier', 'Supplier a Lot',
+        'Total Supply', 'Last Min Supply', 'Supply For Me'
+      ],
+      tickPlacement: 'on'
+    },
+    yaxis: {
+      title: {
+        text: 'Servings',
+      },
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shade: 'light',
+        type: "horizontal",
+        shadeIntensity: 0.25,
+        gradientToColors: undefined,
+        inverseColors: true,
+        opacityFrom: 0.85,
+        opacityTo: 0.85,
+        stops: [50, 0, 100]
+      },
+    }
+    };
 
+    var chart = new ApexCharts(document.querySelector("#chart-35"), options);
+    chart.render();
+ </script>
     <script>
         VirtualSelect.init({
             ele: '#cft, #edit_recipents'
@@ -1987,7 +907,9 @@ var options = {
           breakpoint: 480,
           options: {
             chart: {
-              width: 250
+              width: 100
+            //   height: 100
+
             },
             legend: {
               position: 'bottom'
@@ -2094,11 +1016,11 @@ var options = {
     //   ==============================================chart added 4 new
     var options = {
           series: [{
-          data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+          data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, ]
         }],
           chart: {
           type: 'bar',
-          height: 370
+          height: 300
         },
         plotOptions: {
           bar: {
@@ -2110,8 +1032,8 @@ var options = {
           enabled: false
         },
         xaxis: {
-          categories: ['Assigned', 'Completed', 'Unassigned', 'Not Completed', 'In Process', 'Document Obsoleted', 'Course Obsole',
-            'United States', 'China', 'Germany'
+          categories: ['Supply or Die','Ships Today', 'Shadow Supplier', 'Why Supply Stuff',   'Supplier a Lot',
+        'Total Supply', 'Last Min Supply', 'Supply For Me','Supply Supplier'
           ],
         }
         };
@@ -2127,7 +1049,7 @@ var options = {
             name: 'Actual',
             data: [
               {
-                x: '2011',
+                x: 'Why Supply Stuff',
                 y: 12,
                 goals: [
                   {
@@ -2140,7 +1062,7 @@ var options = {
                 ]
               },
               {
-                x: '2012',
+                x: 'Supply or Die',
                 y: 44,
                 goals: [
                   {
@@ -2153,7 +1075,7 @@ var options = {
                 ]
               },
               {
-                x: '2013',
+                x: 'Ships Today',
                 y: 54,
                 goals: [
                   {
@@ -2167,7 +1089,7 @@ var options = {
                 ]
               },
               {
-                x: '2014',
+                x: 'Shadow Supplier',
                 y: 66,
                 goals: [
                   {
@@ -2181,7 +1103,7 @@ var options = {
                 ]
               },
               {
-                x: '2015',
+                x: 'Supply Supplier',
                 y: 81,
                 goals: [
                   {
@@ -2195,8 +1117,47 @@ var options = {
                 ]
               },
               {
-                x: '2016',
+                x: 'Supplier a Lot',
                 y: 67,
+                goals: [
+                  {
+                    name: 'Expected',
+                    value: 70,
+                    strokeWidth: 5,
+                    strokeHeight: 10,
+                    strokeColor: '#775DD0'
+                  }
+                ]
+              },
+              {
+                x: 'Total Supply',
+                y: 50,
+                goals: [
+                  {
+                    name: 'Expected',
+                    value: 60,
+                    strokeWidth: 5,
+                    strokeHeight: 10,
+                    strokeColor: '#000'
+                  }
+                ]
+              },
+              {
+                x: 'Last Min Supply',
+                y: 59,
+                goals: [
+                  {
+                    name: 'Expected',
+                    value: 65,
+                    strokeWidth: 5,
+                    strokeHeight: 10,
+                    strokeColor: '#775DD0'
+                  }
+                ]
+              },
+              {
+                x: 'Supply For Me ',
+                y: 55,
                 goals: [
                   {
                     name: 'Expected',
@@ -3764,7 +2725,7 @@ var options = {
         var options18 = {
             series: [44, 55, 67],
             chart: {
-                height: 250,
+                height: 350,
                 type: 'radialBar',
             },
             plotOptions: {

@@ -668,7 +668,7 @@ header .header-bottom.bottom-pr-links {
 
 #dashboard .chart-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr ;
     gap: 15px;
 }
 

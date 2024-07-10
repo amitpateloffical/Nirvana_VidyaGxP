@@ -2113,7 +2113,7 @@
                                 </div>
                                 <div class="button-block">
 
-                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
+                                    <button style=" justify-content: center; width: 4rem; " type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                                         class="saveButton saveAuditFormBtn d-flex" style="align-items: center;"
                                         id="ChangesaveButton02">
                                         <div class="spinner-border spinner-border-sm auditFormSpinner"
@@ -2125,9 +2125,9 @@
                                     <!-- {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a> --}} -->
-                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                    <button style=" justify-content: center; width: 4rem; " type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                         class="nextButton" onclick="nextStep()">Next</button>
-                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
+                                    <button style=" justify-content: center; width: 4rem; " type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white"> Exit </a>
                                         </button>
                                         {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
@@ -3038,7 +3038,7 @@
                     @endif
 
                             <div class="button-block">
-                                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
+                                <button style=" justify-content: center; width: 4rem; " type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                                     id="ChangesaveButton03" class="saveAuditFormBtn d-flex" style="align-items: center;">
                                     <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                                         role="status">
@@ -3049,9 +3049,9 @@
                                 {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a> --}}
-                                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                <button style=" justify-content: center; width: 4rem; " type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                     class="nextButton" onclick="nextStep()">Next</button>
-                                <button  style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                <button  style=" justify-content: center; width: 4rem; " type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                         Exit </a> </button>
                                         {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                                         <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
@@ -8225,7 +8225,7 @@
 
                         </div>
                         <div class="button-block">
-                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
+                            <button style=" justify-content: center; width: 4rem; " type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                                 id="ChangesaveButton" class="saveButton saveAuditFormBtn d-flex"
                                 style="align-items: center;">
                                 <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
@@ -8234,9 +8234,9 @@
                                 </div>
                                 Save
                             </button>
-                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                            <button style=" justify-content: center; width: 4rem; " type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                 id="ChangeNextButton" class="nextButton">Next</button>
-                            <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                            <button style=" justify-content: center; width: 4rem; " type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                     Exit </a> </button>
                                     {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                                     <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
@@ -8856,8 +8856,8 @@
                                         </div>
                                         Save
                                     </button>
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    <button style=" justify-content: center; width: 4rem; " type="button" class="nextButton" onclick="nextStep()">Next</button>
+                    <button style=" justify-content: center; width: 4rem; " type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
                 </div>
             </div>
@@ -8928,11 +8928,11 @@
                                         Save
                                     </button>
 
-            <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+            <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; ">
                 <button type="button"  class="backButton">Back</button>
             </a>
             {{-- <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button> --}}
-            <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+            <button type="button" style=" justify-content: center; width: 4rem; "> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                     Exit </a> </button>
                    
         </div>
@@ -9004,11 +9004,11 @@
                                         </div>
                                         Save
                                     </button>
-            <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
+            <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; ">
                 <button type="button"  class="backButton">Back</button>
             </a>
             {{-- <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;" class="nextButton" onclick="nextStep()">Next</button> --}}
-            <button type="button" style=" justify-content: center; width: 4rem; margin-left: auto;"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+            <button type="button" style=" justify-content: center; width: 4rem; "> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                     Exit </a> </button>
                    
         </div>
@@ -9508,12 +9508,12 @@
                 </div>
 
                 <div class="button-block">
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton" {{ $data->stage == 9 ? 'disabled' : '' }}>Save</button>
+                    <button style=" justify-content: center; width: 4rem; " type="submit" class="saveButton" {{ $data->stage == 9 ? 'disabled' : '' }}>Save</button>
                     <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                         <button type="button" class="backButton">Back</button>
                     </a>
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    <button style=" justify-content: center; width: 4rem; " type="button" class="nextButton" onclick="nextStep()">Next</button>
+                    <button style=" justify-content: center; width: 4rem; " type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
                             {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
@@ -9832,8 +9832,8 @@
                         <button type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} class="backButton">Back</button>
                     </a>
 
-                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
-                <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                <button style=" justify-content: center; width: 4rem; " type="button" class="nextButton" onclick="nextStep()">Next</button>
+                <button style=" justify-content: center; width: 4rem; " type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                         Exit </a> </button>
                         {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                         <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
@@ -9998,7 +9998,7 @@
 
                 </div>
                 <div class="button-block">
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; " type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                         id="ChangesaveButton05" class="saveAuditFormBtn d-flex" style="align-items: center;">
                         <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                             role="status">
@@ -10009,9 +10009,9 @@
                     {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a> --}}
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; " type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                         class="nextButton" onclick="nextStep()">Next</button>
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    <button style=" justify-content: center; width: 4rem; " type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
 
                             {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
@@ -10090,7 +10090,7 @@
                     </div>
                                 <div class="button-block">
 
-                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
+                                    <button style=" justify-content: center; width: 4rem; " type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                                         class="saveButton saveAuditFormBtn d-flex" style="align-items: center;"
                                         id="ChangesaveButton123">
                                         <div class="spinner-border spinner-border-sm auditFormSpinner"
@@ -10099,9 +10099,9 @@
                                         </div>
                                         Save
                                     </button>
-                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                                    <button style=" justify-content: center; width: 4rem; " type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                                         class="nextButton" onclick="nextStep()">Next</button>
-                                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
+                                    <button style=" justify-content: center; width: 4rem; " type="button"> <a href="{{ url('rcms/qms-dashboard') }}"
                                             class="text-white"> Exit </a>
                                         </button>
                                 </div>
@@ -10222,7 +10222,7 @@
 
                 </div>
                 <div class="button-block">
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; " type="submit"{{ $data->stage == 0 ||  $data->stage == 11 ? 'disabled' : '' }}
                         id="ChangesaveButton06" class=" saveAuditFormBtn d-flex" style="align-items: center;">
                         <div class="spinner-border spinner-border-sm auditFormSpinner" style="display: none"
                             role="status">
@@ -10233,9 +10233,9 @@
                     {{-- <a href="/rcms/qms-dashboard">
                                         <button type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }} class="backButton">Back</button>
                                     </a> --}}
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
+                    <button style=" justify-content: center; width: 4rem; " type="button"{{ $data->stage == 0 || $data->stage == 11 ? 'disabled' : '' }}
                         class="nextButton" onclick="nextStep()">Next</button>
-                    <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                    <button style=" justify-content: center; width: 4rem; " type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                             Exit </a> </button>
                             {{-- @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                             <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
@@ -11006,12 +11006,12 @@
                     {{-- </div>
 
                     <div class="button-block">
-                        <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="submit" class="saveButton" {{ $data->stage == 9 ? 'disabled' : '' }}>Save</button>
+                        <button style=" justify-content: center; width: 4rem; " type="submit" class="saveButton" {{ $data->stage == 9 ? 'disabled' : '' }}>Save</button>
                         <a href="/rcms/qms-dashboard" style=" justify-content: center; width: 4rem; margin-left: auto;">
                             <button type="button" class="backButton">Back</button>
                         </a>
-                        <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button" class="nextButton" onclick="nextStep()">Next</button>
-                        <button style=" justify-content: center; width: 4rem; margin-left: auto;" type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                        <button style=" justify-content: center; width: 4rem; " type="button" class="nextButton" onclick="nextStep()">Next</button>
+                        <button style=" justify-content: center; width: 4rem; " type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
                                 Exit </a> </button>
                                 @if ($data->stage == 2 || $data->stage == 3 || $data->stage == 4 || $data->stage == 5 || $data->stage == 6 || $data->stage == 7 )
                                 <a style="  justify-content: center; width: 10rem; margin-left: auto;" type="button"
