@@ -414,8 +414,8 @@ class DashboardController extends Controller
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
             array_push($table, [
                 "id" => $data->id,
-                "parent" => $data->parent_record_number ? $data->parent_record_number : "-",
-                "record" => $data->record_number,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
                 "type" => "Resampling",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,

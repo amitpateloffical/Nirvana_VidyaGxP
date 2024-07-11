@@ -322,6 +322,60 @@
                                 </div>
                             </div>
 
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const removeButtons = document.querySelectorAll('.remove-file');
+
+                                    removeButtons.forEach(button => {
+                                        button.addEventListener('click', function () {
+                                            const fileName = this.getAttribute('data-file-name');
+                                            const fileContainer = this.closest('.file-container');
+
+                                            // Hide the file container
+                                            if (fileContainer) {
+                                                fileContainer.style.display = 'none';
+                                            }
+                                        });
+                                    });
+                                });
+
+                                function addMultipleFiles(input, id) {
+                                    const fileListContainer = document.getElementById(id);
+                                    const files = input.files;
+
+                                    for (let i = 0; i < files.length; i++) {
+                                        const file = files[i];
+                                        const fileName = file.name;
+                                        const fileContainer = document.createElement('h6');
+                                        fileContainer.classList.add('file-container', 'text-dark');
+                                        fileContainer.style.backgroundColor = 'rgb(243, 242, 240)';
+
+                                        const fileText = document.createElement('b');
+                                        fileText.textContent = fileName;
+
+                                        const viewLink = document.createElement('a');
+                                        viewLink.href = '#'; // You might need to adjust this to handle local previews
+                                        viewLink.target = '_blank';
+                                        viewLink.innerHTML = '<i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i>';
+
+                                        const removeLink = document.createElement('a');
+                                        removeLink.classList.add('remove-file');
+                                        removeLink.dataset.fileName = fileName;
+                                        removeLink.innerHTML = '<i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i>';
+                                        removeLink.addEventListener('click', function () {
+                                            fileContainer.style.display = 'none';
+                                        });
+
+                                        fileContainer.appendChild(fileText);
+                                        fileContainer.appendChild(viewLink);
+                                        fileContainer.appendChild(removeLink);
+
+                                        fileListContainer.appendChild(fileContainer);
+                                    }
+                                }
+                            </script>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="manufacturer">Manufacturer</label>
@@ -459,109 +513,109 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted by">Report Issued By</label>
+                                    <label for="submitted by">Report Issued By :</label>
                                     <div class="static">{{ $data->report_issued_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted on">Report Issued On</label>
+                                    <label for="submitted on">Report Issued On :</label>
                                     <div class="static">{{ $data->report_issued_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
-                                    <label for="submitted on">Report Issued Comment</label>
+                                    <label for="submitted on">Report Issued Comment :</label>
                                     <div class="static">{{ $data->report_issued_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted by">Approval received By</label>
+                                    <label for="submitted by">Approval received By :</label>
                                     <div class="static">{{ $data->approval_received_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted on">Approval received On</label>
+                                    <label for="submitted on">Approval received On :</label>
                                     <div class="static">{{ $data->approval_received_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
-                                    <label for="submitted on">Approval received Comment</label>
+                                    <label for="submitted on">Approval received Comment :</label>
                                     <div class="static">{{ $data->approval_received_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted by">All CAPA Clossed By</label>
+                                    <label for="submitted by">All CAPA Clossed By :</label>
                                     <div class="static">{{ $data->all_capa_closed_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted on">All CAPA Clossed On</label>
+                                    <label for="submitted on">All CAPA Clossed On :</label>
                                     <div class="static">{{ $data->all_capa_closed_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
-                                    <label for="submitted on">All CAPA Clossed Comment</label>
+                                    <label for="submitted on">All CAPA Clossed Comment :</label>
                                     <div class="static">{{ $data->all_capa_closed_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted by">Approve By</label>
+                                    <label for="submitted by">Approve By :</label>
                                     <div class="static">{{ $data->approve_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted on">Approve On</label>
+                                    <label for="submitted on">Approve On :</label>
                                     <div class="static">{{ $data->approve_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
-                                    <label for="submitted on">Approve Comment</label>
+                                    <label for="submitted on">Approve Comment :</label>
                                     <div class="static">{{ $data->approve_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted by">Reject By</label>
+                                    <label for="submitted by">Reject By :</label>
                                     <div class="static">{{ $data->reject_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted on">Reject On</label>
+                                    <label for="submitted on">Reject On :</label>
                                     <div class="static">{{ $data->reject_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
-                                    <label for="submitted on">Reject Comment</label>
+                                    <label for="submitted on">Reject Comment :</label>
                                     <div class="static">{{ $data->reject_comment }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted by">Cancel By</label>
+                                    <label for="submitted by">Cancel By :</label>
                                     <div class="static">{{ $data->cancelled_by }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="group-input">
-                                    <label for="submitted on">Cancel On</label>
+                                    <label for="submitted on">Cancel On :</label>
                                     <div class="static">{{ $data->cancelled_on }}</div>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="group-input">
-                                    <label for="submitted on">Cancel Comment</label>
+                                    <label for="submitted on">Cancel Comment :</label>
                                     <div class="static">{{ $data->cancelled_comment }}</div>
                                 </div>
                             </div>

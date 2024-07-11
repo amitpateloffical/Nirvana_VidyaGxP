@@ -491,7 +491,6 @@ class SupplierController extends Controller
               return redirect()->back();
          }
          
-        // $lastData =  Supplier::find($id);
         $supplier =  Supplier::find($id);
 
         $lastDocument = Supplier::find($id);

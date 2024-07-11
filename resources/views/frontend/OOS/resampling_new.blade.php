@@ -158,14 +158,6 @@
                                              disabled>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="short_description">Short Description<span
-                                                class="text-danger">*</span></label>
-                                        <div><small class="text-primary">Please mention brief summary</small></div>
-                                        <textarea name="short_description"></textarea>
-                                    </div>
-                                </div> --}}
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
@@ -241,16 +233,6 @@
                             <div class="sub-head">
                                 Hidden Field
                                </div>
-                            {{-- <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="Scheduled end date">Parent-TCD(hid)</label>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id="" name="parent_tcd_hid" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                    </div>
-                                </div>
-                            </div> --}}
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
@@ -308,17 +290,6 @@
                                     <input type="text" name="parent_product_material_name">
                                 </div>
                             </div>
-
-                            {{-- <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="Scheduled Start Date">(Parent)Target Closure Date</label>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id=""  name="parent_target_closure_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'end_date');checkDate('end_date_checkdate','end_date_checkdate')" />
-                                    </div>
-                                </div>
-                            </div> --}}
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
@@ -1299,15 +1270,6 @@ function addActionItemDetails(tableId) {
             });
         });
     </script>
- 
-    
-// 3
-        // 4
-
-
-        // 5
-    // 6
-
 <script>
     $(document).ready(function() {
             $('#check_detail ').click(function(e) {

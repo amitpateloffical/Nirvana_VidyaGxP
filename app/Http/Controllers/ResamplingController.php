@@ -672,8 +672,8 @@ class ResamplingController extends Controller
               return redirect()->back();
          }
 
-        //  $lastData =  Resampling::find($id);
-         $resampling = Resampling::find($id); 
+
+        $resampling = Resampling::find($id); 
 
         $lastDocument = Resampling::find($id);
         $lastdata = Resampling::find($id);
@@ -681,12 +681,12 @@ class ResamplingController extends Controller
         $lastDocumentStatus = $lastDocumentRecord ? $lastDocumentRecord->status : null;
 
         //  $resampling->form_type = "Resampling";
-        // $resampling->originator_id = Auth::user()->name;
         // $resampling->record = ((RecordNumber::first()->value('counter')) + 1);
-        // $resampling->initiator_id = Auth::user()->id;
-        // $resampling->division_id = $request->division_id;
-        // $resampling->division_code = $request->division_code;
-        // $resampling->intiation_date = $request->intiation_date;
+        $resampling->originator_id = Auth::user()->name;
+        $resampling->initiator_id = Auth::user()->id;
+        $resampling->division_id = $request->division_id;
+        $resampling->division_code = $request->division_code;
+        $resampling->intiation_date = $request->intiation_date;
         $resampling->assign_to = $request->assign_to;
         $resampling->due_date = $request->due_date;
         $resampling->initiator_Group = $request->initiator_Group;
@@ -837,11 +837,11 @@ class ResamplingController extends Controller
 
         if($lastDocument->assign_to !=$resampling->assign_to || !empty($request->comment)) {
             $lastDocumentAuditTrail = ResamplingAuditTrail::where('resampling_id', $resampling->id)
-                     ->where('activity_type', 'Assign To')
+                     ->where('activity_type', 'Assigned To')
                      ->exists();
             $history = new ResamplingAuditTrail();
             $history->resampling_id = $resampling->id;
-            $history->activity_type = 'Assign To';
+            $history->activity_type = 'Assigned To';
             $history->previous =  $lastDocument->assign_to;
             $history->current = $resampling->assign_to;
             $history->comment = $request->comment;
@@ -1509,7 +1509,6 @@ class ResamplingController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
-
 
         }else {
             toastr()->error('E-signature Not match');

@@ -163,22 +163,6 @@
                                         {{-- <div class="static">{{ date('d-M-Y') }}</div> --}}
                                     </div>
                                 </div>
-                                {{-- <div class="col-md-6">
-                                    <div class="group-input">
-                                        <label for="search">
-                                            Assigned To <span class="text-danger"></span>
-                                        </label>
-                                        <select id="select-state" placeholder="Select..." name="assign_to">
-                                            <option value="{{ $data->assign_to }}">Select a value</option>
-                                            @foreach ($users as $data)
-                                                <option value="{{ $data->id }}">{{ $data->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('assign_to')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div> --}}
 
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -206,11 +190,7 @@
                                             value="{{ \Carbon\Carbon::parse($due_date)->format('d-M-Y') }}" />
                                         <input type="hidden" name="due_date" id="due_date_input"
                                             value="{{ $due_date }}" />
-    
-                                        {{-- <input type="hidden" value="{{ $due_date }}" name="due_date">
-                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}"> --}}
-                                        {{-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                            value="" name="due_date"> --}}
+
                                     </div>
     
                                 </div>
@@ -224,8 +204,6 @@
                                                 Corporate Quality Assurance</option>
                                             <option value="QAB" @if ($data->initiator_Group == 'QAB') selected @endif>Quality
                                                 Assurance Biopharma</option>
-                                                {{-- <option value="QAB" @if (old('initiator_Group') == 'QAB') selected @endif>Quality
-                                                    Assurance Biopharma</option> --}}
                                             <option value="CQC" @if ($data->initiator_Group == 'CQA') selected @endif>Central
                                                 Quality Control</option>
                                             <option value="CQC" @if ($data->initiator_Group == 'MANU') selected @endif>
@@ -267,14 +245,6 @@
                                             value="{{$data->initiator_Group}}" disabled>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="group-input">
-                                        <label for="short_description">Short Description<span
-                                                class="text-danger">*</span></label>
-                                        <div><small class="text-primary">Please mention brief summary</small></div>
-                                        <textarea name="short_description"></textarea>
-                                    </div>
-                                </div> --}}
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
