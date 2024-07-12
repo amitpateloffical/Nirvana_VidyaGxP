@@ -540,6 +540,7 @@
                                                 '<td> <div class="new-date-data-field"><div class="group-input input-date"> <div class="calenderauditee"><input id="date_'+ serialNumber +'_date" type="text" name="financial_transection[' + serialNumber + '][info_date]" placeholder="DD-MM-YYYY" /> <input type="date" name="financial_transection[' + indexDetail + '][info_date]" min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" value="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" id="date_'+ indexDetail +'_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ indexDetail +'_date\')" /> </div> </div></div></td>' +
                                                 '<td><button type="button" class="removeRowBtn">Remove</button></td>' +
                                                 '</tr>';
+                                                
                                             return html;
                                         }
                                         var tableBody = $('#product_material_body tbody');

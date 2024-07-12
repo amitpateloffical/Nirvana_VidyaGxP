@@ -792,13 +792,13 @@ $users = DB::table('users')->get();
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Financial Transactions(0)
-                                    <button type="button" name="audit-agenda-grid" id="Financial_Transactions_country_sub_data" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>+</button>
+                                    <button type="button" name="financial_transection" id="Financial_Transactions_country_sub_data" {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}>+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Launch Instruction)
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Financial_Transactions_country_sub_data-field-instruction-modal">
+                                    <table class="table table-bordered" id="Financial_Transactions_table">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -870,6 +870,48 @@ $users = DB::table('users')->get();
                                         function generateTableRow(serialNumber) {
                                             var data = @json($grid_two);
                                             var html = '';
+                                            html += '<tr>' +
+                                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                                                '<td><input type="text" name="financial_transection[' + serialNumber + '][info_transaction]"></td>' +
+                                                '<td><input type="text" name="financial_transection[' + serialNumber + '][info_transaction_type]"></td>' +
+                                                '<td> <div class="new-date-data-field"><div class="group-input input-date"><div class="calenderauditee"><input class="click_date" id="date_'+ serialNumber +'_date" type="text" name="financial_transection[' + serialNumber + '][info_date]" placeholder="DD-MM-YYYY"/><input type="date" name="financial_transection[' + serialNumber + '][info_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_'+ serialNumber +'_date" class="hide-input show_date" style="position: absolute; top: 0; left: 0; opacity: 0;" oninput="handleDateInput(this, \'date_'+ serialNumber +'_date\')"/></div></div></div></td>' +
+                                                '<td><input type="number" name="financial_transection[' + serialNumber + '][info_amount]"></td>' +
+                                                '<td><input type="text" name="financial_transection[' + serialNumber + '][info_currency_used]"></td>' +
+                                                '<td><input type="text" name="financial_transection[' + serialNumber + '][info_comments]"></td>' +
+                                                '<td><input type="text" name="financial_transection[' + serialNumber + '][info_remarks]"></td>' +
+                                                '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
+                                                '</tr>';
+                                            for (var i = 0; i < data.length; i++) {
+                                                html += '<option value="' + data[i].id + '">' + data[i].name + '</option>';
+                                            }
+                        
+                                            html += '</select></td>' +
+                                                '</tr>';
+                        
+                                            return html;
+                                        }
+                        
+                                        var tableBody = $('#Financial_Transactions_table tbody');
+                                        var rowCount = tableBody.children('tr').length;
+                                        var newRow = generateTableRow(rowCount + 1);
+                                        tableBody.append(newRow);
+                                    });
+                                });
+                            </script>
+                        
+                            <script>
+                                $(document).on('click', '.removeRowBtn', function() {
+                                    $(this).closest('tr').remove();
+                                })
+                            </script>
+                        
+
+                            {{-- <script>
+                                $(document).ready(function() {
+                                    $('#Financial_Transactions_country_sub_data').click(function(e) {
+                                        function generateTableRow(serialNumber) {
+                                            var data = @json($grid_two);
+                                            var html = '';
                                             html +=
                                                 '<tr>' +
                                                 '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
@@ -886,13 +928,13 @@ $users = DB::table('users')->get();
                                             return html;
                                         }
                             
-                                        var tableBody = $('#Financial_Transactions_country_sub_data-field-instruction-modal tbody');
+                                        var tableBody = $('#Financial_Transactions_table tbody');
                                         var rowCount = tableBody.children('tr').length;
                                         var newRow = generateTableRow(rowCount + 1);
                                         tableBody.append(newRow);
                                     });
                                 });
-                            </script>
+                            </script> --}}
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
