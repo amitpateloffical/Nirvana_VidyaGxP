@@ -97,7 +97,7 @@ class SanctionController extends Controller
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
-                $validation2->comment = "Not Applicable";
+                // $validation2->comment = "Not Applicable";
                 $validation2->save();
             }
 
@@ -285,7 +285,11 @@ class SanctionController extends Controller
     public function sanctionEdit($id)
     {
         $sanction = Sanction::findOrFail($id);
-        return view('frontend.New_forms.sanction.sanctionUpdate', compact('sanction'));
+
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->addDays(30);
+        $due_date = $formattedDate->format('Y-m-d');
+        return view('frontend.New_forms.sanction.sanctionUpdate', compact('sanction', 'due_date'));
     }
 
     public function sanctionUpdate(Request $request, $id)
@@ -307,12 +311,12 @@ class SanctionController extends Controller
 
             $sanction->initiator_id = Auth::user()->id;
             $sanction->user_name = Auth::user()->name;
-            $sanction->initiator = $request->initiator;
-            $sanction->initiation_date = $request->initiation_date;
+            // $sanction->initiator = $request->initiator;
+            // $sanction->initiation_date = $request->initiation_date;
             $sanction->short_description = $request->short_description;
-            $sanction->originator = Auth::user()->name;
+            // $sanction->originator = Auth::user()->name;
             $sanction->assign_to = $request->assign_to;
-            $sanction->due_date = $request->due_date;
+            // $sanction->due_date = $request->due_date;
 
             $sanction->sanction_type = $request->sanction_type;
             $sanction->description = $request->description;
@@ -339,7 +343,7 @@ class SanctionController extends Controller
             //===========audit trails update===========//
 
 
-            if (!empty($request->short_description)) {
+            if ($lastDocument->short_description != $request->short_description) {
                 $validation2 = new SanctionAudit();
                 $validation2->sanction_id = $sanction->id;
                 $validation2->previous = "Null";
@@ -351,12 +355,15 @@ class SanctionController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
-                $validation2->comment = "Not Applicable";
+                if (is_null($lastDocument->short_description) || $lastDocument->short_description === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
-            if (!empty($request->originator)) {
+            if ($lastDocument->originator != $request->originator) {
                 $validation2 = new SanctionAudit();
                 $validation2->sanction_id = $sanction->id;
                 $validation2->activity_type = 'Originator';
@@ -369,11 +376,15 @@ class SanctionController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->originator) || $lastDocument->originator === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
-            if (!empty($request->assign_to)) {
+            if ($lastDocument->assign_to != $request->assign_to) {
                 $validation2 = new SanctionAudit();
                 $validation2->sanction_id = $sanction->id;
                 $validation2->activity_type = 'Assign To';
@@ -386,11 +397,15 @@ class SanctionController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->assign_to) || $lastDocument->assign_to === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
-            if (!empty($request->due_date)) {
+            if ($lastDocument->due_date != $request->due_date) {
                 $validation2 = new SanctionAudit();
                 $validation2->sanction_id = $sanction->id;
                 $validation2->activity_type = 'Due Date';
@@ -403,11 +418,15 @@ class SanctionController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->due_date) || $lastDocument->due_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
-            if (!empty($request->sanction_type)) {
+            if ($lastDocument->sanction_type != $request->sanction_type) {
                 $validation2 = new SanctionAudit();
                 $validation2->sanction_id = $sanction->id;
                 $validation2->activity_type = 'Type of Sanction';
@@ -419,8 +438,11 @@ class SanctionController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
-
+                if (is_null($lastDocument->sanction_type) || $lastDocument->sanction_type === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -442,7 +464,7 @@ class SanctionController extends Controller
             //     $validation2->save();
             // }
 
-            if (!empty($request->description)) {
+            if ($lastDocument->description != $request->description) {
                 $validation2 = new SanctionAudit();
                 $validation2->sanction_id = $sanction->id;
                 $validation2->activity_type = 'Description';
@@ -455,11 +477,15 @@ class SanctionController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->description) || $lastDocument->description === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
-            if (!empty($request->authority_type)) {
+            if ($lastDocument->authority_type != $request->authority_type) {
                 $validation2 = new SanctionAudit();
                 $validation2->sanction_id = $sanction->id;
                 $validation2->activity_type = 'Authority Type';
@@ -472,11 +498,15 @@ class SanctionController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->authority_type) || $lastDocument->authority_type === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
-            if (!empty($request->authority)) {
+            if ($lastDocument->authority != $request->authority) {
                 $validation2 = new SanctionAudit();
                 $validation2->sanction_id = $sanction->id;
                 $validation2->activity_type = 'Authority';
@@ -489,12 +519,16 @@ class SanctionController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->authority) || $lastDocument->authority === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
 
-            if (!empty($request->fine)) {
+            if ($lastDocument->fine != $request->fine) {
                 $validation2 = new SanctionAudit();
                 $validation2->sanction_id = $sanction->id;
                 $validation2->activity_type = 'Fine';
@@ -507,11 +541,15 @@ class SanctionController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->fine) || $lastDocument->fine === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
-            if (!empty($request->currency)) {
+            if ($lastDocument->currency != $request->currency) {
                 $validation2 = new SanctionAudit();
                 $validation2->sanction_id = $sanction->id;
                 $validation2->activity_type = 'Currency';
@@ -524,7 +562,11 @@ class SanctionController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->currency) || $lastDocument->currency === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -560,13 +602,14 @@ class SanctionController extends Controller
 
     public function audit_Sanction($id)
     {
+        $sanction = Sanction::find($id);
         $audit = SanctionAudit::where('sanction_id', $id)->orderByDESC('id')->paginate(15);
         // dd($audit);
         $today = Carbon::now()->format('d-m-y');
         $document = Sanction::where('id', $id)->first();
         $document->originator = User::where('id', $document->initiator_id)->value('name');
 
-        return view('frontend.New_forms.sanction.audit_sanction', compact('document', 'audit', 'today'));
+        return view('frontend.New_forms.sanction.audit_sanction', compact('document', 'audit', 'today', 'sanction'));
     }
 
     public function sanctionAuditTrialDetails($id)

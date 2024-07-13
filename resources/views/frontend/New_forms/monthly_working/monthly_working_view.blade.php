@@ -151,27 +151,25 @@ $users = DB::table('users')->get();
                     <div class="inner-block-content">
                         <div class="sub-head">
                             <!-- General Information -->
-                        </div> <!-- RECORD NUMBER -->
+                        </div>
 
 
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Originator</b></label>
-                                    <input disabled type="text" name="initiator" value="">
+                                    <input disabled type="text" name="initiator" value="{{ Auth::user()->name }}">
+                                    <input type="hidden" name="initiator" value="{{ Auth::user()->name }}">
+                                    <!-- <input disabled type="text" name="initiator" value="{{Auth::user()->name}}"> -->
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiation"><b>Date of Initiation</b></label>
-                                    @if(isset($monthly) && $monthly->initiation_date)
-                                    <input disabled type="text" value="{{ \Carbon\Carbon::parse($monthly->initiation_date)->format('d-M-Y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ $monthly->initiation_date }}" id="initiation_date" name="initiation_date">
-                                    @else
-                                    <input disabled type="text" value="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="initiation_date" name="initiation_date">
-                                    @endif
+
+                                    <input disabled type="text" value="{{ date('d-M-Y', strtotime($monthly->initiation_date )) }}" name="initiation_date">
+                                    <input type="hidden" value="{{ date('d-M-Y', strtotime($monthly->initiation_date )) }}" name="initiation_date">
                                 </div>
                             </div>
 
@@ -201,8 +199,8 @@ $users = DB::table('users')->get();
                                     <p class="text-primary"> last date this record should be closed by</p>
 
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" value="{{$monthly->due_date}}" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{$monthly->due_date}}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="hidden" value="{{$due_date}}" name="due_date">
+                                        <input disabled type="text" value="{{Helpers::getdateFormat($due_date)}}">
                                     </div>
                                 </div>
                             </div>
@@ -216,7 +214,7 @@ $users = DB::table('users')->get();
                                         <option value="assign_to">Select a value</option>
                                         @foreach ($users as $datas)
                                         @if(Helpers::checkUserRolesassign_to($datas))
-                                        <option value="{{ $datas->id }}" {{ $monthly->assign_to == $datas->id ? 'selected' : '' }}>
+                                        <option value="{{ $datas->name }}" {{ $monthly->assign_to == $datas->name ? 'selected' : '' }}>
                                             {{ $datas->name }}
                                         </option>
                                         @endif

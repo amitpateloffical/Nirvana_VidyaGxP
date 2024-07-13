@@ -206,8 +206,23 @@ $users = DB::table('users')->get();
                     <div class="inner-block-content">
                         <div class="sub-head">
                             Basic Information
-                        </div> <!-- RECORD NUMBER -->
+                        </div>
                         <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="RLS Record Number">Record Number</label>
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName($calibration->division_id) }}/NP/{{ Helpers::year($calibration->created_at) }}/{{ $calibration->record }}">
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description</label>
@@ -220,10 +235,9 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Opened</b></label>
                                     <p class="text-primary">When was this record opened?</p>
-                                    <!-- <input disabled type="date" name="division_code" value="">
-                                    <input type="hidden" name="initiation_date" value=""> -->
-                                    <input disabled type="text" value="{{ Carbon::parse($calibration->initiation_date)->format('d-m-y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ $calibration->initiation_date }}" id="initiation_date" name="initiation_date">
+
+                                    <input disabled type="text" value="{{ date('d-M-Y', strtotime($calibration->initiation_date )) }}" name="initiation_date">
+                                    <input type="hidden" value="{{ date('d-M-Y', strtotime($calibration->initiation_date )) }}" name="initiation_date">
                                 </div>
                             </div>
 
@@ -233,8 +247,8 @@ $users = DB::table('users')->get();
                                     <p class="text-primary"> last date this record should be closed by</p>
 
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{$calibration->due_date}}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+
+                                        <input readonly type="text" value="{{ Helpers::getdateFormat($calibration->due_date) }}" name="due_date">
                                     </div>
                                 </div>
                             </div>
@@ -249,7 +263,7 @@ $users = DB::table('users')->get();
                                         <option value="assign_to">Select a value</option>
                                         @foreach ($users as $datas)
                                         @if(Helpers::checkUserRolesassign_to($datas))
-                                        <option value="{{ $datas->id }}" {{ $calibration->assign_to == $datas->id ? 'selected' : '' }} {{-- @if ($data->assign_to == $datas->id) selected @endif --}}>
+                                        <option value="{{ $datas->name }}" {{ $calibration->assign_to == $datas->name ? 'selected' : '' }} {{-- @if ($data->assign_to == $datas->name) selected @endif --}}>
                                             {{ $datas->name }}
                                         </option>
                                         @endif
@@ -263,9 +277,8 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label class="mb-4" for="Originator"><b>Originator</b></label>
-
-                                    <input type="text" name="originator" value="{{$calibration->originator}}">
-
+                                    <input disabled type="text" name="originator" value="{{ Auth::user()->name }}">
+                                    <input type="hidden" name="originator" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
 

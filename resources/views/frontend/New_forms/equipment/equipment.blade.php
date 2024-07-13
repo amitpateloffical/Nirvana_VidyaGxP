@@ -11,7 +11,7 @@
 </style>
 
 @php
-    $users = DB::table('users')->get();
+$users = DB::table('users')->get();
 @endphp
 
 <script>
@@ -25,7 +25,11 @@
 
         // Format date to DD-MMM-YYYY
         function formatDateToDisplay(date) {
-            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            const options = {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            };
             return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
         }
 
@@ -81,26 +85,33 @@
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
+
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="Initiator" value="">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
-                            <div class="group-input">
-                                        <label for="RLS Record Number">Record Number</label>
-                                        <input disabled type="text" name="record"
-                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/EQUIPMENT/{{ date('Y') }}/{{ $record_number }}">
-                                    </div>
+                                <div class="group-input">
+                                    <label for="Initiator"><b>Initiator</b></label>
+                                    <input disabled type="text" name="Initiator" value="{{Auth::user()->name}}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="RLS Record Number">Record Number</label>
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/EQUIPMENT/{{ date('Y') }}/{{ $record_number }}">
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                    <!-- <input disabled type="date" name="Date_of_Initiation" value=""> -->
-                                    <!-- <input type="hidden" name="division_id" value=""> -->
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
+
+                                    <input disabled type="text" value="{{ date('Y-m-y') }}" id="initiation_date_display">
                                     <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
                                 </div>
                             </div>
@@ -134,19 +145,19 @@
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                <label for="search">
+                                    <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         @foreach ($users as $key => $value)
-                                            <option value="{{ $value->id }}">
-                                                {{ $value->name }}
-                                            </option>
+                                        <option value="{{ $value->name }}">
+                                            {{ $value->name }}
+                                        </option>
                                         @endforeach
                                     </select>
                                     @error('assigned_user_id')
-                                        <p class="text-danger">{{ $message }}</p>
+                                    <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
@@ -156,10 +167,8 @@
                                     <label for="due-date">Date Due</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <!-- <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" /> -->
-                                        <input type="text" id="assign_due_date_display" readonly placeholder="DD-MMM-YYYY">
-                                        <input type="hidden" name="assign_due_date" id="assign_due_date">
+                                        <input type="hidden" value="{{$due_date}}" name="assign_due_date">
+                                        <input disabled type="text" value="{{Helpers::getdateFormat($due_date)}}">
                                     </div>
                                 </div>
                             </div>

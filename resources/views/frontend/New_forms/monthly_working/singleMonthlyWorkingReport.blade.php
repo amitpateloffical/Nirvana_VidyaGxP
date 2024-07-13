@@ -156,12 +156,12 @@
 </style>
 
 <body>
- 
+
     <header>
         <table>
             <tr>
                 <td class="w-70 head">
-                   Monthly Working Single Report
+                    Monthly Working Single Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -176,7 +176,7 @@
                     <strong> Audit No.</strong>
                 </td>
                 <td class="w-40">
-                   {{ Helpers::divisionNameForQMS($data->division_id) }}/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
+                    {{ Helpers::divisionNameForQMS($data->division_id) }}/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
@@ -192,17 +192,17 @@
                     General Information
                 </div>
                 <table>
-                    <tr>  {{ $data->created_at }} added by {{ $data->originator }}
-                    <th class="w-20">Initiator</th>
+                    <tr> {{ $data->created_at }} added by {{ $data->originator }}
+                        <th class="w-20">Initiator</th>
                         <td class="w-30">{{ Helpers::getInitiatorName($data->initiator_id) }}</td>
                         <th class="w-20">Date of Initiation</th>
                         <td class="w-30">{{ Helpers::getdateFormat($data->initiation_date) }}</td>
                     </tr>
                     <tr>
                         <th class="w-20">Assign To </th>
-                        <td class="w-30">  @if($data->assign_to){{ \Helpers::getInitiatorGroupFullName($data->assign_to) }} @else Not Applicable @endif</td>
+                        <td class="w-30"> @if($data->assign_to){{$data->assign_to}} @else Not Applicable @endif</td>
                         <th class="w-20">Date Due</th>
-                        <td class="w-30">@if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
+                        <td class="w-30">@if($data->due_date){{ \Carbon\Carbon::parse($data->due_date )->format('d-M-Y') }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <!-- <th class="w-20">Site/Location Code</th>
@@ -220,7 +220,7 @@
                         <th class="w-20">Country</th>
                         <td class="w-30">@if($data->country){{ $data->country }} @else Not Applicable @endif</td>
                         <th class="w-20">State</th>
-                        <td class="w-30">@if($data->state){{ $data->state }}@else Not Applicable @endif</td>                       
+                        <td class="w-30">@if($data->state){{ $data->state }}@else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">City</th>
@@ -296,28 +296,28 @@
                         <th class="w-20">Items Attachment</th>
                         <td class="w-30">@if($data->items_attachment){{ $data->items_attachment }}@else Not Applicable @endif</td>
                     </tr> -->
-      
-                    
-    
-                    </table>
-                </div>
-            </div>    
-           
-    <footer>
-        <table>
-            <tr>
-                <td class="w-30">
-                    <strong>Printed On :</strong> {{ date('d-M-Y') }}
-                </td>
-                <td class="w-40">
-                    <strong>Printed By :</strong> {{ Auth::user()->name }}
-                </td>
-                {{-- <td class="w-30">
+
+
+
+                </table>
+            </div>
+        </div>
+
+        <footer>
+            <table>
+                <tr>
+                    <td class="w-30">
+                        <strong>Printed On :</strong> {{ date('d-M-Y') }}
+                    </td>
+                    <td class="w-40">
+                        <strong>Printed By :</strong> {{ Auth::user()->name }}
+                    </td>
+                    {{-- <td class="w-30">
                     <strong>Page :</strong> 1 of 1
                 </td> --}}
-            </tr>
-        </table>
-    </footer>
+                </tr>
+            </table>
+        </footer>
 
 </body>
 

@@ -56,6 +56,8 @@ class CalibrationController extends Controller
             $calibration->initiator_id = Auth::user()->id;
             $calibration->user_name = Auth::user()->name;
             $calibration->initiation_date = $request->initiation_date;
+            $calibration->division_id = $request->division_id;
+            $calibration->divison_code = $request->divison_code;
             $calibration->short_description = $request->short_description;
             $calibration->originator = $request->originator;
             $calibration->assign_to = $request->assign_to;
@@ -81,7 +83,6 @@ class CalibrationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-                // dd($validation2->validation_id);
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
@@ -98,7 +99,6 @@ class CalibrationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
@@ -306,7 +306,11 @@ class CalibrationController extends Controller
     public function calibrationEdit($id)
     {
         $calibration = Calibration::findOrFail($id);
-        return view('frontend.New_forms.calibration.calibration_view', compact('calibration'));
+
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->addDays(30);
+        $due_date = $formattedDate->format('Y-m-d');
+        return view('frontend.New_forms.calibration.calibration_view', compact('calibration', 'due_date'));
     }
 
     public function calibrationUpdate(Request $request, $id)
@@ -317,20 +321,12 @@ class CalibrationController extends Controller
         }
 
         try {
-            // $recordCounter = RecordNumber::first();
-            // $newRecordNumber = $recordCounter->counter + 1;
-
-            // $recordCounter->counter = $newRecordNumber;
-            // $recordCounter->save();
-
-
             $calibration = Calibration::findOrFail($id);
 
             $lastDocument = Calibration::findOrFail($id);
 
             $calibration->parent_id = $request->parent_id;
             $calibration->parent_type = $request->parent_type;
-            // $calibration->record = $newRecordNumber;
 
             $calibration->initiator_id = Auth::user()->id;
             $calibration->user_name = Auth::user()->name;
@@ -363,7 +359,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->short_description) || $lastDocument->short_description === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
 
                 $validation2->save();
             }
@@ -372,8 +372,8 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Date Of Opened';
-                $validation2->previous = $lastDocument->initiation_date;
-                $validation2->current = $request->initiation_date;
+                $validation2->previous = \Carbon\Carbon::parse($lastDocument->initiation_date)->format('d-M-Y');
+                $validation2->current = \Carbon\Carbon::parse($request->initiation_date)->format('d-M-Y');
                 $validation2->comment = "Not Applicable";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -382,7 +382,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->initiation_date) || $lastDocument->initiation_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -400,7 +404,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->assign_to) || $lastDocument->assign_to === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -408,8 +416,8 @@ class CalibrationController extends Controller
                 $validation2 = new CalibrationAudit();
                 $validation2->calibration_id = $calibration->id;
                 $validation2->activity_type = 'Due Date';
-                $validation2->previous = $lastDocument->due_date;
-                $validation2->current = $request->due_date;
+                $validation2->previous = \Carbon\Carbon::parse($lastDocument->due_date)->format('d-M-Y');
+                $validation2->current = \Carbon\Carbon::parse($request->due_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -418,7 +426,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->due_date) || $lastDocument->due_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
 
                 $validation2->save();
             }
@@ -436,7 +448,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->originator) || $lastDocument->originator === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
 
                 $validation2->save();
             }
@@ -455,8 +471,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
-
+                if (is_null($lastDocument->device_condition_m) || $lastDocument->device_condition_m === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -474,7 +493,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->replace_parts_m) || $lastDocument->replace_parts_m === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -492,7 +515,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->calibration_rating_m) || $lastDocument->calibration_rating_m === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -510,7 +537,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable ";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->update_software_m) || $lastDocument->update_software_m === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -529,7 +560,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->replace_betteries_m) || $lastDocument->replace_betteries_m === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -546,7 +581,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->description) || $lastDocument->description === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -563,7 +602,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->parent_equipment_name_m) || $lastDocument->parent_equipment_name_m === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -580,7 +623,11 @@ class CalibrationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->parent_equipment_type_m) || $lastDocument->parent_equipment_type_m === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -750,14 +797,14 @@ class CalibrationController extends Controller
 
     public function auditCalibration($id)
     {
+        $calibration = Calibration::find($id);
         $audit = CalibrationAudit::where('calibration_id', $id)->orderByDESC('id')->paginate();
-        // dd($audit);
+
         $today = Carbon::now()->format('d-m-y');
         $document = Calibration::where('id', $id)->first();
         $document->originator = User::where('id', $document->initiator_id)->value('name');
-        // dd($document);
 
-        return view('frontend.new_forms.calibration.auditCalibration', compact('document', 'audit', 'today'));
+        return view('frontend.new_forms.calibration.auditCalibration', compact('document', 'audit', 'today', 'calibration'));
     }
 
     public function CalibrationAuditTrialDetails($id)

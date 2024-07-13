@@ -161,11 +161,11 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                   Calibration Single Report
+                    Calibration Single Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
-                        <img src="https://development.vidyagxp.com/public/user/images/logo.png" alt="" class="w-100">
+                        <img src="https://navin.mydemosoftware.com/public/user/images/logo.png" alt="" class="w-100">
                     </div>
                 </td>
             </tr>
@@ -176,7 +176,7 @@
                     <strong> Audit No.</strong>
                 </td>
                 <td class="w-40">
-                   {{ Helpers::divisionNameForQMS($data->division_id) }}/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
+                    {{ Helpers::divisionNameForQMS($data->division_id) }}/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
@@ -192,17 +192,17 @@
                     General Information
                 </div>
                 <table>
-                    <tr>  {{ $data->created_at }} added by {{ $data->originator }}
-                    <th class="w-20">Initiator</th>
+                    <tr> {{ $data->created_at }} added by {{ $data->originator }}
+                        <th class="w-20">Initiator</th>
                         <td class="w-30">{{ Helpers::getInitiatorName($data->initiator_id) }}</td>
                         <th class="w-20">Date of Initiation</th>
                         <td class="w-30">{{ Helpers::getdateFormat($data->initiation_date) }}</td>
                     </tr>
                     <tr>
                         <th class="w-20">Assign To </th>
-                        <td class="w-30">  @if($data->assign_to){{ \Helpers::getInitiatorGroupFullName($data->assign_to) }} @else Not Applicable @endif</td>
+                        <td class="w-30"> @if($data->assign_to){{$data->assign_to}} @else Not Applicable @endif</td>
                         <th class="w-20">Date Due</th>
-                        <td class="w-30">@if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
+                        <td class="w-30">@if($data->due_date){{\Carbon\Carbon::parse($data->due_date)->format('d-M-Y')}} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">Site/Location Code</th>
@@ -220,7 +220,7 @@
                         <th class="w-20">Replace Parts?_M</th>
                         <td class="w-30">@if($data->replace_parts_m){{ $data->replace_parts_m }} @else Not Applicable @endif</td>
                         <th class="w-20">Calibration Rating_M</th>
-                        <td class="w-30">@if($data->calibration_rating_m){{ $data->calibration_rating_m }}@else Not Applicable @endif</td>                       
+                        <td class="w-30">@if($data->calibration_rating_m){{ $data->calibration_rating_m }}@else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">Update Software?_M</th>
@@ -296,11 +296,11 @@
                         <th class="w-20">Items Attachment</th>
                         <td class="w-30">@if($data->items_attachment){{ $data->items_attachment }}@else Not Applicable @endif</td>
                     </tr> -->
-        
 
-                </table>            
-    
-            <div class="block">
+
+                </table>
+
+                <div class="block">
                     <div class="block-head">
                         <!-- Test Results -->
                     </div>
@@ -339,12 +339,12 @@
                             <th class="w-30">Results Attachment</th>
                             <td class="w-20">@if($data->result_attachment){{ $data->result_attachment }}@else Not Applicable @endif</td>
                         </tr> -->
-                    </table>   
-                       
-                             
+                    </table>
+
+
                 </div>
             </div>
- 
+
             <!-- <div class="block">
                 <div class="block-head">
                     QA Initial Review
@@ -2076,7 +2076,7 @@
 
             <div class="block">
                 <div class="block-head">
-                Signatures
+                    Signatures
                 </div>
                 <table>
                     <tr>
@@ -2133,7 +2133,7 @@
                 </table>
             </div>
         </div>
-    
+
     </div>
 
     <footer>

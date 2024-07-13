@@ -41,7 +41,11 @@
 </style>
 
 @php
-    $users = DB::table('users')->get();
+$users = DB::table('users')->get();
+@endphp
+
+@php
+use Carbon\Carbon;
 @endphp
 
 <script>
@@ -55,7 +59,11 @@
 
         // Format date to DD-MMM-YYYY
         function formatDateToDisplay(date) {
-            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            const options = {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric'
+            };
             return date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
         }
 
@@ -95,7 +103,7 @@
     <div class="container-fluid">
 
 
-    <div class="inner-block state-block">
+        <div class="inner-block state-block">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="main-head">Record Workflow </div>
 
@@ -116,10 +124,10 @@
                     </button>
                     @elseif($equipment->stage == 2 && (in_array(4, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                       Supervisor Approval 
+                        Supervisor Approval
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target=" #cancel-modal">
-                       More Information Required
+                        More Information Required
 
                     </button>
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
@@ -127,7 +135,7 @@
                             </button> -->
                     @elseif($equipment->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                       Complete Validation
+                        Complete Validation
 
                     </button>
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
@@ -139,10 +147,10 @@
                     (in_array(5, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
 
                     <button class="button_theme1" data-bs-toggle="modal" name="test_not_required" data-bs-target="#signature-modal">
-                       QA Approval
+                        QA Approval
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                       Re-Validation
+                        Re-Validation
                     </button>
                     <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Deviation Occurred
@@ -166,13 +174,13 @@
                                     </button>  -->
                     @elseif($equipment->stage == 6 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                       Forward to Storage
+                        Forward to Storage
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" name="re_active_not" data-bs-target="#cancel-modal">
-                       Re-Activate
-                    </button> 
+                        Re-Activate
+                    </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                       Re-Validation
+                        Re-Validation
                     </button>
 
                     @elseif($equipment->stage == 7 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
@@ -195,7 +203,7 @@
 
                     @endif
                     <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
-                    </a> </button>
+                        </a> </button>
                 </div>
             </div>
 
@@ -225,13 +233,13 @@
                     @else
                     <div class="">Pending Validation</div>
                     @endif
-               
+
                     @if ($equipment->stage >= 4)
                     <div class="active">Pending QA Approval</div>
                     @else
                     <div class="">Pending QA Approval</div>
                     @endif
-                
+
 
                     @if ($equipment->stage >= 5)
                     <div class="active">Approved Equipment</div>
@@ -263,7 +271,7 @@
                 @endif
                 {{-- ---------------------------------------------------------------------------------------- --}}
             </div>
-        </div> 
+        </div>
 
 
 
@@ -285,26 +293,33 @@
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
+
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="Initiator" value="">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
-                            <div class="group-input">
-                                        <label for="RLS Record Number">Record Number</label>
-                                        <input disabled type="text" name="record" value="{{ Helpers::getDivisionName($equipment->division_id) }}/EQUIPMENT/{{ Helpers::year($equipment->created_at) }}/{{ $equipment->record }}">
-                                    </div>
+                                <div class="group-input">
+                                    <label for="Initiator"><b>Initiator</b></label>
+                                    <input disabled type="text" name="Initiator" value="{{Auth::user()->name}}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="RLS Record Number">Record Number</label>
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName($equipment->division) }}/EQUIPMENT/{{ Helpers::year($equipment->created_at) }}/{{ $equipment->record }}">
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                    <!-- <input disabled type="date" name="Date_of_Initiation" value=""> -->
-                                    <!-- <input type="hidden" name="division_id" value=""> -->
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
+                                    <input disabled type="text" value="{{ Carbon::parse($equipment->initiation_date)->format('d-M-Y') }}" name="initiation_date">
+                                    <input type="hidden" value="{{ date('Y-m-d', strtotime($equipment->initiation_date)) }}" name="initiation_date">
                                 </div>
                             </div>
 
@@ -337,21 +352,22 @@
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                <label for="search">
+                                    <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
-                                            <option value="assign_to">Select a value</option>
-                                            @foreach ($users as $datas)
-                                                        @if(Helpers::checkUserRolesassign_to($datas))
-                                                            <option value="{{ $datas->id }}"
-                                                                {{ $equipment->assign_to == $datas->id ? 'selected' : '' }}>
-                                                                {{ $datas->name }}
-                                                            </option>
-                                                        @endif    
-                                            @endforeach
+                                        <option value="assign_to">Select a value</option>
+                                        @foreach ($users as $datas)
+                                        @if(Helpers::checkUserRolesassign_to($datas))
+                                        <option value="{{ $datas->name }}" {{ $equipment->assign_to == $datas->name ? 'selected' : '' }}>
+                                            {{ $datas->name }}
+                                        </option>
+                                        @endif
+                                        @endforeach
                                     </select>
-                                     
+
+
+
                                 </div>
                             </div>
 
@@ -360,10 +376,9 @@
                                     <label for="due-date">Date Due</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <!-- <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" /> -->
-                                        <input type="text" id="assign_due_date_display" readonly placeholder="DD-MMM-YYYY">
-                                        <input type="hidden" name="assign_due_date" id="assign_due_date">
+                                        <input type="hidden" value="{{$due_date}}" name="assign_due_date">
+                                        <input disabled type="text" value="{{Helpers::getdateFormat($equipment->assign_due_date)}}">
+
                                     </div>
                                 </div>
                             </div>
@@ -413,7 +428,7 @@
                                         <option value="3" @if ($equipment->room==3) select @endif>3</option>
                                         <option value="4" @if ($equipment->room==4) select @endif>4</option>
                                         <option value="5" @if ($equipment->room==5) select @endif>5</option>
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -428,7 +443,7 @@
                                     <div class="file-attachment-field">
                                         <div class="file-attachment-list" id="file_attachment">
 
-                                        @if ($equipment->file_attachment)
+                                            @if ($equipment->file_attachment)
                                             @foreach(json_decode($equipment->file_attachment) as $file)
                                             <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
                                                 <b>{{ $file }}</b>
@@ -450,13 +465,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="description">Description</label>
-                                    <textarea name="description"  id="" cols="30" rows="3">{{$equipment->description}}</textarea>
+                                    <textarea name="description" id="" cols="30" rows="3">{{$equipment->description}}</textarea>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="comments">Comments</label>
-                                    <textarea name="comments" id=""  cols="30" rows="3">{{$equipment->comments}}</textarea>
+                                    <textarea name="comments" id="" cols="30" rows="3">{{$equipment->comments}}</textarea>
                                 </div>
                             </div>
 
@@ -503,7 +518,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Next_PM_Date">Next PM Date</label>
-                                    <input type="date" name="next_pm_date" id="" value="{{$equipment->next_pm_date}}">
+                                    <input type="date" name="next_pm_date" id="next_pm_date" value="{{ Carbon::parse($equipment->next_pm_date)->format('d-M-Y') }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -648,7 +663,7 @@
 
 
 
-        
+
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">E-Signature</h4>
@@ -937,12 +952,12 @@
                     <div class="group-input">
                         @if ($equipment->stage == 5)
                         <label style="display: flex;" for="major">
-                            <input  type="radio" name="child_type" id="major" value="pm">
+                            <input type="radio" name="child_type" id="major" value="pm">
                             Preventive Maintenance
                         </label>
 
                         <label style="display: flex;" for="major">
-                            <input  type="radio" name="child_type" id="major" value="calibration">
+                            <input type="radio" name="child_type" id="major" value="calibration">
                             Calibration
                         </label>
 

@@ -470,8 +470,8 @@ class DashboardController extends Controller
         // return $table;
         // $paginatedData = json_encode($table);
 
-      //  $datag = $this->paginate($table);
-      $datag = $this->paginate($table);
+        //  $datag = $this->paginate($table);
+        $datag = $this->paginate($table);
         //   $paginatedData = json_encode($datag);
 
         return view('frontend.rcms.dashboard', compact('datag'));
@@ -801,8 +801,6 @@ class DashboardController extends Controller
                     ]
                 );
             }
-
-            
         } else {
             return redirect(url('rcms/qms-dashboard'));
         }
@@ -854,17 +852,16 @@ class DashboardController extends Controller
             $audit = "actionitemAuditReport/" . $data->id;
         } elseif ($type == "Extension") {
             $data = Extension::find($id);
-            $single = "extensionSingleReport/" .$data->id;
-            $audit = "extensionAuditReport/" .$data->id;
-
+            $single = "extensionSingleReport/" . $data->id;
+            $audit = "extensionAuditReport/" . $data->id;
         } elseif ($type == "Observation") {
             $data = Observation::find($id);
             $single = "#";
-            $audit = "ObservationAuditTrialShow/" .$data->id;
+            $audit = "ObservationAuditTrialShow/" . $data->id;
         } elseif ($type == "Effectiveness-Check") {
             $data = EffectivenessCheck::find($id);
-            $single = "effectiveSingleReport/" .$data->id;
-            $audit = "effectiveAuditReport/" .$data->id;
+            $single = "effectiveSingleReport/" . $data->id;
+            $audit = "effectiveAuditReport/" . $data->id;
         } elseif ($type == "Management-Review") {
             $data = ManagementReview::find($id);
             $single = "managementReview/" . $data->id;
@@ -875,44 +872,39 @@ class DashboardController extends Controller
             $audit = "rootAuditReport/" . $data->id;
         } elseif ($type == "Deviation") {
             $data = Deviation::find($id);
-            $single = "deviationSingleReport/". $data->id;
+            $single = "deviationSingleReport/" . $data->id;
             $audit = "#";
-            $parent="deviationparentchildReport/". $data->id;
+            $parent = "deviationparentchildReport/" . $data->id;
         } elseif ($type == "Validation") {
             $data = Validation::find($id);
-            $single = "validationSingleReport/". $data->id;
-            $audit = "audit_validationPdf/". $data->id;
-            $parent="validationparentchildReport/". $data->id;
-        }
-        elseif ($type == "Equipment") {
+            $single = "validationSingleReport/" . $data->id;
+            $audit = "audit_validationPdf/" . $data->id;
+            $parent = "validationparentchildReport/" . $data->id;
+        } elseif ($type == "Equipment") {
             $data = Equipment::find($id);
-            $single = "equipmentSingleReport/". $data->id;
-            $audit = "audit_pdf/". $data->id;
-            $parent="equipmentparentchildReport/". $data->id;
-        }
-        elseif ($type == "Calibration") {
+            $single = "equipmentSingleReport/" . $data->id;
+            $audit = "audit_pdf/" . $data->id;
+            $parent = "equipmentparentchildReport/" . $data->id;
+        } elseif ($type == "Calibration") {
             $data = Calibration::find($id);
-            $single = "calibrationSingleReport/". $data->id;
-            $audit = "audit/". $data->id;
-            $parent="calibrationparentchildReport/". $data->id;
-        }
-        elseif ($type == "National Approval") {
+            $single = "calibrationSingleReport/" . $data->id;
+            $audit = "calibration_audit/" . $data->id;
+            $parent = "calibrationparentchildReport/" . $data->id;
+        } elseif ($type == "National Approval") {
             $data = NationalApproval::find($id);
-            $single = "national_approvalSingleReport/". $data->id;
-            $audit = "np_audit/". $data->id;
-            $parent="calibrationparentchildReport/". $data->id;
-        }     
-        elseif ($type == "Sanction") {
+            $single = "national_approvalSingleReport/" . $data->id;
+            $audit = "np_audit/" . $data->id;
+            $parent = "calibrationparentchildReport/" . $data->id;
+        } elseif ($type == "Sanction") {
             $data = Sanction::find($id);
-            $single = "sanctionSingleReport/". $data->id;
-            $audit = "audit/". $data->id;
-            $parent="sanctionparentchildReport/". $data->id;
-        }
-        elseif ($type == "MonthlyWorking") {
+            $single = "sanctionSingleReport/" . $data->id;
+            $audit = "sanction_audit/" . $data->id;
+            $parent = "sanctionparentchildReport/" . $data->id;
+        } elseif ($type == "MonthlyWorking") {
             $data = MonthlyWorking::find($id);
-            $single = "monthlySingleReport/". $data->id;
-            $audit = "audit/". $data->id;
-            $parent="monthlyparentchildReport/". $data->id;
+            $single = "monthlySingleReport/" . $data->id;
+            $audit = "monthly_audit/" . $data->id;
+            $parent = "monthlyparentchildReport/" . $data->id;
         }
 
 

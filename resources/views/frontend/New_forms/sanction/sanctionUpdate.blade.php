@@ -151,19 +151,17 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
 
                                     <label for="Originator"><b>Originator</b></label>
-                                    <input disabled type="text" name="originator" value="">
+                                    <input disabled type="text" name="originator" value="{{ Auth::user()->name }}">
+                                    <input type="hidden" name="originator" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="opened-date">Date Opened<span class="text-danger"></span></label>
                                     <div class="calenderauditee">
-                                        <!-- <input type="text"  id="initiation_date" placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="initiation_date"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value=""
-                                            class="hide-input"
-                                            oninput="handleDateInput(this, 'initiation_date')"/> -->
-                                        <input disabled type="text" value="{{ $sanction->intiation_date }}" id="initiation_date_display">
-                                        <input type="hidden" value="{{ $sanction->intiation_date }}" id="intiation_date" name="initiation_date">
+                                        <input disabled type="text" value="{{ date('d-M-Y', strtotime($sanction->initiation_date)) }}" name="initiation_date">
+                                        <input type="hidden" value="{{ date('d-M-Y', strtotime($sanction->initiation_date)) }}" name="initiation_date">
+
                                     </div>
                                 </div>
                             </div>
@@ -191,7 +189,7 @@ $users = DB::table('users')->get();
                                         <option value="assign_to">Select a value</option>
                                         @foreach ($users as $datas)
                                         @if(Helpers::checkUserRolesassign_to($datas))
-                                        <option value="{{ $datas->id }}" {{ $sanction->assign_to == $datas->id ? 'selected' : '' }}>
+                                        <option value="{{ $datas->name }}" {{ $sanction->assign_to == $datas->name ? 'selected' : '' }}>
                                             {{ $datas->name }}
                                         </option>
                                         @endif
@@ -202,10 +200,11 @@ $users = DB::table('users')->get();
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Due Date <span class="text-danger"></span></label>
-                                    <div><small class="text-primary text-danger">6 Last date this sanction should be closed by</small></div>
+                                    <div><small class="text-primary text-danger">date this sanction should be closed by</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{$sanction->due_date}}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+
+                                        <input type="hidden" value="{{$due_date}}" name="due_date">
+                                        <input disabled type="text" value="{{Helpers::getdateFormat($sanction->due_date)}}">
                                     </div>
                                 </div>
                             </div>

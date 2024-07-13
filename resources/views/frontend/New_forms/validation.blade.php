@@ -148,8 +148,16 @@ $users = DB::table('users')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
                                     <label for="Originator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="validation" value="">
+                                    <input disabled type="text" name="validation" value="{{Auth::user()->name}}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -183,7 +191,7 @@ $users = DB::table('users')->get();
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         @foreach ($users as $key => $value)
-                                        <option value="{{ $value->id }}">
+                                        <option value="{{ $value->name }}">
                                             {{ $value->name }}
                                         </option>
                                         @endforeach

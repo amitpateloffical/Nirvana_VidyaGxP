@@ -53,6 +53,8 @@ class DemoValidationController extends Controller
             $validation->stage = '1';
             $validation->status = 'Opened';
             $validation->parent_id = $request->parent_id;
+            $validation->division_id = $request->division_id;
+            $validation->divison_code = $request->divison_code;
             $validation->parent_type = $request->parent_type;
             $validation->record = $newRecordNumber;
             $validation->initiator_id = Auth::user()->id;
@@ -195,7 +197,7 @@ class DemoValidationController extends Controller
                 $validation2->validation_id = $validation->id;
                 $validation2->activity_type = 'Intiation Date';
                 $validation2->previous = "Null";
-                $validation2->current = $request->intiation_date;
+                $validation2->current = \Carbon\Carbon::parse($request->intiation_date)->format('d-M-Y');
                 $validation2->comment = "Not Applicable";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -229,12 +231,11 @@ class DemoValidationController extends Controller
                 $validation2->validation_id = $validation->id;
                 $validation2->activity_type = ' Assign Due Date';
                 $validation2->previous = "Null";
-                $validation2->current = $request->assign_due_date;
+                $validation2->current = \Carbon\Carbon::parse($request->assign_due_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
@@ -264,7 +265,7 @@ class DemoValidationController extends Controller
                 $validation2->validation_id = $validation->id;
                 $validation2->activity_type = 'Validation Due Date';
                 $validation2->previous = "Null";
-                $validation2->current = $request->validation_due_date;
+                $validation2->current = \Carbon\Carbon::parse($request->validation_due_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -390,7 +391,6 @@ class DemoValidationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
@@ -407,7 +407,6 @@ class DemoValidationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
@@ -424,7 +423,6 @@ class DemoValidationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
@@ -441,7 +439,6 @@ class DemoValidationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
@@ -458,7 +455,6 @@ class DemoValidationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
@@ -476,7 +472,6 @@ class DemoValidationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
@@ -499,8 +494,11 @@ class DemoValidationController extends Controller
         $packagingDetails = ValidationGrid::where('validation_id', $id)->where('identifier', 'details')->first();
 
         $details = $packagingDetails ? json_decode($packagingDetails->data, true) : [];
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->addDays(30);
+        $due_date = $formattedDate->format('Y-m-d');
 
-        return view('frontend.new_forms.updateValidation', compact('validation', 'details'));
+        return view('frontend.new_forms.updateValidation', compact('validation', 'details', 'due_date'));
     }
 
     public function validationUpdate(Request $request, $id)
@@ -519,7 +517,6 @@ class DemoValidationController extends Controller
             $validations =  Validation::findOrFail($id);
             $lastDocument =  Validation::findOrFail($id);
 
-            // General Information
 
             $validations->intiation_date = $request->intiation_date;
             $validations->short_description = $request->input('short_description');
@@ -538,7 +535,6 @@ class DemoValidationController extends Controller
             $validations->file_attechment = $request->file_attechment;
 
 
-            //file attachment
             if (!empty($request->file_attechment)) {
                 $files = [];
                 if ($request->hasfile('file_attechment')) {
@@ -551,15 +547,12 @@ class DemoValidationController extends Controller
                 $validations->file_attechment = json_encode($files);
             }
 
-            // Tests Required Section
             $validations->tests_required = $request->input('tests_required');
             $validations->reference_document = $request->input('reference_document');
             $validations->reference_link = $request->input('reference_link');
             $validations->additional_references = $request->input('additional_references');
 
 
-
-            // Attachments
             if (!empty($request->items_attachment)) {
                 $files = [];
                 if ($request->hasfile('items_attachment')) {
@@ -573,8 +566,6 @@ class DemoValidationController extends Controller
             }
 
 
-
-            // Document Decision
             $validations->data_successfully_closed = $request->input('data_successfully_closed');
             $validations->document_summary = $request->input('document_summary');
             $validations->document_comments = $request->input('document_comments');
@@ -601,12 +592,11 @@ class DemoValidationController extends Controller
             $validations->update();
 
             $validation_id = $validations->id;
-            $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'details'])->firstOrCreate();
-            $newDataGridErrata->validation_id = $validation_id;
-            $newDataGridErrata->identifier = 'details';
-            $newDataGridErrata->data = $request->details;
-            $newDataGridErrata->save();
-
+            $newDataGrid = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'details'])->firstOrCreate();
+            $newDataGrid->validation_id = $validation_id;
+            $newDataGrid->identifier = 'details';
+            $newDataGrid->data = $request->details;
+            $newDataGrid->save();
 
             if ($lastDocument->short_description != $request->short_description) {
                 $validation2 = new ValidationAudit();
@@ -620,8 +610,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
-
+                if (is_null($lastDocument->short_description) || $lastDocument->short_description === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -629,8 +622,8 @@ class DemoValidationController extends Controller
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Intiation Date';
-                $validation2->previous = $lastDocument->intiation_date;
-                $validation2->current = $request->intiation_date;
+                $validation2->previous = \Carbon\Carbon::parse($lastDocument->intiation_date)->format('d-M-Y');
+                $validation2->current = \Carbon\Carbon::parse($request->intiation_date)->format('d-M-Y');
                 $validation2->comment = "Not Applicable";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -639,7 +632,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->intiation_date) || $lastDocument->intiation_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -655,7 +652,11 @@ class DemoValidationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->assign_to) || $lastDocument->assign_to === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -663,15 +664,19 @@ class DemoValidationController extends Controller
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = ' Assign Due Date';
-                $validation2->previous = $lastDocument->assign_due_date;
-                $validation2->current = $request->assign_due_date;
+                $validation2->previous = \Carbon\Carbon::parse($lastDocument->assign_due_date)->format('d-M-Y');
+                $validation2->current = \Carbon\Carbon::parse($request->assign_due_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->assign_due_date) || $lastDocument->assign_due_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
 
                 $validation2->save();
             }
@@ -689,7 +694,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->validation_type) || $lastDocument->validation_type === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
 
                 $validation2->save();
             }
@@ -698,8 +707,8 @@ class DemoValidationController extends Controller
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
                 $validation2->activity_type = 'Validation Due Date';
-                $validation2->previous = $lastDocument->validation_due_date;
-                $validation2->current = $request->validation_due_date;
+                $validation2->previous = \Carbon\Carbon::parse($lastDocument->validation_due_date)->format('d-M-Y');
+                $validation2->current = \Carbon\Carbon::parse($request->validation_due_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -707,7 +716,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->validation_due_date) || $lastDocument->validation_due_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
 
                 $validation2->save();
             }
@@ -725,7 +738,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->notify_type) || $lastDocument->notify_type === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -742,7 +759,12 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+
+                if (is_null($lastDocument->phase_type) || $lastDocument->phase_type === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -759,7 +781,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->document_reason_type) || $lastDocument->document_reason_type === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -777,7 +803,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->purpose) || $lastDocument->purpose === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -794,7 +824,12 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+
+                if (is_null($lastDocument->validation_category) || $lastDocument->validation_category === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -811,7 +846,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->validation_sub_category) || $lastDocument->validation_sub_category === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -828,7 +867,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->file_attechment) || $lastDocument->file_attechment === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -845,7 +888,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->related_record) || $lastDocument->related_record === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -862,7 +909,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->document_link) || $lastDocument->document_link === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -879,7 +930,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->tests_required) || $lastDocument->tests_required === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -896,7 +951,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->reference_document) || $lastDocument->reference_document === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -913,7 +972,11 @@ class DemoValidationController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->reference_link) || $lastDocument->reference_link === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 

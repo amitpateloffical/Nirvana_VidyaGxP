@@ -314,7 +314,8 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Originator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="validation" value="{{ $validation->validation }}">
+                                    <input disabled type="text" name="validation" value="{{ Auth::user()->name }}">
+                                    <input type="hidden" name="validation" value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
 
@@ -349,7 +350,7 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="search">
                                         Assigned To <span class="text-danger"></span>
@@ -368,15 +369,31 @@ $users = DB::table('users')->get();
                                     <p class="text-danger">{{ $message }}</p>
                                     @enderror
                                 </div>
+                            </div> -->
+
+                            <div class="col-md-6">
+                                <div class="group-input">
+                                    <label for="search">
+                                        Assigned To <span class="text-danger"></span>
+                                    </label>
+                                    <select id="select-state" placeholder="Select..." name="assign_to">
+                                        <option value="assign_to">Select a value</option>
+                                        @foreach ($users as $datas)
+                                        @if(Helpers::checkUserRolesassign_to($datas))
+                                        <option value="{{ $datas->name }}" {{ $validation->assign_to == $datas->name ? 'selected' : '' }}>
+                                            {{ $datas->name }}
+                                        </option>
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <div class="calenderauditee">
-
-                                        <input type="text" id="assign_due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ \Helpers::getdateFormat($validation->assign_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'assign_due_date')" />
+                                        <input readonly type="text" value="{{ Helpers::getdateFormat($validation->assign_due_date) }}" name="assign_due_date">
                                     </div>
                                 </div>
                             </div>

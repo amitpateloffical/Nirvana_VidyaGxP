@@ -54,6 +54,8 @@ class NationalApprovalController extends Controller
 
             $national->initiator_id = Auth::user()->id;
             $national->user_name = Auth::user()->name;
+            $national->division_id = $request->division_id;
+            $national->divison_code = $request->divison_code;
             $national->manufacturer = $request->manufacturer;
             $national->trade_name = $request->trade_name;
             $national->initiator = $request->initiator;
@@ -155,7 +157,7 @@ class NationalApprovalController extends Controller
                 $validation2->nationalApproval_id = $national->id;
                 $validation2->activity_type = 'Initiation Date';
                 $validation2->previous = "Null";
-                $validation2->current = $request->initiation_date;
+                $validation2->current = \Carbon\Carbon::parse($request->initiation_date)->format('d-M-Y');
                 $validation2->comment = "Not Applicable";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -189,7 +191,7 @@ class NationalApprovalController extends Controller
                 $validation2->nationalApproval_id = $national->id;
                 $validation2->activity_type = 'Due Date';
                 $validation2->previous = "Null";
-                $validation2->current = $request->due_date;
+                $validation2->current = \Carbon\Carbon::parse($request->due_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -224,7 +226,7 @@ class NationalApprovalController extends Controller
                 $validation2->nationalApproval_id = $national->id;
                 $validation2->activity_type = 'Planned Subnission Date';
                 $validation2->previous = "Null";
-                $validation2->current = $request->planned_subnission_date;
+                $validation2->current = \Carbon\Carbon::parse($request->planned_subnission_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -396,7 +398,7 @@ class NationalApprovalController extends Controller
                 $validation2->nationalApproval_id = $national->id;
                 $validation2->activity_type = 'Expiration Date';
                 $validation2->previous = "Null";
-                $validation2->current = $request->expiration_date;
+                $validation2->current = \Carbon\Carbon::parse($request->expiration_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -426,7 +428,10 @@ class NationalApprovalController extends Controller
         $details = $packagingDetails ? json_decode($packagingDetails->data, true) : [];
         // $national->formatted_initiation_date = Carbon::parse($national->initiation_date)->format('d-m-y');
 
-        return view('frontend.New_forms.national-approval.np_update', compact('national', 'details'));
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->addDays(30);
+        $due_date = $formattedDate->format('Y-m-d');
+        return view('frontend.New_forms.national-approval.np_update', compact('national', 'details', 'due_date'));
     }
 
     public function npUpdate(Request $request, $id)
@@ -453,7 +458,7 @@ class NationalApprovalController extends Controller
             $national1->manufacturer = $request->manufacturer;
             $national1->trade_name = $request->trade_name;
             $national1->initiator = $request->initiator;
-            $national1->initiation_date = $request->initiation_date;
+            // $national1->initiation_date = $request->initiation_date;
             $national1->short_description = $request->short_description;
             $national1->originator = $request->originator;
             $national1->assign_to = $request->assign_to;
@@ -507,11 +512,15 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->manufacture) || $lastDocument->manufacture === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
-            if ($lastDocument->manufacturer != $request->manufacture) {
+            if ($lastDocument->trade_name != $request->trade_name) {
                 $validation2 = new NationalApprovalAudit();
                 $validation2->nationalApproval_id = $national1->id;
                 $validation2->activity_type = '(Root Parent) Trade Name';
@@ -524,11 +533,15 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->manufacture) || $lastDocument->manufacture === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
-            if ($lastDocument->trade_name != $request->trade_name) {
+            if ($lastDocument->short_description != $request->short_description) {
                 $validation2 = new NationalApprovalAudit();
                 $validation2->nationalApproval_id = $national1->id;
                 $validation2->previous = $lastDocument->short_description;
@@ -540,7 +553,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->short_description) || $lastDocument->short_description === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->comment = "Not Applicable";
                 $validation2->save();
             }
@@ -549,8 +566,8 @@ class NationalApprovalController extends Controller
                 $validation2 = new NationalApprovalAudit();
                 $validation2->nationalApproval_id = $national1->id;
                 $validation2->activity_type = 'Initiation Date';
-                $validation2->previous = $lastDocument->initiation_date;
-                $validation2->current = $request->initiation_date;
+                $validation2->previous = \Carbon\Carbon::parse($lastDocument->initiation_date)->format('d-M-Y');
+                $validation2->current = \Carbon\Carbon::parse($request->initiation_date)->format('d-M-Y');
                 $validation2->comment = "Not Applicable";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -558,7 +575,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->initiation_date) || $lastDocument->initiation_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -575,7 +596,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->assign_to) || $lastDocument->assign_to === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -583,8 +608,8 @@ class NationalApprovalController extends Controller
                 $validation2 = new NationalApprovalAudit();
                 $validation2->nationalApproval_id = $national1->id;
                 $validation2->activity_type = 'Due Date';
-                $validation2->previous = $lastDocument->due_date;
-                $validation2->current = $request->due_date;
+                $validation2->previous = \Carbon\Carbon::parse($lastDocument->due_date)->format('d-M-Y');
+                $validation2->current = \Carbon\Carbon::parse($request->due_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -592,8 +617,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
-
+                if (is_null($lastDocument->due_date) || $lastDocument->due_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -609,8 +637,11 @@ class NationalApprovalController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
-
+                if (is_null($lastDocument->procedure_type) || $lastDocument->procedure_type === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -618,8 +649,8 @@ class NationalApprovalController extends Controller
                 $validation2 = new NationalApprovalAudit();
                 $validation2->nationalApproval_id = $national1->id;
                 $validation2->activity_type = 'Planned Subnission Date';
-                $validation2->previous = $lastDocument->planned_subnission_date;
-                $validation2->current = $request->planned_subnission_date;
+                $validation2->previous = \Carbon\Carbon::parse($lastDocument->planned_subnission_date)->parse('d-M-Y');
+                $validation2->current = \Carbon\Carbon::parse($request->planned_subnission_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -627,8 +658,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
-
+                if (is_null($lastDocument->planned_subnission_date) || $lastDocument->planned_subnission_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -645,7 +679,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->member_state) || $lastDocument->member_state === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
             if ($lastDocument->local_trade_name != $request->local_trade_name) {
@@ -661,7 +699,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->local_trade_name) || $lastDocument->local_trade_name === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -678,7 +720,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->registration_number) || $lastDocument->registration_number === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -696,7 +742,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->renewal_rule) || $lastDocument->renewal_rule === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -713,7 +763,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->dossier_parts) || $lastDocument->dossier_parts === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -730,7 +784,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->related_dossier_documents) || $lastDocument->related_dossier_documents === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -747,7 +805,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->pack_size) || $lastDocument->pack_size === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -764,7 +826,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->shelf_life) || $lastDocument->shelf_life === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -781,7 +847,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->psup_cycle) || $lastDocument->psup_cycle === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -789,8 +859,8 @@ class NationalApprovalController extends Controller
                 $validation2 = new NationalApprovalAudit();
                 $validation2->nationalApproval_id = $national1->id;
                 $validation2->activity_type = 'Expiration Date';
-                $validation2->previous = $lastDocument->expiration_date;
-                $validation2->current = $request->expiration_date;
+                $validation2->previous = \Carbon\Carbon::parse($lastDocument->expiration_date)->format('d-M-Y');
+                $validation2->current = \Carbon\Carbon::parse($request->expiration_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -798,7 +868,11 @@ class NationalApprovalController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->expiration_date) || $lastDocument->expiration_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
             toastr()->success("National Approval is Update Successfully");
@@ -809,7 +883,7 @@ class NationalApprovalController extends Controller
         }
     }
 
-    public function nationalApproval_send_stage(Request $request, $id)
+    public  function nationalApproval_send_stage(Request $request, $id)
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $equipment = NationalApproval::find($id);
@@ -825,10 +899,10 @@ class NationalApprovalController extends Controller
                 $equipment->status = "Authority Assessment";
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
-                $equipment->submit_comment = $request->comment;
+                // $equipment->comment = $request->comment;
 
                 $validation2 = new NationalApprovalAudit();
-                $validation2->national_id = $id;
+                $validation2->nationalApproval_id = $id;
                 $validation2->activity_type = 'Activity Log';
                 $validation2->current = $equipment->submit_by;
                 $validation2->comment = $request->comment;
@@ -836,7 +910,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action = 'submit';
+                $validation2->action = 'Send Translation';
                 $validation2->change_to = "Authority Assessment";
                 $validation2->stage = 'Submited';
                 $validation2->save();
@@ -852,10 +926,10 @@ class NationalApprovalController extends Controller
 
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
-                $equipment->submit_comment = $request->comment;
+                // $equipment->comment = $request->comment;
 
                 $validation2 = new NationalApprovalAudit();
-                $validation2->national_id = $id;
+                $validation2->nationalApproval_id = $id;
                 $validation2->activity_type = 'Activity Log';
                 $validation2->current = $equipment->submit_by;
                 $validation2->comment = $request->comment;
@@ -863,7 +937,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action = 'submit';
+                $validation2->action = 'Approval Received';
                 $validation2->change_to = "Approved";
                 $validation2->stage = 'Submited';
                 $validation2->save();
@@ -879,10 +953,10 @@ class NationalApprovalController extends Controller
 
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
-                $equipment->submit_comment = $request->comment;
+                // $equipment->comment = $request->comment;
 
                 $validation2 = new NationalApprovalAudit();
-                $validation2->national_id = $id;
+                $validation2->nationalApproval_id = $id;
                 $validation2->activity_type = 'Activity Log';
                 $validation2->current = $equipment->submit_by;
                 $validation2->comment = $request->comment;
@@ -890,7 +964,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action = 'submit';
+                $validation2->action = 'Update Done';
                 $validation2->change_to = "Approved";
                 $validation2->stage = 'Submited';
                 $validation2->save();
@@ -907,10 +981,10 @@ class NationalApprovalController extends Controller
 
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
-                $equipment->submit_comment = $request->comment;
+                // $equipment->comment = $request->comment;
 
                 $validation2 = new NationalApprovalAudit();
-                $validation2->national_id = $id;
+                $validation2->nationalApproval_id = $id;
                 $validation2->activity_type = 'Activity Log';
                 $validation2->current = $equipment->submit_by;
                 $validation2->comment = $request->comment;
@@ -918,7 +992,7 @@ class NationalApprovalController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action = 'submit';
+                $validation2->action = 'Add Updates';
                 $validation2->change_to = "Update Ongoing";
                 $validation2->stage = 'Submited';
                 $validation2->save();
@@ -966,10 +1040,29 @@ class NationalApprovalController extends Controller
 
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $equipment = NationalApproval::find($id);
+            $lastDocument = NationalApproval::find($id);
 
             if ($equipment->stage == 1) {
                 $equipment->stage = "0";
                 $equipment->status = "Closed-Cancelled";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Cancel';
+                $validation2->change_to = "Closed-Cancelled";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -978,6 +1071,25 @@ class NationalApprovalController extends Controller
             if ($equipment->stage == 2) {
                 $equipment->stage = "6";
                 $equipment->status = "Closed - Not Approved ";
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Cancel';
+                $validation2->change_to = "Closed - Not Approved";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
+
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -1029,6 +1141,7 @@ class NationalApprovalController extends Controller
 
     public function audit_NationalApproval($id)
     {
+        $national = NationalApproval::findOrFail($id);
         $audit = NationalApprovalAudit::where('nationalApproval_id', $id)->orderByDESC('id')->paginate();
         // dd($audit);
         $today = Carbon::now()->format('d-m-y');
@@ -1036,7 +1149,7 @@ class NationalApprovalController extends Controller
         $document->originator = User::where('id', $document->initiator_id)->value('name');
         // dd($document);
 
-        return view('frontend.New_forms.national-approval.auditNationalApproval', compact('document', 'audit', 'today'));
+        return view('frontend.New_forms.national-approval.auditNationalApproval', compact('document', 'audit', 'today', 'national'));
     }
 
     public function nationalAuditTrialDetails($id)

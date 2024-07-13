@@ -56,6 +56,21 @@ $users = DB::table('users')->get();
                             <div class="sub-head">
                                 General Information
                             </div>
+
+                            <!-- <div class="col-lg-4">
+                                <div class="group-input">
+                                    <label for="Division Code">Site/Location Code</label>
+                                    <div class="static">Divition Name Auto Select</div>
+                                </div>
+                            </div> -->
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                </div>
+                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Manufacturer">(Root Parent) Manufacturer</label>
@@ -71,7 +86,7 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="initiator" value="">
+                                    <input disabled type="text" name="initiator" value="{{Auth::user()->name}}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -96,7 +111,7 @@ $users = DB::table('users')->get();
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         @foreach ($users as $key => $value)
-                                        <option value="{{ $value->id }}">
+                                        <option value="{{ $value->name }}">
                                             {{ $value->name }}
                                         </option>
                                         @endforeach
@@ -112,8 +127,8 @@ $users = DB::table('users')->get();
                                     <label for="due-date">Date Due</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="hidden" value="{{$due_date}}" name="due_date">
+                                        <input disabled type="text" value="{{Helpers::getdateFormat($due_date)}}">
                                     </div>
                                 </div>
                             </div>

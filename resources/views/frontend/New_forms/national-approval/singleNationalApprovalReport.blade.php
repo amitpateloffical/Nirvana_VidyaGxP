@@ -161,7 +161,7 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                   National-Approval Single Report
+                    National-Approval Single Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -176,7 +176,7 @@
                     <strong> Audit No.</strong>
                 </td>
                 <td class="w-40">
-                   {{ Helpers::divisionNameForQMS($data->division_id) }}/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
+                    {{ Helpers::getDivisionName(session()->get('division'))}}/{{ Helpers::year($data->created_at)}}/{{str_pad($data->record, 4, '0', STR_PAD_LEFT)}}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
@@ -192,23 +192,23 @@
                     General Information
                 </div>
                 <table>
-                    <tr>  {{ $data->created_at }} added by {{ $data->originator }}
-                    <th class="w-20">Initiator</th>
+                    <tr> {{ $data->created_at }} added by {{ $data->originator }}
+                        <th class="w-20">Initiator</th>
                         <td class="w-30">{{ Helpers::getInitiatorName($data->initiator_id) }}</td>
                         <th class="w-20">Date of Initiation</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->initiation_date) }}</td>
+                        <td class="w-50">{{ Helpers::getdateFormat($data->initiation_date) }}</td>
                     </tr>
                     <tr>
                         <th class="w-20">Assign To </th>
-                        <td class="w-30">  @if($data->assign_to){{ \Helpers::getInitiatorGroupFullName($data->assign_to) }} @else Not Applicable @endif</td>
+                        <td class="w-30"> @if($data->assign_to){{$data->assign_to}} @else Not Applicable @endif</td>
                         <th class="w-20">Date Due</th>
-                        <td class="w-30">@if($data->due_date){{ $data->due_date }} @else Not Applicable @endif</td>
+                        <td class="w-30">@if($data->due_date){{ \Carbon\Carbon::parse($data->due_date)->format('d-M-Y')}} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <!-- <th class="w-20">Site/Location Code</th>
                         <td class="w-30">@if($data->division_code){{ $data->division_code }} @else Not Applicable @endif</td> -->
                         <th class="w-20">Short Description</th>
-                        <td class="w-30">@if($data->short_description){{ $data->short_description }} @else Not Applicable @endif</td>
+                        <td class="w-100">@if($data->short_description){{ $data->short_description }} @else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">(Root Parent) Manufacturer</th>
@@ -220,7 +220,7 @@
                         <th class="w-20">(Parent) Procedure Type</th>
                         <td class="w-30">@if($data->procedure_type){{ $data->procedure_type }} @else Not Applicable @endif</td>
                         <th class="w-20">Planned Subnission Date</th>
-                        <td class="w-30">@if($data->planned_subnission_date){{ $data->planned_subnission_date }}@else Not Applicable @endif</td>                       
+                        <td class="w-30">@if($data->planned_subnission_date){{ \Carbon\Carbon::parse($data->planned_subnission_date)->format('d-M-Y')}}@else Not Applicable @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">Member State</th>
@@ -236,11 +236,13 @@
                     </tr>
                     <tr>
                         <th class="w-20">Dossier Parts</th>
-                        <td class="w-30">@if($data->dossier_parts){{ $data->dossier_parts }}@else Not Applicable @endif</td>
+                        <td class="w-100">@if($data->dossier_parts){{ $data->dossier_parts }}@else Not Applicable @endif</td>
+
+                    </tr>
+                    <tr>
                         <th class="w-20">Related Dossier Documents</th>
                         <td class="w-30">@if($data->related_dossier_documents){{ $data->related_dossier_documents }}@else Not Applicable @endif</td>
                     </tr>
-
                     <tr>
                         <th class="w-20">Pack Size</th>
                         <td class="w-30">@if($data->pack_size){{ $data->pack_size }}@else Not Applicable @endif</td>
@@ -296,16 +298,16 @@
                         <th class="w-20">Items Attachment</th>
                         <td class="w-30">@if($data->items_attachment){{ $data->items_attachment }}@else Not Applicable @endif</td>
                     </tr> -->
-        
 
-                </table>            
-    
-            <div class="block">
+
+                </table>
+
+                <div class="block">
                     <div class="block-head">
                         Approval Plan
                     </div>
                     <table>
-                       <tr>
+                        <tr>
                             <th class="w-30">Approval Status</th>
                             <td class="w-20">@if($data->approval_status){{ $data->approval_status }}@else Not Applicable @endif</td>
                         </tr>
@@ -317,45 +319,45 @@
 
                         <tr>
                             <th class="w-30">Planned Submission Date</th>
-                            <td class="w-20">@if($data->planned_submission_date){{ $data->planned_submission_date }}@else Not Applicable @endif</td>
+                            <td class="w-20">@if($data->planned_submission_date){{ \Carbon\Carbon::parse($data->planned_submission_date)->format('d-M-Y') }}@else Not Applicable @endif</td>
                         </tr>
 
                         <tr>
                             <th class="w-30">Planned Approval Date</th>
-                            <td class="w-20">@if($data->planned_approval_date){{ $data->planned_approval_date }}@else Not Applicable @endif</td>
+                            <td class="w-20">@if($data->planned_approval_date){{ \Carbon\Carbon::parse($data->planned_approval_date)->format('d-M-Y') }}@else Not Applicable @endif</td>
                         </tr>
 
                         <tr>
                             <th class="w-30">Actual Approval Date</th>
-                            <td class="w-20">@if($data->actual_approval_date){{ $data->actual_approval_date }}@else Not Applicable @endif</td>
+                            <td class="w-20">@if($data->actual_approval_date){{ \Carbon\Carbon::parse($data->actual_approval_date)->format('d-M-Y') }}@else Not Applicable @endif</td>
                         </tr>
 
                         <tr>
                             <th class="w-30">Actual Withdrawn Date</th>
-                            <td class="w-20">@if($data->actual_withdrawn_date){{ $data->actual_withdrawn_date }}@else Not Applicable @endif</td>
+                            <td class="w-20">@if($data->actual_withdrawn_date){{ \Carbon\Carbon::parse($data->actual_withdrawn_date)->format('d-M-Y') }}@else Not Applicable @endif</td>
                         </tr>
 
                         <tr>
                             <th class="w-30">Actual Rejection Date</th>
-                            <td class="w-20">@if($data->actual_rejection_date){{ $data->actual_rejection_date }}@else Not Applicable @endif</td>
+                            <td class="w-20">@if($data->actual_rejection_date){{ \Carbon\Carbon::parse($data->actual_rejection_date)->format('d-M-Y') }}@else Not Applicable @endif</td>
                         </tr>
 
                         <tr>
                             <th class="w-30">Comments</th>
                             <td class="w-20">@if($data->comments){{ $data->comments }}@else Not Applicable @endif</td>
                         </tr>
-                    </table>   
-                       
-                             
+                    </table>
+
+
                 </div>
             </div>
- 
+
             <div class="block">
-            <div class="block-head">
-                        Approval Plan
-                    </div>
+                <div class="block-head">
+                    Approval Plan
+                </div>
                 <table>
-                   
+
                     <!-- <tr>
                         <th class="w-20">Initial Deviation category</th>
                         <td class="w-30">@if($data->Deviation_category){{ ($data->Deviation_category) }}@else Not Applicable @endif</td>
@@ -382,14 +384,14 @@
                     </tr> -->
 
                 </table>
-            </div>    
-            
+            </div>
+
             <div class="border-table">
                 <!-- <div class="block-head">
                     QA Initial Attachments
                 </div> -->
                 <table>
-<!-- 
+                    <!-- 
                     <tr class="table_bg">
                         <th class="w-20">S.N.</th>
                         <th class="w-60">Batch No</th>
@@ -421,9 +423,9 @@
                         <!-- <div class="block-head">
                             Production
                         </div> -->
-                     <table>
+                        <table>
 
-                                <!-- <tr>
+                            <!-- <tr>
                             
                                     <th class="w-20">Production Review Required ?
                                     </th>
@@ -471,31 +473,31 @@
                                         </div>
                                     </td>
                                 </tr>                                -->
-                    </table>
-                 </div>  
-                 
-            
-         
-            <div class="block">
-                <!-- <div class="block-head">
+                        </table>
+                    </div>
+
+
+
+                    <div class="block">
+                        <!-- <div class="block-head">
                     QAH/Designee Approval
                 </div> -->
-                <table>
+                        <table>
 
-                        <!-- <tr>
+                            <!-- <tr>
                         <th class="w-20">Closure Comments</th>
                         <td class="w-30">@if($data->Closure_Comments){{ $data->Closure_Comments }}@else Not Applicable @endif</td>
                         <th class="w-20">Disposition of Batch</th>
                         <td class="w-30">@if($data->Disposition_Batch){{ $data->Disposition_Batch }}@else Not Applicable @endif</td>
                          -->
-                    </table>
-                </div>
-                <div class="border-table">
-                    <!-- <div class="block-head">
+                        </table>
+                    </div>
+                    <div class="border-table">
+                        <!-- <div class="block-head">
                         Closure Attachments
                     </div> -->
-                    <table>
-            <!-- 
+                        <table>
+                            <!-- 
                         <tr class="table_bg">
                             <th class="w-20">S.N.</th> 
                             <th class="w-60">File </th>
@@ -514,11 +516,11 @@
                         </tr>
                         @endif -->
 
-                    </table>
+                        </table>
+                    </div>
                 </div>
-            </div>  
-        </div>          
-                
+            </div>
+
 
             <div class="block">
                 <!-- <div class="block-head">
@@ -579,7 +581,7 @@
                 </table>
             </div>
         </div>
-    
+
     </div>
 
     <footer>

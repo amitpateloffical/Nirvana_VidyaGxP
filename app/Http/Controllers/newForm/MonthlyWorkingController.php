@@ -28,6 +28,7 @@ class MonthlyWorkingController extends Controller
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
+
         return view('frontend.New_forms.monthly_working.monthly_working', compact('record_number', 'currentDate', 'formattedDate', 'due_date'));
     }
 
@@ -69,6 +70,7 @@ class MonthlyWorkingController extends Controller
             $monthly->hours_of_contractors = $request->hours_of_contractors;
             $monthly->save();
 
+
             //===========audit trails ===========//
             if (!empty($request->short_description)) {
                 $validation2 = new MonthlyWorkingAudit();
@@ -83,7 +85,6 @@ class MonthlyWorkingController extends Controller
                 $validation2->change_to =   "Opened";
                 $validation2->change_from = "'Initiation";
                 $validation2->action_name = 'Create';
-                $validation2->comment = "Not Applicable";
                 $validation2->save();
             }
 
@@ -92,7 +93,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->monthlyworking_id = $monthly->id;
                 $validation2->activity_type = 'Date of Initiation';
                 $validation2->previous = "Null";
-                $validation2->current = $request->initiation_date;
+                $validation2->current = \Carbon\Carbon::parse($request->initiation_date)->format('d-M-Y');
                 $validation2->comment = "Not Applicable";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -126,7 +127,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->monthlyworking_id = $monthly->id;
                 $validation2->activity_type = 'Due Date';
                 $validation2->previous = "Null";
-                $validation2->current = $request->due_date;
+                $validation2->current = \Carbon\Carbon::parse($request->due_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -339,8 +340,14 @@ class MonthlyWorkingController extends Controller
     public function monthly_workingEdit($id)
     {
         $monthly = MonthlyWorking::find($id);
-        return view('frontend.New_forms.monthly_working.monthly_working_view', compact('monthly'));
+
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->addDays(30);
+        $due_date = $formattedDate->format('Y-m-d');
+
+        return view('frontend.New_forms.monthly_working.monthly_working_view', compact('monthly', 'due_date'));
     }
+
 
     public function monthly_workingUpdate(Request $request, $id)
     {
@@ -388,8 +395,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
-
+                if (is_null($lastDocument->short_description) || $lastDocument->short_description === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -397,8 +407,8 @@ class MonthlyWorkingController extends Controller
                 $validation2 = new MonthlyWorkingAudit();
                 $validation2->monthlyworking_id = $monthly->id;
                 $validation2->activity_type = 'Date of Initiation';
-                $validation2->previous = $lastDocument->initiation_date;
-                $validation2->current = $request->initiation_date;
+                $validation2->previous = \Carbon\Carbon::parse($lastDocument->initiation_date)->format('d-M-Y');
+                $validation2->current = \Carbon\Carbon::parse($request->initiation_date)->format('d-M-Y');
                 $validation2->comment = "Not Applicable";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -406,7 +416,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->initiation_date) || $lastDocument->initiation_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
             if ($lastDocument->assign_to != $request->assign_to) {
@@ -422,7 +436,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->assign_to) || $lastDocument->assign_to === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -430,8 +448,8 @@ class MonthlyWorkingController extends Controller
                 $validation2 = new MonthlyWorkingAudit();
                 $validation2->monthlyworking_id = $monthly->id;
                 $validation2->activity_type = 'Due Date';
-                $validation2->previous = $lastDocument->due_date;
-                $validation2->current = $request->due_date;
+                $validation2->previous = \Carbon\Carbon::parse($lastDocument->due_date)->format('d-M-Y');
+                $validation2->current = \Carbon\Carbon::parse($request->due_date)->format('d-M-Y');
                 $validation2->comment = "NA";
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
@@ -439,7 +457,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->due_date) || $lastDocument->due_date === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
 
                 $validation2->save();
             }
@@ -455,7 +477,11 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->description) || $lastDocument->description === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
 
                 $validation2->save();
             }
@@ -473,7 +499,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->zone) || $lastDocument->zone === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
 
                 $validation2->save();
             }
@@ -491,7 +521,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->country) || $lastDocument->country === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -508,7 +542,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->state) || $lastDocument->state === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -525,7 +563,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->city) || $lastDocument->city === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -543,7 +585,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->year) || $lastDocument->year === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -560,7 +606,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->month) || $lastDocument->month === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -577,7 +627,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->number_of_own_emp) || $lastDocument->number_of_own_emp === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
             if ($lastDocument->hours_own_emp != $request->hours_own_emp) {
@@ -593,7 +647,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->hours_own_emp) || $lastDocument->hours_own_emp === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -610,7 +668,11 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->number_of_contractors) || $lastDocument->number_of_contractors === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
 
@@ -627,12 +689,13 @@ class MonthlyWorkingController extends Controller
 
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = "$lastDocument->status";
-                $validation2->action_name = 'Update';
+                if (is_null($lastDocument->hours_of_contractors) || $lastDocument->hours_of_contractors === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
                 $validation2->save();
             }
-
-
-
 
             toastr()->success("Monthly is updated Successfully");
             return redirect(url('rcms/qms-dashboard'));
@@ -641,6 +704,7 @@ class MonthlyWorkingController extends Controller
             return redirect()->back()->with('error', 'Failed to save Monthly : ' . $e->getMessage());
         }
     }
+
 
     public function audit_monthly_working($id)
     {
@@ -652,6 +716,7 @@ class MonthlyWorkingController extends Controller
         return view('frontend.New_forms.monthly_working.monthly_working_audit', compact('document', 'audit', 'today'));
     }
 
+
     public function monthly_workingAuditTrialDetails($id)
     {
         $detail = MonthlyWorkingAudit::find($id);
@@ -659,6 +724,7 @@ class MonthlyWorkingController extends Controller
         $doc = MonthlyWorking::where('id', $detail->monthly_id)->first();
         return view('frontend.New_forms.monthly_working.monthly_working_audit_details', compact('detail', 'doc', 'detail_data'));
     }
+
 
     public function monthlynCancel(Request $request, $id)
     {

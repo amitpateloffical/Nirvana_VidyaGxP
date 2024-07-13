@@ -281,6 +281,15 @@ $users = DB::table('users')->get();
                             <div class="sub-head">
                                 General Information
                             </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Manufacturer">(Root Parent) Manufacturer</label>
@@ -296,19 +305,16 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="initiator" value="" value="{{$national->initiator}}">
+                                    <input disabled type="text" name="initiator" value="{{ Auth::user()->name }}">
+                                    <input type="hidden" name="initiator" value="{{ Auth::user()->name }}">
+                                    <!-- <input disabled type="text" name="initiator" value="" value="{{Auth::user()->name }}"> -->
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiation"><b>Date of Initiation</b></label>
-                                    @if(isset($national) && $national->initiation_date)
-                                    <input disabled type="text" value="{{ \Carbon\Carbon::parse($national->initiation_date)->format('d-M-Y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ $national->initiation_date }}" id="initiation_date" name="initiation_date">
-                                    @else
-                                    <input disabled type="text" value="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="initiation_date" name="initiation_date">
-                                    @endif
+                                    <input disabled type="text" value="{{ date('d-M-Y', strtotime($national->initiation_date )) }}" name="initiation_date">
+                                    <input type="hidden" value="{{ date('d-M-Y', strtotime($national->initiation_date )) }}" name="initiation_date">
                                 </div>
                             </div>
 
@@ -329,7 +335,7 @@ $users = DB::table('users')->get();
                                         <option value="assign_to">Select a value</option>
                                         @foreach ($users as $datas)
                                         @if(Helpers::checkUserRolesassign_to($datas))
-                                        <option value="{{ $datas->id }}" {{ $national->assign_to == $datas->id ? 'selected' : '' }}>
+                                        <option value="{{ $datas->name }}" {{ $national->assign_to == $datas->name ? 'selected' : '' }}>
                                             {{ $datas->name }}
                                         </option>
                                         @endif
@@ -342,8 +348,7 @@ $users = DB::table('users')->get();
                                     <label for="due-date">Date Due</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{$national->due_date}}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input readonly type="text" value="{{ Helpers::getdateFormat($national->due_date) }}" name="due_date">
                                     </div>
                                 </div>
                             </div>
@@ -361,7 +366,6 @@ $users = DB::table('users')->get();
                                     document.getElementById(displayId).value = formattedDate;
                                 }
 
-                                // Initialize the due_date display on page load
                                 document.addEventListener('DOMContentLoaded', function() {
                                     const dateInput = document.querySelector('input[name="due_date"]');
                                     if (dateInput.value) {
@@ -369,13 +373,6 @@ $users = DB::table('users')->get();
                                     }
                                 });
                             </script>
-
-
-
-
-
-
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Procedure Type">(Parent) Procedure Type</label>
@@ -458,6 +455,7 @@ $users = DB::table('users')->get();
                                     <input type="text" name="pack_size" value="{{$national->pack_size}}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Shelf Life">Shelf Life</label>
@@ -506,7 +504,10 @@ $users = DB::table('users')->get();
                                                 <td><input type="text" name="details[{{ $index }}][shelf_life]" value="{{ $detail['shelf_life'] }}"></td>
                                                 <td><input type="text" name="details[{{ $index }}][storage_condition]" value="{{ $detail['storage_condition'] }}"></td>
                                                 <td><input type="text" name="details[{{ $index }}][secondary_packaging]" value="{{ $detail['secondary_packaging'] }}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][remarks]" value="{{ $detail['remarks'] }}"></td>
+                                                <td>
+                                                    <button type="button" onclick="removeRow(this)">Remove</button>
+                                                </td>
+
                                             </tr>
                                             @endforeach
                                             @endif
@@ -514,7 +515,12 @@ $users = DB::table('users')->get();
                                     </table>
                                 </div>
                             </div>
-
+                            <script>
+                                function removeRow(button) {
+                                    var row = button.closest('tr');
+                                    row.parentNode.removeChild(row);
+                                }
+                            </script>
 
                             <script>
                                 document.getElementById('Details-add').addEventListener('click', function() {
@@ -532,6 +538,9 @@ $users = DB::table('users')->get();
                                         <td><input type="text" name="details[${rowCount}][secondary_packaging]"></td>
                                         <td><input type="text" name="details[${rowCount}][remarks]"></td>
                                     `;
+
+
+
                                 });
                             </script>
                             <div class="col-lg-6">

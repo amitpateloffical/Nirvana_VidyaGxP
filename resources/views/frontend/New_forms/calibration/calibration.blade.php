@@ -53,39 +53,20 @@ $users = DB::table('users')->get();
                             Basic Information
                         </div> <!-- RECORD NUMBER -->
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Short Description">Short Description</label>
-                                    <p class="text-primary">Short Description to be presented on dekstop</p>
-                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
-                            </div>
-                            <div class="group-input">
-                                <label for="RLS Record Number">Record Number</label>
-                                <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/CALIBRATION/{{ date('Y') }}/{{ $record_number }}">
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date Of Opened</b></label>
-                                    <p class="text-primary">When was this record opened?</p>
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
+                                    <label for="RLS Record Number">Record Number</label>
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/CALIBRATION/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
-
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-primary"> last date this record should be closed by</p>
-
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-                                </div>
-                            </div>
-
 
                             <div class="col-md-6">
                                 <div class="group-input">
@@ -115,10 +96,43 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label class="mb-4" for="Originator"><b>Originator</b></label>
 
-                                    <input type="text" name="originator" value="">
+                                    <input type="text" name="originator" value="{{Auth::user()->name}}">
 
                                 </div>
                             </div>
+
+                            <div class="col-12">
+                                <div class="group-input">
+                                    <label for="Short Description">Short Description<span class="text-danger">*</span></label>
+                                    <p class="text-primary">Short Description to be presented on dekstop</p>
+                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Date Of Opened</b></label>
+                                    <p class="text-primary">When was this record opened?</p>
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <p class="text-primary"> last date this record should be closed by</p>
+
+                                    <div class="calenderauditee">
+                                        <input type="hidden" value="{{$due_date}}" name="due_date">
+                                        <input disabled type="text" value="{{Helpers::getdateFormat($due_date)}}">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
 
                             <div class="col-md-12">
                                 <div class="group-input">

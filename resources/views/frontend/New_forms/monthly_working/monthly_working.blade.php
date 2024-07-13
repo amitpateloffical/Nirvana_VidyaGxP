@@ -97,8 +97,8 @@ $users = DB::table('users')->get();
                                     <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                             value="" name="due_date"> -->
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="hidden" value="{{$due_date}}" name="due_date">
+                                        <input disabled type="text" value="{{Helpers::getdateFormat($due_date)}}">
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +111,7 @@ $users = DB::table('users')->get();
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         @foreach ($users as $key => $value)
-                                        <option value="{{ $value->id }}">
+                                        <option value="{{ $value->name }}">
                                             {{ $value->name }}
                                         </option>
                                         @endforeach
