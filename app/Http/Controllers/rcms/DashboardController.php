@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\rcms;
 
 use App\Http\Controllers\Controller;
+// use App\Http\Controllers\EhsEvent;
 use App\Models\ActionItem;
 use App\Models\Capa;
 use App\Models\CC;
@@ -17,6 +18,7 @@ use App\Models\AuditProgram;
 use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 use App\Models\Deviation;
+use App\Models\EhsEvent;
 use App\Models\MedicalDeviceRegistration;
 use Helpers;
 use App\Models\User;
@@ -67,6 +69,7 @@ class DashboardController extends Controller
         $datas12 = Observation::orderByDesc('id')->get();
         $datas13 = Deviation::orderByDesc('id')->get();
         $datas15 = MedicalDeviceRegistration::orderByDesc('id')->get();
+        $datas16 = EhsEvent::orderByDesc('id')->get();
 
 
         foreach ($datas as $data) {
@@ -354,6 +357,28 @@ class DashboardController extends Controller
                 "date_close" => $data->updated_at,
             ]);
         }
+
+        foreach ($datas16 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->cc_id ? $data->cc_id : "-",
+                "record" => $data->id,
+                "type" => "EHS Event",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "division_id" => $data->division_id,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+       
+
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
         // return $table;
         // $paginatedData = json_encode($table);
@@ -557,6 +582,30 @@ class DashboardController extends Controller
                     ]
                 );
             }
+
+            if ($data->parent_type == "EHS Event") {
+                $data2 = EhsEvent::where('id', $data->parent_id)->first();
+                $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
+                array_push(
+                    $table,
+                    [
+                        "id" => $data2->id,
+                        "parent" => $data2->parent_record ? $data2->parent_record : "-",
+                        "record" => $data2->record,
+                        "type" => "EHS Event",
+                        "parent_id" => $data2->parent_id,
+                        "parent_type" => $data2->parent_type,
+                        "division_id" => $data2->division_id,
+                        "short_description" => $data2->short_description ? $data2->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "intiation_date" => $data2->intiation_date,
+                        "stage" => $data2->status,
+                        "date_open" => $data2->create,
+                        "date_close" => $data2->updated_at,
+                    ]
+                );
+            }
+
             if ($data->parent_type == "External_audit") {
                 $data2 = Auditee::where('id', $data->parent_id)->first();
                 $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
@@ -742,6 +791,13 @@ class DashboardController extends Controller
             $single = "deviationSingleReport/". $data->id;
             $audit = "#";
             $parent="deviationparentchildReport/". $data->id;
+        }
+
+        elseif ($type == "EHS Event") {
+            $data = EhsEvent::find($id);
+            $single = "ehs-event-SingleReport/". $data->id;
+            $audit = "ehs-event-AuditReport/". $data->id;
+            $parent="#";
         }
 
 

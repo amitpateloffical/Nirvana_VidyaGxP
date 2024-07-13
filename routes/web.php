@@ -18,6 +18,7 @@ use App\Http\Controllers\rcms\EffectivenessCheckController;
 use App\Http\Controllers\rcms\ObservationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentContentController;
+use App\Http\Controllers\EhsEventController;
 use App\Http\Controllers\ImportController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CapaController;
@@ -374,14 +375,13 @@ Route::view('deviation_new', 'frontend.forms.deviation_new');
 
 
 // -------------------------------------ehs---------forms--------
-Route::view('recurring_commitment', 'frontend.ehs.recurring_commitment');
 Route::view('sanction', 'frontend.ehs.sanction');
 Route::view('monthly_working', 'frontend.ehs.monthly_working');
 
 Route::view('investigation', 'frontend.ehs.investigation');
 
 Route::view('environmental_task', 'frontend.ehs.environmental_task');
-Route::view('ehs_event', 'frontend.ehs.ehs_event');
+// Route::view('ehs_event', 'frontend.ehs.ehs_event');
 Route::view('effectiveness', 'frontend.ehs.effectiveness');
 Route::view('capa', 'frontend.ehs.capa');
 Route::view('action_item', 'frontend.ehs.action_item');
@@ -527,9 +527,9 @@ Route::view('help-desk-incident', 'frontend.forms.help-desk-incident');
 Route::view('review-management-report', 'frontend.review-management.review-management-report');
 
 
-//! ============================================
-//!                    External Audit
-//! ============================================
+// ============================================
+//                    External Audit
+// ============================================
 
 
 // ===============OOt form==========================\
@@ -546,3 +546,57 @@ Route::view('analyst_interview', 'frontend.newform.analyst_interview');
 
 // ========Hypothesis ===============
 Route::view('hypothesis', 'frontend.newform.hypothesis');
+
+
+// --------------------Ehs event-----------------------------------
+Route::get('ehs_event',[EhsEventController::class, 'index']);
+Route::post('ehs_event_store',[EhsEventController::class, 'store'])->name('ehs_store');
+
+Route::get('ehs_event_edit/{id}', [EhsEventController::class, 'ViewShow'])->name('ehs_event_view');
+
+Route::post('ehs_event_update/{id}', [EhsEventController::class, 'update'])->name('ehs_event_update');
+
+Route::post('ehs_event_stateChange/{id}', [EhsEventController::class, 'EhsEventStateChange'])->name('ehs_event_stateChange');
+
+Route::get('ehsEventAuditTrail/{id}', [EhsEventController::class, 'ehsEventAuditTrail']);
+
+
+Route::post('ehs_event_more_info/{id}', [EhsEventController::class, 'MoreInfoChange'])->name('ehs_event_more_info');
+
+Route::post('ehs_event_cancel_model/{id}', [EhsEventController::class, 'RejectStateChange'])->name('ehs_event_cancel_model');
+Route::post('ehs_event_child/{id}', [EhsEventController::class, 'Child'])->name('ehs_event_child');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

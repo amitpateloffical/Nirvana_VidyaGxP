@@ -8,6 +8,7 @@ use App\Http\Controllers\rcms\EffectivenessCheckController;
 use App\Http\Controllers\rcms\ExtensionController;
 use App\Http\Controllers\rcms\InternalauditController;
 use App\Http\Controllers\rcms\LabIncidentController;
+use App\Http\Controllers\EhsEventController;
 use App\Http\Controllers\rcms\ObservationController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\rcms\AuditProgramController;
@@ -98,6 +99,11 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('InternalAuditTrialDetails/{id}', [InternalauditController::class, 'InternalAuditTrialDetails'])->name('showaudittrialinternalaudit');
 
             //-------------------------
+
+            // --------------- EhsEvent  -----------------------------
+            Route::get('ehs-event-SingleReport/{id}', [EhsEventController::class, 'singleReport'])->name('ehs-event-SingleReport');
+            Route::get('ehs-event-AuditReport/{id}', [EhsEventController::class, 'auditReport'])->name('ehs-event-AuditReport');
+            // --------------- EhsEvent end -----------------------------
 
             Route::post('labcreate', [LabIncidentController::class, 'create'])->name('labIncidentCreate');
             Route::get('LabIncidentShow/{id}', [LabIncidentController::class, 'LabIncidentShow'])->name('ShowLabIncident');
