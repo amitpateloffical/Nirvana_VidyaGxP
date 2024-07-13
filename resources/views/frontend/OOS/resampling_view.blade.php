@@ -457,9 +457,9 @@
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
-                                            Product/Material Information<button type="button" name="product_material_information" id="product_material" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
+                                            Product/Material Information<button type="button" name="product_material_information" id="Product_Information_material_data_materil" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
                                         </label>
-                                        <table class="table table-bordered" id="product_material_body">
+                                        <table class="table table-bordered" id="Data_Product_information_body">
                                             <thead>
                                                 <tr>
                                                     <th>Row #</th>
@@ -520,10 +520,9 @@
                                     </div>
                                 </div>
 
-                                <script>
+                            <script>
                                     $(document).ready(function() {
-                            
-                                        $('#product_material').click(function(e) {
+                                        $('#Product_Information_material_data_materil').click(function(e) {
                                         function generateTableRow(serialNumber) {
                                             var data = @json($gridDatas01);
                                             var html = '';
@@ -543,7 +542,7 @@
                                                 
                                             return html;
                                         }
-                                        var tableBody = $('#product_material_body tbody');
+                                        var tableBody = $('#Data_Product_information_body tbody');
                                         var rowCount = tableBody.children('tr').length;
                                         var newRow = generateTableRow(rowCount + 1);
                                         tableBody.append(newRow);
@@ -881,7 +880,7 @@
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
-                                          Details of Stability Study.<button type="button" name="stability_study2" id="stability_study2" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
+                                          Details of Stability Study.<button type="button" name="stability_study2" id="Stability_study-secound" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
                                         </label>
                                         <table class="table table-bordered" id="stability_study2_body">
                                             <thead>
@@ -916,9 +915,9 @@
 
                                 <script>
                                     $(document).ready(function() {
-                                        $('#stability_study2').click(function(e) {
+                                        $('#Stability_study-secound').click(function(e) {
                                             function generateTableRow(serialNumber) {
-                                                vvar data = @json($gridDatas06);
+                                                var data = @json($gridDatas06);
                                                 var html = '';
                                                 html +=
                                                     '<tr>' +

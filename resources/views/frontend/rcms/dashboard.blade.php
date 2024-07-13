@@ -462,7 +462,7 @@
 
                                                     @elseif ($datas->type == 'Resampling')
                                                     <a href="{{ route('resampling_show', $datas->id) }}">
-                                                        {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
                                                         <a

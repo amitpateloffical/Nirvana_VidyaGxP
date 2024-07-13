@@ -830,6 +830,7 @@ $users = DB::table('users')->get();
                                                                                 type="text"
                                                                                 name="financial_transection[{{ $loop->index }}][info_date]"
                                                                                 placeholder="DD-MM-YYYY"
+                                                                                readonly
                                                                                 {{ $data->stage == 0 || $data->stage == 3 ? 'disabled' : '' }}
                                                                                 value="{{ isset($grid_two['info_date']) ? $grid_two['info_date'] : '' }}"
                                                                             />
@@ -928,7 +929,7 @@ $users = DB::table('users')->get();
                                             return html;
                                         }
                             
-                                        var tableBody = $('#Financial_Transactions_table tbody');
+                                        var tableBody = $('#Financial_rTransactions_table tbody');
                                         var rowCount = tableBody.children('tr').length;
                                         var newRow = generateTableRow(rowCount + 1);
                                         tableBody.append(newRow);

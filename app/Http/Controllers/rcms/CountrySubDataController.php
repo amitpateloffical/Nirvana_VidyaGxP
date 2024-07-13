@@ -155,7 +155,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -172,7 +172,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -189,7 +189,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -206,7 +206,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -223,7 +223,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -240,7 +240,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -257,7 +257,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -274,7 +274,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -291,7 +291,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -308,7 +308,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -325,7 +325,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -342,7 +342,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -359,7 +359,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -376,7 +376,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -393,7 +393,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -410,7 +410,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -427,7 +427,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -444,7 +444,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -461,7 +461,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -478,7 +478,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -495,7 +495,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -512,7 +512,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -529,7 +529,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -546,7 +546,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -563,7 +563,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -580,7 +580,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -597,7 +597,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -614,7 +614,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -631,7 +631,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -648,7 +648,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -665,7 +665,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -682,7 +682,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -699,7 +699,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -716,7 +716,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -733,7 +733,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -750,7 +750,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -767,7 +767,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -784,7 +784,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -801,7 +801,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -818,7 +818,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -835,7 +835,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -852,7 +852,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -869,7 +869,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -886,7 +886,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -903,7 +903,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -920,7 +920,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -937,7 +937,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -954,7 +954,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -971,7 +971,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -988,7 +988,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1005,7 +1005,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1022,7 +1022,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1039,7 +1039,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1056,7 +1056,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1073,7 +1073,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1090,7 +1090,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1107,7 +1107,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1124,7 +1124,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1141,7 +1141,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1158,7 +1158,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1175,7 +1175,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1192,7 +1192,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1209,7 +1209,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1226,7 +1226,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1243,7 +1243,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1260,7 +1260,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
@@ -1277,7 +1277,7 @@ class CountrySubDataController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $country->status;
             $history->change_to =   "Opened";
-            $history->change_from = "Initiator";
+            $history->change_from = "Initiation";
             $history->action_name = 'Create';
             $history->save();
         }
