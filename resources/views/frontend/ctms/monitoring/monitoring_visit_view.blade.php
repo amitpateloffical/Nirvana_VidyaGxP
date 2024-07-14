@@ -41,9 +41,9 @@
                         @endphp
                         {{-- <button class="button_theme1" onclick="window.print();return false;"
                             class="new-doc-btn">Print</button> --}}
-                        <button class="button_theme1"> <a class="text-white"
-                                href="{{ route('Monitoring_Visit_AuditTrial', $data->id) }}"> Audit Trail </a>
-                        </button>
+                        <a class="text-white" href="{{ route('Monitoring_Visit_AuditTrial', $data->id) }}"><button
+                                class="button_theme1"> Audit Trail </button></a>
+
 
                         @if ($data->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                             <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -69,8 +69,8 @@
                                 Child
                             </button> --}}
                         @endif
-                        <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
-                            </a> </button>
+                        <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"><button class="button_theme1"> Exit
+                            </button></a>
 
                     </div>
 
@@ -363,8 +363,15 @@
                 <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Monitoring Visit Information</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signature</button>
             </div>
-
-            <form action="{{ route('monitoring_visit_update', $data->id) }}" method="POST" enctype="multipart/form-data">
+            <script>
+                $(document).ready(function() {
+                    <?php if ($data->stage == 4): ?>
+                    $("#target :input").prop("disabled", true);
+                    <?php endif; ?>
+                });
+            </script>
+            <form id="target" action="{{ route('monitoring_visit_update', $data->id) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 @method('put')
 
@@ -384,7 +391,7 @@
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
                                         <input disabled type="text" name="record"
-                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTMS/{{ date('Y') }}/{{ $data->record }}">
+                                            value="{{ Helpers::getDivisionName($data->division_id) }}/CTMS/MV/{{ date('Y') }}/{{ $data->record }}">
                                         {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}}
                                     </div>
                                 </div>
@@ -392,8 +399,11 @@
                                     <div class="group-input">
                                         <label for="Division Code"><b>Site/Location Code</b></label>
                                         {{-- <input disabled type="text" name="division_code" value=""> --}}
-                                        <input readonly type="text" name="division_code"
+                                        {{-- <input readonly type="text" name="division_id"
+                                            value="{{ Helpers::getDivisionName($data->division_id) }}"> --}}
+                                        <input readonly type="text" name="division_id"
                                             value="{{ Helpers::getDivisionName($data->division_id) }}">
+                                        <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
 
                                     </div>
                                 </div>
@@ -521,7 +531,7 @@
                                             Type <span class="text-danger"></span>
                                         </label>
                                         <select name="type" value="{{ $data->type }}">
-                                            <option value="0">-- Select type --</option>
+                                            <option value="">-- Select type --</option>
                                             <option value="Other"{{ $data->type == 'Other' ? 'selected' : '' }}>Other
                                             </option>
                                             <option value="Training"{{ $data->type == 'Training' ? 'selected' : '' }}>
@@ -574,8 +584,7 @@
                                             </div>
                                             <div class="add-btn">
                                                 <div>Add</div>
-                                                <input {{ $data->stage == 0 || $data->stage == 8 ? 'disabled' : '' }}
-                                                    type="file" id="myfile" name="file_attach[]"
+                                                <input type="file" id="myfile" name="file_attach[]"
                                                     oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                             </div>
                                         </div>

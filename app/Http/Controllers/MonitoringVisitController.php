@@ -10,6 +10,7 @@ use App\Models\MonitoringVisitGrid;
 use App\Models\RecordNumber;
 use App\Models\RoleGroup;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use Helpers;
 use Illuminate\Http\Request;
@@ -1333,23 +1334,23 @@ class MonitoringVisitController extends Controller
                 $history->action_name = 'Not Applicable';
                 $history->save();
                 $list = Helpers::getHodUserList();
-                foreach ($list as $u) {
+                // foreach ($list as $u) {
 
-                    if ($u->q_m_s_divisions_id == $changeControl->division_id) {
-                        $email = Helpers::getInitiatorEmail($u->user_id);
-                        if ($email !== null) {
+                //     if ($u->q_m_s_divisions_id == $changeControl->division_id) {
+                //         $email = Helpers::getInitiatorEmail($u->user_id);
+                //         if ($email !== null) {
 
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $changeControl],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject('Document is Submitted By '.Auth::user()->name);
-                                }
-                            );
-                        }
-                    }
-                }
+                //             Mail::send(
+                //                 'mail.view-mail',
+                //                 ['data' => $changeControl],
+                //                 function ($message) use ($email) {
+                //                     $message->to($email)
+                //                         ->subject('Document is Submitted By '.Auth::user()->name);
+                //                 }
+                //             );
+                //         }
+                //     }
+                // }
 
                 $changeControl->update();
                 toastr()->success('Document Sent');
@@ -1380,22 +1381,22 @@ class MonitoringVisitController extends Controller
                 $history->action_name = 'Not Applicable';
                 $history->save();
                 $list = Helpers::getHodUserList();
-                foreach ($list as $u) {
-                    if ($u->q_m_s_divisions_id == $changeControl->division_id) {
-                        $email = Helpers::getInitiatorEmail($u->user_id);
-                        if ($email !== null) {
+                // foreach ($list as $u) {
+                //     if ($u->q_m_s_divisions_id == $changeControl->division_id) {
+                //         $email = Helpers::getInitiatorEmail($u->user_id);
+                //         if ($email !== null) {
 
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $changeControl],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject('Document is send By '.Auth::user()->name);
-                                }
-                            );
-                        }
-                    }
-                }
+                //             Mail::send(
+                //                 'mail.view-mail',
+                //                 ['data' => $changeControl],
+                //                 function ($message) use ($email) {
+                //                     $message->to($email)
+                //                         ->subject('Document is send By '.Auth::user()->name);
+                //                 }
+                //             );
+                //         }
+                //     }
+                // }
                 $changeControl->update();
                 toastr()->success('Document Sent');
 
@@ -1425,22 +1426,22 @@ class MonitoringVisitController extends Controller
                 $history->action_name = 'Not Applicable';
                 $history->save();
                 $list = Helpers::getHodUserList();
-                foreach ($list as $u) {
-                    if ($u->q_m_s_divisions_id == $changeControl->division_id) {
-                        $email = Helpers::getInitiatorEmail($u->user_id);
-                        if ($email !== null) {
+                // foreach ($list as $u) {
+                //     if ($u->q_m_s_divisions_id == $changeControl->division_id) {
+                //         $email = Helpers::getInitiatorEmail($u->user_id);
+                //         if ($email !== null) {
 
-                            Mail::send(
-                                'mail.view-mail',
-                                ['data' => $changeControl],
-                                function ($message) use ($email) {
-                                    $message->to($email)
-                                        ->subject('Document is send By '.Auth::user()->name);
-                                }
-                            );
-                        }
-                    }
-                }
+                //             Mail::send(
+                //                 'mail.view-mail',
+                //                 ['data' => $changeControl],
+                //                 function ($message) use ($email) {
+                //                     $message->to($email)
+                //                         ->subject('Document is send By '.Auth::user()->name);
+                //                 }
+                //             );
+                //         }
+                //     }
+                // }
                 $changeControl->update();
                 toastr()->success('Document Sent');
 
@@ -1561,79 +1562,6 @@ class MonitoringVisitController extends Controller
 
         return $pdf->stream('Monitoring-Visit-AuditTrial'.$id.'.pdf');
 
-        // $doc = MonitoringVisit::find($id);
-        // if (! empty($doc)) {
-        //     $audit = MonitoringVisitAuditTrial::where('MonitoringVisit_id', $id)->orderByDESC('id')->paginate(5);
-
-        //     $doc->originator = User::where('id', $doc->initiator_id)->value('name');
-        //     $data = MonitoringVisitAuditTrial::where('MonitoringVisit_id', $id)->get();
-        //     $pdf = App::make('dompdf.wrapper');
-        //     $time = Carbon::now();
-        //     $pdf = PDF::loadview('frontend.ctms.monitoring.Monitoring_Visit_AuditTrial_Report', compact('data', 'doc', 'audit'))
-        //         ->setOptions([
-        //             'defaultFont' => 'sans-serif',
-        //             'isHtml5ParserEnabled' => true,
-        //             'isRemoteEnabled' => true,
-        //             'isPhpEnabled' => true,
-        //         ]);
-        //     $pdf->setPaper('A4');
-        //     $pdf->render();
-        //     $canvas = $pdf->getDomPDF()->getCanvas();
-        //     $height = $canvas->get_height();
-        //     $width = $canvas->get_width();
-        //     $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
-        //     $canvas->page_text($width / 4, $height / 2, $doc->status, null, 25, [0, 0, 0], 2, 6, -20);
-
-        //     return $pdf->stream('Monitoring-Visit-AuditTrial'.$id.'.pdf');
-        // }$doc = Validation::findOrFail($id);
-
-        // if (! empty($doc)) {
-        //     $doc->originator = User::where('id', $doc->initiator_id)->value('name');
-        // } else {
-        //     $datas = ActionItem::find($id);
-
-        //     if (empty($datas)) {
-        //         $datas = Extension::find($id);
-        //         $doc = MonitoringVisit::find($datas->MonitoringVisit_id);
-        //         $doc->originator = User::where('id', $doc->initiator_id)->value('name');
-        //         $doc->created_at = $datas->created_at;
-        //     } else {
-        //         $doc = MonitoringVisit::find($datas->MonitoringVisit_id);
-        //         $doc->originator = User::where('id', $doc->initiator_id)->value('name');
-        //         $doc->created_at = $datas->created_at;
-        //     }
-        // }
-        // $data = MonitoringVisitAuditTrial::where('MonitoringVisit_id', $doc->id)->orderByDesc('id')->get();
-
-        // $pdf = App::make('dompdf.wrapper');
-        // $time = Carbon::now();
-        // $pdf = PDF::loadview('frontend.ctms.monitoring.Monitoring_Visit_AuditTrial_Report', compact('data', 'audit', 'doc'))
-        //     ->setOptions([
-        //         'defaultFont' => 'sans-serif',
-        //         'isHtml5ParserEnabled' => true,
-        //         'isRemoteEnabled' => true,
-        //         'isPhpEnabled' => true,
-        //     ]);
-        // $pdf->setPaper('A4');
-        // $pdf->render();
-        // $canvas = $pdf->getDomPDF()->getCanvas();
-        // $height = $canvas->get_height();
-        // $width = $canvas->get_width();
-
-        // $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
-
-        // $canvas->page_text(
-        //     $width / 3,
-        //     $height / 2,
-        //     $doc->status,
-        //     null,
-        //     60,
-        //     [0, 0, 0],
-        //     2,
-        //     6,
-        //     -20
-        // );
-
-        // return $pdf->stream('Monitoring_Visit_AuditTrial_Report'.$id.'.pdf');
+        
     }
 }

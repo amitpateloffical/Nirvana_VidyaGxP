@@ -233,7 +233,7 @@
                             Monitoring Visit Audit Trail
                         </div>
                         <div> <strong>Record ID.</strong>
-                            {{ Helpers::getDivisionName(session()->get('division')) }}/CTMS-MV/{{ Helpers::year($document->created_at) }}/{{ str_pad($document->id, 4, '0', STR_PAD_LEFT) }}
+                            {{ Helpers::getDivisionName($document->division_id) }}/CTMS-MV/{{ Helpers::year($document->created_at) }}/{{ str_pad($document->id, 4, '0', STR_PAD_LEFT) }}
 
                             {{-- {{ str_pad($document->id, 4, '0', STR_PAD_LEFT) }} --}}
                         </div>

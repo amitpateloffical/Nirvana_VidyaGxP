@@ -356,7 +356,7 @@
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
                                         <input disabled type="text" name="record"
-                                            value="Division/MV/{{ date('Y') }}/{{ $record_number }}">
+                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTMS/MV/{{ date('Y') }}/{{ $record_number }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
@@ -364,7 +364,7 @@
                                         <label for="Division Code"><b>Site/Location Code</b></label>
                                         {{-- <input readonly type="text" name="division_code" value="">
                                         <input type="hidden" name="division_id" value="{{ session()->get('division') }}"> --}}
-                                        <input readonly type="text" name="division_code"
+                                        <input readonly type="text" name="division_id"
                                             value="{{ Helpers::getDivisionName(session()->get('division')) }}">
                                         <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
 
@@ -487,7 +487,7 @@
                                         </label>
 
                                         <select name="type" value="">
-                                            <option value="0">-- Select type --</option>
+                                            <option value="">-- Select type --</option>
                                             <option value="Other">Other
                                             </option>
                                             <option value="Training">

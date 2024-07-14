@@ -101,19 +101,6 @@
 
     }
 
-    .td {
-        text-align: left;
-        page-break-inside: auto;
-        /* Avoid breaking inside the cell */
-        word-break: break-word;
-        /* Break words if necessary */
-        overflow: hidden;
-        /* Hide overflow content */
-        white-space: pre-wrap;
-        /* Preserve white space and wrap text */
-    }
-
-
     footer .head,
     header .head {
         text-align: center;
@@ -201,9 +188,7 @@
                     <strong>Monitoring Visit No.</strong>
                 </td>
                 <td class="w-40">
-                    {{ Helpers::getDivisionName(session()->get('division')) }}/CTMS-MV/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->id, 4, '0', STR_PAD_LEFT) }}
-
-                    {{-- {{ Helpers::divisionNameForQMS($data->division_id) }}/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }} --}}
+                    {{ Helpers::getDivisionName($data->division_id) }}/CTMS-MV/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->id, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
@@ -244,8 +229,8 @@
                     <tr>
                         <th class="w-20">Site/Location Code</th>
                         <td class="w-30">
-                            @if ($data->division_code)
-                                {{ $data->division_code }}
+                            @if ($data->division_id)
+                                {{ Helpers::getDivisionName($data->division_id) }}
                             @else
                                 Not Applicable
                             @endif
@@ -264,7 +249,6 @@
                         <th class="w-20">Due Date</th>
                         <td class="w-80" colspan="3">
                             @if ($data->due_date)
-                                {{-- {{ $data->due_date }} --}}
                                 {{ \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') }}
                             @else
                                 Not Applicable
@@ -294,8 +278,8 @@
                         <th class="w-20">Initial Attachment</th>
                         <td class="w-30">
                             @if ($data->file_attach)
-                                <a
-                                    href="{{ asset('upload/document/', $data->file_attach) }}">{{ $data->file_attach }}</a>
+                                <a href="{{ asset('upload/document/', $data->file_attach) }}">
+                                    {{ $data->file_attach }} </a>
                             @else
                                 Not Applicable
                             @endif
@@ -506,7 +490,6 @@
                             <td class="w-30">
                                 @if ($data->follow_up_start_date)
                                     {{ \Carbon\Carbon::parse($data->follow_up_start_date)->format('d-M-Y') }}
-                                    {{-- {{ $data->follow_up_start_date }} --}}
                                 @else
                                     Not Applicable
                                 @endif
@@ -515,8 +498,6 @@
                             <td class="w-30">
                                 @if ($data->follow_up_end_date)
                                     {{ \Carbon\Carbon::parse($data->follow_up_end_date)->format('d-M-Y') }}
-
-                                    {{-- {{ $data->follow_up_end_date }} --}}
                                 @else
                                     Not Applicable
                                 @endif
@@ -527,8 +508,6 @@
                             <td class="w-30">
                                 @if ($data->visit_start_date)
                                     {{ \Carbon\Carbon::parse($data->visit_start_date)->format('d-M-Y') }}
-
-                                    {{-- {{ $data->visit_start_date }} --}}
                                 @else
                                     Not Applicable
                                 @endif
@@ -537,8 +516,6 @@
                             <td class="w-30">
                                 @if ($data->visit_end_date)
                                     {{ \Carbon\Carbon::parse($data->visit_end_date)->format('d-M-Y') }}
-
-                                    {{-- {{ $data->visit_end_date }} --}}
                                 @else
                                     Not Applicable
                                 @endif
@@ -549,8 +526,6 @@
                             <td class="w-30">
                                 @if ($data->report_complete_start_date)
                                     {{ \Carbon\Carbon::parse($data->report_complete_start_date)->format('d-M-Y') }}
-
-                                    {{-- {{ $data->report_complete_start_date }} --}}
                                 @else
                                     Not Applicable
                                 @endif
@@ -559,8 +534,6 @@
                             <td class="w-30">
                                 @if ($data->report_complete_end_date)
                                     {{ \Carbon\Carbon::parse($data->report_complete_end_date)->format('d-M-Y') }}
-
-                                    {{-- {{ $data->report_complete_end_date }} --}}
                                 @else
                                     Not Applicable
                                 @endif
@@ -584,7 +557,6 @@
                                     Not Applicable
                                 @endif
                             </td>
-                            {{-- <td class="w-30">{{ $data->Schedule_Site_Visit_By }}</td> --}}
                             <th class="w-20">Schedule Site Visit On</th>
                             <td class="w-30">
                                 @if ($data->Schedule_Site_Visit_On)
@@ -593,7 +565,6 @@
                                     Not Applicable
                                 @endif
                             </td>
-                            {{-- <td class="w-30">{{ $data->Schedule_Site_Visit_On }}</td> --}}
                         </tr>
 
                         <tr>
@@ -605,7 +576,6 @@
                                     Not Applicable
                                 @endif
                             </td>
-                            {{-- <td class="w-30">{{ $data->Close_Out_Visit_Scheduled_By }}</td> --}}
                             <th class="w-20">Close Out Visit Scheduled On</th>
                             <td class="w-30">
                                 @if ($data->Close_Out_Visit_Scheduled_On)
@@ -614,7 +584,6 @@
                                     Not Applicable
                                 @endif
                             </td>
-                            {{-- <td class="w-30">{{ $data->Close_Out_Visit_Scheduled_On }}</td> --}}
                         </tr>
                         <tr>
                             <th class="w-20">Approve Close Out By</th>
@@ -625,7 +594,6 @@
                                     Not Applicable
                                 @endif
                             </td>
-                            {{-- <td class="w-30">{{ $data->Approve_Close_Out_By }}</td> --}}
                             <th class="w-20">Approve Close Out On</th>
                             <td class="w-30">
                                 @if ($data->Approve_Close_Out_On)
@@ -634,7 +602,6 @@
                                     Not Applicable
                                 @endif
                             </td>
-                            {{-- <td class="w-30">{{ $data->Approve_Close_Out_On }}</td> --}}
                         </tr>
 
                         <tr>
@@ -646,7 +613,6 @@
                                     Not Applicable
                                 @endif
                             </td>
-                            {{-- <td class="w-30">{{ $data->cancelled_by }}</td> --}}
                             <th class="w-20">Cancelled On</th>
                             <td class="w-30">
                                 @if ($data->cancelled_on)
@@ -655,7 +621,6 @@
                                     Not Applicable
                                 @endif
                             </td>
-                            {{-- <td class="w-30">{{ $data->cancelled_on }}</td> --}}
                         </tr>
 
                     </table>
@@ -665,110 +630,129 @@
             <div class="block">
                 <div class="head">
                     <div class="block-head">
-                        Monitoring Information
-                    </div>
-                    <div class="border-table">
-                        <table style="margin-top: 20px; width: 100%; table-layout: fixed; ">
-                            <thead>
-                                <tr class="table_bg">
-                                    <th style="width: 6%">Row#</th>
-                                    <th>Date</th>
-                                    <th>Responsible</th>
-                                    <th>Item Description</th>
-                                    <th>Sent Date</th>
-                                    <th>Return Date</th>
-                                    <th>Comments</th>
-                                    <th>Remarks</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($grid_Data && is_array($grid_Data->data))
-                                    @foreach ($grid_Data->data as $grid_Data)
-                                        <tr>
-                                            <td>{{ $loop->index + 1 }}</td>
-                                            <td class="td">
-                                                {{ isset($grid_Data['Date']) ? \Carbon\Carbon::parse($grid_Data['Date'])->format('d-M-Y') : 'N/A' }}
-                                            </td>
-                                            <td class="td">
-                                                {{ isset($grid_Data['Responsible']) ? $grid_Data['Responsible'] : 'N/A' }}
-                                            </td>
-                                            <td class="td">
-                                                {{ isset($grid_Data['Item_Description']) ? $grid_Data['Item_Description'] : 'N/A' }}
-                                            </td>
-                                            <td class="td">
-                                                {{ isset($grid_Data['Sent_Date']) ? \Carbon\Carbon::parse($grid_Data['Sent_Date'])->format('d-M-Y') : 'N/A' }}
-                                            </td>
-                                            <td class="td">
-                                                {{ isset($grid_Data['Return_Date']) ? \Carbon\Carbon::parse($grid_Data['Return_Date'])->format('d-M-Y') : 'N/A' }}
-                                            </td>
-                                            <td class="td">
-                                                {{ isset($grid_Data['Comments']) ? $grid_Data['Comments'] : 'N/A' }}
-                                            </td>
-                                            <td class="td">
-                                                {{ isset($grid_Data['Remarks']) ? $grid_Data['Remarks'] : 'N/A' }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="block">
-                <div class="head">
-                    <div class="block-head">
-                        Product/Material
+                        Monitoring Information (Part 1)
                     </div>
                     <div class="border-table">
                         <table style="margin-top: 20px; width: 100%; table-layout: fixed;">
                             <tr class="table_bg">
 
-                                <th style="width: 6%">Row#</th>
-                                <th>Product Name</th>
-                                <th> ReBatch Number</th>
-                                <th> Expiry Date</th>
-                                <th> Manufactured Date</th>
-                                <th> Disposition</th>
-                                <th> Comment</th>
-                                <th> Remarks</th>
+                                <th style="width: 10%">Row#</th>
+                                <th style="width: 15%">Date</th>
+                                <th>Responsible</th>
+                                <th>Item Description</th>
 
                             </tr>
 
+                            @if ($grid_Data && is_array($grid_Data->data))
+                                @foreach ($grid_Data->data as $index => $item)
+                                    @if ($index < ceil(count($grid_Data->data) / 2))
+                                        <tr>
+
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>
+                                                {{ isset($item['Date']) ? \Carbon\Carbon::parse($item['Date'])->format('d-M-Y') : 'N/A' }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['Responsible']) ? $item['Responsible'] : 'N/A' }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['Item_Description']) ? $item['Item_Description'] : 'N/A' }}
+                                            </td>
+
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            @endif
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="block">
+                <div class="head">
+                    <div class="block-head">
+                        Monitoring Information (Part 2)
+                    </div>
+                    <div class="border-table">
+                        <table style="margin-top: 20px; width: 100%; table-layout: fixed;">
+                            <tr class="table_bg">
+
+                                <th style="width: 10%">Row#</th>
+                                <th style="width: 15%">Sent Date</th>
+                                <th style="width: 15%">Return Date</th>
+                                <th>Comments</th>
+                                <th>Remarks</th>
+
+                            </tr>
+
+                            @if ($grid_Data && is_array($grid_Data->data))
+                                @foreach ($grid_Data->data as $index => $item)
+                                    @if ($index < ceil(count($grid_Data->data) / 2))
+                                        <tr>
+
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>
+                                                {{ isset($item['Sent_Date']) ? \Carbon\Carbon::parse($item['Sent_Date'])->format('d-M-Y') : 'N/A' }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['Return_Date']) ? \Carbon\Carbon::parse($item['Return_Date'])->format('d-M-Y') : 'N/A' }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['Comments']) ? $item['Comments'] : 'N/A' }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['Remarks']) ? $item['Remarks'] : 'N/A' }}
+                                            </td>
+
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            @endif
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="block">
+                <div class="head">
+                    <div class="block-head">
+                        Product/Material (Part 1)
+                    </div>
+                    <div class="border-table">
+                        <table style="margin-top: 20px; width: 100%; table-layout: fixed;">
+                            <tr class="table_bg">
+
+                                <th style="width: 10%">Row#</th>
+                                <th>Product Name</th>
+                                <th style="width: 15%"> ReBatch Number</th>
+                                <th style="width: 15%"> Expiry Date</th>
+                                <th style="width: 15%"> Manufactured Date</th>
+
+                            </tr>
                             @if ($grid_Data1 && is_array($grid_Data1->data))
-                                @foreach ($grid_Data1->data as $grid_Data1)
-                                    <tr>
-                                        <td>
-                                            {{ $loop->index + 1 }}
-                                        </td>
-                                        <td>
-                                            {{ isset($grid_Data1['ProductName']) ? $grid_Data1['ProductName'] : 'N/A' }}
-                                        </td>
+                                @foreach ($grid_Data1->data as $index => $item)
+                                    @if ($index < ceil(count($grid_Data1->data) / 2))
+                                        <tr>
 
-                                        <td>
-                                            {{ isset($grid_Data1['ReBatchNumber']) ? $grid_Data1['ReBatchNumber'] : 'N/A' }}
-                                        </td>
+                                            <td>
+                                                {{ $loop->index + 1 }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['ProductName']) ? $item['ProductName'] : 'N/A' }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['ReBatchNumber']) ? $item['ReBatchNumber'] : 'N/A' }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['ExpiryDate']) ? \Carbon\Carbon::parse($item['ExpiryDate'])->format('d-M-Y') : 'N/A' }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['ManufacturedDate']) ? \Carbon\Carbon::parse($item['ManufacturedDate'])->format('d-M-Y') : 'N/A' }}
+                                            </td>
 
-                                        <td>
-                                            {{ isset($grid_Data1['ExpiryDate']) ? \Carbon\Carbon::parse($grid_Data1['ExpiryDate'])->format('d-M-Y') : 'N/A' }}
-                                        </td>
-
-                                        <td>
-                                            {{ isset($grid_Data1['ManufacturedDate']) ? \Carbon\Carbon::parse($grid_Data1['ManufacturedDate'])->format('d-M-Y') : 'N/A' }}
-                                        </td>
-
-                                        <td>
-                                            {{ isset($grid_Data1['Disposition']) ? $grid_Data1['Disposition'] : 'N/A' }}
-                                        </td>
-                                        <td>
-                                            {{ isset($grid_Data1['Comments']) ? $grid_Data1['Comments'] : 'N/A' }}
-                                        </td>
-                                        <td>
-                                            {{ isset($grid_Data1['Remarks']) ? $grid_Data1['Remarks'] : 'N/A' }}
-                                        </td>
-                                    </tr>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             @endif
                         </table>
@@ -778,62 +762,134 @@
             <div class="block">
                 <div class="head">
                     <div class="block-head">
-                        Equipment
+                        Product/Material (Part 2)
                     </div>
                     <div class="border-table">
                         <table style="margin-top: 20px; width: 100%; table-layout: fixed;">
                             <tr class="table_bg">
 
-                                <th style="width: 6%">Row#</th>
+                                <th style="width: 10%">Row#</th>
+                                <th> Disposition</th>
+                                <th> Comment</th>
+                                <th> Remarks</th>
+
+                            </tr>
+
+                            @if ($grid_Data1 && is_array($grid_Data1->data))
+                                @foreach ($grid_Data1->data as $index => $item)
+                                    @if ($index < ceil(count($grid_Data1->data) / 2))
+                                        <tr>
+
+                                            <td>
+                                                {{ $loop->index + 1 }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['Disposition']) ? $item['Disposition'] : 'N/A' }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['Comments']) ? $item['Comments'] : 'N/A' }}
+                                            </td>
+                                            <td>
+                                                {{ isset($item['Remarks']) ? $item['Remarks'] : 'N/A' }}
+                                            </td>
+
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="block">
+                <div class="head">
+                    <div class="block-head">
+                        Equipment (Part 1)
+                    </div>
+                    <div class="border-table">
+                        <table style="margin-top: 20px; width: 100%; table-layout: fixed;">
+                            <tr class="table_bg">
+
+                                <th style="width: 10%">Row#</th>
                                 <th>Product Name</th>
-                                <th> Batch Number</th>
-                                <th> Expiry Date</th>
-                                <th> Manufactured Date</th>
-                                <th> Number of Items Needed</th>
+                                <th style="width: 15%"> Batch Number</th>
+                                <th style="width: 15%"> Expiry Date</th>
+                                <th style="width: 15%"> Manufactured Date</th>
+
+                            </tr>
+
+                            @if ($grid_Data2 && is_array($grid_Data2->data))
+                                @foreach ($grid_Data2->data as $index => $item)
+                                    @if ($index < ceil(count($grid_Data2->data) / 2))
+                                        <tr>
+
+                                            <td>
+                                                {{ $loop->index + 1 }}
+                                            </td>
+                                            <td class="td">
+                                                {{ isset($item['ProductName']) ? $item['ProductName'] : 'N/A' }}
+                                            </td>
+                                            <td class="td">
+                                                {{ isset($item['BatchNumber']) ? $item['BatchNumber'] : 'N/A' }}
+                                            </td>
+
+                                            <td class="td">
+                                                {{ isset($item['ExpiryDate1']) ? \Carbon\Carbon::parse($item['ExpiryDate1'])->format('d-M-Y') : 'N/A' }}
+                                            </td>
+                                            <td class="td">
+                                                {{ isset($item['ManufacturedDate1']) ? \Carbon\Carbon::parse($item['ManufacturedDate1'])->format('d-M-Y') : 'N/A' }}
+                                            </td>
+
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="block">
+                <div class="head">
+                    <div class="block-head">
+                        Equipment (Part 2)
+                    </div>
+                    <div class="border-table">
+                        <table style="margin-top: 20px; width: 100%; table-layout: fixed;">
+                            <tr class="table_bg">
+
+                                <th style="width: 10%">Row#</th>
+                                <th style="width: 15%"> Number of Items Needed</th>
                                 <th> Exist</th>
                                 <th> Comment</th>
                                 <th> Remarks</th>
 
                             </tr>
 
-                            <tbody>
-                                @if ($grid_Data2 && is_array($grid_Data2->data))
-                                    @foreach ($grid_Data2->data as $grid_Data2)
+                            @if ($grid_Data2 && is_array($grid_Data2->data))
+                                @foreach ($grid_Data2->data as $index => $item)
+                                    @if ($index < ceil(count($grid_Data2->data) / 2))
                                         <tr>
+
                                             <td>
                                                 {{ $loop->index + 1 }}
                                             </td>
                                             <td class="td">
-                                                {{ isset($grid_Data2['ProductName']) ? $grid_Data2['ProductName'] : 'N/A' }}
+                                                {{ isset($item['NumberOfItemsNeeded']) ? $item['NumberOfItemsNeeded'] : 'N/A' }}
+                                            </td>
+                                            <td class="td">
+                                                {{ isset($item['Exist']) ? $item['Exist'] : 'N/A' }}
+                                            </td>
+                                            <td class="td">
+                                                {{ isset($item['Comments']) ? $item['Comments'] : 'N/A' }}
+                                            </td>
+                                            <td class="td">
+                                                {{ isset($item['Remarks']) ? $item['Remarks'] : 'N/A' }}
                                             </td>
 
-                                            <td class="td">
-                                                {{ isset($grid_Data2['BatchNumber']) ? $grid_Data2['BatchNumber'] : 'N/A' }}
-                                            </td>
-
-                                            <td class="td">
-                                                {{ isset($grid_Data2['ExpiryDate1']) ? \Carbon\Carbon::parse($grid_Data2['ExpiryDate1'])->format('d-M-Y') : 'N/A' }}
-                                            </td>
-
-                                            <td class="td">
-                                                {{ isset($grid_Data2['ManufacturedDate1']) ? \Carbon\Carbon::parse($grid_Data2['ManufacturedDate1'])->format('d-M-Y') : 'N/A' }}
-                                            </td>
-
-                                            <td class="td">
-                                                {{ isset($grid_Data2['NumberOfItemsNeeded']) ? $grid_Data2['NumberOfItemsNeeded'] : 'N/A' }}
-                                            </td>
-                                            <td class="td">
-                                                {{ isset($grid_Data2['Exist']) ? $grid_Data2['Exist'] : 'N/A' }}
-                                            </td>
-                                            <td class="td">
-                                                {{ isset($grid_Data2['Comments']) ? $grid_Data2['Comments'] : 'N/A' }}
-                                            </td>
-                                            <td class="td">
-                                                {{ isset($grid_Data2['Remarks']) ? $grid_Data2['Remarks'] : 'N/A' }}
-                                            </td>
                                         </tr>
-                                    @endforeach
-                                @endif
+                                    @endif
+                                @endforeach
+                            @endif
                         </table>
                     </div>
                 </div>
