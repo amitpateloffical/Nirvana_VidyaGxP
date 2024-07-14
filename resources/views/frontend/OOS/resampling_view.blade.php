@@ -457,12 +457,12 @@
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
-                                            Product/Material Information<button type="button" name="product_material_information" id="Product_Information_material_data_materil" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
+                                            Product/Material Information<button type="button" name="product_material_information" id="product_material" {{ $data->stage == 0 || $data->stage == 4 ? 'disabled' : '' }}>+</button>
                                         </label>
-                                        <table class="table table-bordered" id="Data_Product_information_body">
+                                        <table class="table table-bordered" id="product_material_body">
                                             <thead>
                                                 <tr>
-                                                    <th>Row #</th>
+                                                    <th style="width: 5%">Row#</th>
                                                     <th>Product/Material Code</th>
                                                     <th>Batch No.</th>
                                                     <th>AR Number</th>
@@ -522,7 +522,7 @@
 
                             <script>
                                     $(document).ready(function() {
-                                        $('#Product_Information_material_data_materil').click(function(e) {
+                                        $('#product_material').click(function(e) {
                                         function generateTableRow(serialNumber) {
                                             var data = @json($gridDatas01);
                                             var html = '';
@@ -542,7 +542,7 @@
                                                 
                                             return html;
                                         }
-                                        var tableBody = $('#Data_Product_information_body tbody');
+                                        var tableBody = $('#product_material_body tbody');
                                         var rowCount = tableBody.children('tr').length;
                                         var newRow = generateTableRow(rowCount + 1);
                                         tableBody.append(newRow);
@@ -564,7 +564,7 @@
                                         <table class="table table-bordered" id="info_on_product_body">
                                             <thead>
                                                 <tr>
-                                                    <th>Row #</th>
+                                                    <th style="width: 5%">Row#</th>
                                                     <th>Item/Product Code</th>
                                                     <th>Lot/Batch Number</th>
                                                     <th>A.R. Number</th>
@@ -677,8 +677,6 @@
                                     });
                                 </script>
 
-                                {{-- 3 --}}
-
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="agenda">
@@ -687,7 +685,7 @@
                                         <table class="table table-bordered" id="oos_details_body">
                                             <thead>
                                                 <tr>
-                                                    <th>Row #</th>
+                                                    <th style="width: 5%">Row#</th>
                                                     <th>AR Number</th>
                                                     <th>Test Name of OOS</th>
                                                     <th>Results obtained</th>
@@ -749,7 +747,7 @@
                                         <table class="table table-bordered" id="oot_detail_body">
                                             <thead>
                                                 <tr>
-                                                    <th>Row #</th>
+                                                    <th style="width: 5%">Row#</th>
                                                     <th>AR Number</th>
                                                     <th>Test Name of OOT</th>
                                                     <th>Results Obtained</th>
@@ -821,7 +819,7 @@
                                         <table class="table table-bordered" id="stability_study_body">
                                             <thead>
                                                 <tr>
-                                                    <th>Row #</th>
+                                                    <th style="width: 5%">Row#</th>
                                                     <th>AR Number</th>
                                                     <th>Condition: Temperature & RH</th>
                                                     <th>Interval</th>
@@ -885,7 +883,7 @@
                                         <table class="table table-bordered" id="stability_study2_body">
                                             <thead>
                                                 <tr>
-                                                    <th>Row #</th>
+                                                    <th style="width: 5%">Row#</th>
                                                     <th>AR Number</th>
                                                     <th>Stability Condition</th>
                                                     <th>Stability Interval</th>

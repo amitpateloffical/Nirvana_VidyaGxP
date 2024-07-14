@@ -341,9 +341,9 @@ $users = DB::table('users')->get();
                                                 <th style="width: 16%">Batch Number</th>
                                                 <th style="width: 16%">Manufactured Date</th>
                                                 <th style="width: 16%">Expiry Date</th>
-                                                <th style="width: 15%">Disposition</th>
-                                                <th style="width: 15%">Comments</th>
-                                                <th style="width: 15%">Remarks</th>
+                                                <th style="width: 14%">Disposition</th>
+                                                <th style="width: 10%">Comments</th>
+                                                <th style="width: 21%">Remarks</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -807,8 +807,8 @@ $users = DB::table('users')->get();
                                                 <th style="width: 16%">Date</th>
                                                 <th style="width: 16%">Amount</th>
                                                 <th style="width: 15%">Currency Used</th>
-                                                <th style="width: 15%">Comments</th>
-                                                <th style="width: 15%">Remarks</th>
+                                                <th style="width: 10%">Comments</th>
+                                                <th style="width: 20%">Remarks</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -854,10 +854,6 @@ $users = DB::table('users')->get();
                                                         <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                     </tr>
                                                 @endforeach
-                                            {{-- @else
-                                                    <tr>
-                                                        <td colspan="9">No Financial Transactions details found</td>
-                                                    </tr> --}}
                                             @endif  
                                         </tbody>
 
