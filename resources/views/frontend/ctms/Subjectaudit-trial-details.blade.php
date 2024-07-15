@@ -62,7 +62,8 @@
                             <div style="margin-bottom: 5px;  font-weight: bold;"> Originator :{{ Auth::user()->name }}
                             </div>
                             <div style="margin-bottom: 5px; font-weight: bold;">Short Description :
-                                {{$doc->short_description}}</div>
+                                {{$doc->short_description}}
+                            </div>
                             <div style="margin-bottom: 5px;  font-weight: bold;">Due Date Status : {{$doc->due_date}}
                             </div>
 

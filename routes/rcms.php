@@ -191,10 +191,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('subjectCancel/{id}', [SubjectController::class, 'subjectCancel'])->name('subjectCancel');
             Route::post('subject_child/{id}', [SubjectController::class, 'subject_child'])->name('subject_child');
             Route::get('subjectSingleReport/{id}', [SubjectController::class, 'subSingleReport'])->name('subjectSingleReport');
-
-           
-            
-            
+            Route::get('subjectAuditReport/{id}', [SubjectController::class, 'subjectAuditReport'])->name('subjectAuditReport');
 
 
         }

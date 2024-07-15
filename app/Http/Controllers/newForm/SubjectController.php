@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\newForm;
 
 use App\Http\Controllers\Controller;
+use App\Models\ActionItem;
+use App\Models\Extension;
 use Illuminate\Http\Request;
 use App\Models\Subject;
 use App\Models\RecordNumber;
@@ -2119,6 +2121,59 @@ class SubjectController extends Controller
                 $canvas->page_text($width / 4, $height / 2, $data->status, null, 25, [0, 0, 0], 2, 6, -20);
                 return $pdf->stream('Subject' . $id . '.pdf');
             }
+        
+    }
+
+    public function subjectAuditReport($id){
+  
+            $doc = Subject::find($id);
+            if (!empty($doc)) {
+                $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+            } else {
+                $datas = ActionItem::find($id);
+    
+                if (empty($datas)) {
+                    $datas = Extension::find($id);
+                    $doc = Subject::find($datas->subject_id);
+                    $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+                    $doc->created_at = $datas->created_at;
+                } else {
+                    $doc = Subject::find($datas->subject_id);
+                    $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+                    $doc->created_at = $datas->created_at;
+                }
+            }
+            $data = SubjectAuditTrail::where('sub_id', $doc->id)->orderByDesc('id')->get();
+            // pdf related work
+            $pdf = App::make('dompdf.wrapper');
+            $time = Carbon::now();
+            $pdf = PDF::loadview('frontend.ctms.subject_audit_trial_pdf', compact('data', 'doc'))
+                ->setOptions([
+                    'defaultFont' => 'sans-serif',
+                    'isHtml5ParserEnabled' => true,
+                    'isRemoteEnabled' => true,
+                    'isPhpEnabled' => true,
+                ]);
+            $pdf->setPaper('A4');
+            $pdf->render();
+            $canvas = $pdf->getDomPDF()->getCanvas();
+            $height = $canvas->get_height();
+            $width = $canvas->get_width();
+    
+            $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
+    
+            $canvas->page_text(
+                $width / 3,
+                $height / 2,
+                $doc->status,
+                null,
+                60,
+                [0, 0, 0],
+                2,
+                6,
+                -20
+            );
+            return $pdf->stream('SOP' . $id . '.pdf');
         
     }
 }
