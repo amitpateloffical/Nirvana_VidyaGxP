@@ -72,7 +72,7 @@ class DashboardController extends Controller
         $datas14 = MedicalDevice::orderByDesc('id')->get();
         $datas15 = PSUR::orderByDesc('id')->get();
        $datas16 =Commitment::orderByDesc('id')->get();
-       $datas17 =TrainingCourse::orderByDesc('id')->get();
+    //    $datas17 =TrainingCourse::orderByDesc('id')->get();
 
 
 
@@ -404,25 +404,25 @@ class DashboardController extends Controller
             ]);
         }
 
-        foreach ($datas17 as $data) {
-            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+        // foreach ($datas17 as $data) {
+        //     $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
 
-            array_push($table, [
-                "id" => $data->id,
-                "parent" => $data->parent_record ? $data->parent_record : "-",
-                "record" => $data->record,
-                "division_id" => $data->division_id,
-                "type" => "TrainingCourse",
-                "parent_id" => $data->parent_id,
-                "parent_type" => $data->parent_type,
-                "short_description" => $data->short_description ? $data->short_description : "-",
-                "initiator_id" => $data->initiator,
-                "intiation_date" => $data->date_of_initiaton,
-                "stage" => $data->status,
-                "date_open" => $data->create,
-                "date_close" => $data->updated_at,
-            ]);
-        }
+        //     array_push($table, [
+        //         "id" => $data->id,
+        //         "parent" => $data->parent_record ? $data->parent_record : "-",
+        //         "record" => $data->record,
+        //         "division_id" => $data->division_id,
+        //         "type" => "TrainingCourse",
+        //         "parent_id" => $data->parent_id,
+        //         "parent_type" => $data->parent_type,
+        //         "short_description" => $data->short_description ? $data->short_description : "-",
+        //         "initiator_id" => $data->initiator,
+        //         "intiation_date" => $data->date_of_initiaton,
+        //         "stage" => $data->status,
+        //         "date_open" => $data->create,
+        //         "date_close" => $data->updated_at,
+        //     ]);
+        // }
 
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
         // return $table;
@@ -828,12 +828,12 @@ class DashboardController extends Controller
             $audit = "Commitmentaudit.pdf/". $data->id;
             $parent= "#";
         }
-        elseif ($type == "TrainingCourse") {
-            $data = TrainingCourse::find($id);
-            $single = "TrainingCourseSingleReport/". $data->id;
-            $audit = "TrainingCourseaudit.pdf/". $data->id;
-            $parent= "#";
-        }
+        // elseif ($type == "TrainingCourse") {
+        //     $data = TrainingCourse::find($id);
+        //     $single = "TrainingCourseSingleReport/". $data->id;
+        //     $audit = "TrainingCourseaudit.pdf/". $data->id;
+        //     $parent= "#";
+        // }
 
 
 
