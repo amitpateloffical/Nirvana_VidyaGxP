@@ -90,9 +90,6 @@ $users = DB::table('users')->get();
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Out of Limits
                     </button>
-                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                      Cancel
-                    </button> -->
                     @elseif($calibration->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Complete Actions
@@ -151,27 +148,6 @@ $users = DB::table('users')->get();
                     <div class="">Pending QA Approval</div>
                     @endif
 
-
-                    <!-- @if ($calibration->stage >= 5)
-                    <div class="active">Approved Equipment</div>
-                    @else
-                    <div class="">Approved Equipment</div>
-                    @endif
-                    @if ($calibration->stage >= 6)
-                    <div class="active">Out of Service</div>
-                    @else
-                    <div class="">Out of Service</div>
-                    @endif
-                    @if ($calibration->stage >= 7)
-                    <div class="active">In Storage</div>
-                    @else
-                    <div class="">In Storage</div>
-                    @endif -->
-                    <!-- @if ($calibration->stage >= 8)
-                    <div class="active">Active Document</div>
-                    @else
-                    <div class="">Active Document</div>
-                    @endif -->
                     @if ($calibration->stage >= 5)
                     <div class="bg-danger">Closed - done</div>
                     @else
@@ -235,7 +211,6 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Opened</b></label>
                                     <p class="text-primary">When was this record opened?</p>
-
                                     <input disabled type="text" value="{{ date('d-M-Y', strtotime($calibration->initiation_date )) }}" name="initiation_date">
                                     <input type="hidden" value="{{ date('d-M-Y', strtotime($calibration->initiation_date )) }}" name="initiation_date">
                                 </div>
@@ -245,9 +220,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <p class="text-primary"> last date this record should be closed by</p>
-
                                     <div class="calenderauditee">
-
                                         <input readonly type="text" value="{{ Helpers::getdateFormat($calibration->due_date) }}" name="due_date">
                                     </div>
                                 </div>
@@ -263,7 +236,7 @@ $users = DB::table('users')->get();
                                         <option value="assign_to">Select a value</option>
                                         @foreach ($users as $datas)
                                         @if(Helpers::checkUserRolesassign_to($datas))
-                                        <option value="{{ $datas->name }}" {{ $calibration->assign_to == $datas->name ? 'selected' : '' }} {{-- @if ($data->assign_to == $datas->name) selected @endif --}}>
+                                        <option value="{{ $calibration->assign_to == $datas->name}}" {{ $calibration->assign_to == $datas->name ? 'selected' : '' }} {{-- @if ($data->assign_to == $datas->name) selected @endif --}}>
                                             {{ $datas->name }}
                                         </option>
                                         @endif

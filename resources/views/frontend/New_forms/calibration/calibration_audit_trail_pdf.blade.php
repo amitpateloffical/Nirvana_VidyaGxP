@@ -163,7 +163,7 @@
                 </td>
             </tr>
         </table>
-        <table>
+        <table style="margin-top: 0.3rem;">
             <tr>
                 <td class="w-30">
                     <strong> Calibration No.</strong>
@@ -230,7 +230,7 @@
                                 <strong>Change From :</strong>
                                 @if ($dataDemo->change_from)
                                 @if (strtotime($dataDemo->change_from))
-                                {{ \Carbon\Carbon::parse($dataDemo->change_from)->format('d/m/Y') }}
+                                {{ \Carbon\Carbon::parse($dataDemo->change_from)->format('d-M-Y') }}
                                 @else
                                 {{ str_replace(',', ', ', $dataDemo->change_from) }}
                                 @endif
@@ -259,14 +259,14 @@
                                 @if ($dataDemo->activity_type == 'Activity Log')
                                 <strong>Change To :</strong>
                                 @if (strtotime($dataDemo->change_to))
-                                {{ \Carbon\Carbon::parse($dataDemo->change_to)->format('d/m/Y') }}
+                                {{ \Carbon\Carbon::parse($dataDemo->change_to)->format('d-M-Y') }}
                                 @else
                                 {!! str_replace(',', ', ', $dataDemo->change_to) ?: 'Not Applicable' !!}
                                 @endif
                                 @else
                                 <strong>Change To :</strong>
                                 @if (strtotime($dataDemo->current))
-                                {{ \Carbon\Carbon::parse($dataDemo->current)->format('d/m/Y') }}
+                                {{ \Carbon\Carbon::parse($dataDemo->current)->format('d-M-Y') }}
                                 @else
                                 {!! !empty(strip_tags($dataDemo->current)) ? $dataDemo->current : 'Not Applicable' !!}
                                 @endif

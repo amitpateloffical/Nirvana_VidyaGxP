@@ -126,20 +126,7 @@ $users = DB::table('users')->get();
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-12">
-                                    <div class="group-input">
-                                        <label for="file_attach">File Attachments</label>
-                                        <div class="file-attachment-field">
-                                            <div class="file-attachment-list" id="file_attach"></div>
-                                            <div class="add-btn">
-                                                <div>Add</div>
-                                                <input type="file" id="myfile" name="file_attach[]"
-                                                    oninput="addMultipleFiles(this, 'file_attach')" multiple>
-                                            </div>
-                                        </div>
-                                        {{-- <input type="file" name="file_attach[]" multiple> --}}
-                                    </div>
-                                </div> -->
+
 
                             <div class="col-lg-12">
                                 <div class="group-input">

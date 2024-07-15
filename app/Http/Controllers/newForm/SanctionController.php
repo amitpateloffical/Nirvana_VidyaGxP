@@ -169,23 +169,23 @@ class SanctionController extends Controller
                 $validation2->save();
             }
 
-            // if (!empty($request->file_attach)) {
-            //     $validation2 = new SanctionAudit();
-            //     $validation2->sanction_id = $sanction->id;
-            //     $validation2->activity_type = 'File Attachments';
-            //     $validation2->previous = "Null";
-            //     $validation2->current = $request->file_attach;
-            //     $validation2->comment = "NA";
-            //     $validation2->user_id = Auth::user()->id;
-            //     $validation2->user_name = Auth::user()->name;
-            //     $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if (!empty($request->file_attach)) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'File Attachments';
+                $validation2->previous = "Null";
+                $validation2->current = json_encode($request->file_attach);
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-            //     $validation2->change_to =   "Opened";
-            //     $validation2->change_from = "Initiation";
-            //     $validation2->action_name = 'Create';
+                $validation2->change_to =   "Opened";
+                $validation2->change_from = "Initiation";
+                $validation2->action_name = 'Create';
 
-            //     $validation2->save();
-            // }
+                $validation2->save();
+            }
 
             if (!empty($request->description)) {
                 $validation2 = new SanctionAudit();
@@ -446,23 +446,28 @@ class SanctionController extends Controller
                 $validation2->save();
             }
 
-            // if (!empty($request->file_attach)) {
-            //     $validation2 = new SanctionAudit();
-            //     $validation2->sanction_id = $sanction->id;
-            //     $validation2->activity_type = 'File Attachments';
-            //     $validation2->previous = "Null";
-            //     $validation2->current = $request->file_attach;
-            //     $validation2->comment = "NA";
-            //     $validation2->user_id = Auth::user()->id;
-            //     $validation2->user_name = Auth::user()->name;
-            //     $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            if ($lastDocument->file_attach != $request->file_attach) {
+                $validation2 = new SanctionAudit();
+                $validation2->sanction_id = $sanction->id;
+                $validation2->activity_type = 'File Attachments';
+                $validation2->previous = json_encode($lastDocument->file_attach);
+                $validation2->current = json_encode($request->file_attach);
+                $validation2->comment = "NA";
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
-            // $validation2->change_to =   "Not Applicable";
-            // $validation2->change_from = $lastDocument->status;
-            // $validation2->action_name = 'Update';
+                $validation2->change_to =   "Not Applicable";
+                $validation2->change_from = $lastDocument->status;
 
-            //     $validation2->save();
-            // }
+                if (is_null($lastDocument->file_attach) || $lastDocument->file_attach === '') {
+                    $validation2->action_name = 'New';
+                } else {
+                    $validation2->action_name = 'Update';
+                }
+
+                $validation2->save();
+            }
 
             if ($lastDocument->description != $request->description) {
                 $validation2 = new SanctionAudit();

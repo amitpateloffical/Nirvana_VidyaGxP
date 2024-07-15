@@ -50,15 +50,15 @@ $users = DB::table('users')->get();
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="sub-head">
-                            <!-- General Information -->
-                        </div> <!-- RECORD NUMBER -->
+
+                        </div>
 
 
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Originator</b></label>
-                                    <input disabled type="text" name="initiator" value="">
+                                    <input disabled type="text" name="initiator" value="{{Auth::user()->name}}">
 
                                 </div>
                             </div>
@@ -71,6 +71,7 @@ $users = DB::table('users')->get();
                                     <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number">Record Number</label>
@@ -80,7 +81,7 @@ $users = DB::table('users')->get();
 
 
 
-                            {{-- <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Due Date">Due Date</label>
 
@@ -94,8 +95,6 @@ $users = DB::table('users')->get();
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Due Date <span class="text-danger"></span></label>
-                                    <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                            value="" name="due_date"> -->
                                     <div class="calenderauditee">
                                         <input type="hidden" value="{{$due_date}}" name="due_date">
                                         <input disabled type="text" value="{{Helpers::getdateFormat($due_date)}}">
@@ -184,7 +183,6 @@ $users = DB::table('users')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-
                                     <label for="Year"> Year<span class="text-danger"></span></label>
                                     <select name="year">
                                         <option>2024</option>

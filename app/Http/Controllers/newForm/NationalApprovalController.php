@@ -1001,34 +1001,6 @@ class NationalApprovalController extends Controller
                 toastr()->success('Document Sent');
                 return back();
             }
-
-
-
-
-            // if ($equipment->stage == 5) {
-            //     $equipment->stage = "6";
-            //     $equipment->status = "Out of Service";
-            //     $equipment->update();
-            //     toastr()->success('Document Sent');
-            //     return back();
-            // }
-
-            // if ($equipment->stage == 6) {
-            //     $equipment->stage = "7";
-            //     $equipment->status = "In Storage";
-            //     $equipment->update();
-            //     toastr()->success('Document Sent');
-            //     return back();
-            // }
-
-
-            // if ($equipment->stage ==7 ) {
-            //     $equipment->stage = "8";
-            //     $equipment->status = "Closed - Retired";
-            //     $equipment->update();
-            //     toastr()->success('Document Sent');
-            //     return back();
-            // }
         } else {
             toastr()->error('E-signature Not match');
             return back();
@@ -1083,28 +1055,39 @@ class NationalApprovalController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_from = $lastDocument->status;
-                $validation2->action = 'Cancel';
+                $validation2->action = 'Refused';
                 $validation2->change_to = "Closed - Not Approved";
+
                 $validation2->stage = 'Submited';
                 $validation2->save();
-
-
 
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
             }
-            // if ($equipment->stage == 7) {
-            //     $equipment->stage = "6";
-            //     $equipment->status = "Pending Completion";
-            //     $equipment->update();
-            //     toastr()->success('Document Sent');
-            //     return back();
-            // }
+
 
             if ($equipment->stage == 4) {
                 $equipment->stage = "5";
                 $equipment->status = "Closed - Retired";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Retire';
+                $validation2->change_to = "Closed - Retired";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -1123,12 +1106,31 @@ class NationalApprovalController extends Controller
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $national1 = NationalApproval::find($id);
-            // $lastDocument = NationalApproval::find($id);
+            $lastDocument = NationalApproval::find($id);
 
 
             if ($national1->stage == 2) {
                 $national1->stage = "7";
                 $national1->status = "Closed - Withdrawn";
+
+
+                $national1->submit_by = Auth::user()->name;
+                $national1->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new NationalApprovalAudit();
+                $validation2->nationalApproval_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $national1->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Withdraw';
+                $validation2->change_to = "Closed - Withdrawn";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $national1->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -1143,11 +1145,9 @@ class NationalApprovalController extends Controller
     {
         $national = NationalApproval::findOrFail($id);
         $audit = NationalApprovalAudit::where('nationalApproval_id', $id)->orderByDESC('id')->paginate();
-        // dd($audit);
         $today = Carbon::now()->format('d-m-y');
         $document = NationalApproval::where('id', $id)->first();
         $document->originator = User::where('id', $document->initiator_id)->value('name');
-        // dd($document);
 
         return view('frontend.New_forms.national-approval.auditNationalApproval', compact('document', 'audit', 'today', 'national'));
     }
