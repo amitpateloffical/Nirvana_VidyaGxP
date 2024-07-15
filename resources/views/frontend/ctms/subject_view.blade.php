@@ -1,9 +1,6 @@
 @extends('frontend.layout.main')
 @section('container')
 
-
-
-
 <style>
 textarea.note-codable {
     display: none !important;
@@ -12,10 +9,42 @@ textarea.note-codable {
 header {
     display: none;
 }
+
+
+.progress-bars div {
+    flex: 1 1 auto;
+    border: 1px solid grey;
+    padding: 5px;
+    text-align: center;
+    position: relative;
+    /* border-right: none; */
+    background: white;
+}
+
+.state-block {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.progress-bars div.active {
+    background: green;
+    font-weight: bold;
+}
+
+#change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(1) {
+    border-radius: 20px 0px 0px 20px;
+}
+
+#change-control-fields>div>div.inner-block.state-block>div.status>div.progress-bars.d-flex>div:nth-child(9) {
+    border-radius: 0px 20px 20px 0px;
+
+}
 </style>
 
+@php
 
-
+$user=DB::table('users')->get();
+@endphp
 <!-- <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
@@ -60,6 +89,76 @@ header {
 <div id="change-control-fields">
     <div class="container-fluid">
 
+        <div class="inner-block state-block">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="main-head">Record Workflow </div>
+
+                <div class="d-flex" style="gap:20px;">
+                    @php
+                    $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' =>
+                    7])->get();
+                    $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
+                    @endphp
+
+                    <button class="button_theme1"> <a class="text-white"
+                            href="{{ url('Subject/auditReport', $openState->id) }}"> Audit Trail </a> </button>
+
+                    @if ($openState->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                        Submit
+                    </button>
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                        Cancel
+                    </button>
+                    @elseif($openState->stage == 2 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
+                        Child
+                    </button>
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                        Close
+                    </button>
+
+                    @endif
+                    <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
+                        </a> </button>
+                </div>
+            </div>
+
+
+            <div class="status">
+                <div class="head">Current Status</div>
+                @if ($openState->stage == 0)
+                <div class="progress-bars">
+                    <div class="bg-danger">Closed-Cancelled</div>
+                </div>
+
+                @else
+                <div class="progress-bars d-flex" style="font-size: 15px;">
+                    @if ($openState->stage >= 1)
+                    <div class="active">Opened</div>
+                    @else
+                    <div class="">Opened</div>
+                    @endif
+
+                    @if ($openState->stage >= 2)
+                    <div class="active">Active</div>
+                    @else
+                    <div class="">Active</div>
+                    @endif
+
+
+                    @if ($openState->stage >= 3)
+                    <div class="bg-danger">Closed-Done</div>
+                    @else
+                    <div class="">Closed-Done</div>
+                    @endif
+                    {{-- @endif --}}
+                </div>
+                @endif
+                {{-- ---------------------------------------------------------------------------------------- --}}
+            </div>
+        </div>
+
         <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Subject</button>
@@ -67,9 +166,20 @@ header {
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Important Dates</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
         </div>
+        <script>
+        $(document).ready(function() {
+            <?php if (in_array($openState->stage, [3])) : ?>
+            $("#target :input").prop("disabled", true);
+            <?php endif; ?>
+        });
+        </script>
 
-        <form action="{{ route('subjectStore') }}" method="POST" enctype="multipart/form-data">
+
+        <form id="target" action="{{ route('subjectUpdate',$openState->id)}}" method="POST"
+            enctype="multipart/form-data">
+
             @csrf
+
 
             <div id="step-form">
                 @if (!empty($parent_id))
@@ -86,7 +196,7 @@ header {
                                 <div class="group-input">
                                     <label for="Record Number"><b>Record Number</b></label>
                                     <input disabled type="text" name="record_number"
-                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/SUB/{{ date('Y') }}/{{ $record_number }}">
+                                        value="{{ Helpers::getDivisionName($openState->division)}}/SUB/{{Helpers::year($openState->create_at)}}/{{$openState->record }}">
                                 </div>
                             </div>
 
@@ -103,7 +213,7 @@ header {
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="initiator_name" value="{{ Auth::user()->name }}">
+                                    <input disabled type="text" name="initiator_name " value="{{ Auth::user()->name }}">
                                 </div>
                             </div>
 
@@ -122,28 +232,33 @@ header {
                                     <label for="Short Description">Short Description<span
                                             class="text-danger">*</span></label>
                                     <p>255 characters remaining</p>
-                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                    <input id="docname" type="text" name="short_description" maxlength="255"
+                                        value="{{ $openState->short_description }}" required>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
+                            <div class=" col-lg-6">
+                                <div class=" group-input">
                                     <label for="phase_of_study">
                                         (Parent) Phase of Study
                                     </label>
                                     <select id="select-state" name="phase_of_study">
-                                        <option value="">Select a value</option>
-                                        <option value="one">one</option>
-                                        <option value="two">two</option>
-                                        <option value="three">three</option>
+                                        <option value="one" @if ($openState->phase_of_study == 'one') selected
+                                            @endif>one
+                                        </option>
+                                        <option value="two" @if ($openState->phase_of_study == 'two') selected
+                                            @endif>two
+                                        </option>
+                                        <option value="three" @if ($openState->phase_of_study == 'three') selected
+                                            @endif>three
+                                        </option>
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Reference Recores"> (Parent) Study Num</label>
-                                    <input type="text" name="study_Num">
+                                    <input type="text" name="study_Num" value="{{ $openState->study_Num}}">
                                 </div>
                             </div>
 
@@ -155,7 +270,9 @@ header {
                                     <select id="select-state" name="assign_to">
                                         <option value="">Select a value</option>
                                         @foreach ($user as $users)
-                                        <option value="{{ $users->name }}">{{ $users->name }}</option>
+                                        <option {{ $openState->assign_to == $users->name ? 'selected' : '' }}
+                                            value="{{ $users->name }}">
+                                            {{ $users->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -169,9 +286,7 @@ header {
                                     </div>
 
                                     <div class="calenderauditee">
-                                        <input type="hidden" id="due_date" value="{{$due_date}}" name="due_date" />
-                                        <input disabled type="text" name="due_date"
-                                            value="{{Helpers::getdateFormat($due_date)}}" />
+                                        <input readonly type="text" name="due_date" value="{{$openState->due_date}}" />
                                     </div>
                                 </div>
                             </div>
@@ -184,10 +299,25 @@ header {
                                         <small class="text-primary"></small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div disabled class="file-attachment-list" id="File_Attachment">
+                                            @if (!empty($openState->file_attach) &&
+                                            is_array(json_decode($openState->file_attach)))
+                                            @foreach(json_decode($openState->file_attach) as $file)
+                                            <h6>
+                                                <b>{{ $file }}</b>
+                                                <a href=" {{ asset('upload/' . $file) }}" target="_blank">
+                                                    <i class="fa fa-eye text-primary"
+                                                        style="font-size:20px; margin-right:-10px;"></i>
+                                                </a>
+                                            </h6>
+                                            @endforeach
+                                            @endif
+                                        </div>
+                                        <!-- <div class="file-attachment-list" id="File_Attachment"></div> -->
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attach[]">
+                                            <input type="file" id="File_Attachment" name="file_attach[]"
+                                                oninput="addMultipleFiles(this, 'File_Attachment')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -198,9 +328,15 @@ header {
                                     <label for="Type">Related URLs</label>
                                     <select name="related_urls">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="P-1">P-1</option>
-                                        <option value="P-2">P-2</option>
-                                        <option value="P-3">P-3</option>
+                                        <option value="P-1" @if ($openState->related_urls == 'P-1') selected
+                                            @endif>P-1
+                                        </option>
+                                        <option value="P-2" @if ($openState->related_urls == 'P-2') selected
+                                            @endif>P-2
+                                        </option>
+                                        <option value="P-3" @if ($openState->related_urls == 'P-3') selected
+                                            @endif>P-3
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -208,7 +344,8 @@ header {
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Description</label>
-                                    <textarea class="summernote" name="Description_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="Description_Batch"
+                                        id="summernote-16">{{ $openState->Description_Batch }}"</textarea>
                                 </div>
                             </div>
 
@@ -217,7 +354,8 @@ header {
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Actual Cost </label>
-                                    <input type="text" id="actual_cost" name="actual_cost">
+                                    <input type="text" id="actual_cost" name="actual_cost"
+                                        value="{{ $openState->actual_cost }}">
                                 </div>
                             </div>
 
@@ -226,8 +364,12 @@ header {
                                     <label for="Type">Currency</label>
                                     <select name="currency">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="Dollar">Dollar</option>
-                                        <option value="Rupees">Rupees</option>
+                                        <option value="Dollar" @if ($openState->currency == 'Dollar') selected
+                                            @endif>Dollar
+                                        </option>
+                                        <option value="Rupees" @if ($openState->currency == 'Rupees') selected
+                                            @endif>Rupees
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -237,7 +379,8 @@ header {
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Comments</label>
-                                    <textarea class="summernote" name="Comments_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="Comments_Batch"
+                                        id="summernote-16">"{{ $openState->Comments_Batch}}"</textarea>
                                 </div>
                             </div>
 
@@ -248,10 +391,23 @@ header {
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="file-attachment-list" id="source_Attachment">
+                                            @if (!empty($openState->document_attach) &&
+                                            is_array(json_decode($openState->document_attach)))
+                                            @foreach(json_decode($openState->document_attach) as $file)
+                                            <h6>
+                                                <b>{{ $file }}</b>
+                                                <a href="{{ asset('upload/' . $file) }}" target="_blank">
+                                                    <i class="fa fa-eye text-primary"
+                                                        style="font-size:20px; margin-right:-10px;"></i>
+                                                </a>
+                                            </h6>
+                                            @endforeach
+                                            @endif
+                                        </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="document_attach[]">
+                                            <input type="file" id="source_Attachment" name="document_attach[]">
                                         </div>
                                     </div>
                                 </div>
@@ -263,14 +419,14 @@ header {
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Subject Name</label>
-                                    <input type="text" name="subject_name" />
+                                    <input type="text" name="subject_name" value="{{ $openState->subject_name }}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Subject Name</label>
-                                    <input type="date" name="subject_date" />
+                                    <input type="date" name="subject_date" value="{{ $openState->subject_date }}" />
                                 </div>
                             </div>
 
@@ -279,9 +435,14 @@ header {
                                     <label for="Type">Gender</label>
                                     <select name="gender">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="others">Others</option>
+                                        <option value="male" @if ($openState->gender == 'male') selected @endif>Male
+                                        </option>
+                                        <option value="female" @if ($openState->gender == 'female') selected
+                                            @endif>Female
+                                        </option>
+                                        <option value="others" @if ($openState->gender == 'others') selected
+                                            @endif>Others
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -291,9 +452,12 @@ header {
                                     <label for="Type">Race</label>
                                     <select name="race">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="R-1">R-1</option>
-                                        <option value="R-2">R-2</option>
-                                        <option value="R-3">R-3</option>
+                                        <option value="R-1" @if ($openState->race == 'R-1') selected
+                                            @endif>R-1</option>
+                                        <option value="R-2" @if ($openState->race == 'R-2') selected @endif>R-2
+                                        </option>
+                                        <option value="R-3" @if ($openState->race == 'R-2') selected @endif>R-3
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -322,11 +486,15 @@ header {
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Type">Screened Successfully </label>
+                                    <label for="Type">Screened Successfully? </label>
                                     <select name="screened_successfully">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="AT-1">AT-1</option>
-                                        <option value="AT-2">AT-2</option>
+                                        <option value="AT-1" @if ($openState->screened_successully == 'AT-1')
+                                            selected
+                                            @endif>AT-1
+                                        </option>
+                                        <option value="AT-2" @if ($openState->screened_successully == 'AT-2')
+                                            selected @endif>AT-2</option>
 
                                     </select>
                                 </div>
@@ -337,8 +505,12 @@ header {
                                     <label for="Type">Reason For Discontinuation </label>
                                     <select name="discontinuation">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="AT-1">AT-1</option>
-                                        <option value="AT-2">AT-2</option>
+                                        <option value="AT-1" @if ($openState->discontinuation == 'AT-1') selected
+                                            @endif>AT-1
+                                        </option>
+                                        <option value="AT-2" @if ($openState->discontinuation == 'AT-2') selected
+                                            @endif>AT-2
+                                        </option>
 
                                     </select>
                                 </div>
@@ -347,28 +519,31 @@ header {
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments">Comments</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="Disposition_Batch"
+                                        id="summernote-16">{{ $openState->Disposition_Batch}}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Treatment Consent Version</label>
-                                    <input type="text" name="treatment_consent" />
+                                    <input type="text" name="treatment_consent"
+                                        value="{{ $openState->treatment_consent }}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Screening Consent Version</label>
-                                    <input type="text" name="screening_consent" />
+                                    <input type="text" name="screening_consent"
+                                        value="{{ $openState->screening_consent }}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Type">Exception Number </label>
-                                    <input type="text" name="exception_no" />
+                                    <input type="text" name="exception_no" value="{{ $openState->exception_no }}" />
                                 </div>
                             </div>
 
@@ -377,8 +552,12 @@ header {
                                     <label for="Type">Signed Consent Form </label>
                                     <select name="signed_consent">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="01">01</option>
-                                        <option value="02">02</option>
+                                        <option value="01" @if ($openState->signed_consent == '01') selected
+                                            @endif>01
+                                        </option>
+                                        <option value="02" @if ($openState->signed_consent == '02') selected
+                                            @endif>02
+                                        </option>
 
                                     </select>
                                 </div>
@@ -389,9 +568,12 @@ header {
                                     <label for="Type">Time Point </label>
                                     <select name="time_point">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="T-1">T-1</option>
-                                        <option value="T-2">T-2</option>
-
+                                        <option value="T-1" @if ($openState->time_point == 'T-1') selected
+                                            @endif>T-1
+                                        </option>
+                                        <option value="T-2" @if ($openState->time_point == 'T-2') selected
+                                            @endif>T-2
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -399,7 +581,8 @@ header {
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments">Family History</label>
-                                    <textarea class="summernote" name="family_history" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="family_history"
+                                        id="summernote-16">{{ $openState->family_history }}</textarea>
                                 </div>
                             </div>
 
@@ -408,7 +591,7 @@ header {
                                     <label class="mt-4" for="Audit Comments">Baseline
                                         Assessment</label>
                                     <textarea class="summernote" name="Baseline_assessment"
-                                        id="summernote-16"></textarea>
+                                        id="summernote-16">{{ $openState->Baseline_assessment}}</textarea>
                                 </div>
                             </div>
 
@@ -416,7 +599,7 @@ header {
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Representive </label>
-                                    <input type="text" name="representive" />
+                                    <input type="text" name="representive" value="{{ $openState->representive}}" />
                                 </div>
                             </div>
 
@@ -428,9 +611,15 @@ header {
                                     <label for="Type">Zone</label>
                                     <select name="zone">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="P-1">P-1</option>
-                                        <option value="P-2">P-2</option>
-                                        <option value="P-3">P-3</option>
+                                        <option value="P-1" @if ($openState->Zone == 'P-1') selected
+                                            @endif>P-1
+                                        </option>
+                                        <option value="P-2" @if ($openState->Zone == 'P-2') selected
+                                            @endif>P-2
+                                        </option>
+                                        <option value="P-3" @if ($openState->Zone == 'P-3') selected
+                                            @endif>P-3
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -440,9 +629,15 @@ header {
                                     <label for="Type">Country</label>
                                     <select name="country">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="India">India</option>
-                                        <option value="UK">UK</option>
-                                        <option value="USA">USA</option>
+                                        <option value="India" @if ($openState->country == 'India') selected
+                                            @endif>India
+                                        </option>
+                                        <option value="UK" @if ($openState->country == 'UK') selected
+                                            @endif>UK
+                                        </option>
+                                        <option value="USA" @if ($openState->country == 'USA') selected
+                                            @endif>USA
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -455,9 +650,15 @@ header {
                                     <label for="Type">City</label>
                                     <select name="city">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="Indore">Indore</option>
-                                        <option value="Bhopal">Bhopal</option>
-                                        <option value="Dewas">Dewas</option>
+                                        <option value="Indore" @if ($openState->city == 'Indore') selected
+                                            @endif>Indore
+                                        </option>
+                                        <option value="Bhopal" @if ($openState->city == 'Bhopal') selected
+                                            @endif>Bhopal
+                                        </option>
+                                        <option value="Dewas" @if ($openState->city == 'Dewas') selected
+                                            @endif>Dewas
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -467,9 +668,15 @@ header {
                                     <label for="Type">State/District</label>
                                     <select name="district">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="Dewas">Dewas</option>
-                                        <option value="Harda">Harda</option>
-                                        <option value="Sehore">Sehore</option>
+                                        <option value="Dewas" @if ($openState->district == 'Dewas') selected
+                                            @endif>Dewas
+                                        </option>
+                                        <option value="Harda" @if ($openState->district == 'Harda') selected
+                                            @endif>Harda
+                                        </option>
+                                        <option value="Sehore" @if ($openState->district== 'sehore') selected
+                                            @endif>Sehore
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -479,9 +686,15 @@ header {
                                     <label for="Type">Site Name</label>
                                     <select name="site">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="Indore">Indore</option>
-                                        <option value="Bhopal">Bhopal</option>
-                                        <option value="Dewas">Dewas</option>
+                                        <option value="Indore" @if ($openState->site == 'Indore') selected
+                                            @endif>Indore
+                                        </option>
+                                        <option value="Bhopal" @if ($openState->site == 'Bhopal') selected
+                                            @endif>Bhopal
+                                        </option>
+                                        <option value="Dewas" @if ($openState->site == 'Dewas') selected
+                                            @endif>Dewas
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -491,9 +704,15 @@ header {
                                     <label for="Type">Building</label>
                                     <select name="building">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="1" @if ($openState->building == '1') selected
+                                            @endif>1
+                                        </option>
+                                        <option value="2" @if ($openState->building == '2') selected
+                                            @endif>2
+                                        </option>
+                                        <option value="3" @if ($openState->building == '3') selected
+                                            @endif>3
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -503,9 +722,15 @@ header {
                                     <label for="Type">Floor</label>
                                     <select name="floor">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="1" @if ($openState->floor == '1') selected
+                                            @endif>1
+                                        </option>
+                                        <option value="2" @if ($openState->floor == '2') selected
+                                            @endif>2
+                                        </option>
+                                        <option value="3" @if ($openState->floor == '3') selected
+                                            @endif>3
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -515,9 +740,15 @@ header {
                                     <label for="Type">Room</label>
                                     <select name="room">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="1" @if ($openState->room == '1') selected
+                                            @endif>1
+                                        </option>
+                                        <option value="2" @if ($openState->room == '2') selected
+                                            @endif>2
+                                        </option>
+                                        <option value="3" @if ($openState->room == '3') selected
+                                            @endif>3
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -553,83 +784,88 @@ header {
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Consent Form Signed On </label>
-                                    <input type="date" name="consent_form" />
+                                    <input type="date" name="consent_form" value="{{ $openState->consent_form }}" />
                                 </div>
                             </div>
 
                             <div class=" col-lg-6">
                                 <div class="group-input">
                                     <label for="Type"> Date Granted</label>
-                                    <input type="date" name="date_granted" />
+                                    <input type="date" name="date_granted" value="{{ $openState->date_granted}}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type"> System Start Date</label>
-                                    <input type="date" name="system_start" />
+                                    <input type="date" name="system_start" value="{{ $openState->system_start }}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Consent Form Signed Date </label>
-                                    <input type="date" name="consent_form_date" />
+                                    <input type="date" name="consent_form_date"
+                                        value="{{ $openState->consent_form_date }}" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type"> Date Of First Treatment</label>
-                                    <input type="date" name="first_treatment" />
+                                    <input type="date" name="first_treatment"
+                                        value="{{ $openState->first_treatment }}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Date Requested</label>
-                                    <input type="date" name="date_requested" />
+                                    <input type="date" name="date_requested" value="{{ $openState->date_requested }}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Date Screened </label>
-                                    <input type="date" name="date_screened" />
+                                    <input type="date" name="date_screened" value="{{ $openState->date_screened }}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type"> Date Signed Treatment Consent</label>
-                                    <input type="date" name="date_signed_treatment" />
+                                    <input type="date" name="date_signed_treatment"
+                                        value="{{ $openState->date_signed_treatment }}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Effective From Date </label>
-                                    <input type="date" name="date_effective_from" />
+                                    <input type="date" name="date_effective_from"
+                                        value="{{ $openState->date_effective_from }}">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type"> Effective To Date</label>
-                                    <input type="date" name="date_effective_to" />
+                                    <input type="date" name="date_effective_to"
+                                        value="{{ $openState->date_effective_to}}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Last Active Treatment Date </label>
-                                    <input type="date" name="last_active" />
+                                    <input type="date" name="last_active" value="{{ $openState->last_active }}" />
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type"> Last Follow-up Date</label>
-                                    <input type="date" name="last_followup" />
+                                    <input type="date" name="last_followup" value="{{ $openState->last_followup}}" />
                                 </div>
                             </div>
 
@@ -705,6 +941,166 @@ header {
 
 </div>
 </div>
+
+
+
+{{{--models--}}
+
+<div class="modal fade" id="child-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Child</h4>
+            </div>
+            <form action="{{ route('subject_child', $openState->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="group-input">
+                        @if ($openState->stage == 2)
+                        <label for="major">
+
+                        </label>
+                        <label for="major">
+                            <input type="radio" name="child_type" value="violation">
+                            Violation
+                        </label>
+                        <label for="major">
+                            <input type="radio" name="child_type" value="Action_Item">
+                             Subject Action Item
+                        </label>
+                        <!-- <label for="major">
+                                            <input type="radio" name="child_type" value="extension">
+                                            Extension
+                                        </label> -->
+                        @endif
+
+                       
+                    </div>
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                    <button type="submit">Continue</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cancel-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <form action="{{ route('subjectCancel', $openState->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username <span class="text-danger">*</span></label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password <span class="text-danger">*</span></label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment <span class="text-danger">*</span></label>
+                        <input type="comment" name="comment" required>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                                <button type="submit" data-bs-dismiss="modal">Submit</button>
+                                <button>Close</button>
+                            </div> -->
+                <div class="modal-footer">
+                    <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="signature-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('subject_send_stage', $openState->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input type="comment" name="comment">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                                <button type="submit" data-bs-dismiss="modal">Submit</button>
+                                <button>Close</button>
+                            </div> -->
+                <div class="modal-footer">
+                    <button type="submit">Submit</button>
+                    <button type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <style>
 #step-form>div {

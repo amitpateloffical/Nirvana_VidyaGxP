@@ -35,7 +35,7 @@ use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\newForm\MedicalRegistrationController;
-
+use App\Http\Controllers\newForm\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -391,7 +391,7 @@ Route::view('action_item', 'frontend.ehs.action_item');
 // --------------------------------------ctms-------forms-------
 
 Route::view('violation', 'frontend.ctms.violation');
-Route::view('subject', 'frontend.ctms.subject');
+// Route::view('subject', 'frontend.ctms.subject');
 Route::view('subject_action_item', 'frontend.ctms.subject_action_item');
 
 Route::view('study', 'frontend.ctms.study');
@@ -460,6 +460,17 @@ Route::view('incident', 'frontend.Incident.incident');
 Route::view('oos-form', 'frontend.OOS.oos-form');
 
 
+// -----------------------subject --------------------//
+
+Route::get('subject',[SubjectController::class, 'subject']);
+Route::post('subject/store', [SubjectController::class,'store'])->name('subjectStore');
+Route::get('subject/edit/{id}',[SubjectController::class,'edit'])->name('subjectEdit');
+Route::post('subject/update/{id}', [SubjectController::class,'update'])->name('subjectUpdate');
+Route::get('Subject/auditReport/{id}', [SubjectController::class, 'auditReport'])->name('subjectauditReport');
+Route::get('subject_audit_details/{id}', [SubjectController::class, 'subjectDetails']);
+
+
+// Route::resource('subject', SubjectController::class);
 
 
 
@@ -538,4 +549,3 @@ Route::view('OOT_form', 'frontend.OOT.OOT_form');
 
 // ===============Additional Testing==========================\
 Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
-

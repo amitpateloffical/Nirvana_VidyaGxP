@@ -1,5 +1,8 @@
 <?php
 
+// use App\Http\Controllers\rcms\SubjectController;
+
+use App\Http\Controllers\newForm\SubjectController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CCController;
@@ -34,6 +37,8 @@ Route::group(['prefix' => 'rcms'], function () {
     Route::middleware(['rcms'])->group(
         function () {
             Route::resource('CC', CCController::class);
+
+
             Route::resource('actionItem', ActionItemController::class);
             Route::post('action-stage-cancel/{id}', [ActionItemController::class, 'actionStageCancel']);
             Route::get('action-item-audittrialshow/{id}', [ActionItemController::class, 'actionItemAuditTrialShow'])->name('showActionItemAuditTrial');
@@ -141,6 +146,9 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('ObservationAuditTrialDetails/{id}', [ObservationController::class, 'ObservationAuditTrialDetails'])->name('showaudittrialobservation');
 
 
+            
+
+
             //----------------------------------------------By PRIYA SHRIVASTAVA------------------
             Route::post('formDivision', [FormDivisionController::class, 'formDivision'])->name('formDivision');
             Route::get('ExternalAuditSingleReport/{id}', [AuditeeController::class, 'singleReport'])->name('ExternalAuditSingleReport');
@@ -176,7 +184,18 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
 
+
+             //------------------------------------By saurav kumar singh---------------------------------------
              
+            Route::post('subject_send_stage/{id}', [SubjectController::class, 'subject_send_stage'])->name('subject_send_stage');
+            Route::post('subjectCancel/{id}', [SubjectController::class, 'subjectCancel'])->name('subjectCancel');
+            Route::post('subject_child/{id}', [SubjectController::class, 'subject_child'])->name('subject_child');
+            Route::get('subjectSingleReport/{id}', [SubjectController::class, 'subSingleReport'])->name('subjectSingleReport');
+
+           
+            
+            
+
 
         }
     );
