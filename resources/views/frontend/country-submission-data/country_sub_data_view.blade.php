@@ -129,9 +129,9 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code</b></label>
-                                    <input readonly type="text" name="division_code" />
-                                        {{-- value="{{ Helpers::getDivisionName(session()->get('division')) }}" --}}
-                                    {{-- <input type="hidden" name="division_id" value="{{ session()->get('division') }}"> --}}
+                                    <input readonly type="text" name="division_code"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}"/>
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -1418,7 +1418,7 @@ $users = DB::table('users')->get();
             <div class="modal-header">
                 <h4 class="modal-title">Child</h4>
             </div>
-            <form action="" method="">
+            <form action="/cta_submission" method="">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">

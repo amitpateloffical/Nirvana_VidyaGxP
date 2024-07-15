@@ -732,7 +732,7 @@
             <div class="modal-header">
                 <h4 class="modal-title">Child</h4>
             </div>
-            <form action="capa" method="POST">
+            <form action="/capa" method="">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">
