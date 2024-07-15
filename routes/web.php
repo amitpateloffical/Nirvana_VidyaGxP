@@ -11,6 +11,10 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DocumentDetailsController;
 use App\Http\Controllers\rcms\DesktopController;
 use App\Http\Controllers\UserLoginController;
+use App\Http\Controllers\PSURController;
+use App\Http\Controllers\TrainingCourseController;
+use App\Http\Controllers\CommitmentController;
+
 use App\Http\Controllers\MytaskController;
 use App\Http\Controllers\CabinateController;
 use App\Http\Controllers\rcms\CCController;
@@ -27,10 +31,12 @@ use App\Http\Controllers\rcms\CustomerController;
 use App\Http\Controllers\rcms\ExtensionController;
 use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RcmsDashboardController;
+use App\Http\Controllers\MedicalDeviceController;
 use App\Http\Controllers\tms\QuestionBankController;
 use App\Http\Controllers\tms\QuestionController;
 use App\Http\Controllers\tms\QuizeController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\QualityFollowUpController;
 use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
@@ -87,9 +93,9 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     //Route::post('set/division', [DocumentController::class, 'division'])->name('division_submit');
     Route::post('dcrDivision', [DocumentController::class, 'dcrDivision'])->name('dcrDivision_submit');
     Route::get('documents/generatePdf/{id}', [DocumentController::class, 'createPDF']);
-    
+
     Route::get('documents/reviseCreate/{id}', [DocumentController::class, 'revise_create']);
-    
+
     Route::get('documents/printPDF/{id}', [DocumentController::class, 'printPDF']);
     Route::get('documents/viewpdf/{id}', [DocumentController::class, 'viewPdf']);
     Route::resource('documentsContent', DocumentContentController::class);
@@ -137,7 +143,7 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     Route::get('data/{id}', [QuizeController::class, 'datag'])->name('data');
     Route::get('datag/{id}', [QuizeController::class, 'data'])->name('datag');
     //-----------------------QMS----------------
-    Route::get('qms-dashboard', [RcmsDashboardController::class, 'index']);
+    //Route::get('qms-dashboard', [RcmsDashboardController::class, 'index']);
 });
 
 // ====================================Capa=======================
@@ -180,6 +186,17 @@ Route::post('reject_Risk/{id}', [RiskManagementController::class, 'RejectStateCh
 Route::get('riskAuditTrial/{id}', [RiskManagementController::class, 'riskAuditTrial']);
 Route::get('auditDetailsrisk/{id}', [RiskManagementController::class, 'auditDetailsrisk'])->name('showriskAuditDetails');
 Route::post('child/{id}',[RiskManagementController::class,'child'])->name('riskAssesmentChild');
+
+
+             //-------------------------------Medical-device------------------
+Route::get('medical-devices', [medicaldeviceController::class, 'index'])->name('medical-devices.index');
+Route::post('medical-devices_store', [medicaldeviceController::class, 'store'])->name('medical-devices');
+Route::get('medical_Device_view/{id}', [medicaldeviceController::class, 'show'])->name('medical_Device_view');
+Route::post('medicaldeviceUpdate/{id}', [MedicalDeviceController::class, 'Update'])->name('Update');
+Route::post('medicaldevice_stageChange/{id}', [MedicalDeviceController::class, 'stageChange'])->name('medicaldevice_stageChange');
+Route::post('medicalDevice/cancel/{id}', [MedicalDeviceController::class, 'medicalDevice_cancel'])->name('medicalDevice_cancel');
+Route::get('medialdevice_audittrail/{id}', [MedicalDeviceController::class, 'auditTrialshow'])->name('medialdevice_audittrail');
+
 
 
 
@@ -228,6 +245,7 @@ Route::post('StageChangeLabIncident/{id}', [LabIncidentController::class, 'LabIn
 Route::post('LabIncidentCancel/{id}', [LabIncidentController::class, 'LabIncidentCancelStage']);
 
 Route::get('audit-program', [AuditProgramController::class, 'auditprogram']);
+
 
 
 
@@ -325,7 +343,7 @@ Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 
 //! ============================================
 //!                    FORMS
-//! ============================================ 
+//! ============================================
 
 
 Route::view('deviation', 'frontend.forms.deviation');
@@ -402,10 +420,10 @@ Route::view('equipment', 'frontend.new_forms.equipment');
 Route::view('production-line-audit', 'frontend.new_forms.production-line-audit');
 Route::view('renewal', 'frontend.new_forms.renewal');
 Route::view('validation', 'frontend.new_forms.validation');
-Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
+Route::view('quality_followup', 'frontend.new_forms.quality_followup');
 Route::view('product-recall', 'frontend.new_forms.product-recall');
 Route::view('field-inquiry', 'frontend.new_forms.field-inquiry');
-Route::view('medical-device', 'frontend.new_forms.medical-device');
+Route::view('medical_device_view', 'frontend.new_forms.medical_device_view');
 Route::view('risk-management', 'frontend.new_forms.risk-management');
 Route::view('training_course', 'frontend.New_forms.training_course');
 Route::view('lab_test', 'frontend.New_forms.lab_test');
@@ -421,7 +439,7 @@ Route::view('meeting-management', 'frontend.new_forms.meeting-management');
 // ------------------------------R T Form--------------------//
 Route::view('national-approval', 'frontend.Registration-Tracking.national-approval');
 Route::view('variation', 'frontend.Registration-Tracking.variation');
-Route::view('PSUR', 'frontend.Registration-Tracking.PSUR');
+//  Route::view('PSUR', 'frontend.New_forms.PSUR');
 Route::view('dosier-documents', 'frontend.Registration-Tracking.dosier-documents');
 Route::view('commitment', 'frontend.Registration-Tracking.commitment');
 
@@ -437,17 +455,46 @@ Route::view('out_of_calibration', 'frontend.OOC.out_of_calibration');
 
 Route::view('incident', 'frontend.Incident.incident');
 
+//----------------------------------------PSUR----FORM-------------//
+// Route::view('PSUR', 'frontend.New_forms.PSUR');
+Route::get('psur', [PSURController::class, 'index'])->name('psur.index');
+Route::post('psur_store', [PSURController::class, 'store'])->name('psur.store');
+Route::get('Psur_view/{id}', [PSURController::class, 'show'])->name('psur.view');
+Route::post('Psur_Update/{id}', [PSURController::class, 'Update'])->name('PSUR_Update');
+Route::post('psur_stageChange/{id}', [PSURController::class, 'stageChange'])->name('psur.stageChange');
+Route::post('psur/cancel/{id}', [PSURController::class, 'psur_cancel'])->name('psur_cancel');
+Route::post('psur_stagereject/{id}', [PSURController::class, 'stagereject'])->name('psur.stagereject');
+Route::get('psur_audittrail/{id}', [PSURController::class, 'auditTrialshow'])->name('psur_audittrail');
+Route::get('psur_auditDetails/{id}', [PSURController::class, 'psurAuditDetails'])->name('psur.auditDetails');
+
+
+// ---------------------------------------------Training Course ------------------------------------------------------//
+
+// Route::view('training_course', 'frontend.New_forms.training_course');
+Route::get('training_course', [TrainingCourseController::class, 'index'])->name('training_course.index');
+Route::post('training_course_store', [TrainingCourseController::class,'store'])->name('training_course.store');
+Route::get('training_course_view/{id}', [TrainingCourseController::class,'show'])->name('training_course.view');
+// Route::post('training_course_Update/{id}', [TrainingCourseController::class, 'Update'])->name('training_course_Update');
+// Route::post('training_course_stageChange/{id}', [TrainingCourseController::class,'stageChange'])->name('training_course.stageChange');
+
+// -------------------------------------------Commitment ------------------------------------
+Route::view('commitment', 'frontend.Registration-Tracking.commitment');
+Route::get('commitment', [CommitmentController::class, 'index'])->name('commitment.index');
+Route::post('commitment_store', [CommitmentController::class,'store'])->name('commitment.store');
+Route::get('commitment_view/{id}', [CommitmentController::class, 'show'])->name('commitment.view');
+Route::put('commitment_Update/{id}', [CommitmentController::class, 'update'])->name('comm_Update');
+Route::post('commitment_stageChange/{id}', [CommitmentController::class, 'stageChange'])->name('commitment.stageChange');
+Route::post('commitment/cancel/{id}', [CommitmentController::class, 'stage_cancel'])->name('commitment.cancel');
+Route::get('commitment_audittrail/{id}', [CommitmentController::class, 'auditTrialshow'])->name('commitment.audittrail');
+Route::get('commitment_auditDetails/{id}', [CommitmentController::class, 'commitmentAuditDetails'])->name('commitment.auditDetails');
+
+
+
 
 
 
 // -------------------------OOS-----------------
 Route::view('oos-form', 'frontend.OOS.oos-form');
-
-
-
-
-
-
 
 Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
 Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');

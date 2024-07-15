@@ -25,9 +25,12 @@ use App\Models\ManagementReview;
 use App\Models\LabIncident;
 use App\Models\Auditee;
 use App\Models\AuditProgram;
+use App\Models\Commitment;
 use App\Models\Deviation;
+use App\Models\MedicalDevice;
 use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
+use App\Models\PSUR;
 
 class DashboardController extends Controller
 {
@@ -207,6 +210,9 @@ class DashboardController extends Controller
                 'Auditee' => Auditee::whereDate('due_date', '<', $current_date)->count(),
                 'Observation' => Observation::whereDate('due_date', '<', $current_date)->count(),
                 'Deviation' => Deviation::count(),
+                'PSUR' => PSUR::whereDate('due_date', '<', $current_date)->count(),
+                'Commitment' => Commitment::whereDate('due_date', '<', $current_date)->count(),
+
             ];
         } else {
             $data = [
@@ -223,6 +229,10 @@ class DashboardController extends Controller
                 'EffectivenessCheck' => EffectivenessCheck::count(),
                 'Auditee' => Auditee::count(),
                 'Observation' => Observation::count(),
+                'PSUR' => PSUR::count(),
+                'Medicaldevice' => MedicalDevice::count(),
+                'Commitment' => Commitment::count(),
+
             ];
         }
         $dataCounts = array_values($data);

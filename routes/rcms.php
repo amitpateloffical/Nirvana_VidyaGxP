@@ -14,6 +14,11 @@ use App\Http\Controllers\rcms\AuditProgramController;
 use App\Http\Controllers\rcms\CapaController;
 use App\Http\Controllers\rcms\FormDivisionController;
 use App\Http\Controllers\rcms\ManagementReviewController;
+use App\Http\Controllers\medicaldeviceController;
+use App\Http\Controllers\MedicalDeviceController as ControllersMedicalDeviceController;
+use App\Http\Controllers\PSURController;
+use App\Http\Controllers\CommitmentController;
+
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
@@ -114,7 +119,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('LabIncidentAuditReport/{id}', [LabIncidentController::class, 'auditReport'])->name('LabIncidentAuditReport');
             //------------------------------------
 
-            
+
             Route::post('create', [AuditProgramController::class, 'create'])->name('createAuditProgram');
             Route::get('AuditProgramShow/{id}', [AuditProgramController::class, 'AuditProgramShow'])->name('ShowAuditProgram');
             Route::post('AuditStateChange/{id}', [AuditProgramController::class, 'AuditStateChange'])->name('StateChangeAuditProgram');
@@ -176,7 +181,22 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
 
-             
+
+
+
+
+            Route::get('PSURSingleReport/{id}', [PSURController::class, 'singleReport'])->name('PSURSingleReport');
+            Route::get('Psur_audit/{id}', [PSURController::class, 'auditTrailPdf'])->name('Psuraudit.pdf');
+            Route::get('psur_auditpdf/{id}', [PSURController::class, 'auditReport'])->name('psurauditpdf');
+
+
+            Route::get('medicaldevice_audit/{id}', [MedicalDeviceController::class, 'auditTrailPdf'])->name('medicaldeviceaudit.pdf');
+            Route::get('medicalSingleReport/{id}', [MedicalDeviceController::class, 'singleReport'])->name('medicalSingleReport');
+
+            Route::get('CommitmentSingleReport/{id}', [CommitmentController::class, 'singleReport'])->name('CommitmentSingleReport');
+            Route::get('Commitment_audit/{id}', [CommitmentController::class, 'auditTrailPdf'])->name('Commitmentaudit.pdf');
+            Route::get('Commitmentaudit.pdf/{id}', [CommitmentController::class, 'auditReport'])->name('Commitmentaudit.pdf');
+
 
         }
     );

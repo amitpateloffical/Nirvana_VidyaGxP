@@ -10,45 +10,7 @@
     }
 </style>
 
-<script>
-    $(document).ready(function() {
-        $('#ReferenceDocument').click(function(e) {
-            function generateTableRow(serialNumber) {
 
-
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-
-
-                    '<td><input type="text" name="Action[]"></td>' +
-                    '<td><input type="text" name="Responsible[]"></td>' +
-                    '<td><input type="date" name="Deadline[]"></td>' +
-                    '<td><input type="text" name="ItemStatus[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>' +
-
-
-
-                    //     '</tr>';
-
-                    // for (var i = 0; i < users.length; i++) {
-                    //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                    // }
-
-                    // html += '</select></td>' + 
-
-                    '</tr>';
-
-                return html;
-            }
-
-            var tableBody = $('#ReferenceDocument_details tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
-    });
-</script>
 
 <div class="form-field-head">
     {{-- <div class="pr-id">
@@ -60,8 +22,6 @@
     </div>
 </div>
 
-
-
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
 {{-- ! ========================================= --}}
@@ -72,12 +32,11 @@
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Commitment Information</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Contact Tracking Information</button>
-
-            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
-
+            <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Risk Factors</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm6')">Signatures</button>
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('commitment.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -94,46 +53,64 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
-
-
                                     <label for="RLS Record Number"><b>(Parent) Member State</b></label>
-
-                                    <input type="text" name="record_number" value="">
-
-
+                                    <input type="text" name="member_state" value="">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
-
-
                                     <label for="RLS Record Number"><b>(Root Parent) Trade Name</b></label>
-
-                                    <input type="text" name="record_number" value="">
-
-
+                                    <input type="text" name="trade_name" value="">
                                 </div>
                             </div>
+
+                            <div class="col-6">
+                                <div class="group-input">
+                                    <label for="Record">Record no.</label>
+                                    <input disabled type="text" name="record"
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}Commitment/{{ date('Y') }}/{{ $record_number }}">
+                                </div>
+                            </div>
+
+                            {{-- <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+
+                                    <input readonly type="text" name="division_code"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+
+                                </div>
+                            </div>
+                   --}}
+                   <div class="col-lg-6">
+                    <div class="group-input">
+                        <label for="Division Code"><b>Site/Location Code</b></label>
+
+                        <input readonly type="text" name="division_id"
+                            value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                        <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+
+                    </div>
+                </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
-
-
                                     <label for="RLS Record Number"><b>Initiator</b></label>
-
-                                    <input type="text" disabled name="record_number" value="">
-
-
+                                    <input type="hidden" name="initiator" value="{{ auth()->id() }}">
+                                    <input disabled type="text" name="initiator " value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Division Code"><b>Date of Initiation</b></label>
-
-                                    <input type="date" disabled name="division_code" value="">
-
+                                <div class="group-input ">
+                                    <label for="Date Of Initiation"><b>Date Of Initiation</b></label>
+                                    <input readonly type="text" value="{{ date('d-m-Y') }}"
+                                        name="date_of_initiaton">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="date_of_initiaton">
                                 </div>
                             </div>
-
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -146,7 +123,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Assigned To</label>
-                                    <select name="departments">
+                                    <select name="assigned_to">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -154,10 +131,12 @@
                                     </select>
                                 </div>
                             </div>
+
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Type</label>
-                                    <select name="departments">
+                                    <select name="type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -165,7 +144,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 new-date-data-field">
+                            {{-- <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <p class="text-primary">Please mention expected date of completion</p>
@@ -174,36 +153,63 @@
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
+                            </div> --}}
+                           <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Due Date">Date Due</label>
+                                    <p class="text-primary"> Please mention expected date of completion</p>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="due_date"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                            value="{{ \Carbon\Carbon::now()->addDays(30)->format('Y-m-d') }}"
+                                            class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                    </div>
+
+                                </div>
                             </div>
+
                             <div class="col-md-6 new-date-data-field pt-3">
                                 <div class="group-input input-date">
                                     <label for="due-date">(Parent) Date Due to Authority <span class="text-danger"></span></label>
 
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="text" id="authority_duedate" readonly
+                                            placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="authority_duedate"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                            oninput="handleDateInput(this, 'authority_duedate')" />
                                     </div>
                                 </div>
                             </div>
+
                             <div class="sub-head">Commitment Plan</div>
                             <p class="text-primary">Important Dates</p>
-                            <div class="col-md-6 new-date-data-field">
+
+                            <div class="col-md-6 new-date-data-field pt-3">
                                 <div class="group-input input-date">
                                     <label for="due-date">Scheduled Start Date <span class="text-danger"></span></label>
 
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="text" id="scheduled_start_date" readonly
+                                            placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="start_date"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                            oninput="handleDateInput(this, 'scheduled_start_date')" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 new-date-data-field">
+
+                            <div class="col-md-6 new-date-data-field pt-3">
                                 <div class="group-input input-date">
                                     <label for="due-date">Scheduled End Date <span class="text-danger"></span></label>
 
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="text" id="scheduled_end_date" readonly
+                                            placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="end_date"
+                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                            oninput="handleDateInput(this, 'scheduled_end_date')" />
                                     </div>
                                 </div>
                             </div>
@@ -227,58 +233,97 @@
                                                 <th style="width: 16%">Deadline</th>
                                                 <th style="width: 16%">Item Status</th>
                                                 <th style="width: 16%">Remarks</th>
+                                                <th style="width: 16%">Option</th>
 
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                <td><input disabled type="text" name="Action_plan[0][serial]" value="1"></td>
 
-                                                <td><input type="text" name="Action[]"></td>
-                                                <td><input type="text" name="Responsible[]"></td>
-                                                <td><input type="date" name="Deadline[]"></td>
-                                                <td><input type="text" name="ItemStatus[]"></td>
-                                                <td><input type="text" name="Remarks[]"></td>
+                                                <td><input type="text" name="Action_plan[0][Action_plan]"></td>
+                                                <td><input type="text" name="Action_plan[0][Responsible]"></td>
+                                                <td><input type="date" name="Action_plan[0][Deadline]"></td>
+                                                <td><input type="text" name="Action_plan[0][ItemStatus]"></td>
+                                                <td><input type="text" name="Action_plan[0][Remarks]"></td>
+                                                <td><button onclick="removeRow(this)">Remove</button></td>
+
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
 
                             </div>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#ReferenceDocument').click(function(e) {
+                                        function generateTableRow(serialNumber) {
 
+
+                                            var html =
+                                                '<tr>' +
+                                                    '<td><input disabled type="text" name="serial[]" value="' + (serialNumber+1) + '"></td>' +
+
+                                                '<td><input type="text" name="Action_plan[' + serialNumber + '][Action]"></td>' +
+                                                '<td><input type="text" name="Action_plan[' + serialNumber + '][Responsible]"></td>' +
+                                                '<td><input type="date" name="Action_plan[' + serialNumber + '][Deadline]"></td>' +
+                                                '<td><input type="text" name="Action_plan[' + serialNumber + '][ItemStatus]"></td>' +
+                                                '<td><input type="text" name="Action_plan[' + serialNumber + '][Remarks]"></td>' +
+                                                '<td><button type="text" class="removeRow"> Remove </button></td>' +
+                                                '</tr>';
+
+                                            return html;
+                                        }
+
+                                        var tableBody = $('#ReferenceDocument_details tbody');
+                                        var rowCount = tableBody.children('tr').length;
+                                        var newRow = generateTableRow(rowCount + 1);
+                                        tableBody.append(newRow);
+                                    });
+                                });
+                            </script>
+                            <script>
+                                function removeRow(button) {
+                                    // Find the row containing the button
+                                    var row = button.parentNode.parentNode;
+                                    // Remove the row from the table
+                                    row.parentNode.removeChild(row);
+                                }
+                            </script>
 
                             <div class=" pt-3 col-lg-6">
                                 <div class="group-input">
 
                                     <label for="RLS Record Number"><b>Estimated Man-Hours</b></label>
-
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" name="estimated_man" value="">
 
 
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+
+                            <div class="col-6">
                                 <div class="group-input">
-                                    <label for="Audit Attachments">File Attachments</label>
-                                    <small class="text-primary">
-                                        Please Attach all relevant or supporting documents
-                                    </small>
+                                    <label for="Attachments">Initial Attachment</label>
+                                    <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                    {{-- <input type="file" id="myfile" name="Attachments"> --}}
                                     <div class="file-attachment-field">
                                         <div class="file-attachment-list" id="file_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="file_attach" name="file_attach[]"
+                                                oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
+
+
                             <div class="sub-head">Commitment Summary</div>
                             <p class="text-primary">The main commitment steps and findings</p>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Summary<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="summary"></textarea>
                                 </div>
                             </div>
 
@@ -289,7 +334,7 @@
 
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                           
+
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -305,7 +350,7 @@
                             <div class="pt-2 col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">(Parent) Priority Level</label>
-                                    <select name="departments">
+                                    <select name="priority_level">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -317,14 +362,14 @@
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Parent) Local Trade Name</b></label>
                                     <p class="text-primary">Person responsible</p>
-                                    <input type="text" name="record_number" value="">
+                                    <input type="text" name="person_responsible" value="">
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Parent Authority</label>
-                                    <select name="departments">
+                                    <select name="parent_authority">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -335,7 +380,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">(Parent) Authority Type</label>
-                                    <select name="departments">
+                                    <select name="authority_type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -350,16 +395,8 @@
                                 </div>
                             </div>
 
-
-
-
                         </div>
 
-
-
-
-
-                        
 
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
@@ -374,7 +411,7 @@
                 <!-- <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="sub-head">Audir Summary</div>
+                            <div class="sub-head">Audit Summary</div>
                             <div class="col-6">
                                 <div class="group-input">
 
@@ -458,7 +495,7 @@
                     </div>
                 </div> -->
 
-                <div id="CCForm3" class="inner-block cctabcontent">
+                {{-- <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
 
@@ -474,26 +511,19 @@
 
                                     <label for="Division Code"><b>Completed on :</b></label>
                                     <div class="date"></div>
-
-
-
                                 </div>
                             </div>
-                           
-                           
-
-
 
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            
+
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <div id="CCForm5" class="inner-block cctabcontent">
                     <div class="inner-block-content">
@@ -505,9 +535,9 @@
                                     <label for="Safety_Impact_Probability">Safety Impact Probability</label>
                                     <select name="Safety_Impact_Probability">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -516,9 +546,9 @@
                                     <label for="Safety_Impact_Severity">Safety Impact Severity</label>
                                     <select name="Safety_Impact_Severity">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -527,9 +557,9 @@
                                     <label for="Legal_Impact_Probability">Legal Impact Probability</label>
                                     <select name="Legal_Impact_Probability">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -538,9 +568,9 @@
                                     <label for="Legal_Impact_Severity">Legal Impact Severity</label>
                                     <select name="Legal_Impact_Severity">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -549,9 +579,9 @@
                                     <label for="Business_Impact_Probability">Business Impact Probability</label>
                                     <select name="Business_Impact_Probability">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -560,9 +590,9 @@
                                     <label for="Business_Impact_Severity">Business Impact Severity</label>
                                     <select name="Business_Impact_Severity">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -571,9 +601,9 @@
                                     <label for="Revenue_Impact_Probability">Revenue Impact Probability</label>
                                     <select name="Revenue_Impact_Probability">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -582,9 +612,9 @@
                                     <label for="Revenue_Impact_Severity">Revenue Impact Severity</label>
                                     <select name="Revenue_Impact_Severity">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -593,9 +623,9 @@
                                     <label for="Brand_Impact_Probability">Brand Impact Probability</label>
                                     <select name="Brand_Impact_Probability">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -604,9 +634,9 @@
                                     <label for="Brand_Impact_Severity">Brand Impact Severity</label>
                                     <select name="Brand_Impact_Severity">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -620,9 +650,9 @@
                                     <label for="Safety_Impact_Risk">Safety Impact Risk</label>
                                     <select name="Safety_Impact_Risk">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -631,9 +661,9 @@
                                     <label for="Legal_Impact_Risk">Legal Impact Risk</label>
                                     <select name="Legal_Impact_Risk">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -642,9 +672,9 @@
                                     <label for="Business_Impact_Risk">Business Impact Risk</label>
                                     <select name="Business_Impact_Risk">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -653,9 +683,9 @@
                                     <label for="Revenue_Impact_Risk">Revenue Impact Risk</label>
                                     <select name="Revenue_Impact_Risk">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -664,9 +694,9 @@
                                     <label for="Brand_Impact_Risk">Brand Impact Risk</label>
                                     <select name="Brand_Impact_Risk">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -680,9 +710,9 @@
                                     <label for="Impact">Impact</label>
                                     <select name="Impact">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -707,22 +737,22 @@
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Direct_Cause">Direct Cause</label>
-                                    <select name="Direct_Cause">
+                                    <select name="direct_Cause">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Safeguarding">Safeguarding Measure Taken</label>
-                                    <select name="Safeguarding">
+                                    <select name="safeguarding">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -733,12 +763,12 @@
 
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Permanent">Root cause Methodlogy</label>
-                                    <select name="Permanent">
+                                    <label for="Permanent">Root cause Methodology</label>
+                                    <select name="root">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -761,19 +791,31 @@
                                                 <th style="width: 16%"> Probability</th>
                                                 <th style="width: 16%"> Comments</th>
                                                 <th style="width: 15%">Remarks</th>
+                                                <th style="width: 15%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="IDnumber[]"></td>
-                                            <td> <input type="text" name=""></td>
-                                            <td> <input type="text" name=""></td>
-                                            <td> <input type="text" name=""></td>
-                                            <td><input type="text" name="Remarks[]"></td>
+                                            <td><input type="text" name="root_cause[0][root_cause_category]"></td>
+                                            <td> <input type="text" name="root_cause[0][root_cause_sub_category]"></td>
+                                            <td> <input type="text" name="root_cause[0][probability]"></td>
+                                            <td> <input type="text" name="root_cause[0][comments]"></td>
+                                            <td><input type="text" name="root_cause[0][Remarks]"></td>
+                                            {{-- <td><input type="text" name="Action"></td> --}}
+                                            <td><button onclick="removeRow(this)">Remove</button></td>
+
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+                            <script>
+                                function removeRow(button) {
+                                    // Find the row containing the button
+                                    var row = button.parentNode.parentNode;
+                                    // Remove the row from the table
+                                    row.parentNode.removeChild(row);
+                                }
+                            </script>
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -790,9 +832,9 @@
                                     <label for="Severity_Rate">Severity Rate</label>
                                     <select name="Severity_Rate">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -801,9 +843,9 @@
                                     <label for="Occurrence">Occurrence</label>
                                     <select name="Occurrence">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -812,9 +854,9 @@
                                     <label for="Detection">Detection</label>
                                     <select name="Detection">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -823,9 +865,9 @@
                                     <label for="RPN">RPN</label>
                                     <select name="RPN">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -841,9 +883,9 @@
                                     <label for="Criticality">Criticality</label>
                                     <select name="Criticality">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -852,32 +894,32 @@
                                     <label for="Inform_Local_Authority">Inform Local Authority?</label>
                                     <select name="Inform_Local_Authority">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
                                     <label for="Authority_Type">Authority Type</label>
-                                    <select name="Authority_Type">
+                                    <select name="authority">
                                         <option value="">--select--</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">(Parent) Description <span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
+                                    <textarea name="parent_description"></textarea>
                                 </div>
                             </div>
-                          
+
                         </div>
-                       
+
                     </div>
 
                     <div class="button-block">
@@ -895,37 +937,62 @@
                     <div class="sub-head">
                         Electronic Signatures
                     </div>
+                    <div class="row">
                     <div class="col-lg-6">
                         <div class="group-input">
-                            <label for="submitted by">Submitted By</label>
+                            <label for="submitted by">Acknowledged By :</label>
                             <div class="static"></div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-6 pb-3">
                         <div class="group-input">
-                            <label for="submitted on">Submitted On</label>
+                            <label for="submitted on">Acknowledged On :</label>
                             <div class="Date"></div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="group-input">
-                            <label for="cancelled by">Plan Approved By</label>
+                            <label for="cancelled by">Cancelled By :</label>
                             <div class="static"></div>
+                        </div>
+                    </div>
+                    <div class="col-6 pb-3">
+                        <div class="group-input">
+                            <label for="cancelled on">Cancelled On :</label>
+                            <div class="Date"></div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="group-input">
-                            <label for="cancelled on">Plan Approved On</label>
+                            <label for="cancelled on"> Task Completed By :</label>
+                            <div class="Date"></div>
+                        </div>
+                    </div>
+                    <div class="col-6 pb-3">
+                        <div class="group-input">
+                            <label for="cancelled on"> Task Completed On :</label>
+                            <div class="Date"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="cancelled on">Cancelled By :</label>
+                            <div class="Date"></div>
+                        </div>
+                    </div>
+                    <div class="col-6 pb-3">
+                        <div class="group-input">
+                            <label for="cancelled on">Cancelled On :</label>
                             <div class="Date"></div>
                         </div>
                     </div>
 
-                    <!-- <div class="button-block">
+                     <div class="button-block">
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="submit" class="saveButton">Save</button>
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
-                    </div> -->
+                    </div>
                 </div>
             </div>
 
@@ -1075,11 +1142,13 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
+                    '<td><input type="text" name="root_cause[' + serialNumber + '][root_cause_category]"></td>' +
+                    '<td><input type="text" name="root_cause[' + serialNumber + '][root_cause_sub_category]"></td>' +
+                    '<td><input type="text" name="root_cause[' + serialNumber + ']probability"></td>' +
+                    '<td><input type="text" name="root_cause[' + serialNumber + '][comments]"></td>' +
+                    '<td><input type="text" name="root_cause[' + serialNumber + '][Remarks]"></td>' +
+                    '<td><button onclick="removeRow(this)">Remove</button></td>' +
+
                     '</tr>';
 
                 return html;

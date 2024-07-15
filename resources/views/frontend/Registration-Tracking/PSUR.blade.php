@@ -51,7 +51,7 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 //     '</tr>';
 
@@ -89,7 +89,7 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 //     '</tr>';
 
@@ -127,7 +127,7 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 //     '</tr>';
 
@@ -166,7 +166,7 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 //     '</tr>';
 
@@ -206,7 +206,7 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 //     '</tr>';
 
@@ -259,7 +259,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator">Initiator</label>
-                                    <input disabled type="text" name="initiator_id" value="" />
+                                    <input disabled type="text" name="initiator" value="" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -306,7 +306,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Documents">Documents</label>
-                                    <input type="text" name="initiator_group_code" id="initiator_group_code" value="">
+                                    <input type="text" name="documents" id="initiator_group_code" value="">
                                 </div>
                             </div>
 
@@ -322,7 +322,7 @@
                                         <div class="file-attachment-list" id=""></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="" oninput="" multiple>
+                                            <input type="file" id="myfile" name="file_attachment" oninput="" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -467,11 +467,11 @@
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="sub-head col-12">Findingsand Analysis</div>
+                            <div class="sub-head col-12">Findings and Analysis</div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="Changes To SafetyInformation">Changes To SafetyInformation</label>
+                                    <label for="Changes To SafetyInformation">Changes To Safety Information</label>
                                     <textarea class="" name="changes_to_safety_information" id="">
                                     </textarea>
                                 </div>
@@ -520,7 +520,7 @@
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Efficacy-Related Information">Efficacy-Related Information</label>
-                                    <textarea class="" name="ra_actions_taken" id="">
+                                    <textarea class="" name="efficiency_related_info" id="">
                                     </textarea>
                                 </div>
                             </div>
@@ -596,7 +596,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Trade Name">(Root Parent)Trade Name</label>
-                                    <select name="root_parent_product_trade_name" onchange="">
+                                    <select name="root_parent_trade_name" onchange="">
                                         <option value="">-- select --</option>
                                         <option value="">a</option>
                                         <option value="">b</option>
@@ -634,7 +634,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Product Strength">(Root Parent)Product Strength</label>
-                                    <select name="root_parent_product_product_strangth" onchange="">
+                                    <select name="root_parent_product_strength" onchange="">
                                         <option value="">-- select --</option>
                                         <option value="">a</option>
                                         <option value="">b</option>
@@ -753,7 +753,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Therapeutic Area">(Root Parent)Therapeutic Area</label>
-                                    <select name="Therapeutic_Area" onchange="">
+                                    <select name="therapeutic_Area" onchange="">
                                         <option value="">-- select --</option>
                                         <option value="">a</option>
                                         <option value="">b</option>
@@ -781,9 +781,9 @@
                                         <input type="radio" class="radio-input" name="option" value="option3">
                                         <label class="radio-label">NA</label>
                                     </div>
-                                    <a href="#" id="clearSelection" class="container text-primary">Clear Selection</a> 
+                                    <a href="#" id="clearSelection" class="container text-primary">Clear Selection</a>
                                 </div>
-                               
+
                             </div>
 
                         </div>
@@ -796,7 +796,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="CCForm4" class="inner-block cctabcontent">
+                {{-- <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="button-block">
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -804,7 +804,7 @@
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                             </a> </button>
                     </div>
-                </div>
+                </div> --}}
 
                 <div id="CCForm5" class="inner-block cctabcontent">
                     <div class="inner-block-content">
