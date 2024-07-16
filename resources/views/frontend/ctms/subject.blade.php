@@ -41,6 +41,9 @@ header {
     }
     </script>-->
 
+
+
+
 <div class="form-field-head">
 
     <div class="division-bar">
@@ -184,10 +187,11 @@ header {
                                         <small class="text-primary"></small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
-                                        <div class="add-btn">
+                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class=" add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attach[]">
+                                            <input type="file" id="myfile" name="file_attach[]"
+                                                oninput=" addMultipleFiles(this, 'file_attach' )" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -248,10 +252,11 @@ header {
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="file-attachment-list" id="document_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="document_attach[]">
+                                            <input type="file" id="myfile" name="document_attach[]"
+                                                oninput=" addMultipleFiles(this, 'document_attach' )" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -269,7 +274,7 @@ header {
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Type">Subject Name</label>
+                                    <label for="Type">Subject Date</label>
                                     <input type="date" name="subject_date" />
                                 </div>
                             </div>
@@ -297,11 +302,6 @@ header {
                                     </select>
                                 </div>
                             </div>
-
-
-
-
-
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
@@ -317,9 +317,6 @@ header {
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head">Submission Information</div>
-
-
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Screened Successfully </label>
@@ -327,7 +324,6 @@ header {
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="AT-1">AT-1</option>
                                         <option value="AT-2">AT-2</option>
-
                                     </select>
                                 </div>
                             </div>
@@ -391,7 +387,6 @@ header {
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="T-1">T-1</option>
                                         <option value="T-2">T-2</option>
-
                                     </select>
                                 </div>
                             </div>
@@ -438,26 +433,9 @@ header {
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Country</label>
-                                    <select name="country">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="India">India</option>
-                                        <option value="UK">UK</option>
-                                        <option value="USA">USA</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Type">City</label>
-                                    <select name="city">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="Indore">Indore</option>
-                                        <option value="Bhopal">Bhopal</option>
-                                        <option value="Dewas">Dewas</option>
+                                    <select name="country" class="form-select country"
+                                        aria-label="Default select example" onchange="loadStates()">
+                                        <option value="">Select Country</option>
                                     </select>
                                 </div>
                             </div>
@@ -465,14 +443,24 @@ header {
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">State/District</label>
-                                    <select name="district">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="Dewas">Dewas</option>
-                                        <option value="Harda">Harda</option>
-                                        <option value="Sehore">Sehore</option>
+                                    <select name="district" class="form-select state"
+                                        aria-label="Default select example" onchange="loadCities()">
+                                        <option value="">Select State/District</option>
                                     </select>
                                 </div>
                             </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Type">City</label>
+                                    <select name="city" class="form-select city" aria-label="Default select example">
+                                        <option value="">Select City</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -849,4 +837,93 @@ $('#docname').keyup(function() {
     $('#rchars').text(textlen);
 });
 </script>
+
+{{-- Country Statecity API --}}
+<script>
+var config = {
+    cUrl: 'https://api.countrystatecity.in/v1',
+    ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+};
+
+var countrySelect = document.querySelector('.country'),
+    stateSelect = document.querySelector('.state'),
+    citySelect = document.querySelector('.city');
+
+function loadCountries() {
+    let apiEndPoint = `${config.cUrl}/countries`;
+
+    $.ajax({
+        url: apiEndPoint,
+        headers: {
+            "X-CSCAPI-KEY": config.ckey
+        },
+        success: function(data) {
+            data.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country.iso2;
+                option.textContent = country.name;
+                countrySelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error loading countries:', error);
+        }
+    });
+}
+
+function loadStates() {
+    stateSelect.disabled = false;
+    stateSelect.innerHTML = '<option value="">Select State</option>';
+
+    const selectedCountryCode = countrySelect.value;
+
+    $.ajax({
+        url: `${config.cUrl}/countries/${selectedCountryCode}/states`,
+        headers: {
+            "X-CSCAPI-KEY": config.ckey
+        },
+        success: function(data) {
+            data.forEach(state => {
+                const option = document.createElement('option');
+                option.value = state.iso2;
+                option.textContent = state.name;
+                stateSelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error loading states:', error);
+        }
+    });
+}
+
+function loadCities() {
+    citySelect.disabled = false;
+    citySelect.innerHTML = '<option value="">Select City</option>';
+
+    const selectedCountryCode = countrySelect.value;
+    const selectedStateCode = stateSelect.value;
+
+    $.ajax({
+        url: `${config.cUrl}/countries/${selectedCountryCode}/states/${selectedStateCode}/cities`,
+        headers: {
+            "X-CSCAPI-KEY": config.ckey
+        },
+        success: function(data) {
+            data.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city.id;
+                option.textContent = city.name;
+                citySelect.appendChild(option);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('Error loading cities:', error);
+        }
+    });
+}
+$(document).ready(function() {
+    loadCountries();
+});
+</script>
+{{-- Country Statecity API End --}}
 @endsection

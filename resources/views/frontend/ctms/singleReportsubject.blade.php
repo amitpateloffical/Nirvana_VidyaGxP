@@ -173,7 +173,7 @@ footer td {
         <table>
             <tr>
                 <td class="w-30">
-                    <strong> Subject </strong>
+                    <strong> Subject No. </strong>
                 </td>
                 <td class="w-40">
                     {{ Helpers::divisionNameForQMS($data->division_id) }}/{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
@@ -295,7 +295,8 @@ footer td {
                         <td class="w-80">@if($data->subject_name){{ $data->subject_name }}@else Not
                             Applicable @endif</td>
                         <th class="w-20">Subject Name</th>
-                        <td class="w-80">@if($data->subject_date){{ $data->subject_date }}@else Not
+                        <td class="w-80">@if($data->subject_date)
+                            {{ \Carbon\Carbon::parse($data->subject_date)->format('d-M-Y')}}@else Not
                             Applicable @endif</td>
                     </tr>
                     <tr>
@@ -421,82 +422,86 @@ footer td {
                 <table>
                     <tr>
                         <th class="w-20">Consent Form Signed On</th>
-                        <td class="w-80">@if($data->consent_form){{ $data->consent_form }}@else Not
+                        <td class="w-80">@if($data->consent_form)
+                            {{ \Carbon\Carbon::parse($data->consent_form)->format('d-M-Y')}}@else Not
                             Applicable
                             @endif</td>
                         <th class="w-20">Date Granted</th>
-                        <td class="w-80">@if($data->date_granted){{ $data->date_granted }}@else Not
+                        <td class="w-80">@if($data->date_granted)
+                            {{ \Carbon\Carbon::parse($data->date_granted)->format('d-M-Y')}}@else Not
                             Applicable
                             @endif</td>
                     </tr>
                     <tr>
                         <th class="w-20">System Start Date</th>
-                        <td class="w-80">@if($data->system_start){{ $data->system_start }}@else Not
+                        <td class="w-80">@if($data->system_start)
+                            {{ \Carbon\Carbon::parse($data->system_start)->format('d-M-Y')}}@else Not
                             Applicable
                             @endif</td>
                         <th class="w-20">Consent Form Signed Date</th>
-                        <td class="w-80">@if($data->consent_form_date){{ $data->consent_form_date }}@else Not
+                        <td class="w-80">@if($data->consent_form_date)
+                            {{ \Carbon\Carbon::parse($data->consent_form_date)->format('d-M-Y')}}@else Not
                             Applicable
                             @endif</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Consent Form Signed Date</th>
-                        <td class="w-80">@if($data->consent_form_date){{ $data->consent_form_date }}@else Not
-                            Applicable
-                            @endif</td>
+
                         <th class="w-20">Date Of First Treatment</th>
-                        <td class="w-80">@if($data->first_treatment){{ $data->first_treatment }}@else Not
+                        <td class="w-80">
+                            @if($data->first_treatment){{ \Carbon\Carbon::parse($data->first_treatment)->format('d-M-Y')}}@else
+                            Not
                             Applicable
                             @endif</td>
-                    </tr>
-                    <tr>
                         <th class="w-20">Date Requested</th>
-                        <td class="w-80">@if($data->date_requested){{ $data->date_requested }}@else Not
+                        <td class="w-80">
+                            @if($data->date_requested){{ \Carbon\Carbon::parse($data->date_requested)->format('d-M-Y')}}@else
+                            Not
                             Applicable
                             @endif</td>
+                    </tr>
+                    <tr>
+
                         <th class="w-20">Date Screened</th>
-                        <td class="w-80">@if($data->date_screened){{ $data->date_screened }}@else Not
+                        <td class="w-80">
+                            @if($data->date_screened){{ \Carbon\Carbon::parse($data->date_screened)->format('d-M-Y')}}@else
+                            Not
                             Applicable
                             @endif</td>
-                    </tr>
-                    <tr>
                         <th class="w-20">Date Signed Treatment Consent</th>
-                        <td class="w-80">@if($data->date_signed_treatment){{ $data->date_signed_treatment }}@else Not
+                        <td class="w-80">
+                            @if($data->date_signed_treatment){{ \Carbon\Carbon::parse($data->date_signed_treatment)->format('d-M-Y')}}@else
+                            Not
                             Applicable
                             @endif</td>
-
-                        <th class="w-20">Effective From Date </th>
-                        <td class="w-80">@if($data->date_effective_from){{ $data->date_effective_from }}@else Not
-                            Applicable @endif</td>
                     </tr>
                     <tr>
+                        <th class="w-20">Effective From Date </th>
+                        <td class="w-80">
+                            @if($data->date_effective_from){{ \Carbon\Carbon::parse($data->date_effective_from)->format('d-M-Y')}}@else
+                            Not
+                            Applicable @endif</td>
+
                         <th class="w-20">Effective To Date</th>
-                        <td class="w-80">@if($data->date_effective_to){{ $data->date_effective_to }}@else Not
+                        <td class="w-80">
+                            @if($data->date_effective_to){{ \Carbon\Carbon::parse($data->date_effective_to)->format('d-M-Y')}}@else
+                            Not
                             Applicable
                             @endif</td>
-
-                        <th class="w-20">Effective From Date </th>
-                        <td class="w-80">@if($data->date_effective_from){{ $data->date_effective_from }}@else Not
-                            Applicable @endif</td>
                     </tr>
-                    <tr>
-                        <th class="w-20">Effective To Date</th>
-                        <td class="w-80">@if($data->date_effective_to){{ $data->date_effective_to }}@else Not
-                            Applicable
-                            @endif</td>
 
-                        <th class="w-20">Effective From Date </th>
-                        <td class="w-80">@if($data->date_effective_from){{ $data->date_effective_from }}@else Not
-                            Applicable @endif</td>
-                    </tr>
+
                     <tr>
                         <th class="w-20">Last Active Treatment Date</th>
-                        <td class="w-80">@if($data->last_active){{ $data->last_active }}@else Not
+                        <td class="w-80">
+                            @if($data->last_active){{ \Carbon\Carbon::parse($data->last_active)->format('d-M-Y')}}@else
+                            Not
                             Applicable
                             @endif</td>
 
                         <th class="w-20">Last Follow-up Date </th>
-                        <td class="w-80">@if($data->last_followup){{ $data->last_followup }}@else Not
+                        <td class="w-80">
+                            @if($data->last_followup){{ \Carbon\Carbon::parse($data->last_followup)->format('d-M-Y')}}}@else
+                            Not
                             Applicable @endif</td>
                     </tr>
                 </table>

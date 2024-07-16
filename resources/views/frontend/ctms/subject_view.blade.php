@@ -180,7 +180,6 @@ $user=DB::table('users')->get();
 
             @csrf
 
-
             <div id="step-form">
                 @if (!empty($parent_id))
                 <input type="hidden" name="parent_id" value="{{ $parent_id }}">
@@ -284,13 +283,11 @@ $user=DB::table('users')->get();
                                     <div><small class="text-primary">Please mention expected date of
                                             completion</small>
                                     </div>
-
                                     <div class="calenderauditee">
                                         <input readonly type="text" name="due_date" value="{{$openState->due_date}}" />
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -308,6 +305,10 @@ $user=DB::table('users')->get();
                                                 <a href=" {{ asset('upload/' . $file) }}" target="_blank">
                                                     <i class="fa fa-eye text-primary"
                                                         style="font-size:20px; margin-right:-10px;"></i>
+                                                </a>
+                                                <a type="button" class="remove-file" data-file-name="{{ $file }}"><i
+                                                        class="fa-solid fa-circle-xmark"
+                                                        style="color:red; font-size:20px;"></i>
                                                 </a>
                                             </h6>
                                             @endforeach
@@ -401,6 +402,10 @@ $user=DB::table('users')->get();
                                                     <i class="fa fa-eye text-primary"
                                                         style="font-size:20px; margin-right:-10px;"></i>
                                                 </a>
+                                                <a type="button" class="remove-file" data-file-name="{{ $file }}"><i
+                                                        class="fa-solid fa-circle-xmark"
+                                                        style="color:red; font-size:20px;"></i>
+                                                </a>
                                             </h6>
                                             @endforeach
                                             @endif
@@ -425,7 +430,7 @@ $user=DB::table('users')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Type">Subject Name</label>
+                                    <label for="Type">Subject Date</label>
                                     <input type="date" name="subject_date" value="{{ $openState->subject_date }}" />
                                 </div>
                             </div>
@@ -456,15 +461,11 @@ $user=DB::table('users')->get();
                                             @endif>R-1</option>
                                         <option value="R-2" @if ($openState->race == 'R-2') selected @endif>R-2
                                         </option>
-                                        <option value="R-3" @if ($openState->race == 'R-2') selected @endif>R-3
+                                        <option value="R-3" @if ($openState->race == 'R-3') selected @endif>R-3
                                         </option>
                                     </select>
                                 </div>
                             </div>
-
-
-
-
 
                         </div>
                         <div class="button-block">
@@ -482,18 +483,16 @@ $user=DB::table('users')->get();
                         <div class="row">
                             <div class="sub-head">Submission Information</div>
 
-
-
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Type">Screened Successfully? </label>
+                                    <label for="Type">Screened Successfully </label>
                                     <select name="screened_successfully">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="AT-1" @if ($openState->screened_successully == 'AT-1')
+                                        <option value="AT-1" @if ($openState->screened_successfully == 'AT-1')
                                             selected
                                             @endif>AT-1
                                         </option>
-                                        <option value="AT-2" @if ($openState->screened_successully == 'AT-2')
+                                        <option value="AT-2" @if ($openState->screened_successfully == 'AT-2')
                                             selected @endif>AT-2</option>
 
                                     </select>
@@ -611,13 +610,13 @@ $user=DB::table('users')->get();
                                     <label for="Type">Zone</label>
                                     <select name="zone">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="P-1" @if ($openState->Zone == 'P-1') selected
+                                        <option value="P-1" @if ($openState->zone == 'P-1') selected
                                             @endif>P-1
                                         </option>
-                                        <option value="P-2" @if ($openState->Zone == 'P-2') selected
+                                        <option value="P-2" @if ($openState->zone == 'P-2') selected
                                             @endif>P-2
                                         </option>
-                                        <option value="P-3" @if ($openState->Zone == 'P-3') selected
+                                        <option value="P-3" @if ($openState->zone == 'P-3') selected
                                             @endif>P-3
                                         </option>
                                     </select>
@@ -627,38 +626,10 @@ $user=DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Country</label>
-                                    <select name="country">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="India" @if ($openState->country == 'India') selected
-                                            @endif>India
-                                        </option>
-                                        <option value="UK" @if ($openState->country == 'UK') selected
-                                            @endif>UK
-                                        </option>
-                                        <option value="USA" @if ($openState->country == 'USA') selected
-                                            @endif>USA
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Type">City</label>
-                                    <select name="city">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="Indore" @if ($openState->city == 'Indore') selected
-                                            @endif>Indore
-                                        </option>
-                                        <option value="Bhopal" @if ($openState->city == 'Bhopal') selected
-                                            @endif>Bhopal
-                                        </option>
-                                        <option value="Dewas" @if ($openState->city == 'Dewas') selected
-                                            @endif>Dewas
-                                        </option>
+                                    <select name="country" class="form-select country"
+                                        aria-label="Default select example" onchange="loadStates()">
+                                        <option value="{{ $openState->country }}" selected>
+                                            {{ $openState->country }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -666,20 +637,27 @@ $user=DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">State/District</label>
-                                    <select name="district">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="Dewas" @if ($openState->district == 'Dewas') selected
-                                            @endif>Dewas
-                                        </option>
-                                        <option value="Harda" @if ($openState->district == 'Harda') selected
-                                            @endif>Harda
-                                        </option>
-                                        <option value="Sehore" @if ($openState->district== 'sehore') selected
-                                            @endif>Sehore
-                                        </option>
+                                    <select name="district" class="form-select state"
+                                        aria-label="Default select example" onchange="loadCities()">
+                                        <option value="{{ $openState->district }}" selected>
+                                            {{ $openState->district }}</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Type">City</label>
+                                    <select name="city" class="form-select city" aria-label="Default select example">
+                                        <option value="{{ $openState->city }}" selected>
+                                            {{ $openState->city }}</option>
                                     </select>
                                 </div>
                             </div>
+
+
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -752,14 +730,6 @@ $user=DB::table('users')->get();
                                     </select>
                                 </div>
                             </div>
-
-
-
-
-
-
-
-
 
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -1245,4 +1215,93 @@ $('#docname').keyup(function() {
     $('#rchars').text(textlen);
 });
 </script>
+
+{{-- Country Statecity API --}}
+    <script>
+        var config = {
+            cUrl: 'https://api.countrystatecity.in/v1',
+            ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+        };
+
+        var countrySelect = document.querySelector('.country'),
+            stateSelect = document.querySelector('.state'),
+            citySelect = document.querySelector('.city');
+
+        function loadCountries() {
+            let apiEndPoint = `${config.cUrl}/countries`;
+
+            $.ajax({
+                url: apiEndPoint,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.iso2;
+                        option.textContent = country.name;
+                        countrySelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading countries:', error);
+                }
+            });
+        }
+
+        function loadStates() {
+            stateSelect.disabled = false;
+            stateSelect.innerHTML = '<option value="">Select State</option>';
+
+            const selectedCountryCode = countrySelect.value;
+
+            $.ajax({
+                url: `${config.cUrl}/countries/${selectedCountryCode}/states`,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(state => {
+                        const option = document.createElement('option');
+                        option.value = state.iso2;
+                        option.textContent = state.name;
+                        stateSelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading states:', error);
+                }
+            });
+        }
+
+        function loadCities() {
+            citySelect.disabled = false;
+            citySelect.innerHTML = '<option value="">Select City</option>';
+
+            const selectedCountryCode = countrySelect.value;
+            const selectedStateCode = stateSelect.value;
+
+            $.ajax({
+                url: `${config.cUrl}/countries/${selectedCountryCode}/states/${selectedStateCode}/cities`,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city.id;
+                        option.textContent = city.name;
+                        citySelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading cities:', error);
+                }
+            });
+        }
+        $(document).ready(function() {
+            loadCountries();
+        });
+    </script>
+    {{-- Country Statecity API End --}}
 @endsection

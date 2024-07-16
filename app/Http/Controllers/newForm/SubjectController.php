@@ -44,7 +44,6 @@ class SubjectController extends Controller
         }
 
         $openState = new Subject();
-
         
         $recordCounter = RecordNumber::first();
         if (!$recordCounter) {
@@ -349,7 +348,7 @@ class SubjectController extends Controller
         if (!empty($request->subject_date)) {
             $history = new SubjectAuditTrail();
             $history->sub_id = $openState->id;
-            $history->activity_type = 'Subject Name';
+            $history->activity_type = 'Subject Date';
             $history->previous = "Null";
             $history->current = $openState->subject_date;
             $history->comment = "Not Applicable";
@@ -949,24 +948,19 @@ class SubjectController extends Controller
     public function edit($id)
     {
         $openState = Subject::find($id);
-
-
-
+        
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('d-M-Y');
-
-
+        
         return view('frontend.ctms.subject_view', compact('openState', 'due_date'));
     }
 
     public function update(Request $request, $id)
     {
-
         $openState = Subject::find($id);
         $lastdocument = Subject::find($id);
-
-
+        
         if (!$request->short_description) {
             toastr()->error("Short description is required");
             return redirect()->back();
@@ -1303,7 +1297,7 @@ class SubjectController extends Controller
         if ($lastdocument->subject_date != $request->subject_date) {
             $history = new SubjectAuditTrail();
             $history->sub_id = $openState->id;
-            $history->activity_type = 'Subject Name';
+            $history->activity_type = 'Subject Date';
             $history->previous = $lastdocument->subject_date;
             $history->current = $request->subject_date;
             $history->comment = "Not Applicable";
@@ -2023,9 +2017,10 @@ class SubjectController extends Controller
                 $history->action_name = 'Update';
             }
             
-
             $history->save();
         }
+        
+        toastr()->success("Record is updated Successfully");
         return redirect()->back();
     }
 
