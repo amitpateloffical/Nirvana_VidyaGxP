@@ -6,6 +6,7 @@ use App\Http\Controllers\newForm\EquipmentController;
 use App\Http\Controllers\newForm\MonthlyWorkingController;
 use App\Http\Controllers\newForm\NationalApprovalController;
 use App\Http\Controllers\newForm\SanctionController;
+use App\Http\Controllers\newForm\ValidationController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\CCController;
@@ -185,18 +186,18 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
 
             // Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
-            Route::post('send-child/{id}', [DemoValidationController::class, 'stageChange'])->name('stageChange');
-            Route::post('validation/stage/{id}', [DemoValidationController::class, 'validation_send_stage'])->name('validation_send_stage');
-            Route::post('validation_rejects', [DemoValidationController::class, 'validation_reject'])->name('validation_reject');
-            Route::post('validation/cancel/{id}', [DemoValidationController::class, 'validationCancel'])->name('validationCancel');
-            Route::post('validation/check/{id}', [DemoValidationController::class, 'check'])->name('validation_check');
-            Route::post('validation/check2/{id}', [DemoValidationController::class, 'check2'])->name('validation_check2');
-            Route::post('validation/check3/{id}', [DemoValidationController::class, 'check3'])->name('validation_check3');
-            Route::get('validationSingleReport/{id}', [DemoValidationController::class, 'singleReport'])->name('validationSingleReport');
-            Route::get('/audit_validationPdf/{id}', [DemoValidationController::class, 'audit_pdf2']);
+            Route::post('send-child/{id}', [ValidationController::class, 'stageChange'])->name('stageChange');
+            Route::post('validation/stage/{id}', [ValidationController::class, 'validation_send_stage'])->name('validation_send_stage');
+            Route::post('validation_rejects', [ValidationController::class, 'validation_reject'])->name('validation_reject');
+            Route::post('validation/cancel/{id}', [ValidationController::class, 'validationCancel'])->name('validationCancel');
+            Route::post('validation/check/{id}', [ValidationController::class, 'check'])->name('validation_check');
+            Route::post('validation/check2/{id}', [ValidationController::class, 'check2'])->name('validation_check2');
+            Route::post('validation/check3/{id}', [ValidationController::class, 'check3'])->name('validation_check3');
+            Route::get('validationSingleReport/{id}', [ValidationController::class, 'singleReport'])->name('validationSingleReport');
+            Route::get('/audit_validationPdf/{id}', [ValidationController::class, 'audit_pdf2']);
 
-            Route::get('vali_summary/{id}', [DemoValidationController::class, 'valiSummery_pdf']);
-            Route::get('vali_audit/{id}', [DemoValidationController::class, 'valiAudit_pdf']);
+            Route::get('vali_summary/{id}', [ValidationController::class, 'valiSummery_pdf']);
+            Route::get('vali_audit/{id}', [ValidationController::class, 'valiAudit_pdf']);
 
 
             //  Route::post('send-vali/{id}',[DemoValidationController::class,'stageChange'])->name('stageChange');

@@ -126,20 +126,19 @@ use Carbon\Carbon;
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Supervisor Approval
                     </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target=" #cancel-modal">
-                        More Information Required
 
-                    </button>
-                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                    {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                                 Cancel
-                            </button> -->
+                            </button> --}}
+
                     @elseif($equipment->stage == 3 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Complete Validation
 
                     </button>
-                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                        Reject -->
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
+                        More Information Required
+
                     </button>
 
                     @elseif(
@@ -152,9 +151,9 @@ use Carbon\Carbon;
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
                         Re-Validation
                     </button>
-                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                    {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Deviation Occurred
-                    </button> -->
+                    </button> --}}
 
                     @elseif($equipment->stage == 5 && (in_array(7, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
@@ -163,15 +162,15 @@ use Carbon\Carbon;
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                         Child
                     </button>
-                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
+                    {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#qasend">
                                         Document Completed
-                                    </button> -->
-                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                                    </button> --}}
+                    {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                         QA Final Review Complete
                                     </button>
                                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                                         Child
-                                    </button>  -->
+                                    </button>  --}}
                     @elseif($equipment->stage == 6 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Forward to Storage
@@ -187,19 +186,14 @@ use Carbon\Carbon;
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Retire
                     </button>
-                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
-                        Report Reject
-                    </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
-                        Obsolete
-                    </button> -->
-                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+
+                    {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                                         Initiator Updated Complete
-                                    </button> -->
+                                    </button> --}}
                     @elseif($equipment->stage == 8 && (in_array(39, $userRoleIds) || in_array(18, $userRoleIds)))
-                    <!-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                    {{-- <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Obsolete
-                    </button> -->
+                    </button> --}}
 
                     @endif
                     <button class="button_theme1"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit
@@ -256,11 +250,11 @@ use Carbon\Carbon;
                     @else
                     <div class="">In Storage</div>
                     @endif
-                    <!-- @if ($equipment->stage >= 8)
+                    {{-- @if ($equipment->stage >= 8)
                     <div class="active">Active Document</div>
                     @else
                     <div class="">Active Document</div>
-                    @endif -->
+                    @endif --}}
                     @if ($equipment->stage >= 8)
                     <div class="bg-danger">Closed - Retired</div>
                     @else
@@ -269,7 +263,7 @@ use Carbon\Carbon;
                     {{-- @endif --}}
                 </div>
                 @endif
-                {{-- ---------------------------------------------------------------------------------------- --}}
+                {{-- ------------------------------------------------------}}
             </div>
         </div>
 
@@ -297,7 +291,7 @@ use Carbon\Carbon;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code</b></label>
-                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input readonly type="text" name="divison_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
                                     <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
                             </div>
@@ -312,7 +306,7 @@ use Carbon\Carbon;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number">Record Number</label>
-                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName($equipment->division) }}/EQUIPMENT/{{ Helpers::year($equipment->created_at) }}/{{ $equipment->record }}">
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName($equipment->division_id) }}/EQUIPMENT/{{ Helpers::year($equipment->created_at) }}/{{ $equipment->record }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -334,10 +328,10 @@ use Carbon\Carbon;
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="type">
-                                        Type</label>
+                                        Type
+                                    </label>
                                     <select id="select-state" placeholder="Select..." name="type">
-                                        <!-- <option value="">Select a value</option> -->
-                                        <option @if ($equipment->type==1) select @endif value="1" >1</option>
+                                        <option @if ($equipment->type==1) select @endif value="1">1</option>
                                         <option @if ($equipment->type==2) select @endif value="2">2</option>
                                         <option @if ($equipment->type==3) select @endif value="3">3</option>
                                     </select>
@@ -365,9 +359,6 @@ use Carbon\Carbon;
                                         @endif
                                         @endforeach
                                     </select>
-
-
-
                                 </div>
                             </div>
 
@@ -378,7 +369,6 @@ use Carbon\Carbon;
                                     <div class="calenderauditee">
                                         <input type="hidden" value="{{$due_date}}" name="assign_due_date">
                                         <input disabled type="text" value="{{Helpers::getdateFormat($equipment->assign_due_date)}}">
-
                                     </div>
                                 </div>
                             </div>
@@ -500,7 +490,6 @@ use Carbon\Carbon;
                                         <option @if ($equipment->calibration_frequency==2) select @endif value="2">2</option>
                                         <option @if ($equipment->calibration_frequency==3) select @endif value="3">3</option>
                                     </select>
-                                    <!-- <input type="text" name="calibration_frequency" value="{{$equipment->calibration_frequency}}"> -->
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -518,7 +507,7 @@ use Carbon\Carbon;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Next_PM_Date">Next PM Date</label>
-                                    <input type="date" name="next_pm_date" id="next_pm_date" value="{{ Carbon::parse($equipment->next_pm_date)->format('d-M-Y') }}">
+                                    <input type="date" name="next_pm_date" id="next_pm_date" value="{{$equipment->next_pm_date}}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -547,28 +536,44 @@ use Carbon\Carbon;
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="Submitted by">Submitted By</label>
-                                    <div class="static">{{Auth::user()->name}}</div>
+                                    <div class="static">{{$equipment->submit_by}}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="Submitted on">Submitted On</label>
-                                    <div class="Date">{{$equipment->assign_due_date}}</div>
+                                    <div class="Date">{{$equipment->submit_on}}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+
+                            <div class="col-lg-4">
+                                <div class="group-input">
+                                    <label for="Submitted on">Comment</label>
+                                    <div class="Date">{{$equipment->comment}}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="QA Approved by">QA Approved By</label>
-                                    <div class="static"></div>
+                                    <div class="static">{{$equipment->qa_approved_by}}</div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="group-input">
                                     <label for="QA Approved on">QA Approved On</label>
-                                    <div class="Date"></div>
+                                    <div class="Date">{{$equipment->qa_approved_on}}</div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="group-input">
+                                    <label for="QA Approved on">Comment</label>
+                                    <div class="Date">{{$equipment->comment}}</div>
                                 </div>
                             </div>
                         </div>
@@ -596,6 +601,26 @@ use Carbon\Carbon;
         display: block;
     }
 </style>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const removeButtons = document.querySelectorAll('.remove-file');
+
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const fileName = this.getAttribute('data-file-name');
+                const fileContainer = this.closest('.file-container');
+
+                // Hide the file container
+                if (fileContainer) {
+                    fileContainer.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
 
 <script>
     VirtualSelect.init({

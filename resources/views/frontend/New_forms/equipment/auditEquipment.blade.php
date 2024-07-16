@@ -179,7 +179,6 @@
                     </tr>
                 </table>
 
-
                 <table>
                     <div class="heading">
 
@@ -193,7 +192,6 @@
                                         Exit </a> </button>
                             </div>
                         </div>
-
                         <div> <strong>Record ID. </strong> {{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>
                         <div style="margin-bottom: 5px;  font-weight: bold;"> Originator
                             : {{ $document->originator ? $document->originator : '' }}</div>
@@ -201,7 +199,6 @@
                             {{ $document->short_description }}
                         </div>
                         <div style="margin-bottom: 5px;  font-weight: bold;">Due Date : {{\Carbon\Carbon::parse($document->assign_due_date)->format('d-M-Y')}}</div>
-
                     </div>
     </div>
     </table>

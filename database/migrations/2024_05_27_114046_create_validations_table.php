@@ -122,21 +122,34 @@ return new class extends Migration
             $table->json('record_history')->nullable();
 
             $table->string('submitted_by')->nullable();
+
             $table->string('review_by')->nullable();
+            $table->string('review_comment')->nullable();
+
             $table->string('cancelled_by')->nullable();
             $table->string('cancelled_on')->nullable();
+
             $table->string('approved_on')->nullable();
+
             $table->string('rejected_on')->nullable();
+            $table->string('report_reject_comment')->nullable();
+
             $table->string('approved_by')->nullable();
             $table->string('rejected_by')->nullable();
             $table->string('completed_on')->nullable();
+
             $table->string('submitted_on')->nullable();
+            $table->string('submited_comment')->nullable();
             $table->string('review_on')->nullable();
 
             $table->string('final_approved_by')->nullable();
             $table->string('final_approved_on')->nullable();
+            $table->string('1st_final_comment')->nullable();
+            $table->string('2nd_final_comment')->nullable();
+
             $table->string('obsolete_by')->nullable();
             $table->string('onsolete_on')->nullable();
+            $table->string('obsolete_comment')->nullable();
 
             $table->timestamps();
         });

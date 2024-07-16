@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('parent_type')->nullable();
             $table->string('division_id')->nullable();
-            $table->date('initiation_date')->nullable();
+            $table->text('initiation_date')->nullable();
             $table->integer('initiator_id')->nullable();
             $table->string('originator')->nullable();
             $table->text('short_description')->nullable();
@@ -28,17 +28,12 @@ return new class extends Migration
             $table->string('divison_code')->nullable();
             $table->string('general_initiator_group')->nullable();
             $table->string('initiator_group_code')->nullable();
-      
+
             $table->string('form_type')->nullable();
-            $table->date('due_date')->nullable();
-            // $table->string('number_id')->nullable();
-            
+            $table->text('due_date')->nullable();
+
             $table->string('user_name')->nullable();
             $table->string('assign_to')->nullable();
-            // $table->date('assign_due_date')->nullable();
-
-            // $table->string('type')->nullable();
-            // $table->string('site_name')->nullable();
 
             $table->longtext('description')->nullable();
             $table->string('device_condition_m')->nullable();
@@ -51,13 +46,13 @@ return new class extends Migration
 
             $table->string('stage')->nullable();
             $table->string('status')->nullable();
-            
-             $table->string('submit_by')->nullable(); 
-             $table->string('submit_on')->nullable();            
-             $table->string('cancel_by')->nullable();
-             $table->string('cancel_on')->nullable();
-             $table->string('qa_approved_by')->nullable();
-             $table->string('qa_approved_on')->nullable();
+
+            $table->string('submit_by')->nullable();
+            $table->string('submit_on')->nullable();
+            $table->string('cancel_by')->nullable();
+            $table->string('cancel_on')->nullable();
+            $table->string('qa_approved_by')->nullable();
+            $table->string('qa_approved_on')->nullable();
 
             $table->timestamps();
         });

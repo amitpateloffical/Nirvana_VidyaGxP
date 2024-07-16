@@ -83,7 +83,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -100,7 +100,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -117,7 +117,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -134,7 +134,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -151,7 +151,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -169,7 +169,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -187,7 +187,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -204,7 +204,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -221,7 +221,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -239,7 +239,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -256,7 +256,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -273,7 +273,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -289,7 +289,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -306,7 +306,7 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -323,13 +323,13 @@ class MonthlyWorkingController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
 
-
             toastr()->success("Monthly is created Successfully");
+
             return redirect(url('rcms/qms-dashboard'));
         } catch (\Exception $e) {
 
@@ -708,17 +708,19 @@ class MonthlyWorkingController extends Controller
 
     public function audit_monthly_working($id)
     {
+        $monthly = MonthlyWorking::find($id);
         $audit = MonthlyWorkingAudit::where('monthlyworking_id', $id)->orderByDESC('id')->paginate();
         $today = Carbon::now()->format('d-m-y');
         $document = MonthlyWorking::where('id', $id)->first();
         $document->originator = User::where('id', $document->initiator_id)->value('name');
 
-        return view('frontend.New_forms.monthly_working.monthly_working_audit', compact('document', 'audit', 'today'));
+        return view('frontend.New_forms.monthly_working.monthly_working_audit', compact('document', 'audit', 'today', 'monthly'));
     }
 
 
     public function monthly_workingAuditTrialDetails($id)
     {
+        // $monthly = MonthlyWorking::find($id);
         $detail = MonthlyWorkingAudit::find($id);
         $detail_data = MonthlyWorkingAudit::where('activity_type', $detail->activity_type)->where('monthlyworking_id', $detail->monthlyworking_id)->latest()->get();
         $doc = MonthlyWorking::where('id', $detail->monthly_id)->first();
@@ -777,11 +779,14 @@ class MonthlyWorkingController extends Controller
             $datas = ActionItem::find($id);
 
             if (empty($datas)) {
+
                 $datas = Extension::find($id);
+
                 $doc = MonthlyWorking::find($datas->monthlyworking_id);
                 $doc->originator = User::where('id', $doc->initiator_id)->value('name');
                 $doc->created_at = $datas->created_at;
             } else {
+
                 $doc = MonthlyWorking::find($datas->monthlyworking_id);
                 $doc->originator = User::where('id', $doc->initiator_id)->value('name');
                 $doc->created_at = $datas->created_at;

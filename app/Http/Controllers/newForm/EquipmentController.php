@@ -43,7 +43,6 @@ class EquipmentController extends Controller
             $recordCounter->counter = $newRecordNumber;
             $recordCounter->save();
 
-
             $equipment = new Equipment();
 
             // General Information
@@ -55,6 +54,8 @@ class EquipmentController extends Controller
 
             $equipment->initiator_id = Auth::user()->id;
             $equipment->user_name = Auth::user()->name;
+            $equipment->division_id = $request->division_id;
+            $equipment->divison_code = $request->divison_code;
             $equipment->initiation_date = $request->initiation_date;
             $equipment->short_description = $request->short_description;
             $equipment->type = $request->type;
@@ -975,7 +976,6 @@ class EquipmentController extends Controller
 
                 $equipment->submit_by = Auth::user()->name;
                 $equipment->submit_on = Carbon::now()->format('d-M-Y');
-                // $equipment->comment = $request->comment;
 
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $id;
@@ -1053,8 +1053,8 @@ class EquipmentController extends Controller
                 $equipment->stage = "5";
                 $equipment->status = "Approved Equipment";
 
-                $equipment->submit_by = Auth::user()->name;
-                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+                $equipment->qa_approved_by = Auth::user()->name;
+                $equipment->qa_approved_on = Carbon::now()->format('d-M-Y');
 
                 $validation2 = new EquipmentAudit();
                 $validation2->equipment_id = $id;
@@ -1167,18 +1167,55 @@ class EquipmentController extends Controller
 
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $equipment = Equipment::find($id);
+            $lastDocument = Equipment::find($id);
 
             if ($equipment->stage == 1) {
                 $equipment->stage = "0";
                 $equipment->status = "Closed-Cancelled";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new EquipmentAudit();
+                $validation2->equipment_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Cancel';
+                $validation2->change_to = "Closed-Cancelled";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
             }
 
             if ($equipment->stage == 3) {
-                $equipment->stage = "1";
-                $equipment->status = "Opened";
+                $equipment->stage = "2";
+                $equipment->status = "Supervisor Review";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new EquipmentAudit();
+                $validation2->equipment_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'More Information Required';
+                $validation2->change_to = "Supervisor Review";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -1186,24 +1223,54 @@ class EquipmentController extends Controller
             if ($equipment->stage == 4) {
                 $equipment->stage = "3";
                 $equipment->status = "Pending Validation";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new EquipmentAudit();
+                $validation2->equipment_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Re-Validation';
+                $validation2->change_to = "Pending Validation";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
             }
             if ($equipment->stage == 5) {
                 $equipment->stage = "4";
-                $equipment->status = "Test in Progress";
+                $equipment->status = "Pending QA Approval";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new EquipmentAudit();
+                $validation2->equipment_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Re-Activate';
+                $validation2->change_to = "Test in Progress";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
             }
-            // if ($equipment->stage == 6) {
-            //     $equipment->stage = "5";
-            //     $equipment->status = "Approved Equipment";
-            //     $equipment->update();
-            //     toastr()->success('Document Sent');
-            //     return back();
-            // }
+
 
             if ($equipment->stage == 6) {
                 if ($equipment->re_active_not == "yes") {
@@ -1268,6 +1335,7 @@ class EquipmentController extends Controller
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('d-M-Y');
         $parent_record = Equipment::where('id', $id)->value('record');
+        $parent_type = $request->parent_type;
         $parent_record = str_pad($parent_record, 4, '0', STR_PAD_LEFT);
         $parent_division_id = Equipment::where('id', $id)->value('division_id');
         $parent_initiator_id = Equipment::where('id', $id)->value('initiator_id');
@@ -1286,11 +1354,12 @@ class EquipmentController extends Controller
             $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
             $Extensionchild = Equipment::find($id);
             $Extensionchild->save();
-            return view('frontend.forms.extension', compact('parent_id', 'parent_name', 'record_number', 'parent_due_date'));
+            return view('frontend.New_forms.calibration.calibration', compact('parent_id', 'parent_type', 'parent_name', 'due_date', 'record_number', 'parent_due_date'));
         }
         if ($request->child_type == "pm") {
             $parent_due_date = "";
             $parent_id = $id;
+            $parent_type = $request->parent_type;
             $parent_name = $request->parent_name;
             if ($request->due_date) {
                 $parent_due_date = $request->due_date;
@@ -1300,7 +1369,7 @@ class EquipmentController extends Controller
             $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
             $Extensionchild = Equipment::find($id);
             $Extensionchild->save();
-            return view('frontend.forms.extension', compact('parent_id', 'parent_name', 'record_number', 'parent_due_date'));
+            return view('frontend.New_forms.preventive-maintenance', compact('parent_id', 'parent_type', 'parent_name', 'due_date', 'record_number', 'parent_due_date'));
         }
         $old_record = Equipment::select('id', 'division_id', 'record')->get();
         if ($request->child_type == "deviation") {

@@ -89,7 +89,7 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code</b></label>
-                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input readonly type="text" name="divison_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
                                     <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
                             </div>
@@ -104,15 +104,15 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number">Record Number</label>
-                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/EQUIPMENT/{{ date('Y') }}/{{ $record_number }}">
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division_id')) }}/EQUIPMENT/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Date of Initiation"><b>Date of Initiation</b></label>
 
-                                    <input disabled type="text" value="{{ date('Y-m-y') }}" id="initiation_date_display">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" id="intiation_date" name="initiation_date">
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" id="initiation_date_display">
+                                    <input type="hidden" value="{{ date('d-M-Y') }}" id="intiation_date" name="initiation_date">
                                 </div>
                             </div>
 

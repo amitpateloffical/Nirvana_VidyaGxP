@@ -188,7 +188,7 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code</b></label>
-                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input readonly type="text" name="divison_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
                                     <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
                             </div>
@@ -374,18 +374,40 @@ $users = DB::table('users')->get();
                         <div class="sub-head">
                             E-Signatures
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="group-input">
                                 <!-- <label for="Approved By">Approved Type : </label> -->
                                 <label for="Approved By">Approved By : </label>
-                                <div class="static">{{Auth::user()->name}}</div>
+                                <div class="static">{{$calibration->submit_by}}</div>
 
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="group-input">
                                 <label for="Approved on">Approved On : </label>
-                                <div class="static">{{$calibration->initiation_date}}</div>
+                                <div class="static">{{$calibration->submit_on}}</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="group-input">
+                                <label for="Approved on">Comment : </label>
+                                <div class="static">{{$calibration->comment}}</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="group-input">
+                                <!-- <label for="Approved By">Approved Type : </label> -->
+                                <label for="Approved By">Cancel By : </label>
+                                <div class="static">{{$calibration->cancel_by}}</div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="group-input">
+                                <label for="Approved on">Cancel On : </label>
+                                <div class="static">{{$calibration->cancel_on}}</div>
                             </div>
                         </div>
 

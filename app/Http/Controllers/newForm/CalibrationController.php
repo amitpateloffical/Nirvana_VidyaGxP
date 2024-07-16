@@ -35,12 +35,9 @@ class CalibrationController extends Controller
 
     public function calibrationStore(Request $request)
     {
-
-
         try {
             $recordCounter = RecordNumber::first();
             $newRecordNumber = $recordCounter->counter + 1;
-
             $recordCounter->counter = $newRecordNumber;
             $recordCounter->save();
 
@@ -84,7 +81,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -100,7 +97,7 @@ class CalibrationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -117,7 +114,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -134,7 +131,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -151,7 +148,7 @@ class CalibrationController extends Controller
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -167,9 +164,8 @@ class CalibrationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
 
                 $validation2->save();
@@ -185,9 +181,8 @@ class CalibrationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -204,7 +199,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -221,7 +216,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -239,7 +234,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -256,7 +251,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -273,7 +268,7 @@ class CalibrationController extends Controller
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
 
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -288,9 +283,8 @@ class CalibrationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
                 $validation2->change_to =   "Opened";
-                $validation2->change_from = "'Initiation";
+                $validation2->change_from = "Initiation";
                 $validation2->action_name = 'Create';
                 $validation2->save();
             }
@@ -315,6 +309,9 @@ class CalibrationController extends Controller
 
     public function calibrationUpdate(Request $request, $id)
     {
+
+        // dd($request->all());
+
         if (!$request->short_description) {
             toastr()->info("Short Description is required");
             return redirect()->back()->withInput();
@@ -467,8 +464,6 @@ class CalibrationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 if (is_null($lastDocument->device_condition_m) || $lastDocument->device_condition_m === '') {
@@ -489,8 +484,6 @@ class CalibrationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 if (is_null($lastDocument->replace_parts_m) || $lastDocument->replace_parts_m === '') {
@@ -511,8 +504,6 @@ class CalibrationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 if (is_null($lastDocument->calibration_rating_m) || $lastDocument->calibration_rating_m === '') {
@@ -533,8 +524,6 @@ class CalibrationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-
                 $validation2->change_to =   "Not Applicable ";
                 $validation2->change_from = $lastDocument->status;
                 if (is_null($lastDocument->update_software_m) || $lastDocument->update_software_m === '') {
@@ -556,8 +545,6 @@ class CalibrationController extends Controller
                 $validation2->user_id = Auth::user()->id;
                 $validation2->user_name = Auth::user()->name;
                 $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-
-
                 $validation2->change_to =   "Not Applicable";
                 $validation2->change_from = $lastDocument->status;
                 if (is_null($lastDocument->replace_betteries_m) || $lastDocument->replace_betteries_m === '') {
@@ -643,6 +630,7 @@ class CalibrationController extends Controller
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $equipment = Calibration::find($id);
+            $lastDocument = Calibration::find($id);
 
             if (!$equipment) {
                 toastr()->error('Calibration not found');
@@ -652,6 +640,25 @@ class CalibrationController extends Controller
             if ($equipment->stage == 1) {
                 $equipment->stage = "2";
                 $equipment->status = "Calibration In Progress";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+                $equipment->comment = $request->comment;
+
+                $validation2 = new CalibrationAudit();
+                $validation2->calibration_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Initiate Calibration';
+                $validation2->change_to = "Calibration In Progress";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -660,27 +667,51 @@ class CalibrationController extends Controller
             if ($equipment->stage == 2) {
                 $equipment->stage = "3";
                 $equipment->status = "Pending Out of Limits Actions";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new CalibrationAudit();
+                $validation2->calibration_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Out of Limits';
+                $validation2->change_to = "Pending Out of Limits Actions";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
             }
 
-            // if ($equipment->stage == 2) {
-            //     if ($request->action == 'within-limits') {
-            //         $equipment->stage = "4";
-            //         $equipment->status = "Pending QA Approval";
-            //     } elseif ($request->action == 'out-of-limits') {
-            //         $equipment->stage = "3";
-            //         $equipment->status = "Pending Out of Limits Actions";
-            //     }
-            //     $equipment->update();
-            //     toastr()->success('Document Sent');
-            //     return back();
-            // }
 
             if ($equipment->stage == 3) {
                 $equipment->stage = "4";
                 $equipment->status = "Pending QA Approval";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new CalibrationAudit();
+                $validation2->calibration_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Complete Actions';
+                $validation2->change_to = "Pending QA Approval";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -689,18 +720,28 @@ class CalibrationController extends Controller
             if ($equipment->stage == 4) {
                 $equipment->stage = "5";
                 $equipment->status = "Closed - Done";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new CalibrationAudit();
+                $validation2->calibration_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'QA Approval';
+                $validation2->change_to = "Closed - Done";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
             }
-
-            // if ($equipment->stage == 7) {
-            //     $equipment->stage = "8";
-            //     $equipment->status = "Closed - Done";
-            //     $equipment->update();
-            //     toastr()->success('Document Sent');
-            //     return back();
-            // }
         } else {
             toastr()->error('E-signature Not match');
             return back();
@@ -712,10 +753,29 @@ class CalibrationController extends Controller
 
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $equipment = Calibration::find($id);
+            $lastDocument = Calibration::find($id);
 
             if ($equipment->stage == 1) {
                 $equipment->stage = "0";
                 $equipment->status = "Closed-Cancelled";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new CalibrationAudit();
+                $validation2->calibration_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Cancel';
+                $validation2->change_to = "Closed-Cancelled";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -724,6 +784,24 @@ class CalibrationController extends Controller
             if ($equipment->stage == 2) {
                 $equipment->stage = "4";
                 $equipment->status = "Pending QA Approval";
+
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new CalibrationAudit();
+                $validation2->calibration_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Within Limits';
+                $validation2->change_to = "Pending QA Approval";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -731,20 +809,27 @@ class CalibrationController extends Controller
             if ($equipment->stage == 4) {
                 $equipment->stage = "2";
                 $equipment->status = "Calibration In Progress";
+                $equipment->submit_by = Auth::user()->name;
+                $equipment->submit_on = Carbon::now()->format('d-M-Y');
+
+                $validation2 = new CalibrationAudit();
+                $validation2->calibration_id = $id;
+                $validation2->activity_type = 'Activity Log';
+                $validation2->current = $equipment->submit_by;
+                $validation2->comment = $request->comment;
+                $validation2->user_id = Auth::user()->id;
+                $validation2->user_name = Auth::user()->name;
+                $validation2->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $validation2->change_from = $lastDocument->status;
+                $validation2->action = 'Additional Work Required';
+                $validation2->change_to = "Calibration In Progress";
+                $validation2->stage = 'Submited';
+                $validation2->save();
+
                 $equipment->update();
                 toastr()->success('Document Sent');
                 return back();
             }
-
-
-
-            // if ($equipment->stage == 7) {
-            //     $equipment->stage = "9";
-            //     $equipment->status = "Closed - Done";
-            //     $equipment->update();
-            //     toastr()->success('Document Sent');
-            //     return back();
-            // }
 
             toastr()->error('States not Defined');
             return back();
@@ -756,7 +841,6 @@ class CalibrationController extends Controller
 
     public function calibration_child_1(Request $request, $id)
     {
-        // $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('d-M-Y');
@@ -766,6 +850,7 @@ class CalibrationController extends Controller
         $parent_initiation_date = Calibration::where('id', $id)->value('initiation_date');
         $parent_short_description = Calibration::where('id', $id)->value('short_description');
         $hod = User::where('role', 4)->get();
+
 
         if ($request->child_type == "pm") {
             $parent_due_date = "";
@@ -783,13 +868,11 @@ class CalibrationController extends Controller
             $record_number = ((RecordNumber::first()->value('counter')) + 1);
             $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
             $Extensionchild = Calibration::find($id);
-            // $Extensionchild->Extensionchild = $record_number;
             $Extensionchild->save();
             return view('frontend.forms.action-item', compact('parent_id', 'parent_intiation_date', 'parent_name', 'parent_initiator_id', 'parent_record', 'parent_type', 'record_number', 'parent_due_date'));
         } else {
             $parent_name = "Root";
             $Rootchild = Calibration::find($id);
-            // $Rootchild->Rootchild = $record_number;
             $Rootchild->save();
             return view('frontend.forms.root-cause-analysis', compact('parent_id', 'parent_type', 'record_number', 'due_date', 'parent_short_description', 'parent_initiator_id', 'parent_intiation_date', 'parent_name', 'parent_division_id', 'parent_record',));
         }
@@ -851,27 +934,25 @@ class CalibrationController extends Controller
 
             $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
 
-            // Ensure that the text parameter is a string
-            $text = 'Sample Watermark';  // Replace with actual text if needed
-            // Ensure the color is an array of three integers
-            $color = [0, 0, 0];  // RGB color array
+            $text = 'Sample Watermark';
+
+            $color = [0, 0, 0];
 
             $canvas->page_text(
                 $width / 4,
                 $height / 2,
                 $text,
-                null, // Font
-                25,   // Font size
-                $color, // Color array
-                2, // Word spacing
-                6, // Character spacing
-                -20 // Angle
+                null,
+                25,
+                $color,
+                2,
+                6,
+                -20
             );
 
             return $pdf->stream('SOP' . $id . '.pdf');
         }
 
-        // Handle the case where the $data is empty or not found
         return redirect()->back()->with('error', 'Calibration not found.');
     }
 

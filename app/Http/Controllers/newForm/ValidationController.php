@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\demo;
+namespace App\Http\Controllers\newForm;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
 use App\Models\ActionItem;
 use App\Models\Extension;
 use App\Models\Validation;
 use App\Models\ValidationAudit;
 use App\Models\UserRole;
-use Illuminate\Http\Request;
+
 use Carbon\Carbon;
 use PDF;
 use Illuminate\Support\Facades\App;
@@ -20,8 +22,10 @@ use App\Models\User;
 use App\Models\RecordNumber;
 use App\Models\ValidationGrid;
 
-class DemoValidationController extends Controller
+class ValidationController extends Controller
 {
+
+
     public function validationIndex()
     {
         $old_record = Validation::select('id', 'division_id', 'record')->get();
@@ -32,6 +36,8 @@ class DemoValidationController extends Controller
         $due_date = $formattedDate->format('Y-m-d');
         return view('frontend.New_forms.validation', compact('old_record', 'record_number', 'currentDate', 'formattedDate', 'due_date'));
     }
+
+
     public function store(Request $request)
     {
 
@@ -1076,7 +1082,7 @@ class DemoValidationController extends Controller
                 $validation->status = "Review";
                 $validation->submitted_by = Auth::user()->name;
                 $validation->submitted_on = Carbon::now()->format('d-M-Y');
-                // $validation->comments = $request->comments;
+                $validation->submited_comment = $request->submited_comment;
 
                 $validation1 = new ValidationAudit();
 
@@ -1105,6 +1111,7 @@ class DemoValidationController extends Controller
                 $validation->status = "Protocol Approval";
                 $validation->review_by = Auth::user()->name;
                 $validation->review_on = Carbon::now()->format('d-M-Y');
+                $validation->comment = $request->comment;
 
                 $validation1 = new ValidationAudit();
                 $validation1->validation_id = $id;
@@ -1131,7 +1138,7 @@ class DemoValidationController extends Controller
                 $validation->status = "Test in Progress";
                 $validation->approved_by = Auth::user()->name;
                 $validation->approved_on = Carbon::now()->format('d-M-Y');
-                // $validation->comments = $request->comments;
+                $validation->comments = $request->comments;
 
                 $validation1 = new ValidationAudit();
                 $validation1->validation_id = $id;
@@ -1688,9 +1695,6 @@ class DemoValidationController extends Controller
             6,
             -20
         );
-
-
-
         return $pdf->stream('SOP' . $id . '.pdf');
     }
 }
