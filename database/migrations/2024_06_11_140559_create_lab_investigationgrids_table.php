@@ -17,11 +17,12 @@ return new class extends Migration
             $table->id();
             //firstgrid
             $table->Integer('lab_investigation_id')->nullable();
+            $table->text('type')->nullable();
              
-            $table->string('Root_Cause_Category')->nullable();
-            $table->string('Root_Cause_Sub_Category')->nullable();
-            $table->string('Probability')->nullable();
-            $table->string('Remarks')->nullable();
+            $table->text('Root_Cause_Category')->nullable();
+            $table->text('Root_Cause_Sub_Category')->nullable();
+            $table->text('Probability')->nullable();
+            $table->text('Remarks')->nullable();
          
 
             //grid second

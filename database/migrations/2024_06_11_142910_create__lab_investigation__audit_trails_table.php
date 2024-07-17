@@ -25,8 +25,15 @@ return new class extends Migration
             $table->string('user_name')->nullable();
             $table->string('origin_state')->nullable();
             $table->string('user_role')->nullable();
+            $table->string('change_to')->nullable();
+            $table->string('change_from')->nullable();
+         
             $table->softDeletes();
             $table->timestamps();
+
+
+
+           
         });
     }
 

@@ -35,7 +35,7 @@ return new class extends Migration
             $table->text('limit_specifications')->nullable(); // Changed to text
             $table->text('additional_investigator')->nullable();
             $table->string('departments')->nullable();
-            $table->text('description')->nullable(); // Changed to text
+            $table->longtext('description')->nullable(); // Changed to text
             $table->text('comments')->nullable(); // Changed to text
             $table->string('attached_test')->nullable();
             $table->string('related_urls')->nullable();
@@ -52,40 +52,40 @@ return new class extends Migration
             $table->string('state_district')->nullable();
 
             // tab 3
-            $table->string('root_cause_methodology')->nullable();
-            $table->string('measurement')->nullable();
-            $table->string('materials')->nullable();
-            $table->string('methods')->nullable();
-            $table->string('environment')->nullable();
-            $table->string('manpower')->nullable();
-            $table->string('machine')->nullable();
-            $table->text('problem_statement')->nullable(); // Changed to text
-            $table->text('why_problem_statement')->nullable(); // Changed to text
-            $table->string('why_1')->nullable();
-            $table->string('why_2')->nullable();
-            $table->string('why_3')->nullable();
-            $table->string('why_4')->nullable();
-            $table->string('Root_Cause_Category')->nullable();
-            $table->string('Root_Cause_Sub_Category')->nullable();
-            $table->string('Probability')->nullable();
-            $table->string('Remarks')->nullable();
-            $table->string('why_5')->nullable();
-            $table->text('why_root_cause')->nullable(); // Changed to text
-            $table->text('what_will_be')->nullable(); // Changed to text
-            $table->text('what_will_not_be')->nullable(); // Changed to text
-            $table->text('what_rationable')->nullable(); // Changed to text
-            $table->text('where_will_be')->nullable(); // Changed to text
-            $table->text('where_will_not_be')->nullable(); // Changed to text
-            $table->text('where_rationable')->nullable(); // Changed to text
-            $table->text('when_will_be')->nullable(); // Changed to text
-            $table->text('when_will_not_be')->nullable(); // Changed to text
-            $table->text('when_rationable')->nullable(); // Changed to text
-            $table->text('coverage_will_be')->nullable(); // Changed to text
-            $table->text('coverage_will_not_be')->nullable(); // Changed to text
-            $table->text('coverage_rationable')->nullable(); // Changed to text
-            $table->text('who_will_be')->nullable(); // Changed to text
-            $table->text('who_will_not_be')->nullable(); // Changed to text
-            $table->text('who_rationable')->nullable(); // Changed to text
+            $table->Text('root_cause_methodology')->nullable();
+            $table->Text('measurement')->nullable();
+            $table->Text('materials')->nullable();
+            $table->Text('methods')->nullable();
+            $table->Text('environment')->nullable();
+            $table->Text('manpower')->nullable();
+            $table->longText('machine')->nullable();
+            $table->longtext('problem_statement')->nullable(); // Changed to longtext
+            $table->longtext('why_problem_statement')->nullable(); // Changed to longtext
+            $table->longText('why_1')->nullable();
+            $table->longText('why_2')->nullable();
+            $table->longText('why_3')->nullable();
+            $table->longText('why_4')->nullable();
+            $table->longText('Root_Cause_Category')->nullable();
+            $table->longText('Root_Cause_Sub_Category')->nullable();
+            $table->longText('Probability')->nullable();
+            $table->longText('Remarks')->nullable();
+            $table->longText('why_5')->nullable();
+            $table->longtext('why_root_cause')->nullable(); // Changed to longtext
+            $table->longtext('what_will_be')->nullable(); // Changed to longtext
+            $table->longtext('what_will_not_be')->nullable(); // Changed to longtext
+            $table->longtext('what_rationable')->nullable(); // Changed to longtext
+            $table->longtext('where_will_be')->nullable(); // Changed to longtext
+            $table->longtext('where_will_not_be')->nullable(); // Changed to longtext
+            $table->longtext('where_rationable')->nullable(); // Changed to longtext
+            $table->longtext('when_will_be')->nullable(); // Changed to longtext
+            $table->longtext('when_will_not_be')->nullable(); // Changed to longtext
+            $table->longtext('when_rationable')->nullable(); // Changed to longtext
+            $table->longtext('coverage_will_be')->nullable(); // Changed to longtext
+            $table->longtext('coverage_will_not_be')->nullable(); // Changed to longtext
+            $table->longtext('coverage_rationable')->nullable(); // Changed to longtext
+            $table->longtext('who_will_be')->nullable(); // Changed to longtext
+            $table->longtext('who_will_not_be')->nullable(); // Changed to longtext
+            $table->longtext('who_rationable')->nullable(); // Changed to longtext
             $table->longText('root_cause_description')->nullable(); // Changed to longtext
             $table->longText('investigation_summary')->nullable(); // Changed to longtext
             //grid first
@@ -118,6 +118,10 @@ return new class extends Migration
             $table->string('qa_review_complete_on')->nullable();
             $table->string('cancelled_by')->nullable();
             $table->string('cancelled_on')->nullable();
+            
+            $table->string('rejected_by')->nullable();
+            $table->string('rejected_on')->nullable();
+            
             $table->string('report_result_by')->nullable();
             $table->string('submitted_on')->nullable();
             $table->timestamps();

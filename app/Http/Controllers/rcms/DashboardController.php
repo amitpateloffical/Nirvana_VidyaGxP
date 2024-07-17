@@ -758,17 +758,38 @@ class DashboardController extends Controller
             $data = ManagementReview::find($id);
             $single = "managementReview/" . $data->id;
             $audit = "managementReviewReport/" . $data->id;
-        } elseif ($type == "Root-Cause-Analysis") {
+        } 
+        elseif ($type == "Root-Cause-Analysis") {
             $data = RootCauseAnalysis::find($id);
             $single = "rootSingleReport/" . $data->id;
             $audit = "rootAuditReport/" . $data->id;
-        } elseif ($type == "Deviation") {
+
+            
+        } 
+        // elseif ($type == "lab-investigation") {
+        //     $data = LabInvestigation::find($id);
+        //     $single = "lab_singleReport/" . $data->id;
+        //     $audit = "lab_auditReport/" . $data->id;
+
+            
+        // } 
+        
+        
+        elseif ($type == "lab-investigation") {
+            $data = LabInvestigation::find($id);
+            $single = "lab_singleReport/". $data->id;
+            $audit = "lab_auditReport/".$data->id;
+            $parent="#". $data->id;
+        }
+
+        
+        elseif ($type == "Deviation") {
             $data = Deviation::find($id);
             $single = "deviationSingleReport/". $data->id;
             $audit = "#";
             $parent="deviationparentchildReport/". $data->id;
         }
-
+       
 
         $html = '';
         $html = '<div class="block">
