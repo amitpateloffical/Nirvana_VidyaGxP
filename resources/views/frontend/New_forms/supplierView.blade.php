@@ -418,9 +418,9 @@ function addMultipleFiles(input, block_id) {
     </div>
 </div>
 <div class="col-lg-6">
-<div class="group-input">
+                                    <div class="group-input">
     <label for="Initiator Group"><b>Initiator Group</b><span class="text-danger">*</span></label>
-    <select name="Initiator_Group" {{ $data->stage == 0 || $data->stage == 10 ? "disabled" : "" }} id="initiator_group">
+    <select name="Initiator_Group" {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }} id="initiator_group">
         <option value="CQA" @if ($data->Initiator_Group == 'CQA') selected @endif>Corporate Quality Assurance</option>
         <option value="QAB" @if ($data->Initiator_Group == 'QAB') selected @endif>Quality Assurance Biopharma</option>
         <option value="CQC" @if ($data->Initiator_Group == 'CQC') selected @endif>Central Quality Control</option>
@@ -462,7 +462,7 @@ function addMultipleFiles(input, block_id) {
                                                         class="text-danger">*</span></label><span id="rchars">255</span>
                                                 characters remaining
                                                 
-                                                <textarea name="short_description"   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 8 ? "disabled" : "" }}>{{ $data->short_description }}</textarea>
+                                                <textarea name="short_description"   id="docname" type="text"    maxlength="255" required  {{ $data->stage == 0 || $data->stage == 6 ? "disabled" : "" }}>{{ $data->short_description }}</textarea>
                                             </div>
                                             <p id="docnameError" style="color:red">**Short Description is required</p>
         
@@ -1679,7 +1679,7 @@ function addMultipleFiles(input, block_id) {
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
 
-                        <form action="{{ url('CancelStateExternalAudit', $data->id) }}" method="POST">
+                        <form action="{{ route('CancelStateSupplierAudit', $data->id) }}" method="POST">
                             @csrf
                             <!-- Modal body -->
                             <div class="modal-body">
@@ -1725,7 +1725,7 @@ function addMultipleFiles(input, block_id) {
                         <div class="modal-header">
                             <h4 class="modal-title">Child</h4>
                         </div>
-                        <form action="{{ route('childexternalaudit', $data->id) }}" method="POST">
+                        <form action="{{ route('child_external_Supplier', $data->id) }}" method="POST">
                             @csrf
                             <!-- Modal body -->
                             <div class="modal-body">

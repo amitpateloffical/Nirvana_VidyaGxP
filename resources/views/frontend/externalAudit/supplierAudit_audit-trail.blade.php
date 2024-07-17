@@ -173,10 +173,10 @@
                 <header>
                     <table>
                         <tr>
-                            <div class="logo">
+                            <!-- <div class="logo">
                                 <img src="https://vidyagxp.com/vidyaGxp_logo.png" alt=""
                                     class="w-40">
-                            </div>
+                            </div> -->
                         </tr>
                     </table>
 
@@ -196,7 +196,7 @@
                                 {{ $document->short_description }}</div>
                             <div style="margin-bottom: 5px;  font-weight: bold;">Due Date : {{ $document->due_date }}</div>
 
-                        </div>
+                        </div> 
         </div>
         </table>
 
@@ -267,7 +267,7 @@
                                         :</strong>{{ $dataDemo->user_name ? $dataDemo->user_name : 'Not Applicable' }}
                                 </div>
                                 <div style="margin-top: 5px;"> <strong>Performed On
-                                        :</strong>{{ $dataDemo->created_at ? $dataDemo->created_at : 'Not Applicable' }}
+                                        :</strong>{{ $dataDemo->created_at ? $dataDemo->created_at->format('d-M-Y H:i A') : 'Not Applicable' }}
                                 </div>
                                 <div style="margin-top: 5px;"><strong> Comments
                                         :</strong>{{ $dataDemo->comment ? $dataDemo->comment : 'Not Applicable' }}</div>

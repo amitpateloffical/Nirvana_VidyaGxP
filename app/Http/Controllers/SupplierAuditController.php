@@ -72,8 +72,8 @@ class SupplierAuditController extends Controller
         $internalAudit->due_date = $request->due_date;
         $initiatorGroupShortForm = $request->Initiator_Group;
         $initiatorGroupFullForm = $departments[$initiatorGroupShortForm] ?? 'Unknown Department';
-        $data->Initiator_Group = $initiatorGroupFullForm;
-        $data->initiator_group_code= $request->initiator_group_code;
+        $internalAudit->Initiator_Group = $initiatorGroupFullForm;
+        $internalAudit->initiator_group_code= $request->initiator_group_code;
         $internalAudit->short_description = $request->short_description;
         $internalAudit->audit_type = $request->audit_type;
         $internalAudit->if_other = $request->if_other;
@@ -1617,7 +1617,13 @@ class SupplierAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->origin_state = $lastDocument->status;
                         $history->stage = "Audit Schedule";
+                        $history->change_from = $lastDocument->status;
+                        $history->change_to = 'Audit Preparation';
+                        $history->action = 'Submit';
+
+
                         $history->save();
+                        
                     //     $list = Helpers::getLeadAuditorUserList();
                         
 
@@ -1658,6 +1664,10 @@ class SupplierAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->origin_state = $lastDocument->status;
                         $history->stage = "Audit Preparation Completed";
+                        $history->change_from = $lastDocument->status;
+                        $history->change_to = 'Pending Audit';
+                        $history->action = 'Complete Audit Preparation';
+                        // dd($history->action);
                         $history->save();
                     //     $list = Helpers::getAuditManagerUserList();
                     //     foreach ($list as $u) {
@@ -1695,6 +1705,9 @@ class SupplierAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->origin_state = $lastDocument->status;
                         $history->stage = "Audit Mgr More Info Reqd";
+                        $history->change_from = $lastDocument->status;
+                        $history->change_to = 'Pending Response';
+                        $history->action = 'Issue Report';
                         $history->save();
                     //     $list = Helpers::getLeadAuditeeUserList();
                     //     foreach ($list as $u) {
@@ -1732,6 +1745,9 @@ class SupplierAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->origin_state = $lastDocument->status;
                         $history->stage = "Audit Observation Submitted";
+                        $history->change_from = $lastDocument->status;
+                        $history->change_to = 'CAPA Execution in Progress';
+                        $history->action = 'CAPA  Plan Proposed';
                         $history->save();
                 $changeControl->update();
                 toastr()->success('Document Sent');
@@ -1757,6 +1773,9 @@ class SupplierAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->origin_state = $lastDocument->status;
                         $history->stage = "Audit Lead More Info Reqd";
+                        $history->change_from = $lastDocument->status;
+                        $history->change_to = 'Closed Done';
+                        $history->action = 'All Capa Closed';
                         $history->save();
                 $changeControl->update();
                 toastr()->success('Document Sent');
@@ -1768,25 +1787,18 @@ class SupplierAuditController extends Controller
         }
     }
 
-    public function RejectStateChange(Request $request, $id)
+    public function RejectStateAuditee(Request $request, $id)
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
-            $changeControl = Auditee::find($id);
-            $lastDocument = Auditee::find($id);
-            $internalAudit = Auditee::find($id);
+            $changeControl = SupplierAudit::find($id);
+            $lastDocument = SupplierAudit::find($id);
+            $internalAudit = SupplierAudit::find($id);
 
             if ($changeControl->stage == 4) {
                 $changeControl->stage = "6";
                 $changeControl->status = "Closed - Done";
                 $changeControl->update();
-                $history = new AuditeeHistory();
-                $history->type = "Supplier Audit";
-                $history->doc_id = $id;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->stage_id = $changeControl->stage;
-                $history->status = $changeControl->status;
-                $history->save();
+                
                 toastr()->success('Document Sent');
                 return back();
             }
@@ -1795,8 +1807,8 @@ class SupplierAuditController extends Controller
                 $changeControl->status = "Opened";
                 $changeControl->rejected_by = Auth::user()->name;
                 $changeControl->rejected_on = Carbon::now()->format('d-M-Y');
-                        $history = new AuditTrialExternal();
-                        $history->ExternalAudit_id = $id;
+                        $history = new ExternalAuditTrailSupplier();
+                        $history->supplier_id = $id;
                         $history->activity_type = 'Activity Log';
                         $history->current = $changeControl->rejected_by;
                         $history->comment = $request->comment;
@@ -1805,16 +1817,9 @@ class SupplierAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->origin_state = $lastDocument->status;
                         $history->stage = "Rejected";
+                        $history->action = "";
                         $history->save();
                   $changeControl->update();
-                $history = new AuditeeHistory();
-                $history->type = "Supplier Audit";
-                $history->doc_id = $id;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->stage_id = $changeControl->stage;
-                $history->status = $changeControl->status;
-                $history->save();
                 toastr()->success('Document Sent');
                 return back();
             }
@@ -1822,14 +1827,6 @@ class SupplierAuditController extends Controller
                 $changeControl->stage = "1";
                 $changeControl->status = "Opened";
                 $changeControl->update();
-                $history = new AuditeeHistory();
-                $history->type = "Supplier Audit";
-                $history->doc_id = $id;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->stage_id = $changeControl->stage;
-                $history->status = $changeControl->status;
-                $history->save();
                 toastr()->success('Document Sent');
                 return back();
             }
@@ -1839,19 +1836,19 @@ class SupplierAuditController extends Controller
         }
     }
 
-    public function externalAuditCancel(Request $request, $id)
+    public function CancelStateSupplierAudit(Request $request, $id)
     {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
-            $changeControl = Auditee::find($id);
-            $lastDocument = Auditee::find($id);
-            $internalAudit = Auditee::find($id);
+            $changeControl = SupplierAudit::find($id);
+            $lastDocument = SupplierAudit::find($id);
+            $internalAudit = SupplierAudit::find($id);
 
             if ($changeControl->stage == 1) {
                 $changeControl->stage = "0";
                 $changeControl->status = "Closed-Cancelled";
                 $changeControl->cancelled_by = Auth::user()->name;
                 $changeControl->cancelled_on = Carbon::now()->format('d-M-Y');
-                        $history = new AuditTrialExternal();
+                        $history = new ExternalAuditTrailSupplier();
                         $history->ExternalAudit_id = $id;
                         $history->activity_type = 'Activity Log';
                         $history->current = $changeControl->cancelled_by;
@@ -1863,14 +1860,6 @@ class SupplierAuditController extends Controller
                         $history->stage = "Cancelled";
                         $history->save();
                 $changeControl->update();
-                $history = new AuditeeHistory();
-                $history->type = "Supplier Audit";
-                $history->doc_id = $id;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->stage_id = $changeControl->stage;
-                $history->status = $changeControl->status;
-                $history->save();
                 toastr()->success('Document Sent');
                 return back();
             }
@@ -1879,8 +1868,8 @@ class SupplierAuditController extends Controller
                 $changeControl->status = "Closed-Cancelled";
                 $changeControl->cancelled_by = Auth::user()->name;
                 $changeControl->cancelled_on = Carbon::now()->format('d-M-Y');
-                $history = new AuditTrialExternal();
-                $history->ExternalAudit_id = $id;
+                $history = new ExternalAuditTrailSupplier();
+                $history->Supplier_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->current = $changeControl->cancelled_by;
                 $history->comment = $request->comment;
@@ -1891,14 +1880,6 @@ class SupplierAuditController extends Controller
                 $history->stage = "Cancelled";
                 $history->save();
                 $changeControl->update();
-                $history = new AuditeeHistory();
-                $history->type = "Supplier Audit";
-                $history->doc_id = $id;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->stage_id = $changeControl->stage;
-                $history->status = $changeControl->status;
-                $history->save();
                 toastr()->success('Document Sent');
                 return back();
             }
@@ -1907,8 +1888,8 @@ class SupplierAuditController extends Controller
                 $changeControl->status = "Closed-Cancelled";
                 $changeControl->cancelled_by = Auth::user()->name;
                 $changeControl->cancelled_on = Carbon::now()->format('d-M-Y');
-                $history = new AuditTrialExternal();
-                $history->ExternalAudit_id = $id;
+                $history = new ExternalAuditTrailSupplier();
+                $history->supplier_id = $id;
                 $history->activity_type = 'Activity Log';
                 $history->current = $changeControl->cancelled_by;
                 $history->comment = $request->comment;
@@ -1919,14 +1900,6 @@ class SupplierAuditController extends Controller
                 $history->stage = "Cancelled";
                 $history->save();
                 $changeControl->update();
-                $history = new AuditeeHistory();
-                $history->type = "Supplier Audit";
-                $history->doc_id = $id;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->stage_id = $changeControl->stage;
-                $history->status = $changeControl->status;
-                $history->save();
                 toastr()->success('Document Sent');
                 return back();
             }
@@ -1935,6 +1908,8 @@ class SupplierAuditController extends Controller
             return back();
         }
     }
+
+
 
 
     
@@ -1948,7 +1923,7 @@ class SupplierAuditController extends Controller
                 $today = Carbon::now()->format('d-m-y');
     $document = SupplierAudit::where('id', $id)->first();
     $document->initiator = User::where('id', $document->initiator_id)->value('name');
-    return view('frontend.externalAudit.audit-trial', compact('audit', 'document', 'today'));
+    return view('frontend.externalAudit.supplierAudit_audit-trail', compact('audit', 'document', 'today'));
 }
 
 public static function auditReport($id)
@@ -1960,7 +1935,7 @@ public static function auditReport($id)
         $data = ExternalAuditTrailSupplier::where('supplier_id', $id)->get();
         $pdf = App::make('dompdf.wrapper');
         $time = Carbon::now();
-        $pdf = PDF::loadview('frontend.externalAudit.auditReport', compact('data', 'doc'))
+        $pdf = PDF::loadview('frontend.externalAudit.auditReport_Supplier', compact('data', 'doc'))
             ->setOptions([
                 'defaultFont' => 'sans-serif',
                 'isHtml5ParserEnabled' => true,
@@ -2004,6 +1979,24 @@ public static function singleReport($id)
             return $pdf->stream('Supplier-Audit-SingleReport' . $id . '.pdf');
         }
     }
+
+    public function child_external_Supplier(Request $request, $id)
+    {
+        $parent_id = $id;
+        $parent_type = "Observations";
+        $record_number = ((RecordNumber::first()->value('counter')) + 1);
+        $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->addDays(30);
+        $due_date = $formattedDate->format('d-M-Y');
+        return view('frontend.forms.observation', compact('record_number', 'due_date', 'parent_id', 'parent_type'));
+        
+    }
+    
+
+    
+    
+
 
 
 }
