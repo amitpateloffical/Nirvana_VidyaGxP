@@ -88,8 +88,8 @@ header {
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Record Number"><b>Record Number</b></label>
-                                    <input disabled type="text" name="record_number"
-                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/SUB/{{ date('Y') }}/{{ $record_number }}">
+                                    <input disabled type="text" name="record"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/SUB/{{ date('Y') }}/{{ $record_number}}">
                                 </div>
                             </div>
 

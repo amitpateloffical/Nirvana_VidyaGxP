@@ -204,7 +204,8 @@
                             {{ $document->short_description }}
                         </div>
                         <div style="margin-bottom: 5px;  font-weight: bold;">Due Date :
-                            {{ \Carbon\Carbon::parse($document->due_date)->format('d-M-Y')}}</div>
+                            {{ \Carbon\Carbon::parse($document->due_date)->format('d-M-Y')}}
+                        </div>
 
                     </div>
     </div>

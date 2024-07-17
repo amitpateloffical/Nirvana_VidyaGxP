@@ -1177,7 +1177,7 @@ class SubjectController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->change_to = "Not Applicable";
             $history->change_from = $lastdocument->status;
-            if (is_null($lastdocument->Description_Batch) || $lastdocument->Description_Batch === '') {
+            if (is_null($lastdocument->Description_Batch)  || $lastdocument->Description_Batch === '' ) {
                 $history->action_name = 'New';
             } else {
                 $history->action_name = 'Update';
@@ -1399,8 +1399,7 @@ class SubjectController extends Controller
             } else {
                 $history->action_name = 'Update';
             }
-
-
+            
             $history->save();
         }
 
@@ -1801,7 +1800,7 @@ class SubjectController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->change_to = "Not Applicable";
             $history->change_from = $lastdocument->status;
-            if (is_null($lastdocument->date_grantede) || $lastdocument->date_granted === '') {
+            if (is_null($lastdocument->date_granted) || $lastdocument->date_granted === '') {
                 $history->action_name = 'New';
             } else {
                 $history->action_name = 'Update';

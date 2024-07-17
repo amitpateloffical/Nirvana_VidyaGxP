@@ -96,7 +96,7 @@ $user=DB::table('users')->get();
                 <div class="d-flex" style="gap:20px;">
                     @php
                     $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' =>
-                    7])->get();
+                    $openState->division_id])->get();
                     $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
                     @endphp
 
@@ -160,12 +160,14 @@ $user=DB::table('users')->get();
         </div>
 
         <!-- Tab links -->
+
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Subject</button>
             <button class="cctablinks " onclick="openCity(event, 'CCForm2')">Additional Information</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Important Dates</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
         </div>
+
         <script>
         $(document).ready(function() {
             <?php if (in_array($openState->stage, [3])) : ?>
@@ -194,8 +196,8 @@ $user=DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Record Number"><b>Record Number</b></label>
-                                    <input disabled type="text" name="record_number"
-                                        value="{{ Helpers::getDivisionName($openState->division)}}/SUB/{{Helpers::year($openState->create_at)}}/{{$openState->record }}">
+                                    <input disabled type="text" name="record"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/SUB/{{ date('Y') }}/{{ $openState->record }}">
                                 </div>
                             </div>
 
@@ -346,15 +348,14 @@ $user=DB::table('users')->get();
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Description</label>
                                     <textarea class="summernote" name="Description_Batch"
-                                        id="summernote-16">{{ $openState->Description_Batch }}"</textarea>
+                                        id="summernote-16">{{ $openState->Description_Batch }}</textarea>
                                 </div>
                             </div>
 
 
-
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Type">Actual Cost </label>
+                                    <label for="Type"> Actual Cost </label>
                                     <input type="text" id="actual_cost" name="actual_cost"
                                         value="{{ $openState->actual_cost }}">
                                 </div>
@@ -381,7 +382,7 @@ $user=DB::table('users')->get();
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Comments</label>
                                     <textarea class="summernote" name="Comments_Batch"
-                                        id="summernote-16">"{{ $openState->Comments_Batch}}"</textarea>
+                                        id="summernote-16">{{ $openState->Comments_Batch}}</textarea>
                                 </div>
                             </div>
 
