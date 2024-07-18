@@ -301,7 +301,7 @@
         </script>
         <?php endif; ?>
 
-        {{--disabled field code start--}}
+        {{--disabled field code end--}}
 
         <form action="{{ route('subject_action_item.update', $item_data->id) }}" method="POST" id="target" enctype="multipart/form-data">
             @csrf
@@ -320,11 +320,12 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> Record Number </label>
+                                    <label for="Initiator">Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Subject_Action_Item/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Subject-Action-Item/{{ date('Y') }}/{{ str_pad($item_data->record, 4, '0', STR_PAD_LEFT) }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code</b></label>
@@ -333,13 +334,14 @@
                                     <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Initiator</b></label>
                                     <input disabled type="text" disabled name="initiation_id" value="{{ auth()->user()->name }}">
-
                                 </div>
                             </div>
+
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="intiation_date">Date of Initiation<span class="text-danger"></span></label>
@@ -371,18 +373,16 @@
                                 </div>
                             </div>
 
-
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date"> Date Due <span class="text-danger"></span></label>
                                     <p class="text-primary">Please mention expected date of completion</p>
                                     <div class="calenderauditee">
-                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
-                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}">
+                                        <input  type="hidden" value="{{ $item_data->due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ Helpers::getdateFormat($item_data->due_date) }}">
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="sub-head">Study Details</div>
                             <div class="col-lg-6">
@@ -399,11 +399,9 @@
                                         <option value="">--Select--</option>
                                         <option value="manish" @if($item_data->assign_to_sd == 'manish') selected @endif>Manish</option>
                                         <option value="pankaj" @if($item_data->assign_to_sd == 'pankaj') selected @endif>Pankaj</option>
-
                                     </select>
                                 </div>
                             </div>
-
 
                             <div class="sub-head">Subject Details</div>
                             <div class="col-lg-6">
@@ -412,7 +410,6 @@
                                     <input  type="text" name="subject_name_sd" value="{{ $item_data->subject_name_sd }}">
                                 </div>
                             </div>
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -425,7 +422,6 @@
                                     </select>
                                 </div>
                             </div>
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -459,9 +455,7 @@
 
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
-
                         <div class="row">
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Clinical Efficacy</b></label>
@@ -514,7 +508,6 @@
                                 </div>
                             </div>
 
-
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     DCF
@@ -561,7 +554,6 @@
                                            @endforeach
                                          @endif
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
@@ -625,8 +617,8 @@
                                     <textarea name="summary_ti">{{ $item_data->summary_ti }}</textarea>
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -639,87 +631,83 @@
 
 
                 <div id="CCForm5" class="inner-block cctabcontent">
-                    <div class="inner-block-content">
-                        <div class="row">
-                            <div class="sub-head">Submit Trial Action Item</div>
-                            <div class="col-4">
-                                <div class="group-input">
-                                    <label for="Victim"><b>Submitted By :</b></label>
-                                    <div class="">{{ $item_data->submit_by }}</div>
-
+                        <div class="inner-block-content">
+                            <div class="row">
+                                <div class="sub-head">Submit Trial Action Item</div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Victim"><b>Submitted By :</b></label>
+                                        <div class="">{{ $item_data->submit_by }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="group-input">
 
-                                    <label for="Division Code"><b>Submitted On : </b></label>
-                                    <div class="date">{{ $item_data->submit_on }}</div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Submitted On : </b></label>
+                                        <div class="date">{{ $item_data->submit_on }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="group-input">
 
-                                    <label for="Division Code"><b>Submitted Comments : </b></label>
-                                    <div class="date">{{ $item_data->submit_comment }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="inner-block-content">
-                        <div class="row">
-                            <div class="sub-head">Cancel</div>
-                            <div class="col-4">
-                                <div class="group-input">
-                                    <label for="Victim"><b>Cancelled By :</b></label>
-                                    <div class="">{{ $item_data->cancel_by }}</div>
-
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="group-input">
-
-                                    <label for="Division Code"><b>Cancelled On : </b></label>
-                                    <div class="date">{{ $item_data->cancel_on }}</div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="group-input">
-
-                                    <label for="Division Code"><b>Cancelled Comments : </b></label>
-                                    <div class="date">{{ $item_data->cancel_comment }}</div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Submitted Comments : </b></label>
+                                        <div class="date">{{ $item_data->submit_comment }}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="inner-block-content">
-                        <div class="row">
-                            <div class="sub-head">Close</div>
-                            <div class="col-4">
-                                <div class="group-input">
-                                    <label for="Victim"><b>Closed By :</b></label>
-                                    <div class="">{{ $item_data->close_by }}</div>
-
+                        <div class="inner-block-content">
+                            <div class="row">
+                                <div class="sub-head">Cancel</div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Victim"><b>Cancelled By :</b></label>
+                                        <div class="">{{ $item_data->cancel_by }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="group-input">
 
-                                    <label for="Division Code"><b>Closed On : </b></label>
-                                    <div class="date">{{ $item_data->close_on }}</div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Cancelled On : </b></label>
+                                        <div class="date">{{ $item_data->cancel_on }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="group-input">
 
-                                    <label for="Division Code"><b>Closed Comments : </b></label>
-                                    <div class="date">{{ $item_data->close_comment }}</div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Cancelled Comments : </b></label>
+                                        <div class="date">{{ $item_data->cancel_comment }}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                        <div class="inner-block-content">
+                            <div class="row">
+                                <div class="sub-head">Close</div>
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Victim"><b>Closed By :</b></label>
+                                        <div class="">{{ $item_data->close_by }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Closed On : </b></label>
+                                        <div class="date">{{ $item_data->close_on }}</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="group-input">
+                                        <label for="Division Code"><b>Closed Comments : </b></label>
+                                        <div class="date">{{ $item_data->close_comment }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="button-block">
                         <button type="submit" class="saveButton">Save</button>

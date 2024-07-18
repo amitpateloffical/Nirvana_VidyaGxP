@@ -176,7 +176,7 @@
                     <strong>CTA-Amendement No.</strong>{{ $amendement_data->id }}
                 </td>
                 <td class="w-40">
-                       {{ Helpers::getDivisionName($amendement_data->division_id) }}/CTA_Amendement/{{ Helpers::year($amendement_data->created_at) }}/{{ $amendement_data->record }}
+                       {{ Helpers::getDivisionName($amendement_data->division_id) }}/CTA_Amendement/{{ Helpers::year($amendement_data->created_at) }}/{{ str_pad($amendement_data->record, 4, '0', STR_PAD_LEFT) }}
                     {{--{{ Helpers::divisionNameForQMS($study_data->division_id) }}/{{ Helpers::year($study_data->created_at) }}/{{ $study_data->record_number ? str_pad($study_data->record_number->record_number, 4, '0', STR_PAD_LEFT) : '' }}--}}
                 </td>
                 <td class="w-30">
@@ -229,6 +229,7 @@
                             @endif
                         </td>
                     </tr>
+
                     <tr> {{ $amendement_data->created_at }} added by {{ $amendement_data->originator }}
                         <th class="w-20">Initiator</th>
                          <td class="w-30">{{ $amendement_data->originator }}</td>
@@ -236,6 +237,7 @@
                         <th class="w-20">Date of Initiation</th>
                          <td class="w-30">{{ Helpers::getdateFormat($amendement_data->created_at) }}</td>
                     </tr>
+
                     <tr>
                         <th class="w-20">Short Description</th>
                             <td class="w-30">
@@ -246,7 +248,6 @@
 
                         <th class="w-20">Assign To</th>
                           <td class="w-80">{{ $amendement_data->assign_to_gi }}</td>
-
                     </tr>
 
                     <tr>
@@ -262,15 +263,15 @@
                            </td>
                     </tr>
 
-                    <tr>
-                         <th class="w-20">Other Type</th>
+                        <tr>
+                            <th class="w-20">Other Type</th>
                             <td class="w-30">
                                 @if ($amendement_data->other_type)
                                     {{ $amendement_data->other_type }}
 
                                 @endif
                             </td>
-                    </tr>
+                        </tr>
                     </table>
 
                     <table>
@@ -383,7 +384,6 @@
                         <tr>
                             <th class="w-15">Comments</th>
                             <td class="w-85">{{ $amendement_data->comments }}</td>
-
                         </tr>
                     </table>
 
@@ -451,7 +451,6 @@
                     Important Dates
                 </div>
                 <table>
-
                     <tr>
                         <th class="w-20">Actual Submission Date</th>
                         <td class="w-30">{{ date('d-M-Y', strtotime($amendement_data->actual_submission_date)) }}</td>
@@ -488,7 +487,6 @@
                     Person Involved
                 </div>
                 <table>
-
                     <tr>
                         <th class="w-20">Additional Assignees</th>
                         <td class="w-80">{{ $amendement_data->additional_assignees }}</td>
@@ -514,7 +512,6 @@
                         <td class="w-80">{{ $amendement_data->trainer }}</td>
 
                     </tr>
-
                 </table>
             </div>
 
@@ -524,7 +521,6 @@
                     Root Cause
                 </div>
                 <table>
-
                     <tr>
                         <th class="w-20">Root Cause Description</th>
                         <td class="w-80">{{ $amendement_data->root_cause_description }}</td>

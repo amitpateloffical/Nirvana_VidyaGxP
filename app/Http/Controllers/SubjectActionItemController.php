@@ -36,9 +36,16 @@ class SubjectActionItemController extends Controller
 
         public function store(Request $request){
                 //dd($request->all());
+
+                    $recordCounter = RecordNumber::first();
+                    $newRecordNumber = $recordCounter->counter + 1;
+
+                    $recordCounter->counter = $newRecordNumber;
+                    $recordCounter->save();
+
                     $item = new SubjectActionItem();
                     $item->form_type = "Subject-Action-Item";
-                    $item->record = ((RecordNumber::first()->value('counter')) + 1);
+                    $item->record = $newRecordNumber;
                     $item->initiator_id = Auth::user()->id;
                     $item->division_id = $request->division_id;
                     $item->division_code = $request->division_code;
@@ -370,7 +377,7 @@ class SubjectActionItemController extends Controller
                     $item = SubjectActionItem::findOrFail($id);
 
                     $item->form_type = "Subject-Action-Item";
-                    $item->record = ((RecordNumber::first()->value('counter')) + 1);
+                    //$item->record = ((RecordNumber::first()->value('counter')) + 1);
                     $item->initiator_id = Auth::user()->id;
                     $item->division_id = $request->division_id;
                     $item->division_code = $request->division_code;
@@ -775,7 +782,7 @@ class SubjectActionItemController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Opened";
                             $history->change_to = "Pending Action Item Review";
-                            $history->action_name = "Submit";
+                            $history->action = "Submit Trial Action Item";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -802,7 +809,7 @@ class SubjectActionItemController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Pending Action Item Review";
                             $history->change_to = "Closed-Done";
-                            $history->action_name = "Submit";
+                            $history->action = "Close";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -840,7 +847,7 @@ class SubjectActionItemController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Opened";
                         $history->change_to = "Closed-Cancelled";
-                        $history->action_name = "Submit";
+                        $history->action = "Cancel";
                         $history->stage = 'Plan Approved';
                         $history->save();
                         return back();

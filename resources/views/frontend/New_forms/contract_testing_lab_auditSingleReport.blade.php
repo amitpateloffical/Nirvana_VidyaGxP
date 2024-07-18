@@ -176,7 +176,7 @@
                     <strong>CTL-Audit No.</strong>{{ $audit_data->id }}
                 </td>
                 <td class="w-40">
-                       {{ Helpers::getDivisionName($audit_data->division_id) }}/CTL_Audit/{{ Helpers::year($audit_data->created_at) }}/{{ $audit_data->record }}
+                       {{ Helpers::getDivisionName($audit_data->division_id) }}/CTL_Audit/{{ Helpers::year($audit_data->created_at) }}/{{ str_pad($audit_data->record, 4, '0', STR_PAD_LEFT) }}
                     {{--{{ Helpers::divisionNameForQMS($study_data->division_id) }}/{{ Helpers::year($study_data->created_at) }}/{{ $study_data->record_number ? str_pad($study_data->record_number->record_number, 4, '0', STR_PAD_LEFT) : '' }}--}}
                 </td>
                 <td class="w-30">
@@ -217,9 +217,9 @@
 
                         <th class="w-20">CTL Audit Schedule No</th>
                         <td class="w-30">{{ $audit_data->ctl_audit_schedule_no }}</td>
-
                     </tr>
                 </table>
+
                 </div>
              </div>
 
@@ -231,35 +231,36 @@
                 </div>
                 <table>
 
-                    <tr>
-                        <th class="w-20">Record Number</th>
-                        <td class="w-30">
-                            @if ($audit_data->record)
-                                {{ str_pad($audit_data->record, 4, '0', STR_PAD_LEFT) }}
-                            @else
-                                Not Applicable
-                            @endif
-                        </td>
+                        <tr>
+                            <th class="w-20">Record Number</th>
+                            <td class="w-30">
+                                @if ($audit_data->record)
+                                    {{ str_pad($audit_data->record, 4, '0', STR_PAD_LEFT) }}
+                                @else
+                                    Not Applicable
+                                @endif
+                            </td>
 
-                        <th class="w-20">Site/Location Code</th>
-                        <td class="w-30">
-                            @if ( Helpers::getDivisionName(session()->get('division')) )
-                            {{ Helpers::getDivisionName(session()->get('division')) }}
-                            @else
-                                Not Applicable
-                            @endif
-                        </td>
-                    </tr>
-                    <tr> {{ $audit_data->created_at }} added by {{ $audit_data->originator }}
-                        <th class="w-20">Initiator</th>
-                         <td class="w-30">{{ $audit_data->originator }}</td>
+                            <th class="w-20">Site/Location Code</th>
+                            <td class="w-30">
+                                @if ( Helpers::getDivisionName(session()->get('division')) )
+                                {{ Helpers::getDivisionName(session()->get('division')) }}
+                                @else
+                                    Not Applicable
+                                @endif
+                            </td>
+                        </tr>
 
-                        <th class="w-20">Date of Initiation</th>
-                         <td class="w-30">{{ Helpers::getdateFormat($audit_data->created_at) }}</td>
-                    </tr>
+                        <tr> {{ $audit_data->created_at }} added by {{ $audit_data->originator }}
+                            <th class="w-20">Initiator</th>
+                            <td class="w-30">{{ $audit_data->originator }}</td>
 
-                    <tr>
-                        <th class="w-20">Short Description</th>
+                            <th class="w-20">Date of Initiation</th>
+                            <td class="w-30">{{ Helpers::getdateFormat($audit_data->created_at) }}</td>
+                        </tr>
+
+                        <tr>
+                            <th class="w-20">Short Description</th>
                             <td class="w-30">
                                 @if ($audit_data->short_description)
                                     {{ $audit_data->short_description }}
@@ -268,14 +269,12 @@
                                 @endif
                             </td>
 
-                        <th class="w-20">Assign To</th>
+                            <th class="w-20">Assign To</th>
+                            <td class="w-80">{{ $audit_data->assign_to_gi }}</td>
+                        </tr>
 
-                          <td class="w-80">{{ $audit_data->assign_to_gi }}</td>
-
-                    </tr>
-
-                    <tr>
-                         <th class="w-20">Date Due</th>
+                        <tr>
+                           <th class="w-20">Date Due</th>
                            <td class="w-80">{{ date('d-M-Y', strtotime($audit_data->due_date)) }}</td>
 
                            <th class="w-20">Name of Contract Testing Lab</th>
@@ -285,8 +284,7 @@
 
                                @endif
                            </td>
-
-                    </tr>
+                        </tr>
                     </table>
 
                     <table>
@@ -298,7 +296,7 @@
 
                                 @endif
                             </td>
-                    </tr>
+                        </tr>
                     </table>
 
                     <table>
@@ -422,7 +420,6 @@
                             <td class="w-80">{{ $audit_data->qa_approver }}</td>
 
                         </tr>
-
                     </table>
 
                     <table>
@@ -491,7 +488,6 @@
                                 <th class="w-20">Communication & Others</th>
                                 <td class="w-80">{{ $audit_data->communication_and_others }}</td>
                             </tr>
-
                         </table>
                     </div>
 
@@ -499,6 +495,7 @@
                         <div class="block-head">
                             CTL Audit Execution
                         </div>
+
                         <table>
                             <tr>
                                 <th class="w-20">CTL Audit Started On</th>
@@ -519,7 +516,6 @@
                                 <th class="w-20">Delay Justification Deviation</th>
                                 <td class="w-80">{{ $audit_data->delay_justification_deviation }}</td>
                             </tr>
-
                         </table>
 
                         <table>
@@ -630,7 +626,6 @@
                         <tr>
                             <th class="w-20">Total</th>
                             <td class="w-80">{{ $audit_data->total }}</td>
-
                         </tr>
 
                     </table>
@@ -661,7 +656,6 @@
                                 <th class="w-20">Remarks & Conclusion</th>
                                 <td class="w-80">{{ $audit_data->remarks_conclusion }}</td>
                             </tr>
-
                     </table>
                 </div>
 
@@ -701,8 +695,8 @@
                 <div class="block-head">
                     CTL Audit Report Issuance
                 </div>
-                <table>
 
+                <table>
                     <tr>
                         <th class="w-20">CTL Audit Report Issue Date</th>
                         <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->ctl_audit_report_issue_date)) }}</td>
@@ -730,16 +724,16 @@
                         <th class="w-20">Other Information</th>
                         <td class="w-80">{{ $audit_data->other_information }}</td>
                     </tr>
-
                 </table>
+
             </div>
 
             <div class="block">
                 <div class="block-head">
                     Response Details
                 </div>
-                <table>
 
+                <table>
                     <tr>
                         <th class="w-20">Initial Response Received On</th>
                         <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->initial_response_received_on)) }}</td>
@@ -752,7 +746,6 @@
                         <th class="w-20">Response Received Within TCD</th>
                         <td class="w-30">{{ $audit_data->response_received_within_tcd }}</td>
                     </tr>
-
                 </table>
 
                 <table>
@@ -766,7 +759,6 @@
                         <td class="w-80">{{ $audit_data->comments }}</td>
 
                     </tr>
-
                 </table>
             </div>
 
@@ -775,13 +767,12 @@
                 <div class="block-head">
                     CTL Audit Compliance Accept
                 </div>
-                <table>
 
+                <table>
                     <tr>
                         <th class="w-20">Response Review Comments</th>
                         <td class="w-80">{{ $audit_data->response_review_comments }}</td>
                     </tr>
-
                 </table>
 
                 <table>
@@ -808,7 +799,6 @@
                         <th class="w-20">Response Review</th>
                         <td class="w-30">{{ $audit_data->response_review }}</td>
                     </tr>
-
                 </table>
 
                 <table>
@@ -847,8 +837,8 @@
                 <div class="block-head">
                     Capa Implementation Status
                 </div>
-            <table>
 
+            <table>
                 <tr>
                     <th class="w-20">All Observation Closed</th>
                     <td class="w-80">{{ $audit_data->all_observation_closed }}</td>
@@ -870,7 +860,6 @@
                     <th class="w-20">Audit Closure Report Issued On</th>
                     <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->audit_closure_report_issued_on)) }}</td>
                 </tr>
-
             </table>
         </div>
 

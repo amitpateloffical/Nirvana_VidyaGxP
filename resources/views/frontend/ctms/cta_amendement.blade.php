@@ -234,7 +234,7 @@
         <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">CTA Amendement</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">CTA amendement Information</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">CTA Amendement Information</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Root Cause Analysis</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
 
@@ -258,9 +258,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> Record Number </label>
+                                    <label for="Initiator">Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTA_Amendement/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTA-Amendement/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
 
@@ -394,6 +394,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="search">
@@ -404,6 +405,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="search">
@@ -414,6 +416,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="search">
@@ -424,6 +427,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -444,12 +448,14 @@
                                     <input type="number" name="procedure_number" id="procedure_number" value="">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Project Code">Project Code</label>
                                     <input type="text" name="project_code" id="project_code" value="">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Registration Number">Registration Number</label>
@@ -475,6 +481,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Authority">Authority</label>
@@ -487,6 +494,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Year">Year</label>
@@ -515,6 +523,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="CAR Clouser Time Weight">CAR Clouser Time Weight</label>
@@ -528,6 +537,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Outcome">Outcome</label>
@@ -855,13 +865,12 @@
                                     <input type="text" name="documents" id="documents" value="">
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="button-block">
                         <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
@@ -1132,7 +1141,7 @@
                 success: function(data) {
                     data.forEach(city => {
                         const option = document.createElement('option');
-                        option.value = city.id;
+                        option.value = city.name;
                         option.textContent = city.name;
                         citySelect.appendChild(option);
                     });

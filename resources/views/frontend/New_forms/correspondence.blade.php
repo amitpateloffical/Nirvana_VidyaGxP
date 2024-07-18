@@ -99,7 +99,7 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> Record Number </label>
+                                    <label for="Initiator">Record Number </label>
                                     <input disabled type="text" name="record"
                                     value="{{ Helpers::getDivisionName(session()->get('division')) }}/Correspondence/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
@@ -198,6 +198,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Type</label>
@@ -211,6 +212,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Audit Attachments">File Attachments</label>
@@ -227,6 +229,7 @@
 
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Authority Type</label>
@@ -240,6 +243,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Authority</label>
@@ -251,8 +255,8 @@
                                     </select>
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="group-input">
@@ -274,11 +278,11 @@
                                     </select>
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="group-input">
                             <label for="audit-agenda-grid">
-                                Action Plan (0)
+                                Action Plan
                                 <button type="button" name="audit-agenda-grid" id="ReferenceDocument">+</button>
                                 <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                     (open)
@@ -310,8 +314,8 @@
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
+
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -326,6 +330,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Due to Authority</b></label>
@@ -337,17 +342,15 @@
                                 <div class="group-input">
                                     <label for="Division Code"><b>Scheduled Start Date</b></label>
                                     <input type="date" name="scheduled_start_date" value="">
-
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Scheduled End Date</b></label>
                                     <input type="date" name="scheduled_end_date" value="">
                                 </div>
                             </div>
-
-
                         </div>
 
                         <div class="button-block">

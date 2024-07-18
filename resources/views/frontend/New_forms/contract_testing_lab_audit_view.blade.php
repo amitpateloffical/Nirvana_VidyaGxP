@@ -427,18 +427,15 @@ border-radius:10px;
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="group-input">
-                        <label style="display: flex;" for="major">
+                        <label style="display: flex;" for="child">
                             <input type="radio" name="child_type" id="child_type" value="audit_task">
                                Audit Task
-
                         </label>
 
-                        <label style="display: flex;" for="major">
-                            <input type="radio" name="child_type1" id="child_type1" value="follow_up_task">
+                        <label style="display: flex;" for="child1">
+                            <input type="radio" name="child_type" id="child_type1" value="follow_up_task">
                                Follow Up Task
-
                         </label>
-
                     </div>
                 </div>
 
@@ -452,9 +449,9 @@ border-radius:10px;
     </div>
 </div>
 
-{{--study-complete button Model end--}}
+{{--child button Model end--}}
 
-{{--study-complete button Model Open--}}
+{{--child button Model Open--}}
 <div class="modal fade" id="child-modal1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -470,10 +467,9 @@ border-radius:10px;
                 <div class="modal-body">
                     <div class="group-input">
                         <label style="display: flex;" for="major">
-                            <input type="radio" name="child_type" id="child_type">
+                            <input type="radio" name="child_type" id="child_type2">
                                Audit Task
                         </label>
-
                     </div>
                 </div>
 
@@ -573,8 +569,8 @@ border-radius:10px;
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator">CTL Audit No.</label>
-                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTL_Audit/{{ date('Y') }}/{{ $record_number }}">
+                                    <label for="Initiator">Record Number</label>
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTL-Audit/{{ date('Y') }}/{{ str_pad($audit_data->record, 4, '0', STR_PAD_LEFT) }}">
                                 </div>
                             </div>
 
@@ -628,8 +624,8 @@ border-radius:10px;
                                     <label for="due-date">Date Due</label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
-                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}">
+                                        <input  type="hidden" value="{{ $audit_data->due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ Helpers::getdateFormat($audit_data->due_date) }}">
                                     </div>
                                 </div>
                             </div>
@@ -675,24 +671,28 @@ border-radius:10px;
                                       </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Outcome">Date of Last Audit</label>
                                     <input type="date" name="date_of_last_audit" value="{{ $audit_data->date_of_last_audit }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Patient_Involved">Audit Due On Month</label>
                                      <input type="date" name="audit_due_on_month" value="{{ $audit_data->audit_due_on_month }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Reporter">TCD For Audit Completion.</label>
+                                    <label for="TCD_for_Audit_Completion">TCD For Audit Completion.</label>
                                     <input type="date" name="tcd_for_audit_completion" value="{{ $audit_data->tcd_for_audit_completion }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Audit_Planing_to_be_Done_On">Audit Planing to be Done On</label>
@@ -706,19 +706,20 @@ border-radius:10px;
                                     <input type="text" name="audit_request_communicated_to" value="{{ $audit_data->audit_request_communicated_to }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Proposed_Audit_Start_Date">Proposed Audit Start Date</label>
                                     <input type="date" name="proposed_audit_start_date" value="{{ $audit_data->proposed_audit_start_date }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Proposed_Audit_Completion">Proposed Audit Completion</label>
                                     <input type="date" name="proposed_audit_completion" value="{{ $audit_data->proposed_audit_completion }}">
                                 </div>
                             </div>
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -735,9 +736,9 @@ border-radius:10px;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     @php
-                                    $users = DB::table('users')->get();
-                                    $selectedAuditor = explode(',', $audit_data->name_of_co_auditor); // Convert to array if it's not already
-                                @endphp
+                                        $users = DB::table('users')->get();
+                                        $selectedAuditor = explode(',', $audit_data->name_of_co_auditor); // Convert to array if it's not already
+                                    @endphp
                                     <label for="Name_of_Co_Auditor">Name(s) of Co-Auditor</label>
                                     <select name="name_of_co_auditor[]" multiple id="name_of_co_auditor">
                                         @foreach ($users as $user)
@@ -769,7 +770,6 @@ border-radius:10px;
                                 </div>
                             </div>
 
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Details_of_for_Cause_Audit">Details of for Cause Audit</label>
@@ -787,7 +787,7 @@ border-radius:10px;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                      @php
-                                      $users = DB::table('users')->get();
+                                        $users = DB::table('users')->get();
                                      @endphp
                                     <label for="QA_Approver">QA Approver</label>
                                       <select name="qa_approver">
@@ -1053,7 +1053,7 @@ border-radius:10px;
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Name</th>
                                                 <th style="width: 16%">Designation/Position</th>
-                                                <th style="width: 16%">Action</th>
+                                                <th style="width: 10%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -1091,7 +1091,7 @@ border-radius:10px;
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Name</th>
                                                 <th style="width: 16%">Designation/Position</th>
-                                                <th style="width: 16%">Action</th>
+                                                <th style="width: 10%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -2478,6 +2478,24 @@ border-radius:10px;
     $('#docname').keyup(function() {
         var textlen = maxLength - $(this).val().length;
         $('#rchars').text(textlen);
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const removeButtons = document.querySelectorAll('.remove-file');
+
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const fileName = this.getAttribute('data-file-name');
+                const fileContainer = this.closest('.file-container');
+
+                // Hide the file container
+                if (fileContainer) {
+                    fileContainer.style.display = 'none';
+                }
+            });
+        });
     });
 </script>
 @endsection

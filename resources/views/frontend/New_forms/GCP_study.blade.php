@@ -54,11 +54,12 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> Record Number </label>
+                                    <label for="Initiator">Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/GCP_Study/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/GCP-Study/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code</b></label>
@@ -68,12 +69,14 @@
                                     {{-- <div class="static">QMS-North America</div> --}}
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Initiator</b></label>
                                      <input type="text" disabled name="initiator_id" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
+
                             {{--<div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Devision</b></label>
@@ -87,6 +90,7 @@
                                     </select>
                                 </div>
                             </div>--}}
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Date of Initiation"><b>Date of Initiation</b></label>
@@ -96,6 +100,7 @@
                                     <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description <span class="text-danger">*</span></label>
@@ -103,6 +108,7 @@
                                     <input id="docname" type="text" name="short_description_gi" maxlength="255" required>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="search">
@@ -117,9 +123,9 @@
                                             @endforeach
                                         @endif
                                     </select>
-
                                 </div>
                             </div>
+
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
@@ -132,7 +138,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            {{--<div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="department_gi"><b>Department(s)</b></label>
                                     <p class="text-primary">Add all the related departments</p>
@@ -175,20 +181,24 @@
                                             Business Administration</option>
                                     </select>
                                 </div>
-                            </div>
-                            {{--<div class="col-md-6">
+                            </div>--}}
+
+                            <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="search">
-                                        Department(s)<span class="text-danger"></span>
+                                    <label for="Department">
+                                        Department<span class="text-danger"></span>
                                     </label>
                                     <p class="text-primary">Add all the related departments</p>
                                     <select id="select-state" placeholder="Select..." name="department_gi">
                                         <option value="">Select a value</option>
-
-                                        <option value=""></option>
+                                     @if($departments->isNotEmpty())
+                                        @foreach($departments as $department)
+                                         <option value='{{ $department->id }}'>{{ $department->name }}</option>
+                                        @endforeach
+                                     @endif
                                     </select>
                                 </div>
-                            </div>--}}
+                            </div>
 
                             <div class="sub-head">
                                 Study Details
@@ -227,12 +237,14 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Study Protocol Number</label>
                                     <input id="docname" type="number" name="study_protocol_number_sd">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <p class="text-primary">Detailed Description</p>
@@ -241,6 +253,7 @@
                                     {{--<input type="text" name="description_sd">--}}
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label class="mb-4" for="Responsible Department">Comments</label>
@@ -248,14 +261,17 @@
                                     {{--<input type="text" name="comments_sd">--}}
                                 </div>
                             </div>
+
                             <div class="sub-head">
                                 Additional Information
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related studies</label>
                                     <p class="text-primary">Link between study records related to the same study type or topic</p>
                                     <select name="related_studies_ai">
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="toxicology">Toxicology</option>
                                         <option value="microbiome">Microbiome</option>
                                         <option value="formulation-and-stability">Formulation and Stability </option>
@@ -321,6 +337,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="start_date">Indication Name</label>
@@ -329,6 +346,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="start_date">Clinical Study Manager</label>
@@ -337,6 +355,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="start_date">Clinical Expert</label>
@@ -372,6 +391,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="start_date">IND No.</label>
@@ -380,6 +400,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="start_date">Number of Centers</label>
@@ -388,6 +409,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="start_date">#of Subjects</label>
@@ -397,6 +419,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="group-input">
                         <label for="audit-agenda-grid">
                             Audit Site Information
@@ -427,11 +450,10 @@
                                     <td><input type="text" name="audit_site_information[0][Remark]"></td>
                                     <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                 </tbody>
-
                             </table>
-
                         </div>
                     </div>
+
                     <div class="group-input">
                         <label for="audit-agenda-grid">
                             Study Site Information
@@ -467,7 +489,6 @@
                                     <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                     {{--<td><input readonly type="text"></td>--}}
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
@@ -493,36 +514,42 @@
                                 <input type="date" name="initiation_date_i">
                             </div>
                         </div>
+
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Study Start Date</label>
                                 <input type="date" name="study_start_date">
                             </div>
                         </div>
+
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Study End Date</label>
                                 <input type="date" name="study_end_date">
                             </div>
                         </div>
+
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Date">Study Protocol</label>
                                 <input type="text" name="study_protocol">
                             </div>
                         </div>
+
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">First Subject in(FSI)</label>
                                 <input type="date" name="first_subject_in">
                             </div>
                         </div>
+
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Last Subject Out</label>
                                 <input type="date" name="last_subject_out">
                             </div>
                         </div>
+
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Data Base Lock(DBL)</label>
@@ -536,6 +563,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="button-block">
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
                         <button type="submit" class="saveButton">Save</button>
@@ -553,19 +581,18 @@
                                 <div class="group-input">
                                     <label for="Victim"><b>Initiated By :</b></label>
                                     <div class=""></div>
-
                                 </div>
                             </div>
+
                             <div class="col-4">
                                 <div class="group-input">
-
                                     <label for="Division Code"><b>Initiated On : </b></label>
                                     <div class="date"></div>
                                 </div>
                             </div>
+
                             <div class="col-4">
                                 <div class="group-input">
-
                                     <label for="Division Code"><b>Submit Comments : </b></label>
                                     <div class="date"></div>
                                 </div>
@@ -576,7 +603,6 @@
                     <div class="button-block">
                         <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>
-
                         <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                 Exit </a> </button>
                     </div>

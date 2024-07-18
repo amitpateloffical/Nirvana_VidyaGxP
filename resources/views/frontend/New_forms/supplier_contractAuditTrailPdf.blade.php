@@ -68,6 +68,9 @@
         border: 1px solid black;
         border-collapse: collapse;
         font-size: 0.9rem;
+        overflow: hidden;
+        vertical-align: middle;
+        word-wrap: break-word;
     }
 
     table {
@@ -76,7 +79,7 @@
 
     th,
     td {
-        padding: 10px;
+        padding: 5px;
         text-align: left;
     }
 
@@ -141,136 +144,36 @@
     }
 
     .table_bg {
-        background: #4274da57;
+
+        /*background: #4274da57;*/
+          /*background: #f1a144;*/
+          background:#eaaa60
     }
-
 </style>
-{{--<style>
 
-
-table {
-    width: 100%;
-    table-layout: fixed; /* Ensures table respects defined column widths */
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid black;
-    font-size: 0.9rem;
-    padding: 10px;
-    text-align: left;
-    word-wrap: break-word; /* Ensures text wraps within cell */
-}
-
-header .head {
-    font-weight: bold;
-    text-align: center;
-    font-size: 1.2rem;
-}
-
-@page {
-    size: A4;
-    margin-top: 160px;
-    margin-bottom: 60px;
-}
-
-header {
-    position: fixed;
-    top: -140px;
-    left: 0;
-    width: 100%;
-    display: block;
-}
-
-footer {
-    position: fixed;
-    bottom: -40px;
-    left: 0;
-    width: 100%;
-}
-
-.inner-block {
-    padding: 10px;
-}
-
-.inner-block .head {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-}
-
-.inner-block .division {
-    margin-bottom: 10px;
-}
-
-.first-table {
-    border-top: 1px solid black;
-    margin-bottom: 20px;
-}
-
-.first-table table td,
-.first-table table th,
-.first-table table {
-    border: 0;
-}
-
-.second-table td:nth-child(1)>div {
-    margin-bottom: 10px;
-}
-
-.second-table td:nth-child(1)>div:nth-last-child(1) {
-    margin-bottom: 0px;
-}
-
-.table_bg {
-    background: #4274da57;
-}
-
-/* Define fixed widths for each column */
-.table-field-history th:nth-child(1),
-.table-field-history td:nth-child(1) {
-    width: 70%; /* Adjust as necessary */
-}
-
-.table-field-history th:nth-child(2),
-.table-field-history td:nth-child(2) {
-    width: 10%; /* Adjust as necessary */
-}
-
-.table-field-history th:nth-child(3),
-.table-field-history td:nth-child(3) {
-    width: 10%; /* Adjust as necessary */
-}
-
-.table-field-history th:nth-child(4),
-.table-field-history td:nth-child(4) {
-    width: 10%; /* Adjust as necessary */
-}
-
-</style>--}}
 <body>
 
     <header>
         <table>
             <tr>
                 <td class="w-70 head">
-                     Audit Trial Report
+                    Supplier-Contract Audit Trial Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
                         <img src="https://vidyagxp.com/vidyaGxp_logo.png" alt="" class="w-100">
-                        {{--<img src="https://dms.mydemosoftware.com/user/images/logo.png" alt="" class="w-100">--}}
                     </div>
                 </td>
             </tr>
         </table>
-        <table>
+
+        <table style="margin-top: 1.5px;">
             <tr>
                 <td class="w-30">
-                    <strong>Supplier-Contract No.</strong>{{ $doc->id }}
+                    <strong>Supplier-Contract No.</strong> {{ $doc->id }}
                 </td>
                 <td class="w-40">
-                   {{ Helpers::getDivisionName($doc->division_id) }}/Contract/{{ Helpers::year($doc->created_at)}}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
+                    {{ Helpers::getDivisionName($doc->division_id) }}/Supplier-Contract/{{ Helpers::year($doc->created_at) }}/{{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
                 </td>
                 <td class="w-30">
                     <strong>Record No.</strong> {{ str_pad($doc->record, 4, '0', STR_PAD_LEFT) }}
@@ -278,109 +181,6 @@ footer {
             </tr>
         </table>
     </header>
-
-    <div class="inner-block">
-
-        <div class="head">Audit Trial Histroy Configuration Report</div>
-
-
-
-        <div class="first-table">
-            <table>
-                <tr>
-                    <td class="w-50">
-                        <strong>Config Area :</strong> All - No Filter
-                    </td>
-                    <td class="w-50">
-                        <strong>Start Date (GMT) :</strong> {{ Helpers::getDateFormat($doc->created_at) }}
-                    </td>
-                </tr>
-                <tr>
-                    <td class="w-50">
-                        <strong>Config Sub Area :</strong> All - No Filter
-                    </td>
-                    <td class="w-50">
-                        <strong>End Date (GMT) :</strong>
-                        @if ($doc->stage >= 4)
-                            {{ Helpers::getDateFormat($doc->updated_at) }}
-                        @endif
-                    </td>
-                </tr>
-
-            </table>
-        </div>
-
-        <div class="second-table">
-            <table>
-                <tr class="table_bg">
-                    <th>Field History</th>
-                    <th>Date Performed</th>
-                    <th>Person Responsible</th>
-                    <th>Change Type</th>
-                </tr>
-                @foreach ($data as $datas)
-                    <tr>
-                        <td >
-                            <div>{{ $datas->activity_type }}</div>
-                            <div>
-                                @if($datas->activity_type == "Activity Log")
-                                    <div><strong>Changed From :</strong></div>
-                                    @if(!empty($datas->change_from))
-                                        <div>{{ $datas->change_from }}</div>
-                                    @else
-                                        <div>Not Applicable</div>
-                                    @endif
-                                @else
-                                    <div><strong>Changed From :</strong></div>
-                                    @if(!empty($datas->previous))
-                                        <div>{{ $datas->previous }}</div>
-                                    @else
-                                        <div>Null</div>
-                                    @endif
-                                @endif
-
-                                <!-- <div><strong>Changed From :</strong></div>
-                                @if(!empty($datas->previous))
-                                    <div>{{ $datas->previous }}</div>
-                                @else
-                                    <div>Null</div>
-                                @endif -->
-                            </div>
-                            <div>
-                                @if($datas->activity_type == "Activity Log")
-                                    <div ><strong>Changed To :</strong></div>
-                                    @if(!empty($datas->change_to))
-                                        <div class="w-50">{{ $datas->change_to }}</div>
-                                    @else
-                                        <div>Not Applicable</div>
-                                    @endif
-                                @else
-                                    <div><strong>Changed To :</strong></div>
-                                    @if(!empty($datas->current))
-                                        <div>{{ $datas->current }}</div>
-                                    @else
-                                        <div>Null</div>
-                                    @endif
-                                @endif
-                                <!-- <div><strong>Changed To :</strong></div>
-                                <div>{{ $datas->current }}</div> -->
-                            </div>
-                        </td>
-                        <td>{{ Helpers::getDateFormat($datas->created_at) }}</td>
-                        <td>{{ $datas->user_name }}</td>
-                        <td>
-                            @if ($datas->previous != "NULL")
-                                Modify
-                            @else
-                                New
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
-        </div>
-
-    </div>
 
     <footer>
         <table>
@@ -391,9 +191,127 @@ footer {
                 <td class="w-40">
                     <strong>Printed By :</strong> {{ Auth::user()->name }}
                 </td>
-
             </tr>
         </table>
     </footer>
+
+    <div class="inner-block">
+        <div class="second-table">
+            <table>
+                <thead>
+                    <tr class="table_bg">
+                        <th>S.No</th>
+                        <th>Flow Changed From</th>
+                        <th>Flow Changed To</th>
+                        <th>Data Field</th>
+                        <th>Action Type</th>
+                        <th>Performer</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach ( $data as $index => $dataDemo)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+
+                        <td>
+                            <div><strong>Changed From :</strong> {{ $dataDemo->change_from }}</div>
+                        </td>
+
+                        <td>
+                            <div><strong>Changed To :</strong> {{ $dataDemo->change_to }}</div>
+                        </td>
+
+                        <td>
+                            <div>
+                                <strong>Data Field Name :</strong>
+                                {{ $dataDemo->activity_type ?: 'Not Applicable' }}
+                            </div>
+
+                            <div style="margin-top: 5px;" class="imageContainer">
+                                @if ($dataDemo->activity_type == 'Activity Log')
+                                <strong>Change From :</strong>
+                                @if ($dataDemo->change_from)
+                                @if (strtotime($dataDemo->change_from))
+                                {{ \Carbon\Carbon::parse($dataDemo->change_from)->format('d/m/Y') }}
+                                @else
+                                {{ str_replace(',', ', ', $dataDemo->change_from) }}
+                                @endif
+                                @elseif($dataDemo->change_from && trim($dataDemo->change_from) == '')
+                                NULL
+                                @else
+                                Not Applicable
+                                @endif
+                                @else
+                                <strong>Change From :</strong>
+                                @if (!empty(strip_tags($dataDemo->previous)))
+                                @if (strtotime($dataDemo->previous))
+                                {{ \Carbon\Carbon::parse($dataDemo->previous)->format('d/m/Y') }}
+                                @else
+                                {!! $dataDemo->previous !!}
+                                @endif
+                                @elseif($dataDemo->previous == null)
+                                Null
+                                @else
+                                Not Applicable
+                                @endif
+                                @endif
+                            </div>
+
+                            <br>
+                            <div class="imageContainer">
+                                @if ($dataDemo->activity_type == 'Activity Log')
+                                <strong>Change To :</strong>
+                                @if (strtotime($dataDemo->change_to))
+                                {{ \Carbon\Carbon::parse($dataDemo->change_to)->format('d/m/Y') }}
+                                @else
+                                {!! str_replace(',', ', ', $dataDemo->change_to) ?: 'Not Applicable' !!}
+                                @endif
+                                @else
+                                <strong>Change To :</strong>
+                                @if (strtotime($dataDemo->current))
+                                {{ \Carbon\Carbon::parse($dataDemo->current)->format('d/m/Y') }}
+                                @else
+                                {!! !empty(strip_tags($dataDemo->current)) ? $dataDemo->current : 'Not Applicable' !!}
+                                @endif
+                                @endif
+                            </div>
+
+                            <div style="margin-top: 5px;">
+                                <strong>Change Type :</strong>
+                                {{ $dataDemo->action_name ? $dataDemo->action_name : 'Not Applicable' }}
+                            </div>
+                        </td>
+
+                        <td>
+                            <div><strong>Action Name :</strong>
+                                {{ $dataDemo->action ? $dataDemo->action : 'Not Applicable' }}
+                            </div>
+                        </td>
+
+                        <td>
+                            <div><strong>Performed By :</strong>
+                                {{ $dataDemo->user_name ? $dataDemo->user_name : 'Not Applicable' }}
+                            </div>
+
+                            <div style="margin-top: 5px;">
+                                <strong>Performed On :</strong>
+                                {{ $dataDemo->created_at ? \Carbon\Carbon::parse($dataDemo->created_at)->format('j F Y H:i') : 'Not Applicable' }}
+                            </div>
+
+                            <div style="margin-top: 5px;">
+                                <strong>Comments :</strong>
+                                {{ $dataDemo->comment ? $dataDemo->comment : 'Not Applicable' }}
+                            </div>
+                        </td>
+
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </body>
+
 </html>

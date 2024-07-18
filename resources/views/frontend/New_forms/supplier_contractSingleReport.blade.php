@@ -170,13 +170,14 @@
                 </td>
             </tr>
         </table>
+
         <table>
             <tr>
                 <td class="w-30">
                     <strong>Supplier-Contract No.</strong>{{ $contract_data->id }}
                 </td>
                 <td class="w-40">
-                       {{ Helpers::getDivisionName($contract_data->division_id) }}/Supplier_Contract/{{ Helpers::year($contract_data->created_at) }}/{{ $contract_data->record }}
+                       {{ Helpers::getDivisionName($contract_data->division_id) }}/Supplier_Contract/{{ Helpers::year($contract_data->created_at) }}/{{ str_pad($contract_data->record, 4, '0', STR_PAD_LEFT) }}
                     {{--{{ Helpers::divisionNameForQMS($study_data->division_id) }}/{{ Helpers::year($study_data->created_at) }}/{{ $study_data->record_number ? str_pad($study_data->record_number->record_number, 4, '0', STR_PAD_LEFT) : '' }}--}}
                 </td>
                 <td class="w-30">
@@ -229,16 +230,18 @@
                             @endif
                         </td>
                     </tr>
-                    <tr> {{ $contract_data->created_at }} added by {{ $contract_data->originator }}
-                        <th class="w-20">Initiator</th>
-                         <td class="w-30">{{ $contract_data->originator }}</td>
 
-                        <th class="w-20">Date of Initiation</th>
-                         <td class="w-30">{{ Helpers::getdateFormat($contract_data->created_at) }}</td>
+                    <tr> {{ $contract_data->created_at }} added by {{ $contract_data->originator }}
+                          <th class="w-20">Initiator</th>
+                          <td class="w-30">{{ $contract_data->originator }}</td>
+
+                          <th class="w-20">Date of Initiation</th>
+                          <td class="w-30">{{ Helpers::getdateFormat($contract_data->created_at) }}</td>
                     </tr>
+
                     <tr>
-                        <th class="w-20">Short Description</th>
-                            <td class="w-30">
+                          <th class="w-20">Short Description</th>
+                          <td class="w-30">
                                 @if ($contract_data->short_description_gi)
                                     {{ $contract_data->short_description_gi }}
                                 @else
@@ -246,11 +249,8 @@
                                 @endif
                             </td>
 
-                        <th class="w-20">Assign To</th>
-
+                          <th class="w-20">Assign To</th>
                           <td class="w-80">{{ $contract_data->assign_to_gi }}</td>
-
-
                     </tr>
 
                     <tr>
@@ -267,15 +267,14 @@
                     </tr>
 
                     <tr>
-                         <th class="w-20">Distribution List</th>
-                            <td class="w-30">
+                           <th class="w-20">Distribution List</th>
+                           <td class="w-30">
                                 @if ($contract_data->distribution_list_gi)
                                     {{ $contract_data->distribution_list_gi }}
 
                                 @endif
-                            </td>
+                           </td>
                      </tr>
-
                 </table>
 
                 <table>
@@ -291,7 +290,6 @@
                 </table>
 
                 <table>
-
                     <tr>
                         <th class="w-20">Manufacturer</th>
                             <td class="w-30">
@@ -363,9 +361,9 @@
                                 @endif
                             </td>
                         </tr>
-
                     </table>
                 </div>
+
                 <div class="block">
                     <div class="block-head">
                         Contract Details
@@ -381,10 +379,8 @@
                         </tr>
 
                         <tr>
-
                             <th class="w-20">Suppplier List</th>
                             <td class="w-80">{{ $contract_data->suppplier_list_cd }}</td>
-
                         </tr>
                     </table>
 

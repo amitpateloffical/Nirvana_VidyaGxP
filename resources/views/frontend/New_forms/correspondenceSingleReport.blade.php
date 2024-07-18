@@ -170,13 +170,14 @@
                 </td>
             </tr>
         </table>
+
         <table>
             <tr>
                 <td class="w-30">
                     <strong>Correspondence No.</strong>{{ $correspondence_data->id }}
                 </td>
                 <td class="w-40">
-                       {{ Helpers::getDivisionName($correspondence_data->division_id) }}/Correspondence/{{ Helpers::year($correspondence_data->created_at) }}/{{ $correspondence_data->record }}
+                       {{ Helpers::getDivisionName($correspondence_data->division_id) }}/Correspondence/{{ Helpers::year($correspondence_data->created_at) }}/{{ str_pad($correspondence_data->record, 4, '0', STR_PAD_LEFT) }}
                     {{--{{ Helpers::divisionNameForQMS($study_data->division_id) }}/{{ Helpers::year($study_data->created_at) }}/{{ $study_data->record_number ? str_pad($study_data->record_number->record_number, 4, '0', STR_PAD_LEFT) : '' }}--}}
                 </td>
                 <td class="w-30">
@@ -229,6 +230,7 @@
                             @endif
                         </td>
                     </tr>
+
                     <tr> {{ $correspondence_data->created_at }} added by {{ $correspondence_data->originator }}
                         <th class="w-20">Initiator</th>
                          <td class="w-30">{{ $correspondence_data->originator }}</td>
@@ -236,6 +238,7 @@
                         <th class="w-20">Date of Initiation</th>
                          <td class="w-30">{{ Helpers::getdateFormat($correspondence_data->created_at) }}</td>
                     </tr>
+
                     <tr>
                         <th class="w-20">Short Description</th>
                             <td class="w-30">

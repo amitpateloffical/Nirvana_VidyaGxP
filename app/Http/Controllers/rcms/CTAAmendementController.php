@@ -39,9 +39,16 @@ class CTAAmendementController extends Controller
 
            public function store(Request $request){
                 //dd($request->all());
+
+                    $recordCounter = RecordNumber::first();
+                    $newRecordNumber = $recordCounter->counter + 1;
+
+                    $recordCounter->counter = $newRecordNumber;
+                    $recordCounter->save();
+
                     $amendement = new CTAAmendement();
                     $amendement->form_type = "CTA-Amendement";
-                    $amendement->record = ((RecordNumber::first()->value('counter')) + 1);
+                    $amendement->record = $newRecordNumber;
                     $amendement->initiator_id = Auth::user()->id;
                     $amendement->division_id = $request->division_id;
                     $amendement->division_code = $request->division_code;
@@ -90,7 +97,7 @@ class CTAAmendementController extends Controller
                     $amendement->comments = $request->comments;
 
                     //Product Information
-                    $amendement->manufaturer = $request->manufaturer;
+                    $amendement->manufacturer = $request->manufacturer;
 
                     //Important Dates
                     $amendement->actual_submission_date = $request->actual_submission_date;
@@ -527,12 +534,12 @@ class CTAAmendementController extends Controller
                     $history->save();
                 }
 
-                if(!empty($request->manufaturer)){
+                if(!empty($request->manufacturer)){
                     $history = new CTAAmendementAuditTrail();
                     $history->cta_amendement_id = $amendement->id;
                     $history->previous = "Null";
-                    $history->current = $request->manufaturer;
-                    $history->activity_type = 'Manufaturer';
+                    $history->current = $request->manufacturer;
+                    $history->activity_type = 'Manufacturer';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -961,7 +968,7 @@ class CTAAmendementController extends Controller
                     $amendement = CTAAmendement::findORFail($id);
 
                     $amendement->form_type = "CTA-Amendement";
-                    $amendement->record = ((RecordNumber::first()->value('counter')) + 1);
+                    //$amendement->record = ((RecordNumber::first()->value('counter')) + 1);
                     $amendement->initiator_id = Auth::user()->id;
                     $amendement->division_id = $request->division_id;
                     $amendement->division_code = $request->division_code;
@@ -1010,7 +1017,7 @@ class CTAAmendementController extends Controller
                     $amendement->comments = $request->comments;
 
                     //Product Information
-                    $amendement->manufaturer = $request->manufaturer;
+                    $amendement->manufacturer = $request->manufacturer;
 
                     //Important Dates
                     $amendement->actual_submission_date = $request->actual_submission_date;
@@ -1563,18 +1570,18 @@ class CTAAmendementController extends Controller
 
                 }
 
-                if($amendement_data->manufaturer != $amendement->manufaturer){
+                if($amendement_data->manufacturer != $amendement->manufacturer){
                     $history = new CTAAmendementAuditTrail();
                     $history->cta_amendement_id = $amendement->id;
-                    $history->previous = $amendement_data->manufaturer;
-                    $history->current = $amendement->manufaturer;
-                    $history->activity_type = 'Manufaturer';
+                    $history->previous = $amendement_data->manufacturer;
+                    $history->current = $amendement->manufacturer;
+                    $history->activity_type = 'Manufacturer';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from =   $amendement_data->status;
                     $history->change_to = "Not Applicable";
-                    if (is_null($amendement_data->manufaturer) || $amendement_data->manufaturer === '') {
+                    if (is_null($amendement_data->manufacturer) || $amendement_data->manufacturer === '') {
                         $history->action_name = 'New';
                     } else {
                         $history->action_name = 'Update';
@@ -2116,7 +2123,7 @@ class CTAAmendementController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Opened";
                             $history->change_to = "Dossier Finalization";
-                            $history->action_name = "Submit";
+                            $history->action = "Submission";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -2143,7 +2150,7 @@ class CTAAmendementController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Dossier Finalization";
                             $history->change_to = "Submitted for Authority";
-                            $history->action_name = "Submit";
+                            $history->action = "Finalize Dossier";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -2169,7 +2176,7 @@ class CTAAmendementController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Submitted for Authority";
                             $history->change_to = "Closed-Approved";
-                            $history->action_name = "Submit";
+                            $history->action = "Approved";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -2195,7 +2202,7 @@ class CTAAmendementController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "RA Review of Response to Comments";
                             $history->change_to = "Closed-Terminated";
-                            $history->action_name = "Submit";
+                            $history->action = "Early Termination";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -2219,7 +2226,7 @@ class CTAAmendementController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "RA Review of Response to Comments";
                             $history->change_to = "Pending Comments";
-                            $history->action_name = "Submit";
+                            $history->action = "More Comments";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -2262,7 +2269,7 @@ class CTAAmendementController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Opened";
                         $history->change_to = "Closed-Cancelled";
-                        $history->action_name = "Submit";
+                        $history->action = "Cancel";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -2286,7 +2293,7 @@ class CTAAmendementController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Opened";
                         $history->change_to = "Closed-Notified";
-                        $history->action_name = "Submit";
+                        $history->action = "Notification Only";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -2311,7 +2318,7 @@ class CTAAmendementController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Dossier Finalization";
                         $history->change_to = "Closed-Witdrawn";
-                        $history->action_name = "Submit";
+                        $history->action = "Withdraw";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -2337,7 +2344,7 @@ class CTAAmendementController extends Controller
                          $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                          $history->change_from = "Submitted for Authority";
                          $history->change_to = "Closed-Not Approved";
-                         $history->action_name = "Submit";
+                         $history->action = "Not Approved";
                          $history->stage = 'Plan Approved';
                          $history->save();
 
@@ -2361,7 +2368,7 @@ class CTAAmendementController extends Controller
                          $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                          $history->change_from = "Submitted for Authority";
                          $history->change_to = "Closed-Witdrawn";
-                         $history->action_name = "Submit";
+                         $history->action = "Withdraw";
                          $history->stage = 'Plan Approved';
                          $history->save();
 
@@ -2402,7 +2409,7 @@ class CTAAmendementController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Submitted for Authority";
                             $history->change_to = "Approved with Comments/Conditions";
-                            $history->action_name = "Submit";
+                            $history->action = "Approved with Conditions/Comments";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -2430,7 +2437,7 @@ class CTAAmendementController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Approved with Comments/Conditions";
                             $history->change_to = "Closed-Approved";
-                            $history->action_name = "Submit";
+                            $history->action = "No Conditions to Fulfill Before FPI";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -2454,7 +2461,7 @@ class CTAAmendementController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Approved with Comments/Conditions";
                             $history->change_to = "Pending Comments";
-                            $history->action_name = "Submit";
+                            $history->action = "Conditions to Fulfill BeforeFPI";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -2482,7 +2489,7 @@ class CTAAmendementController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Pending Comments";
                             $history->change_to = "RA Review of Response to Comments";
-                            $history->action_name = "Submit";
+                            $history->action = "Submit response";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -2507,7 +2514,7 @@ class CTAAmendementController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "RA Review of Response to Comments";
                             $history->change_to = "Closed-Approved";
-                            $history->action_name = "Submit";
+                            $history->action = "All Conditions/Comments are met";
                             $history->stage = 'Plan Approved';
                             $history->save();
 

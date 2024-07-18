@@ -259,7 +259,7 @@
                                             :</strong>{{ $dataDemo->change_to ? $dataDemo->change_to : 'Not Applicable' }}
                                     @else
                                         <strong>Change To
-                                            :</strong>{{ $dataDemo->current ? $dataDemo->current : 'Not Applicable' }}
+                                            :</strong>{{ $dataDemo->current ? $dataDemo->current : 'Null' }}
                                     @endif
                                 </div>
                                 <div style="margin-top: 5px;">

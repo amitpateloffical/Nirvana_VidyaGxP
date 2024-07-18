@@ -38,9 +38,16 @@ class ContractTestingLabAuditController extends Controller
 
         public function store(Request $request){
         //dd($request->all());
+
+            $recordCounter = RecordNumber::first();
+            $newRecordNumber = $recordCounter->counter + 1;
+
+            $recordCounter->counter = $newRecordNumber;
+            $recordCounter->save();
+
             $audit = new ContractTestingLabAudit();
             $audit->form_type = "CTL-Audit";
-            $audit->record = ((RecordNumber::first()->value('counter')) + 1);
+            $audit->record = $newRecordNumber;
             $audit->initiator_id = Auth::user()->id;
             $audit->division_id = $request->division_id;
             $audit->division_code = $request->division_code;
@@ -400,10 +407,14 @@ class ContractTestingLabAuditController extends Controller
         }
 
         if(!empty($request->application_sites)){
+
+            $site_names = QMSDivision::whereIn('id', $request->application_sites)->pluck('name')->toArray();
+            $site_names_string = implode(', ', $site_names);
+
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = json_encode($request->application_sites);
+            $history->current = $site_names_string;
             $history->activity_type = 'Application Sites';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -451,7 +462,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->audit_due_on_month;
+            $history->current = date('d-M-Y', strtotime($request->audit_due_on_month));
             $history->activity_type = 'Audit Due On Month';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -467,7 +478,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->tcd_for_audit_completion;
+            $history->current = date('d-M-Y', strtotime($request->tcd_for_audit_completion));
             $history->activity_type = 'TCD For Audit Completion';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -483,7 +494,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->audit_planing_to_be_done_on;
+            $history->current = date('d-M-Y', strtotime($request->audit_planing_to_be_done_on));
             $history->activity_type = 'Audit Planing to be Done On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -515,7 +526,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->proposed_audit_start_date;
+            $history->current = date('d-M-Y', strtotime($request->proposed_audit_start_date));
             $history->activity_type = 'Proposed Audit Start Date';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -531,7 +542,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->proposed_audit_completion;
+            $history->current = date('d-M-Y', strtotime($request->proposed_audit_completion));
             $history->activity_type = 'Proposed Audit Completion';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -648,10 +659,13 @@ class ContractTestingLabAuditController extends Controller
         }
 
         if(!empty($request->qa_approver)){
+
+            $qa_approver_name = User::where('id', $request->qa_approver)->value('name');
+
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->qa_approver;
+            $history->current = $qa_approver_name;
             $history->activity_type = 'QA Approver';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -715,7 +729,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->audit_agenda_sent_on;
+            $history->current = date('d-M-Y', strtotime($request->audit_agenda_sent_on));
             $history->activity_type = 'Audit Aenda Sent On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -779,7 +793,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->ctl_audit_started_on;
+            $history->current = date('d-M-Y', strtotime($request->ctl_audit_started_on));
             $history->activity_type = 'CTL Audit Started On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -795,7 +809,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->ctl_audit_completed_on;
+            $history->current = date('d-M-Y', strtotime($request->ctl_audit_completed_on));
             $history->activity_type = 'CTL Audit Completed On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1020,7 +1034,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->audit_report_signed_on;
+            $history->current = date('d-M-Y', strtotime($request->audit_report_signed_on));
             $history->activity_type = 'Audit Report Signed On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1036,7 +1050,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->audit_report_approved_on;
+            $history->current = date('d-M-Y', strtotime($request->audit_report_approved_on));
             $history->activity_type = 'Audit Report Approved On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1100,7 +1114,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->ctl_audit_report_issue_date;
+            $history->current = date('d-M-Y', strtotime($request->ctl_audit_report_issue_date));
             $history->activity_type = 'CTL Audit Report Issue Date';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1116,7 +1130,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->audit_report_sent_to_ctl_on;
+            $history->current = date('d-M-Y', strtotime($request->audit_report_sent_to_ctl_on));
             $history->activity_type = 'Audit Report Sent To CTL On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1148,7 +1162,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->report_acknowledged_on;
+            $history->current = date('d-M-Y', strtotime($request->report_acknowledged_on));
             $history->activity_type = 'Report Acknowledged On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1164,7 +1178,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->tcd_for_receipt_of_compliance;
+            $history->current = date('d-M-Y', strtotime($request->tcd_for_receipt_of_compliance));
             $history->activity_type = 'TCD for Receipt of Compliance';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1212,7 +1226,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->initial_response_received_on;
+            $history->current = date('d-M-Y', strtotime($request->initial_response_received_on));
             $history->activity_type = 'Initial Response Received On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1228,7 +1242,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->final_response_received_on;
+            $history->current = date('d-M-Y', strtotime($request->final_response_received_on));
             $history->activity_type = 'Final Response Received On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1454,7 +1468,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->next_audit_due_date;
+            $history->current = date('d-M-Y', strtotime($request->next_audit_due_date));
             $history->activity_type = 'Next Audit Due Date';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1569,7 +1583,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->implementation_completed_on;
+            $history->current = date('d-M-Y', strtotime($request->implementation_completed_on));
             $history->activity_type = 'Implementation Completed On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1585,7 +1599,7 @@ class ContractTestingLabAuditController extends Controller
             $history = new ContractTestingLabAuditTrail();
             $history->ctl_audit_id = $audit->id;
             $history->previous = "Null";
-            $history->current = $request->audit_closure_report_issued_on;
+            $history->current = date('d-M-Y', strtotime($request->audit_closure_report_issued_on));
             $history->activity_type = 'Audit Closure Report Issued On';
             $history->user_id = Auth::user()->id;
             $history->user_name = Auth::user()->name;
@@ -1653,7 +1667,7 @@ class ContractTestingLabAuditController extends Controller
             $audit = ContractTestingLabAudit::findOrFail($id);
 
             $audit->form_type = "CTL-Audit";
-            $audit->record = ((RecordNumber::first()->value('counter')) + 1);
+            //$audit->record = ((RecordNumber::first()->value('counter')) + 1);
             $audit->initiator_id = Auth::user()->id;
             $audit->division_id = $request->division_id;
             $audit->division_code = $request->division_code;
@@ -2047,16 +2061,31 @@ class ContractTestingLabAuditController extends Controller
 
             }
 
-            if($audit_data->application_sites != $audit->application_sites){
+
+            if (!is_array($audit_data->application_sites)) {
+                $audit_data->application_sites = explode(',', $audit_data->application_sites);
+            }
+
+            if (!is_array($audit->application_sites)) {
+                $audit->application_sites = explode(',', $audit->application_sites);
+            }
+
+            if ($audit_data->application_sites != $audit->application_sites) {
+                $previous_site_names = QMSDivision::whereIn('id', $audit_data->application_sites)->pluck('name')->toArray();
+                $previous_site_names_string = implode(', ', $previous_site_names);
+
+                $current_site_names = QMSDivision::whereIn('id', $audit->application_sites)->pluck('name')->toArray();
+                $current_site_names_string = implode(', ', $current_site_names);
+
                 $history = new ContractTestingLabAuditTrail();
                 $history->ctl_audit_id = $audit->id;
-                $history->previous = json_encode($audit_data->application_sites);
-                $history->current = json_encode($audit->application_sites);
+                $history->previous = $previous_site_names_string;
+                $history->current = $current_site_names_string;
                 $history->activity_type = 'Application Sites';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->change_from =   $audit_data->status;
+                $history->change_from = $audit_data->status;
                 $history->change_to = "Not Applicable";
                 if (is_null($audit_data->application_sites) || $audit_data->application_sites === '') {
                     $history->action_name = 'New';
@@ -2065,8 +2094,9 @@ class ContractTestingLabAuditController extends Controller
                 }
                 $history->comment = "Not Applicable";
                 $history->save();
-
             }
+
+
 
             if($audit_data->new_existing_laboratory != $audit->new_existing_laboratory){
                 $history = new ContractTestingLabAuditTrail();
@@ -2092,8 +2122,8 @@ class ContractTestingLabAuditController extends Controller
             if($audit_data->date_of_last_audit != $audit->date_of_last_audit){
                 $history = new ContractTestingLabAuditTrail();
                 $history->ctl_audit_id = $audit->id;
-                $history->previous = date('d-M-Y', strtotime($audit_data->date_of_last_audit));
-                $history->current = date('d-M-Y', strtotime($audit->date_of_last_audit));
+                $history->previous = $audit_data->date_of_last_audit;
+                $history->current = $audit->date_of_last_audit;
                 $history->activity_type = 'Date of Last Audit';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -2261,11 +2291,25 @@ class ContractTestingLabAuditController extends Controller
 
             }
 
-            if($audit_data->name_of_co_auditor != $audit->name_of_co_auditor){
+            if (!is_array($audit_data->name_of_co_auditor)) {
+                $audit_data->name_of_co_auditor = explode(',', $audit_data->name_of_co_auditor);
+            }
+
+            if (!is_array($audit->name_of_co_auditor)) {
+                $audit->name_of_co_auditor = explode(',', $audit->name_of_co_auditor);
+            }
+
+            if ($audit_data->name_of_co_auditor != $audit->name_of_co_auditor) {
+                $previous_co_auditor = User::whereIn('id', $audit_data->name_of_co_auditor)->pluck('name')->toArray();
+                $previous_co_auditor_string = implode(', ', $previous_co_auditor);
+
+                $current_co_auditor = User::whereIn('id', $audit->name_of_co_auditor)->pluck('name')->toArray();
+                $current_co_auditor_string = implode(', ', $current_co_auditor);
+
                 $history = new ContractTestingLabAuditTrail();
                 $history->ctl_audit_id = $audit->id;
-                $history->previous = json_encode($audit_data->name_of_co_auditor);
-                $history->current = json_encode($audit->name_of_co_auditor);
+                $history->previous = $previous_co_auditor_string;
+                $history->current = $current_co_auditor_string;
                 $history->activity_type = 'Name of Co-Auditor';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -2364,10 +2408,14 @@ class ContractTestingLabAuditController extends Controller
 
 
             if($audit_data->qa_approver != $audit->qa_approver){
+
+                $privious_qa_approver_name = User::where('id', $audit_data->qa_approver)->value('name');
+                $current_qa_approver_name = User::where('id', $audit->qa_approver)->value('name');
+
                 $history = new ContractTestingLabAuditTrail();
                 $history->ctl_audit_id = $audit->id;
-                $history->previous = $audit_data->qa_approver;
-                $history->current = $audit->qa_approver;
+                $history->previous = $privious_qa_approver_name;
+                $history->current = $current_qa_approver_name;
                 $history->activity_type = 'QA Approver';
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
@@ -3597,7 +3645,7 @@ class ContractTestingLabAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Opened";
                         $history->change_to = "CTL Audit Preparation";
-                        $history->action_name = "Submit";
+                        $history->action = "Submit";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -3624,7 +3672,7 @@ class ContractTestingLabAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "CTL Audit Preparation";
                         $history->change_to = "CTL Audit Execution";
-                        $history->action_name = "Submit";
+                        $history->action = "CTL Audit Preparation Complete";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -3650,7 +3698,7 @@ class ContractTestingLabAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "CTL Audit Execution";
                         $history->change_to = "CTL Audit Report Preparation & Approval";
-                        $history->action_name = "Submit";
+                        $history->action = "CTL Audit Complete";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -3676,7 +3724,7 @@ class ContractTestingLabAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "CTL Audit Report Preparation & Approval";
                         $history->change_to = "Under CTL Audit Report Issuance";
-                        $history->action_name = "Submit";
+                        $history->action = "CTL Audit Report Complete";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -3702,7 +3750,7 @@ class ContractTestingLabAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Under CTL Audit Report Issuance";
                         $history->change_to = "Pending CTL Response";
-                        $history->action_name = "Submit";
+                        $history->action = "CTL Audit Report Issued";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -3728,7 +3776,7 @@ class ContractTestingLabAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Pending CTL Response";
                         $history->change_to = "Under CTL Audit Compliance Acceptance";
-                        $history->action_name = "Submit";
+                        $history->action = "CTL Response Received";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -3754,7 +3802,7 @@ class ContractTestingLabAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Under CTL Audit Compliance Acceptance";
                         $history->change_to = "CTL Audit Compliance Approval";
-                        $history->action_name = "Submit";
+                        $history->action = "CTL Audit Compliance Acceptance Complete";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -3780,7 +3828,7 @@ class ContractTestingLabAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "CTL Audit Compliance Approval";
                         $history->change_to = "Under Audit Compliance Monitoring";
-                        $history->action_name = "Submit";
+                        $history->action = "CTL Audit Compliance Approval Complete";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -3806,7 +3854,7 @@ class ContractTestingLabAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Under Audit Compliance Monitoring";
                         $history->change_to = "CTL Audit Conclusion";
-                        $history->action_name = "Submit";
+                        $history->action = "Audit Compliance Monitoring Complete";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -3832,7 +3880,7 @@ class ContractTestingLabAuditController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "CTL Audit Conclusion";
                         $history->change_to = "Close-Done";
-                        $history->action_name = "Submit";
+                        $history->action = "CTL Audit Conclusion Complete";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -3872,7 +3920,7 @@ class ContractTestingLabAuditController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->change_from = "Opened";
                     $history->change_to = "Closed-Cancelled";
-                    $history->action_name = "Submit";
+                    $history->action = "Cancel";
                     $history->stage = 'Plan Approved';
                     $history->save();
 
@@ -3912,7 +3960,7 @@ class ContractTestingLabAuditController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "CTL Audit Preparation";
                             $history->change_to = "Opened";
-                            $history->action_name = "Submit";
+                            $history->action = "More Info from open state";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -3939,7 +3987,7 @@ class ContractTestingLabAuditController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "CTL Audit Execution";
                             $history->change_to = "CTL Audit Preparation";
-                            $history->action_name = "Submit";
+                            $history->action = "More Info from CTL Audit Preparation";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -3965,7 +4013,7 @@ class ContractTestingLabAuditController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "CTL Audit Report Preparation & Approval";
                             $history->change_to = "CTL Audit Execution";
-                            $history->action_name = "Submit";
+                            $history->action = "More Info from CTL Audit Execution";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -3991,7 +4039,7 @@ class ContractTestingLabAuditController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Under CTL Audit Report Issuance";
                             $history->change_to = "CTL Audit Report Preparation & Approval";
-                            $history->action_name = "Submit";
+                            $history->action = "More Info from CTL Audit Report Prepration";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -4017,7 +4065,7 @@ class ContractTestingLabAuditController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "CTL Audit Compliance Approval";
                             $history->change_to = "Under CTL Audit Compliance Acceptance";
-                            $history->action_name = "Submit";
+                            $history->action = "More Info from CTL Audit Comp Accep";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -4043,7 +4091,7 @@ class ContractTestingLabAuditController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "CTL Audit Conclusion";
                             $history->change_to = "Under CTL Audit Compliance Acceptance";
-                            $history->action_name = "Submit";
+                            $history->action = "More Info from CTL Audit Comp Accep";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -4065,12 +4113,13 @@ class ContractTestingLabAuditController extends Controller
 
             if ($request->child_type == 'audit_task'){
 
-                //return redirect(route('violation.index'));
-            }elseif($request->child_type1 == 'follow_up_task'){
+                return redirect(route('violation.index'));
 
-                //return view('frontend.ctms.serious_adverse_event');
+            }elseif($request->child_type == 'follow_up_task'){
+
+                return redirect(route('correspondence.index'));
             }else{
-                //return redirect(route('contract_testing_lab_audit.index'));
+                //return redirect(route('correspondence.index'));
             }
 
         }

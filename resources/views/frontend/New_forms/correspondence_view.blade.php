@@ -55,6 +55,23 @@
     })
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const removeButtons = document.querySelectorAll('.remove-file');
+
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const fileName = this.getAttribute('data-file-name');
+                const fileContainer = this.closest('.file-container');
+
+                // Hide the file container
+                if (fileContainer) {
+                    fileContainer.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
 
 <div class="form-field-head">
     {{-- <div class="pr-id">
@@ -149,7 +166,7 @@
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                             Finalize Response
                         </button>
-                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child">
+                        <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#child-modal">
                             Child
                         </button>
                         <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#cancel-modal">
@@ -376,9 +393,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> Record Number </label>
+                                    <label for="Initiator">Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Correspondence/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Correspondence/{{ date('Y') }}/{{ str_pad($correspondence_data->record, 4, '0', STR_PAD_LEFT) }}">
                                 </div>
                             </div>
 
@@ -433,8 +450,8 @@
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <p class="text-primary">Please mention expected date of completion</p>
                                     <div class="calenderauditee">
-                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
-                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}">
+                                        <input  type="hidden" value="{{ $correspondence_data->due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ \Carbon\Carbon::parse($correspondence_data->due_date)->format('d-M-Y') }}">
                                     </div>
                                 </div>
                             </div>
@@ -571,7 +588,7 @@
                         </div>
                         <div class="group-input">
                             <label for="audit-agenda-grid">
-                                Action Plan (0)
+                                Action Plan
                                 <button type="button" name="action_plan" id="ReferenceDocument">+</button>
                                 <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                     (open)
@@ -638,7 +655,6 @@
                                 <div class="group-input">
                                     <label for="Division Code"><b>Scheduled Start Date</b></label>
                                     <input type="date" name="scheduled_start_date" value="{{ $correspondence_data->scheduled_start_date }}">
-
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -885,12 +901,14 @@
                                         <div class="">{{ $correspondence_data->questions_recieved_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Questions Recieved On : </b></label>
                                         <div class="date">{{ $correspondence_data->questions_recieved_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Questions Recieved Comments : </b></label>
@@ -910,12 +928,14 @@
                                         <div class="">{{ $correspondence_data->open_cancel_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Cancelled On : </b></label>
                                         <div class="date">{{ $correspondence_data->open_cancel_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Cancelled Comments : </b></label>

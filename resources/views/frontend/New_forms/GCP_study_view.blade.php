@@ -361,7 +361,7 @@
         </script>
         <?php endif; ?>
 
-        {{--disabled field code start--}}
+        {{--disabled field code end--}}
 
         <form id="target" action="{{ route('GCP_study.update', $study_data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -380,9 +380,9 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> Record Number </label>
+                                    <label for="Initiator">Record Number </label>
                                     <input disabled type="text" name="record"
-                                        value="{{ Helpers::getDivisionName($study_data->division_id) }}/GCP_Study/{{ Helpers::year($study_data->created_at) }}/{{ $study_data->record }}">
+                                     value="{{ Helpers::getDivisionName($study_data->division_id) }}/GCP-Study/{{ Helpers::year($study_data->created_at) }}/{{ str_pad($study_data->record, 4, '0', STR_PAD_LEFT) }}">
                                 </div>
                             </div>
 
@@ -392,7 +392,6 @@
                                     <input readonly type="text" name="division_code"
                                         value="{{ $divisionName }}">
                                     <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
-                                    {{-- <div class="static">QMS-North America</div> --}}
                                 </div>
                             </div>
 
@@ -426,6 +425,7 @@
                                     <input type="hidden" value="{{ date('d-M-Y', strtotime($study_data->intiation_date)) }}" name="intiation_date">
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description <span class="text-danger">*</span></label>
@@ -433,6 +433,7 @@
                                     <input id="docname" type="text" name="short_description_gi" maxlength="255" required value="{{ $study_data->short_description_gi }}">
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="search">
@@ -448,95 +449,36 @@
                                             @endforeach
                                         @endif
                                     </select>
-
-
                                 </div>
                             </div>
+
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
-                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}">
+                                        <input  type="hidden" value="{{ $study_data->due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ Helpers::getdateFormat($study_data->due_date) }}">
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="Initiator Group"><b>Department(s)</b></label>
-                                    <p class="text-primary">Add all the related departments</p>
-                                    <select name="department_gi" id="initiator_group">
-                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="CQA"
-                                            @if ($study_data->department_gi == 'CQA') selected @endif>Corporate
-                                            Quality Assurance</option>
-                                        <option value="QAB"
-                                            @if ($study_data->department_gi == 'QAB') selected @endif>Quality
-                                            Assurance Biopharma</option>
-                                        <option value="CQC"
-                                            @if ($study_data->department_gi == 'CQC') selected @endif>Central
-                                            Quality Control</option>
-                                        <option value="MANU"
-                                            @if ($study_data->department_gi == 'MANU') selected @endif>Manufacturing
-                                        </option>
-                                        <option value="PSG"
-                                            @if ($study_data->department_gi == 'PSG') selected @endif>Plasma
-                                            Sourcing Group</option>
-                                        <option value="CS"
-                                            @if ($study_data->department_gi == 'CS') selected @endif>Central
-                                            Stores</option>
-                                        <option value="ITG"
-                                            @if ($study_data->department_gi == 'ITG') selected @endif>Information
-                                            Technology Group</option>
-                                        <option value="MM"
-                                            @if ($study_data->department_gi == 'MM') selected @endif>Molecular
-                                            Medicine</option>
-                                        <option value="CL"
-                                            @if ($study_data->department_gi == 'CL') selected @endif>Central
-                                            Laboratory</option>
-                                        <option value="TT"
-                                            @if ($study_data->department_gi == 'TT') selected @endif>Tech
-                                            team</option>
-                                        <option value="QA"
-                                            @if ($study_data->department_gi == 'QA') selected @endif>Quality
-                                            Assurance</option>
-                                        <option value="QM"
-                                            @if ($study_data->department_gi == 'QM') selected @endif>Quality
-                                            Management</option>
-                                        <option value="IA"
-                                            @if ($study_data->department_gi == 'IA') selected @endif>IT
-                                            Administration</option>
-                                        <option value="ACC"
-                                            @if ($study_data->department_gi == 'ACC') selected @endif>Accounting
-                                        </option>
-                                        <option value="LOG"
-                                            @if ($study_data->department_gi == 'LOG') selected @endif>Logistics
-                                        </option>
-                                        <option value="SM"
-                                            @if ($study_data->department_gi == 'SM') selected @endif>Senior
-                                            Management</option>
-                                        <option value="BA"
-                                            @if ($study_data->department_gi == 'BA') selected @endif>Business
-                                            Administration</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                            {{--<div class="col-md-6">
-                                <div class="group-input">
-                                    <label for="search">
-                                        Department(s)<span class="text-danger"></span>
+                                    <label for="Department">
+                                        Department<span class="text-danger"></span>
                                     </label>
                                     <p class="text-primary">Add all the related departments</p>
                                     <select id="select-state" placeholder="Select..." name="department_gi">
                                         <option value="">Select a value</option>
-
-                                        <option value=""></option>
+                                     @if($departments->isNotEmpty())
+                                        @foreach($departments as $department)
+                                         <option value='{{ $department->id }}' {{ $department->id == $study_data->department_gi ? 'selected' : '' }}>{{ $department->name }}</option>
+                                        @endforeach
+                                     @endif
                                     </select>
                                 </div>
-                            </div>--}}
+                            </div>
 
                             <div class="sub-head">
                                 Study Details
@@ -576,12 +518,14 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Study Protocol Number</label>
                                     <input id="docname" type="number" name="study_protocol_number_sd" value="{{ $study_data->study_protocol_number_sd }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <p class="text-primary">Detailed Description</p>
@@ -590,6 +534,7 @@
                                     {{--<input type="text" name="description_sd" value="{{ $study_data->description_sd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>--}}
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label class="mb-4" for="Responsible Department">Comments</label>
@@ -597,9 +542,11 @@
                                     {{--<input type="text" name="comments_sd" value="{{ $study_data->comments_sd }}" {{ $study_data->stage == 0 || $study_data->stage == 4 ? 'disabled' : '' }}>--}}
                                 </div>
                             </div>
+
                             <div class="sub-head">
                                 Additional Information
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related studies</label>
@@ -648,6 +595,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -671,6 +619,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="start_date">Indication Name</label>
@@ -679,6 +628,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="start_date">Clinical Study Manager</label>
@@ -687,6 +637,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
                                 <label for="start_date">Clinical Expert</label>
@@ -784,11 +735,10 @@
                                     @endforeach
                                 @endif
                                 </tbody>
-
                             </table>
-
                         </div>
                     </div>
+
                     <div class="group-input">
                         <label for="audit-agenda-grid">
                             Study Site Information
@@ -856,36 +806,42 @@
                                 <input type="date" name="initiation_date_i" value="{{ $study_data->initiation_date_i }}">
                             </div>
                         </div>
+
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Study Start Date</label>
                                 <input type="date" name="study_start_date" value="{{ $study_data->study_start_date }}">
                             </div>
                         </div>
+
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Study End Date</label>
                                 <input type="date" name="study_end_date" value="{{ $study_data->study_end_date }}">
                             </div>
                         </div>
+
                         <div class="col-12">
                             <div class="group-input">
                                 <label for="Date">Study Protocol</label>
                                 <input type="text" name="study_protocol" value="{{ $study_data->study_protocol }}">
                             </div>
                         </div>
+
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">First Subject in(FSI)</label>
                                 <input type="date" name="first_subject_in" value="{{ $study_data->first_subject_in }}">
                             </div>
                         </div>
+
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Last Subject Out</label>
                                 <input type="date" name="last_subject_out" value="{{ $study_data->last_subject_out }}">
                             </div>
                         </div>
+
                         <div class="col-6">
                             <div class="group-input">
                                 <label for="Date">Data Base Lock(DBL)</label>
@@ -916,19 +872,18 @@
                             <div class="group-input">
                                 <label for="Victim"><b>Initiated By :</b></label>
                                 <div class="">{{ $study_data->initiate_by }}</div>
-
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>Initiated On : </b></label>
                                 <div class="date">{{ $study_data->initiate_on }}</div>
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>Initiate Comments : </b></label>
                                 <div class="date">{{ $study_data->initiate_comment }}</div>
                             </div>
@@ -943,19 +898,18 @@
                             <div class="group-input">
                                 <label for="Victim"><b>Initiate Cancelled By :</b></label>
                                 <div class="">{{ $study_data->initiate_cancel_by }}</div>
-
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>Initiate Cancelled On : </b></label>
                                 <div class="date">{{ $study_data->initiate_cancel_on }}</div>
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>Initiate Cancelled Comments : </b></label>
                                 <div class="date">{{ $study_data->initiate_cancel_comment }}</div>
                             </div>
@@ -970,19 +924,18 @@
                             <div class="group-input">
                                 <label for="Victim"><b>Study Completed By :</b></label>
                                 <div class="">{{ $study_data->study_complete_by }}</div>
-
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>Study Completed On : </b></label>
                                 <div class="date">{{ $study_data->study_complete_on }}</div>
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>Study Complete Comments : </b></label>
                                 <div class="date">{{ $study_data->study_complete_comment }}</div>
                             </div>
@@ -997,19 +950,18 @@
                             <div class="group-input">
                                 <label for="Victim"><b>Study Cancelled By :</b></label>
                                 <div class="">{{ $study_data->person_cancel_by }}</div>
-
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>Study Cancelled On : </b></label>
                                 <div class="date">{{ $study_data->person_cancel_on }}</div>
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>Person Cancelled Comments : </b></label>
                                 <div class="date">{{ $study_data->person_cancel_comment }}</div>
                             </div>
@@ -1024,19 +976,18 @@
                             <div class="group-input">
                                 <label for="Victim"><b>Issue Reported By :</b></label>
                                 <div class="">{{ $study_data->issue_report_by }}</div>
-
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>Issue Reported On : </b></label>
                                 <div class="date">{{ $study_data->issue_report_on }}</div>
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>Issue Reported Comments : </b></label>
                                 <div class="date">{{ $study_data->issue_report_comment }}</div>
                             </div>
@@ -1051,19 +1002,18 @@
                             <div class="group-input">
                                 <label for="Victim"><b>No Report Required By :</b></label>
                                 <div class="">{{ $study_data->no_report_require_by }}</div>
-
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>No Report Required By : </b></label>
                                 <div class="date">{{ $study_data->no_report_require_on }}</div>
                             </div>
                         </div>
+
                         <div class="col-4">
                             <div class="group-input">
-
                                 <label for="Division Code"><b>No Report Required Comments : </b></label>
                                 <div class="date">{{ $study_data->no_report_require_comment }}</div>
                             </div>

@@ -34,9 +34,16 @@ class SupplierContractController extends Controller
 
        public function store(Request $request){
             //dd($request->all());
+
+                $recordCounter = RecordNumber::first();
+                $newRecordNumber = $recordCounter->counter + 1;
+
+                $recordCounter->counter = $newRecordNumber;
+                $recordCounter->save();
+
                 $contract = new SupplierContract();
                 $contract->form_type = "Supplier-Contract";
-                $contract->record = ((RecordNumber::first()->value('counter')) + 1);
+                $contract->record = $newRecordNumber;
                 $contract->initiator_id = Auth::user()->id;
                 $contract->division_id = $request->division_id;
                 $contract->division_code = $request->division_code;
@@ -448,7 +455,7 @@ class SupplierContractController extends Controller
                       $contract = SupplierContract::findOrFail($id);
 
                       $contract->form_type = "Supplier-Contract";
-                      $contract->record = ((RecordNumber::first()->value('counter')) + 1);
+                    //  $contract->record = ((RecordNumber::first()->value('counter')) + 1);
                       $contract->initiator_id = Auth::user()->id;
                       $contract->division_id = $request->division_id;
                       $contract->division_code = $request->division_code;
@@ -961,7 +968,7 @@ class SupplierContractController extends Controller
                                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                                $history->change_from = "Opened";
                                $history->change_to = "Qualification In Progress";
-                               $history->action_name = "Submit";
+                               $history->action = "Submit Supplier Details";
                                $history->stage = 'Plan Approved';
                                $history->save();
 
@@ -988,7 +995,7 @@ class SupplierContractController extends Controller
                                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                                $history->change_from = "Qualification In Progress";
                                $history->change_to = "Pending Supplier Audit";
-                               $history->action_name = "Submit";
+                               $history->action = "Qualification Complete";
                                $history->stage = 'Plan Approved';
                                $history->save();
                                return back();
@@ -1015,7 +1022,7 @@ class SupplierContractController extends Controller
                                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                                 $history->change_from = "Pending Supplier Audit";
                                 $history->change_to = "Supplier Approved";
-                                $history->action_name = "Submit";
+                                $history->action = "Audit Passed";
                                 $history->stage = 'Plan Approved';
                                 $history->save();
 
@@ -1039,7 +1046,7 @@ class SupplierContractController extends Controller
                                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                                 $history->change_from = "Pending Supplier Audit";
                                 $history->change_to = "Pending Rejction";
-                                $history->action_name = "Submit";
+                                $history->action = "Audit Failed";
                                 $history->stage = 'Plan Approved';
                                 $history->save();
 
@@ -1068,7 +1075,7 @@ class SupplierContractController extends Controller
                                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                                 $history->change_from = "Supplier Approved";
                                 $history->change_to = "Obselete";
-                                $history->action_name = "Submit";
+                                $history->action = "Supplier Obsolete";
                                 $history->stage = 'Plan Approved';
                                 $history->save();
 
@@ -1094,7 +1101,7 @@ class SupplierContractController extends Controller
                                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                                 $history->change_from = "Pending Rejction";
                                 $history->change_to = "Obselete";
-                                $history->action_name = "Submit";
+                                $history->action = "Supplier Obsolete";
                                 $history->stage = 'Plan Approved';
                                 $history->save();
 
@@ -1133,7 +1140,7 @@ class SupplierContractController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Opened";
                             $history->change_to = "Closed-Cancelled";
-                            $history->action_name = "Submit";
+                            $history->action_name = "Cancel";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -1158,7 +1165,7 @@ class SupplierContractController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Qualification In Progress";
                             $history->change_to = "Closed-Cancelled";
-                            $history->action_name = "Submit";
+                            $history->action_name = "Cancel";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -1196,7 +1203,7 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Supplier Approved";
                         $history->change_to = "Pending Supplier Audit";
-                        $history->action_name = "Submit";
+                        $history->action_name = "Reject Due To Quality Issues";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -1221,7 +1228,7 @@ class SupplierContractController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Pending Rejction";
                         $history->change_to = "Pending Supplier Audit";
-                        $history->action_name = "Submit";
+                        $history->action_name = "Re-Audit";
                         $history->stage = 'Plan Approved';
                         $history->save();
 

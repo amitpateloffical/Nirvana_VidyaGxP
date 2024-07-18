@@ -174,7 +174,7 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> Record Number </label>
+                                    <label for="Initiator">Record Number </label>
                                     <input disabled type="text" name="record"
                                     value="{{ Helpers::getDivisionName(session()->get('division')) }}/Violation/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
@@ -204,7 +204,7 @@
                                 <div class="group-input">
                                     <label for="Date Opened">Date of Initiation</label>
                                     <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                                    <input type="hidden" value="{{ date('d-M-Y') }}" name="intiation_date">
                                 </div>
                             </div>
 
@@ -243,7 +243,6 @@
                             </div>
                         </div>
 
-
                         <div class="col-md-6">
                             <div class="group-input">
                                 <label for="search">
@@ -259,6 +258,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="group-input">
                                 <label for="search">
@@ -273,6 +273,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="search">
@@ -289,6 +290,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="closure attachment">File Attachments </label>
@@ -312,7 +314,6 @@
                             </div>
                         </div>
 
-
                         <div class="sub-head">
                             Location
                         </div>
@@ -334,11 +335,11 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="group-input">
                                 <label for="search">
                                     Country <span class="text-danger"></span>
-
                                 </label>
                                 <p class="text-primary">Auto filter according to selected zone</p>
 
@@ -369,9 +370,9 @@
                                     City <span class="text-danger"></span>
                                 </label>
                                 <p class="text-primary">Auto filter according to selected country</p>
-                                    <select name="city_id" class="form-select city" aria-label="Default select example" onchange="loadSites()">
-                                        <option value="">Select City</option>
-                                    </select>
+                                <select name="city_id" class="form-select city" aria-label="Default select example" onchange="loadSites()">
+                                    <option value="">Select City</option>
+                                </select>
                             </div>
                         </div>
 
@@ -442,8 +443,8 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
+
                     <div class="button-block">
                         <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -459,22 +460,24 @@
                     <div class="row">
                         <div class="sub-head col-12">Violation Information</div>
 
-                        <div class="col-lg-6  new-date-data-field">
+                        <div class="col-lg-6">
                             <div class="group-input input-date">
                                 <label for="date_occured">Date Occured</lable>
                                     <div class="calenderauditee">
-                                        <input type="text" id="date_occured" name="date_occured" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_occured" name="date_occured" class="hide-input" oninput="handleDateInput(this, 'date_occured');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" id="date_occured" name="date_occured" class="hide-input">
+                                        {{--<input type="text" id="date_occured" name="date_occured" placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_occured" name="date_occured" class="hide-input" oninput="handleDateInput(this, 'date_occured');checkDate('start_date_checkdate','end_date_checkdate')" />--}}
                                     </div>
                               </div>
                         </div>
 
-                        <div class="col-lg-6  new-date-data-field">
+                        <div class="col-lg-6">
                             <div class="group-input input-date">
                                 <label for="notification_date">Notification Date</lable>
                                     <div class="calenderauditee">
-                                        <input type="text" id="notification_date" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="notification_date" name="notification_date" class="hide-input" oninput="handleDateInput(this, 'notification_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" id="notification_date" name="notification_date" class="hide-input">
+                                        {{--<input type="text" id="notification_date" placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="notification_date" name="notification_date" class="hide-input" oninput="handleDateInput(this, 'notification_date');checkDate('start_date_checkdate','end_date_checkdate')" />--}}
                                     </div>
                               </div>
                         </div>
@@ -523,6 +526,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="group-input">
                                 <label for="search">
@@ -567,7 +571,6 @@
                                             <th style="width: 10%">Comment</th>
                                             <th style="width: 16%">Remarks</th>
                                             <th style="width: 16%">Action</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -579,31 +582,31 @@
                                         <td><input type="text" name="product_material[0][Disposition]"></td>
                                         <td><input type="text" name="product_material[0][Comment]"></td>
                                         <td><input type="text" name="product_material[0][Remarks]"></td>
-                                        <td><input readonly type="text"></td>
+                                        <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                        {{--<td><input readonly type="text"></td>--}}
                                     </tbody>
-
                                 </table>
                             </div>
                         </div>
 
-                        <div class="col-lg-6  new-date-data-field">
+                        <div class="col-lg-6">
                             <div class="group-input input-date">
                                 <label for="date_sent">Date Sent</lable>
                                     <div class="calenderauditee">
-                                        <input type="text" id="date_sent" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_sent" name="date_sent" class="hide-input" oninput="handleDateInput(this, 'date_sent');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" id="date_sent" name="date_sent" class="hide-input">
+                                        {{--<input type="text" id="date_sent" placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_sent" name="date_sent" class="hide-input" oninput="handleDateInput(this, 'date_sent');checkDate('start_date_checkdate','end_date_checkdate')" />--}}
                                     </div>
-
-
                             </div>
                         </div>
 
-                        <div class="col-lg-6  new-date-data-field">
+                        <div class="col-lg-6">
                             <div class="group-input input-date">
                                 <label for="date_returned">Date Returned</lable>
                                     <div class="calenderauditee">
-                                        <input type="text" id="date_returned" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_returned" name="date_returned" class="hide-input" oninput="handleDateInput(this, 'date_returned');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" id="date_returned" name="date_returned" class="hide-input">
+                                        {{--<input type="text" id="date_returned" placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_returned" name="date_returned" class="hide-input" oninput="handleDateInput(this, 'date_returned');checkDate('start_date_checkdate','end_date_checkdate')" />--}}
                                     </div>
                             </div>
                         </div>
@@ -709,25 +712,17 @@
                                 <div class="group-input">
                                     <label for="Actual_Amount ">Closed By :</label>
                                     <div class="date"></div>
-
                                 </div>
                             </div>
+
                             <div class="col-6 pb-3">
                                 <div class="group-input">
-
                                     <label for="Division Code"><b>Closed On :</b></label>
                                     <div class="date"></div>
-
-
-
                                 </div>
                             </div>
-
-
-
-
-
                         </div>
+
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -737,11 +732,11 @@
                         </div>
                     </div>
                 </div>
-    </div>
-</div>
-</form>
+             </div>
+          </div>
+       </form>
 
-</div>
+    </div>
 </div>
 
 <style>
@@ -918,7 +913,7 @@
             success: function(data) {
                 data.forEach(city => {
                     const option = document.createElement('option');
-                    option.value = city.id;
+                    option.value = city.name;
                     option.textContent = city.name;
                     citySelect.appendChild(option);
                 });

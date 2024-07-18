@@ -36,14 +36,21 @@ class CorrespondenceController extends Controller{
 
             public function store(Request $request){
                     //dd($request->all());
+
+                    $recordCounter = RecordNumber::first();
+                    $newRecordNumber = $recordCounter->counter + 1;
+
+                    $recordCounter->counter = $newRecordNumber;
+                    $recordCounter->save();
+
                     $correspondence = new Correspondence();
                     $correspondence->form_type = "Correspondence";
-                    $correspondence->record = ((RecordNumber::first()->value('counter')) + 1);
+                    $correspondence->record = $newRecordNumber;
                     $correspondence->initiator_id = Auth::user()->id;
                     $correspondence->division_id = $request->division_id;
                     $correspondence->division_code = $request->division_code;
                     $correspondence->intiation_date = $request->intiation_date;
-                    $correspondence->due_date = Carbon::now()->addDays(30)->format('d-M-Y');
+                    $correspondence->due_date = $request->due_date;
                     $correspondence->parent_id = $request->parent_id;
                     $correspondence->parent_type = $request->parent_type;
                     $correspondence->short_description = $request->short_description;
@@ -382,12 +389,12 @@ class CorrespondenceController extends Controller{
                     $correspondence = Correspondence::findOrFail($id);
 
                     $correspondence->form_type = "Correspondence";
-                    $correspondence->record = ((RecordNumber::first()->value('counter')) + 1);
+                    //$correspondence->record = ((RecordNumber::first()->value('counter')) + 1);
                     $correspondence->initiator_id = Auth::user()->id;
                     $correspondence->division_id = $request->division_id;
                     $correspondence->division_code = $request->division_code;
                     $correspondence->intiation_date = $request->intiation_date;
-                    $correspondence->due_date = Carbon::now()->addDays(30)->format('d-M-Y');
+                    $correspondence->due_date = $request->due_date;
                     $correspondence->parent_id = $request->parent_id;
                     $correspondence->parent_type = $request->parent_type;
                     $correspondence->short_description = $request->short_description;
@@ -779,7 +786,7 @@ class CorrespondenceController extends Controller{
                     return back();
             }
 
-            public function Correspondence_send_stage(Request $request, $id){
+              public function Correspondence_send_stage(Request $request, $id){
 
                 if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
                     $correspondence_data = Correspondence::find($id);
@@ -804,7 +811,7 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Opened";
                         $history->change_to = "Response Preparation";
-                        $history->action_name = "Submit";
+                        $history->action = "Questions Recieved";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -831,7 +838,7 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Response Preparation";
                         $history->change_to = "Closed-Done";
-                        $history->action_name = "Submit";
+                        $history->action = "Finalize Response";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -871,7 +878,7 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Opened";
                         $history->change_to = "Closed-Cancelled";
-                        $history->action_name = "Submit";
+                        $history->action = "Cancel";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -897,7 +904,7 @@ class CorrespondenceController extends Controller{
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Response Preparation";
                         $history->change_to = "Closed-Cancelled";
-                        $history->action_name = "Submit";
+                        $history->action = "Cancel";
                         $history->stage = 'Plan Approved';
                         $history->save();
 

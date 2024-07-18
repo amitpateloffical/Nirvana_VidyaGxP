@@ -53,11 +53,12 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> Record Number </label>
+                                    <label for="Initiator">Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Subject_Action_Item/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Subject-Action-Item/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code</b></label>
@@ -66,13 +67,14 @@
                                     <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Initiator</b></label>
                                     <input disabled type="text" disabled name="initiation_id" value="{{ auth()->user()->name }}">
-
                                 </div>
                             </div>
+
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date of Initiation<span class="text-danger"></span></label>
@@ -100,11 +102,9 @@
                                                   <option value="{{ $user->id }}">{{ $user->name }}</option>
                                                 @endforeach
                                             @endif
-
                                     </select>
                                 </div>
                             </div>
-
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
@@ -119,9 +119,7 @@
                                 </div>
                             </div>
 
-
                             <div class="sub-head">Study Details</div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Root Parent) Trade Name</b></label>
@@ -136,21 +134,17 @@
                                         <option value="">--Select--</option>
                                         <option value="manish">Manish</option>
                                         <option value="pankaj">Pankaj</option>
-
                                     </select>
                                 </div>
                             </div>
 
-
                             <div class="sub-head">Subject Details</div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Subject Name</b></label>
                                     <input  type="text" name="subject_name_sd">
                                 </div>
                             </div>
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -163,7 +157,6 @@
                                     </select>
                                 </div>
                             </div>
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -184,11 +177,6 @@
                                 </div>
                             </div>
 
-
-
-
-
-
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
@@ -203,9 +191,7 @@
 
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
-
                         <div class="row">
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Clinical Efficacy</b></label>
@@ -284,7 +270,6 @@
                                         </thead>
                                         <tbody>
                                             <td><input disabled type="text" name="dfc_grid[0][serial]" value="1"></td>
-
                                             <td><input type="text" name="dfc_grid[0][Number]"></td>
                                             <td><input type="date" name="dfc_grid[0][Date]"></td>
                                             <td><input type="date" name="dfc_grid[0][SentDate]"></td>
@@ -335,7 +320,6 @@
                                 </div>
                             </div>
 
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <Label>Comments</Label>
@@ -349,8 +333,8 @@
                                     <textarea name="summary_ti"></textarea>
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -361,28 +345,24 @@
                     </div>
                 </div>
 
-
                 <div id="CCForm5" class="inner-block cctabcontent">
                     <div class="inner-block-content">
-
                         <div class="row">
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="cancelled by">Closed By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Closed on">Closed On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
-
-
-
                         </div>
+
                         <div class="button-block">
                         <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -394,7 +374,6 @@
                 </div>
             </div>
         </form>
-
     </div>
 </div>
 

@@ -465,7 +465,6 @@
                                         <input type="radio" name="child_type" id="child_type">
                                         Supplier Audit
                                     </label>
-
                                 </div>
                             </div>
 
@@ -503,7 +502,7 @@
                     </script>
                     <?php endif; ?>
 
-                    {{-- disabled field code start --}}
+                    {{-- disabled field code end --}}
 
                     <form id="target" action="{{ route('supplier_contract.update', $contract_data->id) }}"
                         method="POST" enctype="multipart/form-data">
@@ -525,7 +524,7 @@
                                             <div class="group-input">
                                                 <label for="Initiator">Record Number </label>
                                                 <input disabled type="text" name="record"
-                                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier_Contract/{{ date('Y') }}/{{ $record_number }}">
+                                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier-Contract/{{ date('Y') }}/{{ str_pad($contract_data->record, 4, '0', STR_PAD_LEFT) }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -558,11 +557,11 @@
                                         <div class="col-12">
                                             <div class="group-input">
                                                 <label for="Short Description">Short Description<span
-                                                        class="text-danger">*</span>
-                                                    <p>255 Characters remaining</p>
-                                                    <input id="docname" type="text" name="short_description_gi"
-                                                        maxlength="255" required
-                                                        value="{{ $contract_data->short_description_gi }}">
+                                                    class="text-danger">*</span>
+                                                  <p>255 Characters remaining</p>
+                                                  <input id="docname" type="text" name="short_description_gi"
+                                                   maxlength="255" required
+                                                   value="{{ $contract_data->short_description_gi }}">
                                             </div>
                                         </div>
 
@@ -582,7 +581,6 @@
                                                             </option>
                                                         @endforeach
                                                     @endif
-
                                                 </select>
                                             </div>
                                         </div>
@@ -815,11 +813,9 @@
                                                                     <a href="{{ asset('upload/' . $file) }}"
                                                                         target="_blank"><i class="fa fa-eye text-primary"
                                                                             style="font-size:20px; margin-right:-10px;"></i></a>
-                                                                    <a type="button" class="remove-file"
-                                                                        data-file-name="{{ $file }}"><i
-                                                                            class="fa-solid fa-circle-xmark"
-                                                                            style="color:red; font-size:20px;"></i></a>
+                                                                            <a type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
                                                                 </h6>
+
                                                             @endforeach
                                                         @endif
                                                     </div>
@@ -1017,19 +1013,18 @@
                                             <div class="group-input">
                                                 <label for="Victim"><b>Supplier Details By :</b></label>
                                                 <div class="">{{ $contract_data->supplier_details_submit_by }}</div>
-
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Supplier Details On : </b></label>
                                                 <div class="date">{{ $contract_data->supplier_details_submit_on }}</div>
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Supplier Details Comments : </b></label>
                                                 <div class="date">{{ $contract_data->supplier_details_submit_comment }}
                                                 </div>
@@ -1045,16 +1040,16 @@
                                             <div class="group-input">
                                                 <label for="Victim"><b>Supplier Cancelled By :</b></label>
                                                 <div class="">{{ $contract_data->open_cancel_by }}</div>
-
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Supplier Cancelled On : </b></label>
                                                 <div class="date">{{ $contract_data->open_cancel_on }}</div>
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
 
@@ -1072,19 +1067,18 @@
                                             <div class="group-input">
                                                 <label for="Victim"><b>Qualification Completed By :</b></label>
                                                 <div class="">{{ $contract_data->qualification_complete_by }}</div>
-
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Qualification Completed On : </b></label>
                                                 <div class="date">{{ $contract_data->qualification_complete_on }}</div>
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Qualification Completed Comments :
                                                     </b></label>
                                                 <div class="date">{{ $contract_data->qualification_complete_comment }}
@@ -1101,19 +1095,18 @@
                                             <div class="group-input">
                                                 <label for="Victim"><b>Qualification Cancelled By :</b></label>
                                                 <div class="">{{ $contract_data->qualification_cancel_by }}</div>
-
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Qualification Cancelled On : </b></label>
                                                 <div class="date">{{ $contract_data->qualification_cancel_on }}</div>
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Qualification Cancelled Comments :
                                                     </b></label>
                                                 <div class="date">{{ $contract_data->qualification_cancel_comment }}
@@ -1130,19 +1123,18 @@
                                             <div class="group-input">
                                                 <label for="Victim"><b>Audit Passed By :</b></label>
                                                 <div class="">{{ $contract_data->audit_passed_by }}</div>
-
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Audit Passed On : </b></label>
                                                 <div class="date">{{ $contract_data->audit_passed_on }}</div>
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Audit Passed Comments : </b></label>
                                                 <div class="date">{{ $contract_data->audit_passed_comment }}</div>
                                             </div>
@@ -1157,19 +1149,18 @@
                                             <div class="group-input">
                                                 <label for="Victim"><b>Audit Failed By :</b></label>
                                                 <div class="">{{ $contract_data->audit_failed_by }}</div>
-
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Audit Failed On : </b></label>
                                                 <div class="date">{{ $contract_data->audit_failed_on }}</div>
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Audit Failed Comments : </b></label>
                                                 <div class="date">{{ $contract_data->audit_failed_comment }}</div>
                                             </div>
@@ -1185,19 +1176,18 @@
                                             <div class="group-input">
                                                 <label for="Victim"><b>Quality Issues By :</b></label>
                                                 <div class="">{{ $contract_data->quality_issues_by }}</div>
-
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Quality Issues On : </b></label>
                                                 <div class="date">{{ $contract_data->quality_issues_on }}</div>
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Quality Issues Comments : </b></label>
                                                 <div class="date">{{ $contract_data->quality_issues_comment }}</div>
                                             </div>
@@ -1213,17 +1203,17 @@
                                                 <label for="Victim"><b>Supplier Obsoleted By :</b></label>
                                                 <div class="">{{ $contract_data->approve_supplier_obsolete_by }}
                                                 </div>
-
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Supplier Obsoleted On : </b></label>
                                                 <div class="date">{{ $contract_data->approve_supplier_obsolete_on }}
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
 
@@ -1243,19 +1233,18 @@
                                             <div class="group-input">
                                                 <label for="Victim"><b>Re-Audited By :</b></label>
                                                 <div class="">{{ $contract_data->re_audit_by }}</div>
-
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Re-Audited On : </b></label>
                                                 <div class="date">{{ $contract_data->re_audit_on }}</div>
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Re-Audited Comments : </b></label>
                                                 <div class="date">{{ $contract_data->re_audit_comment }}</div>
                                             </div>
@@ -1271,20 +1260,19 @@
                                                 <label for="Victim"><b>Pending Supplier Obsoleted By :</b></label>
                                                 <div class="">{{ $contract_data->reject_supplier_obsolete_by }}
                                                 </div>
-
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Pending Supplier Obsoleted On : </b></label>
                                                 <div class="date">{{ $contract_data->reject_supplier_obsolete_on }}
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Pending Supplier Obsoleted Comments :
                                                     </b></label>
                                                 <div class="date">{{ $contract_data->reject_supplier_obsolete_comment }}
@@ -1979,7 +1967,7 @@
         })
     </script>
 
-    {{-- Country Statecity API --}}
+    {{-- Country State City API --}}
     <script>
         var config = {
             cUrl: 'https://api.countrystatecity.in/v1',
@@ -2052,7 +2040,7 @@
                 success: function(data) {
                     data.forEach(city => {
                         const option = document.createElement('option');
-                        option.value = city.id;
+                        option.value = city.name;
                         option.textContent = city.name;
                         citySelect.appendChild(option);
                     });
@@ -2066,7 +2054,24 @@
             loadCountries();
         });
     </script>
-    {{-- Country Statecity API End --}}
+    {{-- Country State City API End --}}
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const removeButtons = document.querySelectorAll('.remove-file');
+
+            removeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const fileName = this.getAttribute('data-file-name');
+                    const fileContainer = this.closest('.file-container');
+
+                    // Hide the file container
+                    if (fileContainer) {
+                        fileContainer.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 
 @endsection

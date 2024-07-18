@@ -176,7 +176,7 @@
                     <strong>Subject Action Item No.</strong>{{ $item_data->id }}
                 </td>
                 <td class="w-40">
-                       {{ Helpers::getDivisionName($item_data->division_id) }}/Subject_Action_Item/{{ Helpers::year($item_data->created_at) }}/{{ $item_data->record }}
+                       {{ Helpers::getDivisionName($item_data->division_id) }}/Subject_Action_Item/{{ Helpers::year($item_data->created_at) }}/{{ str_pad($item_data->record, 4, '0', STR_PAD_LEFT) }}
                     {{--{{ Helpers::divisionNameForQMS($item_data->division_id) }}/{{ Helpers::year($item_data->created_at) }}/{{ $item_data->record_number ? str_pad($item_data->record_number->record_number, 4, '0', STR_PAD_LEFT) : '' }}--}}
                 </td>
                 <td class="w-30">
@@ -229,6 +229,7 @@
                             @endif
                         </td>
                     </tr>
+
                     <tr> {{ $item_data->created_at }} added by {{ $item_data->originator }}
                         <th class="w-20">Initiator</th>
                         <td class="w-30">{{ $item_data->originator }}</td>
@@ -236,6 +237,7 @@
                         <th class="w-20">Date of Initiation</th>
                         <td class="w-30">{{ Helpers::getdateFormat($item_data->created_at) }}</td>
                     </tr>
+
                     <tr>
                         <th class="w-20">Short Description</th>
                         <td class="w-30">
@@ -255,6 +257,7 @@
                     </tr>
                 </table>
             </div>
+
             <div class="block">
                 <div class="block-head">
                     Study Details
@@ -282,6 +285,7 @@
                     </tr>
                 </table>
             </div>
+
             <div class="block">
                 <div class="block-head">
                     Subject Details
@@ -322,9 +326,7 @@
 
                             @endif
                         </td>
-
                     </tr>
-
                 </table>
             </div>
             <div class="block">
@@ -364,7 +366,6 @@
                         <td class="w-30">
                             @if ($item_data->total_doses_recieved_ti)
                                 {{ $item_data->total_doses_recieved_ti }}
-
                             @endif
                         </td>
 
@@ -375,11 +376,9 @@
                         <td class="w-30">
                             @if ($item_data->treatment_effect_ti)
                                 {{ $item_data->treatment_effect_ti }}
-
                             @endif
                         </td>
                     </tr>
-
                 </table>
 
                 <table>
@@ -388,7 +387,6 @@
                         <td class="w-80">
                             @if ($item_data->comments_ti)
                                 {{ $item_data->comments_ti }}
-
                             @endif
                         </td>
                     </tr>
@@ -398,7 +396,6 @@
                         <td class="w-80">
                             @if ($item_data->summary_ti)
                                 {{ $item_data->summary_ti }}
-
                             @endif
                         </td>
                       </tr>
@@ -413,9 +410,9 @@
                 <div class="border-table">
                     <table>
                         <tr class="table_bg">
-                            <th class="w-10">Sr. no.</th>
+                            <th class="w-10">Sr. No.</th>
                             <th class="w-10">Number</th>
-                            <th class="w-20"> Date</th>
+                            <th class="w-20">Date</th>
                             <th class="w-20">Sent Date</th>
                             <th class="w-20">Returned Date</th>
                             <th class="w-20">Data Collection Method </th>
@@ -462,9 +459,9 @@
                     <div class="border-table">
                         <table>
                             <tr class="table_bg">
-                                <th class="w-10">SR no.</th>
+                                <th class="w-10">Sr. No.</th>
                                 <th class="w-20">Item Description</th>
-                                <th class="w-20"> Date</th>
+                                <th class="w-20">Date</th>
                                 <th class="w-20">Sent Date</th>
                                 <th class="w-20">Returned Date</th>
                                 <th class="w-20">Comment</th>
@@ -498,9 +495,6 @@
                     {{-- </div> --}}
                 </div>
             <div>
-
-
-
-</body>
+       </body>
 
 </html>

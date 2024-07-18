@@ -807,7 +807,7 @@ border-radius:10px;
             </script>
         <?php endif; ?>
 
-        {{--disabled field code start--}}
+        {{--disabled field code end--}}
 
         <form id="target" action="{{ route('cta_amendement.update', $amendement_data->id) }}" method="POST"  enctype="multipart/form-data">
             @csrf
@@ -827,9 +827,9 @@ border-radius:10px;
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> Record Number </label>
+                                    <label for="Initiator">Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTA_Amendement/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTA-Amendement/{{ date('Y') }}/{{ str_pad($amendement_data->record, 4, '0', STR_PAD_LEFT) }}">
                                 </div>
                             </div>
 
@@ -842,12 +842,14 @@ border-radius:10px;
                                     {{-- <div class="static">QMS-North America</div> --}}
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator">Initiator</label>
                                     <input disabled type="text" name="initiator_id" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input ">
                                     <label for="Date Of Initiation"><b>Date Of Initiation</b></label>
@@ -883,8 +885,8 @@ border-radius:10px;
                                     <label for="Due Date">Date Due</label>
                                     <p class="text-primary"> last date this record should be closed by</p>
                                     <div class="calenderauditee">
-                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
-                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}">
+                                        <input  type="hidden" value="{{ $amendement_data->due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ Helpers::getdateFormat($amendement_data->due_date) }}">
                                     </div>
                                 </div>
                             </div>
@@ -973,6 +975,7 @@ border-radius:10px;
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="search">
@@ -983,6 +986,7 @@ border-radius:10px;
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="search">
@@ -993,6 +997,7 @@ border-radius:10px;
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="search">
@@ -1003,6 +1008,7 @@ border-radius:10px;
                                     </select>
                                 </div>
                             </div>
+
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -1024,18 +1030,21 @@ border-radius:10px;
                                     <input type="number" name="procedure_number" id="procedure_number" value="{{ $amendement_data->procedure_number }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Project Code">Project Code</label>
                                     <input type="text" name="project_code" id="project_code" value="{{ $amendement_data->project_code }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Registration Number">Registration Number</label>
                                     <input type="number" name="registration_number" id="registration_number" value="{{ $amendement_data->registration_number }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Other Authority">Other Authority</label>
@@ -1055,6 +1064,7 @@ border-radius:10px;
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Authority">Authority</label>
@@ -1067,6 +1077,7 @@ border-radius:10px;
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Year">Year</label>
@@ -1095,6 +1106,7 @@ border-radius:10px;
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="CAR Clouser Time Weight">CAR Clouser Time Weight</label>
@@ -1108,6 +1120,7 @@ border-radius:10px;
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Outcome">Outcome</label>
@@ -1135,7 +1148,6 @@ border-radius:10px;
                                     <input type="text" name="estimated_man_hours" id="estimated_man_hours" value="{{ $amendement_data->estimated_man_hours }}">
                                 </div>
                             </div>
-
 
                             <div class="col-md-12">
                                 <div class="group-input">
@@ -1455,12 +1467,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->submit_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Submitted On : </b></label>
                                         <div class="date">{{ $amendement_data->submit_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Submitted Comments : </b></label>
@@ -1479,12 +1493,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->cancel_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Cancelled On : </b></label>
                                         <div class="date">{{ $amendement_data->cancel_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Cancelled Comments : </b></label>
@@ -1503,12 +1519,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->notification_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Notified On : </b></label>
                                         <div class="date">{{ $amendement_data->notification_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Notified Comments : </b></label>
@@ -1527,12 +1545,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->finalize_dossier_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Finalized Dossier On : </b></label>
                                         <div class="date">{{ $amendement_data->finalize_dossier_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Finalized Dossier Comments : </b></label>
@@ -1551,12 +1571,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->withdraw_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Withdraw On : </b></label>
                                         <div class="date">{{ $amendement_data->withdraw_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Withdraw Comments : </b></label>
@@ -1575,12 +1597,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->approve_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Approved On : </b></label>
                                         <div class="date">{{ $amendement_data->approve_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Approved Comments : </b></label>
@@ -1599,12 +1623,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->not_approved_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Not Approved On : </b></label>
                                         <div class="date">{{ $amendement_data->not_approved_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Not Approved Comments : </b></label>
@@ -1623,12 +1649,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->management_withdraw_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Management Withdraw On : </b></label>
                                         <div class="date">{{ $amendement_data->management_withdraw_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Management Withdraw Comments : </b></label>
@@ -1647,12 +1675,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->management_approved_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Approved with Conditions On : </b></label>
                                         <div class="date">{{ $amendement_data->management_approved_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Approved with Conditions Comments : </b></label>
@@ -1671,12 +1701,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->no_conditions_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>No Conditions to Fulfill Before FPI On : </b></label>
                                         <div class="date">{{ $amendement_data->no_conditions_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>No Conditions to Fulfill Before FPI Comments : </b></label>
@@ -1695,12 +1727,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->conditions_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Conditions to Fulfill Before FPI On : </b></label>
                                         <div class="date">{{ $amendement_data->conditions_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Conditions to Fulfill Before FPI Comments : </b></label>
@@ -1719,12 +1753,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->submit_response_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Response submitted On : </b></label>
                                         <div class="date">{{ $amendement_data->submit_response_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Response submitted Comments : </b></label>
@@ -1743,12 +1779,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->all_conditions_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>All Conditions/Comments are met On : </b></label>
                                         <div class="date">{{ $amendement_data->all_conditions_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>All Conditions Met Comments : </b></label>
@@ -1767,12 +1805,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->early_termination_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Early Terminated On : </b></label>
                                         <div class="date">{{ $amendement_data->early_termination_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Early Terminated Comments : </b></label>
@@ -1791,12 +1831,14 @@ border-radius:10px;
                                         <div class="">{{ $amendement_data->more_comments_by }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Most Commented On : </b></label>
                                         <div class="date">{{ $amendement_data->more_comments_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
                                         <label for="Division Code"><b>Most Commented : </b></label>
@@ -1979,7 +2021,7 @@ border-radius:10px;
     })
 </script>
 
-     {{--Country Statecity API--}}
+     {{--Country State City API--}}
     <script>
         var config = {
             cUrl: 'https://api.countrystatecity.in/v1',
@@ -2052,7 +2094,7 @@ border-radius:10px;
                 success: function(data) {
                     data.forEach(city => {
                         const option = document.createElement('option');
-                        option.value = city.id;
+                        option.value = city.name;
                         option.textContent = city.name;
                         citySelect.appendChild(option);
                     });
@@ -2066,9 +2108,25 @@ border-radius:10px;
             loadCountries();
         });
     </script>
-{{--Country Statecity API End--}}
+{{--Country State City API End--}}
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const removeButtons = document.querySelectorAll('.remove-file');
 
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const fileName = this.getAttribute('data-file-name');
+                const fileContainer = this.closest('.file-container');
+
+                // Hide the file container
+                if (fileContainer) {
+                    fileContainer.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
 
 
 @endsection

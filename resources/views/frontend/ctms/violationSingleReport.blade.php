@@ -176,7 +176,7 @@
                     <strong>Violation No.</strong>{{ $violation_data->id }}
                 </td>
                 <td class="w-40">
-                       {{ Helpers::getDivisionName($violation_data->division_id) }}/Violation/{{ Helpers::year($violation_data->created_at) }}/{{ $violation_data->record }}
+                       {{ Helpers::getDivisionName($violation_data->division_id) }}/Violation/{{ Helpers::year($violation_data->created_at) }}/{{ str_pad($violation_data->record, 4, '0', STR_PAD_LEFT) }}
                     {{--{{ Helpers::divisionNameForQMS($violation_data->division_id) }}/{{ Helpers::year($violation_data->created_at) }}/{{ $violation_data->record_number ? str_pad($violation_data->record_number->record_number, 4, '0', STR_PAD_LEFT) : '' }}--}}
                 </td>
                 <td class="w-30">

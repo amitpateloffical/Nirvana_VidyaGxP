@@ -95,7 +95,7 @@
                                 <div class="group-input">
                                     <label for="Initiator"> Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier_Contract/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier-Contract/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -126,8 +126,8 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span>
-                                        <p>255 Characters remaining</p>
-                                        <input id="docname" type="text" name="short_description_gi" maxlength="255" required>
+                                    <p>255 Characters remaining</p>
+                                    <input id="docname" type="text" name="short_description_gi" maxlength="255" required>
                                 </div>
                             </div>
 
@@ -247,9 +247,9 @@
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Manufacturer</b></label>
                                     <input type="text" name="manufacturer_gi" value="">
-
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Priority level</label>
@@ -277,6 +277,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Country</b></label>
@@ -294,7 +295,6 @@
                                     <select name="state" class="form-select state" aria-label="Default select example" onchange="loadCities()">
                                         <option value="">Select State/District</option>
                                     </select>
-
                                 </div>
                             </div>
 
@@ -326,7 +326,6 @@
                                     <label for="RLS Record Number"><b>Other type</b></label>
                                     <p class="text-primary">If you choose "other" -please specify</p>
                                     <input type="text" name="other_type" value="">
-
                                 </div>
                             </div>
 
@@ -420,7 +419,6 @@
                                             <th style="width: 16%">Currency Used</th>
                                             <th style="width: 16%">Remarks</th>
                                             <th style="width: 16%">Action</th>
-
                                         </tr>
                                     </thead>
 
@@ -446,7 +444,6 @@
                                     <textarea name="comments_cd"></textarea>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="button-block">
@@ -467,15 +464,12 @@
                                 <div class="group-input">
                                     <label for="Victim">Signed By :</label>
                                     <div class="static"></div>
-
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
-
                                     <label for="Division Code"><b>Signed On :</b></label>
                                     <div class="date"></div>
-
                                </div>
                             </div>
 
@@ -1227,7 +1221,7 @@
                 success: function(data) {
                     data.forEach(city => {
                         const option = document.createElement('option');
-                        option.value = city.id;
+                        option.value = city.name;
                         option.textContent = city.name;
                         citySelect.appendChild(option);
                     });

@@ -38,9 +38,16 @@ class ViolationController extends Controller
 
             public function store(Request $request){
                     //dd($request->all());
+
+                    $recordCounter = RecordNumber::first();
+                    $newRecordNumber = $recordCounter->counter + 1;
+
+                    $recordCounter->counter = $newRecordNumber;
+                    $recordCounter->save();
+
                     $violation = new Violation();
                     $violation->form_type = "Violation";
-                    $violation->record = ((RecordNumber::first()->value('counter')) + 1);
+                    $violation->record = $newRecordNumber;
                     $violation->initiator_id = Auth::user()->id;
                     $violation->division_id = $request->division_id;
                     $violation->division_code = $request->division_code;
@@ -601,7 +608,7 @@ class ViolationController extends Controller
                     $violation = Violation::findOrFail($id);
 
                     $violation->form_type = "Violation";
-                    $violation->record = ((RecordNumber::first()->value('counter')) + 1);
+                    //$violation->record = ((RecordNumber::first()->value('counter')) + 1);
                     $violation->initiator_id = Auth::user()->id;
                     $violation->division_id = $request->division_id;
                     $violation->division_code = $request->division_code;
@@ -1290,7 +1297,7 @@ class ViolationController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Opened";
                         $history->change_to = "Pending Completion Activities";
-                        $history->action_name = "Submit";
+                        $history->action = "Pending Completion";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -1317,7 +1324,7 @@ class ViolationController extends Controller
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->change_from = "Pending Completion Activities";
                         $history->change_to = "Closed-Done";
-                        $history->action_name = "Submit";
+                        $history->action = "Close";
                         $history->stage = 'Plan Approved';
                         $history->save();
 
@@ -1355,7 +1362,7 @@ class ViolationController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Opened";
                             $history->change_to = "Closed-Cancelled";
-                            $history->action_name = "Submit";
+                            $history->action = "Cancel";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -1380,7 +1387,7 @@ class ViolationController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Pending Completion Activities";
                             $history->change_to = "Closed-Cancelled";
-                            $history->action_name = "Submit";
+                            $history->action = "Cancel";
                             $history->stage = 'Plan Approved';
                             $history->save();
 

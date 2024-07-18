@@ -381,7 +381,7 @@
         </script>
         <?php endif; ?>
 
-        {{--disabled field code start--}}
+        {{--disabled field code end--}}
 
         <form id="target" action="{{ route('violation.update', $violation_data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -401,9 +401,9 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator"> Record Number </label>
+                                    <label for="Initiator">Record Number </label>
                                     <input disabled type="text" name="record"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Violation/{{ date('Y') }}/{{ $record_number }}">
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Violation/{{ date('Y') }}/{{ str_pad($violation_data->record, 4, '0', STR_PAD_LEFT) }}">
                                 </div>
                             </div>
 
@@ -427,13 +427,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Date Opened">Date of Initiation</label>
-                                    <input readonly type="text" value="{{ date('d-M-Y', strtotime($violation_data->intiation_date)) }}" name="intiation_date">
-                                    <input type="hidden" value="{{ date('Y-m-d', strtotime($violation_data->intiation_date)) }}" name="intiation_date">
-                                </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Date Opened">Date of Initiation</label>
+                                 <input readonly type="text" value="{{ date('d-M-Y', strtotime($violation_data->intiation_date)) }}" name="intiation_date">
+                                 <input type="hidden" value="{{ date('d-M-Y', strtotime($violation_data->intiation_date)) }}" name="intiation_date">
                             </div>
+                        </div>
 
                         <div class="col-12">
                             <div class="group-input">
@@ -464,8 +464,8 @@
                                 <label for="due-date">Due Date <span class="text-danger"></span></label>
                                 <p class="text-primary">Please mention expected date of completion</p>
                                   <div class="calenderauditee">
-                                    <input  type="hidden" value="{{ $due_date }}" name="due_date">
-                                    <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}">
+                                    <input  type="hidden" value="{{ $violation_data->due_date }}" name="due_date">
+                                    <input disabled type="text" value="{{ Helpers::getdateFormat($violation_data->due_date) }}">
                                 </div>
                             </div>
                         </div>
@@ -486,6 +486,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="group-input">
                                 <label for="search">
@@ -500,6 +501,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="search">
@@ -516,6 +518,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="closure attachment">File Attachments </label>
@@ -549,7 +552,6 @@
                             </div>
                         </div>
 
-
                         <div class="sub-head">
                             Location
                         </div>
@@ -571,6 +573,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="group-input">
                                 <label for="search">
@@ -623,6 +626,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="group-input">
                                 <label for="search">
@@ -679,8 +683,8 @@
                                 </select>
                             </div>
                         </div>
-
                     </div>
+
                     <div class="button-block">
                         <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="nextButton" onclick="nextStep()">Next</button>
@@ -696,22 +700,24 @@
                     <div class="row">
                         <div class="sub-head col-12">Violation Information</div>
 
-                        <div class="col-lg-6  new-date-data-field">
+                        <div class="col-lg-6">
                             <div class="group-input input-date">
                                 <label for="date_occured">Date Occured</lable>
                                     <div class="calenderauditee">
-                                        <input type="text" value="{{ date('d-M-Y', strtotime($violation_data->date_occured)) }}" id="date_occured" name="date_occured" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" value="{{ date('d-M-Y', strtotime($violation_data->date_occured)) }}" id="end_date_checkdate" name="date_occured" class="hide-input" oninput="handleDateInput(this, 'date_occured');checkDate('start_date_checkdate','end_date_checkdate')"/>
+                                        {{--<input type="text" value="{{ \Carbon\Carbon::parse($violation_data->date_occured)->format('d-M-Y') }}" id="date_occured" name="date_occured" placeholder="DD-MMM-YYYY" />
+                                        <input type="date" value="{{ \Carbon\Carbon::parse($violation_data->date_occured)->format('d-M-Y') }}" id="date_occured" name="date_occured" class="hide-input" oninput="handleDateInput(this, 'date_occured');checkDate('start_date_checkdate','end_date_checkdate')"/>--}}
+                                        <input type="date" value="{{ $violation_data->date_occured }}" id="date_occured" name="date_occured" />
                                     </div>
                               </div>
                         </div>
 
-                        <div class="col-lg-6  new-date-data-field">
+                        <div class="col-lg-6">
                             <div class="group-input input-date">
                                 <label for="notification_date">Notification Date</lable>
                                     <div class="calenderauditee">
-                                        <input type="text" value="{{ \Carbon\Carbon::parse($violation_data->notification_date)->format('d-M-Y') }}" id="notification_date" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" value="{{ \Carbon\Carbon::parse($violation_data->notification_date)->format('d-M-Y') }}" id="notification_date" name="notification_date" class="hide-input" oninput="handleDateInput(this, 'notification_date');checkDate('start_date_checkdate','end_date_checkdate')"/>
+                                        <input type="date" value="{{ $violation_data->notification_date }}" id="notification_date" name="notification_date" />
+                                        {{--<input type="text" value="{{ \Carbon\Carbon::parse($violation_data->notification_date)->format('d-M-Y') }}" id="notification_date" placeholder="DD-MMM-YYYY" />
+                                        <input type="date" value="{{ \Carbon\Carbon::parse($violation_data->notification_date)->format('d-M-Y') }}" id="notification_date" name="notification_date" class="hide-input" oninput="handleDateInput(this, 'notification_date');checkDate('start_date_checkdate','end_date_checkdate')"/>--}}
                                     </div>
                               </div>
                         </div>
@@ -760,6 +766,7 @@
                                 </select>
                             </div>
                         </div>
+
                         <div class="col-md-6">
                             <div class="group-input">
                                 <label for="search">
@@ -822,7 +829,7 @@
                                             <td><input type="text" name="product_material[{{ $loop->index }}][Disposition]" value="{{ isset($item['Disposition']) ? $item['Disposition'] : '' }}"></td>
                                             <td><input type="text" name="product_material[{{ $loop->index }}][Comment]" value="{{ isset($item['Comment']) ? $item['Comment'] : '' }}"></td>
                                             <td><input type="text" name="product_material[{{ $loop->index }}][Remarks]" value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}"></td>
-                                            <td><input readonly type="text"></td>
+                                            <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                         </tr>
                                         @endforeach
                                        @endif
@@ -831,25 +838,25 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6  new-date-data-field">
+                        <div class="col-lg-6">
                             <div class="group-input input-date">
                                 <label for="date_sent">Date Sent</lable>
-                                    <div class="calenderauditee">
-                                        <input type="text" value="{{ \Carbon\Carbon::parse($violation_data->date_sent)->format('d-M-Y') }}" name="date_sent" id="date_sent" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" value="{{ \Carbon\Carbon::parse($violation_data->date_sent)->format('d-M-Y') }}" id="date_sent" name="date_sent" class="hide-input" oninput="handleDateInput(this, 'date_sent');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                    </div>
-
-
+                                <div class="calenderauditee">
+                                    <input type="date" value="{{ $violation_data->date_sent }}" id="date_sent" name="date_sent" />
+                                    {{--<input type="text" value="{{ \Carbon\Carbon::parse($violation_data->date_sent)->format('d-M-Y') }}" name="date_sent" id="date_sent" placeholder="DD-MMM-YYYY" />
+                                    <input type="date" value="{{ \Carbon\Carbon::parse($violation_data->date_sent)->format('d-M-Y') }}" id="date_sent" name="date_sent" class="hide-input" oninput="handleDateInput(this, 'date_sent');checkDate('start_date_checkdate','end_date_checkdate')" />--}}
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-lg-6  new-date-data-field">
+                        <div class="col-lg-6">
                             <div class="group-input input-date">
                                 <label for="date_returned">Date Returned</lable>
-                                    <div class="calenderauditee">
-                                        <input type="text" value="{{ \Carbon\Carbon::parse($violation_data->date_returned)->format('d-M-Y') }}" id="date_returned" placeholder="DD-MMM-YYYY" />
-                                        <input type="date" value="{{ \Carbon\Carbon::parse($violation_data->date_returned)->format('d-M-Y') }}" id="date_returned" name="date_returned" class="hide-input" oninput="handleDateInput(this, 'date_returned');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                    </div>
+                                <div class="calenderauditee">
+                                    <input type="date" value="{{ $violation_data->date_returned }}" id="date_returned" name="date_returned" />
+                                    {{--<input type="text" value="{{ \Carbon\Carbon::parse($violation_data->date_returned)->format('d-M-Y') }}" id="date_returned" placeholder="DD-MMM-YYYY" />
+                                    <input type="date" value="{{ \Carbon\Carbon::parse($violation_data->date_returned)->format('d-M-Y') }}" id="date_returned" name="date_returned" class="hide-input" oninput="handleDateInput(this, 'date_returned');checkDate('start_date_checkdate','end_date_checkdate')" />--}}
+                                </div>
                             </div>
                         </div>
 
@@ -954,19 +961,18 @@
                                     <div class="group-input">
                                         <label for="Victim"><b>Pending Completed By :</b></label>
                                         <div class="">{{ $violation_data->pending_completion_by }}</div>
-
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
-
                                         <label for="Division Code"><b>Pending Completed On : </b></label>
                                         <div class="date">{{ $violation_data->pending_completion_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
-
                                         <label for="Division Code"><b>Pending Completed Comments : </b></label>
                                         <div class="date">{{ $violation_data->pending_completion_comment }}</div>
                                     </div>
@@ -981,19 +987,18 @@
                                     <div class="group-input">
                                         <label for="Victim"><b>Initiator Cancelled By :</b></label>
                                         <div class="">{{ $violation_data->initiate_cancel_by }}</div>
-
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
-
                                         <label for="Division Code"><b>Initiator Cancelled On : </b></label>
                                         <div class="date">{{ $violation_data->initiate_cancel_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
-
                                         <label for="Division Code"><b>Initiator Cancelled Comments : </b></label>
                                         <div class="date">{{ $violation_data->initiate_cancel_comment }}</div>
                                     </div>
@@ -1009,19 +1014,18 @@
                                     <div class="group-input">
                                         <label for="Victim"><b>Closed By :</b></label>
                                         <div class="">{{ $violation_data->close_by }}</div>
-
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
-
                                         <label for="Division Code"><b>Closed On : </b></label>
                                         <div class="date">{{ $violation_data->close_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
-
                                         <label for="Division Code"><b>Closed Comments : </b></label>
                                         <div class="date">{{ $violation_data->close_comment }}</div>
                                     </div>
@@ -1036,19 +1040,18 @@
                                     <div class="group-input">
                                         <label for="Victim"><b>CS/CTM Cancelled By :</b></label>
                                         <div class="">{{ $violation_data->cs_ctm_cancel_by }}</div>
-
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
-
                                         <label for="Division Code"><b>CS/CTM Cancelled On : </b></label>
                                         <div class="date">{{ $violation_data->cs_ctm_cancel_on }}</div>
                                     </div>
                                 </div>
+
                                 <div class="col-4">
                                     <div class="group-input">
-
                                         <label for="Division Code"><b>CS/CTM Cancelled Comments : </b></label>
                                         <div class="date">{{ $violation_data->cs_ctm_cancel_comment }}</div>
                                     </div>
@@ -1170,7 +1173,7 @@
     });
 </script>
 
-{{--Country Statecity API--}}
+{{--Country State City API--}}
 <script>
     var config = {
         cUrl: 'https://api.countrystatecity.in/v1',
@@ -1243,7 +1246,7 @@
             success: function(data) {
                 data.forEach(city => {
                     const option = document.createElement('option');
-                    option.value = city.id;
+                    option.value = city.name;
                     option.textContent = city.name;
                     citySelect.appendChild(option);
                 });
@@ -1259,7 +1262,24 @@
 
 
 </script>
-{{--Country Statecity API End--}}
+{{--Country State City API End--}}
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const removeButtons = document.querySelectorAll('.remove-file');
+
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const fileName = this.getAttribute('data-file-name');
+                const fileContainer = this.closest('.file-container');
+
+                // Hide the file container
+                if (fileContainer) {
+                    fileContainer.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
 
 @endsection

@@ -176,7 +176,7 @@
                     <strong>GCP-Study No.</strong>{{ $study_data->id }}
                 </td>
                 <td class="w-40">
-                       {{ Helpers::getDivisionName($study_data->division_id) }}/GCP_Study/{{ Helpers::year($study_data->created_at) }}/{{ $study_data->record }}
+                       {{ Helpers::getDivisionName($study_data->division_id) }}/GCP_Study/{{ Helpers::year($study_data->created_at) }}/{{ str_pad($study_data->record, 4, '0', STR_PAD_LEFT) }}
                     {{--{{ Helpers::divisionNameForQMS($study_data->division_id) }}/{{ Helpers::year($study_data->created_at) }}/{{ $study_data->record_number ? str_pad($study_data->record_number->record_number, 4, '0', STR_PAD_LEFT) : '' }}--}}
                 </td>
                 <td class="w-30">
@@ -214,8 +214,8 @@
                     <tr>
                         <th class="w-20">Record Number</th>
                         <td class="w-30">
-                            @if ($study_data->record_number)
-                                {{ str_pad($study_data->record_number->record_number, 4, '0', STR_PAD_LEFT) }}
+                            @if ($study_data->record)
+                                {{ str_pad($study_data->record, 4, '0', STR_PAD_LEFT) }}
                             @else
                                 Not Applicable
                             @endif
@@ -230,6 +230,7 @@
                             @endif
                         </td>
                     </tr>
+
                     <tr> {{ $study_data->created_at }} added by {{ $study_data->originator }}
                         <th class="w-20">Initiator</th>
                         <td class="w-30">{{ $study_data->originator }}</td>
@@ -237,6 +238,7 @@
                         <th class="w-20">Date of Initiation</th>
                         <td class="w-30">{{ Helpers::getdateFormat($study_data->created_at) }}</td>
                     </tr>
+
                     <tr>
                         <th class="w-20">Short Description</th>
                         <td class="w-30">
@@ -250,8 +252,6 @@
                         <th class="w-20">Assign To</th>
 
                         <td class="w-80">{{ $study_data->assign_to_gi }}</td>
-
-
                     </tr>
 
                     <tr>
@@ -260,7 +260,6 @@
 
                         <th class="w-20">Department</th>
                         <td class="w-80">{{ $study_data->department_gi }}</td>
-
                     </tr>
 
                     </tr>
@@ -289,6 +288,7 @@
                             @endif
                         </td>
                     </tr>
+
                     <tr>
                         <th class="w-20">Study Title</th>
                         <td class="w-30">
@@ -305,6 +305,7 @@
                             @endif
                         </td>
                     </tr>
+
                     <tr>
                         <th class="w-20">Study Protocol Number</th>
                         <td class="w-80">{{ $study_data->study_protocol_number_sd }}</td>
@@ -365,11 +366,10 @@
 
                             @endif
                         </td>
-
                     </tr>
-
                 </table>
             </div>
+
             <div class="block">
                 <div class="block-head">
                     GCP Details
@@ -410,7 +410,6 @@
 
                             @endif
                         </td>
-
                     </tr>
 
                     <tr>
@@ -457,7 +456,6 @@
 
                             @endif
                         </td>
-
                     </tr>
                 </table>
             </div>
@@ -470,7 +468,7 @@
                 <div class="border-table">
                     <table>
                         <tr class="table_bg">
-                            <th class="w-10">SR no.</th>
+                            <th class="w-10">Sr. No.</th>
                             <th class="w-10">Number</th>
                             <th class="w-20">Audit Frequency</th>
                             <th class="w-20">Current</th>
@@ -512,7 +510,7 @@
                     <div class="border-table">
                         <table>
                             <tr class="table_bg">
-                                <th class="w-10">SR no.</th>
+                                <th class="w-10">Sr. No.</th>
                                 <th class="w-20">Audit Site</th>
                                 <th class="w-10">Site No.</th>
                                 <th class="w-20">Investigator</th>
@@ -553,6 +551,7 @@
                     Important Date
                 </div>
                 <table>
+
                     <tr>
                         <th class="w-20">Initiation Date</th>
                         <td class="w-30">
@@ -587,7 +586,6 @@
 
                             @endif
                         </td>
-
                     </tr>
 
                     <tr>
@@ -624,10 +622,9 @@
 
                             @endif
                         </td>
-
                     </tr>
-
                 </table>
+
             </div>
         </div>
     </div>

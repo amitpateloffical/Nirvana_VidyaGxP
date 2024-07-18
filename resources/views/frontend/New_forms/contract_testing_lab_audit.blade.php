@@ -89,10 +89,11 @@
                                 Audit Information
                             </div>
 
+                            {{--CTL Audit No.--}}
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Initiator">CTL Audit No.</label>
-                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTL_Audit/{{ date('Y') }}/{{ $record_number }}">
+                                    <label for="Initiator">Record Number</label>
+                                    <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/CTL-Audit/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
 
@@ -552,7 +553,7 @@
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Name</th>
                                                 <th style="width: 16%">Designation/Position</th>
-                                                <th style="width: 16%">Action</th>
+                                                <th style="width: 10%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -582,7 +583,7 @@
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Name</th>
                                                 <th style="width: 16%">Designation/Position</th>
-                                                <th style="width: 16%">Action</th>
+                                                <th style="width: 10%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

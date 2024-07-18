@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\RoleGroup;
 use App\Models\GcpStudyAuditTrail;
 use App\Models\QMSDivision;
+use App\Models\Department;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\App;
 use Carbon\Carbon;
@@ -24,22 +25,31 @@ class GcpStudyController extends Controller
             $old_record = GcpStudy::select('id', 'division_id', 'record')->get();
             $record_number = ((RecordNumber::first()->value('counter')) + 1);
             $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
+
             $users = User::all();
             $qmsDevisions = QMSDivision::all();
-            //dd($qmsDevisions);
+            $departments = Department::all();
+
 
             //due date
             $currentDate = Carbon::now();
             $formattedDate = $currentDate->addDays(30);
             $due_date = $formattedDate->format('Y-m-d');
 
-            return view('frontend.new_forms.GCP_study',compact('old_record','record_number','users','qmsDevisions','due_date'));
+            return view('frontend.new_forms.GCP_study',compact('old_record','record_number','users','qmsDevisions','due_date','departments'));
         }
         public function store(Request $request){
             //dd($request->all());
+
+                $recordCounter = RecordNumber::first();
+                $newRecordNumber = $recordCounter->counter + 1;
+
+                $recordCounter->counter = $newRecordNumber;
+                $recordCounter->save();
+
                 $study = new GcpStudy();
                 $study->form_type = "Gcp-study";
-                $study->record = ((RecordNumber::first()->value('counter')) + 1);
+                $study->record = $newRecordNumber;
                 $study->initiator_id = Auth::user()->id;
                 $study->division_id = $request->division_id;
                 $study->division_code = $request->division_code;
@@ -155,31 +165,15 @@ class GcpStudyController extends Controller
                     $history->save();
                 }
 
-                //$departments = [
-                //    'CQA' => 'Corporate Quality Assurance',
-                //    'QAB' => 'Quality Assurance Biopharma',
-                //    'CQC' => 'Central Quality Control',
-                //    'MANU' => 'Manufacturing',
-                //    'PSG' => 'Plasma Sourcing Group',
-                //    'CS' => 'Central Stores',
-                //    'ITG' => 'Information Technology Group',
-                //    'MM' => 'Molecular Medicine',
-                //    'CL' => 'Central Laboratory',
-                //    'TT' => 'Tech team',
-                //    'QA' => 'Quality Assurance',
-                //    'QM' => 'Quality Management',
-                //    'IA' => 'IT Administration',
-                //    'ACC' => 'Accounting',
-                //    'LOG' => 'Logistics',
-                //    'SM' => 'Senior Management',
-                //    'BA' => 'Business Administration'
-                //];
 
                 if(!empty($request->department_gi)){
+
+                    $department_name = Department::where('id', $request->department_gi)->value('name');
+
                     $history = new GcpStudyAuditTrail();
                     $history->gcp_study_id = $study->id;
                     $history->previous = "Null";
-                    $history->current = $request->department_gi;
+                    $history->current = $department_name;
                     $history->activity_type = 'Department';
                     $history->user_id = Auth::user()->id;
                     $history->user_name = Auth::user()->name;
@@ -631,15 +625,16 @@ class GcpStudyController extends Controller
                     return redirect(url('rcms/qms-dashboard'));
 
         }
-              public function edit($id){
+        public function edit($id){
 
                     $study_data = GcpStudy::findOrFail($id);
                     //dd($study_data);
                     $old_record = GcpStudy::select('id', 'division_id', 'record')->get();
                     $record_number = ((RecordNumber::first()->value('counter')) + 1);
                     $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
+
                     $users = User::all();
-                    //$qmsDevisions = QMSDivision::all();
+                    $departments = Department::all();
                     $divisionName = DB::table('q_m_s_divisions')->where('id', $study_data->division_id)->value('name');
 
                     //due date
@@ -653,17 +648,17 @@ class GcpStudyController extends Controller
                     $grid_DataA = GcpStudyGrid::where(['gcp_study_id' => $g_id, 'identifier' => 'audit_site_information'])->first();
                     $grid_DataS = GcpStudyGrid::where(['gcp_study_id' => $g_id, 'identifier' => 'study_site_information'])->first();
 
-                    return view('frontend.new_forms.GCP_study_view',compact('study_data','old_record','record_number','users','due_date','grid_DataA','grid_DataS','divisionName'));
-                }
+                    return view('frontend.new_forms.GCP_study_view',compact('study_data','old_record','record_number','users','due_date','grid_DataA','grid_DataS','divisionName','departments'));
+        }
 
-              public function update(Request $request, $id){
+        public function update(Request $request, $id){
 
                     $study_data = GcpStudy::findOrFail($id);
 
                     $study = GcpStudy::findOrFail($id);
 
                     $study->form_type = "Gcp-study";
-                    $study->record = ((RecordNumber::first()->value('counter')) + 1);
+                    //$study->record = ((RecordNumber::first()->value('counter')) + 1);
                     $study->initiator_id = Auth::user()->id;
                     $study->division_id = $request->division_id;
                     $study->division_code = $request->division_code;
@@ -793,32 +788,16 @@ class GcpStudyController extends Controller
 
                     }
 
-                    //$departments = [
-                    //    'CQA' => 'Corporate Quality Assurance',
-                    //    'QAB' => 'Quality Assurance Biopharma',
-                    //    'CQC' => 'Central Quality Control',
-                    //    'MANU' => 'Manufacturing',
-                    //    'PSG' => 'Plasma Sourcing Group',
-                    //    'CS' => 'Central Stores',
-                    //    'ITG' => 'Information Technology Group',
-                    //    'MM' => 'Molecular Medicine',
-                    //    'CL' => 'Central Laboratory',
-                    //    'TT' => 'Tech team',
-                    //    'QA' => 'Quality Assurance',
-                    //    'QM' => 'Quality Management',
-                    //    'IA' => 'IT Administration',
-                    //    'ACC' => 'Accounting',
-                    //    'LOG' => 'Logistics',
-                    //    'SM' => 'Senior Management',
-                    //    'BA' => 'Business Administration'
-                    //];
-
                     if($study_data->department_gi != $study->department_gi){
+
+                        $previous_department_name = Department::where('id', $study_data->department_gi)->value('name');
+                        $current_department_name = Department::where('id', $study->department_gi)->value('name');
+
                         $history = new GcpStudyAuditTrail();
                         $history->gcp_study_id = $study->id;
-                        $history->previous = $study_data->department_gi;
-                        $history->current = $study->department_gi;
-                        $history->activity_type = 'Department(s)';
+                        $history->previous = $previous_department_name;
+                        $history->current = $current_department_name;
+                        $history->activity_type = 'Department';
                         $history->user_id = Auth::user()->id;
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
@@ -1405,12 +1384,12 @@ class GcpStudyController extends Controller
                     return back();
 
 
-            }
+        }
 
 
-                  //workflow
+        //workflow
 
-            public function GCP_study_send_stage(Request $request, $id){
+        public function GCP_study_send_stage(Request $request, $id){
 
                  if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
                         $study_data = GcpStudy::find($id);
@@ -1435,7 +1414,7 @@ class GcpStudyController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Opened";
                             $history->change_to = "Study In Progress";
-                            $history->action_name = "Submit";
+                            $history->action = "Initiate";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -1462,7 +1441,7 @@ class GcpStudyController extends Controller
                             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                             $history->change_from = "Study In Progress";
                             $history->change_to = "Pending Report Issuance";
-                            $history->action_name = "Submit";
+                            $history->action = "Study Complete";
                             $history->stage = 'Plan Approved';
                             $history->save();
 
@@ -1470,7 +1449,7 @@ class GcpStudyController extends Controller
                     }
 
                      elseif($study_data->stage == 3) {
-                        //dd($request->type);
+
                             if ($request->type == "issue_report") {
                                 $study_data->stage = "4";
                                 $study_data->status = "Closed-Done";
@@ -1478,14 +1457,6 @@ class GcpStudyController extends Controller
                                 $study_data->issue_report_on = Carbon::now()->format('d-M-Y');
                                 $study_data->issue_report_comment = $request->comment;
                                 $study_data->save();
-                            } else{
-                                $study_data->stage = "4";
-                                $study_data->status = "Closed-Done";
-                                $study_data->no_report_require_by = Auth::user()->name;
-                                $study_data->no_report_require_on = Carbon::now()->format('d-M-Y');
-                                $study_data->no_report_require_comment = $request->comment;
-                                $study_data->save();
-                            }
 
                                 $history = new GcpStudyAuditTrail();
                                 $history->gcp_study_id = $id;
@@ -1498,21 +1469,44 @@ class GcpStudyController extends Controller
                                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                                 $history->change_from = "Pending Report Issuance";
                                 $history->change_to = "Closed-Done";
-                                $history->action_name = "Submit";
+                                $history->action = "Issue Report";
                                 $history->stage = 'Plan Approved';
                                 $history->save();
 
-                                return back();
-                        }
+                            } else{
+                                $study_data->stage = "4";
+                                $study_data->status = "Closed-Done";
+                                $study_data->no_report_require_by = Auth::user()->name;
+                                $study_data->no_report_require_on = Carbon::now()->format('d-M-Y');
+                                $study_data->no_report_require_comment = $request->comment;
+                                $study_data->save();
 
-                    }
-                    else {
+                                $history = new GcpStudyAuditTrail();
+                                $history->gcp_study_id = $id;
+                                $history->activity_type = 'Activity Log';
+                                $history->previous = "";
+                                $history->current = "";
+                                $history->comment = $request->comment;
+                                $history->user_id = Auth::user()->id;
+                                $history->user_name = Auth::user()->name;
+                                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                                $history->change_from = "Pending Report Issuance";
+                                $history->change_to = "Closed-Done";
+                                $history->action = "No Report Required";
+                                $history->stage = 'Plan Approved';
+                                $history->save();
+                            }
+                                return back();
+                          }
+
+                        }
+                        else {
                             toastr()->error('E-signature Not match');
                             return back();
                         }
-            }
+        }
 
-                    public function GCP_study_cancel(Request $request, $id){
+        public function GCP_study_cancel(Request $request, $id){
 
                         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
                             $study_data = GcpStudy::find($id);
@@ -1537,7 +1531,7 @@ class GcpStudyController extends Controller
                                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                                 $history->change_from = "Opened";
                                 $history->change_to = "Closed-Cancelled";
-                                $history->action_name = "Submit";
+                                $history->action = "Cancel";
                                 $history->stage = 'Plan Approved';
                                 $history->save();
                                 return back();
@@ -1561,7 +1555,7 @@ class GcpStudyController extends Controller
                                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                                 $history->change_from = "Study In Progress";
                                 $history->change_to = "Closed-Cancelled";
-                                $history->action_name = "Submit";
+                                $history->action = "Cancel";
                                 $history->stage = 'Plan Approved';
                                 $history->save();
                                 return back();
@@ -1571,11 +1565,11 @@ class GcpStudyController extends Controller
                                 toastr()->error('E-signature Not match');
                                 return back();
                             }
-                }
+        }
 
                 //Audit child button
 
-               public function GCP_study_child(Request $request, $id){
+        public function GCP_study_child(Request $request, $id){
 
                     $study_data = GcpStudy::find($id);
 
@@ -1584,12 +1578,12 @@ class GcpStudyController extends Controller
                         //return redirect(route('supplier_contract.index'));
                     }
 
-             }
+        }
 
 
                     //single Report start
 
-                    public function GCP_studySingleReport(Request $request, $id){
+        public function GCP_studySingleReport(Request $request, $id){
 
                         $study_data = GcpStudy::find($id);
                         //$users = User::all();
@@ -1619,12 +1613,12 @@ class GcpStudyController extends Controller
                             $canvas->page_text($width / 4, $height / 2, $study_data->status, null, 25, [0, 0, 0], 2, 6, -20);
                             return $pdf->stream('GCP_study' . $id . '.pdf');
                         }
-                    }
+        }
 
 
                     //Audit Trail Start
 
-                    public function GCP_studyAuditTrial($id){
+        public function GCP_studyAuditTrial($id){
 
                         $audit = GcpStudyAuditTrail::where('gcp_study_id', $id)->orderByDESC('id')->paginate(5);
                         // dd($audit);
@@ -1634,10 +1628,10 @@ class GcpStudyController extends Controller
                         // dd($document);
 
                         return view('frontend.new_forms.GCP_studyAuditTrail',compact('document','audit','today'));
-                    }
+        }
 
                     //Audit Trail Report Start
-                    public function GCP_study_AuditTrailPdf($id)
+        public function GCP_study_AuditTrailPdf($id)
                     {
                         $doc = GcpStudy::find($id);
                         $doc->originator = User::where('id', $doc->initiator_id)->value('name');
@@ -1671,7 +1665,7 @@ class GcpStudyController extends Controller
                             -20
                         );
                         return $pdf->stream('SOP' . $id . '.pdf');
-                    }
+        }
     }
 
 
