@@ -134,7 +134,7 @@ class VerificationController extends Controller
         // Verification grid 1------------------------------
 
         $grid_data = $verification->id;
-        $info_product_material = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'parent info product material2'])->firstOrNew();
+        $info_product_material = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'Parent Info on Product Material1'])->firstOrNew();
         $info_product_material->verification_id = $grid_data;
         $info_product_material->identifier = 'Parent Info on Product Material1';
         $info_product_material->data = $request->parent_info_no_product_material;
@@ -143,7 +143,7 @@ class VerificationController extends Controller
         // Verification grid 2-----------------------------
 
         $grid_data = $verification->id;
-        $info_product_material2 = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'parent info product material2'])->firstOrNew();
+        $info_product_material2 = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'Parent Info on Product Material2'])->firstOrNew();
         $info_product_material2->verification_id = $grid_data;
         $info_product_material2->identifier = 'Parent Info on Product Material2';
         $info_product_material2->data = $request->parent_info_no_product_material1;
@@ -152,7 +152,7 @@ class VerificationController extends Controller
          // Verification grid 3-----------------------------
 
          $grid_data = $verification->id;
-         $oos_details = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'parent oos detail'])->firstOrNew();
+         $oos_details = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'Parent OOS Details'])->firstOrNew();
          $oos_details->verification_id = $grid_data;
          $oos_details->identifier = 'Parent OOS Details';
          $oos_details->data = $request->parent_oos_details;
@@ -161,7 +161,7 @@ class VerificationController extends Controller
         // grid 4
 
         $grid_data = $verification->id;
-        $oot_results = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'parent oot result'])->firstOrNew();
+        $oot_results = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'Parent OOT Results'])->firstOrNew();
         $oot_results->verification_id = $grid_data;
         $oot_results->identifier = 'Parent OOT Results';
         $oot_results->data = $request->OOT_Results;
@@ -170,7 +170,7 @@ class VerificationController extends Controller
         //grid 5
 
         $grid_data = $verification->id;
-        $parent_stability_study = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'parent stability study'])->firstOrNew();
+        $parent_stability_study = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'Parent Stability Study'])->firstOrNew();
         $parent_stability_study->verification_id = $grid_data;
         $parent_stability_study->identifier = 'Parent Stability Study';
         $parent_stability_study->data = $request->parent_details_of_stability_study;
@@ -191,6 +191,8 @@ class VerificationController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $verification->status;
             $history->action_name = 'Submit';
+            $history->change_from = "Initiation";
+            $history->change_to = "Opened";
             $history->save();
             }
 
@@ -232,6 +234,8 @@ $combinedfields = [
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->origin_state = $verification->status;
                     $history->action_name = 'Submit';
+                    $history->change_from = "Initiation";
+                    $history->change_to = "Opened";
                     $history->save();
                     }
                 }
@@ -340,16 +344,17 @@ $combinedfields = [
 //grid 1
 
                 $grid_data = $verification->id;
-                $info_product_material = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'parent info product material2'])->firstOrNew();
+                $info_product_material = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'Parent Info on Product Material1'])->firstOrNew();
                 $info_product_material->verification_id = $grid_data;
                 $info_product_material->identifier = 'Parent Info on Product Material1';
                 $info_product_material->data = $request->parent_info_no_product_material;
+                // dd($request->parent_info_no_product_material);
                 $info_product_material->update();
 
                 // Verification grid 2-----------------------------
 
                 $grid_data = $verification->id;
-                $info_product_material2 = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'parent info product material2'])->firstOrNew();
+                $info_product_material2 = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'Parent Info on Product Material2'])->firstOrNew();
                 $info_product_material2->verification_id = $grid_data;
                 $info_product_material2->identifier = 'Parent Info on Product Material2';
                 $info_product_material2->data = $request->parent_info_no_product_material1;
@@ -358,7 +363,7 @@ $combinedfields = [
                  // Verification grid 3-----------------------------
 
                  $grid_data = $verification->id;
-                 $oos_details = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'parent oos detail'])->firstOrNew();
+                 $oos_details = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'Parent OOS Details'])->firstOrNew();
                  $oos_details->verification_id = $grid_data;
                  $oos_details->identifier = 'Parent OOS Details';
                  $oos_details->data = $request->parent_oos_details;
@@ -367,7 +372,7 @@ $combinedfields = [
                 //v grid 4
 
                 $grid_data = $verification->id;
-                $oot_results = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'parent oot result'])->firstOrNew();
+                $oot_results = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'Parent OOT Results'])->firstOrNew();
                 $oot_results->verification_id = $grid_data;
                 $oot_results->identifier = 'Parent OOT Results';
                 $oot_results->data = $request->OOT_Results;
@@ -376,7 +381,7 @@ $combinedfields = [
                 //grid 5
 
                 $grid_data = $verification->id;
-                $parent_stability_study = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'parent stability study'])->firstOrNew();
+                $parent_stability_study = VerificationGrid::where(['verification_id'=>$grid_data,'identifier'=>'Parent Stability Study'])->firstOrNew();
                 $parent_stability_study->verification_id = $grid_data;
                 $parent_stability_study->identifier = 'Parent Stability Study';
                 $parent_stability_study->data = $request->parent_details_of_stability_study;
@@ -451,6 +456,7 @@ $combinedfields = [
 
 
     $gridDatas01 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent Info on Product Material1'])->first();
+    // dd($gridDatas01);
     $gridDatas02 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent Info on Product Material2'])->first();
     $gridDatas03 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent OOS Details'])->first();
     $gridDatas04 = VerificationGrid::where(['verification_id'=> $id,'identifier'=>'Parent OOT Results'])->first();

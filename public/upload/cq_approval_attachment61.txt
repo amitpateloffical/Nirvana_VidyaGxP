@@ -1,0 +1,285 @@
+////////Audit Trail -- For Store  ////////////////////
+
+        $record = RecordNumber::first();
+        $record->counter = ((RecordNumber::first()->value('counter')) + 1);
+        $record->update();
+
+        // dd($micro->status);
+        if(!empty($micro->division_code)){
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Division Code';
+            $history->previous = "Null";
+            $history->current = $micro->division_code;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+
+        }
+
+        // if (!empty($micro->division_id)) {
+        //     $history = new OOS_Micro_audit_trial();
+        //     $history->OOS_micro_id = $micro->id;
+        //     $history->activity_type = 'Division Id';
+        //     $history->previous = "Null";
+        //     $history->current = $micro->division_id;
+        //     $history->comment = "NA";
+        //     $history->user_id = Auth::user()->id;
+        //     $history->user_name = Auth::user()->name;
+        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        //     $history->origin_state = $micro->status;
+        //     $history->save();
+        // }
+
+
+        if (!empty($micro->intiation_date)) {
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Date of Initiation';
+            $history->previous = "Null";
+            $history->current = $micro->intiation_date;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+        }
+
+        if (!empty($micro->initiator_group_gi)) {
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Initiator Group';
+            $history->previous = "Null";
+            $history->current = $micro->initiator_group_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+        }
+
+        if(!empty($micro->initiator_group_code_gi)){
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Initiator Group Code';
+            $history->previous = "Null";
+            $history->current = $micro->initiator_group_code_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+
+        }
+
+        if(!empty($micro->initiated_through_gi)){
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Initiated Through ?';
+            $history->previous = "Null";
+            $history->current = $micro->initiated_through_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+
+        }
+
+        if(!empty($micro->is_repeat_gi)){
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Is Repeat ?';
+            $history->previous = "Null";
+            $history->current = $micro->is_repeat_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+
+        } if(!empty($micro->repeat_nature_gi)){
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Repeat Nature';
+            $history->previous = "Null";
+            $history->current = $micro->repeat_nature_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+
+        } if(!empty($micro->nature_of_change_gi)){
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Nature of Change';
+            $history->previous = "Null";
+            $history->current = $micro->nature_of_change_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+
+        } if(!empty($micro->deviation_occured_on_gi)){
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Deviation Occured On';
+            $history->previous = "Null";
+            $history->current = $micro->deviation_occured_on_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+
+        }
+        if (!empty($micro->description_gi)) {
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Description';
+            $history->previous = "Null";
+            $history->current = $micro->description_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+        }
+
+        if (!empty($micro->source_document_type_gi)) {
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Source Document Type';
+            $history->previous = "Null";
+            $history->current = $micro->source_document_type_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+        }
+
+        if (!empty($micro->reference_system_document_gi)) {
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Reference System Document';
+            $history->previous = "Null";
+            $history->current = $micro->reference_system_document_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+        }
+        if (!empty($micro->reference_document_gi)) {
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Reference Document';
+            $history->previous = "Null";
+            $history->current = $micro->reference_document_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+        }
+        if (!empty($micro->sample_type_gi)) {
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type ='Sample Type';
+            $history->previous = "Null";
+            $history->current = $micro->sample_type_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+        }
+        if (!empty($micro->product_material_name_gi)) {
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Product/Material Name';
+            $history->previous = "Null";
+            $history->current = $micro->product_material_name_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+        }
+        if (!empty($micro->market_gi)) {
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Market';
+            $history->previous = "Null";
+            $history->current = $micro->market_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+        }
+
+
+        if (!empty($micro->due_date)) {
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Due Date';
+            $history->previous = "Null";
+            $history->current = $micro->due_date;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+        }
+
+        if(!empty($micro->severity_level_gi)){
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Severity Level';
+            $history->previous = "Null";
+            $history->current = $micro->severity_level_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+
+        }
+
+        if (!empty($micro->customer_gi)) {
+            $history = new OOS_Micro_audit_trial();
+            $history->OOS_micro_id = $micro->id;
+            $history->activity_type = 'Customer';
+            $history->previous = "Null";
+            $history->current = $micro->customer_gi;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $micro->status;
+            $history->save();
+        }

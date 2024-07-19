@@ -261,7 +261,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input input-date">
                                     <label for="parent_date_opened">(Parent) Date Opened</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="end_date_1" readonly placeholder="DD-MMM-YYYY" value="{{$analystinterview->parent_date_opened}}" />
+                                        <input type="text" id="end_date_1" readonly placeholder="DD-MMM-YYYY"  value="{{ \Carbon\Carbon::parse($analystinterview->parent_date_opened)->format('d-F-Y') }}"   />
                                         <input type="date" id="end_date_checkdate_1" name="parent_date_opened"
                                             min="yyyy-mm-dd"  class="hide-input" oninput="handleDateInput(this, 'end_date_1');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
                                                           </div>
@@ -278,7 +278,7 @@ $users = DB::table('users')->get();
                         <div class="group-input input-date">
                             <label for="parent_target_closure_date">(Parent) Target Closure Date</label>
                             <div class="calenderauditee">
-                                <input type="text" id="end_date_2" readonly placeholder="DD-MMM-YYYY" value="{{$analystinterview->parent_target_closure_date}}" />
+                                <input type="text" id="end_date_2" readonly placeholder="DD-MMM-YYYY"  value="{{ \Carbon\Carbon::parse($analystinterview->parent_target_closure_date)->format('d-F-Y') }}"   />
                                 <input type="date" id="end_date_checkdate_2" name="parent_target_closure_date"
                                     min="yyyy-mm-dd"
                                     class="hide-input"
@@ -324,6 +324,8 @@ $users = DB::table('users')->get();
                             <th style="width: 8%">Expiry Date</th>
                             <th style="width: 8%">Label Claim.</th>
                             <th style="width: 8%">Pack Size</th>
+                            <th style="width: 5%">Action</th>
+
                             {{-- <th style="width: 8%">Lot/Batch Number</th> --}}
                         </tr>
                     </thead>
@@ -361,6 +363,7 @@ $users = DB::table('users')->get();
                             <td><input type="text" name="parent_info_on_product_material1[0][label_claim]" value="{{$datas['label_claim']}}"></td>
                             <td><input type="text" name="parent_info_on_product_material1[0][pack_size]" value="{{$datas['pack_size']}}"></td>
                             {{-- <td><input type="text" name="parent_info_on_product_material1[0][lot_batch_number]"></td> --}}
+                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -389,6 +392,8 @@ $users = DB::table('users')->get();
                                         <th style="width: 8%">Test Name of OOS</th>
                                         <th style="width: 8%">Results Obtained</th>
                                         <th style="width: 8%">Specification Limit</th>
+                                        <th style="width: 5%">Action</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -408,6 +413,7 @@ $users = DB::table('users')->get();
                                         <td><input type="text"
                                                 name="root_parent_oos_details[0][specification_limit]"value="{{$datas['specification_limit']}}">
                                         </td>
+                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
                                     </tr>
                                     @endforeach
 
@@ -438,6 +444,8 @@ $users = DB::table('users')->get();
                                                     <th style="width: 8%">% Difference of Results</th>
                                                     <th style="width: 8%">Initial Interview Details</th>
                                                     <th style="width: 8%">Trend Limit</th>
+                                                    <th style="width: 5%">Action</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -458,6 +466,7 @@ $users = DB::table('users')->get();
                                                             name="parent_oot_results[0][initial_interview_details]" value="{{$datas['initial_interview_details']}}" >
                                                     </td>
                                                     <td><input type="text" name="parent_oot_results[0][trend_limit]" value="{{$datas['trend_limit']}}" ></td>
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
                                     @endforeach
                                             </tbody>
@@ -486,6 +495,8 @@ $users = DB::table('users')->get();
                                                     <th style="width: 8%">Interval</th>
                                                     <th style="width: 8%">Orientation</th>
                                                     <th style="width: 8%">Pack Details (if any)</th>
+                                                    <th style="width: 5%">Action</th>
+
                                                 </tr>
                                             </thead>
                         @foreach($gridDatas04->data as $datas)
@@ -506,6 +517,7 @@ $users = DB::table('users')->get();
                                                     <td><input type="text"
                                                             name="parent_details_of_stability_study[0][pack_details_if_any]" value="{{$datas['pack_details_if_any']}}" >
                                                     </td>
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
                                                 @endforeach
 
@@ -552,10 +564,10 @@ $users = DB::table('users')->get();
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">Target Closure Date</label>
-                                        <div class="calenderauditee" disabled>
-                                            <input type="text" id="end_date_3" disabled readonly
-                                                placeholder="DD-MMM-YYYY" value="{{$analystinterview->target_closure_date_gi}}"/>
-                                            <input type="date" id="end_date_checkdate_3" disabled
+                                        <div class="calenderauditee" >
+                                            <input type="text" id="end_date_3"
+                                                placeholder="DD-MMM-YYYY"   value="{{ \Carbon\Carbon::parse($analystinterview->target_closure_date_gi)->format('d-F-Y') }}"   />
+                                            <input type="date" id="end_date_checkdate_3"
                                                 name="target_closure_date_gi" min="yyyy-mm-dd" class="hide-input"
                                                 oninput="handleDateInput(this, 'end_date_3');checkDate('start_date_checkdate_3','end_date_checkdate_3')" />
                                         </div>
@@ -1140,7 +1152,7 @@ $users = DB::table('users')->get();
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Completed On">Submit On :-</label>
-                                        <div class="static">{{ $analystinterview->submitted_by }}</div>
+                                        <div class="static">{{ $analystinterview->submitted_on }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -1152,12 +1164,16 @@ $users = DB::table('users')->get();
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Completed By">Interview Done By :-</label>
+                                        <div class="static">{{ $analystinterview->interview_under_progress_done_by }}</div>
+
                                         {{-- <div class="static">Person datafield</div>/ --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Completed On">Interview Done On :-</label>
+                                        <div class="static">{{ $analystinterview->interview_under_progress_done_on}}</div>
+
                                         {{-- <div class="static">17-04-2023 11:12PM</div> --}}
                                     </div>
                                 </div>
@@ -1166,12 +1182,16 @@ $users = DB::table('users')->get();
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Completed By">Cancel By :-</label>
+                                        <div class="static">{{ $analystinterview->canceled_by }}</div>
+
                                         {{-- <div class="static">Person datafield</div>/ --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Completed On">Cancel On :-</label>
+                                        <div class="static">{{ $analystinterview->canceled_on }}</div>
+
                                         {{-- <div class="static">17-04-2023 11:12PM</div> --}}
                                     </div>
                                 </div>
@@ -1731,6 +1751,7 @@ $users = DB::table('users')->get();
                         '][label_claim]"></td>' +
                         '<td><input type="text" name="parent_info_on_product_material1[' + index +
                         '][pack_size]"></td>' +
+                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                 return html;
@@ -1759,6 +1780,7 @@ $users = DB::table('users')->get();
                         '  <td><input type="text" name="root_parent_oos_details[0][test_name_of_oos]"></td>' +
                         ' <td><input type="text" name="root_parent_oos_details[0][results_obtained]"></td>' +
                         '  <td><input type="text" name="root_parent_oos_details[0][specification_limit]"></td>' +
+                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                     return html;
@@ -1788,6 +1810,7 @@ $users = DB::table('users')->get();
                         '  <td><input type="text" name="parent_oot_results[0][diff_of_results]"></td>' +
                         '  <td><input type="text" name="parent_oot_results[0][initial_interview_details]"></td>' +
                         '  <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>' +
+                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                     return html;
@@ -1815,6 +1838,7 @@ $users = DB::table('users')->get();
                         '<td><input type="text" name="parent_details_of_stability_study[0][interval]"></td>' +
                         '<td><input type="text" name="parent_details_of_stability_study[0][orientation]"></td>' +
                         '<td><input type="text" name="parent_details_of_stability_study[0][pack_details_if_any]"></td>' +
+                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                     return html;
@@ -1826,6 +1850,11 @@ $users = DB::table('users')->get();
                 tableBody.append(newRow);
             });
         });
+    </script>
+     <script>
+        $(document).on('click', '.removeRowBtn', function() {
+            $(this).closest('tr').remove();
+        })
     </script>
 
     <!--------------------------------Date--------------------------------->

@@ -99,178 +99,125 @@
     </script>
 
     <!-- -----------------------------grid-1--------------------------------->
+
+
+
     <script>
         $(document).ready(function() {
-            var index = 1; // Start index for new rows
+            let productMaterialIndex = {{ $gridDatas01 && is_array($gridDatas01->data) ? count($gridDatas01->data) : 0 }};
 
-            $('#Product_Material').click(function(e) {
+            $('#Product_Material01').click(function(e) {
                 e.preventDefault();
 
-                var newRow = generateTableRow(index); // Generate the table row HTML
-                $('#parent_info_on_product_material tbody').append(newRow);
+                function generateTableRowP(serialNumber) {
+                    var html =
+                        '<tr>' +
+                        '<td><input disabled type="text" name="parent_info_on_product_material[]" value="' + serialNumber + '"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material[' + productMaterialIndex + '][item_product_code]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material[' + productMaterialIndex + '][lot_batch_number]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material[' + productMaterialIndex + '][ar_number]"></td>' +
+                        '<td><input type="date" name="parent_info_on_product_material[' + productMaterialIndex + '][mfg_date]"></td>' +
+                        '<td><input type="date" name="parent_info_on_product_material[' + productMaterialIndex + '][exp_date]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material[' + productMaterialIndex + '][label_claim]"></td>' +
+                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
+                        '</tr>';
 
-                index++; // Increment index for the next row
+                    productMaterialIndex++;
+                    return html;
+                }
+
+                var tableBody = $('#Product_Material_table tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRowP(rowCount + 1);
+                tableBody.append(newRow);
             });
 
-            function generateTableRow(index) {
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + (index + 1) + '"></td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[' + index +
-                    '][item_product_code]"></td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[' + index +
-                    '][lot_batch_number]"></td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[' + index +
-                    '][ar_number]"></td>' +
-                    '<td>' +
-                    '<div class="group-input new-date-data-field mb-0">' +
-                    '<div class="input-date">' +
-                    '<div class="calenderauditee">' +
-                    '<input type="text" id="agenda_date50_' + index +
-                    '" readonly placeholder="DD-MMM-YYYY" />' +
-                    '<input type="date" name="parent_info_on_product_material[' + index + '][mfg_date]" ' +
-                    'class="hide-input" ' +
-                    'oninput="handleDateInput(this, \'agenda_date50_' + index + '\');" />' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</td>' +
-                    '<td>' +
-                    '<div class="group-input new-date-data-field mb-0">' +
-                    '<div class="input-date">' +
-                    '<div class="calenderauditee">' +
-                    '<input type="text" id="agenda_date51_' + index +
-                    '" readonly placeholder="DD-MMM-YYYY" />' +
-                    '<input type="date" name="parent_info_on_product_material[' + index + '][exp_date]" ' +
-                    'class="hide-input" ' +
-                    'oninput="handleDateInput(this, \'agenda_date51_' + index + '\');" />' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[' + index +
-                    '][label_claim]"></td>' +
-                    '</tr>';
-
-                return html;
-            }
-
-            // Function to handle date input and update readonly text field
-            function handleDateInput(input, id) {
-                var dateString = input.value; // Use input.value for date input type
-                document.getElementById(id).value = dateString;
-            }
+            // Event delegation for dynamically added remove buttons
+            $('#Product_Material_table').on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
+            });
         });
     </script>
-
     <!-- ------------------------ ----grid-2--------------------------------->
     <script>
         $(document).ready(function() {
-            var index = 1; // Start index from 1 since the first row is already present
-
-            $('#Product_Material1').click(function(e) {
-                e.preventDefault(); // Prevent default action of button click
-
-                function generateTableRow(serialNumber, index) {
+        let productMaterialIndex2 = {{ $gridDatas02 && is_array($gridDatas02->data) ? count($gridDatas02->data) : 0 }};
+            $('#Product_Material02').click(function(e) {
+                e.preventDefault();
+                function generateTableRowP(serialNumber) {
                     var html =
                         '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                        '"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][item_product_code]"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][batch_no]"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][ar_number]"></td>' +
-                        '<td>' +
-                        '<div class="group-input new-date-data-field mb-0">' +
-                        '<div class="input-date">' +
-                        '<div class="calenderauditee">' +
-                        '<input type="text" id="agenda_date52_' + index +
-                        '" readonly placeholder="DD-MMM-YYYY" />' +
-                        '<input type="date" name="parent_info_on_product_material1[' + index +
-                        '][mfg_date]" ' +
-                        'min="yyyy-mm-dd" class="hide-input" ' +
-                        'oninput="handleDateInput(this, \'agenda_date52_' + index + '\');" />' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</td>' +
-                        '<td>' +
-                        '<div class="group-input new-date-data-field mb-0">' +
-                        '<div class="input-date">' +
-                        '<div class="calenderauditee">' +
-                        '<input type="text" id="agenda_date53_' + index +
-                        '" readonly placeholder="DD-MMM-YYYY" />' +
-                        '<input type="date" name="parent_info_on_product_material1[' + index +
-                        '][exp_date]" ' +
-                        'min="yyyy-mm-dd" class="hide-input" ' +
-                        'oninput="handleDateInput(this, \'agenda_date53_' + index + '\');" />' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][label_claim]"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][pack_size]"></td>' +
+                        '<td><input disabled type="text" name="parent_info_on_product_material1[]" value="' + serialNumber + '"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material1[' + productMaterialIndex2 + '][item_product_code]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material1[' + productMaterialIndex2 + '][batch_no]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material1[' + productMaterialIndex2 + '][ar_number]"></td>' +
+                        '<td><input type="date" name="parent_info_on_product_material1[' + productMaterialIndex2 + '][mfg_date]"></td>' +
+                        '<td><input type="date" name="parent_info_on_product_material1[' + productMaterialIndex2 + '][exp_date]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material1[' + productMaterialIndex2 + '][label_claim]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material1[' + productMaterialIndex2 + '][pack_size]"></td>' +
+                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
-
+                    productMaterialIndex2++;
                 return html;
             }
-
-                var tableBody = $('#parent_info_on_product_material1 tbody');
+                var tableBody = $('#Product_Material_table02 tbody');
                 var rowCount = tableBody.find('tr').length;
-                var newRow = generateTableRow(rowCount + 1, index);
+                var newRow = generateTableRowP(rowCount + 1);
                 tableBody.append(newRow);
-                index++; // Increment the index for the next row
+            });
+             // Event delegation for dynamically added remove buttons
+             $('#Product_Material_table02').on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
             });
         });
     </script>
-
 
     <!-- -----------------------------grid-3--------------------------------->
     <script>
         $(document).ready(function() {
+            var index = 1;
             $('#Product_Material3').click(function(e) {
                 function generateTableRow(serialNumber) {
                     var html =
                         '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                        '"></td>' +
-                        ' <td><input type="text" name="root_parent_oos_details[0][ar_number]"></td>' +
-                        '  <td><input type="text" name="root_parent_oos_details[0][test_name_of_oos]"></td>' +
-                        ' <td><input type="text" name="root_parent_oos_details[0][results_obtained]"></td>' +
-                        '  <td><input type="text" name="root_parent_oos_details[0][specification_limit]"></td>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
+                        '<td><input type="text" name="root_parent_oos_details['+ index +'][ar_number]"></td>' +
+                        '<td><input type="text" name="root_parent_oos_details['+ index +'][test_name_of_oos]"></td>' +
+                        '<td><input type="text" name="root_parent_oos_details['+ index +'][results_obtained]"></td>' +
+                        '<td><input type="text" name="root_parent_oos_details['+ index +'][specification_limit]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
-
+                        index++;
                     return html;
                 }
-
-                var tableBody = $('#Product_Material3 tbody');
+                var tableBody = $('#Product_Material3table tbody');
                 var rowCount = tableBody.children('tr').length;
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
+
             });
         });
     </script>
 
     <!-- -----------------------------grid-4--------------------------------->
+
     <script>
         $(document).ready(function() {
+          var  index = 1;
             $('#Product_Material4').click(function(e) {
-                function generateTableRow(serialNumber) {
+                function generateTableRow(serialNumber,index) {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][ar_number]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][test_number_of_oot]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][results_obtained]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][prev_interval_details]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][diff_of_results]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][initial_interview_details]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][ar_number]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][test_number_of_oot]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][results_obtained]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][prev_interval_details]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][diff_of_results]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][initial_interview_details]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][trend_limit]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                     return html;
@@ -278,8 +225,9 @@
 
                 var tableBody = $('#Product_Material4 tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
+                var newRow = generateTableRow(rowCount + 1,index);
                 tableBody.append(newRow);
+                index++;
             });
         });
     </script>
@@ -287,17 +235,19 @@
     <!--------------------------------grid-5--------------------------------->
     <script>
         $(document).ready(function() {
+            var index= 1;
             $('#Product_Material5').click(function(e) {
-                function generateTableRow(serialNumber) {
+                function generateTableRow(serialNumber,index) {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][ar_number]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][condition_temp_and_rh]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][interval]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][orientation]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][pack_details_if_any]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index+'][ar_number]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index+'][condition_temp_and_rh]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index+'][interval]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index+'][orientation]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index+'][pack_details_if_any]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                     return html;
@@ -305,12 +255,17 @@
 
                 var tableBody = $('#Product_Material5 tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
+                var newRow = generateTableRow(rowCount + 1,index);
                 tableBody.append(newRow);
+                index++;
             });
         });
     </script>
-
+    <script>
+        $(document).on('click', '.removeRowBtn', function() {
+            $(this).closest('tr').remove();
+        })
+    </script>
     <!--------------------------------Date--------------------------------->
 
     <script>
@@ -618,16 +573,29 @@
                                         <input type="text" id="root_parent_oot_number" name="root_parent_oot_number" value="{{$additionaltesting->root_parent_oot_number}}" >
                                     </div>
                                 </div>
+                                {{-- <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="parent_date_opened">(Parent) Date Opened</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="end_date_1" readonly placeholder="DD-MMM-YYYY"  value="{{ \Carbon\Carbon::parse($additionaltesting->parent_date_opened)->format('d-F-Y') }}" />
+                                            <input type="date" id="end_date_checkdate_1" name="parent_date_opened"
+                                                min="yyyy-mm-dd"  class="hide-input" oninput="handleDateInput(this, 'end_date_1');checkDate('start_date_checkdate_1','end_date_checkdate_1')"  value="{{ \Carbon\Carbon::parse($additionaltesting->parent_date_opened)->format('d-F-Y') }}"/>
+                                                              </div>
+                                                            </div>
+                                                        </div> --}}
+
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="parent_date_opened">(Parent) Date Opened</label>
                                         <div class="calenderauditee">
-                                            <input type="text" id="end_date_1" readonly placeholder="DD-MMM-YYYY"  value="{{$additionaltesting->parent_date_opened}}" />
+                                            <input type="text" id="parent_date_opened" readonly placeholder="DD-MMM-YYYY" value="{{ \Carbon\Carbon::parse($additionaltesting->parent_date_opened)->format('d-F-Y') }}" />
                                             <input type="date" id="end_date_checkdate_1" name="parent_date_opened"
-                                                min="yyyy-mm-dd"  class="hide-input" oninput="handleDateInput(this, 'end_date_1');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
-                                                              </div>
+                                                min="yyyy-mm-dd"  class="hide-input" oninput="handleDateInput(this, 'parent_date_opened');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
+                                                                </div>
                                                             </div>
                                                         </div>
+
+
                                                                 <div class="col-6">
                                                                     <div class="group-input">
                                                                         <label for="Short Description">(Parent) Short Description<span class="text-danger "
@@ -639,7 +607,7 @@
                                                                     <div class="group-input input-date">
                                                                         <label for="parent_target_closure_date">(Parent) Target Closure Date</label>
                                                                         <div class="calenderauditee">
-                                                                            <input type="text" id="end_date_2" readonly placeholder="DD-MMM-YYYY" value="{{$additionaltesting->parent_target_closure_date}}"  />
+                                                                            <input type="text" id="end_date_2" readonly placeholder="DD-MMM-YYYY" value="{{ \Carbon\Carbon::parse($additionaltesting->parent_target_closure_date)->format('d-F-Y') }}"  />
                                                                             <input type="date" id="end_date_checkdate_2" name="parent_target_closure_date"
                                                                                 min="yyyy-mm-dd"
                                                                                 class="hide-input"
@@ -662,14 +630,16 @@
                                                                         <input type="text" id="text" name="root_parent_prod_mat_name" value="{{$additionaltesting->root_parent_prod_mat_name}}" >
                                                                     </div>
                                                                      </div>
+{{-- -------------------------------grid - 1--------------------------------------------------------------}}
 
-                            <div class="group-input">
+
+                        <div class="group-input">
                             <label for="audit-agenda-grid">
                                 (Parent) Info. On Product/Material
-                                <button type="button" name="parent_info_on_product_material" id="Product_Material">+</button>
+                                <button type="button" id="Product_Material01">+</button>
                             </label>
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="parent_info_on_product_material">
+                                <table class="table table-bordered" id="Product_Material_table">
                                     <thead>
                                         <tr>
                                             <th style="width: 4%">Row#</th>
@@ -679,62 +649,35 @@
                                             <th style="width: 8%">Mfg. Date</th>
                                             <th style="width: 8%">Expiry Date</th>
                                             <th style="width: 8%">Label Claim</th>
+                                            <th style="width: 5%">Action</th>
                                         </tr>
                                     </thead>
-                                    @foreach($gridDatas01->data as $datas)
-
                                     <tbody>
-                                        <!-- Existing first row, which serves as a template -->
+                                        @foreach($gridDatas01->data as $datas)
                                         <tr>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="parent_info_on_product_material[0][item_product_code]" value="{{$datas['item_product_code']}}"></td>
-                                            <td><input type="text" name="parent_info_on_product_material[0][lot_batch_number]" value="{{$datas['lot_batch_number']}}"></td>
-                                            <td><input type="text" name="parent_info_on_product_material[0][ar_number]" value="{{$datas['ar_number']}}"></td>
-                                            <td>
-                                                <div class="group-input new-date-data-field mb-0">
-                                                    <div class="input-date">
-                                                        <div class="calenderauditee">
-                                                            <input type="text" id="agenda_date50_0" readonly placeholder="DD-MMM-YYYY"  value="{{$datas['mfg_date']}}"/>
-                                                            <input type="date" name="parent_info_on_product_material[0][mfg_date]" class="hide-input"
-                                                                oninput="handleDateInput(this, 'agenda_date50_0');" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="group-input new-date-data-field mb-0">
-                                                    <div class="input-date">
-                                                        <div class="calenderauditee">
-                                                            <input type="text" id="agenda_date51_0" readonly placeholder="DD-MMM-YYYY" value="{{$datas['exp_date']}}" />
-                                                            <input type="date" name="parent_info_on_product_material[0][exp_date]" class="hide-input"
-                                                                oninput="handleDateInput(this, 'agenda_date51_0');" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><input type="text" name="parent_info_on_product_material[0][label_claim]" value="{{$datas['label_claim']}}"></td>
+                                            <td><input disabled type="text" name="parent_info_on_product_material[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                            <td><input type="text" name="parent_info_on_product_material[{{$loop->index}}][item_product_code]" value="{{ isset($datas['item_product_code']) ? $datas['item_product_code'] : '' }}"></td>
+                                            <td><input type="text" name="parent_info_on_product_material[{{$loop->index}}][lot_batch_number]" value="{{ isset($datas['lot_batch_number']) ? $datas['lot_batch_number'] : '' }}"></td>
+                                            <td><input type="text" name="parent_info_on_product_material[{{$loop->index}}][ar_number]" value="{{ isset($datas['ar_number']) ? $datas['ar_number'] : '' }}"></td>
+                                            <td><input type="date" name="parent_info_on_product_material[{{$loop->index}}][mfg_date]" value="{{ isset($datas['mfg_date']) ? $datas['mfg_date'] : '' }}"></td>
+                                            <td><input type="date" name="parent_info_on_product_material[{{$loop->index}}][exp_date]" value="{{ isset($datas['exp_date']) ? $datas['exp_date'] : '' }}"></td>
+                                            <td><input type="text" name="parent_info_on_product_material[{{$loop->index}}][label_claim]" value="{{ isset($datas['label_claim']) ? $datas['label_claim'] : '' }}"></td>
+                                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                                         </tr>
+                                        @endforeach
                                     </tbody>
-                                    @endforeach
-
                                 </table>
                             </div>
                         </div>
+{{-- ---------------------------------  grid 2 ----------------------------------------------------------------------- --}}
 
-
-                    <div class="group-input">
+                        <div class="group-input">
                         <label for="audit-agenda-grid">
                             (Parent) Info. On Product/ Material
-                            <button type="button" name="parent_info_on_product_material1" id="Product_Material1">+</button>
-                            <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#document-details-field-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                (Launch Instruction)
-                            </span>
+                            <button type="button"  id="Product_Material02">+</button>
                         </label>
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="parent_info_on_product_material1" style="width: 100%;">
-                                <!-- Table headers -->
+                            <table class="table table-bordered" id="Product_Material_table02" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th style="width: 4%">Row#</th>
@@ -745,47 +688,25 @@
                                         <th style="width: 8%">Expiry Date</th>
                                         <th style="width: 8%">Label Claim.</th>
                                         <th style="width: 8%">Pack Size</th>
-                                        {{-- <th style="width: 8%">Lot/Batch Number</th> --}}
+                                        <th style="width: 5%">Action</th>
                                     </tr>
                                 </thead>
-                                <!-- Table body -->
                                 <tbody>
                                     @foreach($gridDatas02->data as $datas)
-
-                                    <!-- Existing first row -->
                                     <tr>
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="parent_info_on_product_material1[0][item_product_code]"  value="{{$datas['item_product_code']}}" ></td>
-                                        <td><input type="text" name="parent_info_on_product_material1[0][batch_no]"  value="{{$datas['batch_no']}}" ></td>
-                                        <td><input type="text" name="parent_info_on_product_material1[0][ar_number]"  value="{{$datas['ar_number']}}" ></td>
-                                        <td>
-                                            <div class="group-input new-date-data-field mb-0">
-                                                <div class="input-date">
-                                                    <div class="calenderauditee">
-                                                        <input type="text" id="agenda_date52_0" readonly placeholder="DD-MMM-YYYY"   value="{{$datas['mfg_date']}}" />
-                                                        <input type="date" name="parent_info_on_product_material1[0][mfg_date]" class="hide-input"
-                                                                oninput="handleDateInput(this, 'agenda_date52_0');" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="group-input new-date-data-field mb-0">
-                                                <div class="input-date">
-                                                    <div class="calenderauditee">
-                                                        <input type="text" id="agenda_date53_0" readonly placeholder="DD-MMM-YYYY"   value="{{$datas['exp_date']}}" />
-                                                        <input type="date" name="parent_info_on_product_material1[0][exp_date]" class="hide-input"
-                                                                oninput="handleDateInput(this, 'agenda_date53_0');" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><input type="text" name="parent_info_on_product_material1[0][label_claim]"  value="{{$datas['label_claim']}}" ></td>
-                                        <td><input type="text" name="parent_info_on_product_material1[0][pack_size]"  value="{{$datas['pack_size']}}" ></td>
-                                        {{-- <td><input type="text" name="parent_info_on_product_material1[0][lot_batch_number]"></td> --}}
+                                            <td><input disabled type="text" name="parent_info_on_product_material1[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                            <td><input type="text" name="parent_info_on_product_material1[{{$loop->index}}][item_product_code]" value="{{$datas['item_product_code']}}"></td>
+                                            <td><input type="text" name="parent_info_on_product_material1[{{$loop->index}}][batch_no]" value="{{$datas['batch_no']}}"></td>
+                                            <td><input type="text" name="parent_info_on_product_material1[{{$loop->index}}][ar_number]" value="{{$datas['ar_number']}}"></td>
+                                            <td><input type="date" name="parent_info_on_product_material1[{{$loop->index}}][mfg_date]" value="{{ isset($datas['mfg_date']) ? $datas['mfg_date'] : '' }}"></td>
+                                            <td><input type="date" name="parent_info_on_product_material1[{{$loop->index}}][exp_date]" value="{{ isset($datas['exp_date']) ? $datas['exp_date'] : '' }}"></td>
+                                            <td><input type="text" name="parent_info_on_product_material1[{{$loop->index}}][label_claim]" value="{{$datas['label_claim']}}"></td>
+                                            <td><input type="text" name="parent_info_on_product_material1[{{$loop->index}}][pack_size]" value="{{$datas['pack_size']}}"></td>
+                                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                                     </tr>
-                                </tbody>
                                 @endforeach
+
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -794,7 +715,7 @@
                                     <div class="group-input">
                                         <label for="audit-agenda-grid">
                                             (Root Parent) OOS Details (0)
-                                            <button type="button" name="root_parent_oos_details"
+                                            <button type="button" name="Product_Material3table"
                                                 id="Product_Material3">+</button>
                                             <span class="text-primary" data-bs-toggle="modal"
                                                 data-bs-target="#document-details-field-instruction-modal"
@@ -803,7 +724,7 @@
                                             </span>
                                         </label>
                                         <div class="table-responsive">
-                                            <table class="table table-bordered" id="Product_Material3" style="width: 100%;">
+                                            <table class="table table-bordered" id="Product_Material3table" style="width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th style="width: 4%">Row#</th>
@@ -811,28 +732,34 @@
                                                         <th style="width: 8%">Test Name of OOS</th>
                                                         <th style="width: 8%">Results Obtained</th>
                                                         <th style="width: 8%">Specification Limit</th>
+                                                        <th style="width: 5%">Action</th>
                                                     </tr>
                                                 </thead>
+                                                <tbody>
 
                                                 @foreach($gridDatas03->data as $datas)
-                                                <tbody>
                                                     <tr>
-                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+
+                                                        <td><input disabled type="text" name="serial[]" value="{{$loop->index+1}}"></td>
                                                         <td><input type="text"
-                                                                name="root_parent_oos_details[0][ar_number]" value="{{$datas['ar_number']}}">
+                                                                name="root_parent_oos_details[{{$loop->index}}][ar_number]" value="{{$datas['ar_number']}}">
                                                         </td>
                                                         <td><input type="text"
-                                                                name="root_parent_oos_details[0][test_name_of_oos]" value="{{$datas['test_name_of_oos']}}">
+                                                                name="root_parent_oos_details[{{$loop->index}}][test_name_of_oos]" value="{{$datas['test_name_of_oos']}}">
                                                         </td>
                                                         <td><input type="text"
-                                                                name="root_parent_oos_details[0][results_obtained]" value="{{$datas['results_obtained']}}">
+                                                                name="root_parent_oos_details[{{$loop->index}}][results_obtained]" value="{{$datas['results_obtained']}}">
                                                         </td>
                                                         <td><input type="text"
-                                                                name="root_parent_oos_details[0][specification_limit]" value="{{$datas['specification_limit']}}">
+                                                                name="root_parent_oos_details[{{$loop->index}}][specification_limit]" value="{{$datas['specification_limit']}}">
                                                         </td>
+                                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+
                                                     </tr>
-                                                </tbody>
                                                 @endforeach
+
+                                                </tbody>
+
                                             </table>
                                         </div>
                                     </div>
@@ -859,29 +786,36 @@
                                                         <th style="width: 8%">% Difference of Results</th>
                                                         <th style="width: 8%">Initial Interview Details</th>
                                                         <th style="width: 8%">Trend Limit</th>
+                                                        <th style="width: 5%">Action</th>
+
                                                     </tr>
                                                 </thead>
+                                                <tbody>
+
                                                 @foreach($gridDatas04->data as $datas)
 
-                                                <tbody>
                                                     <tr>
-                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                        <td><input type="text" name="parent_oot_results[0][ar_number]"  value="{{$datas['ar_number']}}" ></td>
-                                                        <td><input type="text" name="parent_oot_results[0][test_number_of_oot]"  value="{{$datas['test_number_of_oot']}}" >
+                                                        <td><input disabled type="text" name="serial[]" value="{{$loop->index+1}}"></td>
+                                                        <td><input type="text" name="parent_oot_results[{{$loop->index}}][ar_number]"  value="{{$datas['ar_number']}}" ></td>
+                                                        <td><input type="text" name="parent_oot_results[{{$loop->index}}][test_number_of_oot]"  value="{{$datas['test_number_of_oot']}}" >
                                                         </td>
-                                                        <td><input type="text" name="parent_oot_results[0][results_obtained]"  value="{{$datas['results_obtained']}}" >
+                                                        <td><input type="text" name="parent_oot_results[{{$loop->index}}][results_obtained]"  value="{{$datas['results_obtained']}}" >
                                                         </td>
-                                                        <td><input type="text" name="parent_oot_results[0][prev_interval_details]"  value="{{$datas['prev_interval_details']}}" >
+                                                        <td><input type="text" name="parent_oot_results[{{$loop->index}}][prev_interval_details]"  value="{{$datas['prev_interval_details']}}" >
                                                         </td>
-                                                        <td><input type="text" name="parent_oot_results[0][diff_of_results]"  value="{{$datas['diff_of_results']}}" >
+                                                        <td><input type="text" name="parent_oot_results[{{$loop->index}}][diff_of_results]"  value="{{$datas['diff_of_results']}}" >
                                                         </td>
                                                         <td><input type="text"
-                                                                name="parent_oot_results[0][initial_interview_details]"  value="{{$datas['initial_interview_details']}}" >
+                                                                name="parent_oot_results[{{$loop->index}}][initial_interview_details]"  value="{{$datas['initial_interview_details']}}" >
                                                         </td>
-                                                        <td><input type="text" name="parent_oot_results[0][trend_limit]"  value="{{$datas['trend_limit']}}" ></td>
+                                                        <td><input type="text" name="parent_oot_results[{{$loop->index}}][trend_limit]"  value="{{$datas['trend_limit']}}" ></td>
+                                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+
                                                     </tr>
-                                                </tbody>
                                                 @endforeach
+
+                                                </tbody>
+
                                             </table>
                                         </div>
                                     </div>
@@ -907,30 +841,36 @@
                                                         <th style="width: 8%">Interval</th>
                                                         <th style="width: 8%">Orientation</th>
                                                         <th style="width: 8%">Pack Details (if any)</th>
+                                                        <th style="width: 5%">Action</th>
+
                                                     </tr>
                                                 </thead>
+                                                <tbody>
+
                                                 @foreach($gridDatas05->data as $datas)
 
-                                                <tbody>
                                                     <tr>
-                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                        <td><input disabled type="text" name="serial[]" value="{{$loop->index+1}}"></td>
                                                         <td><input type="text"
-                                                                name="parent_details_of_stability_study[0][ar_number]" value="{{$datas['ar_number']}}" >
+                                                                name="parent_details_of_stability_study[{{$loop->index}}][ar_number]" value="{{$datas['ar_number']}}" >
                                                         </td>
                                                         <td><input type="text"
-                                                                name="parent_details_of_stability_study[0][condition_temp_and_rh]" value="{{$datas['condition_temp_and_rh']}}" >
+                                                                name="parent_details_of_stability_study[{{$loop->index}}][condition_temp_and_rh]" value="{{$datas['condition_temp_and_rh']}}" >
                                                         </td>
                                                         <td><input type="text"
-                                                                name="parent_details_of_stability_study[0][interval]" value="{{$datas['interval']}}" >
+                                                                name="parent_details_of_stability_study[{{$loop->index}}][interval]" value="{{$datas['interval']}}" >
                                                         </td>
                                                         <td><input type="text"
-                                                                name="parent_details_of_stability_study[0][orientation]" value="{{$datas['orientation']}}" ></td>
+                                                                name="parent_details_of_stability_study[{{$loop->index}}][orientation]" value="{{$datas['orientation']}}" ></td>
                                                         <td><input type="text"
-                                                                name="parent_details_of_stability_study[0][pack_details_if_any]" value="{{$datas['pack_details_if_any']}}" >
+                                                                name="parent_details_of_stability_study[{{$loop->index}}][pack_details_if_any]" value="{{$datas['pack_details_if_any']}}" >
                                                         </td>
+                                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+
                                                     </tr>
-                                                </tbody>
                                                 @endforeach
+
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -940,14 +880,14 @@
 
                                         <div class="col-lg-6">
                                             <div class="group-input">
-                                                <label for="RLS Record Number"><b>Record Number</b></label>
+                                                <label for="RLS Record Number">Record Number</label>
                                                 <input disabled type="text" name="record_number"  value="{{ Helpers::getDivisionName($additionaltesting->division_id) }}/DEV/{{ Helpers::year($additionaltesting->created_at) }}/{{ $additionaltesting->record }}" />
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="group-input">
-                                                <label for="Division Code"><b>Site/Division Code</b></label>
-                                                <input readonly type="text" name="division_code"   value="{{ $divisionName }}" />
+                                                <label for="Division Code">Site/Division Code</label>
+                                                <input readonly type="text" name="division_code"    value="{{ $divisionName }}" />
                                             <input type="hidden" name="division_id"
                                             value="{{ session()->get('division') }}">
                                         </div>
@@ -968,7 +908,7 @@
                                     </div>
 
 
-                                    <div class="col-lg-6 new-date-data-field">
+                                    {{-- <div class="col-lg-6 new-date-data-field">
                                         <div class="group-input input-date">
                                             <label for="Scheduled end date">Target Closure Date</label>
                                             <div class="calenderauditee" disabled>
@@ -979,7 +919,32 @@
                                                     oninput="handleDateInput(this, 'end_date_3');checkDate('start_date_checkdate_3','end_date_checkdate_3')" />
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
+                                         <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="parent_date_opened">Target Closure Date</label>
+                                        <div class="calenderauditee">
+                                            <input type="text" id="gi_target_closure_date" readonly placeholder="DD-MMM-YYYY"  value="{{ \Carbon\Carbon::parse($additionaltesting->gi_target_closure_date)->format('d-F-Y') }}"/>
+                                            <input type="date" id="end_date_checkdate_1" name="gi_target_closure_date"
+                                                min="yyyy-mm-dd"  class="hide-input" oninput="handleDateInput(this, 'gi_target_closure_date');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
+                                                              </div>
+                                                            </div>
+                                                        </div>
+
+
+                                    {{-- <div class="col-lg-6 new-date-data-field">
+                                        <div class="group-input input-date">
+                                            <label for="gi_target_closure_date">Target Closure Date</label>
+                                            <div class="calenderauditee">
+                                                <input type="text" id="gi_target_closure_date" readonly placeholder="DD-MMM-YYYY" value="{{ \Carbon\Carbon::parse($additionaltesting->gi_target_closure_date)->format('d-F-Y') }}"   />
+                                                <input type="date" id="end_date_checkdate_2" name="gi_target_closure_date"
+                                                    min="dd-mm-yyyy"
+                                                    class="hide-input"
+                                                    data-display-id="end_date_" data-start-id="start_date_checkdate_2"
+                                                    oninput="handleDateInput(this, 'gi_target_closure_date'); checkDate('start_date_checkdate_2', 'end_date_checkdate_2')" />
+                                            </div>
+                                        </div>
+                                    </div> --}}
                                     <div class="col-6">
                                         <div class="group-input">
                                             <label for="Short Description">Short Description<span class="text-danger "
@@ -1332,46 +1297,96 @@
                                     <div class="group-input">
                                         <label for="Product/Material Name"> Additional Test Proposal Completed By
                                             :-</label>
+                                            <div class="static">{{ $additionaltesting->additional_test_proposal_completed_by }}</div>
+
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">Additional Test Proposal Completed On :-</label>
+                                            <div class="static">{{ $additionaltesting->additional_test_proposal_completed_on }}</div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Product/Material Name">CQ Approved By
+                                            :-</label>
+                                            <div class="static">{{ $additionaltesting->cq_approved_by }}</div>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">CQ Approved On :-</label>
+                                            <div class="static">{{ $additionaltesting->cq_approved_on }}</div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Product/Material Name"> Additional Test Exe. By
+                                            :-</label>
+                                            <div class="static">{{ $additionaltesting->additional_test_exe_by }}</div>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">Additional Test Exe. On :-</label>
+                                            <div class="static">{{ $additionaltesting->additional_test_exe_on }}</div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Scheduled end date">Additional Testing QC Review By :-
+                                        </label>
+                                            <div class="static">{{ $additionaltesting->additional_test_qc_by }}</div>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">Additional Testing QC Review on :-
                                         </label>
+                                            <div class="static">{{ $additionaltesting->additional_test_qc_on }}</div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Scheduled end date">AQA Review Completed By :-
+                                        </label>
+                                            <div class="static">{{ $additionaltesting->aqa_review_completed_by }}</div>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">AQA Review Completed On :-
                                         </label>
+                                            <div class="static">{{ $additionaltesting->aqa_review_completed_on }}</div>
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="group-input">
                                         <label for="Description Deviation">Cancel By :-
                                         </label>
+                                            <div class="static">{{ $additionaltesting->completed_by_close_done }}</div>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">Cancel On :-
                                         </label>
+                                            <div class="static">{{ $additionaltesting->completed_on_close_done }}</div>
+
 
                                     </div>
                                 </div>

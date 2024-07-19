@@ -143,6 +143,8 @@ $users = DB::table('users')->get();
                             <th style="width: 8%">Expiry Date</th>
                             <th style="width: 8%">Label Claim.</th>
                             <th style="width: 8%">Pack Size</th>
+                            <th style="width: 5%">Action</th>
+
                             {{-- <th style="width: 8%">Lot/Batch Number</th> --}}
                         </tr>
                     </thead>
@@ -178,6 +180,7 @@ $users = DB::table('users')->get();
                             </td>
                             <td><input type="text" name="parent_info_on_product_material1[0][label_claim]"></td>
                             <td><input type="text" name="parent_info_on_product_material1[0][pack_size]"></td>
+                            <td><button type="button" class="removeRowBtn">Remove</button></td>
                             {{-- <td><input type="text" name="parent_info_on_product_material1[0][lot_batch_number]"></td> --}}
                         </tr>
                     </tbody>
@@ -206,6 +209,8 @@ $users = DB::table('users')->get();
                                         <th style="width: 8%">Test Name of OOS</th>
                                         <th style="width: 8%">Results Obtained</th>
                                         <th style="width: 8%">Specification Limit</th>
+                                        <th style="width: 5%">Action</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -223,6 +228,7 @@ $users = DB::table('users')->get();
                                         <td><input type="text"
                                                 name="root_parent_oos_details[0][specification_limit]">
                                         </td>
+                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -251,6 +257,8 @@ $users = DB::table('users')->get();
                                                     <th style="width: 8%">% Difference of Results</th>
                                                     <th style="width: 8%">Initial Interview Details</th>
                                                     <th style="width: 8%">Trend Limit</th>
+                                                    <th style="width: 5%">Action</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -269,6 +277,7 @@ $users = DB::table('users')->get();
                                                             name="parent_oot_results[0][initial_interview_details]">
                                                     </td>
                                                     <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -296,6 +305,8 @@ $users = DB::table('users')->get();
                                                     <th style="width: 8%">Interval</th>
                                                     <th style="width: 8%">Orientation</th>
                                                     <th style="width: 8%">Pack Details (if any)</th>
+                                                    <th style="width: 5%">Action</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -315,6 +326,7 @@ $users = DB::table('users')->get();
                                                     <td><input type="text"
                                                             name="parent_details_of_stability_study[0][pack_details_if_any]">
                                                     </td>
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -329,13 +341,13 @@ $users = DB::table('users')->get();
                                     <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="RLS Record Number"><b>Record Number</b></label>
-                                            <input disabled type="text" name="record"/>
+                                            <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/DEV/{{ date('Y') }}/" />
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Division Code"><b>Site/Division Code</b></label>
-                                            <input readonly type="text" name="division_id" />
+                                            <input readonly type="text" name="division_id" value="{{ Helpers::getDivisionName(session()->get('division')) }}"  />
                                         <input type="hidden" name="division_code"
                                             value="{{ session()->get('division') }}">
                                     </div>
@@ -345,7 +357,7 @@ $users = DB::table('users')->get();
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator"> Initiator </label>
-                                        <input type="text" disabled name="initiator_id">
+                                        <input type="text" disabled name="initiator_id" value="{{ Auth::user()->name }}">
                                     </div>
                                 </div>
 
@@ -360,12 +372,12 @@ $users = DB::table('users')->get();
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">Target Closure Date</label>
-                                        <div class="calenderauditee" disabled>
-                                            <input type="text" id="end_date_3" disabled readonly
+                                        <div class="calenderauditee" >
+                                            <input type="text" id="target_closure_date_gi"
                                                 placeholder="DD-MMM-YYYY" />
-                                            <input type="date" id="end_date_checkdate_3" disabled
+                                            <input type="date" id="end_date_checkdate_3"
                                                 name="target_closure_date_gi" min="yyyy-mm-dd" class="hide-input"
-                                                oninput="handleDateInput(this, 'end_date_3');checkDate('start_date_checkdate_3','end_date_checkdate_3')" />
+                                                oninput="handleDateInput(this, 'target_closure_date_gi');checkDate('start_date_checkdate_3','end_date_checkdate_3')" />
                                         </div>
                                     </div>
                                 </div>
@@ -1509,6 +1521,7 @@ $users = DB::table('users')->get();
                         '][label_claim]"></td>' +
                         '<td><input type="text" name="parent_info_on_product_material1[' + index +
                         '][pack_size]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                 return html;
@@ -1527,16 +1540,18 @@ $users = DB::table('users')->get();
     <!-- -----------------------------grid-3--------------------------------->
     <script>
         $(document).ready(function() {
+            var index = 1;
             $('#Product_Material3').click(function(e) {
-                function generateTableRow(serialNumber) {
+                function generateTableRow(serialNumber,index) {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        ' <td><input type="text" name="root_parent_oos_details[0][ar_number]"></td>' +
-                        '  <td><input type="text" name="root_parent_oos_details[0][test_name_of_oos]"></td>' +
-                        ' <td><input type="text" name="root_parent_oos_details[0][results_obtained]"></td>' +
-                        '  <td><input type="text" name="root_parent_oos_details[0][specification_limit]"></td>' +
+                        ' <td><input type="text" name="root_parent_oos_details['+ index +'][ar_number]"></td>' +
+                        '  <td><input type="text" name="root_parent_oos_details['+ index +'][test_name_of_oos]"></td>' +
+                        ' <td><input type="text" name="root_parent_oos_details['+ index +'][results_obtained]"></td>' +
+                        '  <td><input type="text" name="root_parent_oos_details['+ index +'][specification_limit]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                     return html;
@@ -1544,8 +1559,9 @@ $users = DB::table('users')->get();
 
                 var tableBody = $('#Product_Material3 tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
+                var newRow = generateTableRow(rowCount + 1,index);
                 tableBody.append(newRow);
+                index++;
             });
         });
     </script>
@@ -1553,19 +1569,21 @@ $users = DB::table('users')->get();
     <!-- -----------------------------grid-4--------------------------------->
     <script>
         $(document).ready(function() {
+            var index = 1;
             $('#Product_Material4').click(function(e) {
-                function generateTableRow(serialNumber) {
+                function generateTableRow(serialNumber,index) {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][ar_number]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][test_number_of_oot]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][results_obtained]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][prev_interval_details]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][diff_of_results]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][initial_interview_details]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][ar_number]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][test_number_of_oot]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][results_obtained]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][prev_interval_details]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][diff_of_results]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][initial_interview_details]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][trend_limit]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                     return html;
@@ -1573,8 +1591,9 @@ $users = DB::table('users')->get();
 
                 var tableBody = $('#Product_Material4 tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
+                var newRow = generateTableRow(rowCount + 1,index);
                 tableBody.append(newRow);
+                index++;
             });
         });
     </script>
@@ -1582,17 +1601,19 @@ $users = DB::table('users')->get();
     <!--------------------------------grid-5--------------------------------->
     <script>
         $(document).ready(function() {
+            var index = 1;
             $('#Product_Material5').click(function(e) {
-                function generateTableRow(serialNumber) {
+                function generateTableRow(serialNumber,index) {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][ar_number]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][condition_temp_and_rh]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][interval]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][orientation]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][pack_details_if_any]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index +'][ar_number]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index +'][condition_temp_and_rh]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index +'][interval]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index +'][orientation]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index +'][pack_details_if_any]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                     return html;
@@ -1600,8 +1621,9 @@ $users = DB::table('users')->get();
 
                 var tableBody = $('#Product_Material5 tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
+                var newRow = generateTableRow(rowCount + 1,index);
                 tableBody.append(newRow);
+                index++;
             });
         });
     </script>
@@ -1653,6 +1675,11 @@ $users = DB::table('users')->get();
         });
     </script>
 
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
+</script>
 
 
 <script>

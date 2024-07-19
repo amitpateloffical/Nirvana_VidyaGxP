@@ -229,6 +229,8 @@ class AnalystInterviewController extends Controller
                     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                     $history->origin_state = $analystinterview->status;
                     $history->action_name = 'Submit';
+                    $history->change_from = "Initiation";
+                    $history->change_to = "Opened";
                     $history->save();
                     }
                 }
@@ -477,9 +479,9 @@ public function send_stage(Request $request, $id)
         if ($changestage->stage == 1) {
             $changestage->stage = "2";
             $changestage->status = "Interview Under Progress";
-            $changestage->interview_under_progress_done_by = Auth::user()->name;
-            $changestage->interview_under_progress_done_on = Carbon::now()->format('d-M-Y');
-            $changestage->comment_interview_under_progress_done = $request->comment;
+            $changestage->submitted_by = Auth::user()->name;
+            $changestage->submitted_on = Carbon::now()->format('d-M-Y');
+            $changestage->comment_submitted = $request->comment;
                             $history = new AnalystInterviewAuditTrail();
                             $history->analystinterview_id = $id;
                             $history->activity_type = 'Activity Log';
@@ -520,9 +522,9 @@ public function send_stage(Request $request, $id)
         if ($changestage->stage == 2) {
             $changestage->stage = "3";
             $changestage->status = "Close-Done";
-            $changestage->canceled_by= Auth::user()->name;
-            $changestage->canceled_on = Carbon::now()->format('d-M-Y');
-            $changestage->comment_canceled = $request->comment;
+            $changestage->interview_under_progress_done_by= Auth::user()->name;
+            $changestage->interview_under_progress_done_on = Carbon::now()->format('d-M-Y');
+            $changestage->comment_interview_under_progress_done = $request->comment;
 
             $history = new AnalystInterviewAuditTrail();
             $history->analystinterview_id = $id;

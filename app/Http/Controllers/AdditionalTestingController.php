@@ -130,6 +130,19 @@ class AdditionalTestingController extends Controller
 
             $additionaltesting->qc_review_attachment = json_encode($files);
         }
+        if (!empty($request->aqa_review_attachment)) {
+            $files = [];
+            if ($request->hasfile('aqa_review_attachment')) {
+                foreach ($request->file('aqa_review_attachment') as $file) {
+                    $name = $request->name . 'aqa_review_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move('upload/', $name);
+                    $files[] = $name;
+                }
+            }
+
+
+            $additionaltesting->aqa_review_attachment = json_encode($files);
+        }
 
 
         $record = RecordNumber::first();
@@ -146,7 +159,7 @@ class AdditionalTestingController extends Controller
         // Additional Testing grid 1------------------------------
 
         $grid_data = $additionaltesting->id;
-        $info_product_material1 = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'parent info product material1'])->firstOrNew();
+        $info_product_material1 = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'Parent info on Product Material1'])->firstOrNew();
         $info_product_material1->additional_testing_id = $grid_data;
         $info_product_material1->identifier = 'Parent info on Product Material1';
         $info_product_material1->data = $request->parent_info_on_product_material;
@@ -155,7 +168,7 @@ class AdditionalTestingController extends Controller
         // Additional Testing grid 2------------------------------
 
         $grid_data = $additionaltesting->id;
-        $info_product_material2 = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'parent info product material2'])->firstOrNew();
+        $info_product_material2 = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'Parent Info on Product Material2'])->firstOrNew();
         $info_product_material2->additional_testing_id = $grid_data;
         $info_product_material2->identifier = 'Parent Info on Product Material2';
         $info_product_material2->data = $request->parent_info_on_product_material1;
@@ -183,7 +196,7 @@ class AdditionalTestingController extends Controller
         // Additional Testing grid 5------------------------------
 
         $grid_data = $additionaltesting->id;
-        $parent_details_of_stability_study = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'parent Details of Stability Study'])->firstOrNew();
+        $parent_details_of_stability_study = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'Parent Details of Stability Study'])->firstOrNew();
         $parent_details_of_stability_study->additional_testing_id = $grid_data;
         $parent_details_of_stability_study->identifier = 'Parent Details of Stability Study';
         $parent_details_of_stability_study->data = $request->parent_details_of_stability_study;
@@ -232,7 +245,7 @@ class AdditionalTestingController extends Controller
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $additionaltesting->status;
                 $history->action_name = 'Submit';
-                $history->change_from = "Initiator";
+                $history->change_from = "Initiation";
                 $history->change_to = "Opened";
                 $history->save();
             }
@@ -376,7 +389,7 @@ class AdditionalTestingController extends Controller
         // Additional Testing grid 1------------------------------
 
         $grid_data = $additionaltesting->id;
-        $info_product_material1 = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'parent info product material1'])->firstOrNew();
+        $info_product_material1 = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'Parent info on Product Material1'])->firstOrNew();
         $info_product_material1->additional_testing_id = $grid_data;
         $info_product_material1->identifier = 'Parent info on Product Material1';
         $info_product_material1->data = $request->parent_info_on_product_material;
@@ -385,7 +398,7 @@ class AdditionalTestingController extends Controller
         // Additional Testing grid 2------------------------------
 
         $grid_data = $additionaltesting->id;
-        $info_product_material2 = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'parent info product material2'])->firstOrNew();
+        $info_product_material2 = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'Parent Info on Product Material2'])->firstOrNew();
         $info_product_material2->additional_testing_id = $grid_data;
         $info_product_material2->identifier = 'Parent Info on Product Material2';
         $info_product_material2->data = $request->parent_info_on_product_material1;
@@ -413,7 +426,7 @@ class AdditionalTestingController extends Controller
         // Additional Testing grid 5------------------------------
 
         $grid_data = $additionaltesting->id;
-        $parent_details_of_stability_study = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'parent Details of Stability Study'])->firstOrNew();
+        $parent_details_of_stability_study = AdditionalTestingGrid::where(['additional_testing_id' => $grid_data, 'identifier' => 'Parent Details of Stability Study'])->firstOrNew();
         $parent_details_of_stability_study->additional_testing_id = $grid_data;
         $parent_details_of_stability_study->identifier = 'Parent Details of Stability Study';
         $parent_details_of_stability_study->data = $request->parent_details_of_stability_study;

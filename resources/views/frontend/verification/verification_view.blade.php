@@ -178,206 +178,109 @@
 
 
     <!-- -----------------------------grid-1----------------------------script -->
+
+
+
+
     <script>
         $(document).ready(function() {
-            var index = 0;
+            let productMaterialIndex = {{ $gridDatas01 && is_array($gridDatas01->data) ? count($gridDatas01->data) : 0 }};
+
             $('#Product_Material').click(function(e) {
-                function generateTableRow(serialNumber,index) {
+                e.preventDefault();
 
-
+                function generateTableRowP(serialNumber) {
                     var html =
-                      '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                        '<td><input type="text" name="parent_info_no_product_material[' + index + '][product_code]"></td>' +
-                        '<td><input type="text" name="parent_info_no_product_material[' + index + '][ar_number]"></td>' +
-                        '<td>' +
-                        '<div class="group-input new-date-data-field mb-0">' +
-                        '<div class="input-date ">' +
-                        '<div class="calenderauditee">' +
-                        '<input type="text" id="agenda_date0' + (index * 2) + '" readonly placeholder="DD-MMM-YYYY" />' +
-                        '<input type="date" name="parent_info_no_product_material[' + index + '][mfg_date]" ' +
-                        'min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" class="hide-input" ' +
-                        'oninput="handleDateInput(this,\'agenda_date0' + (index * 2) + '\');" />' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</td>' +
-                        '<td>' +
-                        '<div class="group-input new-date-data-field mb-0">' +
-                        '<div class="input-date ">' +
-                        '<div class="calenderauditee">' +
-                        '<input type="text" id="agenda_date1' + (index * 2 + 1) + '" readonly placeholder="DD-MMM-YYYY" />' +
-                        '<input type="date" name="parent_info_no_product_material[' + index + '][expiry_date]" ' +
-                        'min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" class="hide-input" ' +
-                        'oninput="handleDateInput(this, \'agenda_date1' + (index * 2 + 1) + '\');" />' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</td>' +
-                        '<td><input type="text" name="parent_info_no_product_material[' + index + '][name]"></td>' +
+                        '<tr>' +
+                        '<td><input disabled type="text" name="parent_info_no_product_material[]" value="' + serialNumber + '"></td>' +
+                        '<td><input type="text" name="parent_info_no_product_material[' + productMaterialIndex + '][product_code]"></td>' +
+                        '<td><input type="text" name="parent_info_no_product_material[' + productMaterialIndex + '][ar_number]"></td>' +
+                        '<td><input type="date" name="parent_info_no_product_material[' + productMaterialIndex + '][mfg_date]"></td>' +
+                        '<td><input type="date" name="parent_info_no_product_material[' + productMaterialIndex + '][expiry_date]"></td>' +
+                        '<td><input type="text" name="parent_info_no_product_material[' + productMaterialIndex + '][name]"></td>' +
+                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
-                    // for (var i = 0; i < users.length; i++) {
-                    //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                    // }
-
-                    // html += '</select></td>' +
-
-                    '</tr>';
-
+                    productMaterialIndex++;
                     return html;
                 }
 
                 var tableBody = $('#Product_Material_details tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1, index);
+                var newRow = generateTableRowP(rowCount + 1);
                 tableBody.append(newRow);
-                index++; // Increment the index for the next row
+            });
+
+            // Event delegation for dynamically added remove buttons
+            $('#Product_Material_details').on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
             });
         });
     </script>
 
     <!-- -----------------------------grid-2----------------------------script -->
-    {{-- <script>
+
+
+    <script>
         $(document).ready(function() {
+            let productMaterialIndex2 = {{ $gridDatas02 && is_array($gridDatas02->data) ? count($gridDatas02->data) : 0 }};
+
             $('#Product_Material1').click(function(e) {
-                function generateTableRow(serialNumber,index) {
+                e.preventDefault();
 
-
+                function generateTableRowP(serialNumber) {
                     var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][product_code]"></td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][batch_no]"></td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][ar_number]"></td>' +
-                    '<td>' +
-                    '<div class="group-input new-date-data-field mb-0">' +
-                    '<div class="input-date ">' +
-                    '<div class="calenderauditee">' +
-                    '<input type="text" id="agenda_date2' + (index * 2) + '" readonly placeholder="DD-MMM-YYYY" />' +
-                    '<input type="date" name="parent_info_no_product_material1[' + index + '][mfg_date]" ' +
-                    'min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" class="hide-input" ' +
-                    'oninput="handleDateInput(this, \'agenda_date2' + (index * 2) + '\');" />' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</td>' +
-                    '<td>' +
-                    '<div class="group-input new-date-data-field mb-0">' +
-                    '<div class="input-date ">' +
-                    '<div class="calenderauditee">' +
-                    '<input type="text" id="agenda_date3' + (index * 2 + 1) + '" readonly placeholder="DD-MMM-YYYY" />' +
-                    '<input type="date" name="parent_info_no_product_material1[' + index + '][expiry_date]" ' +
-                    'min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" class="hide-input" ' +
-                    'oninput="handleDateInput(this, \'agenda_date3' + (index * 2 + 1) + '\');" />' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][name]"></td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][pack_size]"></td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][lot_batch_no]"></td>' +
-                    '</tr>';
+                        '<tr>' +
+                        '<td><input disabled type="text" name="parent_info_no_product_material1[]" value="' + serialNumber + '"></td>' +
+                        '<td><input type="text" name="parent_info_no_product_material1[' + productMaterialIndex2 + '][product_code]"></td>' +
+                        '<td><input type="text" name="parent_info_no_product_material1[' + productMaterialIndex2 + '][batch_no]"></td>' +
+                        '<td><input type="text" name="parent_info_no_product_material1[' + productMaterialIndex2 + '][ar_number]"></td>' +
+                        '<td><input type="date" name="parent_info_no_product_material1[' + productMaterialIndex2 + '][mfg_date]"></td>' +
+                        '<td><input type="date" name="parent_info_no_product_material1[' + productMaterialIndex2 + '][expiry_date]"></td>' +
+                        '<td><input type="text" name="parent_info_no_product_material1[' + productMaterialIndex2 + '][label]"></td>' +
+                        '<td><input type="text" name="parent_info_no_product_material1[' + productMaterialIndex2 + '][pack_size]"></td>' +
+                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
+                        '</tr>';
 
-                // Increment the index for the next row
-
+                    productMaterialIndex2++;
                     return html;
                 }
 
                 var tableBody = $('#Product_Material1_details tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1, index);
+                var newRow = generateTableRowP(rowCount + 1);
                 tableBody.append(newRow);
-                index++;
+            });
+
+            // Event delegation for dynamically added remove buttons
+            $('#Product_Material1_details').on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
             });
         });
-    </script>    --}}
-<script>
-    $(document).ready(function() {
-        var index = 0; // Initialize index outside the click event handler
-
-        $('#Product_Material1').click(function(e) {
-            function generateTableRow(serialNumber, index) {
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][product_code]"></td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][batch_no]"></td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][ar_number]"></td>' +
-                    '<td>' +
-                    '<div class="group-input new-date-data-field mb-0">' +
-                    '<div class="input-date ">' +
-                    '<div class="calenderauditee">' +
-                    '<input type="text" id="agenda_date2' + (index * 2) + '" readonly placeholder="DD-MMM-YYYY" />' +
-                    '<input type="date" name="parent_info_no_product_material1[' + index + '][mfg_date]" ' +
-                    'min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" class="hide-input" ' +
-                    'oninput="handleDateInput(this, \'agenda_date2' + (index * 2) + '\');" />' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</td>' +
-                    '<td>' +
-                    '<div class="group-input new-date-data-field mb-0">' +
-                    '<div class="input-date ">' +
-                    '<div class="calenderauditee">' +
-                    '<input type="text" id="agenda_date3' + (index * 2 + 1) + '" readonly placeholder="DD-MMM-YYYY" />' +
-                    '<input type="date" name="parent_info_no_product_material1[' + index + '][expiry_date]" ' +
-                    'min="{{ \Carbon\Carbon::now()->format("Y-m-d") }}" class="hide-input" ' +
-                    'oninput="handleDateInput(this, \'agenda_date3' + (index * 2 + 1) + '\');" />' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][name]"></td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][pack_size]"></td>' +
-                    '<td><input type="text" name="parent_info_no_product_material1[' + index + '][lot_batch_no]"></td>' +
-                    '</tr>';
-
-                return html;
-            }
-
-            var tableBody = $('#Product_Material1_details tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1, index);
-            tableBody.append(newRow);
-            index++; // Increment the index for the next row
-        });
-    });
-</script>
+    </script>
 
     <!-- ------------------------------grid-3-------------------------script -->
-    <script>
+        <script>
         $(document).ready(function() {
+            var index = 1;
             $('#OOS_Details').click(function(e) {
-                function generateTableRow(serialNumber) {
-
-
+                function generateTableRow(serialNumber,index) {
                     var html =
                         '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                        '"></td>' +
-                        '<td><input type="text" name="parent_oos_details[0][ar_number]"></td>' +
-                        '<td><input type="text" name="parent_oos_details[0][test_name_of_oos]"></td>' +
-                        '<td><input type="text" name="parent_oos_details[0][result_obtained]"></td>' +
-                        '<td><input type="text" name="parent_oos_details[0][specification_limit]"></td>' +
-
-                        '</tr>';
-
-                    // for (var i = 0; i < users.length; i++) {
-                    //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                    // }
-
-                    // html += '</select></td>' +
-
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                        '<td><input type="text" name="parent_oos_details['+ index +'][ar_number]"></td>' +
+                        '<td><input type="text" name="parent_oos_details['+ index +'][test_name_of_oos]"></td>' +
+                        '<td><input type="text" name="parent_oos_details['+ index +'][result_obtained]"></td>' +
+                        '<td><input type="text" name="parent_oos_details['+ index +'][specification_limit]"></td>' +
+                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
                     '</tr>';
-
                     return html;
                 }
-
                 var tableBody = $('#OOS_Details_details tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
+                var newRow = generateTableRow(rowCount + 1,index);
                 tableBody.append(newRow);
+                index++;
             });
         });
     </script>
@@ -386,39 +289,34 @@
 
     <script>
         $(document).ready(function() {
-            $('#OOT_Results').click(function(e) {
-                function generateTableRow(serialNumber) {
+            var index = 1;
+            $('#OOT_Results4').click(function(e) {
+                function generateTableRow(serialNumber,index) {
 
 
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        '<td><input type="text" name="OOT_Results[0][AR_Number]"></td>' +
-                        '<td><input type="text" name="OOT_Results[0][Test_Name_Of_OOT]"></td>' +
-                        '<td><input type="text" name="OOT_Results[0][Result_Obtained]"></td>' +
-                        '<td><input type="text" name="OOT_Results[0][Initial_Interval_Details]"></td>' +
-                        '<td><input type="text" name="OOT_Results[0][Previous_Interval_Details]"></td>' +
-                        '<td><input type="text" name="OOT_Results[0][Difference_Of_Results]"></td>' +
-                        '<td><input type="text" name="OOT_Results[0][Trend_Limit]"></td>' +
-
-                        '</tr>';
-
-                    // for (var i = 0; i < users.length; i++) {
-                    //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                    // }
-
-                    // html += '</select></td>' +
+                        '<td><input type="text" name="OOT_Results['+ index +'][AR_Number]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ index +'][Test_Name_Of_OOT]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ index +'][Result_Obtained]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ index +'][Initial_Interval_Details]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ index +'][Previous_Interval_Details]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ index +'][Difference_Of_Results]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ index +'][Trend_Limit]"></td>' +
+                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
 
                     '</tr>';
 
                     return html;
                 }
 
-                var tableBody = $('#OOT_Results_Details tbody');
+                var tableBody = $('#OOT_Results4_Details tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
+                var newRow = generateTableRow(rowCount + 1,index );
                 tableBody.append(newRow);
+                index++;
             });
         });
     </script>
@@ -428,39 +326,37 @@
 
 <script>
     $(document).ready(function() {
+        var index = 1;
         $('#Details_Stability').click(function(e) {
-            function generateTableRow(serialNumber) {
+            function generateTableRow(serialNumber,index) {
 
 
                 var html =
                     '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                    '"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study[0][ar_number]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study[0][temperature_rh]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study[0][interval]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study[0][orientation]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study[0][pack_details]"></td>' +
-
-                    '</tr>';
-
-                // for (var i = 0; i < users.length; i++) {
-                //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                // }
-
-                // html += '</select></td>' +
-
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study['+ index +'][ar_number]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study['+ index +'][temperature_rh]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study['+ index +'][interval]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study['+ index +'][orientation]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study['+ index +'][pack_details]"></td>' +
+                    '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
                 '</tr>';
-
                 return html;
             }
 
             var tableBody = $('#Details_Stability_details tbody');
             var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
+            var newRow = generateTableRow(rowCount + 1,index);
             tableBody.append(newRow);
+            index++;
         });
     });
+</script>
+
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
 </script>
 
     <div class="form-field-head">
@@ -705,24 +601,41 @@
                             </div>
                         </div>
 
+
+
+
+
                         <div class="col-lg-6 new-date-data-field">
                             <div class="group-input input-date">
-                                <label for="Scheduled end date">(Parent)Date Opened</label>
+                                <label for="parent_date_opened">(Parent) Date Opened</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="date_opened" value="{{$verification->parent_date_opened}}" />
-                                    <input type="date" id="date_opened_checkdate"
-                                        name="parent_date_opened"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'date_opened');checkDate('start_date_checkdate','date_opened_checkdate')" />
-                                </div>
-                            </div>
-                        </div>
+                                    <input type="text" id="parent_date_opened" readonly placeholder="DD-MMM-YYYY"  value="{{$verification->parent_date_opened}}"/>
+                                    <input type="date" id="end_date_checkdate_1" name="parent_date_opened"
+                                        min="yyyy-mm-dd"  class="hide-input" oninput="handleDateInput(this, 'parent_date_opened');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
+                                                      </div>
+                                                    </div>
+                                                </div>
 
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Short Description">(Parent) Short Description</label>
                                 <textarea name="parent_short_description">{{$verification->parent_short_description}}</textarea>
+                            </div>
+                        </div>
 
+
+
+                        <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="parent_target_closure_date">(Parent) Target Closure Date</label>
+                                <div class="calenderauditee">
+                                    <input type="text" id="end_date_2" readonly placeholder="DD-MMM-YYYY" value="{{$verification->parent_target_closure_date}}" />
+                                    <input type="date" id="end_date_checkdate_2" name="parent_target_closure_date"
+                                        min="yyyy-mm-dd"
+                                        class="hide-input"
+                                        data-display-id="end_date_2" data-start-id="start_date_checkdate_2"
+                                        oninput="handleDateInput(this, 'end_date_2'); checkDate('start_date_checkdate_2', 'end_date_checkdate_2')" />
+                                </div>
                             </div>
                         </div>
 
@@ -768,43 +681,22 @@
                                             <th style="width: 8%"> Mfg.Date</th>
                                             <th style="width: 8%">Expiry Date</th>
                                             <th style="width: 8%"> Label Claim.</th>
+                                             <th style="width: 5%">Action</th>
                                         </tr>
                                     </thead>
-                                    @foreach($gridDatas01->data as $datas)
-
                                     <tbody>
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="parent_info_no_product_material[0][product_code]" value="{{$datas['product_code']}}" ></td>
-                                        <td><input type="text" name="parent_info_no_product_material[0][ar_number]" value="{{$datas['ar_number']}}" ></td>
-                                        <td>
-                                            <div class="group-input new-date-data-field mb-0">
-                                                <div class="input-date ">
-                                                    <div class="calenderauditee">
-                                                        <input type="text" id="agenda_date0" readonly placeholder="DD-MMM-YYYY"  value="{{$datas['mfg_date']}}" />
-                                                        <input type="date" name="parent_info_no_product_material[0][mfg_date]"
-                                                               min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                               oninput="handleDateInput(this, 'agenda_date0');" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                            <div class="group-input new-date-data-field mb-0">
-                                                <div class="input-date ">
-                                                    <div class="calenderauditee">
-                                                        <input type="text" id="agenda_date1" readonly placeholder="DD-MMM-YYYY"  value="{{$datas['expiry_date']}}" />
-                                                        <input type="date" name="parent_info_no_product_material[0][expiry_date]"
-                                                               min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                               oninput="handleDateInput(this, 'agenda_date1');" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        {{-- <td><input type="date" name="parent_info_no_product_material[0][expiry_date]"></td> --}}
-                                        <td><input type="text" name="parent_info_no_product_material[0][name]" value="{{$datas['name']}}" ></td>
-                                    </tbody>
+                                    @foreach($gridDatas01->data as $datas)
+                                    <tr>
+                                        <td><input disabled type="text" name="parent_info_no_product_material[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                        <td><input type="text" name="parent_info_no_product_material[{{$loop->index}}][product_code]" value="{{ isset($datas['product_code']) ? $datas['product_code'] : '' }}"></td>
+                                        <td><input type="text" name="parent_info_no_product_material[{{$loop->index}}][ar_number]" value="{{ isset($datas['ar_number']) ? $datas['ar_number'] : '' }}"></td>
+                                        <td><input type="date" name="parent_info_no_product_material[{{$loop->index}}][mfg_date]" value="{{ isset($datas['mfg_date']) ? $datas['mfg_date'] : '' }}"></td>
+                                        <td><input type="date" name="parent_info_no_product_material[{{$loop->index}}][expiry_date]" value="{{ isset($datas['expiry_date']) ? $datas['expiry_date'] : '' }}"></td>
+                                        <td><input type="text" name="parent_info_no_product_material[{{$loop->index}}][name]" value="{{ isset($datas['name']) ? $datas['name'] : '' }}"></td>
+                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+                                    </tr>
                                     @endforeach
+                                </tbody>
                                 </table>
                             </div>
                         </div>
@@ -833,96 +725,78 @@
                                             <th style="width: 8%">Expiry Date</th>
                                             <th style="width: 8%"> Label Claim.</th>
                                             <th style="width: 8%">Pack Size</th>
-                                            <th style="width: 8%">Lot/Batch Number</th>
+                                            {{-- <th style="width: 8%">Lot/Batch Number</th> --}}
+                                            <th style="width: 5%">Action</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach($gridDatas02->data as $datas)
-
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="parent_info_no_product_material1[0][product_code]"  value="{{$datas['product_code']}}" ></td>
-                                        <td><input type="text" name="parent_info_no_product_material1[0][batch_no]" value="{{$datas['batch_no']}}" ></td>
-                                        <td><input type="text" name="parent_info_no_product_material1[0][ar_number]" value="{{$datas['ar_number']}}" ></td>
-
-                                        <td>
-                                            <div class="group-input new-date-data-field mb-0">
-                                                <div class="input-date ">
-                                                    <div class="calenderauditee">
-                                                        <input type="text" id="agenda_date2" readonly placeholder="DD-MMM-YYYY"  value="{{$datas['mfg_date']}}" />
-                                                        <input type="date" name="parent_info_no_product_material1[0][mfg_date]"
-                                                               min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                               oninput="handleDateInput(this, 'agenda_date2');" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <td>
-                                            <div class="group-input new-date-data-field mb-0">
-                                                <div class="input-date ">
-                                                    <div class="calenderauditee">
-                                                        <input type="text" id="agenda_date3" readonly placeholder="DD-MMM-YYYY"  value="{{$datas['expiry_date']}}" />
-                                                        <input type="date" name="parent_info_no_product_material1[0][expiry_date]"
-                                                               min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                                               oninput="handleDateInput(this, 'agenda_date3');" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        {{-- <td><input type="date" name="parent_info_no_product_material1[0][mfg_date]"></td>
-                                        <td><input type="date" name="parent_info_no_product_material1[0][expiry_date]"></td> --}}
-                                        <td><input type="text" name="parent_info_no_product_material1[0][label]" value="{{$datas['label']}}" ></td>
-                                        <td><input type="text" name="parent_info_no_product_material1[0][pack_size]" value="{{$datas['pack_size']}}" ></td>
-                                        <td><input type="text" name="parent_info_no_product_material1[0][lot_batch_no]" value="{{$datas['lot_batch_no']}}" ></td>
-                                    </tbody>
-                                    @endforeach
-                                </table>
-                            </div>
-                        </div>
-
-    <!-- ---------------------------grid-3 -------------------------------- -->
-
-                        <div class="group-input">
-                            <label for="audit-agenda-grid">
-                                (Parent) OOS Details
-                                <button type="button" name="parent_oos_details" id="OOS_Details">+</button>
-                                <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#document-details-field-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                    (Launch Instruction)
-                                </span>
-                            </label>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="OOS_Details_details" style="width: 100%;">
-                                    <thead>
                                         <tr>
-                                            <th style="width: 4%">Row#</th>
-                                            <th style="width: 8%"> A.R.Number</th>
-                                            <th style="width: 8%"> Test Name Of OOS</th>
-                                            <th style="width: 8%">Result Obtained</th>
-                                            <th style="width: 8%">Specification Limit</th>
+                                        <td><input disabled type="text" name="parent_info_no_product_material1[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                        <td><input type="text" name="parent_info_no_product_material1[{{$loop->index}}][product_code]" value="{{ isset($datas['product_code']) ? $datas['product_code'] : '' }}"></td>
+                                        <td><input type="text" name="parent_info_no_product_material1[{{$loop->index}}][batch_no]" value="{{ isset($datas['batch_no']) ? $datas['batch_no'] : '' }}"></td>
+                                        <td><input type="text" name="parent_info_no_product_material1[{{$loop->index}}][ar_number]" value="{{ isset($datas['ar_number']) ? $datas['ar_number'] : '' }}"></td>
+                                        <td><input type="date" name="parent_info_no_product_material1[{{$loop->index}}][mfg_date]" value="{{ isset($datas['mfg_date']) ? $datas['mfg_date'] : '' }}"></td>
+                                        <td><input type="date" name="parent_info_no_product_material1[{{$loop->index}}][expiry_date]" value="{{ isset($datas['expiry_date']) ? $datas['expiry_date'] : '' }}"></td>
+                                        <td><input type="text" name="parent_info_no_product_material1[{{$loop->index}}][label]" value="{{ isset($datas['label']) ? $datas['label'] : '' }}"></td>
+                                        <td><input type="text" name="parent_info_no_product_material1[{{$loop->index}}][pack_size]" value="{{ isset($datas['pack_size']) ? $datas['pack_size'] : '' }}"></td>
+                                        {{-- <td><input type="text" name="parent_info_no_product_material1[{{$loop->index}}][lot_batch_no]" value="{{ isset($datas['lot_batch_no']) ? $datas['lot_batch_no'] : '' }}"></td> --}}
+                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
                                         </tr>
-                                    </thead>
-                                             @foreach($gridDatas03->data as $datas)
-
-                                    <tbody>
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="parent_oos_details[0][ar_number]" value="{{$datas['ar_number']}}"></td>
-                                        <td><input type="text" name="parent_oos_details[0][test_name_of_oos]" value="{{$datas['test_name_of_oos']}}" ></td>
-                                        <td><input type="text" name="parent_oos_details[0][result_obtained]" value="{{$datas['result_obtained']}}" ></td>
-                                        <td><input type="text" name="parent_oos_details[0][specification_limit]" value="{{$datas['specification_limit']}}" ></td>
-                                    </tbody>
+                                    @endforeach
+                                </tbody>
                                 </table>
-                                @endforeach
                             </div>
                         </div>
 
+    <!-- ---------------------------grid-3 ----------------------------------->
+
+    <div class="group-input">
+        <label for="audit-agenda-grid">
+            (Parent) OOS Details
+            <button type="button" name="parent_oos_details" id="OOS_Details">+</button>
+            <span class="text-primary" data-bs-toggle="modal"
+                data-bs-target="#document-details-field-instruction-modal"
+                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                (Launch Instruction)
+            </span>
+        </label>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="OOS_Details_details" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="width: 4%">Row#</th>
+                        <th style="width: 8%"> A.R.Number</th>
+                        <th style="width: 8%"> Test Name Of OOS</th>
+                        <th style="width: 8%">Result Obtained</th>
+                        <th style="width: 8%">Specification Limit</th>
+                        <th style="width: 5%">Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($gridDatas03->data as $datas)
+                    <tr>
+                    <td><input disabled type="text" name="parent_oos_details[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                    <td><input type="text" name="parent_oos_details[{{$loop->index}}][ar_number]"  value="{{$datas['ar_number']}}" ></td>
+                    <td><input type="text" name="parent_oos_details[{{$loop->index}}][test_name_of_oos]"  value="{{$datas['test_name_of_oos']}}" ></td>
+                    <td><input type="text" name="parent_oos_details[{{$loop->index}}][result_obtained]"  value="{{$datas['result_obtained']}}" ></td>
+                    <td><input type="text" name="parent_oos_details[{{$loop->index}}][specification_limit]"  value="{{$datas['specification_limit']}}" ></td>
+                    <td><button type="button" class="removeRowBtn">Remove</button></td>
+                    </tr>
+                @endforeach
+            </tbody>
+
+            </table>
+        </div>
+    </div>
     <!-- ---------------------------grid-4 -------------------------------- -->
 
                         <div class="group-input">
                             <label for="audit-agenda-grid">
                                 (Parent) OOT Results
-                                <button type="button" name="OOT_Results" id="OOT_Results">+</button>
+                                <button type="button" name="OOT_Results" id="OOT_Results4">+</button>
                                 <span class="text-primary" data-bs-toggle="modal"
                                     data-bs-target="#document-details-field-instruction-modal"
                                     style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
@@ -930,7 +804,7 @@
                                 </span>
                             </label>
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="OOT_Results_Details" style="width: 100%;">
+                                <table class="table table-bordered" id="OOT_Results4_Details" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th style="width: 4%">Row#</th>
@@ -941,12 +815,15 @@
                                             <th style="width: 8%">Previous Interval Details</th>
                                             <th style="width: 8%">%Difference Of Results</th>
                                             <th style="width: 8%">Trend Limit</th>
+                                            <th style="width: 5%">Action</th>
+
                                         </tr>
                                     </thead>
-                                    @foreach($gridDatas04->data as $datas)
-
                                     <tbody>
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+
+                                    @foreach($gridDatas04->data as $datas)
+                                        <tr>
+                                        <td><input disabled type="text" name="serial[]" value="{{$loop->index+1}}"></td>
                                         <td><input type="text" name="OOT_Results[0][AR_Number]" value="{{$datas['AR_Number']}}" ></td>
                                         <td><input type="text" name="OOT_Results[0][Test_Name_Of_OOT]" value="{{$datas['Test_Name_Of_OOT']}}" ></td>
                                         <td><input type="text" name="OOT_Results[0][Result_Obtained]" value="{{$datas['Result_Obtained']}}" ></td>
@@ -954,8 +831,11 @@
                                         <td><input type="text" name="OOT_Results[0][Previous_Interval_Details]" value="{{$datas['Previous_Interval_Details']}}" ></td>
                                         <td><input type="text" name="OOT_Results[0][Difference_Of_Results]" value="{{$datas['Difference_Of_Results']}}" ></td>
                                         <td><input type="text" name="OOT_Results[0][Trend_Limit]" value="{{$datas['Trend_Limit']}}" ></td>
-                                    </tbody>
+                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+                                        </tr>
                                     @endforeach
+                                </tbody>
+
                                 </table>
                             </div>
                         </div>
@@ -982,19 +862,24 @@
                                             <th style="width: 12%">Interval</th>
                                             <th style="width: 16%">Orientation</th>
                                             <th style="width: 16%">Pack Details (if any)</th>
+                                            <th style="width: 5%">Action</th>
+
                                         </tr>
                                     </thead>
-                                    @foreach($gridDatas05->data as $datas)
-
                                     <tbody>
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+
+                                        @foreach($gridDatas05->data as $datas)
+                                        <tr>
+                                        <td><input disabled type="text" name="serial[]" value="{{$loop->index+1}}"></td>
                                         <td><input type="text" name="parent_details_of_stability_study[0][ar_number]" value="{{$datas['ar_number']}}"  ></td>
                                         <td><input type="text" name="parent_details_of_stability_study[0][temperature_rh]" value="{{$datas['temperature_rh']}}"  ></td>
                                         <td><input type="text" name="parent_details_of_stability_study[0][interval]" value="{{$datas['interval']}}"  ></td>
                                         <td><input type="text" name="parent_details_of_stability_study[0][orientation]" value="{{$datas['orientation']}}"  ></td>
                                         <td><input type="text" name="parent_details_of_stability_study[0][pack_details]" value="{{$datas['pack_details']}}"  ></td>
-                                    </tbody>
-                                    @endforeach
+                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+                                        </tr>
+                                        @endforeach
+                                     </tbody>
                                 </table>
                             </div>
                         </div>
@@ -1043,7 +928,7 @@
                             <div class="group-input input-date">
                                 <label for="Scheduled end date">Target Closure Date</label>
                                 <div class="calenderauditee">
-                                    <input type="text" id="closure_date" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="text" id="closure_date" readonly placeholder="DD-MMM-YYYY" value="{{$verification->target_closure_date_gi}}"/>
                                     <input type="date" id="closure_date_checkdate"
                                         name="target_closure_date_gi" value="{{$verification->target_closure_date_gi}}"
                                         min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -1083,10 +968,10 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Reference Recores">Recommended Actions </label>
-                                <select multiple id="reference_record" name="recommended_actions" id="">
-                                    <option value="recalculation_of_results">Re-Calculation Of Results By Omiting The Error</option>
-                                    <option value="re_injection">Re-Injection Of Original Vials of Sample</option>
-                                    <option value="injection">Injection Of Re-Filled Sample Solution</option>
+                                <select multiple id="reference_record" name="recommended_actions" value = "{{$verification->recommended_actions}}">
+                                    <option  @if ($verification->recommended_actions == 'recalculation_of_results') selected @endif value="recalculation_of_results">Re-Calculation Of Results By Omiting The Error</option>
+                                    <option @if ($verification->recommended_actions == 're_injection') selected @endif value="re_injection">Re-Injection Of Original Vials of Sample</option>
+                                    <option @if ($verification->recommended_actions == 'injection') selected @endif value="injection">Injection Of Re-Filled Sample Solution</option>
                                 </select>
                             </div>
                         </div>

@@ -99,79 +99,42 @@
     </script>
 
     <!-- -----------------------------grid-1--------------------------------->
+
     <script>
         $(document).ready(function() {
-            var index = 1; // Start index for new rows
-
+            let index = 1; // Start index for new rows
             $('#Product_Material').click(function(e) {
-                e.preventDefault();
-
-                var newRow = generateTableRow(index); // Generate the table row HTML
-                $('#parent_info_on_product_material tbody').append(newRow);
-
-                index++; // Increment index for the next row
-            });
-
-            function generateTableRow(index) {
+                function generateTableRow(serialNumber) {
                 var html =
                     '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + (index + 1) + '"></td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[' + index +
-                    '][item_product_code]"></td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[' + index +
-                    '][lot_batch_number]"></td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[' + index +
-                    '][ar_number]"></td>' +
-                    '<td>' +
-                    '<div class="group-input new-date-data-field mb-0">' +
-                    '<div class="input-date">' +
-                    '<div class="calenderauditee">' +
-                    '<input type="text" id="agenda_date50_' + index +
-                    '" readonly placeholder="DD-MMM-YYYY" />' +
-                    '<input type="date" name="parent_info_on_product_material[' + index + '][mfg_date]" ' +
-                    'class="hide-input" ' +
-                    'oninput="handleDateInput(this, \'agenda_date50_' + index + '\');" />' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</td>' +
-                    '<td>' +
-                    '<div class="group-input new-date-data-field mb-0">' +
-                    '<div class="input-date">' +
-                    '<div class="calenderauditee">' +
-                    '<input type="text" id="agenda_date51_' + index +
-                    '" readonly placeholder="DD-MMM-YYYY" />' +
-                    '<input type="date" name="parent_info_on_product_material[' + index + '][exp_date]" ' +
-                    'class="hide-input" ' +
-                    'oninput="handleDateInput(this, \'agenda_date51_' + index + '\');" />' +
-                    '</div>' +
-                    '</div>' +
-                    '</div>' +
-                    '</td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[' + index +
-                    '][label_claim]"></td>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][item_product_code]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][lot_batch_number]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][ar_number]"></td>' +
+                    '<td><input type="date" name="parent_info_on_product_material[' + index + '][mfg_date]"></td>' +
+                    '<td><input type="date" name="parent_info_on_product_material[' + index + '][exp_date]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][label_claim]"></td>' +
+                    '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                     '</tr>';
-
+                 index++;
                 return html;
             }
-
-            // Function to handle date input and update readonly text field
-            function handleDateInput(input, id) {
-                var dateString = input.value; // Use input.value for date input type
-                document.getElementById(id).value = dateString;
-            }
+            var tableBody = $('#parent_info_on_product_material01 tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1,index);
+            tableBody.append(newRow);
+        });
         });
     </script>
 
-    <!-- ------------------------ ----grid-2--------------------------------->
+    <!-- ----------------------------grid-2--------------------------------->
     <script>
         $(document).ready(function() {
             var index = 1; // Start index from 1 since the first row is already present
-
             $('#Product_Material1').click(function(e) {
                 e.preventDefault(); // Prevent default action of button click
 
-                function generateTableRow(serialNumber, index) {
+                function generateTableRow(serialNumber) {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
@@ -214,6 +177,7 @@
                         '][label_claim]"></td>' +
                         '<td><input type="text" name="parent_info_on_product_material1[' + index +
                         '][pack_size]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                 return html;
@@ -232,45 +196,49 @@
     <!-- -----------------------------grid-3--------------------------------->
     <script>
         $(document).ready(function() {
+            var index = 1;
             $('#Product_Material3').click(function(e) {
-                function generateTableRow(serialNumber) {
+                function generateTableRow(serialNumber,index) {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        ' <td><input type="text" name="root_parent_oos_details[0][ar_number]"></td>' +
-                        '  <td><input type="text" name="root_parent_oos_details[0][test_name_of_oos]"></td>' +
-                        ' <td><input type="text" name="root_parent_oos_details[0][results_obtained]"></td>' +
-                        '  <td><input type="text" name="root_parent_oos_details[0][specification_limit]"></td>' +
+                        ' <td><input type="text" name="root_parent_oos_details['+ index +'][ar_number]"></td>' +
+                        '  <td><input type="text" name="root_parent_oos_details['+ index +'][test_name_of_oos]"></td>' +
+                        ' <td><input type="text" name="root_parent_oos_details['+ index +'][results_obtained]"></td>' +
+                        '  <td><input type="text" name="root_parent_oos_details['+ index +'][specification_limit]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
-
                     return html;
                 }
-
                 var tableBody = $('#Product_Material3 tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
+                var newRow = generateTableRow(rowCount + 1,index);
                 tableBody.append(newRow);
+                index++;
             });
         });
     </script>
 
     <!-- -----------------------------grid-4--------------------------------->
+
     <script>
         $(document).ready(function() {
+          var  index = 1;
             $('#Product_Material4').click(function(e) {
-                function generateTableRow(serialNumber) {
+                function generateTableRow(serialNumber,index) {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][ar_number]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][test_number_of_oot]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][results_obtained]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][prev_interval_details]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][diff_of_results]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][initial_interview_details]"></td>' +
-                        '  <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][ar_number]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][test_number_of_oot]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][results_obtained]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][prev_interval_details]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][diff_of_results]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][initial_interview_details]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][trend_limit]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                     return html;
@@ -278,8 +246,9 @@
 
                 var tableBody = $('#Product_Material4 tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
+                var newRow = generateTableRow(rowCount + 1,index);
                 tableBody.append(newRow);
+                index++;
             });
         });
     </script>
@@ -287,17 +256,19 @@
     <!--------------------------------grid-5--------------------------------->
     <script>
         $(document).ready(function() {
+            var index= 1;
             $('#Product_Material5').click(function(e) {
-                function generateTableRow(serialNumber) {
+                function generateTableRow(serialNumber,index) {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][ar_number]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][condition_temp_and_rh]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][interval]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][orientation]"></td>' +
-                        '<td><input type="text" name="parent_details_of_stability_study[0][pack_details_if_any]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index+'][ar_number]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index+'][condition_temp_and_rh]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index+'][interval]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index+'][orientation]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index+'][pack_details_if_any]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
 
                     return html;
@@ -305,11 +276,18 @@
 
                 var tableBody = $('#Product_Material5 tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
+                var newRow = generateTableRow(rowCount + 1,index);
                 tableBody.append(newRow);
+                index++;
             });
         });
     </script>
+
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
+</script>
 
     <!--------------------------------Date--------------------------------->
 
@@ -409,9 +387,9 @@
                                     <div class="group-input input-date">
                                         <label for="parent_date_opened">(Parent) Date Opened</label>
                                         <div class="calenderauditee">
-                                            <input type="text" id="end_date_1" readonly placeholder="DD-MMM-YYYY" />
+                                            <input type="text" id="parent_date_opened" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date" id="end_date_checkdate_1" name="parent_date_opened"
-                                                min="min="yyyy-mm-dd" " class="hide-input" oninput="handleDateInput(this, 'end_date_1');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
+                                                min="yyyy-mm-dd"  class="hide-input" oninput="handleDateInput(this, 'parent_date_opened');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
                                                               </div>
                                                             </div>
                                                         </div>
@@ -449,6 +427,9 @@
                                                                         <input type="text" id="text" name="root_parent_prod_mat_name">
                                                                     </div>
                                                                      </div>
+                                                                     {{-- -------------grid-1----------------------------- --}}
+
+
 
                                                                      <div class="group-input">
                                                                         <label for="audit-agenda-grid">
@@ -456,7 +437,7 @@
                                                                             <button type="button" name="parent_info_on_product_material" id="Product_Material">+</button>
                                                                         </label>
                                                                         <div class="table-responsive">
-                                                                            <table class="table table-bordered" id="parent_info_on_product_material">
+                                                                            <table class="table table-bordered" id="parent_info_on_product_material01">
                                                                                 <thead>
                                                                                     <tr>
                                                                                         <th style="width: 4%">Row#</th>
@@ -466,38 +447,19 @@
                                                                                         <th style="width: 8%">Mfg. Date</th>
                                                                                         <th style="width: 8%">Expiry Date</th>
                                                                                         <th style="width: 8%">Label Claim</th>
+                                                                                        <th style="width: 5%">Action</th>
                                                                                     </tr>
                                                                                 </thead>
                                                                                 <tbody>
-                                                                                    <!-- Existing first row, which serves as a template -->
                                                                                     <tr>
-                                                                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                                                        <td><input disabled type="text" name="serial[]" value="1" readonly></td>
                                                                                         <td><input type="text" name="parent_info_on_product_material[0][item_product_code]"></td>
                                                                                         <td><input type="text" name="parent_info_on_product_material[0][lot_batch_number]"></td>
                                                                                         <td><input type="text" name="parent_info_on_product_material[0][ar_number]"></td>
-                                                                                        <td>
-                                                                                            <div class="group-input new-date-data-field mb-0">
-                                                                                                <div class="input-date">
-                                                                                                    <div class="calenderauditee">
-                                                                                                        <input type="text" id="agenda_date50_0" readonly placeholder="DD-MMM-YYYY" />
-                                                                                                        <input type="date" name="parent_info_on_product_material[0][mfg_date]" class="hide-input"
-                                                                                                            oninput="handleDateInput(this, 'agenda_date50_0');" />
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </td>
-                                                                                        <td>
-                                                                                            <div class="group-input new-date-data-field mb-0">
-                                                                                                <div class="input-date">
-                                                                                                    <div class="calenderauditee">
-                                                                                                        <input type="text" id="agenda_date51_0" readonly placeholder="DD-MMM-YYYY" />
-                                                                                                        <input type="date" name="parent_info_on_product_material[0][exp_date]" class="hide-input"
-                                                                                                            oninput="handleDateInput(this, 'agenda_date51_0');" />
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </td>
+                                                                                        <td><input type="date" name="parent_info_on_product_material[0][mfg_date]"></td>
+                                                                                        <td><input type="date" name="parent_info_on_product_material[0][exp_date]"></td>
                                                                                         <td><input type="text" name="parent_info_on_product_material[0][label_claim]"></td>
+                                                                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
@@ -528,6 +490,8 @@
                                                                                         <th style="width: 8%">Expiry Date</th>
                                                                                         <th style="width: 8%">Label Claim.</th>
                                                                                         <th style="width: 8%">Pack Size</th>
+                                                                                        <th style="width: 5%">Action</th>
+
                                                                                         {{-- <th style="width: 8%">Lot/Batch Number</th> --}}
                                                                                     </tr>
                                                                                 </thead>
@@ -564,6 +528,8 @@
                                                                                         <td><input type="text" name="parent_info_on_product_material1[0][label_claim]"></td>
                                                                                         <td><input type="text" name="parent_info_on_product_material1[0][pack_size]"></td>
                                                                                         {{-- <td><input type="text" name="parent_info_on_product_material1[0][lot_batch_number]"></td> --}}
+                                                                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+
                                                                                     </tr>
                                                                                 </tbody>
                                                                             </table>
@@ -591,6 +557,8 @@
                                                         <th style="width: 8%">Test Name of OOS</th>
                                                         <th style="width: 8%">Results Obtained</th>
                                                         <th style="width: 8%">Specification Limit</th>
+                                                        <th style="width: 5%">Action</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -608,6 +576,8 @@
                                                         <td><input type="text"
                                                                 name="root_parent_oos_details[0][specification_limit]">
                                                         </td>
+                                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -636,6 +606,7 @@
                                                         <th style="width: 8%">% Difference of Results</th>
                                                         <th style="width: 8%">Initial Interview Details</th>
                                                         <th style="width: 8%">Trend Limit</th>
+                                                        <th style="width: 5%">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -654,6 +625,8 @@
                                                                 name="parent_oot_results[0][initial_interview_details]">
                                                         </td>
                                                         <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>
+                                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -681,6 +654,8 @@
                                                         <th style="width: 8%">Interval</th>
                                                         <th style="width: 8%">Orientation</th>
                                                         <th style="width: 8%">Pack Details (if any)</th>
+                                                        <th style="width: 5%">Action</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -700,6 +675,8 @@
                                                         <td><input type="text"
                                                                 name="parent_details_of_stability_study[0][pack_details_if_any]">
                                                         </td>
+                                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -711,22 +688,24 @@
 
                                         <div class="col-lg-6">
                                             <div class="group-input">
-                                                <label for="RLS Record Number"><b>Record Number</b></label>
-                                                <input disabled type="text" name="record_number"/>
+                                                <label for="RLS Record Number">Record Number</label>
+                                                <input disabled type="text" name="record_number" value="{{ Helpers::getDivisionName(session()->get('division')) }}/DEV/{{ date('Y') }}/" />
                                             </div>
                                         </div>
+
+
                                         <div class="col-lg-6">
                                             <div class="group-input">
-                                                <label for="Division Code"><b>Site/Division Code</b></label>
-                                                <input readonly type="text" name="division_code" />
+                                                <label for="Division Code">Site/Division Code</label>
+                                                <input readonly type="text"  name="division_code"  value="{{ Helpers::getDivisionName(session()->get('division')) }}" />
                                             <input type="hidden" name="division_id"
-                                                value="{{ session()->get('division') }}">
+                                            value="{{ session()->get('division') }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="group-input">
                                             <label for="Initiator"> Initiator </label>
-                                            <input type="text" disabled name="initiator" value="{{ Auth::user()->name }}" >
+                                            <input type="text" disabled name="initiator" value="{{ Auth::user()->name  ?? " "}}" >
                                         </div>
                                     </div>
 
@@ -738,18 +717,22 @@
                                         </div>
                                     </div>
 
+
                                     <div class="col-lg-6 new-date-data-field">
                                         <div class="group-input input-date">
                                             <label for="Scheduled end date">Target Closure Date</label>
-                                            <div class="calenderauditee" disabled>
-                                                <input type="text" id="end_date_3" disabled readonly
-                                                    placeholder="DD-MMM-YYYY" />
-                                                <input type="date" id="end_date_checkdate_3" disabled
-                                                    name="gi_target_closure_date" min="yyyy-mm-dd" class="hide-input"
-                                                    oninput="handleDateInput(this, 'end_date_3');checkDate('start_date_checkdate_3','end_date_checkdate_3')" />
-                                            </div>
+                                            <div class="calenderauditee">
+                                                <input type="text" id="closure_date" readonly placeholder="DD-MMM-YYYY" />
+                                                <input type="date" id="closure_date_checkdate"
+                                                    name="gi_target_closure_date"
+                                                    min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                    oninput="handleDateInput(this, 'closure_date');checkDate('start_date_checkdate','closure_date_checkdate')" />
+                                                </div>
                                         </div>
                                     </div>
+
+
+
                                     <div class="col-6">
                                         <div class="group-input">
                                             <label for="Short Description">Short Description<span class="text-danger "
@@ -1029,6 +1012,32 @@
 
                                     <div class="col-12">
                                         <div class="group-input">
+                                            <label for="aqa_review_attachment">AQA Review Attachment</label>
+                                            <div><small class="text-primary">Please Attach all relevant or supporting
+                                                    documents</small></div>
+                                            <div class="file-attachment-field">
+                                                <div class="file-attachment-list" id="aqa_review_attachment">
+                                                    {{-- @if ($additionaltesting->aqa_review_attachment)
+                                                    @foreach(json_decode($additionaltesting->aqa_review_attachment) as $file)
+                                                    <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                        <b>{{ $file }}</b>
+                                                        <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                        <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                    </h6>
+                                               @endforeach
+                                                    @endif --}}
+                                                </div>
+                                                <div class="add-btn">
+                                                    <div>Add</div>
+                                                    <input type="file" id="myfile" name="aqa_review_attachment[]"
+                                                        oninput="addMultipleFiles(this, 'aqa_review_attachment')" multiple>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- <div class="col-12">
+                                        <div class="group-input">
                                             <label for="aqa_review_attachment">Additional Test Attachment</label>
                                             <div><small class="text-primary">Please Attach all relevant or supporting
                                                     documents</small></div>
@@ -1041,7 +1050,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 
                                     {{-- <div class="row col-md-12">
@@ -1090,59 +1099,102 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Product/Material Name"> Additional Test Proposal Completed By
-                                            :-</label>
-                                    </div>
+                                <div class="group-input">
+                                    <label for="Product/Material Name"> Additional Test Proposal Completed By
+                                        :-</label>
+                                        {{-- <div class="static">{{ $additionaltesting->submitted_by }}</div> --}}
+
                                 </div>
+                            </div>
 
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Scheduled end date">Additional Test Proposal Completed On :-</label>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">Additional Test Proposal Completed On :-</label>
+                                        {{-- <div class="static">{{ $additionaltesting->submitted_by }}</div> --}}
 
-                                    </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Scheduled end date">CQ Approved On :-</label>
+                            </div>
 
-                                    </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Product/Material Name">CQ Approved By
+                                        :-</label>
+                                        {{-- <div class="static">{{ $additionaltesting->submitted_by }}</div> --}}
+
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Scheduled end date">Additional Test Exe. On :-</label>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">CQ Approved On :-</label>
+                                        {{-- <div class="static">{{ $additionaltesting->submitted_by }}</div> --}}
 
-                                    </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Scheduled end date">Additional Testing QC Review on :-
-                                        </label>
+                            </div>
 
-                                    </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Product/Material Name"> Additional Test Exe. By
+                                        :-</label>
+                                        {{-- <div class="static">{{ $additionaltesting->submitted_by }}</div> --}}
+
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Scheduled end date">AQA Review Completed On :-
-                                        </label>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">Additional Test Exe. On :-</label>
+                                        {{-- <div class="static">{{ $additionaltesting->submitted_by }}</div> --}}
 
-                                    </div>
                                 </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">Additional Testing QC Review By :-
+                                    </label>
+                                        {{-- <div class="static">{{ $additionaltesting->aqa_review_completed_on }}</div> --}}
 
-
-                                <div class="col-md-6 mb-4">
-                                    <div class="group-input">
-                                        <label for="Description Deviation">Cancel By :-
-                                        </label>
-                                    </div>
                                 </div>
-                                <div class="col-lg-6 new-date-data-field">
-                                    <div class="group-input input-date">
-                                        <label for="Scheduled end date">Cancel On :-
-                                        </label>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">Additional Testing QC Review on :-
+                                    </label>
+                                        {{-- <div class="static">{{ $additionaltesting->aqa_review_completed_on }}</div> --}}
 
-                                    </div>
                                 </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">AQA Review Completed By :-
+                                    </label>
+                                        {{-- <div class="static">{{ $additionaltesting->aqa_review_completed_on }}</div> --}}
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">AQA Review Completed On :-
+                                    </label>
+                                        {{-- <div class="static">{{ $additionaltesting->aqa_review_completed_on }}</div> --}}
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="group-input">
+                                    <label for="Description Deviation">Cancel By :-
+                                    </label>
+                                        {{-- <div class="static">{{ $additionaltesting->completed_by_close_done }}</div> --}}
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Scheduled end date">Cancel On :-
+                                    </label>
+                                        {{-- <div class="static">{{ $additionaltesting->completed_on_close_done }}</div> --}}
+
+
+                                </div>
+                            </div>
 
                             </div>
                             <div class="button-block">
