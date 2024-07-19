@@ -153,7 +153,13 @@ footer td {
 .table_bg {
     background: #4274da57;
 }
+
+a {
+
+    text-decoration: none;
+}
 </style>
+
 
 <body>
 
@@ -232,9 +238,9 @@ footer td {
                     </tr>
                     <tr>
                         <th class="w-20">Phase Of Study</th>
-                        <td class="w-30">@if($data->phase_of_study){{$data->phase_of_study}}
-                            @else
-                            Not Applicable @endif</td>
+                        <td class="w-30">@if($data->phase_of_study){{$data->phase_of_study}}@else Not Applicable @endif
+                        </td>
+
                         <th class="w-20">Study Num</th>
                         <td class="w-80"> @if($data->study_Num){{ $data->study_Num }} @else Not Applicable @endif</td>
 
@@ -250,12 +256,17 @@ footer td {
                     </tr>
                     <tr>
                         <th class="w-20">Attached Files</th>
-                        <td class="w-80">@if($data->file_attach){{ $data->file_attach }}@else Not Applicable
-                            @endif</td>
-
-                        <th class="w-20">Related URLs</th>
-                        <td class="w-80">@if($data->related_urls){{ $data->related_urls }}@else Not
-                            Applicable @endif</td>
+                        <td class="w-80">
+                            @if (!empty($data->file_attach) &&
+                            is_array(json_decode($data->file_attach)))
+                            @foreach(json_decode($data->file_attach) as $file)
+                            <a href="{{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b>
+                            </a>
+                            @endforeach
+                            @else
+                            Not Applicable
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <th class="w-20">Description</th>
@@ -276,17 +287,26 @@ footer td {
                         <td class="w-80">
                             @if($data->Comments_Batch){{$data->Comments_Batch}}@else
                             Not Applicable @endif</td>
-
                     </tr>
                     <tr>
                         <th class="w-20">Source Documents</th>
-                        <td class="w-80">@if($data->document_attach){{ $data->document_attach }}@else Not
-                            Applicable @endif</td>
+                        <td class="w-80">
+                            @if (!empty($data->document_attach) &&
+                            is_array(json_decode($data->document_attach)))
+                            @foreach(json_decode($data->document_attach) as $file)
+                            <a href=" {{ asset('upload/' . $file) }}" target="_blank"><b>{{ $file }}</b>
 
+                            </a>
+                            @endforeach
+                            @else
+                            Not Applicable
+                            @endif
+                        </td>
                     </tr>
+
                 </table>
 
-                <div class="block-head">
+                <div class=" block-head">
                     Parent Information
                 </div>
                 <table>
@@ -294,7 +314,7 @@ footer td {
                         <th class="w-20">Subject Name</th>
                         <td class="w-80">@if($data->subject_name){{ $data->subject_name }}@else Not
                             Applicable @endif</td>
-                        <th class="w-20">Subject Name</th>
+                        <th class="w-20">Subject Date</th>
                         <td class="w-80">@if($data->subject_date)
                             {{ \Carbon\Carbon::parse($data->subject_date)->format('d-M-Y')}}@else Not
                             Applicable @endif</td>

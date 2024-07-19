@@ -70,6 +70,7 @@ $user=DB::table('users')->get();
     }
     </script>-->
 
+
 <div class="form-field-head">
 
     <div class="division-bar">
@@ -308,9 +309,10 @@ $user=DB::table('users')->get();
                                                     <i class="fa fa-eye text-primary"
                                                         style="font-size:20px; margin-right:-10px;"></i>
                                                 </a>
-                                                <a type="button" class="remove-file" data-file-name="{{ $file }}"><i
-                                                        class="fa-solid fa-circle-xmark"
-                                                        style="color:red; font-size:20px;"></i>
+                                                <a type="button" class="remove-file" data-file-name="{{ $file }}">
+                                                    <i class="fa-solid fa-circle-xmark"
+                                                        style="color:red; font-size:20px;">
+                                                    </i>
                                                 </a>
                                             </h6>
                                             @endforeach
@@ -472,8 +474,9 @@ $user=DB::table('users')->get();
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                    Exit </a> </button>
+                            <button type="button">
+                                <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -552,6 +555,7 @@ $user=DB::table('users')->get();
                                     <label for="Type">Signed Consent Form </label>
                                     <select name="signed_consent">
                                         <option value="">Enter Your Selection Here</option>
+
                                         <option value="01" @if ($openState->signed_consent == '01') selected
                                             @endif>01
                                         </option>

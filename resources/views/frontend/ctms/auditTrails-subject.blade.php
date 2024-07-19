@@ -250,21 +250,49 @@
                         </div>
                         <div style="margin-top: 5px;">
                             @if ($dataDemo->activity_type == 'Activity Log')
-                            <strong>Change From
-                                :</strong>{{ $dataDemo->change_from ? $dataDemo->change_from : 'Not Applicable' }}
+                            <strong>Change From:</strong>
+                            @if ($dataDemo->change_from)
+                            @if (strtotime($dataDemo->change_from))
+                            {{ \Carbon\Carbon::parse($dataDemo->change_from)->format('d/m/Y') }}
                             @else
-                            <strong>Change From
-                                :</strong>{{ $dataDemo->previous ? $dataDemo->previous : 'Not Applicable' }}
+                            {{ str_replace(',', ', ', $dataDemo->change_from) }}
+                            @endif
+                            @elseif($dataDemo->change_from && trim($dataDemo->change_from) == '')
+                            NULL
+                            @else
+                            Not Applicable
+                            @endif
+                            @else
+                            <strong>Change From:</strong>
+                            @if (!empty(strip_tags($dataDemo->previous)))
+                            @if (strtotime($dataDemo->previous))
+                            {{ \Carbon\Carbon::parse($dataDemo->previous)->format('d/m/Y') }}
+                            @else
+                            {!! $dataDemo->previous !!}
+                            @endif
+                            @elseif($dataDemo->previous == null)
+                            Null
+                            @else
+                            Not Applicable
+                            @endif
                             @endif
                         </div>
                         <br>
                         <div>
                             @if ($dataDemo->activity_type == 'Activity Log')
-                            <strong>Change To
-                                :</strong>{{ $dataDemo->change_to ? $dataDemo->change_to : 'Not Applicable' }}
+                            <strong>Change To:</strong>
+                            @if (strtotime($dataDemo->change_to))
+                            {{ \Carbon\Carbon::parse($dataDemo->change_to)->format('d/m/Y') }}
                             @else
-                            <strong>Change To
-                                :</strong>{{ $dataDemo->current ? $dataDemo->current : 'Not Applicable' }}
+                            {!! str_replace(',', ', ', $dataDemo->change_to) ?: 'Not Applicable' !!}
+                            @endif
+                            @else
+                            <strong>Change To:</strong>
+                            @if (strtotime($dataDemo->current))
+                            {{ \Carbon\Carbon::parse($dataDemo->current)->format('d/m/Y') }}
+                            @else
+                            {!! !empty(strip_tags($dataDemo->current)) ? $dataDemo->current : 'Not Applicable' !!}
+                            @endif
                             @endif
                         </div>
                         <div style="margin-top: 5px;">

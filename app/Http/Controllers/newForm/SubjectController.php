@@ -37,8 +37,8 @@ class SubjectController extends Controller
 
     public function store(Request $request)
     {
-
-        if (!$request->short_description) {
+        if (!$request->short_description)
+        {
             toastr()->error("Short description is required");
             return redirect()->back();
         }
@@ -50,7 +50,7 @@ class SubjectController extends Controller
             toastr()->error("Record number counter not found");
             return redirect()->back();
         }
-    
+        
         $newRecordNumber = $recordCounter->counter + 1;
 
         $recordCounter->counter = $newRecordNumber;
@@ -961,7 +961,8 @@ class SubjectController extends Controller
         $openState = Subject::find($id);
         $lastdocument = Subject::find($id);
         
-        if (!$request->short_description) {
+        if (!$request->short_description) 
+        {
             toastr()->error("Short description is required");
             return redirect()->back();
         }
@@ -2118,8 +2119,7 @@ class SubjectController extends Controller
         
     }
 
-    public function subjectAuditReport($id){
-  
+    public function subjectAuditReport($id){      
             $doc = Subject::find($id);
             if (!empty($doc)) {
                 $doc->originator = User::where('id', $doc->initiator_id)->value('name');
@@ -2168,6 +2168,5 @@ class SubjectController extends Controller
                 -20
             );
             return $pdf->stream('SOP' . $id . '.pdf');
-        
     }
 }
