@@ -56,24 +56,22 @@
     </div>
 </div>
 
-
-
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
 {{-- ! ========================================= --}}
 <div id="change-control-fields">
     <div class="container-fluid">
+    @include('frontend.Registration-Tracking.dosier-documents.stage')
 
         <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Dossier Documents</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Local Information</button>
+            <!-- <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Local Information</button> -->
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
             <!-- <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button> -->
 
         </div>
-
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('dosierdocuments.update', $data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -81,216 +79,195 @@
                 <input type="hidden" name="parent_id" value="{{ $parent_id }}">
                 <input type="hidden" name="parent_type" value="{{ $parent_type }}">
                 @endif
-
-
                 <!-- Dossier Documents-->
-
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="sub-head">
                             General Information
                         </div> <!-- RECORD NUMBER -->
                         <div class="row">
-                            <div class="col-lg-6">
-                                <div class="group-input">
-
-
-                                    <label for="RLS Record Number"><b>Initiator</b></label>
-
-                                    <input type="text" name="record_number" value="">
-
-
-                                </div>
+                        <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Initiator"> Record Number </label>
+                            <input disabled type="text" name="record_number"
+                            value="{{ Helpers::getDivisionName($data->division_id) }}/OOS Chemical/{{ Helpers::year($data->created_at) }}/{{ $data->record_number ? str_pad($data->record_number, 4, "0", STR_PAD_LEFT ) : '1' }}">
+                                                    
+                        </div>
+                       </div>
+                       <div class="col-lg-6">
+                            <div class="group-input">
+                                <label disabled for="Division Code">Division Code<span
+                                        class="text-danger"></span></label>
+                                <input disabled type="text" name="division_code"
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Short Description">Initiator <span class="text-danger"></span></label>
+                                <input type="hidden" name="initiator_id" value="{{ Auth::user()->id }}">
+                                <input disabled type="text" name="initiator"
+                                        value="{{ Auth::user()->name }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6 ">
+                        <div class="group-input ">
+                            <label for="due-date"> Date Of Initiation<span class="text-danger"></span></label>
+                            <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                            <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                            </div>
+                        </div>
+                        <div class="col-md-6 pt-3">
+                            <div class="group-input">
+                                <label for="Short Description">Short Description<span class="text-danger">*</span>
+                                    <p>255 characters remaining </p>
+                                    <textarea id="docname" maxlength="255" name="short_description" required>{{ $data->short_description }}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="assign to"> Assigned To</label>
+                                <select name="assign_to" >
+                                    <option>Enter Your Selection Here</option>
+                                    <option value="User1" {{ $data->assign_to == 'User1' ? 'selected' :
+                                        '' }}>User1</option>
+                                    <option value="User2" {{ $data->assign_to == 'User2' ? 'selected' :
+                                        '' }}>User2</option>
+                                    <option value="User3" {{ $data->assign_to == 'User3' ? 'selected' :
+                                    '' }}>User3</option>
+                                </select>
+                            </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Division Code"><b>Date of Initiation</b></label>
-
-                                    <input disabled type="date" name="division_code" value="">
-
-                                </div>
+                            <div class="group-input">
+                                <label for="Initiator"> Due Date
+                                </label>
+                                <small class="text-primary">
+                                    Please mention expected date of completion
+                                </small>
+                                <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" 
+                                class="hide-input" oninput="handleDateInput(this, 'due_date')" value="{{ $data->due_date ?? '' }}"/>
                             </div>
-
-
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Short Description">Short Description<span class="text-danger">*</span>
-                                        <p>255 characters remaining </p>
-                                        <input id="docname" type="text" name="short_description" maxlength="255" required>
-                                </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Reference Recores">Dosier Documents Type</label>
+                                <select id="dosier_documents_type" name="dosier_documents_type" id="">
+                                    <option value="">--Select---</option>
+                                    <option value="1" {{ $data->dosier_documents_type == '1' ? 'selected' : '' }}>1</option>
+                                    <option value="2" {{ $data->dosier_documents_type == '2' ? 'selected' : '' }}>2</option>
+                                </select>
                             </div>
-
-                            <div class="col-md-6 pt-3">
-                                <div class="group-input">
-                                    <label for="search">
-                                        Assigned To <span class="text-danger"></span>
-                                    </label>
-
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
-                                        <option value="">Select a value</option>
-
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-
-                                    </select>
-
-                                </div>
-                            </div>
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-primary">Please mention expected date of completion</p>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-                                </div>
-                            </div>
-
+                        </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-
-                                    <label for="RLS Record Number"><b>Type</b></label>
-
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
-                                        <option value="">Select a value</option>
-
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-
-                                    </select>
-
-
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-
                                     <label for="RLS Record Number"><b>Document Language</b></label>
-
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
+                                    <select id="select-state" name="document_language">
                                         <option value="">Select a value</option>
-
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-
+                                        <option value="1" {{ $data->document_language == '1' ? 'selected' : '' }}>1</option>
+                                        <option value="2" {{ $data->document_language == '2' ? 'selected' : '' }}>2</option>
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-lg-6 pt-3">
                                 <div class="group-input">
-
                                     <label for="RLS Record Number"><b>Documents</b></label>
-
-                                    <input type="text" name="record_number" value="">
-
-
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Audit Attachments">File Attachments</label>
-                                    <small class="text-primary">
-                                        Please Attach all relevant or supporting documents
-                                    </small>
-                                    <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
-                                        <div class="add-btn">
-                                            <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <!-- <div class="col-lg-6">
-                                <div class="group-input">
-
-                                    <label for="RLS Record Number"><b>Manufacturer</b></label>
-
-                                    <input type="text" name="record_number" value="">
-
-
-                                </div>
-                            </div> -->
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Dossier Parts</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="sub-head pt-3 pb-2">Product Information</div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">(Root Parent) Manufacture</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RLS Record Number">(Root Parent) Product Code</label>
-
-                                    <input type="text" name="record_number" value="">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">(Root Parent) Trade Name</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-
-                                    </select>
+                                    <input type="text" name="documents" value="{{$data->documents}}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Responsible Department">(Root Parent) Therapeutic Area</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                           
-                      
-                        <div class="button-block">
-                            <button type="submit" class="saveButton">Save</button>
-                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                    Exit </a> </button>
+                            <div class="group-input">
+                                <label for="Initiator Group">File Attachment</label>
+                                <small class="text-primary">
+                                    Please Attach all relevant or supporting documents
+                                </small>
+                                <div class="file-attachment-field">
+                                    <div class="file-attachment-list" id="file_attachments_pli">
+                                        @if ($data->file_attachments_pli)
+                                        @foreach (json_decode($data->file_attachments_pli) as $file)
+                                        <h6 type="button" class="file-container text-dark"
+                                            style="background-color: rgb(243, 242, 240);">
+                                            <b>{{ $file }}</b>
+                                <a href="{{ asset('upload/' . $file) }}" target="_blank"><i
+                                        class="fa fa-eye text-primary"
+                                        style="font-size:20px; margin-right:-10px;"></i></a>
+                                <a type="button" class="remove-file" data-file-name="{{ $file }}"><i
+                                        class="fa-solid fa-circle-xmark"
+                                        style="color:red; font-size:20px;"></i></a>
+                            </h6>
+                            @endforeach
+                            @endif
+                        </div>
+                        <div class="add-btn">
+                            <div>Add</div>
+                            <input type="file" id="file_attachments_pli" name="file_attachments_pli[]" 
+                            oninput="addMultipleFiles(this, 'file_attachments_pli')"
+                                multiple>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="group-input">
+                    <label for="Responsible Department">Dossier Parts</label>
+                    <select name="dossier_parts">
+                        <option value="">Enter Your Selection Here</option>
+                        <option value="1" {{ $data->dossier_parts == '1' ? 'selected' : '' }}>1</option>
+                        <option value="2" {{ $data->dossier_parts == '2' ? 'selected' : '' }}>2</option>
+                    </select>
+                </div>
+            </div>
+            <div class="sub-head pt-3 pb-2">Product Information</div>
+
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Responsible Department">(Root Parent) Manufacture</label>
+                            <select name="root_parent_manufacture">
+                                <option value="">Enter Your Selection Here</option>
+                                <option value="1" {{ $data->root_parent_manufacture == '1' ? 'selected' : '' }}>1</option>
+                                <option value="2" {{ $data->root_parent_manufacture == '2' ? 'selected' : '' }}>2</option>
+                            </select>
+                        </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="RLS Record Number">(Root Parent) Product Code</label>
+                            <input type="text" name="root_parent_product_code" value="{{ $data->root_parent_product_code }}">
+                        </div>
                     </div>
-                    <!-- Local Information -->
+
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Responsible Department">(Root Parent) Trade Name</label>
+                            <select name="root_parent_trade_name">
+                                <option value="">Enter Your Selection Here</option>
+                                <option value="1" {{ $data->root_parent_trade_name == '1' ? 'selected' : '' }}>1</option>
+                                <option value="2" {{ $data->root_parent_trade_name == '2' ? 'selected' : '' }}>2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Responsible Department">(Root Parent) Therapeutic Area</label>
+                            <select name="root_parent_therapeutic_area">
+                                <option value="">Enter Your Selection Here</option>
+                                <option value="1" {{ $data->root_parent_therapeutic_area == '1' ? 'selected' : '' }}>1</option>
+                                <option value="2" {{ $data->root_parent_therapeutic_area == '2' ? 'selected' : '' }}>2</option>
+                            </select>
+                        </div>
+                    </div>
+                <div class="button-block">
+                    <button type="submit" class="saveButton">Save</button>
+                    <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                    <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                    <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
+                            Exit </a> </button>
+                </div>
+        </div>
+        </div>
+        </div>
+        <!-- Local Information -->
                   
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">

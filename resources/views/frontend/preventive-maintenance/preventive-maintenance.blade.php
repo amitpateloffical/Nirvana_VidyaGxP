@@ -34,7 +34,7 @@
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Signatures</button>
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('preventivemaintenance.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -46,65 +46,80 @@
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                            <div class="col-lg-6">
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Initiator"> Record Number </label>
+                                <input disabled type="text" name="record_number"
+                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/Preventive Maintenance/{{ date('Y') }}/{{ $record_number }}">
+                        </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Short Description">Initiator <span class="text-danger"></span></label>
+                                <input type="hidden" name="initiator_id" value="{{ Auth::user()->id }}">
+                                <input disabled type="text" name="initiator"
+                                        value="{{ Auth::user()->name }}">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label disabled for="division_code">Division Code<span class="text-danger"></span></label>
+                                <input disabled type="text" name="division_code"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 ">
+                            <div class="group-input ">
+                                <label for="intiation-date"> Date Of Initiation<span class="text-danger"></span></label>
+                                <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                                <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="assign to"> Assigned To</label>
+                                <select name="assign_to" >
+                                    <option>Enter Your Selection Here</option>
+                                    <option  value="Major">User1</option>
+                                    <option value="Minor">User2</option>
+                                </select>
+                            </div>
+                        </div>
+                            <div class="col-md-6 pt-3">
                                 <div class="group-input">
-                                    <label for="Initiator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="Initiator" value="">
+                                    <label for="Short Description">Short Description<span class="text-danger">*</span>
+                                        <p>255 characters remaining </p>
+                                        <input id="docname" type="text" name="short_description" maxlength="255" required>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Date of Initiation"><b>Date of Initiation</b></label>
-                                    <input disabled type="date" name="Date_of_Initiation" value="">
-                                    <input type="hidden" name="division_id" value="">
+                            <div class="col-lg-6 new-date-data-field">
+                            <div class="group-input input-date">
+                                <label for="Date Due"> Due Date</label>
+                                <div><small class="text-primary">If revising Due Date, kindly mention revision
+                                        reason in "Due Date Extension Justification" data field.</small></div>
+                                <div class="calenderauditee">
+                                    <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                    <input type="date" name="due_date"
+                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                        oninput="handleDateInput(this, 'due_date')" />
                                 </div>
                             </div>
-
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Short Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
-                                    characters remaining
-                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="group-input">
-                                    <label for="search">
-                                        Assigned To <span class="text-danger"></span>
-                                    </label>
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
-                                        <option value="">Select a value</option>
-                                        <option value=""></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Date Due</label>
-                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="sub-head">
-                                PM Details
-                            </div>
+                        </div>
+  
+                            <div class="sub-head">PM Details </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Additional Information"><b>Additional Information</b></label>
-                                    <input type="text" name="Additional_Information" value="">
+                                    <input type="text" name="additional_information" value="">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Related URLs"><b>Related URLs</b></label>
-                                    <input type="text" name="RelatedURLs" value="">
+                                    <input type="text" name="related_urls" value="">
                                 </div>
                             </div>
 
@@ -117,7 +132,7 @@
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Action_plan-field-table">
+                                    <table class="table table-bordered" id="Action_plan_Details">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -129,64 +144,70 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="IDnumber[]"></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name=""></td>
-                                            <td><input type="text" name="Remarks[]"></td>
+                                            <td><input disabled type="text" name="action_plan[0][serial]" value="1"></td>
+                                            <td><input type="text" name="action_plan[0][action]" value=""></td>
+                                            <td><input type="text" name="action_plan[0][responsible]" value=""></td>
+                                            <td><input type="text" name="action_plan[0][deadline]" value=""></td>
+                                            <td><input type="text" name="action_plan[0][item_status]"value=""></td>
+                                            <td><input type="text" name="action_plan[0][remarks]" value=""></td>
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
-
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="PM_Frequency">PM Frequency</label>
-                                    <select name="PM_Frequency">
+                                    <select name="PM_frequency">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Site Name">(Parent) Site Name</label>
-                                    <select name="Site_Name">
+                                    <select name="parent_site_name">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Building">(Parent) Building</label>
-                                    <select name="Building">
+                                    <select name="parent_building">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Floor">(Parent) Floor</label>
-                                    <select name="Floor">
+                                    <select name="parent_floor">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Room">(Parent) Room</label>
-                                    <select name="Room">
+                                    <select name="parent_room">
                                         <option value="">Enter Your Selection Here</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
                                     </select>
                                 </div>
                             </div>
-
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Comments">Comments</label>
-                                    <textarea name="Comments" id="" cols="30" rows="3"></textarea>
+                                    <textarea name="comments" id="" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -314,29 +335,30 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $('#Action_plan').click(function(e) {
-            function generateTableRow(serialNumber) {
+        $(document).ready(function() {
+            $('#Action_plan').click(function(e) {
+                function generateTableRow(serialNumber) {
+                    var html =
+                        '<tr>' +
+                            '<td><input disabled type="text" name="action_plan['+ serialNumber +'][serial]" value="' + serialNumber +
+                            '"></td>' +
+                            '<td><input type="text" name="action_plan['+ serialNumber +'][action]"></td>'+
+                            '<td><input type="text" name="action_plan['+ serialNumber +'][responsible]"></td>' +
+                            '<td><input type="text" name="action_plan['+ serialNumber +'][deadline]"></td>' +
+                            '<td><input type="text" name="action_plan['+ serialNumber +'][item_status]"></td>' +
+                            '<td><input type="text" name="action_plan['+ serialNumber +'][remarks]"></td>' +
+                        '</tr>';
+                    return html;
+                }
 
-                var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '<td><input type="text" name="[]"></td>' +
-                    '</tr>';
-
-                return html;
-            }
-
-            var tableBody = $('#Action_plan-field-table tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
+                var tableBody = $('#Action_plan_Details tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1);
+                tableBody.append(newRow);
+            });
         });
-    });
-</script>
+    </script>
+
 
 <script>
     var maxLength = 255;
