@@ -3,6 +3,7 @@
 use App\Http\Controllers\CabinateController;
 use App\Http\Controllers\ChangeControlController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\demo\DemoValidationController;
 use App\Http\Controllers\DocumentContentController;
 use App\Http\Controllers\DocumentController;
@@ -39,7 +40,7 @@ use Maatwebsite\Excel\Facades\Excel;
 // use App\Http\Controllers\newForm\MedicalRegistrationController;
 use App\Http\Controllers\newForm\QualityFollolwupController;
 use App\Http\Controllers\Product_ValidationController;
-
+use App\Http\Controllers\TMSController;
 
 /*
 |--------------------------------------------------------------------------

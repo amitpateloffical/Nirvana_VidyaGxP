@@ -231,13 +231,24 @@
                             General Information
                         </div> <!-- RECORD NUMBER -->
                         <div class="row">
-                        <div class="col-lg-6">
+                        {{--  <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="originator">Record Number</label>
                                             <input disabled type="text" name="record"  
                                      value="{{ Helpers::getDivisionName(session()->get('division')) }}/CAPA/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
-                            </div>
+                            </div>  --}}
+
+
+                             <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="RLS Record Number"><b>Record Number</b></label>
+                                        <input disabled type="text" name="record"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/LI/{{ date('Y') }}/{{ $record }}">
+
+                                    </div>
+                                </div>
+
                          <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Division Code">Site/Location Code</label>
@@ -266,9 +277,13 @@
 
                             <div class="col-lg-12">
                                 <div class="group-input">
-                                    <label for="Initiator Group Code">Short Description</label>
-                                    <input type="text" name="short_description" id="initiator_group_code" value="">
-                                </div>
+
+                                   <label for="Short Description">Short Description<span
+                                                    class="text-danger">*</span></label><span id="rchars">255</span>
+                                            characters remaining
+                                            <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                      
+                                  </div>
                             </div>
 
                            <div class="col-md-6">
@@ -290,13 +305,17 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Due Date">Date Due</label>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
 
+
+                                <label for="Date Due">Date Due</label>
+                                            <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
+                                            <div class="calenderauditee">
+                                                <input type="text" id="due_date_display" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getDueDatemonthly(null, false, 'd-M-Y') }}" />
+                                                <input type="date" id="due_date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" value="{{ Helpers::getDueDatemonthly(null, false, 'Y-m-d') ?? '' }}" />
+                                            </div>
+
+                                   
 
                                 </div>
                             </div>
@@ -316,43 +335,42 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="Due Date">Expiry Date</label>
+                          <div class="col-lg-6 new-date-data-field">
+                    <div class="group-input input-date">
+                        <label for="expiry_date">Expiry Date</label>
+                        <div class="calenderauditee">
+                            <input type="text" id="expiration_date" readonly placeholder="DD-MMM-YYYY" />
+                            <input type="date" name="expiry_date" id="expiry_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" onchange="handleDateInputdatafroot_cause_methodology(this, 'expiration_date')" />
+                        </div>
+                    </div>
+                </div>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="expiration_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="expiry_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
 
-
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Type">Type</label>
-                                    <select name="type">
-                                        <option value="0">-- Select --</option>
-                                        <option value="1">Facillties</option>
-                                        <option value="2">Other</option>
-                                        <option value="3">Stabillity</option>
-                                        <option value="4">Raw Material</option>
-                                        <option value="5">Clinical Production</option>
-                                        <option value="6">Commercial Production</option>
-                                        <option value="7">Labellling</option>
-                                        <option value="8">laboratory</option>
-                                        <option value="9">Utillities</option>
-                                        <option value="10">Validation</option>
-                                    </select>
-                                </div>
-                            </div>
+                           <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Type">Type</label>
+                            <select name="type">
+                                <option value="">-- Select --</option>
+                                <option value="Facillties">Facillties</option>
+                                <option value="Other">Other</option>
+                                <option value="Stabillity">Stabillity</option>
+                                <option value="Raw Material">Raw Material</option>
+                                <option value="Clinical Production">Clinical Production</option>
+                                <option value="Commercial Production">Commercial Production</option>
+                                <option value="Labellling">Labellling</option>
+                                <option value="laboratory">laboratory</option>
+                                <option value="Utillities">Utillities</option>
+                                <option value="Validation">Validation</option>
+                            </select>
+                        </div>
+                    </div>
 
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Priority Level">Priority Level</label>
                                       <select name="priority_level">
-                                        <option value="0">-- Select --</option>
+                                        <option value="">-- Select --</option>
                                         <option value="low">Low</option>
                                         <option value="medium">Medium</option>
                                         <option value="high">High</option>
@@ -364,7 +382,7 @@
                                 <div class="group-input">
                                     <label for="External Tests">External Tests</label>
                                     <select name="external_tests" onchange="">
-                                        <option value="0">-- select --</option>
+                                        <option value="">-- select --</option>
                                         <option value="test1">test 1</option>
                                         <option value="test2">test 2</option>
                                     </select>
@@ -375,7 +393,7 @@
                                 <div class="group-input">
                                     <label for="Test Lab">Test Lab</label>
                                     <select name="test_lab" onchange="">
-                                        <option value="0">-- select --</option>
+                                        <option value="">-- select --</option>
                                         <option value="test1">test 1</option>
                                         <option value="test2">test 2</option>
                                     </select>
@@ -386,9 +404,9 @@
                                 <div class="group-input">
                                     <label for="Original Test Results">Original Test Results</label>
                                     <select name="original_test_result" onchange="">
-                                    <option value="0">-- select --</option>
-                                        <option value="testresult1">Result 1</option>
-                                        <option value="testresult2">Result 2</option>
+                                    <option value="">-- select --</option>
+                                        <option value="result1">Result 1</option>
+                                        <option value="result2">Result 2</option>
 
                                     </select>
                                 </div>
@@ -398,7 +416,7 @@
                                 <div class="group-input">
                                     <label for="Limits / Specifications">Limits / Specifications</label>
                                     <select name="limit_specifications" onchange="">
-                                        <option value="0">-- select --</option>
+                                        <option value="">-- select --</option>
                                         <option value="limit1">limit 1</option>
                                         <option value="limit2">limit 2</option>
 
@@ -452,7 +470,7 @@
                             
 
 
-                            <div class="col-12">
+                            {{--  <div class="col-12">
                                 <div class="group-input">
                                     <label for="Attached Test">Attached Test</label>
                                     <div>
@@ -468,7 +486,29 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div>  --}}
+
+
+
+                              <div class="col-12">
+                                    <div class="group-input">
+                                        <label for="Inv Attachments">Initial Attachment</label>
+                                        <div>
+                                            <small class="text-primary">
+                                                Please Attach all relevant or supporting documents
+                                            </small>
+                                        </div>
+                                        <div class="file-attachment-field">
+                                            <div class="file-attachment-list" id="root_cause_initial_attachment"></div>
+                                            <div class="add-btn">
+                                                <div>Add</div>
+                                                <input type="file" id="myfile" name="attached_test[]"
+                                                    oninput="addMultipleFiles(this, 'root_cause_initial_attachment')"
+                                                    multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             <div class="col-lg-12">
                                 <div class="group-input">
@@ -548,44 +588,54 @@
                                 </div>
                             </div>
 
-                            <div class="sub-head">Geogrephic Information</div>
+                          
+                    <div class="sub-head">Geogrephic Information</div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Zone">Zone</label>
-                                    <select name="zone" id="zone">
-                                        <option value="">Enter Your Selection Here</option>
-
-                                    </select>
-                                </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Zone">Zone</label>
+                                <select name="zone" id="zone">
+                                    <option value="">Enter Your Selection Here</option>
+                                    @foreach ($zones as $zone)
+                                        <option value="{{ $zone }}">{{ $zone }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Country">Country</label>
-                                    <select name="country" class="countries" id="country">
-                                        <option value="">Select Country</option>
-
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="Country">Country</label>
+                                <select name="country" class="countries" id="country">
+                                    <option value="">Select Country</option>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country }}">{{ $country }}</option>
+                                    @endforeach
+                                </select>
                             </div>
+                        </div>
 
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="City">City</label>
-                                    <select name="city" class="cities" id="city">
-                                        <option value="">Select City</option>
-
-                                    </select>
-                                </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="City">City</label>
+                                <select name="city" class="cities" id="city">
+                                    <option value="">Select City</option>
+                                    @foreach ($cities as $city)
+                                        <option value="{{ $city }}">{{ $city }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="State/District">State/District</label>
-                                    <select name="state_district" class="states" id="stateId">
-                                        <option value="">Select State</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="State/District">State/District</label>
+                                <select name="state_district" class="states" id="stateId">
+                                    <option value="">Select State</option>
+                                    @foreach ($states as $state)
+                                        <option value="{{ $state }}">{{ $state }}</option>
+                                    @endforeach
+                                </select>
                             </div>
+                        </div>
 
                         </div>
                         <div class="button-block">
@@ -599,19 +649,18 @@
                 </div>
 
               
-                <div id="CCForm3" class="inner-block cctabcontent">
+              <div id="CCForm3" class="inner-block cctabcontent">
                         <div class="inner-block-content">
                             <div class="row">
+
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="root-cause-methodology">Root Cause Methodology</label>
-                                        <select name="root_cause_methodology[]" multiple placeholder="-- Select --"
-                                            data-search="false" data-silent-initial-value-set="true"
-                                            id="root-cause-methodology">
-                                            <option value="1">Why-Why Chart</option>
-                                            <option value="2">Failure Mode and Efect Analysis</option>
-                                            <option value="3">Fishbone or Ishikawa Diagram</option>
-                                            <option value="4">Is/Is Not Analysis</option>
+                                        <select name="root_cause_methodology[]" multiple data-search="false" data-silent-initial-value-set="true" id="root-cause-methodology">
+                                            <option value="Why-Why Chart">Why-Why Chart</option>
+                                            <option value="Failure Mode and Effect Analysis">Failure Mode and Effect Analysis</option>
+                                            <option value="Fishbone or Ishikawa Diagram">Fishbone or Ishikawa Diagram</option>
+                                            <option value="Is/Is Not Analysis">Is/Is Not Analysis</option>
                                         </select>
                                     </div>
                                 </div>
@@ -626,11 +675,12 @@
                                             <table class="table table-bordered" id="root-cause-first-table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Row #</th>
+                                                        <th style="width:5%">Row #</th>
                                                         <th>Root Cause Category</th>
                                                         <th>Root Cause Sub-Category</th>
                                                         <th>Probability</th>
                                                         <th>Remarks</th>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -640,13 +690,14 @@
                                                     <td><input type="text" name="Root_Cause_Sub_Category[]"></td>
                                                     <td><input type="text" name="Probability[]"></td>
                                                     <td><input type="text" name="Remarks[]"></td>
+                                                    <td><button type="text" class="removeRowBtn">Remove</button></td>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 sub-head"></div>
-                                <div class="col-12 mb-4">
+                                {{--  <div class="col-12 sub-head"></div>  --}}
+                                <div class="col-12 mb-4" id="fmea-section" style="display:none;">
                                     <div class="group-input">
                                         <label for="agenda">
                                             Failure Mode and Effect Analysis
@@ -680,7 +731,9 @@
                                                         <th>Risk Acceptance (Y/N)</th>
                                                         <th>Mitigation proposal (Mention either CAPA reference number, IQ,
                                                             OQ or
-                                                            PQ)</th>
+                                                            PQ)
+                                                        </th>
+                                                        <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -689,8 +742,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 sub-head"></div>
-                                <div class="col-12">
+                                {{--  <div class="col-12 sub-head"></div>  --}}
+                                <div class="col-12" id="fishbone-section" style="display:none;">
                                     <div class="group-input">
                                         <label for="fishbone">
                                             Fishbone or Ishikawa Diagram
@@ -745,8 +798,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 sub-head"></div>
-                                <div class="col-12">
+                                {{--  <div class="col-12 sub-head"></div>  --}}
+                                <div class="col-12" id="why-why-chart-section" style="display:none;">
                                     <div class="group-input">
                                         <label for="why-why-chart">
                                             Why-Why Chart
@@ -831,8 +884,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 sub-head"></div>
-                                <div class="col-12">
+                                {{--  <div class="col-12 sub-head"></div>  --}}
+                                <div class="col-12" id="is-is-not-section" style="display:none;">
                                     <div class="group-input">
                                         <label for="why-why-chart">
                                             Is/Is Not Analysis
@@ -918,7 +971,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 sub-head"></div>
+                                {{--  <div class="col-12 sub-head"></div>
                                 <div class="col-12">
                                     <div class="group-input">
                                         <label for="root_cause_description">Root Cause Description</label>
@@ -930,7 +983,7 @@
                                         <label for="investigation_summary">Investigation Summary</label>
                                         <textarea name="investigation_summary"></textarea>
                                     </div>
-                                </div>
+                                </div>  --}}
                              {{-- <div class="col-12">
                                     <div class="sub-head">Geographic Information</div>
                                 </div> --}}
@@ -975,6 +1028,22 @@
                                         </select>
                                     </div>
                                 </div> --}}
+                            
+                            
+                                            <div class="col-12">
+                                                <div class="group-input">
+                                                    <label for="root_cause_description">Root Cause Description</label>
+                                                    <textarea name="root_cause_description"></textarea>
+                                                </div>
+                                            </div>
+
+                                             <div class="col-12">
+                                                <div class="group-input">
+                                                    <label for="investigation_summary">Investigation Summary</label>
+                                                    <textarea name="investigation_summary"></textarea>
+                                                </div>
+                                            </div>
+                            
                             </div>
                             <div class="button-block">
                                 <button type="submit" class="saveButton">Save</button>
@@ -984,6 +1053,7 @@
                             </div>
                         </div>
                     </div>
+            
                 <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="sub-head">
@@ -1320,4 +1390,38 @@
         $('#rchars').text(textlen);
     });
 </script>
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#root-cause-methodology').on('change', function() {
+            var selectedValues = $(this).val();
+            $('#why-why-chart-section').hide();
+            $('#fmea-section').hide();
+            $('#fishbone-section').hide();
+            $('#is-is-not-section').hide();
+
+            if (selectedValues.includes('Why-Why Chart')) {
+                $('#why-why-chart-section').show();
+            }
+            if (selectedValues.includes('Failure Mode and Effect Analysis')) {
+                $('#fmea-section').show();
+            }
+            if (selectedValues.includes('Fishbone or Ishikawa Diagram')) {
+                $('#fishbone-section').show();
+            }
+            if (selectedValues.includes('Is/Is Not Analysis')) {
+                $('#is-is-not-section').show();
+            }
+        });
+    });
+</script>
+
+ <script>
+            $(document).on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
+            })
+        </script>
 @endsection

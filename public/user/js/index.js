@@ -968,6 +968,23 @@ function handleDateInput(element, textInputID) {
     textInput.setAttribute('value', `${day}-${month}-${year}`)
   }
  
+
+function handleDateInputdata(element, textInputID) {
+    let textInput = document.getElementById(textInputID);
+    const date = new Date(element.value);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const month = months[date.getMonth()];
+    const day = date.getDate();
+    const year = date.getFullYear();
+    textInput.value = `${day}-${month}-${year}`;
+}
+
+document.getElementById('expiration_date').addEventListener('click', function() {
+    document.getElementById('expiry_date').focus();
+});
+
+
+
   function isStartDateLessThanEndDate(startDate, endDate) {
     // Convert date strings to Date objects
     const startDateObj = new Date(startDate);

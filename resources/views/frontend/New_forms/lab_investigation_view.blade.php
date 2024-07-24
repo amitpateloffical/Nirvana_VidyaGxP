@@ -234,8 +234,8 @@
                         <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="originator">Record Number</label>
-                                            <input disabled type="text" name="record"  
-                                     value="{{ Helpers::getDivisionName(session()->get('division')) }}/CAPA/{{ date('Y') }}/{{ $record_number }}">
+                                            {{--  <input disabled type="text" name="record"  
+                                     value="{{ Helpers::getDivisionName(session()->get('division')) }}/CAPA/{{ date('Y') }}/{{ $record_number }}">  --}}
                                 </div>
                             </div>
                          <div class="col-lg-6">
@@ -265,69 +265,66 @@
                           
 
                             <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="Initiator Group Code">Short Description</label>
-                                    <input type="text" name="short_description" id="initiator_group_code" value="">
-                                </div>
-                            </div>
+    <div class="group-input">
+        <label for="Initiator Group Code">Short Description</label>
+        <input type="text" name="short_description" id="initiator_group_code" value="{{ $data->short_description }}">
+    </div>
+</div>
 
-                           <div class="col-md-6">
-                                    <div class="group-input">
-                                        <label for="search">
-                                            Assigned To <span class="text-danger"></span>
-                                        </label>
-                                        <select id="select-state" placeholder="Select..." name="assign_to">
-                                            <option value="">Select a value</option>
-                                            @foreach ($users as $value)
-                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('assign_to')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                </div>
+<div class="col-md-6">
+    <div class="group-input">
+        <label for="search">Assigned To <span class="text-danger"></span></label>
+        <select id="select-state" placeholder="Select..." name="assign_to">
+            <option value="">Select a value</option>
+            @foreach ($users as $value)
+                <option value="{{ $value->id }}" {{ $value->id == $data->assign_to ? 'selected' : '' }}>
+                    {{ $value->name }}
+                </option>
+            @endforeach
+        </select>
+        @error('assign_to')
+            <p class="text-danger">{{ $message }}</p>
+        @enderror
+    </div>
+</div>
 
-                            <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="Due Date">Date Due</label>
+<div class="col-lg-6 new-date-data-field">
+    <div class="group-input input-date">
+        <label for="Due Date">Date Due</label>
+        <div class="calenderauditee">
+            <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" value="{{ $data->due_date ? \Carbon\Carbon::parse($data->due_date)->format('d-M-Y') : '' }}" />
+            <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" value="{{ $data->due_date }}">
+        </div>
+    </div>
+</div>
 
-                                    <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
+<div class="col-lg-6">
+    <div class="group-input">
+        <label for="If Others">Trainer</label>
+        <select id="select-state" placeholder="Select..." name="trainer">
+            <option value="">Select a value</option>
+            @foreach ($users as $value)
+                <option value="{{ $value->id }}" {{ $value->id == $data->trainer ? 'selected' : '' }}>
+                    {{ $value->name }}
+                </option>
+            @endforeach
+        </select>
+        @error('trainer')
+            <p class="text-danger">{{ $message }}</p>
+        @enderror
+    </div>
+</div>
 
+<div class="col-lg-6 new-date-data-field">
+    <div class="group-input input-date">
+        <label for="Due Date">Expiry Date</label>
+        <div class="calenderauditee">
+            <input type="text" id="expiration_date" readonly placeholder="DD-MMM-YYYY" value="{{ $data->expiry_date ? \Carbon\Carbon::parse($data->expiry_date)->format('d-M-Y') : '' }}" />
+            <input type="date" name="expiry_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'expiry_date')" value="{{ $data->expiry_date }}">
+        </div>
+    </div>
+</div>
 
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="If Others">Trainer</label>
-                                    <select id="select-state" placeholder="Select..." name="trainer">
-                                            <option value="">Select a value</option>
-                                            @foreach ($users as $value)
-                                                <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('assign_to')
-                                            <p class="text-danger">{{ $message }}</p>
-                                        @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="Due Date">Expiry Date</label>
-
-                                    <div class="calenderauditee">
-                                        <input type="text" id="expiration_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="expiry_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
-                                    </div>
-
-
-                                </div>
-                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Type</label>
@@ -364,7 +361,7 @@
                                 <div class="group-input">
                                     <label for="External Tests">External Tests</label>
                                     <select name="external_tests" onchange="">
-                                        <option value="0">-- select --</option>
+                                        <option value="">-- select --</option>
                                         <option value="test1">test 1</option>
                                         <option value="test2">test 2</option>
                                     </select>
