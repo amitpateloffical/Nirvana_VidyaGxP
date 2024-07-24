@@ -98,11 +98,11 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Originator"><b>Division Id</b></label>
+                                    <label for="Division Code"><b>Division ID </b></label>
                                     <input readonly type="text" name="division_code"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}">
-                                <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
-
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                    {{-- <div class="static">QMS-North America</div> --}}
                                 </div>
                             </div>
 
@@ -111,7 +111,7 @@
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" name="initiator_id" value="{{ $validation->initiator_id ?? Auth::user()->name }}">
+                                    <input type="text" name="initiator_id" value="{{ $validation->initiator_id ?? Auth::user()->name }}" disabled>
 
 
                                 </div>
@@ -130,12 +130,12 @@
                                 <div class="group-input">
                                     <label for="Short Description">Product<span class="text-danger"></span>
 
-                                        <input id="docname" type="text" name="product" maxlength="255" required>
+                                        <input id="docname" type="text" name="product"  >
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short Description">Short Description<span class="text-danger"></span>
+                                    <label for="Short Description">Short Description<span class="text-danger">*</span>
                                         <p>255 characters remaining</p>
 
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
@@ -160,14 +160,13 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-6 new-date-data-field">
+                            <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-primary">Please mention expected date of completion</p>
-
+                                    <label for="Due Date"> Due Date </label>
+                                    <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="hidden" value="{{$due_date}}" name="due_date">
+                                        <input  type="text" value="{{Helpers::getdateFormat($due_date)}}">
                                     </div>
                                 </div>
                             </div>
@@ -219,10 +218,10 @@
                                         Please Attach all relevant or supporting documents
                                     </small>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="inv_attachment[]"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attachment" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="inv_attachment[]" oninput="addMultipleFiles(this, 'inv_attachment[]')" multiple>
                                         </div>
                                     </div>
 
@@ -278,7 +277,7 @@
                                     <label for="start_date">Sample Scheduled To</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>

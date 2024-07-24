@@ -1,5 +1,11 @@
 @extends('frontend.layout.main')
 @section('container')
+@php
+$users = DB::table('users')
+    ->select('id', 'name')
+    ->get();
+
+@endphp
 <style>
     textarea.note-codable {
         display: none !important;
@@ -60,15 +66,15 @@
                                 <div class="group-input">
                                     <label for="Originator"><b>Division Id</b></label>
                                     <input readonly type="text" name="division_code"
-                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}">
-                                <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                        <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Originator"><b>Initiator</b></label>
-                                    <input type="text" name="initiator_id" value="{{ $validation->initiator_id ?? Auth::user()->name }}">
+                                    <input type="text" name="initiator_id" value="{{ $validation->initiator_id ?? Auth::user()->name }}" disabled>
 
                                 </div>
                             </div>
@@ -82,8 +88,8 @@
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short Description">Product<span class="text-danger">*</span></label>
-                                    <input id="docname" type="text" name="product" maxlength="255" required>
+                                    <label for="Product">Product</label>
+                                    <input id="Product" type="text" name="product" >
                                 </div>
                             </div>
 
@@ -114,14 +120,14 @@
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Date Due">Due Date</label>
+                                    <label for="due_date">Due Date</label>
                                     <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
                                     </div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date"
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'due_date')" />
+                                        <div class="calenderauditee">
+                                            <input type="hidden" value="{{$due_date}}" name="due_date">
+                                            <input  type="text" value="{{Helpers::getdateFormat($due_date)}}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -169,16 +175,11 @@
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="Date Due">Scheduled Start Date</label>
-                                    <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
+                                    <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
+                                    </div>
                                     <div class="calenderauditee">
-                                        <input type="text" class="test"
-                                            id="scheduled_start_date1" readonly
-                                            placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id=""
-                                            name="scheduled_start_date[]"
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                            class="hide-input"
-                                            oninput="handleDateInput(this, `scheduled_start_date1`);checkDate('scheduled_start_date1_checkdate','scheduled_end_date1_checkdate')" />
+                                        <input type="text" id="scheduled_start_date" readonly placeholder="DD-MM-YYYY" />
+                                        <input type="date" id="start_date_checkdate" name="scheduled_start_date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input" oninput="handleDateInput(this, 'scheduled_start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
@@ -188,28 +189,22 @@
                                     <label for="Date Due">Scheduled End Date</label>
                                     <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" class="test"
-                                            id="scheduled_start" readonly
-                                            placeholder="DD-MMM-YYYY" />
-                                        <input type="date" id=""
-                                            name="scheduled_start_date[]"
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                            class="hide-input"
-                                            oninput="handleDateInput(this, `scheduled_start`);checkDate('scheduled_start_date1_checkdate','scheduled_end_date1')" />
+                                        <input type="text" id="scheduled_end_date" readonly placeholder="DD-MM-YYYY" />
+                                        <input type="date" id="start_date_checkdate" name="scheduled_end_date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input" oninput="handleDateInput(this, 'scheduled_end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
-                                </div>
+                            </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="closure attachment">Attached Files </label>
+                                    <label for="closure attachment">File Attachments </label>
                                     <div><small class="text-primary">
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="file-attachment-list" id="file_attachment[]"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attachment" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                            <input type="file" id="myfile" name="file_attachment[]" oninput="addMultipleFiles(this, 'file_attachment[]')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -220,9 +215,9 @@
                                     <label for="Type">Related URLs</label>
                                     <select name="related_url">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">URL1</option>
-                                        <option value="2">URL2</option>
-                                        <option value="3">URL3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -444,6 +439,55 @@
     $('#docname').keyup(function() {
         var textlen = maxLength - $(this).val().length;
         $('#rchars').text(textlen);
+    });
+</script>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#internalaudit-table').click(function(e) {
+
+            function generateTableRow(serialNumber) {
+                var users = @json($users);
+
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber +
+                    '"></td>' +
+                    '<td><input type="text" name="audit[]"></td>' +
+                    // '<td><input type="date" name="scheduled_start_date[]"></td>'
+                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="scheduled_start_date' + serialNumber +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="scheduled_start_date[]" id="scheduled_start_date' + serialNumber +'_checkdate" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  class="hide-input" oninput="handleDateInput(this, `scheduled_start_date' + serialNumber +'`);checkDate(`scheduled_start_date' + serialNumber +'_checkdate`,`scheduled_end_date' + serialNumber +'_checkdate`)" /></div></div></div></td>' +
+                    '<td><input type="time" name="scheduled_start_time[]"></td>' +
+                    // '<td><input type="date" name="scheduled_end_date[]"></td>'
+                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="scheduled_end_date' + serialNumber +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="scheduled_end_date[]" id="scheduled_end_date'+ serialNumber +'_checkdate"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"class="hide-input" oninput="handleDateInput(this, `scheduled_end_date' + serialNumber +'`);checkDate(`scheduled_start_date' + serialNumber +'_checkdate`,`scheduled_end_date' + serialNumber +'_checkdate`)" /></div></div></div></td>' +
+                    '<td><input type="time" name="scheduled_end_time[]"></td>' +
+                    '<td><select name="auditor[]">' +
+                    '<option value="">Select a value</option>';
+
+                for (var i = 0; i < users.length; i++) {
+                    html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                }
+
+                html += '</select></td>' +
+                    '<td><select name="auditee[]">' +
+                    '<option value="">Select a value</option>';
+
+                for (var i = 0; i < users.length; i++) {
+                    html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                }
+                html += '</select></td>' +
+                    '<td><input type="text" name="remarks[]"></td>' +
+                    '</tr>';
+
+                return html;
+            }
+
+            var tableBody = $('#internalaudit tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1);
+            tableBody.append(newRow);
+        });
     });
 </script>
 @endsection

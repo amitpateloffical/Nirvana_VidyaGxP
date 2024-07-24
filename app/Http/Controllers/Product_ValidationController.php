@@ -35,7 +35,7 @@ class Product_ValidationController extends Controller
 
 
         // $registrations = MedicalDeviceRegistration::all();
-        return view('frontend.New_forms.first_product_validation',compact('record_number'));
+        return view('frontend.New_forms.first_product_validation',compact('record_number','due_date'));
     }
 
     public function ProductionValidationCreate(Request $request)
@@ -165,6 +165,19 @@ class Product_ValidationController extends Controller
 
 
 
+       if (!empty($request->inv_attachment)) {
+        $files = [];
+        if ($request->hasfile('inv_attachment')) {
+            foreach ($request->file('inv_attachment') as $file) {
+                $name = $request->name . 'inv_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                $file->move('upload/', $name);
+                $files[] = $name;
+            }
+        }
+        $data->inv_attachment = json_encode($files);
+    }
+
+
 
 
 
@@ -197,38 +210,36 @@ class Product_ValidationController extends Controller
         }
         $data->status = 'Opened';
         $data->stage = 1;
+        // dd($data);
         $data->save();
-        //  dd($data);
+        //dd($data);
 
         $record = RecordNumber::first();
         $record->counter = ((RecordNumber::first()->value('counter')) + 1);
         $record->update();
 
-        toastr()->success(" First Production Validation is created succusfully");
-        return redirect(url('rcms/qms-dashboard'));
+                //  if (!empty($request->division_id)) {
+                //   $history = new ProductionValidationTrail();
+                //  $history->root_id = $data->id;
+                //      $history->activity_type = 'Division Id';
+                //      $history->previous = "Null";
+                //     $history->current = $data->division_id;
+                //     $history->comment = "Not Applicable";
+                //     $history->user_id = Auth::user()->id;
+                //     $history->user_name = Auth::user()->name;
+                //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                //     $history->origin_state = $data->status;
+                //     $history->change_from ="Initiation";
+                //     $history->change_to ="Opened";
+                //     $history->action_name = "Create";
+                //     $history->save();
+                //     }
 
-
-
-                 if (!empty($request->division_id)) {
-                  $history = new ProductionValidationTrail();
-                 $history->root_id = $data->id;
-                     $history->activity_type = 'Division Id';
-                     $history->previous = "Null";
-                    $history->current = $data->division_id;
-                    $history->comment = "Not Applicable";
-                    $history->user_id = Auth::user()->id;
-                    $history->user_name = Auth::user()->name;
-                    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                    $history->origin_state = $data->status;
-                    $history->change_from ="Initiator";
-                    $history->change_to ="Opened";
-                    $history->action_name = "Create";
-                    $history->save();
-                    }
                     if (!empty($data->short_description)) {
+                        // dd($request->short_description);
                         $history = new ProductionValidationTrail();
                         $history->root_id = $data->id;
-                        $history->activity_type = 'Short Description';
+                        $history->activity_type = 'Short Discription';
                         $history->previous = "Null";
                         $history->current = $data->short_description;
                         $history->comment = "Not Applicable";
@@ -236,7 +247,7 @@ class Product_ValidationController extends Controller
                         $history->user_name = Auth::user()->name;
                         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                         $history->origin_state = $data->status;
-                         $history->change_from ="Initiator";
+                         $history->change_from ="Initiation";
                          $history->change_to ="Opened";
                         $history->action_name = "Create";
                         $history->save();
@@ -254,7 +265,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -272,7 +283,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -292,7 +303,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -303,7 +314,7 @@ class Product_ValidationController extends Controller
         if (!empty($data->product_type)) {
             $history = new ProductionValidationTrail();
             $history->root_id = $data->id;
-            $history->activity_type = 'Type Of Product';
+            $history->activity_type = 'Product Type';
             $history->previous = "Null";
             $history->current = $data->product_type;
             $history->comment = "Not Applicable";
@@ -311,7 +322,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -331,7 +342,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -347,7 +358,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -363,7 +374,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -380,7 +391,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -388,7 +399,7 @@ class Product_ValidationController extends Controller
          if (!empty($data->file_attachment)) {
             $history = new ProductionValidationTrail();
             $history->root_id = $data->id;
-            $history->activity_type = 'File Attachment';
+            $history->activity_type = 'File Attechment ';
             $history->previous = "Null";
             $history->current = $data->file_attachment;
             $history->comment = "Not Applicable";
@@ -396,7 +407,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -404,7 +415,7 @@ class Product_ValidationController extends Controller
         if (!empty($data->related_url)) {
             $history = new ProductionValidationTrail();
             $history->root_id = $data->id;
-            $history->activity_type = 'Related Urls';
+            $history->activity_type = 'Related URl';
             $history->previous = "Null";
             $history->current = $data->related_url;
             $history->comment = "Not Applicable";
@@ -412,7 +423,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -428,7 +439,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -445,7 +456,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -461,7 +472,7 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
@@ -469,7 +480,7 @@ class Product_ValidationController extends Controller
          if (!empty($data->intiation_date)) {
             $history = new ProductionValidationTrail();
             $history->root_id = $data->id;
-            $history->activity_type = ' Date Of Intiation';
+            $history->activity_type = ' Intitiation Date';
             $history->previous = "Null";
             $history->current = $data->intiation_date;
             $history->comment = "Not Applicable";
@@ -477,35 +488,37 @@ class Product_ValidationController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
+             $history->change_from ="Initiation";
              $history->change_to ="Opened";
             $history->action_name = "Create";
             $history->save();
         }
 
-        if (!empty($data->quality_follow_up_summary)) {
-            $history = new ProductionValidationTrail();
-            $history->root_id = $data->id;
-            $history->activity_type = 'Quality Follow Up Summary';
-            $history->previous = "Null";
-            $history->current = $data->quality_follow_up_summary;
-            $history->comment = "Not Applicable";
-            $history->user_id = Auth::user()->id;
-            $history->user_name = Auth::user()->name;
-            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            $history->origin_state = $data->status;
-             $history->change_from ="Initiator";
-             $history->change_to ="Opened";
-            $history->action_name = "Create";
-            $history->save();
-         }
+        // if (!empty($data->quality_follow_up_summary)) {
+        //     $history = new ProductionValidationTrail();
+        //     $history->root_id = $data->id;
+        //     $history->activity_type = 'Initiator';
+        //     $history->previous = "Null";
+        //     $history->current = $data->quality_follow_up_summary;
+        //     $history->comment = "Not Applicable";
+        //     $history->user_id = Auth::user()->id;
+        //     $history->user_name = Auth::user()->name;
+        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        //     $history->origin_state = $data->status;
+        //      $history->change_from ="Initiation";
+        //      $history->change_to ="Opened";
+        //     $history->action_name = "Create";
+        //     $history->save();
+        //  }
 
-        // toastr()->success(" First Production Validation is created succusfully");
-        // return redirect(url('rcms/qms-dashboard'));
 
 
     }
 
+    toastr()->success(" First Production Validation is created succusfully");
+    return redirect(url('rcms/qms-dashboard'));
+    // toastr()->success(" First Production Validation is created succusfully");
+    // return redirect(url('rcms/qms-dashboard'));
 
     }
 
@@ -513,7 +526,8 @@ class Product_ValidationController extends Controller
     public function renewal_forword_close(Request $request, $id){
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)){
             $data = Product_Validation::find($id);
-            $lastDocument = Product_Validation::find($id);
+            $lastData =  Product_Validation::find($id);
+
 
         if ($data->stage == 3){
             $data->stage = "5";
@@ -532,20 +546,23 @@ class Product_ValidationController extends Controller
             $data->Recall_Product_on = Carbon::now()->format('d-M-Y');
 
          //  $data->closed_not_approved_comment = $request->comment;
-            // $history = new ProductionValidationTrail();
-            //     $history->root_id = $id;
-            //     $history->activity_type = 'Pending Product Release';
-            //     $history->previous = "Reject_Sample_by";
-            //     $history->current = $data->Reject_Sample_by;
-            //     $history->comment = "Not Applicable";
-            //     $history->user_id = Auth::user()->id;
-            //     $history->user_name = Auth::user()->name;
-            //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            //     $history->origin_state = $data->status;
-            //      $history->change_from ="Initiator";
-            //      $history->change_to ="Opened";
-            //     $history->action_name = "Submit";
-            //     $history->save();
+         $history = new ProductionValidationTrail();
+         $history->root_id = $id;
+         $history->activity_type = 'Activity Log';
+         $history->action = 'Submit';
+         $history->previous = $lastData->Approve_Sample_by;
+         $history->current = $data->Approve_Sample_by;
+         $history->comment = $request->comment;
+         $history->user_id = Auth::user()->id;
+         $history->user_name = Auth::user()->name;
+         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+         $history->origin_state = $lastData->status;
+         $history->change_to = 'Pending Product Release';
+         $history->change_from = $lastData->status;
+         $history->action_name = 'Not Applicable';
+            $history->stage= "Submit";
+     $history->action_name = "Submit";
+     $history->save();
 
                 //     $list = Helpers::getHodUserList();
                 //     foreach ($list as $u) {
@@ -576,20 +593,23 @@ class Product_ValidationController extends Controller
             $data->Start_Production_on = Carbon::now()->format('d-M-Y');
 
         //    $data->closed_not_approved_comment = $request->comment;
-        //     $history = new ProductionValidationTrail();
-                // $history->root_id = $id;
-                // $history->activity_type = 'Closed - Recalled';
-                // $history->previous = "Start_Production_by";
-                // $history->current = $data->Start_Production_by;
-                // $history->comment = "Not Applicable";
-                // $history->user_id = Auth::user()->id;
-                // $history->user_name = Auth::user()->name;
-                // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                // $history->origin_state = $data->status;
-                //  $history->change_from ="Initiator";
-                //  $history->change_to ="Opened";
-                // $history->action_name = "Submit";
-                // $history->save();
+        $history = new ProductionValidationTrail();
+        $history->root_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->action = 'Submit';
+        $history->previous = $lastData->Start_Production_by;
+        $history->current = $data->Start_Production_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastData->status;
+        $history->change_to = 'Closed - Recalled';
+        $history->change_from = $lastData->status;
+        $history->action_name = 'Not Applicable';
+           $history->stage= "Submit";
+    $history->action_name = "Submit";
+    $history->save();
                 //     $list = Helpers::getHodUserList();
                 //     foreach ($list as $u) {
                 //         if($u->q_m_s_divisions_id == $capa->division_id){
@@ -621,7 +641,8 @@ class Product_ValidationController extends Controller
 public function renewal_forword2_close(Request $request, $id){
     if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)){
         $data = Product_Validation::find($id);
-        $lastDocument = Product_Validation::find($id);
+        $lastData =  Product_Validation::find($id);
+
 
     if ($data->stage == "3"){
         $data->stage = "4";
@@ -640,21 +661,23 @@ public function renewal_forword2_close(Request $request, $id){
         $data->Recall_Product_by = Auth::user()->name;
         $data->Recall_Product_on = Carbon::now()->format('d-M-Y');
 
-    //    $data->closed_not_approved_comment = $request->comment;
-    //     $history = new ProductionValidationTrail();
-    //         $history->root_id = $id;
-    //         $history->activity_type = 'Product Recalled';
-    //         $history->previous = "";
-    //       //  $history->current = $data->scheduled_end_date;
-    //         $history->comment = "Not Applicable";
-    //         $history->user_id = Auth::user()->id;
-    //         $history->user_name = Auth::user()->name;
-    //         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-    //         $history->origin_state = $data->status;
-    //          $history->change_from ="Initiator";
-    //          $history->change_to ="Opened";
-    //         $history->action_name = "Submit";
-    //         $history->save();
+        $history = new ProductionValidationTrail();
+        $history->root_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->action = 'Submit';
+        $history->previous = $lastData->Recall_Product_by;
+        $history->current = $data->Recall_Product_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastData->status;
+        $history->change_to = 'Product Recalled';
+        $history->change_from = $lastData->status;
+        $history->action_name = 'Not Applicable';
+           $history->stage= "Submit";
+    $history->action_name = "Submit";
+    $history->save();
             //     $list = Helpers::getHodUserList();
             //     foreach ($list as $u) {
             //         if($u->q_m_s_divisions_id == $capa->division_id){
@@ -676,26 +699,36 @@ public function renewal_forword2_close(Request $request, $id){
         toastr()->success('Document Sent');
         return back();
     }
+
+
+
+
+
     if ($data->stage == "4"){
         $data->stage = "8";
         $data->status = "Product Released";
         $data->Recall_Closed_by = Auth::user()->name;
         $data->Recall_Closed_on = Carbon::now()->format('d-M-Y');
-      // $data->closed_not_approved_comment = $request->comment;
-        // $history = new ProductionValidationTrail();
-        //     $history->root_id = $id;
-        //     $history->activity_type = 'Product Released';
-        //     $history->previous = "Recall_Closed_by";
-        //     $history->current = $data->Recall_Closed_by;
-        //     $history->comment = "Not Applicable";
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $data->status;
-        //      $history->change_from ="Initiator";
-        //      $history->change_to ="Opened";
-        //     $history->action_name = "Submit";
-        //     $history->save();
+
+      //$data->closed_not_approved_comment = $request->comment;
+
+      $history = new ProductionValidationTrail();
+      $history->root_id = $id;
+      $history->activity_type = 'Activity Log';
+      $history->action = 'Submit';
+      $history->previous = $lastData->Recall_Closed_by;
+      $history->current = $data->Recall_Closed_by;
+      $history->comment = $request->comment;
+      $history->user_id = Auth::user()->id;
+      $history->user_name = Auth::user()->name;
+      $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+      $history->origin_state = $lastData->status;
+      $history->change_to = 'Product Released';
+      $history->change_from = $lastData->status;
+      $history->action_name = 'Not Applicable';
+         $history->stage= "Submit";
+  $history->action_name = "Submit";
+  $history->save();
             //     $list = Helpers::getHodUserList();
             //     foreach ($list as $u) {
             //         if($u->q_m_s_divisions_id == $capa->division_id){
@@ -725,21 +758,24 @@ public function renewal_forword2_close(Request $request, $id){
         $data->Release_by = Auth::user()->name;
         $data->Release_on = Carbon::now()->format('d-M-Y');
 
-      // $data->closed_not_approved_comment = $request->comment;
-        // $history = new ProductionValidationTrail();
-        //     $history->root_id = $id;
-        //     $history->activity_type = 'Product Released';
-        //     $history->previous = "Release_by";
-        //     $history->current = $data->Release_by;
-        //     $history->comment = "Not Applicable";
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $data->status;
-        //      $history->change_from ="Initiator";
-        //      $history->change_to ="Opened";
-        //     $history->action_name = "Submit";
-        //     $history->save();
+    //  $data->closed_not_approved_comment = $request->comment;
+      $history = new ProductionValidationTrail();
+      $history->root_id = $id;
+      $history->activity_type = 'Activity Log';
+      $history->action = 'Submit';
+      $history->previous = $lastData->Release_by;
+      $history->current = $data->Release_by;
+      $history->comment = $request->comment;
+      $history->user_id = Auth::user()->id;
+      $history->user_name = Auth::user()->name;
+      $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+      $history->origin_state = $lastData->status;
+      $history->change_to = 'Product Released';
+      $history->change_from = $lastData->status;
+      $history->action_name = 'Not Applicable';
+         $history->stage= "Submit";
+  $history->action_name = "Submit";
+  $history->save();
             //     $list = Helpers::getHodUserList();
             //     foreach ($list as $u) {
             //         if($u->q_m_s_divisions_id == $capa->division_id){
@@ -768,20 +804,23 @@ public function renewal_forword2_close(Request $request, $id){
         $data->Analyzee_by = Carbon::now()->format('d-M-Y');
 
       // $data->closed_not_approved_comment = $request->comment;
-        // $history = new ProductionValidationTrail();
-        //     $history->root_id = $id;
-        //     $history->activity_type = 'Product Released';
-        //     $history->previous = "Analyzee_by";
-        //     $history->current = $data->Analyzee_by;
-        //     $history->comment = "Not Applicable";
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $data->status;
-        //      $history->change_from ="Initiator";
-        //      $history->change_to ="Opened";
-        //     $history->action_name = "Submit";
-        //     $history->save();
+      $history = new ProductionValidationTrail();
+      $history->root_id = $id;
+      $history->activity_type = 'Activity Log';
+      $history->action = 'Submit';
+      $history->previous = $lastData->Analyzee_by;
+      $history->current = $data->Analyzee_by;
+      $history->comment = $request->comment;
+      $history->user_id = Auth::user()->id;
+      $history->user_name = Auth::user()->name;
+      $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+      $history->origin_state = $lastData->status;
+      $history->change_to = 'Product Released';
+      $history->change_from = $lastData->status;
+      $history->action_name = 'Not Applicable';
+         $history->stage= "Submit";
+  $history->action_name = "Submit";
+  $history->save();
             //     $list = Helpers::getHodUserList();
             //     foreach ($list as $u) {
             //         if($u->q_m_s_divisions_id == $capa->division_id){
@@ -809,21 +848,24 @@ public function renewal_forword2_close(Request $request, $id){
         $data->Analyzee_by = Auth::user()->name;
         $data->Analyzee_by = Carbon::now()->format('d-M-Y');
 
-      // $data->closed_not_approved_comment = $request->comment;
-        // $history = new ProductionValidationTrail();
-        //     $history->root_id = $id;
-        //     $history->activity_type = 'Product Released';
-        //     $history->previous = "Analyzee_by";
-        //     $history->current = $data->Analyzee_by;
-        //     $history->comment = "Not Applicable";
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $data->status;
-        //      $history->change_from ="Initiator";
-        //      $history->change_to ="Opened";
-        //     $history->action_name = "Submit";
-        //     $history->save();
+     // $data->closed_not_approved_comment = $request->comment;
+      $history = new ProductionValidationTrail();
+      $history->root_id = $id;
+      $history->activity_type = 'Activity Log';
+      $history->action = 'Submit';
+      $history->previous = $lastData->Analyzee_by;
+      $history->current = $data->Analyzee_by;
+      $history->comment = $request->comment;
+      $history->user_id = Auth::user()->id;
+      $history->user_name = Auth::user()->name;
+      $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+      $history->origin_state = $lastData->status;
+      $history->change_to = 'Product Released';
+      $history->change_from = $lastData->status;
+      $history->action_name = 'Not Applicable';
+         $history->stage= "Submit";
+  $history->action_name = "Submit";
+  $history->save();
             //     $list = Helpers::getHodUserList();
             //     foreach ($list as $u) {
             //         if($u->q_m_s_divisions_id == $capa->division_id){
@@ -852,21 +894,24 @@ public function renewal_forword2_close(Request $request, $id){
         $data->Start_Production_by = Auth::user()->name;
         $data->Start_Production_on = Carbon::now()->format('d-M-Y');
 
-      // $data->closed_not_approved_comment = $request->comment;
-        // $history = new ProductionValidationTrail();
-        //     $history->root_id = $id;
-        //     $history->activity_type = 'close-Done';
-        //     $history->previous = "Start_Production_by";
-        //     $history->current = $data->Start_Production_by;
-        //     $history->comment = "Not Applicable";
-        //     $history->user_id = Auth::user()->id;
-        //     $history->user_name = Auth::user()->name;
-        //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-        //     $history->origin_state = $data->status;
-        //      $history->change_from ="Initiator";
-        //      $history->change_to ="Opened";
-        //     $history->action_name = "Submit";
-        //     $history->save();
+     // $data->closed_not_approved_comment = $request->comment;
+     $history = new ProductionValidationTrail();
+     $history->root_id = $id;
+     $history->activity_type = 'Activity Log';
+     $history->action = 'Submit';
+     $history->previous = $lastData->Start_Production_by;
+     $history->current = $data->Start_Production_by;
+     $history->comment = $request->comment;
+     $history->user_id = Auth::user()->id;
+     $history->user_name = Auth::user()->name;
+     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+     $history->origin_state = $lastData->status;
+     $history->change_to = 'close-Done';
+     $history->change_from = $lastData->status;
+     $history->action_name = 'Not Applicable';
+        $history->stage= "Submit";
+ $history->action_name = "Submit";
+ $history->save();
             //     $list = Helpers::getHodUserList();
             //     foreach ($list as $u) {
             //         if($u->q_m_s_divisions_id == $capa->division_id){
@@ -896,6 +941,63 @@ public function renewal_forword2_close(Request $request, $id){
 }
 
 
+public function renewal_forword3_close(Request $request, $id){
+    if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)){
+        $data = Product_Validation::find($id);
+        $lastData = Product_Validation::find($id);
+
+
+    if ($data->stage == "3"){
+        $data->stage = "6";
+        $data->status = "Pending Analysis";
+
+
+
+        $data->Send_For_Analysis_by = Auth::user()->name;
+        $data->Send_For_Analysis_on = Carbon::now()->format('d-M-Y');
+
+
+        $history = new ProductionValidationTrail();
+        $history->root_id = $id;
+        $history->activity_type = 'Activity Log';
+        $history->action = 'Submit';
+        $history->previous = $lastData->send_For_Analysis_by;
+        $history->current = $data->send_For_Analysis_by;
+        $history->comment = $request->comment;
+        $history->user_id = Auth::user()->id;
+        $history->user_name = Auth::user()->name;
+        $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+        $history->origin_state = $lastData->status;
+        $history->change_to = 'Pending Analysis';
+        $history->change_from = $lastData->status;
+        $history->action_name = 'Not Applicable';
+           $history->stage= "Submit";
+    $history->action_name = "Submit";
+    $history->save();
+            //     $list = Helpers::getHodUserList();
+            //     foreach ($list as $u) {
+            //         if($u->q_m_s_divisions_id == $capa->division_id){
+            //             $email = Helpers::getInitiatorEmail($u->user_id);
+            //             if ($email !== null) {
+
+            //             Mail::send(
+            //                 'mail.view-mail',
+            //                 ['data' => $capa],
+            //                 function ($message) use ($email) {
+            //                     $message->to($email)
+            //                         ->subject("Document is Submitted By ".Auth::user()->name);
+            //                 }
+            //             );
+            //             }
+            //     }
+            // }
+        $data->update();
+        toastr()->success('Document Sent');
+        return back();
+    }
+
+}
+}
 
 public function RejectStateChange(Request $request, $id)
 {
@@ -966,6 +1068,10 @@ public function RejectStateChange2(Request $request, $id)
 
     public function ProductionShow ($id)
     {
+
+        $currentDate = Carbon::now();
+        $formattedDate = $currentDate->addDays(30);
+        $due_date = $formattedDate->format('Y-m-d');
         // dd($id);
 
         $data = Product_Validation::find($id);
@@ -981,7 +1087,7 @@ public function RejectStateChange2(Request $request, $id)
         $due_date = $formattedDate->format('Y-m-d');
 
         //  $document->initiator = User::where('id', $document->initiator_id)->value('name');
-        return view('frontend.ProductionValidation.view',  compact('data'));
+        return view('frontend.ProductionValidation.view',  compact('data','due_date'));
     }
 
     public function production_send_stage(Request $request, $id)
@@ -990,29 +1096,53 @@ public function RejectStateChange2(Request $request, $id)
 
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
             $data = Product_Validation::find($id);
-            $lastDocument = Product_Validation::find($id);
+            $lastData = Product_Validation::find($id);
 
             if ($data->stage == 1) {
                 $data->stage = "2";
                 $data->status = "Pending Scheduling & Sample";
                 $data->acknowledge_by = Auth::user()->name;
                 $data->acknowledge_on = Carbon::now()->format('d-M-Y');
-                    // $history = new ProductionValidationTrail();
-                    // $history->root_id = $id;
-                    // $history->activity_type = 'Pending Scheduling & Sample';
-                    // $history->previous = $lastDocument->acknowledge_by;
-                    // $history->current = $data->acknowledge_by;
-                    // $history->comment = $request->comment;
-                    // $history->user_id = Auth::user()->id;
-                    // $history->user_name = Auth::user()->name;
-                    // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                    // $history->origin_state = $lastDocument->status;
-                    // $history->origin_state = $data->status;
-                    // $history->change_from ="Initiator";
-                    // $history->change_to ="Opened";
-                    // $history->stage='Submited';
+                //     $history = new ProductionValidationTrail();
+                //     $history->root_id = $id;
+                //     $history->activity_type = 'Activity log';
+                //     $history->previous = $lastData->acknowledge_by;
+                //     $history->current = $data->acknowledge_by;
+                //     $history->comment = $request->comment;
+                //     $history->user_id = Auth::user()->id;
+                //     $history->user_name = Auth::user()->name;
+                //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                //     $history->origin_state = $lastData->status;
+                //     // $history->origin_state = $data->status;
+                //     $history->change_from =$lastData->status;
+                //     $history->change_to ="Pending Scheduling & Sample";
+                //     $history->action_name = "Not Applicable";
+                //     $history->stage= "2";
 
-                    //$history->save();
+                //    $history->action_name = "Submit";
+
+                //     $history->save();
+
+
+                $history = new ProductionValidationTrail();
+                $history->root_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->action = 'Submit';
+                $history->previous = $lastData->acknowledge_by;
+                $history->current = $data->acknowledge_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastData->status;
+                $history->stage = 'Submit';
+                $history->change_to = 'Pending Scheduling & Sample';
+                $history->change_from = $lastData->status;
+                $history->action_name = 'Not Applicable';
+
+                $history->save();
+
+
                 //     $list = Helpers::getQAUserList();
                 //     foreach ($list as $u) {
                 //         if($u->q_m_s_divisions_id == $data->division_id){
@@ -1044,21 +1174,23 @@ public function RejectStateChange2(Request $request, $id)
 
 
 
-                    // $history = new ProductionValidationTrail();
-                    // $history->root_id = $id;
-                    // $history->activity_type = 'Pending Samples Validation';
-                    // $history->previous = $lastDocument->Schedule_Send_Sample_by;
-                    // $history->current = $data->Schedule_Send_Sample_on;
-                    // $history->user_id = Auth::user()->id;
-                    // $history->user_name = Auth::user()->name;
-                    // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                    // $history->origin_state = $lastDocument->status;
-                    // $history->origin_state = $data->status;
-                    // $history->change_from ="Initiator";
-                    // $history->change_to ="Opened";
-                    // $history->stage='Submit';
+                $history = new ProductionValidationTrail();
+                $history->root_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->action = 'Submit';
+                $history->previous = $lastData->Schedule_Send_Sample_by;
+                $history->current = $data->Schedule_Send_Sample_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastData->status;
+                $history->stage = 'Submit';
+                $history->change_to = 'Pending Samples Validation';
+                $history->change_from = $lastData->status;
+                $history->action_name = 'Not Applicable';
 
-                   // $history->save();
+                $history->save();
                 //     $list = Helpers::getQAUserList();
                 //     foreach ($list as $u) {
                 //         if($u->q_m_s_divisions_id == $root->division_id){
@@ -1081,22 +1213,29 @@ public function RejectStateChange2(Request $request, $id)
                 toastr()->success('Document Sent');
                 return back();
             }
-            // if ($data->stage == 3) {
-            //     $data->stage = "4";
-            //     $data->status = "Product Recalled";
-            //     $data->acknowledge_by = Auth::user()->name;
-            //     $data->acknowledge_on = Carbon::now()->format('d-M-Y');
-            //        $history = new ProductionValidationTrail();
-            //         $history->root_id = $id;
-            //         $history->activity_type = 'Activity Log';
-            //         $history->previous = $lastDocument->acknowledge_by;
-            //         $history->current = $data->acknowledge_by;
-            //         $history->user_id = Auth::user()->id;
-            //         $history->user_name = Auth::user()->name;
-            //         $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-            //         $history->origin_state = $lastDocument->status;
-            //         $history->stage='';
-            //         $history->save();
+            if ($data->stage == 3) {
+                $data->stage = "4";
+                $data->status = "Product Recalled";
+                $data->acknowledge_by = Auth::user()->name;
+                $data->acknowledge_on = Carbon::now()->format('d-M-Y');
+
+                $history = new ProductionValidationTrail();
+                $history->root_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->action = 'Submit';
+                $history->previous = $lastData->acknowledge_by;
+                $history->current = $data->acknowledge_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastData->status;
+                $history->change_to = 'Product Recalled';
+                $history->change_from = $lastData->status;
+                $history->action_name = 'Not Applicable';
+                   $history->stage= "Submit";
+
+                    $history->save();
             //     //     $list = Helpers::getQAUserList();
             //     //     foreach ($list as $u) {
             //     //         if($u->q_m_s_divisions_id == $root->division_id){
@@ -1115,27 +1254,32 @@ public function RejectStateChange2(Request $request, $id)
             //     //             }
             //     //      }
             //     //    }
-            //     $data->update();
-            //     toastr()->success('Document Sent');
-            //     return back();
-            // }
+                $data->update();
+                toastr()->success('Document Sent');
+                return back();
+            }
              if ($data->stage == 4) {
                  $data->stage = "7";
                  $data->status = 'Closed - Recalled';
                  $data->acknowledge_by = Auth::user()->name;
                  $data->acknowledge_on = Carbon::now()->format('d-M-Y');
-                // $history = new ProductionValidationTrail();
-                // $history->root_id = $id;
-                // $history->activity_type = 'Closed - Recalled';
-                // $history->previous = $lastDocument->acknowledge_by;
-                // $history->current = $data->acknowledge_by;
-                // $history->user_id = Auth::user()->id;
-                // $history->user_name = Auth::user()->name;
-                // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                // $history->origin_state = $lastDocument->status;
-                // $history->origin_state = $data->status;
-                // $history->change_from ="Initiator";
-                // $history->change_to ="Opened";
+                 $history = new ProductionValidationTrail();
+                $history->root_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->action = 'Submit';
+                $history->previous = $lastData->acknowledge_by;
+                $history->current = $data->acknowledge_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastData->status;
+                $history->change_to = 'Closed - Recalled';
+                $history->change_from = $lastData->status;
+                $history->action_name = 'Not Applicable';
+                   $history->stage= "Submit";
+
+                 $history->save();
                 // $history->stage='Submit';
             //     $list = Helpers::getQAUserList();
             //     foreach ($list as $u) {
@@ -1164,21 +1308,23 @@ public function RejectStateChange2(Request $request, $id)
                 $data->status = "QA Approve Review";
                 $data->qA_review_complete_by = Auth::user()->name;
                 // $data->qA_review_complete_on = Carbon::now()->format('d-M-Y');
-                // $history = new ProductionValidationTrail();
-                // $history->root_id = $id;
-                // $history->activity_type = 'Activity Log';
-                // $history->previous = $lastDocument->qA_review_complete_by;
-                // $history->current = $root->qA_review_complete_by;
-                // $history->comment = $request->comment;
-                // $history->user_id = Auth::user()->id;
-                // $history->user_name = Auth::user()->name;
-                // $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                // $history->origin_state = $lastDocument->status;
-                // $history->origin_state = $data->status;
-                // $history->change_from ="Initiator";
-                // $history->change_to ="Opened";
-                // $history->stage='Submit';
-                // $history->save();
+                $history = new ProductionValidationTrail();
+                $history->root_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->action = 'Submit';
+                $history->previous = $lastData->acknowledge_by;
+                $history->current = $data->acknowledge_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastData->status;
+                $history->change_to = 'QA Approve Review';
+                $history->change_from = $lastData->status;
+                $history->action_name = 'Not Applicable';
+                   $history->stage= "Submit";
+
+                $history->save();
             //     $list = Helpers::getQAUserList();
             //     foreach ($list as $u) {
             //         if($u->q_m_s_divisions_id == $root->division_id){
@@ -1203,7 +1349,7 @@ public function RejectStateChange2(Request $request, $id)
          return back();
        }
 
-        $history->origin_state = $lastDocument->status;
+        $history->origin_state = $lastData->status;
                 $history->stage='';
                 $history->save();
             //     $list = Helpers::getQAUserList();
@@ -1238,14 +1384,19 @@ public function RejectStateChange2(Request $request, $id)
 
         public function ProductionValidationfollowUpdate(Request $request, $id)
         {
+            $currentDate = Carbon::now();
+            $formattedDate = $currentDate->addDays(30);
+            $due_date = $formattedDate->format('Y-m-d');
+
             $lastData =  Product_Validation::find($id);
             $data =  Product_Validation::find($id);
             $data->initiator_id = Auth::user()->id;
 
+
             $data->division_id = $request->division_id;
 
-            $data->stage = $request->stage;
-            $data->status = $request->status;
+            // $data->stage = $request->stage;
+            // $data->status = $request->status;
             $data->acknowledge_by = $request->acknowledge_by;
             $data->acknowledge_on = $request->acknowledge_on;
 
@@ -1254,6 +1405,10 @@ public function RejectStateChange2(Request $request, $id)
             $data->product = $request->product;
             $data->assign_to = $request->assign_to;
             $data->due_date = $request->due_date;
+
+
+// dd($data->due_date);
+
             $data->short_description = $request->short_description;
             $data->product_type = $request->product_type;
             $data->priority_level = $request->priority_level;
@@ -1309,6 +1464,16 @@ $data->product_recelldetails = $request->product_recelldetails;
                 }
 
                 $data->attach_files1 = json_encode($files);
+            }
+
+            if ($request->hasfile('inv_attachment')) {
+                $files = [];
+                foreach ($request->file('inv_attachment') as $file) {
+                    $name = $request->name . 'inv_attachment' . rand(1, 100) . '.' . $file->getClientOriginalExtension();
+                    $file->move(public_path('upload'), $name);
+                    $files[] = $name;
+                }
+                $data->inv_attachment = json_encode($files);
             }
             // // $data->recomendation_capa_date_due = $request->recomendation_capa_date_due;
             // // $data->non_compliance = $request->non_compliance;
@@ -1374,46 +1539,54 @@ $data->product_recelldetails = $request->product_recelldetails;
             // //     $data->attach_files2 = json_encode($files);
             // // }
 
-            $data->status = 'Opened';
-            $data->stage = 1;
+            // dd($data);
             $data->update();
-            if ($lastData->division_id != $data->initiated_by || !empty ($request->comment)) {
-                // return 'history';
-                $history = new ProductionValidationTrail;
-                $history->root_id = $id;
-                $history->activity_type = 'Division id';
-                $history->previous = $lastData->division_id;
-                $history->current = $data->division_id;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastData->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
-                $history->save();
-             }
+            // if ($lastData->division_id != $data->initiated_by || !empty ($request->comment)) {
+            //     // return 'history';
+            //     $history = new ProductionValidationTrail;
+            //     $history->root_id = $id;
+            //     $history->activity_type = 'Division id';
+            //     $history->previous = $lastData->division_id;
+            //     $history->current = $data->division_id;
+            //     $history->comment = $request->comment;
+            //     $history->user_id = Auth::user()->id;
+            //     $history->user_name = Auth::user()->name;
+            //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            //     $history->origin_state = $lastData->status;
+            //     $history->change_to =   "Not Applicable";
+            //     $history->change_from = $lastData->status;
+            //     $history->action_name = 'Update';
+            //     $history->save();
+            //  }
 
-            if ($lastData->short_description != $data->short_description || !empty ($request->comment)) {
+           if ($lastData->short_description != $data->short_description || ! empty($request->short_description_comment)) {
+            $lastDataAudittrail  = ProductionValidationTrail::where('root_id', $data->id)
+                ->where('activity_type', 'Short Description')
+                ->exists();
                 // return 'history';
                 $history = new ProductionValidationTrail;
-                $history->root_id = $id;
-                $history->activity_type = 'Short Discription';
+                $history->root_id= $id;
+                $history->activity_type = 'Short Description';
                 $history->previous = $lastData->short_description;
                 $history->current = $data->short_description;
-                $history->comment = $request->comment;
+                $history->comment = $request->short_description_comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastData->status;
-                $history->change_to =   "Not Applicable";
+                $history->change_to = 'Not Applicable';
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name = $lastDataAudittrail  ? 'Update' : 'New';
+                // $history->action = 'Submit';
+
                 $history->save();
              }
 
-            if ($lastData->department_code != $data->department_code || !empty ($request->comment)) {
+
+                if ($lastData->department_code != $data->department_code || ! empty($request->department_code_comment)) {
+                    $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                        ->where('activity_type', 'Department Code')
+                        ->exists();
                 // return 'history';
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
@@ -1427,47 +1600,59 @@ $data->product_recelldetails = $request->product_recelldetails;
                 $history->origin_state = $lastData->status;
                 $history->change_to =   "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name =  $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
              }
 
-            if ($lastData->initiator_id != $data->initiator_id || !empty ($request->comment)) {
-                // return 'history';
-                $history = new ProductionValidationTrail;
-                $history->root_id = $id;
-                $history->activity_type = 'Initiator';
-                $history->previous = $lastData->initiator_id;
-                $history->current = $data->initiator_id;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastData->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
-                $history->save();
-             }
 
-            if ($lastData->date_of_initiation != $data->date_of_initiation || !empty ($request->comment)) {
-                // return 'history';
-                $history = new ProductionValidationTrail;
-                $history->root_id = $id;
-                $history->activity_type = 'Date Of Initiation';
-                $history->previous = $lastData->date_of_initiation;
-                $history->current = $data->date_of_initiation;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastData->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
-                $history->save();
-             }
+            //     if ($lastData->initiator_id != $data->initiator_id || ! empty($request->initiator_id_comment)) {
+            //         $lastData = ProductionValidationTrail::where('root_id', $data->id)
+            //             ->where('activity_type', 'Initiator Id ')
+            //             ->exists();
+            //     // return 'history';
+            //     $history = new ProductionValidationTrail;
+            //     $history->root_id = $id;
+            //     $history->activity_type = 'Initiator';
+            //     $history->previous = $lastData->initiator_id;
+            //     $history->current = $data->initiator_id;
+            //     $history->comment = $request->comment;
+            //     $history->user_id = Auth::user()->id;
+            //     $history->user_name = Auth::user()->name;
+            //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            //     $history->origin_state = $lastData->status;
+            //     $history->change_to =   "Not Applicable";
+            //     $history->change_from = $lastData->status;
+            //     $history->action_name = $lastData ? 'Update' : 'New';
+            //     $history->save();
+            //  }
 
-            if ($lastData->product != $data->product || !empty ($request->comment)) {
+
+            //     if ($lastData->short_description != $data->short_description || ! empty($request->short_description_comment)) {
+            //         $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+            //             ->where('activity_type', ' Short Description ')
+            //             ->exists();
+            //     // return 'history';
+            //     $history = new ProductionValidationTrail;
+            //     $history->root_id = $id;
+            //     $history->activity_type = ' Short Description';
+            //     $history->previous = $lastData->short_description;
+            //     $history->current = $data->short_description;
+            //     $history->comment = $request->comment;
+            //     $history->user_id = Auth::user()->id;
+            //     $history->user_name = Auth::user()->name;
+            //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            //     $history->origin_state = $lastData->status;
+            //     $history->change_to =   "Not Applicable";
+            //     $history->change_from = $lastData->status;
+            //     $history->action_name =$lastDataAudittrail  ? 'Update' : 'New';
+            //     $history->save();
+            //  }
+
+
+                if ($lastData->product != $data->product || ! empty($request->product_comment)) {
+                    $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                        ->where('activity_type', 'Product ')
+                        ->exists();
                 // return 'history';
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
@@ -1481,33 +1666,64 @@ $data->product_recelldetails = $request->product_recelldetails;
                 $history->origin_state = $lastData->status;
                 $history->change_to =   "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name =  $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
              }
 
-            if ($lastData->assign_to != $data->assign_to || !empty ($request->comment)) {
-                // return 'history';
-                $history = new ProductionValidationTrail;
-                $history->root_id = $id;
-                $history->activity_type = 'Assign To';
-                $history->previous = $lastData->assign_to;
-                $history->current = $data->assign_to;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastData->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
-                $history->save();
-             }
 
-            if ($lastData->due_date != $data->due_date || !empty ($request->comment)) {
+
+             if ($lastData->assign_to != $data->assign_to || ! empty($request->comment)) {
+                $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                    ->where('activity_type', 'Assign To ')
+                    ->exists();
+            // return 'history';
+            $history = new ProductionValidationTrail;
+            $history->root_id = $id;
+            $history->activity_type = 'Assign To';
+            $history->previous = $lastData->assign_to;
+            $history->current = $data->assign_to;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastData->status;
+            $history->change_to =   "Not Applicable";
+            $history->change_from = $lastData->status;
+            $history->action_name =  $lastDataAudittrail ? 'Update' : 'New';
+            $history->save();
+         }
+
+            //     if ($lastData->assign_to != $data->assign_to || ! empty($request->comment)) {
+            //         $lastData = ProductionValidationTrail::where('root_id', $data->id)
+            //             ->where('activity_type', 'Assign To ')
+            //             ->exists();
+            //     // return 'history';
+            //     $history = new ProductionValidationTrail;
+            //     $history->root_id = $id;
+            //     $history->activity_type = 'Assign To';
+            //     $history->previous = $lastData->assign_to;
+            //     $history->current = $data->assign_to;
+            //     $history->comment = $request->comment;
+            //     $history->user_id = Auth::user()->id;
+            //     $history->user_name = Auth::user()->name;
+            //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            //     $history->origin_state = $lastData->status;
+            //     $history->change_to =   "Not Applicable";
+            //     $history->change_from = $lastData->status;
+            //     $history->action_name = $lastData ? 'Update' : 'New';
+            //     $history->save();
+            //  }
+
+
+
+                if ($lastData->due_date != $data->due_date || ! empty($request->due_date_comment)) {
+                    $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                        ->where('activity_type', 'Due Date ')
+                        ->exists();
                 // return 'history';
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
-                $history->activity_type = 'Date Due';
+                $history->activity_type = 'Due Date';
                 $history->previous = $lastData->due_date;
                 $history->current = $data->due_date;
                 $history->comment = $request->comment;
@@ -1517,11 +1733,15 @@ $data->product_recelldetails = $request->product_recelldetails;
                 $history->origin_state = $lastData->status;
                 $history->change_to =   "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name = $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
              }
 
-            if ($lastData->product_type != $data->product_type || !empty ($request->comment)) {
+
+                if ($lastData->product_type != $data->product_type || ! empty($request->product_type_comment)) {
+                    $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                        ->where('activity_type', 'Type of Product ')
+                        ->exists();
                 // return 'history';
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
@@ -1535,12 +1755,15 @@ $data->product_recelldetails = $request->product_recelldetails;
                 $history->origin_state = $lastData->status;
                 $history->change_to =   "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name =  $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
              }
 
-            if ($lastData->priority_level != $data->priority_level || !empty ($request->comment)) {
                 // return 'history';
+                if ($lastData->priority_level != $data->priority_level || ! empty($request->priority_level_comment)) {
+                    $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                        ->where('activity_type', 'Priority Level ')
+                        ->exists();
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
                 $history->activity_type = 'Priority Level';
@@ -1553,11 +1776,15 @@ $data->product_recelldetails = $request->product_recelldetails;
                 $history->origin_state = $lastData->status;
                 $history->change_to =   "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name =  $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
              }
 
-            if ($lastData->comments != $data->comments || !empty ($request->comment)) {
+
+                if ($lastData->comments != $data->comments || ! empty($request->comments)) {
+                    $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                        ->where('activity_type', 'Comments ')
+                        ->exists();
                 // return 'history';
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
@@ -1571,11 +1798,16 @@ $data->product_recelldetails = $request->product_recelldetails;
                 $history->origin_state = $lastData->status;
                 $history->change_to =   "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name =  $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
              }
 
-            if ($lastData->schedule_start_date != $data->schedule_start_date || !empty ($request->comment)) {
+
+
+                if ($lastData->schedule_start_date != $data->schedule_start_date || ! empty($request->schedule_start_date)) {
+                    $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                        ->where('activity_type', 'Scheduled Start Date')
+                        ->exists();
                 // return 'history';
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
@@ -1589,11 +1821,16 @@ $data->product_recelldetails = $request->product_recelldetails;
                 $history->origin_state = $lastData->status;
                 $history->change_to =   "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name =  $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
             }
 
-            if ($lastData->schedule_end_date != $data->schedule_end_date || !empty ($request->comment)) {
+
+
+                if ($lastData->schedule_end_date  != $data->schedule_end_date  || ! empty($request->schedule_end_date )) {
+                    $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                        ->where('activity_type', 'Scheduled End Date ')
+                        ->exists();
                 // return 'history';
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
@@ -1607,34 +1844,41 @@ $data->product_recelldetails = $request->product_recelldetails;
                 $history->origin_state = $lastData->status;
                 $history->change_to =   "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name =  $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
             }
 
-            if ($lastData->file_attachment != $data->file_attachment || !empty($request->comment)) {
-                // Convert $request->comment to a string if it's an array
-                $comment = is_array($request->comment) ? implode(', ', $request->comment) : $request->comment;
+
+
+                if ($lastData->file_attachment != $data->file_attachment || ! empty($request->file_attachment)) {
+                    $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                        ->where('activity_type', 'HOD Attachments ')
+                        ->exists();
 
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
                 $history->activity_type = 'HOD Attachments';
                 $history->previous = $lastData->file_attachment;
                 $history->current = $data->file_attachment;
-                $history->comment = $comment;
+                $history->comment = $request->comment;
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastData->status;
                 $history->change_to = "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name =  $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
             }
 
 
 
 
-           if ($lastData->related_url != $data->related_url || !empty ($request->comment)) {
+
+            if ($lastData->related_url != $data->related_url || ! empty($request->related_url)) {
+                $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                    ->where('activity_type', 'Related URLs ')
+                    ->exists();
                 // return 'history';
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
@@ -1648,33 +1892,41 @@ $data->product_recelldetails = $request->product_recelldetails;
                 $history->origin_state = $lastData->status;
                 $history->change_to =   "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name =  $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
             }
 
-            if ($lastData->related_record != $data->related_record || !empty ($request->comment)) {
-                // return 'history';
+
+            if (!empty($request->related_record) && $lastData->related_record != $request->related_record) {
+                $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                    ->where('activity_type', 'Related Record')
+                    ->exists();
+
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
-                $history->activity_type = 'Related Records';
+                $history->activity_type = 'Related Record';
                 $history->previous = $lastData->related_record;
-                $history->current = $data->related_record;
-                $history->comment = $request->comment;
+                $history->current = $request->related_record;
+                $history->comment = $request->comment ?? ''; // Use null coalescing operator to handle empty comments
                 $history->user_id = Auth::user()->id;
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastData->status;
-                $history->change_to =   "Not Applicable";
+                $history->change_to = "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name = $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
             }
 
-            if ($lastData->Remarks != $data->Remarks || !empty ($request->comment)) {
+
+                if ($lastData->Remarks != $data->Remarks || ! empty($request->Remarks)) {
+                    $lastDataAudittrail = ProductionValidationTrail::where('root_id', $data->id)
+                        ->where('activity_type', 'Remarks ')
+                        ->exists();
                 // return 'history';
                 $history = new ProductionValidationTrail;
                 $history->root_id = $id;
-                $history->activity_type = ' Quality Follow Up Summary';
+                $history->activity_type = 'Remarks';
                 $history->previous = $lastData->quality_follow_up_summary;
                 $history->current = $data->quality_follow_up_summary;
                 $history->comment = $request->comment;
@@ -1684,7 +1936,7 @@ $data->product_recelldetails = $request->product_recelldetails;
                 $history->origin_state = $lastData->status;
                 $history->change_to =   "Not Applicable";
                 $history->change_from = $lastData->status;
-                $history->action_name = 'Update';
+                $history->action_name =  $lastDataAudittrail ? 'Update' : 'New';
                 $history->save();
              }
 
@@ -1697,7 +1949,7 @@ $data->product_recelldetails = $request->product_recelldetails;
         {
 
             $audit = ProductionValidationTrail::where('root_id', $id)->orderByDESC('id')->paginate(5);
-           // dd($audit);
+         //  dd($audit);
             $today = Carbon::now()->format('d-m-y');
             $document = Product_Validation::where('id', $id)->first();
             $document->originator = User::where('id', $document->initiator_id)->value('name');
@@ -1708,6 +1960,7 @@ $data->product_recelldetails = $request->product_recelldetails;
 
 
         public function singleReports(Request $request, $id){
+
             $data = Product_Validation::find($id);
             // $data = QualityFollowup::where(['id' => $id, 'identifier' => 'details'])->first();
             if (!empty($data)) {
@@ -1741,10 +1994,11 @@ $data->product_recelldetails = $request->product_recelldetails;
         public function auditTrailPdf($id){
             $doc =Product_Validation::find($id);
             $doc->originator = User::where('id', $doc->initiator_id)->value('name');
+            $audit = ProductionValidationTrail::Where('root_id',$id)->orderByDesc('id')->get();
             $data = ProductionValidationTrail::where('root_id', $doc->id)->orderByDesc('id')->get();
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.ProductionValidation.AuditTrail_pdf', compact('data', 'doc'))
+            $pdf = PDF::loadview('frontend.ProductionValidation.AuditTrail_pdf', compact('data', 'doc','audit'))
                 ->setOptions([
                     'defaultFont' => 'sans-serif',
                     'isHtml5ParserEnabled' => true,

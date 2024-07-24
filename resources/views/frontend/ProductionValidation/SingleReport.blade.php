@@ -9,6 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
+@php
+$users = DB::table('users')->get();
+@endphp
 <style>
     body {
         font-family: 'Roboto', sans-serif;
@@ -161,7 +164,7 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                    Internal Audit Single Report
+                    First Production Validation Single Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -194,15 +197,15 @@
                 <table>
                     <tr> {{ $data->created_at }} added by {{ $data->originator }}
                         <th class="w-20">Initiator</th>
-                        <td class="w-30">{{ $data->initiator_id }}</td>
+                        <td class="w-30"> {{ Helpers::getInitiatorName($data->initiator_id) }}</td>
                         <th class="w-20">Date of Initiation</th>
                         <td class="w-30">{{ Helpers::getdateFormat($data->created_at) }}</td>
                     </tr>
                     <tr>
                         <th class="w-20">Record Number</th>
                         <td class="w-30">
-                            @if ($data->record_number)
-                                {{ $data->record_number }}
+                            @if ($data->record)
+                                {{ $data->record }}
                             @else
                                 Not Applicable
                             @endif
@@ -221,7 +224,7 @@
                         <th class="w-20">Assigned To</th>
                         <td class="w-30">
                             @if ($data->assign_to)
-                                {{ Helpers::getInitiatorName($data->assign_to) }}
+                                {{ $data->assign_to }}
                             @else
                                 Not Applicable
                             @endif
@@ -311,9 +314,71 @@
                     </tr>
                     </tbody>
         </table>
+        <div class="border-table">
+            <div class="block-head">
+                File Attachment
+            </div>
+            <table>
+                <tr class="table_bg">
+                    <th class="w-20">S.N.</th>
+                    <th class="w-100">Batch No</th>
+                </tr>
+                @if ($data->inv_attachment)
+                    @foreach (json_decode($data->inv_attachment) as $key => $file)
+                        <tr>
+                            <td class="w-20">{{ $key + 1 }}</td>
+                            <td class="w-100">
+                                <a href="{{ asset('upload/' . $file) }}" target="_blank">
+                                    <b>{{ $file }}</b>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td class="w-20">1</td>
+                        <td class="w-100">Not Applicable</td>
+                    </tr>
+                @endif
+            </table>
+        </div>
+            </div>
+    <div class="inner-block">
+        <div class="content-table">
+            <div class="block">
+                <div class="block-head">
+                    Validation Information
+                </div>
+                <table>
+                    <tr>
+                        <th class="w-20">Sample Scheduled To</th>
+                        <td class="w-30">{{ $data->start_date }}</td>
+                        <th class="w-20">Sample details</th>
+                        <td class="w-30">{{ $data->sample_details }}</td>
+                    </tr>
+                    <tr>
+                        <th class="w-20">Sample Validation Summary</th>
+                        <td class="w-30">{{ $data->validation_summary }}</td>
+                        <th class="w-20">Send to external lab?</th>
+                        <td class="w-30">{{ $data->externail_lab}}</td>
+
+                    </tr>
+                    <tr>
+                        <th class="w-20">Lab Comments</th>
+                        <td class="w-30">{{ $data->lab_commnets }}</td>
+                        <th class="w-20">Product Release Summary</th>
+                        <td class="w-30">{{ $data->product_release }}</td>
+                    </tr>
+                    <tr>
+                        <th class="w-20">Product Recall Details</th>
+                        <td class="w-30">{{ $data->product_recelldetails }}</td>
 
 
-
+                </table>
+            </div>
+        </div>
+    </div>
+</table>
 
 
 
@@ -328,61 +393,57 @@
                 </div>
                 <table>
                     <tr>
-                        <th class="w-20">Audit Schedule By</th>
-                        <td class="w-30">{{ $data->audit_schedule_by }}</td>
-                        <th class="w-20">Audit Schedule On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_schedule_on) }}</td>
+                        <th class="w-20">Submit By</th>
+                        <td class="w-30">{{ $data->acknowledge_by }}</td>
+                        <th class="w-20">Submit On</th>
+                        <td class="w-30">{{ Helpers::getdateFormat($data->acknowledge_on) }}</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Cancelled By</th>
-                        <td class="w-30">{{ $data->cancelled_by }}</td>
-                        <th class="w-20">Cancelled On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->cancelled_on) }}</td>
+                        <th class="w-20">Schedule & Send Sample
+                            By</th>
+                        <td class="w-30">{{ $data->Schedule_Send_Sample_by }}</td>
+                        <th class="w-20">Schedule & Send Sample
+                            On</th>
+                        <td class="w-30">{{ Helpers::getdateFormat($data->Schedule_Send_Sample_on) }}</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Audit preparation completed by</th>
-                        <td class="w-30">{{ $data->audit_preparation_completed_by }}</td>
-                        <th class="w-20">Audit preparation completed On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_preparation_completed_on) }}</td>
+                        <th class="w-20">Reject Sample By</th>
+                        <td class="w-30">{{ $data->Reject_Sample_by }}</td>
+                        <th class="w-20">Reject Sample On</th>
+                        <td class="w-30">{{ Helpers::getdateFormat($data->Reject_Sample_on) }}</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Audit preparation completed by</th>
-                        <td class="w-30">{{ $data->audit_preparation_completed_by }}</td>
-                        <th class="w-20">Audit preparation completed On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_preparation_completed_on) }}</td>
+                        <th class="w-20">Send For Analysis By</th>
+                        <td class="w-30">{{ $data->Send_For_Analysis_by }}</td>
+                        <th class="w-20">Send For Analysis On</th>
+                        <td class="w-30">{{ Helpers::getdateFormat($data->Send_For_Analysis_on) }}</td>
                     </tr>
                     <tr>
-                        <th class="w-20">More Information Required By</th>
-                        <td class="w-30">{{ $data->audit_mgr_more_info_reqd_by }}</td>
-                        <th class="w-20">More Information Required On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_mgr_more_info_reqd_on) }}</td>
+                        <th class="w-20">Approve Sample By</th>
+                        <td class="w-30">{{ $data->Approve_Sample_by }}</td>
+                        <th class="w-20">Approve Sample On</th>
+                        <td class="w-30">{{ Helpers::getdateFormat($data->Approve_Sample_on) }}</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Audit Observation Submitted By</th>
-                        <td class="w-30">{{ $data->audit_observation_submitted_by }}</td>
-                        <th class="w-20">Supervisor Reviewed On(QA)</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_observation_submitted_on) }}</td>
+                        <th class="w-20">Release By</th>
+                        <td class="w-30">{{ $data->Release_by }}</td>
+                        <th class="w-20">Release On</th>
+                        <td class="w-30">{{ Helpers::getdateFormat($data->Release_on) }}</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Audit Lead More Info Reqd By
+                        <th class="w-20">Start Production By
                         </th>
                         <td class="w-30">{{ $data->audit_lead_more_info_reqd_by }}</td>
-                        <th class="w-20">More Information Req. On</th>
+                        <th class="w-20">Start Production on</th>
                         <td class="w-30">{{ Helpers::getdateFormat($data->audit_lead_more_info_reqd_on) }}</td>
                     </tr>
                     <tr>
-                        <th class="w-20">Audit Response Completed By</th>
-                        <td class="w-30">{{ $data->audit_response_completed_by }}</td>
-                        <th class="w-20">QA Review Completed On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_response_completed_on) }}</td>
+                        <th class="w-20">Analyze By</th>
+                        <td class="w-30">{{ $data->Analyzee_by }}</td>
+                        <th class="w-20">Analyze On</th>
+                        <td class="w-30">{{ Helpers::getdateFormat($data->Analyzee_on) }}</td>
                     </tr>
-                    <tr>
-                        <th class="w-20">Response Feedback Verified By</th>
-                        <td class="w-30">{{ $data->response_feedback_verified_by }}</td>
-                        <th class="w-20">
-                            Response Feedback Verified On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->response_feedback_verified_on) }}</td>
-                    </tr>
+
 
 
                 </table>

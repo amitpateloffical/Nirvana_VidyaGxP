@@ -161,7 +161,7 @@
         <table>
             <tr>
                 <td class="w-70 head">
-                    Internal Audit Single Report
+               Quality FollowUp Single Report
                 </td>
                 <td class="w-30">
                     <div class="logo">
@@ -173,7 +173,7 @@
         <table>
             <tr>
                 <td class="w-30">
-                    <strong>Internal Audit No.</strong>
+                    <strong> Audit No.</strong>
                 </td>
                 <td class="w-40">
                     {{ Helpers::divisionNameForQMS($data->division_id) }}/IA{{ Helpers::year($data->created_at) }}/{{ str_pad($data->record, 4, '0', STR_PAD_LEFT) }}
@@ -201,8 +201,8 @@
                     <tr>
                         <th class="w-20">Record Number</th>
                         <td class="w-30">
-                            @if ($data->record_number)
-                                {{ $data->record_number }}
+                            @if ($data->record)
+                                {{ $data->record }}
                             @else
                                 Not Applicable
                             @endif
@@ -216,16 +216,7 @@
                             @endif
                         </td>
                     </tr>
-                    <tr>
-                        <th class="w-20">Initiator Group</th>
-                        <td class="w-30">
 
-                        </td>
-                        <th class="w-20">Initiator Group Code</th>
-                        <td class="w-30">
-
-                        </td>
-                    </tr>
                     <tr>
                         <th class="w-20">Assigned To</th>
                         <td class="w-30">
@@ -299,696 +290,103 @@
                         </td>
                     </tr>
 
+                    <tr>
+                        <th class="w-20">Scheduled Start Date</th>
+                        <td class="w-30">
+                            @if ($data->scheduled_start_date)
+                                {{ $data->scheduled_start_date }}
+                            @else
+                                Not Applicable
+                            @endif
+                        </td>
+                        <th class="w-20">
+                            Scheduled End Date</th>
+                        <td class="w-30">
+                            @if ($data->scheduled_end_date)
+                            {{ $data->scheduled_end_date }}
+                        @else
+                            Not Applicable
+                        @endif
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="border-table">
+                    <div class="block-head">
+                        File Attachment
+                    </div>
+                    <table>
+                        <tr class="table_bg">
+                            <th class="w-20">S.N.</th>
+                            <th class="w-100">Batch No</th>
+                        </tr>
+                        @if ($data->file_attachment)
+                            @foreach (json_decode($data->file_attachment) as $key => $file)
+                                <tr>
+                                    <td class="w-20">{{ $key + 1 }}</td>
+                                    <td class="w-100">
+                                        <a href="{{ asset('upload/' . $file) }}" target="_blank">
+                                            <b>{{ $file }}</b>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td class="w-20">1</td>
+                                <td class="w-100">Not Applicable</td>
+                            </tr>
+                        @endif
+                    </table>
+
+            </div>
+        </div>
+        <table>
+<tr>
+    <th class="w-20">Quality Follow Up Summary</th>
+    <td class="w-30">
+        @if ($data->quality_follow_up_summary)
+        {{ $data->quality_follow_up_summary }}
+    @else
+        Not Applicable
+    @endif
+    </td>
+</tr>
                     </tbody>
         </table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="inner-block">
-        <div class="content-table">
-            <div class="block">
-                <div class="block-head">
-                    Activity log
+        <div class="inner-block">
+            <div class="content-table">
+                <div class="block">
+                    <div class="block-head">
+                        Activity log
+                    </div>
+                    <table>
+                        <tr>
+                            <th class="w-20">Acknowledge By</th>
+                            <td class="w-30">{{ $data->acknowledge_by }}</td>
+                            <th class="w-20">Acknowledge On</th>
+                            <td class="w-30">{{ Helpers::getdateFormat($data->acknowledge_on) }}</td>
+                        </tr>
+                        <tr>
+                            <th class="w-20">Complete
+                                By</th>
+                            <td class="w-30">{{ $data->Complete_by }}</td>
+                            <th class="w-20">Complete
+                                On</th>
+                            <td class="w-30">{{ Helpers::getdateFormat($data->Complete_on) }}</td>
+                        </tr>
+                        <tr>
+                            <th class="w-20">Quality Approval By</th>
+                            <td class="w-30">{{ $data->Quality_Approval_by }}</td>
+                            <th class="w-20">Quality Approval On</th>
+                            <td class="w-30">{{ Helpers::getdateFormat($data->Quality_Approval_on) }}</td>
+                        </tr>
+
+                    </table>
                 </div>
-                <table>
-                    <tr>
-                        <th class="w-20">Audit Schedule By</th>
-                        <td class="w-30">{{ $data->audit_schedule_by }}</td>
-                        <th class="w-20">Audit Schedule On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_schedule_on) }}</td>
-                    </tr>
-                    <tr>
-                        <th class="w-20">Cancelled By</th>
-                        <td class="w-30">{{ $data->cancelled_by }}</td>
-                        <th class="w-20">Cancelled On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->cancelled_on) }}</td>
-                    </tr>
-                    <tr>
-                        <th class="w-20">Audit preparation completed by</th>
-                        <td class="w-30">{{ $data->audit_preparation_completed_by }}</td>
-                        <th class="w-20">Audit preparation completed On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_preparation_completed_on) }}</td>
-                    </tr>
-                    <tr>
-                        <th class="w-20">Audit preparation completed by</th>
-                        <td class="w-30">{{ $data->audit_preparation_completed_by }}</td>
-                        <th class="w-20">Audit preparation completed On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_preparation_completed_on) }}</td>
-                    </tr>
-                    <tr>
-                        <th class="w-20">More Information Required By</th>
-                        <td class="w-30">{{ $data->audit_mgr_more_info_reqd_by }}</td>
-                        <th class="w-20">More Information Required On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_mgr_more_info_reqd_on) }}</td>
-                    </tr>
-                    <tr>
-                        <th class="w-20">Audit Observation Submitted By</th>
-                        <td class="w-30">{{ $data->audit_observation_submitted_by }}</td>
-                        <th class="w-20">Supervisor Reviewed On(QA)</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_observation_submitted_on) }}</td>
-                    </tr>
-                    <tr>
-                        <th class="w-20">Audit Lead More Info Reqd By
-                        </th>
-                        <td class="w-30">{{ $data->audit_lead_more_info_reqd_by }}</td>
-                        <th class="w-20">More Information Req. On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_lead_more_info_reqd_on) }}</td>
-                    </tr>
-                    <tr>
-                        <th class="w-20">Audit Response Completed By</th>
-                        <td class="w-30">{{ $data->audit_response_completed_by }}</td>
-                        <th class="w-20">QA Review Completed On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_response_completed_on) }}</td>
-                    </tr>
-                    <tr>
-                        <th class="w-20">Response Feedback Verified By</th>
-                        <td class="w-30">{{ $data->response_feedback_verified_by }}</td>
-                        <th class="w-20">
-                            Response Feedback Verified On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->response_feedback_verified_on) }}</td>
-                    </tr>
-
-
-                </table>
             </div>
         </div>
-    </div>
-
-
-
-
-
     <footer>
         <table>
             <tr>

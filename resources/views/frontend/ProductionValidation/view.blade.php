@@ -11,6 +11,8 @@
     }
 </style>
 
+
+
 <style>
     .progress-bars div {
         flex: 1 1 auto;
@@ -108,13 +110,13 @@
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#RejectStateChanges">
                         Reject Sample
                     </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#">
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
                         Recall Product
                     </button>
                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signatures-modal">
                         Approve Sample
                     </button>
-                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">
+                    <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signaturesss-modal">
                         Send For Analysis
                     </button>
                     @elseif($data->stage == 4 &&(in_array(24, $userRoleIds) || in_array(18, $userRoleIds) || in_array(Auth::user()->id, $valuesArray)))
@@ -311,7 +313,7 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Originator"><b>Record Number</b></label>
-                                 <input type="text" name="record_number" value="{{ Helpers::getDivisionName(session()->get('division')) }}/PV/{{ date('Y') }}/{{ $data->record }}">
+                                 <input type="text" name="record_number"  disabled value="{{ Helpers::getDivisionName(session()->get('division')) }}/PV/{{ date('Y') }}/{{ $data->record }}">
 
 
                             </div>
@@ -319,9 +321,8 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Originator"><b>Division Id</b></label>
-                                <input readonly type="text" name="division_id" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
-                                <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
-
+                                <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                <input type="hidden" name="division" value="{{ session()->get('division') }}" disabled>
 
                             </div>
                         </div>
@@ -331,15 +332,15 @@
                                 <div class="group-input">
 
                                     <label for="Originator"><b>Initiator</b></label>
-                                    <input type="text" name="initiator_id" value="{{ $validation->initiator_id ?? Auth::user()->name }}">
+                                    <input type="text" name="initiator_id"   disabled value="{{ $validation->initiator_id ?? Auth::user()->name }}">
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="date_of_initiation">
-                                    <input type="hidden" value="" name="date_of_initiation">
+                                    <input disabled type="text"    disabled value="{{ date('d-M-Y') }}" name="date_of_initiation">
+                                    <input type="hidden" value="" >
 
                                 </div>
                             </div>
@@ -347,15 +348,19 @@
                                 <div class="group-input">
 
 
-                                    <label for="Short Description">Product<span class="text-danger">*</span></label>
-                                    <input id="docname" type="text" name="product"   value = "{{$data->product}}" maxlength="255" required>
+                                    <label for="product">Product</label>
+                                    {{-- <input id="" type="text" name="product"  {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}    value = "{{$data->product}}" > --}}
+                                    <input id="" type="text" name="product"
+    {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+    value="{{ $data->product }}">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
                                     characters remaining
-                                    <input id="docname" type="text" name="short_description"  value = "{{ $data->short_description }}"   maxlength="255" required>
+                                    <input id="docname" type="text"        {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                    name="short_description"  value = "{{ $data->short_description }}"   maxlength="255" required>
                                 </div>
                             </div>
 
@@ -364,27 +369,25 @@
                                     <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
+                                    <select id="select-state" placeholder="Select..." name="assign_to"       {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        >
                                         <option value="">Select a value</option>
-                                        <option value="Vibha" @if (isset($data->assign_to) && $data->assign_to == 'Vibha') selected @endif>Vibha</option>
-                                        <option value="Shruti" @if (isset($data->assign_to) && $data->assign_to == 'Shruti') selected @endif>Shruti</option>
-                                        <option value="Monika" @if (isset($data->assign_to) && $data->assign_to == 'Monika') selected @endif>Monika</option>
-
+                                        <option value="Vibha" @if ($data->assign_to== 'Vibha') selected @endif>Vibha</option>
+                                        <option value="Shruti" @if ($data->assign_to== 'Shruti') selected @endif>Shruti</option>
+                                        <option value="Monika" @if ($data->assign_to== 'Monika') selected @endif>Monika</option>
                                     </select>
+
 
                                 </div>
                             </div>
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <label for="due-date"> Due Date <span class="text-danger"></span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text"    value="{{ date('d-M-Y') }}" name="due_date" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date"
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="hidden" value="{{$due_date}}" name="due_date">
+                                        <input type="text" value="{{Helpers::getdateFormat($due_date)}}">
                                     </div>
                                 </div>
                             </div>
@@ -392,7 +395,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Type Of Product</label>
-                                    <select name="product_type">
+                                    <select name="product_type"    {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        >
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if (isset($data->product_type) && $data->product_type == '1') selected @endif>1</option>
                                         <option value="2" @if (isset($data->product_type) && $data->product_type == '2') selected @endif>2</option>
@@ -406,7 +410,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Priority Level</label>
-                                    <select name="priority_level">
+                                    <select name="priority_level"  {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        >
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if (isset($data->priority_level) && $data->priority_level == '1') selected @endif>1</option>
                                         <option value="2" @if (isset($data->priority_level) && $data->priority_level == '2') selected @endif>2</option>
@@ -422,13 +427,15 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Actions">Description<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="discription"> {{$data->discription}}</textarea>
+                                    <textarea placeholder="" name="discription"       {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        > {{$data->discription}}</textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Comments</label>
-                                    <textarea   name="comments" >{{$data->comments}}</textarea>
+                                    <textarea        {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        name="comments" >{{$data->comments}}</textarea>
                                 </div>
                             </div>
 
@@ -436,26 +443,31 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-
-                                    <label for="Inv Attachments">File Attachments</label>
-                                    <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                    <label for="Description">File Attachment</label>
+                                    <div>
+                                        <small class="text-primary">Please Attach all relevant or supporting documents</small>
+                                    </div>
                                     <div class="file-attachment-field">
-                                        <div disabled class="file-attachment-list" id="attachment">
-                                            @if ($data->attachment)
-                                                @foreach(json_decode($data->attachment) as $file)
+                                        <div class="file-attachment-list" id="inv_attachment"  {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                            >
+                                            @if ($data->inv_attachment)
+                                                @foreach (json_decode($data->inv_attachment) as $file)
                                                     <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
                                                         <b>{{ $file }}</b>
-                                                        <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
-                                                        <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                        <a href="{{ asset('upload/' . $file) }}" target="_blank">
+                                                            <i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i>
+                                                        </a>
+                                                        <a type="button" class="remove-file" data-file-name="{{ $file }}">
+                                                            <i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i>
+                                                        </a>
                                                     </h6>
-                                            @endforeach
+                                                @endforeach
                                             @endif
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="HOD_Attachments" name=" file_attachment"
-                                                oninput="addMultipleFiles(this, 'attachment')"
-                                                multiple>
+                                            <input type="file" id="myfile" name="inv_attachment[]" oninput="addMultipleFiles(this, 'inv_attachment')" multiple     {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                            >
                                         </div>
                                     </div>
                                 </div>
@@ -464,7 +476,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Related Record</label>
-                                    <select name="related_record">
+                                    <select name="related_record"     {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        >
                                         <option value="">Enter Your Selection Here</option>
 
                                         <option value="1" @if (isset($data->related_record) && $data->related_record == '1') selected @endif>1</option>
@@ -474,7 +487,8 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-12"  {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                >
                                 <div class="group-input">
                                     <label for="Reference Recores"> Related Url</label>
                                     <select name="related_url">
@@ -513,8 +527,10 @@
                                 <div class="group-input input-date">
                                     <label for="start_date">Sample Scheduled To</label>
                                     <div class="calenderauditee">
-                                        <input type="text"    value="{{ date('d-M-Y') }}" name="start_date" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')"     />
+                                        <input type="text" value="{{ \Carbon\Carbon::parse($data->start_date)->format('d-M-Y') }}"     {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        name="start_date" id="start_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date"      {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        value="{{ \Carbon\Carbon::parse($data->start_date)->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
@@ -524,7 +540,8 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Sample details<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="sample_details">{{$data->sample_details}}</textarea>
+                                    <textarea placeholder=""      {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        name="sample_details">{{$data->sample_details}}</textarea>
                                 </div>
                             </div>
 
@@ -532,24 +549,28 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Sample Validation Summary<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="validation_summary">{{$data->validation_summary}}</textarea>
+                                    <textarea placeholder=""       {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        name="validation_summary">{{$data->validation_summary}}</textarea>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Send to external lab?</label>
-                                    <select name="externail_lab">
+                                    <select name="externail_lab"      {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        >
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="1" @if (isset($data->externail_lab) && $data->externail_lab == '1') selected @endif>1</option>
+                                        <option value="2" @if (isset($data->externail_lab) && $data->externail_lab == '2') selected @endif>2</option>
+                                        <option value="3" @if (isset($data->externail_lab) && $data->externail_lab == '3') selected @endif>3</option>
+
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Lab Comments<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="lab_commnets">{{$data->lab_commnets}}</textarea>
+                                    <textarea placeholder=""      {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        name="lab_commnets">{{$data->lab_commnets}}</textarea>
                                 </div>
                             </div>
 
@@ -566,13 +587,15 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Product Release Summary<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="product_release">{{$data->product_release}}</textarea>
+                                    <textarea placeholder=""       {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        name="product_release">{{$data->product_release}}</textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Product Recall Details<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="product_recelldetails">{{$data->product_recelldetails}}</textarea>
+                                    <textarea placeholder=""      {{ in_array($data->stage, [0, 8, 9]) ? 'disabled' : '' }}
+                                        name="product_recelldetails">{{$data->product_recelldetails}}</textarea>
                                 </div>
                             </div>
 
@@ -778,6 +801,55 @@
     </div>
 </div>
 
+<div class="modal fade" id="signaturesss-modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">E-Signature</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form action="{{ route('renewal_forword3_close', $data->id) }}" method="POST">
+                @csrf
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="mb-3 text-justify">
+                        Please select a meaning and a outcome for this task and enter your username
+                        and password for this task. You are performing an electronic signature,
+                        which is legally binding equivalent of a hand written signature.
+                    </div>
+                    <div class="group-input">
+                        <label for="username">Username  <span
+                            class="text-danger">*</span></label>
+                        <input type="text"  class="input_width" name="username" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="password">Password  <span
+                            class="text-danger">*</span></label>
+                        <input type="password"  class="input_width" name="password" required>
+                    </div>
+                    <div class="group-input">
+                        <label for="comment">Comment</label>
+                        <input type="comment"  class="input_width"  name="comment">
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <!-- <div class="modal-footer">
+                    <button type="submit" data-bs-dismiss="modal">Submit</button>
+                    <button>Close</button>
+                </div> -->
+                <div class="modal-footer">
+                          <button type="submit">Submit</button>
+                            <button type="button" data-bs-dismiss="modal">Close</button>
+             </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade" id="RejectStateChanges">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -799,16 +871,16 @@
                     <div class="group-input">
                         <label for="username">Username  <span
                             class="text-danger">*</span></label>
-                        <input type="text" name="username" required>
+                        <input type="text" class="input_width" name="username" required>
                     </div>
                     <div class="group-input">
                         <label for="password">Password  <span
                             class="text-danger">*</span></label>
-                        <input type="password" name="password" required>
+                        <input type="password" class="input_width" name="password" required>
                     </div>
                     <div class="group-input">
                         <label for="comment">Comment</label>
-                        <input type="comment" name="comment">
+                        <input type="comment" class="input_width" name="comment">
                     </div>
                 </div>
 
@@ -1109,6 +1181,13 @@
         $('#rchars').text(textlen);
     });
 </script>
+
+<script>
+    function handleDateInput(input, id) {
+        const dateInput = document.getElementById(id);
+        dateInput.value = input.value;
+    }
+    </script>
 @endsection
 
 

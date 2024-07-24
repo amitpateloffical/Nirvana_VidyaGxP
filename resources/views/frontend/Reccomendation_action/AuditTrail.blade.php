@@ -193,8 +193,8 @@
                             <div style="margin-bottom: 5px;  font-weight: bold;"> Originator
                                 :{{ $document->originator ? $document->originator : '' }}</div>
                             <div style="margin-bottom: 5px; font-weight: bold;">Short Description :
-                                {{ $document->short_description }}</div>
-                            <div style="margin-bottom: 5px;  font-weight: bold;">Due Date : {{ $document->due_date }}</div>
+                                {{ $document->parent_short_desecription }}</div>
+                            <div style="margin-bottom: 5px;  font-weight: bold;">Due Date : {{ $document->due_date   ? \Carbon\Carbon::parse($document->due_date)->format('d-M-Y ') : 'Not Applicable' }}</div>
 
                         </div>
         </div>
@@ -234,8 +234,7 @@
                             </td>
                             <td>
                                 <div>
-                                    <strong> Data Field Name :</strong>
-                                       {{ $dataDemo->activity_type ? $dataDemo->activity_type : 'Not Applicable' }}
+                                    <strong> Data Field Name :</strong>{{ $dataDemo->activity_type ? $dataDemo->activity_type : 'Not Applicable' }}
                                 </div>
                                 <div style="margin-top: 5px;">
                                     @if($dataDemo->activity_type == "Activity Log")
@@ -268,7 +267,8 @@
                                         :</strong>{{ $dataDemo->user_name ? $dataDemo->user_name : 'Not Applicable' }}
                                 </div>
                                 <div style="margin-top: 5px;"> <strong>Performed On
-                                        :</strong>{{ $dataDemo->created_at ? $dataDemo->created_at : 'Not Applicable' }}
+                                        :</strong>{{ $dataDemo->created_at ? \Carbon\Carbon::parse($dataDemo->created_at)->format('d-M-Y H:i:s') : 'Not Applicable' }}
+
                                 </div>
                                 <div style="margin-top: 5px;"><strong> Comments
                                         :</strong>{{ $dataDemo->comment ? $dataDemo->comment : 'Not Applicable' }}</div>

@@ -232,7 +232,7 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="Originator"><b>Record Number</b></label>
-                                 <input type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/QF/{{ date('Y') }}/{{ $data->record }}">
+                                 <input type="text" name="record"   disabled  value="{{ Helpers::getDivisionName(session()->get('division')) }}/QF/{{ date('Y') }}/{{ $data->record }}">
 
 
                             </div>
@@ -241,7 +241,7 @@
                             <div class="group-input">
                                 <label for="Originator"><b>Division Id</b></label>
                                 <input readonly type="text" name="division_id" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
-                                <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                <input type="hidden"  disabled name="division_id" value="{{ session()->get('division') }}" disabled>
 
 
                             </div>
@@ -251,7 +251,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Originator"><b>Initiator</b></label>
-                                    <input type="text" name="initiator_id" value="{{ $validation->initiator_id ?? Auth::user()->name }}">
+                                    <input type="text" name="initiator_id" value="{{ $validation->initiator_id ?? Auth::user()->name }}" disabled>
 
                                 </div>
                             </div>
@@ -267,15 +267,15 @@
                                 <div class="group-input">
 
 
-                                    <label for="Short Description">Product<span class="text-danger">*</span></label>
-                                    <input id="docname" type="text" name="product"   value = "{{$data->product}}" maxlength="255" required>
+                                    <label for="Short Description">Product</label>
+                                    <input id="docname" type="text" name="product" {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}   value = "{{$data->product}}" >
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span></label><span id="rchars">255</span>
                                     characters remaining
-                                    <input id="docname" type="text" name="short_description"  value = "{{ $data->short_description }}"   maxlength="255" required>
+                                    <input id="docname" type="text" name="short_description"   {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}  value = "{{ $data->short_description }}"   maxlength="255" required>
                                 </div>
                             </div>
 
@@ -284,7 +284,7 @@
                                     <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
+                                    <select id="select-state" placeholder="Select..." name="assign_to"   {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}} >
                                         <option value="">Select a value</option>
                                         <option value="Vibha" @if (isset($data->assign_to) && $data->assign_to == 'Vibha') selected @endif>Vibha</option>
                                         <option value="Shruti" @if (isset($data->assign_to) && $data->assign_to == 'Shruti') selected @endif>Shruti</option>
@@ -297,13 +297,12 @@
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
+                                    <label for="due-date"> Due Date<span class="text-danger"></span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
+
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY"    value="{{ $data->due_date }}" name = "due_date" />
-                                        <input type="date" name="due_date"
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                            oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="hidden" value="{{$due_date}}" name="due_date">
+                                        <input  type="text" value="{{Helpers::getdateFormat($due_date)}}"  {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}} >
                                     </div>
                                 </div>
                             </div>
@@ -311,7 +310,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Type Of Product</label>
-                                    <select name="product_type">
+                                    <select name="product_type"   {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}>
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if (isset($data->product_type) && $data->product_type == '1') selected @endif>1</option>
                                         <option value="2" @if (isset($data->product_type) && $data->product_type == '2') selected @endif>2</option>
@@ -325,7 +324,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Priority Level</label>
-                                    <select name="priority_level">
+                                    <select name="priority_level"   {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}>
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if (isset($data->priority_level) && $data->priority_level == '1') selected @endif>1</option>
                                         <option value="2" @if (isset($data->priority_level) && $data->priority_level == '2') selected @endif>2</option>
@@ -341,86 +340,85 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Description</label>
-                                    <textarea class="summernote"  name="discription" id="summernote-16"> {{$data->discription}}</textarea>
+                                    <textarea class="summernote"     {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}  name="discription" id="summernote-16"> {{$data->discription}}</textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Comments</label>
-                                    <textarea class="summernote"  name="comments" id="summernote-16">{{$data->comments}}</textarea>
+                                    <textarea class="summernote"      {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}} name="comments" id="summernote-16">{{$data->comments}}</textarea>
                                 </div>
                             </div>
 
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Scheduled Start Date <span class="text-danger"></span></label>
+                                    <label for="scheduled_start_date">Scheduled Start Date <span class="text-danger"></span></label>
+
                                     <div class="calenderauditee">
-                                        <input type="text" class="test"
-                                            id="scheduled_start" readonly
-                                            placeholder="DD-MMM-YYYY"    value="{{ $data->scheduled_start_date }}" name = "scheduled_start_date" />
-                                        <input type="date" id=""
-                                            name="scheduled_start_date"
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                            class="hide-input"
-                                            oninput="handleDateInput(this, `scheduled_start`);checkDate('scheduled_start_date1_checkdate','scheduled_start_date1')" />
+
+                                        <input type="text"    {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}  value="{{ \Carbon\Carbon::parse($data->scheduled_start_date)->format('d-M-Y') }}" name="scheduled_start_date" id="scheduled_start_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date"   {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}  value="{{ \Carbon\Carbon::parse($data->scheduled_start_date)->format('Y-m-d') }}" id="start_date_checkdate" name="scheduled_start_date" class="hide-input" oninput="handleDateInput(this, 'scheduled_start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Scheduled End Date <span class="text-danger"></span></label>
-
+                                    <label for="scheduled_end_date">Scheduled End Date <span class="text-danger"></span></label>
                                     <div class="calenderauditee">
-                                        <input type="text" class="test"
-                                            id="scheduled_start" readonly
-                                            placeholder="DD-MMM-YYYY"    value="{{ $data->scheduled_end_date }}" name = "scheduled_end_date" />
-                                        <input type="date" id=""
-                                            name="scheduled_end_date"
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                            class="hide-input"
-                                            oninput="handleDateInput(this, `scheduled_start`);checkDate('scheduled_end_date1_checkdate','scheduled_end_date1')" />
+                                        <input type="text"   {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}  value="{{ \Carbon\Carbon::parse($data->scheduled_end_date)->format('d-M-Y') }}" name="scheduled_end_date" id="scheduled_end_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date"     {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}   value="{{ \Carbon\Carbon::parse($data->scheduled_end_date)->format('Y-m-d') }}" id="start_date_checkdate" name="scheduled_end_date" class="hide-input" oninput="handleDateInput(this, 'scheduled_end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-
-                                    <label for="Inv Attachments">HOD Attachments</label>
-                                    <div><small class="text-primary">Please Attach all relevant or supporting documents</small></div>
+                                    <label for="Inv Attachments">File Attachments</label>
+                                    <div>
+                                        <small class="text-primary">Please Attach all relevant or supporting documents</small>
+                                    </div>
                                     <div class="file-attachment-field">
-                                        <div disabled class="file-attachment-list" id="attachment">
-                                            @if ($data->attachment)
-                                                @foreach(json_decode($data->attachment) as $file)
-                                                    <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
-                                                        <b>{{ $file }}</b>
-                                                        <a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
-                                                        <a  type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
-                                                    </h6>
-                                            @endforeach
+                                        <div class="file-attachment-list" id="file_attachment"    {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}  oninput="addMultipleFiles(this, 'file_attachment')" multiple>
+                                            @if (!is_null($data->file_attachment))
+                                                @php
+                                                    $attachments = json_decode($data->file_attachment);
+                                                @endphp
+                                                @if (is_array($attachments) || is_object($attachments))
+                                                    @foreach ($attachments as $file)
+                                                        <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                            <b>{{ $file }}</b>
+                                                            <a href="{{ asset('upload/' . $file) }}" target="_blank">
+                                                                <i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i>
+                                                            </a>
+                                                            <a type="button" class="remove-file" data-file-name="{{ $file }}">
+                                                                <i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i>
+                                                            </a>
+                                                        </h6>
+                                                    @endforeach
+                                                @endif
                                             @endif
                                         </div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="HOD_Attachments" name=" file_attachment[]"
-                                                oninput="addMultipleFiles(this, 'attachment')"
-                                                multiple>
+                                            <input type="file" id="file_attachment" name="file_attachment[]"   {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}  oninput="addMultipleFiles(this, 'file_attachment')" multiple>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Related URLs</label>
-                                    <select name="related_record">
+                                    <select name="related_url"   {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}} >
                                         <option value="">Enter Your Selection Here</option>
 
-                                        <option value="1" @if (isset($data->related_record) && $data->related_record == '1') selected @endif>URL1</option>
-                                        <option value="2" @if (isset($data->related_record) && $data->related_record == '2') selected @endif>URL2</option>
-                                        <option value="3" @if (isset($data->related_record) && $data->related_record == '3') selected @endif>URL3</option>
+                                        <option value="1" @if (isset($data->related_url) && $data->related_url == '1') selected @endif>1</option>
+                                        <option value="2" @if (isset($data->related_url) && $data->related_url == '2') selected @endif>2</option>
+                                        <option value="3" @if (isset($data->related_url) && $data->related_url == '3') selected @endif>3</option>
 
                                     </select>
                                 </div>
@@ -428,11 +426,11 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Reference Recores"> Related Records</label>
-                                    <select name="related_url">
+                                    <select name="related_record"   {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}} >
                                         <option value="">Enter Your Selection Here</option>
 
-                                        <option value="Ankit" @if (isset($data->related_url) && $data->related_url == 'Ankit') selected @endif>Ankit</option>
-                                        <option value="Rohit" @if (isset($data->related_url) && $data->related_url == 'Rohit') selected @endif>Rohit</option>
+                                        <option value="Ankit" @if (isset($data->related_record) && $data->related_record == 'Ankit') selected @endif>Ankit</option>
+                                        <option value="Rohit" @if (isset($data->related_record) && $data->related_record == 'Rohit') selected @endif>Rohit</option>
 
                                     </select>
                                 </div>
@@ -443,7 +441,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Quality Follow Up Summary</label>
-                                    <textarea class="summernote" name="quality_follow_up_summary" id="summernote-16"> {{$data->quality_follow_up_summary}}</textarea>
+                                    <textarea class="summernote" name="quality_follow_up_summary" id="summernote-16"> {{$data->quality_follow_up_summary}}     {{ $data->stage == 0 || $data -> stage == 4 ? 'disabled' : ''}}</textarea>
                                 </div>
                             </div>
 
