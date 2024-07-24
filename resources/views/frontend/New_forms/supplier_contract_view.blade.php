@@ -523,8 +523,7 @@
                                         <div class="col-lg-6">
                                             <div class="group-input">
                                                 <label for="Initiator">Record Number </label>
-                                                <input disabled type="text" name="record"
-                                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier-Contract/{{ date('Y') }}/{{ str_pad($contract_data->record, 4, '0', STR_PAD_LEFT) }}">
+                                                <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier-Contract/{{ date('Y') }}/{{ str_pad($contract_data->record, 4, '0', STR_PAD_LEFT) }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -532,24 +531,21 @@
                                                 <label for="Division Code"><b>Site/Location Code</b></label>
                                                 <input readonly type="text" name="division_code"
                                                     value="{{ Helpers::getDivisionName(session()->get('division')) }}">
-                                                <input type="hidden" name="division_id"
-                                                    value="{{ session()->get('division') }}">
+                                                <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="group-input">
                                                 <label for="RLS Record Number"><b>Initiator</b></label>
-                                                <input type="text" disabled name="initiator_id"
-                                                    value="{{ auth()->user()->name }}">
+                                                <input type="text" disabled name="initiator_id" value="{{ auth()->user()->name }}">
                                             </div>
                                         </div>
+
                                         <div class="col-lg-6">
                                             <div class="group-input">
                                                 <label for="Division Code"><b>Date of Initiation</b></label>
-                                                <input readonly type="text" value="{{ date('d-M-Y', strtotime($contract_data->intiation_date)) }}"
-                                                    name="intiation_date">
+                                                <input readonly type="text" value="{{ date('d-M-Y', strtotime($contract_data->intiation_date)) }}" name="intiation_date">
                                                 <input type="hidden" value="{{ date('Y-m-d', strtotime($contract_data->intiation_date)) }}" name="intiation_date">
-
                                             </div>
                                         </div>
 
@@ -559,9 +555,7 @@
                                                 <label for="Short Description">Short Description<span
                                                     class="text-danger">*</span>
                                                   <p>255 Characters remaining</p>
-                                                  <input id="docname" type="text" name="short_description_gi"
-                                                   maxlength="255" required
-                                                   value="{{ $contract_data->short_description_gi }}">
+                                                  <input id="docname" type="text" name="short_description_gi" maxlength="255" required value="{{ $contract_data->short_description_gi }}">
                                             </div>
                                         </div>
 
@@ -602,7 +596,7 @@
                                                     <input readonly type="text"
                                                         value="{{ Helpers::getdateFormat($contract_data->due_date) }}"
                                                         name="due_date" />
-                                                    <input type="date" name="due_date"
+                                                    <input type="date" name="due_date" disabled
                                                         min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                                         class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                                 </div>
@@ -629,18 +623,10 @@
                                                 <label for="Responsible Department">Supplier List</label>
                                                 <select name="supplier_list_gi">
                                                     <option value="">Enter Your Selection Here</option>
-                                                    <option value="supplier-performance-metrics"
-                                                        @if ($contract_data->supplier_list_gi == 'supplier-performance-metrics') selected @endif>Supplier
-                                                        Performance Metrics</option>
-                                                    <option value="contractual-terms-and-conditions"
-                                                        @if ($contract_data->supplier_list_gi == 'contractual-terms-and-conditions') selected @endif>Contractual Terms
-                                                        and Conditions</option>
-                                                    <option value="supplier-risk-assessment"
-                                                        @if ($contract_data->supplier_list_gi == 'supplier-risk-assessment') selected @endif>Supplier Risk
-                                                        Assessment</option>
-                                                    <option value="products/services-provided"
-                                                        @if ($contract_data->supplier_list_gi == 'products/services-provided') selected @endif>Products/Services
-                                                        Provided</option>
+                                                    <option value="supplier-performance-metrics" @if ($contract_data->supplier_list_gi == 'supplier-performance-metrics') selected @endif>Supplier Performance Metrics</option>
+                                                    <option value="contractual-terms-and-conditions" @if ($contract_data->supplier_list_gi == 'contractual-terms-and-conditions') selected @endif>Contractual Terms and Conditions</option>
+                                                    <option value="supplier-risk-assessment" @if ($contract_data->supplier_list_gi == 'supplier-risk-assessment') selected @endif>Supplier Risk Assessment</option>
+                                                    <option value="products/services-provided" @if ($contract_data->supplier_list_gi == 'products/services-provided') selected @endif>Products/Services Provided</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -653,18 +639,10 @@
                                                 $contract_data->stage == 0 || $contract_data->stage == 6 ? 'disabled' : '' }}>{{ $contract_data->distribution_list_gi }}</textarea> --}}
                                                 <select name="distribution_list_gi">
                                                     <option value="">Enter Your Selection Here</option>
-                                                    <option value="internal-stakeholders"
-                                                        @if ($contract_data->distribution_list_gi == 'internal-stakeholders') selected @endif>Internal
-                                                        Stakeholders</option>
-                                                    <option value="external-stakeholders"
-                                                        @if ($contract_data->distribution_list_gi == 'external-stakeholders') selected @endif>External
-                                                        Stakeholders</option>
-                                                    <option value="project-specific-stakeholders"
-                                                        @if ($contract_data->distribution_list_gi == 'project-specific-stakeholders') selected @endif>Project-Specific
-                                                        Stakeholders</option>
-                                                    <option value="miscellaneous"
-                                                        @if ($contract_data->distribution_list_gi == 'miscellaneous') selected @endif>Miscellaneous
-                                                    </option>
+                                                    <option value="internal-stakeholders" @if ($contract_data->distribution_list_gi == 'internal-stakeholders') selected @endif>Internal Stakeholders</option>
+                                                    <option value="external-stakeholders" @if ($contract_data->distribution_list_gi == 'external-stakeholders') selected @endif>External Stakeholders</option>
+                                                    <option value="project-specific-stakeholders" @if ($contract_data->distribution_list_gi == 'project-specific-stakeholders') selected @endif>Project-Specific Stakeholders</option>
+                                                    <option value="miscellaneous" @if ($contract_data->distribution_list_gi == 'miscellaneous') selected @endif>Miscellaneous</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -673,17 +651,15 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="group-input">
-                                                <label for="Actions">Description<span class="text-danger"></span></label>
-                                                <textarea placeholder="" name="description_gi">{{ $contract_data->description_gi }}</textarea>
+                                                <label for="Description">Description<span class="text-danger"></span></label>
+                                                <textarea name="description_gi">{{ $contract_data->description_gi }}</textarea>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="group-input">
                                                 <label for="RLS Record Number"><b>Manufacturer</b></label>
-                                                <input type="text" name="manufacturer_gi"
-                                                    value="{{ $contract_data->manufacturer_gi }}">
-
+                                                <input type="text" name="manufacturer_gi" value="{{ $contract_data->manufacturer_gi }}">
                                             </div>
                                         </div>
 
@@ -692,15 +668,9 @@
                                                 <label for="Responsible Department">Priority level</label>
                                                 <select name="priority_level_gi">
                                                     <option value="">Enter Your Selection Here</option>
-                                                    <option value="high-priority"
-                                                        @if ($contract_data->priority_level_gi == 'high-priority') selected @endif>High Priority
-                                                    </option>
-                                                    <option value="medium-priority"
-                                                        @if ($contract_data->priority_level_gi == 'medium-priority') selected @endif>Medium Priority
-                                                    </option>
-                                                    <option value="low-priority"
-                                                        @if ($contract_data->priority_level_gi == 'low-priority') selected @endif>Low Priority
-                                                    </option>
+                                                    <option value="high-priority" @if ($contract_data->priority_level_gi == 'high-priority') selected @endif>High Priority</option>
+                                                    <option value="medium-priority" @if ($contract_data->priority_level_gi == 'medium-priority') selected @endif>Medium Priority</option>
+                                                    <option value="low-priority" @if ($contract_data->priority_level_gi == 'low-priority') selected @endif>Low Priority</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -710,34 +680,23 @@
                                                 <label for="Responsible Department">Zone </label>
                                                 <select name="zone_gi">
                                                     <option value="">Enter Your Selection Here</option>
-                                                    <option value="asia"
-                                                        @if ($contract_data->zone_gi == 'asia') selected @endif>Asia</option>
-                                                    <option value="europe"
-                                                        @if ($contract_data->zone_gi == 'europe') selected @endif>Europe</option>
-                                                    <option value="africa"
-                                                        @if ($contract_data->zone_gi == 'africa') selected @endif>Africa</option>
-                                                    <option value="central-america"
-                                                        @if ($contract_data->zone_gi == 'central-america') selected @endif>Central America
-                                                    </option>
-                                                    <option value="south-america"
-                                                        @if ($contract_data->zone_gi == 'south-america') selected @endif>South America
-                                                    </option>
-                                                    <option value="oceania"
-                                                        @if ($contract_data->zone_gi == 'oceania') selected @endif>Oceania</option>
-                                                    <option value="north-america"
-                                                        @if ($contract_data->zone_gi == 'north-america') selected @endif>North America
-                                                    </option>
+                                                    <option value="asia" @if ($contract_data->zone_gi == 'asia') selected @endif>Asia</option>
+                                                    <option value="europe" @if ($contract_data->zone_gi == 'europe') selected @endif>Europe</option>
+                                                    <option value="africa" @if ($contract_data->zone_gi == 'africa') selected @endif>Africa</option>
+                                                    <option value="central-america" @if ($contract_data->zone_gi == 'central-america') selected @endif>Central America</option>
+                                                    <option value="south-america" @if ($contract_data->zone_gi == 'south-america') selected @endif>South America</option>
+                                                    <option value="oceania" @if ($contract_data->zone_gi == 'oceania') selected @endif>Oceania</option>
+                                                    <option value="north-america" @if ($contract_data->zone_gi == 'north-america') selected @endif>North America</option>
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="col-lg-6">
                                             <div class="group-input">
                                                 <label for="RLS Record Number"><b>Country</b></label>
                                                 <p class="text-primary">Auto filter according to selected zone</p>
-                                                <select name="country" class="form-select country"
-                                                    aria-label="Default select example" onchange="loadStates()">
-                                                    <option value="{{ $contract_data->country }}" selected>
-                                                        {{ $contract_data->country }}</option>
+                                                <select name="country" class="form-select country" aria-label="Default select example" onchange="loadStates()">
+                                                    <option value="{{ $contract_data->country }}" selected>{{ $contract_data->country }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -746,10 +705,8 @@
                                             <div class="group-input">
                                                 <label for="Responsible Department">State/District</label>
                                                 <p class="text-primary">Auto selected according to country</p>
-                                                <select name="state" class="form-select state"
-                                                    aria-label="Default select example" onchange="loadCities()">
-                                                    <option value="{{ $contract_data->state }}" selected>
-                                                        {{ $contract_data->state }}</option>
+                                                <select name="state" class="form-select state" aria-label="Default select example" onchange="loadCities()">
+                                                    <option value="{{ $contract_data->state }}" selected>{{ $contract_data->state }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -758,10 +715,8 @@
                                             <div class="group-input">
                                                 <label for="RLS Record Number"><b>City</b></label>
                                                 <p class="text-primary">Auto filter according to selected state</p>
-                                                <select name="city" class="form-select city"
-                                                    aria-label="Default select example">
-                                                    <option value="{{ $contract_data->city }}" selected>
-                                                        {{ $contract_data->city }}</option>
+                                                <select name="city" class="form-select city" aria-label="Default select example">
+                                                    <option value="{{ $contract_data->city }}" selected>{{ $contract_data->city }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -771,32 +726,20 @@
                                                 <label for="Responsible Department">Type</label>
                                                 <select name="type_gi">
                                                     <option value="">Enter Your Selection Here</option>
-                                                    <option value="supplier-type"
-                                                        @if ($contract_data->type_gi == 'supplier-type') selected @endif>Supplier Type
-                                                    </option>
-                                                    <option value="payment-type"
-                                                        @if ($contract_data->type_gi == 'payment-type') selected @endif>Payment Type
-                                                    </option>
-                                                    <option value="risk-type"
-                                                        @if ($contract_data->type_gi == 'risk-type') selected @endif>Risk Type
-                                                    </option>
-                                                    <option value="quality-assurance-type"
-                                                        @if ($contract_data->type_gi == 'quality-assurance-type') selected @endif>Quality
-                                                        Assurance Type
-                                                    </option>
-                                                    <option value="relationship-type"
-                                                        @if ($contract_data->type_gi == 'relationship-type') selected @endif>Relationship
-                                                        Type</option>
+                                                    <option value="supplier-type" @if ($contract_data->type_gi == 'supplier-type') selected @endif>Supplier Type</option>
+                                                    <option value="payment-type" @if ($contract_data->type_gi == 'payment-type') selected @endif>Payment Type</option>
+                                                    <option value="risk-type" @if ($contract_data->type_gi == 'risk-type') selected @endif>Risk Type</option>
+                                                    <option value="quality-assurance-type" @if ($contract_data->type_gi == 'quality-assurance-type') selected @endif>Quality Assurance Type</option>
+                                                    <option value="relationship-type" @if ($contract_data->type_gi == 'relationship-type') selected @endif>Relationship Type</option>
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="col-lg-6">
                                             <div class="group-input">
                                                 <label for="RLS Record Number"><b>Other type</b></label>
                                                 <p class="text-primary">If you choose "other" -please specify</p>
-                                                <input type="text" name="other_type"
-                                                    value="{{ $contract_data->other_type }}">
-
+                                                <input type="text" name="other_type" value="{{ $contract_data->other_type }}">
                                             </div>
                                         </div>
 
@@ -807,15 +750,10 @@
                                                     <div class="file-attachment-list" id="file_attach">
                                                         @if ($contract_data->file_attachments_gi)
                                                             @foreach ($contract_data->file_attachments_gi as $file)
-                                                                <h6 type="button" class="file-container text-dark"
-                                                                    style="background-color: rgb(243, 242, 240);">
-                                                                    <b>{{ $file }}</b>
-                                                                    <a href="{{ asset('upload/' . $file) }}"
-                                                                        target="_blank"><i class="fa fa-eye text-primary"
-                                                                            style="font-size:20px; margin-right:-10px;"></i></a>
-                                                                            <a type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
+                                                                <h6 type="button" class="file-container text-dark" style="background-color: rgb(243, 242, 240);">
+                                                                    <b>{{ $file }}</b><a href="{{ asset('upload/' . $file) }}" target="_blank"><i class="fa fa-eye text-primary" style="font-size:20px; margin-right:-10px;"></i></a>
+                                                                    <a type="button" class="remove-file" data-file-name="{{ $file }}"><i class="fa-solid fa-circle-xmark" style="color:red; font-size:20px;"></i></a>
                                                                 </h6>
-
                                                             @endforeach
                                                         @endif
                                                     </div>
@@ -850,15 +788,8 @@
                                             <div class="group-input input-date">
                                                 <label for="actual_start_date_cd">Actual start Date</label>
                                                 <div class="calenderauditee">
-                                                    <input type="text" id="actual_start_date_cd"
-                                                        value="{{ $contract_data->actual_start_date_cd }}" readonly
-                                                        placeholder="DD-MMM-YYYY" />
-                                                    <input type="date"
-                                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                                        value="{{ $contract_data->actual_start_date_cd }}"
-                                                        id="actual_start_date_cd" name="actual_start_date_cd"
-                                                        class="hide-input"
-                                                        oninput="handleDateInput(this, 'actual_start_date_cd');" />
+                                                    <input type="text" id="actual_start_date_cd" value="{{ $contract_data->actual_start_date_cd }}" readonly placeholder="DD-MMM-YYYY" />
+                                                    <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $contract_data->actual_start_date_cd }}" id="actual_start_date_cd" name="actual_start_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_start_date_cd');" />
                                                 </div>
                                             </div>
                                         </div>
@@ -866,44 +797,30 @@
                                             <div class="group-input input-date">
                                                 <label for="actual_end_date_cd">Actual end Date</label>
                                                 <div class="calenderauditee">
-                                                    <input type="text" id="actual_end_date_cd"
-                                                        value="{{ $contract_data->actual_end_date_cd }}" readonly
-                                                        placeholder="DD-MMM-YYYY" />
-                                                    <input type="date"
-                                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                                        value="{{ $contract_data->actual_end_date_cd }}"
-                                                        id="actual_end_date_cd" name="actual_end_date_cd"
-                                                        class="hide-input"
-                                                        oninput="handleDateInput(this, 'actual_end_date_cd');" />
+                                                    <input type="text" id="actual_end_date_cd" value="{{ $contract_data->actual_end_date_cd }}" readonly placeholder="DD-MMM-YYYY" />
+                                                    <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ $contract_data->actual_end_date_cd }}" id="actual_end_date_cd" name="actual_end_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_end_date_cd');" />
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="col-lg-6">
                                             <div class="group-input">
                                                 <label for="Responsible Department">Suppplier List</label>
                                                 <select name="suppplier_list_cd">
                                                     <option value="">Enter Your Selection Here</option>
-                                                    <option value="risk-and-compliance"
-                                                        @if ($contract_data->suppplier_list_cd == 'risk-and-compliance') selected @endif>Risk and
-                                                        Compliance</option>
-                                                    <option value="contractual-details"
-                                                        @if ($contract_data->suppplier_list_cd == 'contractual-details') selected @endif>Contractual
-                                                        Details</option>
-                                                    <option value="supplier-classification"
-                                                        @if ($contract_data->suppplier_list_cd == 'supplier-classification') selected @endif>Supplier
-                                                        Classification</option>
+                                                    <option value="risk-and-compliance" @if ($contract_data->suppplier_list_cd == 'risk-and-compliance') selected @endif>Risk and Compliance</option>
+                                                    <option value="contractual-details" @if ($contract_data->suppplier_list_cd == 'contractual-details') selected @endif>Contractual Details</option>
+                                                    <option value="supplier-classification" @if ($contract_data->suppplier_list_cd == 'supplier-classification') selected @endif>Supplier Classification</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="col-lg-6">
                                             <div class="group-input">
-                                                <label for="Actions">Negotiation Team<span
-                                                        class="text-danger"></span></label>
-                                                <textarea placeholder="" name="negotiation_team_cd">{{ $contract_data->negotiation_team_cd }}</textarea>
+                                                <label for="Actions">Negotiation Team<span class="text-danger"></span></label>
+                                                <textarea name="negotiation_team_cd">{{ $contract_data->negotiation_team_cd }}</textarea>
                                             </div>
                                         </div>
-
                                     </div>
 
                                     <div class="group-input">
@@ -930,58 +847,33 @@
                                                         <th style="width: 16%">Currency Used</th>
                                                         <th style="width: 16%">Remarks</th>
                                                         <th style="width: 16%">Action</th>
-
                                                     </tr>
                                                 </thead>
 
                                                 <tbody>
                                                     @php
-                                                        $data =
-                                                            isset($grid_Data) && $grid_Data->data
-                                                                ? json_decode($grid_Data->data, true)
-                                                                : null;
+                                                       $data = isset($grid_Data) && $grid_Data->data ? json_decode($grid_Data->data, true) : null;
                                                     @endphp
 
                                                     @if ($data && is_array($data))
                                                         @foreach ($data as $index => $item)
                                                             <tr>
-                                                                <td><input disabled type="text"
-                                                                        name="[{{ $index }}][serial]"
-                                                                        value="{{ $index + 1 }}"></td>
-                                                                <td><input type="text"
-                                                                        name="financial_transaction[{{ $index }}][Transaction]"
-                                                                        value="{{ isset($item['Transaction']) ? $item['Transaction'] : '' }}">
-                                                                </td>
-                                                                <td><input type="text"
-                                                                        name="financial_transaction[{{ $index }}][TransactionType]"
-                                                                        value="{{ isset($item['TransactionType']) ? $item['TransactionType'] : '' }}">
-                                                                </td>
-                                                                <td><input type="date"
-                                                                        name="financial_transaction[{{ $index }}][Date]"
-                                                                        value="{{ isset($item['Date']) ? $item['Date'] : '' }}">
-                                                                </td>
-                                                                <td><input type="number"
-                                                                        name="financial_transaction[{{ $index }}][Amount]"
-                                                                        value="{{ isset($item['Amount']) ? $item['Amount'] : '' }}">
-                                                                </td>
-                                                                <td><input type="text"
-                                                                        name="financial_transaction[{{ $index }}][CurrencyUsed]"
-                                                                        value="{{ isset($item['CurrencyUsed']) ? $item['CurrencyUsed'] : '' }}">
-                                                                </td>
-                                                                <td><input type="text"
-                                                                        name="financial_transaction[{{ $index }}][Remarks]"
-                                                                        value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}">
-                                                                </td>
-                                                                <td><button readonly type="text"
-                                                                        class="removeRowBtn">Remove</button></td>
+                                                                <td><input disabled type="text" name="[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                                <td><input type="text" name="financial_transaction[{{ $loop->index }}][Transaction]" value="{{ isset($item['Transaction']) ? $item['Transaction'] : '' }}"></td>
+                                                                <td><input type="text" name="financial_transaction[{{ $loop->index }}][TransactionType]" value="{{ isset($item['TransactionType']) ? $item['TransactionType'] : '' }}"></td>
+                                                                <td><input type="date" name="financial_transaction[{{ $loop->index }}][Date]" value="{{ isset($item['Date']) ? $item['Date'] : '' }}"></td>
+                                                                <td><input type="number" name="financial_transaction[{{ $loop->index }}][Amount]" value="{{ isset($item['Amount']) ? $item['Amount'] : '' }}"></td>
+                                                                <td><input type="text" name="financial_transaction[{{ $loop->index }}][CurrencyUsed]" value="{{ isset($item['CurrencyUsed']) ? $item['CurrencyUsed'] : '' }}"></td>
+                                                                <td><input type="text" name="financial_transaction[{{ $loop->index }}][Remarks]" value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}"></td>
+                                                                <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                                             </tr>
                                                         @endforeach
                                                     @endif
                                                 </tbody>
                                             </table>
                                         </div>
-
                                     </div>
+
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="group-input">
@@ -989,7 +881,6 @@
                                                 <textarea name="comments_cd">{{ $contract_data->comments_cd }}</textarea>
                                             </div>
                                         </div>
-
                                     </div>
 
                                     <div class="button-block">
@@ -1052,7 +943,6 @@
 
                                         <div class="col-4">
                                             <div class="group-input">
-
                                                 <label for="Division Code"><b>Supplier Cancelled Comments : </b></label>
                                                 <div class="date">{{ $contract_data->open_cancel_comment }}</div>
                                             </div>
@@ -1079,10 +969,8 @@
 
                                         <div class="col-4">
                                             <div class="group-input">
-                                                <label for="Division Code"><b>Qualification Completed Comments :
-                                                    </b></label>
-                                                <div class="date">{{ $contract_data->qualification_complete_comment }}
-                                                </div>
+                                                <label for="Division Code"><b>Qualification Completed Comments :</b></label>
+                                                 <div class="date">{{ $contract_data->qualification_complete_comment }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -1107,10 +995,8 @@
 
                                         <div class="col-4">
                                             <div class="group-input">
-                                                <label for="Division Code"><b>Qualification Cancelled Comments :
-                                                    </b></label>
-                                                <div class="date">{{ $contract_data->qualification_cancel_comment }}
-                                                </div>
+                                                <label for="Division Code"><b>Qualification Cancelled Comments :</b></label>
+                                                 <div class="date">{{ $contract_data->qualification_cancel_comment }}</div>
                                             </div>
                                         </div>
                                     </div>

@@ -111,18 +111,17 @@
 
 
                 var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="product_material[' + serialNumber + '][ProductName]"></td>' +
-                    '<td><input type="number" name="product_material[' + serialNumber + '][BatchNumber]"></td>' +
-                    '<td><input type="date" name="product_material[' + serialNumber + '][ExpiryDate]"></td>' +
-                    '<td><input type="date" name="product_material[' + serialNumber + '][ManufacturedDate]"></td>' +
-                    '<td><input type="text" name="product_material[' + serialNumber + '][Disposition]"></td>' +
-                    '<td><input type="text" name="product_material[' + serialNumber + '][Comments]"></td>' +
-                    '<td><input type="text" name="product_material[' + serialNumber + '][Remarks]"></td>' +
-                    '<td><button type="text" class="removeRowBtn">Remove</button></td>' +
-
-                    '</tr>';
+                        '<tr>' +
+                            '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                            '<td><input type="text" name="product_material[' + serialNumber + '][ProductName]"></td>' +
+                            '<td><input type="number" name="product_material[' + serialNumber + '][BatchNumber]"></td>' +
+                            '<td><input type="date" name="product_material[' + serialNumber + '][ExpiryDate]"></td>' +
+                            '<td><input type="date" name="product_material[' + serialNumber + '][ManufacturedDate]"></td>' +
+                            '<td><input type="text" name="product_material[' + serialNumber + '][Disposition]"></td>' +
+                            '<td><input type="text" name="product_material[' + serialNumber + '][Comments]"></td>' +
+                            '<td><input type="text" name="product_material[' + serialNumber + '][Remarks]"></td>' +
+                            '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
+                        '</tr>';
 
                 // for (var i = 0; i < users.length; i++) {
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
@@ -273,12 +272,14 @@
                                     {{-- <div class="static">QMS-North America</div> --}}
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Initiator">Initiator</label>
                                     <input disabled type="text" name="initiator_id" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input ">
                                     <label for="Date Of Initiation"><b>Date Of Initiation</b></label>
@@ -372,7 +373,7 @@
                                     <small class="text-primary">
                                         Amendment detailled description
                                     </small>
-                                    <textarea class="" name="description" id=""></textarea>
+                                    <textarea name="description"></textarea>
                                 </div>
                             </div>
 
@@ -562,7 +563,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Estimated Man-Hours">Estimated Man-Hours</label>
-                                    <input type="text" name="estimated_man_hours" id="estimated_man_hours" value="">
+                                    <input type="time" name="estimated_man_hours" id="estimated_man_hours" value="">
                                 </div>
                             </div>
 
@@ -570,7 +571,7 @@
                             <div class="col-md-12">
                                 <div class="group-input">
                                     <label for="Comments">Comments</label>
-                                    <textarea name="comments" id=""></textarea>
+                                    <textarea name="comments"></textarea>
                                 </div>
                             </div>
 
@@ -622,7 +623,8 @@
                                                 <td><input type="text" name="product_material[0][Disposition]"></td>
                                                 <td><input type="text" name="product_material[0][Comments]"></td>
                                                 <td><input type="text" name="product_material[0][Remarks]"></td>
-                                                <td><input readonly type="text"></td>
+                                                <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                                {{--<td><input readonly type="text"></td>--}}
                                             </tbody>
                                         </table>
                                     </div>
@@ -633,7 +635,7 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Actual Submission Date"> Actual Submission Date </label>
+                                    <label for="Actual Submission Date">Actual Submission Date </label>
                                     <div class="calenderauditee">
                                         <input type="text" id="actual_submission_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="actual_submission_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'actual_submission_date')" />
@@ -643,7 +645,7 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Actual Rejection Date"> Actual Rejection Date </label>
+                                    <label for="Actual Rejection Date">Actual Rejection Date </label>
                                     <div class="calenderauditee">
                                         <input type="text" id="actual_rejection_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="actual_rejection_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'actual_rejection_date')" />
@@ -653,7 +655,7 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Actual Withdrawn Date"> Actual Withdrawn Date </label>
+                                    <label for="Actual Withdrawn Date">Actual Withdrawn Date </label>
                                     <div class="calenderauditee">
                                         <input type="text" id="actual_withdrawn_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="actual_withdrawn_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'actual_withdrawn_date')" />
@@ -663,7 +665,7 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Inquiry Date"> Inquiry Date </label>
+                                    <label for="Inquiry Date">Inquiry Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="inquiry_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="inquiry_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'inquiry_date')" />
@@ -673,7 +675,7 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Planened Submission Date"> Planned Submission Date </label>
+                                    <label for="Planened Submission Date">Planned Submission Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="planned_submission_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="planned_submission_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'planned_submission_date')" />
@@ -683,7 +685,7 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Planned DateSent To Affiliate"> Planned Date Sent To Affiliate </label>
+                                    <label for="Planned DateSent To Affiliate">Planned Date Sent To Affiliate</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="planned_date_sent_to_affiliate" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="planned_date_sent_to_affiliate" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'planned_date_sent_to_affiliate')" />
@@ -693,7 +695,7 @@
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Effective Date"> Effective Date </label>
+                                    <label for="Effective Date">Effective Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="effective_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="effective_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'effective_date')" />
@@ -701,38 +703,35 @@
                                 </div>
                             </div>
 
-                            <div class="sub-head">Person Involved</div>
-
+                            <div class="sub-head">
+                                Person Involved
+                            </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Additional Assignees">Additional Assignees</label>
-                                    <textarea class="" name="additional_assignees" id="">
-                                    </textarea>
+                                    <textarea name="additional_assignees"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Additional Investigators">Additional Investigators</label>
-                                    <textarea class="" name="additional_investigators" id="">
-                                    </textarea>
+                                    <textarea name="additional_investigators"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Approvers">Approvers</label>
-                                    <textarea class="" name="approvers" id="">
-                                    </textarea>
+                                    <textarea name="approvers"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Negotiation Team">Negotiation Team</label>
-                                    <textarea class="" name="negotiation_team" id="">
-                                    </textarea>
+                                    <textarea name="negotiation_team"></textarea>
                                 </div>
                             </div>
 
@@ -770,72 +769,63 @@
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Root Cause Description">Root Cause Description</label>
-                                    <textarea class="" name="root_cause_description" id="">
-                                    </textarea>
+                                    <textarea name="root_cause_description"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Reason(s) for Non-Approval">Reason(s) for Non-Approval</label>
-                                    <textarea class="" name="reason_for_non_approval" id="">
-                                    </textarea>
+                                    <textarea name="reason_for_non_approval"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Reason(s) for Withdrawal">Reason(s) for Withdrawal</label>
-                                    <textarea class="" name="reason_for_withdrawal" id="">
-                                    </textarea>
+                                    <textarea name="reason_for_withdrawal"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="Justification/ Rationale">Justification/ Rationale</label>
-                                    <textarea class="" name="justification_rationale" id="">
-                                    </textarea>
+                                    <label for="Justification/Rationale">Justification/Rationale</label>
+                                    <textarea name="justification_rationale"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Meeting Minutes">Meeting Minutes</label>
-                                    <textarea class="" name="meeting_minutes" id="">
-                                    </textarea>
+                                    <textarea name="meeting_minutes"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Rejection Reason">Rejection Reason</label>
-                                    <textarea class="" name="rejection_reason" id="">
-                                    </textarea>
+                                    <textarea name="rejection_reason"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Effectiveness Check Summary">Effectiveness Check Summary</label>
-                                    <textarea class="" name="effectiveness_check_summary" id="">
-                                    </textarea>
+                                    <textarea name="effectiveness_check_summary"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Decision">Decision</label>
-                                    <textarea class="" name="decision" id="">
-                                    </textarea>
+                                    <textarea name="decision"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Summary">Summary</label>
-                                    <textarea class="" name="summary" id="">
-                                    </textarea>
+                                    <textarea name="summary"></textarea>
                                 </div>
                             </div>
 
@@ -856,13 +846,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actual Time Spend">Actual Time Spend</label>
-                                    <input type="text" name="actual_time_spend" id="actual_time_spend" value="">
+                                    <input type="time" name="actual_time_spend" id="actual_time_spend">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Documents">Documents</label>
-                                    <input type="text" name="documents" id="documents" value="">
+                                    <input type="text" name="documents" id="documents">
                                 </div>
                             </div>
                         </div>

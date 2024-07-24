@@ -830,21 +830,21 @@
 
                         <div class="col-6">
                             <div class="group-input">
-                                <label for="Date">First Subject in(FSI)</label>
+                                <label for="Date">First Subject in (FSI)</label>
                                 <input type="date" name="first_subject_in" value="{{ $study_data->first_subject_in }}">
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="group-input">
-                                <label for="Date">Last Subject Out</label>
+                                <label for="Date">Last Subject Out (FSO)</label>
                                 <input type="date" name="last_subject_out" value="{{ $study_data->last_subject_out }}">
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="group-input">
-                                <label for="Date">Data Base Lock(DBL)</label>
+                                <label for="Date">Data Base Lock (DBL)</label>
                                 <input type="text" name="databse_lock" value="{{ $study_data->databse_lock }}">
                             </div>
                         </div>

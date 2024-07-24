@@ -306,7 +306,7 @@
                             <th class="w-20">Application Sites</th>
                             <td class="w-30">
                                 @if ($audit_data->application_sites)
-                                    {{ $audit_data->application_sites }}
+                                    {{ Helpers::getApplicationSites($audit_data->application_sites) }}
 
                                 @endif
                             </td>
@@ -386,7 +386,7 @@
                             <th class="w-20">Name of Lead Auditor</th>
                             <td class="w-30">
                                 @if ($audit_data->name_of_lead_auditor)
-                                    {{ $audit_data->name_of_lead_auditor }}
+                                    {{ Helpers::getLeadAuditorUserList1($audit_data->name_of_lead_auditor) }}
 
                                 @endif
                             </td>
@@ -397,7 +397,7 @@
                             <th class="w-20">Name of Co-Auditor</th>
                             <td class="w-30">
                                 @if ($audit_data->name_of_co_auditor)
-                                    {{ $audit_data->name_of_co_auditor }}
+                                    {{ Helpers::getCoAuditorUserList($audit_data->name_of_co_auditor) }}
 
                                 @endif
                             </td>
@@ -417,7 +417,7 @@
                             <td class="w-80">{{ $audit_data->propose_of_audit }}</td>
 
                             <th class="w-20">QA Approver</th>
-                            <td class="w-80">{{ $audit_data->qa_approver }}</td>
+                            <td class="w-80">{{ Helpers::getLeadAuditorUserList1($audit_data->qa_approver) }}</td>
 
                         </tr>
                     </table>

@@ -522,9 +522,7 @@
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="closure attachment">File Attachments </label>
-                                <div><small class="text-primary">
-                                    </small>
-                                </div>
+                                <div><small class="text-primary"></small></div>
                                 <div class="file-attachment-field">
                                     <div class="file-attachment-list" id="file_attach">
                                         @if ($violation_data->file_attachments)
@@ -558,9 +556,7 @@
 
                         <div class="col-md-6">
                             <div class="group-input">
-                                <label for="search">
-                                    Zone <span class="text-danger"></span>
-                                </label>
+                                <label for="search">Zone <span class="text-danger"></span></label>
                                 <select id="select-state" placeholder="Select..." name="zone">
                                     <option value="">Enter Your Selection Here</option>
                                     <option value="asia" @if ($violation_data->zone == "asia") selected @endif>Asia</option>
@@ -576,10 +572,7 @@
 
                         <div class="col-md-6">
                             <div class="group-input">
-                                <label for="search">
-                                    Country <span class="text-danger"></span>
-
-                                </label>
+                                <label for="search">Country <span class="text-danger"></span></label>
                                 <p class="text-primary">Auto filter according to selected zone</p>
                                 <select name="country_id" class="form-select country" aria-label="Default select example" onchange="loadStates()">
                                     <option value="{{ $violation_data->country_id }}" selected>{{ $violation_data->country_id }}</option>
@@ -704,9 +697,9 @@
                             <div class="group-input input-date">
                                 <label for="date_occured">Date Occured</lable>
                                     <div class="calenderauditee">
+                                        <input type="date" value="{{ $violation_data->date_occured }}" id="date_occured" name="date_occured" />
                                         {{--<input type="text" value="{{ \Carbon\Carbon::parse($violation_data->date_occured)->format('d-M-Y') }}" id="date_occured" name="date_occured" placeholder="DD-MMM-YYYY" />
                                         <input type="date" value="{{ \Carbon\Carbon::parse($violation_data->date_occured)->format('d-M-Y') }}" id="date_occured" name="date_occured" class="hide-input" oninput="handleDateInput(this, 'date_occured');checkDate('start_date_checkdate','end_date_checkdate')"/>--}}
-                                        <input type="date" value="{{ $violation_data->date_occured }}" id="date_occured" name="date_occured" />
                                     </div>
                               </div>
                         </div>

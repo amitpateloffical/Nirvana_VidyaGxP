@@ -421,8 +421,7 @@
                                @foreach ($data as $index => $item)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}.</td>
-                                    <td>{{ isset($item['ProductName']) ? $item['ProductName'] : '' }}
-                                    </td>
+                                    <td>{{ isset($item['ProductName']) ? $item['ProductName'] : '' }}</td>
                                     <td>{{ isset($item['BatchNumber']) ? $item['BatchNumber'] : '' }}</td>
                                     <td>{{ isset($item['ExpiryDate']) ? $item['ExpiryDate'] : '' }}</td>
                                     <td>{{ isset($item['ManufacturedDate']) ? $item['ManufacturedDate'] : '' }}</td>
@@ -450,6 +449,7 @@
                 <div class="block-head">
                     Important Dates
                 </div>
+
                 <table>
                     <tr>
                         <th class="w-20">Actual Submission Date</th>
@@ -480,12 +480,14 @@
                         <td class="w-30">{{ date('d-M-Y', strtotime($amendement_data->effective_date)) }}</td>
                     </tr>
                 </table>
+
             </div>
 
             <div class="block">
                 <div class="block-head">
                     Person Involved
                 </div>
+
                 <table>
                     <tr>
                         <th class="w-20">Additional Assignees</th>
@@ -510,8 +512,8 @@
                     <tr>
                         <th class="w-20">Trainer</th>
                         <td class="w-80">{{ $amendement_data->trainer }}</td>
-
                     </tr>
+
                 </table>
             </div>
 

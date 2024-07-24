@@ -108,17 +108,17 @@
 
 
                 var html =
-                    '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="product_material[' + serialNumber + '][ProductName]"></td>' +
-                    '<td><input type="number" name="product_material[' + serialNumber + '][BatchNumber]"></td>' +
-                    '<td><input type="date" name="product_material[' + serialNumber + '][ExpiryDate]"></td>' +
-                    '<td><input type="date" name="product_material[' + serialNumber + '][ManufacturedDate]"></td>' +
-                    '<td><input type="text" name="product_material[' + serialNumber + '][Disposition]"></td>' +
-                    '<td><input type="text" name="product_material[' + serialNumber + '][Comments]"></td>' +
-                    '<td><input type="text" name="product_material[' + serialNumber + '][Remarks]"></td>' +
-                    '<td><button type="text" class="removeRowBtn">Remove</button></td>' +
-                    '</tr>';
+                       '<tr>' +
+                            '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                            '<td><input type="text" name="product_material[' + serialNumber + '][ProductName]"></td>' +
+                            '<td><input type="number" name="product_material[' + serialNumber + '][BatchNumber]"></td>' +
+                            '<td><input type="date" name="product_material[' + serialNumber + '][ExpiryDate]"></td>' +
+                            '<td><input type="date" name="product_material[' + serialNumber + '][ManufacturedDate]"></td>' +
+                            '<td><input type="text" name="product_material[' + serialNumber + '][Disposition]"></td>' +
+                            '<td><input type="text" name="product_material[' + serialNumber + '][Comments]"></td>' +
+                            '<td><input type="text" name="product_material[' + serialNumber + '][Remarks]"></td>' +
+                            '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
+                        '</tr>';
 
                 // for (var i = 0; i < users.length; i++) {
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
@@ -791,7 +791,7 @@ border-radius:10px;
         <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">CTA Amendement</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">CTA amendement Information</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">CTA Amendement Information</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Root Cause Analysis</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Signatures</button>
 
@@ -861,7 +861,7 @@ border-radius:10px;
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Initiator Group Code">Short Description<span class="text-danger">*</span></label>
-                                    <p class="text-primary">PSUR Short Description to be presented on dekstop</p>
+                                    <p class="text-primary">Short Description to be presented on desktop</p>
                                     <input type="text" name="short_description" id="initiator_group_code" value="{{ $amendement_data->short_description }}">
                                 </div>
                             </div>
@@ -951,9 +951,9 @@ border-radius:10px;
                                 <div class="group-input">
                                     <label for="Description">Description</label>
                                     <small class="text-primary">
-                                        Amendment detailled description
+                                        Amendement detailled description
                                     </small>
-                                    <textarea class="" name="description" id="">{{ $amendement_data->description }}</textarea>
+                                    <textarea name="description">{{ $amendement_data->description }}</textarea>
                                 </div>
                             </div>
 
@@ -963,7 +963,7 @@ border-radius:10px;
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="search">Zone</label>
-                                    <select name="zone">
+                                    <select name="zone" class="zone">
                                         <option value="">Select a value</option>
                                         <option value="asia" @if ($amendement_data->zone == "asia") selected @endif>Asia</option>
                                         <option value="europe" @if ($amendement_data->zone == "europe") selected @endif>Europe</option>
@@ -981,7 +981,7 @@ border-radius:10px;
                                     <label for="search">
                                         Country <span class="text-danger"></span>
                                     </label>
-                                    <select name="country" class="form-select country" aria-label="Default select example" onchange="loadStates()">
+                                    <select name="country" class="form-select country" aria-label="Default select example" onchange="loadStates()" placeholder="Select...">
                                         <option value="{{ $amendement_data->country }}" selected>{{ $amendement_data->country }}</option>
                                     </select>
                                 </div>
@@ -1018,11 +1018,12 @@ border-radius:10px;
                         </div>
                     </div>
                 </div>
+
+
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
                             <div class="sub-head col-12">Amendement Information</div>
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -1145,14 +1146,14 @@ border-radius:10px;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Estimated Man-Hours">Estimated Man-Hours</label>
-                                    <input type="text" name="estimated_man_hours" id="estimated_man_hours" value="{{ $amendement_data->estimated_man_hours }}">
+                                    <input type="time" name="estimated_man_hours" id="estimated_man_hours" value="{{ $amendement_data->estimated_man_hours }}">
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="group-input">
                                     <label for="Comments">Comments</label>
-                                    <textarea class="" name="comments" id="">{{ $amendement_data->comments }}</textarea>
+                                    <textarea name="comments">{{ $amendement_data->comments }}</textarea>
                                 </div>
                             </div>
 
@@ -1192,7 +1193,7 @@ border-radius:10px;
                                                     <th style="width: 16%">Disposition</th>
                                                     <th style="width: 16%">Comments</th>
                                                     <th style="width: 16%">Remarks</th>
-                                                    <th style="width: 16%">Action</th>
+                                                    <th style="width: 12%">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -1202,14 +1203,14 @@ border-radius:10px;
                                                 @if ($data && is_array($data))
                                                  @foreach ($data as $index => $item)
                                                 <tr>
-                                                    <td><input disabled type="text" name="[{{ $index }}][serial]" value="{{ $index + 1 }}" value="1"></td>
-                                                    <td><input type="text" name="product_material[{{ $index }}][ProductName]" value="{{ isset($item['ProductName']) ? $item['ProductName'] : '' }}"></td>
-                                                    <td><input type="number" name="product_material[{{ $index }}][BatchNumber]" value="{{ isset($item['BatchNumber']) ? $item['BatchNumber'] : '' }}"></td>
-                                                    <td><input type="date" name="product_material[{{ $index }}][ExpiryDate]" value="{{ isset($item['ExpiryDate']) ? $item['ExpiryDate'] : '' }}"></td>
-                                                    <td><input type="date" name="product_material[{{ $index }}][ManufacturedDate]" value="{{ isset($item['ManufacturedDate']) ? $item['ManufacturedDate'] : '' }}"></td>
-                                                    <td><input type="text" name="product_material[{{ $index }}][Disposition]" value="{{ isset($item['Disposition']) ? $item['Disposition'] : '' }}"></td>
-                                                    <td><input type="text" name="product_material[{{ $index }}][Comments]" value="{{ isset($item['Comments']) ? $item['Comments'] : '' }}"></td>
-                                                    <td><input type="text" name="product_material[{{ $index }}][Remarks]" value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}"></td>
+                                                    <td><input disabled type="text" name="[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" value="1"></td>
+                                                    <td><input type="text" name="product_material[{{ $loop->index }}][ProductName]" value="{{ isset($item['ProductName']) ? $item['ProductName'] : '' }}"></td>
+                                                    <td><input type="number" name="product_material[{{ $loop->index }}][BatchNumber]" value="{{ isset($item['BatchNumber']) ? $item['BatchNumber'] : '' }}"></td>
+                                                    <td><input type="date" name="product_material[{{ $loop->index }}][ExpiryDate]" value="{{ isset($item['ExpiryDate']) ? $item['ExpiryDate'] : '' }}"></td>
+                                                    <td><input type="date" name="product_material[{{ $loop->index }}][ManufacturedDate]" value="{{ isset($item['ManufacturedDate']) ? $item['ManufacturedDate'] : '' }}"></td>
+                                                    <td><input type="text" name="product_material[{{ $loop->index }}][Disposition]" value="{{ isset($item['Disposition']) ? $item['Disposition'] : '' }}"></td>
+                                                    <td><input type="text" name="product_material[{{ $loop->index }}][Comments]" value="{{ isset($item['Comments']) ? $item['Comments'] : '' }}"></td>
+                                                    <td><input type="text" name="product_material[{{ $loop->index }}][Remarks]" value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}"></td>
                                                     <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                                     {{--<td><input readonly type="text"></td>--}}
                                                 </tr>
@@ -1245,7 +1246,7 @@ border-radius:10px;
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Actual Withdrawn Date"> Actual Withdrawn Date </label>
+                                    <label for="Actual_Withdrawn_Date"> Actual Withdrawn Date </label>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $amendement_data->actual_withdrawn_date }}" id="actual_withdrawn_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" value="{{ $amendement_data->actual_withdrawn_date }}" name="actual_withdrawn_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'actual_withdrawn_date')" />
@@ -1255,7 +1256,7 @@ border-radius:10px;
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Inquiry Date"> Inquiry Date </label>
+                                    <label for="Inquiry_Date"> Inquiry Date </label>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $amendement_data->inquiry_date }}" id="inquiry_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" value="{{ $amendement_data->inquiry_date }}" name="inquiry_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'inquiry_date')" />
@@ -1265,7 +1266,7 @@ border-radius:10px;
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Planened Submission Date"> Planned Submission Date </label>
+                                    <label for="Planened_Submission_Date"> Planned Submission Date </label>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $amendement_data->planned_submission_date }}" id="planned_submission_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" value="{{ $amendement_data->planned_submission_date }}" name="planned_submission_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'planned_submission_date')" />
@@ -1275,7 +1276,7 @@ border-radius:10px;
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Planned DateSent To Affiliate"> Planned Date Sent To Affiliate </label>
+                                    <label for="Planned_DateSent_To_Affiliate"> Planned Date Sent To Affiliate </label>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $amendement_data->planned_date_sent_to_affiliate }}" id="planned_date_sent_to_affiliate" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" value="{{ $amendement_data->planned_date_sent_to_affiliate }}" name="planned_date_sent_to_affiliate" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'planned_date_sent_to_affiliate')" />
@@ -1306,21 +1307,21 @@ border-radius:10px;
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Additional Investigators">Additional Investigators</label>
-                                    <textarea class="" name="additional_investigators">{{ $amendement_data->additional_investigators }}</textarea>
+                                    <textarea name="additional_investigators">{{ $amendement_data->additional_investigators }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Approvers">Approvers</label>
-                                    <textarea class="" name="approvers">{{ $amendement_data->approvers }}</textarea>
+                                    <textarea name="approvers">{{ $amendement_data->approvers }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Negotiation Team">Negotiation Team</label>
-                                    <textarea class="" name="negotiation_team">{{ $amendement_data->negotiation_team }}</textarea>
+                                    <textarea name="negotiation_team">{{ $amendement_data->negotiation_team }}</textarea>
                                 </div>
                             </div>
 
@@ -1358,63 +1359,63 @@ border-radius:10px;
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Root Cause Description">Root Cause Description</label>
-                                    <textarea class="" name="root_cause_description">{{ $amendement_data->root_cause_description }}</textarea>
+                                    <textarea name="root_cause_description">{{ $amendement_data->root_cause_description }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Reason(s) for Non-Approval">Reason(s) for Non-Approval</label>
-                                    <textarea class="" name="reason_for_non_approval">{{ $amendement_data->reason_for_non_approval }}</textarea>
+                                    <textarea name="reason_for_non_approval">{{ $amendement_data->reason_for_non_approval }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Reason(s) for Withdrawal">Reason(s) for Withdrawal</label>
-                                    <textarea class="" name="reason_for_withdrawal">{{ $amendement_data->reason_for_withdrawal }}</textarea>
+                                    <textarea name="reason_for_withdrawal">{{ $amendement_data->reason_for_withdrawal }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Justification/ Rationale">Justification/ Rationale</label>
-                                    <textarea class="" name="justification_rationale">{{ $amendement_data->justification_rationale }}</textarea>
+                                    <textarea name="justification_rationale">{{ $amendement_data->justification_rationale }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Meeting Minutes">Meeting Minutes</label>
-                                    <textarea class="" name="meeting_minutes">{{ $amendement_data->meeting_minutes }}</textarea>
+                                    <textarea name="meeting_minutes">{{ $amendement_data->meeting_minutes }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Rejection Reason">Rejection Reason</label>
-                                    <textarea class="" name="rejection_reason">{{ $amendement_data->rejection_reason }}</textarea>
+                                    <textarea name="rejection_reason">{{ $amendement_data->rejection_reason }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Effectiveness Check Summary">Effectiveness Check Summary</label>
-                                    <textarea class="" name="effectiveness_check_summary">{{ $amendement_data->effectiveness_check_summary }}</textarea>
+                                    <textarea name="effectiveness_check_summary">{{ $amendement_data->effectiveness_check_summary }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Decision">Decision</label>
-                                    <textarea class="" name="decision">{{ $amendement_data->decision }}</textarea>
+                                    <textarea name="decision">{{ $amendement_data->decision }}</textarea>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="group-input">
                                     <label for="Summary">Summary</label>
-                                    <textarea class="" name="summary">{{ $amendement_data->summary }}</textarea>
+                                    <textarea name="summary">{{ $amendement_data->summary }}</textarea>
                                 </div>
                             </div>
 
@@ -1435,7 +1436,7 @@ border-radius:10px;
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actual Time Spend">Actual Time Spend</label>
-                                    <input type="text" name="actual_time_spend" id="actual_time_spend" value="{{ $amendement_data->actual_time_spend }}">
+                                    <input type="time" name="actual_time_spend" id="actual_time_spend" value="{{ $amendement_data->actual_time_spend }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">

@@ -226,7 +226,6 @@
                                             <input type="file" id="myfile" name="file_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 

@@ -174,7 +174,7 @@
                                             reason in "Due Date Extension Justification" data field.</small></div>--}}
                                     <div class="calenderauditee">
                                         <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
-                                        <input type="date" name="due_date"id="due_date"
+                                        <input type="date" name="due_date" id="due_date" disabled
                                             min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input"
                                             oninput="handleDateInput(this, 'due_date')" />
                                     </div>
@@ -246,7 +246,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Manufacturer</b></label>
-                                    <input type="text" name="manufacturer_gi" value="">
+                                    <input type="text" name="manufacturer_gi">
                                 </div>
                             </div>
 
@@ -1236,6 +1236,9 @@
         });
     </script>
 {{--Country Statecity API End--}}
+
+
+
 
 @endsection
 

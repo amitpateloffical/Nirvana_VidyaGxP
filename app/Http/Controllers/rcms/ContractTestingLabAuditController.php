@@ -2071,6 +2071,7 @@ class ContractTestingLabAuditController extends Controller
             }
 
             if ($audit_data->application_sites != $audit->application_sites) {
+
                 $previous_site_names = QMSDivision::whereIn('id', $audit_data->application_sites)->pluck('name')->toArray();
                 $previous_site_names_string = implode(', ', $previous_site_names);
 

@@ -407,7 +407,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Subject Name</b></label>
-                                    <input  type="text" name="subject_name_sd" value="{{ $item_data->subject_name_sd }}">
+                                    <input type="text" name="subject_name_sd" value="{{ $item_data->subject_name_sd }}">
                                 </div>
                             </div>
 
@@ -426,7 +426,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Parent) Date Of Birth</b></label>
-                                    <input  type="date" name="date_of_birth_sd" value="{{ $item_data->date_of_birth_sd }}">
+                                    <input type="date" name="date_of_birth_sd" value="{{ $item_data->date_of_birth_sd }}">
                                 </div>
                             </div>
 
@@ -572,7 +572,7 @@
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Item Description</th>
-                                                <th style="width: 16%"> Date</th>
+                                                <th style="width: 16%">Date</th>
                                                 <th style="width: 15%">Sent Date</th>
                                                 <th style="width: 15%">Returned Date</th>
                                                 <th style="width: 15%">Comment</th>

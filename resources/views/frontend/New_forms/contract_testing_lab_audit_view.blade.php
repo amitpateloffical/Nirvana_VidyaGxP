@@ -1064,9 +1064,9 @@ border-radius:10px;
                                              @if ($data && is_array($data))
                                                 @foreach ($data as $index => $item)
                                                 <tr>
-                                                    <td><input disabled type="text" name="[{{ $index }}][serial]" value="{{ $index + 1 }}" value="1"></td>
-                                                    <td><input type="text" name="auditee[{{ $index }}][Name]" value="{{ isset($item['Name']) ? $item['Name'] : '' }}"></td>
-                                                    <td><input type="text" name="auditee[{{ $index }}][DesignationPosition]" value="{{ isset($item['DesignationPosition']) ? $item['DesignationPosition'] : '' }}"></td>
+                                                    <td><input disabled type="text" name="[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" value="1"></td>
+                                                    <td><input type="text" name="auditee[{{ $loop->index }}][Name]" value="{{ isset($item['Name']) ? $item['Name'] : '' }}"></td>
+                                                    <td><input type="text" name="auditee[{{ $loop->index }}][DesignationPosition]" value="{{ isset($item['DesignationPosition']) ? $item['DesignationPosition'] : '' }}"></td>
                                                     <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                                 </tr>
                                                 @endforeach
@@ -1102,9 +1102,9 @@ border-radius:10px;
                                            @if ($data && is_array($data))
                                               @foreach ($data as $index => $item)
                                               <tr>
-                                                  <td><input disabled type="text" name="[{{ $index }}][serial]" value="{{ $index + 1 }}" value="1"></td>
-                                                  <td><input type="text" name="key_personnel_met_during_audit[{{ $index }}][Name]" value="{{ isset($item['Name']) ? $item['Name'] : '' }}"></td>
-                                                  <td><input type="text" name="key_personnel_met_during_audit[{{ $index }}][DesignationPosition]" value="{{ isset($item['DesignationPosition']) ? $item['DesignationPosition'] : '' }}"></td>
+                                                  <td><input disabled type="text" name="[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}" value="1"></td>
+                                                  <td><input type="text" name="key_personnel_met_during_audit[{{ $loop->index }}][Name]" value="{{ isset($item['Name']) ? $item['Name'] : '' }}"></td>
+                                                  <td><input type="text" name="key_personnel_met_during_audit[{{ $loop->index }}][DesignationPosition]" value="{{ isset($item['DesignationPosition']) ? $item['DesignationPosition'] : '' }}"></td>
                                                   <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                               </tr>
                                               @endforeach
@@ -1163,24 +1163,28 @@ border-radius:10px;
                                     <textarea name="corrective_actions_agreed">{{ $audit_data->corrective_actions_agreed }}</textarea>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Executive_Summary">Executive Summary</label>
                                     <textarea name="executive_summary">{{ $audit_data->executive_summary }}</textarea>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Laboratory_Acceptability">Laboratory Acceptability</label>
                                     <textarea name="laboratory_acceptability">{{ $audit_data->laboratory_acceptability }}</textarea>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Remarks_Conclusion">Remarks & Conclusion</label>
                                     <textarea name="remarks_conclusion">{{ $audit_data->remarks_conclusion }}</textarea>
                                 </div>
                             </div>
+
 
                             <div class="sub-head">
                                 Audit Report Details
@@ -1192,6 +1196,7 @@ border-radius:10px;
                                     <input type="text" name="audit_report_ref_no" value="{{ $audit_data->audit_report_ref_no }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Audit_Report_Signed_On">Audit Report Signed On</label>

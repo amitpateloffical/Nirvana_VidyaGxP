@@ -534,9 +534,9 @@
                                             <input type="file" id="myfile" name="file_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Authority Type</label>
@@ -550,6 +550,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Authority</label>
@@ -561,8 +562,8 @@
                                     </select>
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="group-input">
@@ -584,8 +585,8 @@
                                     </select>
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="group-input">
                             <label for="audit-agenda-grid">
                                 Action Plan
@@ -628,8 +629,8 @@
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
+
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -644,6 +645,7 @@
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Due to Authority</b></label>
@@ -657,6 +659,7 @@
                                     <input type="date" name="scheduled_start_date" value="{{ $correspondence_data->scheduled_start_date }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Scheduled End Date</b></label>

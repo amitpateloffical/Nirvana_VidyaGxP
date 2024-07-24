@@ -95,6 +95,7 @@ class CorrespondenceController extends Controller{
                     $newDataGridCorrespondence->data = $request->action_plan;
                     $newDataGridCorrespondence->save();
 
+
                 //Audit Trail Store Start
 
                 if(!empty($request->short_description)){

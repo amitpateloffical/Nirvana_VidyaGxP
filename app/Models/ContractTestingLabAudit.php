@@ -21,4 +21,10 @@ class ContractTestingLabAudit extends Model
         'audit_closure_attachments' => 'array'
 
       ];
+
+
+      public function user()
+      {
+          return $this->belongsTo(User::class, 'name_of_lead_auditor');
+      }
 }

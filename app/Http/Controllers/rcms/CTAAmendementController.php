@@ -1049,6 +1049,7 @@ class CTAAmendementController extends Controller
                     $amendement->documents_affected = $request->documents_affected;
                     $amendement->actual_time_spend = $request->actual_time_spend;
                     $amendement->documents = $request->documents;
+
                     $amendement->save();
 
 
@@ -2094,7 +2095,7 @@ class CTAAmendementController extends Controller
                     $history->save();
 
                 }
-                    toastr()->success("Record is created Successfully");
+                    toastr()->success("Record is Updated Successfully");
                     return back();
            }
 
@@ -2578,8 +2579,8 @@ class CTAAmendementController extends Controller
 
             //Audit Trail Report Start
 
-           public function CTA_AmendementAuditTrailPdf($id)
-                {
+           public function CTA_AmendementAuditTrailPdf($id){
+
                     $doc = CTAAmendement::find($id);
                     $doc->originator = User::where('id', $doc->initiator_id)->value('name');
                     $data = CTAAmendementAuditTrail::where('cta_amendement_id', $doc->id)->orderByDesc('id')->get();
