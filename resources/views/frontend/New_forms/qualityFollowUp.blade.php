@@ -1,5 +1,11 @@
 @extends('frontend.layout.main')
 @section('container')
+@php
+$users = DB::table('users')
+    ->select('id', 'name')
+    ->get();
+
+@endphp
 <style>
     textarea.note-codable {
         display: none !important;
@@ -31,10 +37,10 @@
         <!-- Tab links -->
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Quality Follow Up</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Signatures</button>
+            <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Activity Log</button>
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('quality.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -51,21 +57,39 @@
 
                             <div class="col-lg-6">
                                 <div class="group-input">
+                                    <label for="Originator"><b>Record Number</b></label>
+                                    <input disabled type="text" name="record"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/QF/{{ date('Y') }}/{{ $record_number }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Originator"><b>Division Id</b></label>
+                                    <input readonly type="text" name="division_code"
+                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                        <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
                                     <label for="Originator"><b>Initiator</b></label>
-                                    <input disabled type="text" name="Originator" value="">
+                                    <input type="text" name="initiator_id" value="{{ $validation->initiator_id ?? Auth::user()->name }}" disabled>
+
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Of Initiation</b></label>
-                                    <input  type="date" name="Date Opened" value="">
-                                 
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="date_of_initiation">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="date_of_initiation">
+
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short Description">Product<span class="text-danger">*</span></label>
-                                    <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                    <label for="Product">Product</label>
+                                    <input id="Product" type="text" name="product" >
                                 </div>
                             </div>
 
@@ -84,9 +108,10 @@
                                     </label>
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
-                                        <option value="">Pankaj Jat</option>
-                                        <option value="">Gaurav</option>
-                                        <option value="">Manish</option>
+                                        <option value="Vibha">Vibha</option>
+                                        <option value="Shruti" @if (isset($data->assign_to) && $data->assign_to == 'Shruti') selected @endif>Shruti</option>
+                                        <option value="Monika" @if (isset($data->assign_to) && $data->assign_to == 'Monika') selected @endif>Monika</option>
+
 
                                     </select>
 
@@ -95,11 +120,14 @@
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <div><small class="text-primary">Please mention expected date of completion</small></div>
+                                    <label for="due_date">Due Date</label>
+                                    <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
+                                    </div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <div class="calenderauditee">
+                                            <input type="hidden" value="{{$due_date}}" name="due_date">
+                                            <input  type="text" value="{{Helpers::getdateFormat($due_date)}}">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +135,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Type Of Product</label>
-                                    <select name="Type">
+                                    <select name="product_type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -119,7 +147,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Priority Level</label>
-                                    <select name="Type">
+                                    <select name="priority_level">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -127,54 +155,56 @@
                                     </select>
                                 </div>
                             </div>
-                            
-        
+
+
 
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Description</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="discription" id="summernote-16"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Comments</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="comments" id="summernote-16"></textarea>
                                 </div>
                             </div>
 
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Scheduled Start Date <span class="text-danger"></span></label>
+                                    <label for="Date Due">Scheduled Start Date</label>
+                                    <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
+                                    </div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="text" id="scheduled_start_date" readonly placeholder="DD-MM-YYYY" />
+                                        <input type="date" id="start_date_checkdate" name="scheduled_start_date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input" oninput="handleDateInput(this, 'scheduled_start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
-                            </div>        
+                            </div>
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Scheduled End Date <span class="text-danger"></span></label>
+                                    <label for="Date Due">Scheduled End Date</label>
+                                    <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="text" id="scheduled_end_date" readonly placeholder="DD-MM-YYYY" />
+                                        <input type="date" id="start_date_checkdate" name="scheduled_end_date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input" oninput="handleDateInput(this, 'scheduled_end_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
-                                </div>
-                            </div>        
-
+                            </div>
+                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="closure attachment">Attached Files </label>
+                                    <label for="closure attachment">File Attachments </label>
                                     <div><small class="text-primary">
                                         </small>
                                     </div>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="File_Attachment"></div>
+                                        <div class="file-attachment-list" id="file_attachment[]"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="Attachment[]" oninput="addMultipleFiles(this, 'Attachment')" multiple>
+                                            <input type="file" id="myfile" name="file_attachment[]" oninput="addMultipleFiles(this, 'file_attachment[]')" multiple>
                                         </div>
                                     </div>
                                 </div>
@@ -183,31 +213,32 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Related URLs</label>
-                                    <select name="Type">
+                                    <select name="related_url">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">URL1</option>
-                                        <option value="2">URL2</option>
-                                        <option value="3">URL3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Reference Recores"> Related Records</label>
-                                    <select multiple id="reference_record" name="PhaseIIQCReviewProposedBy[]" id="">
-                                        <option value="">--Select---</option>
-                                        <option value="">Pankaj</option>
-                                        <option value="">Gourav</option>
+                                    <select name="related_record">
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="Ankit">Ankit</option>
+                                        <option value="Rohit">Rohit</option>
+
                                     </select>
                                 </div>
                             </div>
 
 
-                          
+
                             <div class="col-12">
                                 <div class="group-input">
                                     <label class="mt-4" for="Audit Comments"> Quality Follow Up Summary</label>
-                                    <textarea class="summernote" name="Disposition_Batch" id="summernote-16"></textarea>
+                                    <textarea class="summernote" name="quality_follow_up_summary" id="summernote-16"></textarea>
                                 </div>
                             </div>
 
@@ -221,18 +252,18 @@
                     </div>
                 </div>
 
-               
-                
+
+
 
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                           
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="submitted by">Acknowledged By</label>
                                     <div class="static"></div>
-                                </div>  
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -408,6 +439,55 @@
     $('#docname').keyup(function() {
         var textlen = maxLength - $(this).val().length;
         $('#rchars').text(textlen);
+    });
+</script>
+
+
+
+<script>
+    $(document).ready(function() {
+        $('#internalaudit-table').click(function(e) {
+
+            function generateTableRow(serialNumber) {
+                var users = @json($users);
+
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber +
+                    '"></td>' +
+                    '<td><input type="text" name="audit[]"></td>' +
+                    // '<td><input type="date" name="scheduled_start_date[]"></td>'
+                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="scheduled_start_date' + serialNumber +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="scheduled_start_date[]" id="scheduled_start_date' + serialNumber +'_checkdate" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  class="hide-input" oninput="handleDateInput(this, `scheduled_start_date' + serialNumber +'`);checkDate(`scheduled_start_date' + serialNumber +'_checkdate`,`scheduled_end_date' + serialNumber +'_checkdate`)" /></div></div></div></td>' +
+                    '<td><input type="time" name="scheduled_start_time[]"></td>' +
+                    // '<td><input type="date" name="scheduled_end_date[]"></td>'
+                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"> <input type="text" id="scheduled_end_date' + serialNumber +'" readonly placeholder="DD-MMM-YYYY" /><input type="date" name="scheduled_end_date[]" id="scheduled_end_date'+ serialNumber +'_checkdate"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"class="hide-input" oninput="handleDateInput(this, `scheduled_end_date' + serialNumber +'`);checkDate(`scheduled_start_date' + serialNumber +'_checkdate`,`scheduled_end_date' + serialNumber +'_checkdate`)" /></div></div></div></td>' +
+                    '<td><input type="time" name="scheduled_end_time[]"></td>' +
+                    '<td><select name="auditor[]">' +
+                    '<option value="">Select a value</option>';
+
+                for (var i = 0; i < users.length; i++) {
+                    html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                }
+
+                html += '</select></td>' +
+                    '<td><select name="auditee[]">' +
+                    '<option value="">Select a value</option>';
+
+                for (var i = 0; i < users.length; i++) {
+                    html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
+                }
+                html += '</select></td>' +
+                    '<td><input type="text" name="remarks[]"></td>' +
+                    '</tr>';
+
+                return html;
+            }
+
+            var tableBody = $('#internalaudit tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1);
+            tableBody.append(newRow);
+        });
     });
 </script>
 @endsection
