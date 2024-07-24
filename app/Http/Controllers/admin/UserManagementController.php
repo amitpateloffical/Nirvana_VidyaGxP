@@ -63,8 +63,8 @@ class UserManagementController extends Controller
             'departmentid' => 'required',
             'roles' => 'required|array',
         ]);
-        
-        // $user = new User();
+
+        //$user = new User();
         // $user->name = $request->name;
         // $user->email = $request->email;
         // $user->password = Hash::make($request->password);
@@ -72,7 +72,7 @@ class UserManagementController extends Controller
         // $usertableRole = '';
         // if ($user->save()) {
         //     foreach ($request->roles as $roleId) {
-        //     $userRole = new UserRole();                
+        //     $userRole = new UserRole();
         //     $checkRole = Roles::find($roleId);
 
         //     // Split the string using the '-' delimiter
@@ -91,13 +91,13 @@ class UserManagementController extends Controller
         //     $q_m_s_processes_id = $process->id;
         //     $q_m_s_roles_id = $qmsroles->id;
 
-        //     $usertableRole = //concatinate the $q_m_s_roles_id by comma seprated 
+        //     $usertableRole = //concatinate the $q_m_s_roles_id by comma seprated
         //     $userRole->user_id = $user->id;
         //     $userRole->role_id = $roleId;
         //     $userRole->q_m_s_divisions_id = $q_m_s_divisions_id;
         //     $userRole->q_m_s_processes_id = $q_m_s_processes_id;
         //     $userRole->q_m_s_roles_id = $q_m_s_roles_id;
-        //     $userRole->save();
+          //   $userRole->save();
         // }
 
         $user = new User();
@@ -109,7 +109,7 @@ class UserManagementController extends Controller
 
         if ($user->save()) {
             foreach ($request->roles as $roleId) {
-                $userRole = new UserRole();                
+                $userRole = new UserRole();
                 $checkRole = Roles::find($roleId);
 
                 // Split the string using the '-' delimiter
@@ -218,7 +218,7 @@ class UserManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::with('userRoles')->find($id);    
+        $user = User::with('userRoles')->find($id);
     $user->name = $request->name;
     $user->email = $request->email;
     if (!empty($request->password)) {
@@ -241,7 +241,7 @@ class UserManagementController extends Controller
 
         // Attach new roles
         foreach ($request->roles as $roleId) {
-            $userRole = new UserRole();                
+            $userRole = new UserRole();
             $checkRole = Roles::find($roleId);
 
             // Split the string using the '-' delimiter

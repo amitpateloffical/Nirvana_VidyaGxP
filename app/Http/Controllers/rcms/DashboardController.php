@@ -369,7 +369,6 @@ class DashboardController extends Controller
 
         foreach ($datas15 as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
-
             array_push($table, [
                 "id" => $data->id,
                 "parent" => $data->parent_record ? $data->parent_record : "-",
@@ -476,10 +475,7 @@ class DashboardController extends Controller
 
         return view('frontend.rcms.dashboard', compact('datag'));
     }
-
-    public function dashboard_child($id, $process)
-    {
-        $table = [];
+    public function dashboard_child($id, $process){
         if ($process == 1) {
             $datas1 = ActionItem::where('cc_id', $id)->orderByDesc('id')->get();
             $datas2 = Extension::where('cc_id', $id)->orderByDesc('id')->get();
