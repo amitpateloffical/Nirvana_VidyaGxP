@@ -295,7 +295,15 @@ $users = DB::table('users')->get();
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
         </div>
 
-        <form action="{{ route('validation.update', $validation->id) }}" method="POST" enctype="multipart/form-data">
+        <script>
+            $(document).ready(function() {
+                <?php if (in_array($validation->stage, [9])) : ?>
+                    $("#target :input").prop("disabled", true);
+                <?php endif; ?>
+            });
+        </script>
+
+        <form id="target" action="{{ route('validation.update', $validation->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
