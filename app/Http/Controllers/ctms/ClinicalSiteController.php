@@ -47,7 +47,8 @@ class ClinicalSiteController extends Controller
         $clinicalSite->status = 'Opened';
         $clinicalSite->record = ((RecordNumber::first()->value('counter')) + 1);
         $clinicalSite->division_code = $request->input('division_code');
-        $clinicalSite->initiator = $request->input('initiator');
+        // $clinicalSite->initiator = $request->input('initiator');
+        $clinicalSite->initiator = Auth::user()->id;
         $clinicalSite->initiation_date = $request->input('initiation_date');
         $clinicalSite->short_description = $request->input('short_description');
         $clinicalSite->due_date = $request->input('due_date');
@@ -1244,12 +1245,13 @@ class ClinicalSiteController extends Controller
     public function show($id)
     {
         // Find the ClinicalSite instance by ID
+        $record = ((RecordNumber::first()->value('counter')) + 1);
         $data = ClinicalSite::findOrFail($id);
         $drug_accou = ClinicalSiteGrids::where('cs_id',$id)->where('identifiers','Drug Accountability')->first();
         $equipment= ClinicalSiteGrids::where('cs_id',$id)->where('identifiers','Equipment')->first();
         $finan_transa = ClinicalSiteGrids::where('cs_id',$id)->where('identifiers','Financial Transactions')->first();
     //    dd( $drug_accou);
-        return view('frontend.ctms.clinicalsite.clinical_site_view',compact('data','finan_transa','equipment','drug_accou'));
+        return view('frontend.ctms.clinicalsite.clinical_site_view',compact('record','data','finan_transa','equipment','drug_accou'));
     }
 
     public function update(Request $request, $id)
@@ -1453,7 +1455,7 @@ if ( $lastclinical->type != $clinicalSite->type) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Site Name';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->site_name;
     $history->current = $clinicalSite->site_name;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1469,7 +1471,7 @@ if (!empty($clinicalSite->source_documents)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Source Documents';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->source_documents;
     $history->current = $clinicalSite->source_documents;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1485,7 +1487,7 @@ if (!empty($clinicalSite->sponsor)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Sponsor';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->sponsor;
     $history->current = $clinicalSite->sponsor;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1501,7 +1503,7 @@ if (!empty($clinicalSite->description)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Description';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->description;
     $history->current = $clinicalSite->description;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1517,7 +1519,7 @@ if (!empty($clinicalSite->attached_files)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Attached_files';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->attached_files;
     $history->current = $clinicalSite->attached_files;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1533,7 +1535,7 @@ if (!empty($clinicalSite->comments)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Comments';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->comments;
     $history->current = $clinicalSite->comments;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1550,7 +1552,7 @@ if (!empty($clinicalSite->version_no)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Version No.';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->version_no;
     $history->current = $clinicalSite->version_no;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1566,7 +1568,7 @@ if (!empty($clinicalSite->admission_criteria)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Admission Criteria';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->admission_criteria;
     $history->current = $clinicalSite->admission_criteria;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1582,7 +1584,7 @@ if (!empty($clinicalSite->cinical_significance)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Clinical Significance';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->cinical_significance;
     $history->current = $clinicalSite->cinical_significance;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1598,7 +1600,7 @@ if (!empty($clinicalSite->trade_name)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = '(Root Parent) Trade Name';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->trade_name;
     $history->current = $clinicalSite->trade_name;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1614,7 +1616,7 @@ if (!empty($clinicalSite->tracking_number)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = '(Parent) Tracking Number';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->tracking_number;
     $history->current = $clinicalSite->tracking_number;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1630,7 +1632,7 @@ if (!empty($clinicalSite->phase_of_study)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Phase of Study';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->phase_of_study;
     $history->current = $clinicalSite->phase_of_study;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1646,7 +1648,7 @@ if (!empty($clinicalSite->phase_of_study)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Phase of Study';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->phase_of_study;
     $history->current = $clinicalSite->phase_of_study;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1662,7 +1664,7 @@ if (!empty($clinicalSite->par_oth_type)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Parent Other Type';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->par_oth_type;
     $history->current = $clinicalSite->par_oth_type;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1678,7 +1680,7 @@ if (!empty($clinicalSite->zone)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Zone';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->zone;
     $history->current = $clinicalSite->zone;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1694,7 +1696,7 @@ if (!empty($clinicalSite->country)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Country';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->country;
     $history->current = $clinicalSite->country;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1710,7 +1712,7 @@ if (!empty($clinicalSite->city)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'City';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->city;
     $history->current = $clinicalSite->city;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1726,7 +1728,7 @@ if (!empty($clinicalSite->state_district)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'State District';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->state_district;
     $history->current = $clinicalSite->state_district;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1742,7 +1744,7 @@ if (!empty($clinicalSite->sel_site_name)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Loc.Site Name';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->sel_site_name;
     $history->current = $clinicalSite->sel_site_name;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1758,7 +1760,7 @@ if (!empty($clinicalSite->building)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Building';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->building;
     $history->current = $clinicalSite->building;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1775,7 +1777,7 @@ if (!empty($clinicalSite->floor)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Floor';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->floor;
     $history->current = $clinicalSite->floor;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1791,7 +1793,7 @@ if (!empty($clinicalSite->room)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Room';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->room;
     $history->current = $clinicalSite->room;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1807,7 +1809,7 @@ if (!empty($clinicalSite->site_name_sai)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Site Name';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->site_name_sai;
     $history->current = $clinicalSite->site_name_sai;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1824,7 +1826,7 @@ if (!empty($clinicalSite->pharmacy)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Pharmacy';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->pharmacy;
     $history->current = $clinicalSite->pharmacy;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1840,7 +1842,7 @@ if (!empty($clinicalSite->site_no)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Site No';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->site_no;
     $history->current = $clinicalSite->site_no;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1856,7 +1858,7 @@ if (!empty($clinicalSite->site_status)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Site Status';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->site_status;
     $history->current = $clinicalSite->site_status;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1873,7 +1875,7 @@ if (!empty($clinicalSite->acti_date)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Activation Date';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->acti_date;
     $history->current = $clinicalSite->acti_date;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1889,7 +1891,7 @@ if (!empty($clinicalSite->date_final_report)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Date of Final Report';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->date_final_report;
     $history->current = $clinicalSite->date_final_report;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1905,7 +1907,7 @@ if (!empty($clinicalSite->ini_irb_app_date)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Initial IRB Approval Date';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->ini_irb_app_date;
     $history->current = $clinicalSite->ini_irb_app_date;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1921,7 +1923,7 @@ if (!empty($clinicalSite->imp_site_date)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Initial IRB Approval Date';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->imp_site_date;
     $history->current = $clinicalSite->imp_site_date;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1937,7 +1939,7 @@ if (!empty($clinicalSite->lab_de_name)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Lab/Department Name';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->lab_de_name;
     $history->current = $clinicalSite->lab_de_name;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1953,7 +1955,7 @@ if (!empty($clinicalSite->moni_per_by)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Monitoring Performed By';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->moni_per_by;
     $history->current = $clinicalSite->moni_per_by;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1969,7 +1971,7 @@ if (!empty($clinicalSite->drop_withdreawn)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Dropped/Withdrawn';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->drop_withdreawn;
     $history->current = $clinicalSite->drop_withdreawn;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -1985,7 +1987,7 @@ if (!empty($clinicalSite->enrolled)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Enrolled';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->enrolled;
     $history->current = $clinicalSite->enrolled;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2017,7 +2019,7 @@ if (!empty($clinicalSite->enrolled)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Planned';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->planned;
     $history->current = $clinicalSite->planned;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2033,7 +2035,7 @@ if (!empty($clinicalSite->screened)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Screened';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->screened;
     $history->current = $clinicalSite->screened;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2050,7 +2052,7 @@ if (!empty($clinicalSite->project_annual_mv)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Project Annual MV';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->project_annual_mv;
     $history->current = $clinicalSite->project_annual_mv;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2066,7 +2068,7 @@ if (!empty($clinicalSite->schedual_start_date)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Scheduled Start Date';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->schedual_start_date;
     $history->current = $clinicalSite->schedual_start_date;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2082,7 +2084,7 @@ if (!empty($clinicalSite->schedual_end_date)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Scheduled Etart Date';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->schedual_end_date;
     $history->current = $clinicalSite->schedual_end_date;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2098,7 +2100,7 @@ if (!empty($clinicalSite->actual_start_date)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Actual Start Date';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->actual_start_date;
     $history->current = $clinicalSite->actual_start_date;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2114,7 +2116,7 @@ if (!empty($clinicalSite->actual_end_date)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Actual End Date';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->actual_end_date;
     $history->current = $clinicalSite->actual_end_date;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2130,7 +2132,7 @@ if (!empty($clinicalSite->lab_name)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Lab Name';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->lab_name;
     $history->current = $clinicalSite->lab_name;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2146,7 +2148,7 @@ if (!empty($clinicalSite->monitring_per_by_si)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Monitoring Performed By';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->monitring_per_by_si;
     $history->current = $clinicalSite->monitring_per_by_si;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2162,7 +2164,7 @@ if (!empty($clinicalSite->control_group)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Monitoring Performed By';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->control_group;
     $history->current = $clinicalSite->control_group;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2178,7 +2180,7 @@ if (!empty($clinicalSite->consent_form)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Consent Form';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->consent_form;
     $history->current = $clinicalSite->consent_form;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2194,7 +2196,7 @@ if (!empty($clinicalSite->budget)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Budget';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->budget;
     $history->current = $clinicalSite->budget;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2210,7 +2212,7 @@ if (!empty($clinicalSite->proj_sties_si)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Project of Sites';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->proj_sties_si;
     $history->current = $clinicalSite->proj_sties_si;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2226,7 +2228,7 @@ if (!empty($clinicalSite->proj_subject_si)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Project of Subject';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->proj_subject_si;
     $history->current = $clinicalSite->proj_subject_si;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2242,7 +2244,7 @@ if (!empty($clinicalSite->auto_calcultion)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Subjects in Site';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->auto_calcultion;
     $history->current = $clinicalSite->auto_calcultion;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2258,7 +2260,7 @@ if (!empty($clinicalSite->currency_si)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Currency';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->currency_si;
     $history->current = $clinicalSite->currency_si;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2274,7 +2276,7 @@ if (!empty($clinicalSite->attached_payments)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Attached Payments';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->attached_payments;
     $history->current = $clinicalSite->attached_payments;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2290,7 +2292,7 @@ if (!empty($clinicalSite->cra)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'CRA';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->cra;
     $history->current = $clinicalSite->cra;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2306,7 +2308,7 @@ if (!empty($clinicalSite->lead_investigator)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Lead Investigator';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->lead_investigator;
     $history->current = $clinicalSite->lead_investigator;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2322,7 +2324,7 @@ if (!empty($clinicalSite->reserve_team_associate)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Reserve Team Associate';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->reserve_team_associate;
     $history->current = $clinicalSite->reserve_team_associate;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2338,8 +2340,8 @@ if (!empty($clinicalSite->additional_investigators)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Additional Investigators';
-    $history->previous = $lastclinical->;
-    $history->current = $clinicalSite->additional_investigators;
+    $history->previous = $lastclinical->reserve_team_associate;
+    $history->current = $clinicalSite->c;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
     $history->user_name = Auth::user()->name;
@@ -2354,7 +2356,7 @@ if (!empty($clinicalSite->clini_res_coordi)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Clinical Site';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->clini_res_coordi;
     $history->current = $clinicalSite->clini_res_coordi;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2370,7 +2372,7 @@ if (!empty($clinicalSite->pharmacist)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Pharmacist';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->pharmacist;
     $history->current = $clinicalSite->pharmacist;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2386,7 +2388,7 @@ if (!empty($clinicalSite->comments_si)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Comments';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->comments_si;
     $history->current = $clinicalSite->comments_si;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2402,7 +2404,7 @@ if (!empty($clinicalSite->budget_ut)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Budget';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->budget_ut;
     $history->current = $clinicalSite->budget_ut;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2418,7 +2420,7 @@ if (!empty($clinicalSite->currency_ut)) {
     $history = new ClinicalSiteAudittrail();
     $history->clinical_id = $clinicalSite->id;
     $history->activity_type = 'Currency';
-    $history->previous = $lastclinical->;
+    $history->previous = $lastclinical->currency_ut;
     $history->current = $clinicalSite->currency_ut;
     $history->comment = "Not Applicable";
     $history->user_id = Auth::user()->id;
@@ -2430,6 +2432,7 @@ if (!empty($clinicalSite->currency_ut)) {
     $history->action_name = "Update";
     $history->save();
 }}
+// ================================================audit show update end ===========================
 
 
 

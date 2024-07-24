@@ -101,7 +101,9 @@
         });
     });
 </script>
-
+@php
+$users = DB::table('users')->get();
+@endphp
 
 {{-- ======================================
                     DATA FIELDS
@@ -128,7 +130,7 @@
                         <div class="group-input">
                             <label for="RLS Record Number"><b>Record Number</b></label>
                             {{-- <input disabled type="text" name="record" value=""> --}}
-                            <input disabled type="text" name="record" value=" {{ Helpers::getDivisionName(session()->get('division')) }}/LI/{{ date('Y') }}/{{ $record}}">
+                            <input disabled type="text" name="record" value=" {{ Helpers::getDivisionName(session()->get('division')) }}/CS/{{ date('y') }}/{{ $record}}">
                             {{-- <input disabled type="text" name="record" id="record" 
                             value=""> --}}
                         </div>
@@ -159,22 +161,47 @@
                             </div>
                         </div>
                     </div> --}}
-                    <div class="col-md-6 ">
+                    {{-- <div class="col-md-6 ">
                         <div class="group-input ">
                             <label for="due-date"> Date Of Initiation<span class="text-danger"></span></label>
                             <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
                             <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
                         </div>
+                    </div> --}}
+                    <div class="col-md-6 ">
+                        <div class="group-input ">
+                            <label for="due-date"> Date Of Initiation<span class="text-danger"></span></label>
+                            <input disabled type="text" value="{{ date('d-M-Y') }}" name="initiation_date">
+                            <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date">
+                        </div>
                     </div>
                    
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                         <div class="group-input">
                             <label for="Short Description">Short Description<span class="text-danger">*</span></label>
                             <div><small >255 characters remaining</small></div>
                             <input id="short-description" type="text" name="short_description" maxlength="255" required>
                         </div>
+                    </div> --}}
+                    <div class="col-md-12 mb-3">
+                        <div class="group-input">
+                            <label for="Short Description">Short Description<span
+                                class="text-danger">*</span></label>
+                                <span id="rchars">255</span>
+                            <div><small class="text-primary">Please insert "NA" in the data field if it does
+                                    not require completion</small></div>
+                            <input  name="short_description" id="docname" maxlength="255" required >
+                        
+                        </div>
                     </div>
-                    <div class="col-md-6">
+                    <script>
+                        var maxLength = 255;
+                        $('#docname').keyup(function() {
+                            var textlen = maxLength - $(this).val().length;
+                            $('#rchars').text(textlen);
+                        });
+                    </script>
+                    {{-- <div class="col-md-6">
                         <div class="group-input">
                             <label for="assigned_to">
                                 Assigned To <span class="text-danger"></span>
@@ -182,13 +209,29 @@
                             <div><small class="text-primary">Person Responsible</small></div>
                             <select id="select-state" placeholder="Select..." name="assign_to">
                                 <option value="">Select a value</option>
-                                <option value="">$1</option>
-                                <option value="">$2</option>
-                                <option value="">$3</option>
+                                <option value="$1">$1</option>
+                                <option value="$1">$2</option>
+                                <option value="$1">$3</option>
                             </select>
                         </div>
+                    </div> --}}
+                    <div class="col-md-6">
+                        <div class="group-input">
+                            <label for="search">
+                                Assigned To <span class="text-danger"></span>
+                            </label>
+                            <select id="select-state" placeholder="Select..." name="assign_to">
+                                <option value="">Select a value</option>
+                                @foreach ($users as $value)
+                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('assign_to')
+                                <p class="text-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
-                    <div class="col-md-6 new-date-data-field">
+                    {{-- <div class="col-md-6 new-date-data-field">
                         <div class="group-input input-date">
                             <label for="due-date">Due Date <span class="text-danger"></span></label>
                             <div><small class="text-primary">Please mention expected date of completion</small></div>
@@ -197,7 +240,38 @@
                                 <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                             </div>
                         </div>
+                    </div> --}}
+
+                    <div class="col-md-6 new-date-data-field">
+                        <div class="group-input input-date">
+                            <label for="due-date">Due Date <span class="text-danger">*</span></label>
+                            <div class="calenderauditee">
+                                <!-- Display the formatted date in a readonly input -->
+                                <input type="text" id="due_date_display" readonly placeholder="DD-MMM-YYYY" value="{{ Helpers::getDueDate(30, true) }}" />
+                               
+                                <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ Helpers::getDueDate(30, false) }}" class="hide-input" readonly />
+                            </div>
+                        </div>
                     </div>
+                    <script>
+                        function handleDateInput(dateInput, displayId) {
+                            const date = new Date(dateInput.value);
+                            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+                            document.getElementById(displayId).value = date.toLocaleDateString('en-GB', options).replace(/ /g, '-');
+                        }
+                        
+                        // Call this function initially to ensure the correct format is shown on page load
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const dateInput = document.querySelector('input[name="due_date"]');
+                            handleDateInput(dateInput, 'due_date_display');
+                        });
+                        </script>
+                        
+                        <style>
+                        .hide-input {
+                            display: none;
+                        }
+                        </style>
                     <div class="col-md-6">
                         <div class="group-input">
                             <label for="type">
@@ -344,7 +418,7 @@
                         <div class="group-input">
                             <label for="Admission Criteria">(Parent) Admission Criteria</label>
                             <textarea name="admission_criteria"></textarea>
-                        </div>
+                        </div>  
                     </div>
                     <div class="col-6">
                         <div class="group-input">

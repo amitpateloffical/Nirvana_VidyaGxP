@@ -542,7 +542,7 @@ Route::view('OOT_form', 'frontend.OOT.OOT_form');
 
 // ========================================ClinicalSite start===============================
 
-Route::get('clinicalsiteindex',[ClinicalSiteController::class,'index']);
+Route::get('clinicalsiteindex',[ClinicalSiteController::class,'index'])->name('clinicalsite');
 Route::post('clinicalsitestore',[ClinicalSiteController::class,'store'])->name('clinicstore');
 Route::get('clinicalsiteshow/{id}',[ClinicalSiteController::class,'show'])->name('clinicshow');
 Route::put('clinicalsiteupdate/{id}',[ClinicalSiteController::class,'update'])->name('clinicupdate');

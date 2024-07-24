@@ -415,8 +415,8 @@
                             <label for="RLS Record Number"><b>Record Number</b></label>
                             {{-- <input disabled type="text" name="record" value=""> --}}
                             {{-- <input disabled type="text" name="record" value=" {{ Helpers::getDivisionName(session()->get('division')) }}/LI/{{ date('Y') }}/{{ $record}}"> --}}
-                            <input disabled type="text" name="record" id="record" 
-                            value="">
+                            <input disabled type="text" name="record" value=" {{ Helpers::getDivisionName(session()->get('division')) }}/CS/{{ date('y') }}/{{ $record}}">
+
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -436,7 +436,7 @@
                             <input type="text" disabled name="initiator" value="">
                         </div>
                     </div>
-                    <div class="col-md-6 new-date-data-field">
+                    {{-- <div class="col-md-6 new-date-data-field">
                         <div class="group-input input-date">
                             <label for="opened-date">Date of Initiation<span class="text-danger"></span></label>
                             <div class="calenderauditee">
@@ -444,8 +444,15 @@
                                 <input type="date" disabled name="intiation_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'opened_date')" />
                             </div>
                         </div>
+                    </div> --}}
+ 
+                    <div class="col-md-6 ">
+                        <div class="group-input ">
+                            <label for="due-date"> Date Of Initiation<span class="text-danger"></span></label>
+                            <input disabled type="text" value="{{ date('d-M-Y') }}" name="initiation_date">
+                            <input type="hidden" value="{{ date('Y-m-d') }}" name="initiation_date">
+                        </div>
                     </div>
-                   
                     <div class="col-12">
                         <div class="group-input">
                             <label for="Short Description">Short Description<span class="text-danger">*</span></label>
@@ -453,7 +460,7 @@
                             <input id="short-description" type="text" name="short_description" maxlength="255" required value="{{ $data->short_description }}">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    {{-- <div class="col-md-6">
                         <div class="group-input">
                             <label for="assigned_to">
                                 Assigned To <span class="text-danger"></span>
@@ -465,6 +472,21 @@
                                 <option value="s2"{{ $data->assign_to == "2" ? 'selected':"" }}>$2</option>
                                 <option value="s3"{{ $data->assign_to == "3" ? 'selected':"" }}>$3</option>
                             </select>
+                        </div>
+                    </div> --}}
+                    <div class="col-md-6">
+                        <div class="group-input">
+                            <label for="search">
+                                Assigned To <span class="text-danger"></span>
+                            </label>
+                            <select {{ $data->stage == 0 || $data->stage == 5 ? 'disabled' : '' }} id="select-state" placeholder="Select..." name="assign_to">
+                                <option value="">Select a value</option>
+                                @foreach ($users as $value)
+                                    <option {{ $data->assign_to == $value->name ? 'selected' : '' }}
+                                        value="{{ $value->name }}">{{ $value->name }}</option>
+                                @endforeach
+                            </select>
+
                         </div>
                     </div>
                     <div class="col-md-6 new-date-data-field">

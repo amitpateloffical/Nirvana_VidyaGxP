@@ -57,7 +57,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="record_number"><b>Record Number</b></label>
-                                    <input type="text" name="record_number" id="record_number"> 
+                                    <input type="text" name="record_number" id="record_number" value="{{ Helpers::getDivisionName(session()->get('division')) }}/{{ date('Y') }}/{{ $record}}"> 
                                     {{-- value="{{ Helpers::getDivisionName(session()->get('division')) }}/LI/{{ date('Y') }}/{{ $record }}" disabled> --}}
                                 </div>
                             </div>
