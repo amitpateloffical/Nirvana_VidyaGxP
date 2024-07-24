@@ -18,7 +18,7 @@ use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\ObservationController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
-// use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\LabInvestigationController;
 use App\Http\Controllers\rcms\DosierDocumentsController;
 use App\Http\Controllers\rcms\PreventiveMaintenanceController;
 use App\Http\Controllers\GcpStudyController;
@@ -38,6 +38,7 @@ use App\Http\Controllers\rcms\FirstProductValidationController;
 use App\Http\Controllers\UserLoginController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
+
 
 // ============================================
 //                   RCMS
@@ -481,10 +482,23 @@ Route::group(['prefix' => 'rcms'], function () {
             //Route::get('Violation/AuditTrailPdf/{id}', [FirstProductValidationController::class, 'ViolationAuditTrailPdf'])->name('violation.auditTrailPdf');
 
 
-
             //-------------------------------- first_product_validation Route End ---------------------------------------
 
+            //  =========== Ashish   lab_investigation ================
 
+            Route::get('lab_investigation', [LabInvestigationController::class, 'index'])->name('index');
+            Route::post('lab_invest_store', [LabInvestigationController::class, 'store'])->name('lab_invest_store');
+            Route::get('lab_invest_edit/{id}', [LabInvestigationController::class, 'edit'])->name('lab_invest_edit');
+            Route::post('lab_invest_update/{id}', [LabInvestigationController::class, 'update'])->name('lab_invest_update');
+            
+            Route::post('lab_investi_stage/{id}',[LabInvestigationController::class,'lab_send_stage'])->name('labStage');
+            Route::post('lab_investi_reject/{id}', [LabInvestigationController::class, 'lab_reject'])->name('lab_reject');
+    
+            Route::post('lab_investi_cancel/{id}', [LabInvestigationController::class, 'lab_cancel'])->name('lab_cancel');
+            Route::get('lab_singleReport/{id}', [LabInvestigationController::class, 'singleReport'])->name('labSingleReport');
+            Route::get('lab_auditReport/{id}', [LabInvestigationController::class, 'auditReport'])->name('labAuditReport');
+                  
+            //----------------------------------------------lab investigation------------------
 
 
 
