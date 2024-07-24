@@ -690,7 +690,7 @@ class ManagementReviewController extends Controller
         $management->attendees = $request->attendees;
         $management->agenda = $request->agenda;
         $management->performance_evaluation = $request->performance_evaluation;
-       $management->management_review_participants = $management->management_review_participants;
+       $management->management_review_participants = $request->management_review_participants;
        $management->action_item_details =$request->action_item_details;
        $management->capa_detail_details = $request->capa_detail_details;
         $management->description = $request->description;
@@ -1362,14 +1362,20 @@ class ManagementReviewController extends Controller
                     if($u->q_m_s_divisions_id == $changeControl->division_id){
                      $email = Helpers::getInitiatorEmail($u->user_id);
                      if ($email !== null) {
-                         Mail::send(
-                            'mail.view-mail',
-                            ['data' => $changeControl],
-                            function ($message) use ($email) {
-                                $message->to($email)
-                                    ->subject("Document is Send By ".Auth::user()->name);
-                            }
-                        );
+                        try{
+                            Mail::send(
+                                'mail.view-mail',
+                                ['data' => $changeControl],
+                                function ($message) use ($email) {
+                                    $message->to($email)
+                                        ->subject("Document is Send By ".Auth::user()->name);
+                                }
+                            );
+                        }
+                        catch(\Exception $e){
+                            //log error
+                        }
+                         
                       }
                     } 
                 }
@@ -1400,7 +1406,9 @@ class ManagementReviewController extends Controller
                     if($u->q_m_s_divisions_id == $changeControl->division_id){
                      $email = Helpers::getInitiatorEmail($u->user_id);
                      if ($email !== null) {
-                         Mail::send(
+
+                         try{
+                            Mail::send(
                             'mail.view-mail',
                             ['data' => $changeControl],
                             function ($message) use ($email) {
@@ -1408,6 +1416,10 @@ class ManagementReviewController extends Controller
                                     ->subject("Document is Send By ".Auth::user()->name);
                             }
                         );
+                         }
+                             catch(\Exception $e){
+                            //log error
+                        }
                       }
                     } 
                 }

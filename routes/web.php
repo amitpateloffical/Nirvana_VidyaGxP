@@ -10,11 +10,15 @@ use App\Http\Controllers\ChangeControlController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\DocumentDetailsController;
 use App\Http\Controllers\rcms\DesktopController;
+use App\Http\Controllers\ClientInquiryController;
+use App\Http\Controllers\MeetingManagementController;
+use App\Http\Controllers\AdditionalInformationController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\MytaskController;
 use App\Http\Controllers\CabinateController;
 use App\Http\Controllers\rcms\CCController;
 use App\Http\Controllers\rcms\EffectivenessCheckController;
+use App\Http\Controllers\rcms\AuditTaskController;
 use App\Http\Controllers\rcms\ObservationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentContentController;
@@ -168,6 +172,9 @@ Route::get('auditDetailsCapa/{id}', [CapaController::class, 'auditDetailsCapa'])
 Route::post('capa_child/{id}', [CapaController::class, 'child_change_control'])->name('capa_child_changecontrol');
 Route::post('effectiveness_check/{id}', [CapaController::class, 'effectiveness_check'])->name('capa_effectiveness_check');
 
+
+
+
 // ==============================management review ==========================manage
 
 Route::post('managestore', [ManagementReviewController::class, 'managestore'])->name('managestore');
@@ -232,7 +239,57 @@ Route::get('ExternalAuditTrialShow/{id}', [AuditeeController::class, 'AuditTrial
 Route::get('ExternalAuditTrialDetails/{id}', [AuditeeController::class, 'AuditTrialExternalDetails'])->name('ExternalAuditTrialDetailsShow');
 Route::post('child_external/{id}', [AuditeeController::class, 'child_external'])->name('childexternalaudit');
 
-//----------------------Lab Incident view-----------------
+//================================Client Inquiry============================
+Route::get('client-inquiry', [ClientInquiryController::class, 'clientinquiry']);
+Route::get('client_inquiry', [ClientInquiryController::class, 'index']);
+Route::post('client_inquiry_store', [ClientInquiryController::class, 'store'])->name('client_inquiry_store');
+Route::put('client_inquiry_update/{id}', [ClientInquiryController::class, 'update'])->name('client_update');
+Route::post('ClientInquirystagechange/{id}', [ClientInquiryController::class, 'StageChange'])->name('CIStage_change');
+Route::post('ClientInquirystage/{id}', [ClientInquiryController::class, 'Stage'])->name('CIStages_change');
+Route::post('ClientInquirycstage/{id}', [ClientInquiryController::class, 'CStage'])->name('CIStages_changes');
+Route::post('RStages_change/{id}', [ClientInquiryController::class, 'RejectStateChanges'])->name('RStages_change');
+Route::post('ClientInquiryrejectstate/{id}', [ClientInquiryController::class, 'RejectState'])->name('RJCStages_change');
+Route::get('client_inquiry_view/{id}',[ClientInquiryController::class,'show'])->name('client_inquiry_view');
+Route::get('ClientInquiry_AuditTrial/{id}',[ClientInquiryController::class,'ClientInquiryAuditTrial'])->name('ClientInquiry_AuditTrial');
+Route::post('Action_item',[ClientInquiryController::class,'Actionchild'])->name('action_item_show');
+Route::get('audit-program/{id}', [AuditProgramController::class, 'auditprogram']);
+Route::post('CNStages_change/{id}', [ClientInquiryController::class, 'ClientCancel'])->name('CNStages_change');
+
+//----------------------Meeting Management----------------
+
+// Route::get('meeting-management', [MeetingManagementController::class, 'meetingmanagement']);
+Route::get('meeting_management', [MeetingManagementController::class, 'index']);
+Route::post('meeting_management_store', [MeetingManagementController::class, 'store'])->name('meeting_management_store');
+Route::put('meeting_management_update/{id}', [MeetingManagementController::class, 'update'])->name('meeting_update');
+Route::get('meeting_management_view/{id}',[MeetingManagementController::class,'show'])->name('meeting_management_view');
+Route::post('meetingmanagementstagechange/{id}', [MeetingManagementController::class, 'StageChange'])->name('MMStage_change');
+Route::get('meeting_management_AuditTrial/{id}',[MeetingManagementController::class,'MeetingManagementAuditTrial'])->name('meeting_management_AuditTrial');
+
+//----------------------Additional Information-------------------
+Route::get('additional_information', [AdditionalInformationController::class, 'index']);
+Route::post('additional_information_create', [AdditionalInformationController::class, 'create'])->name('additional_information_create');
+Route::put('additional_information_update/{id}', [AdditionalInformationController::class, 'update'])->name('additional_update');
+Route::get('additional_information_view/{id}',[AdditionalInformationController::class,'show'])->name('additional_information_view');
+Route::post('additionalinformationstagechange/{id}', [AdditionalInformationController::class, 'StageChange'])->name('AIStage_change');
+Route::post('CancelStages_change/{id}', [AdditionalInformationController::class, 'CancelStateChanges'])->name('CNStages_change');
+Route::post('MoreInfoStages_change/{id}', [AdditionalInformationController::class, 'MoreInfoStateChanges'])->name('MoreInfotages_change');
+Route::get('additional_information_AuditTrial/{id}',[AdditionalInformationController::class,'AdditionalInformationAuditTrial'])->name('additional_information_AuditTrial');
+
+//---------------------Audit Task-------------------------------------------
+Route::get('audit-task',[AuditTaskController::class,'index']);
+Route::post('store-audit',[AuditTaskController::class,'Store'])->name('audit_store');
+Route::get('show-audit-task/{id}',[AuditTaskController::class,'AuditTaskShow'])->name('show_audit_task');
+Route::post('task-update/{id}',[AuditTaskController::class, 'update'])->name('update');
+// Route::get('auditReport/{id}',[AuditTaskController::class,'AuditTrial'])->name('auditReport');
+// Route::get('singleReport/{id}',[AuditTaskController::class,'AuditSingleReport'])->name('singleReport');
+Route::post('Follow_up',[AuditTaskController::class,'Followupchild'])->name('follow_up_show');
+Route::post('audittaskchangeStage/{id}',[AuditTaskController::class,'auditStage'])->name('ATStage_change');
+Route::post('reject/{id}', [AuditTaskController::class, 'auditReject'])->name('MoreInfostage_change');
+Route::post('cancel/{id}', [AuditTaskController::class, 'auditCancle'])->name('ATCNStages_change');
+Route::get('audit_task_AuditTrial/{id}',[AuditTaskController::class,'AuditTaskAuditTrial'])->name('audit_task_AuditTrial');
+
+
+//----------------------Lab Incident view----------------- 
 Route::get('lab-incident', [LabIncidentController::class, 'labincident']);
 //Route::post('RejectStateChange/{id}', [RootCauseController::class, 'RejectStateChange'])->name('RejectStateChange');
 // Route::post('RejectStateChange/{id}', [LabIncidentController::class, 'RejectStateChange']);
@@ -423,12 +480,13 @@ Route::view('medical-device', 'frontend.new_forms.medical-device');
 Route::view('risk-management', 'frontend.new_forms.risk-management');
 Route::view('training_course', 'frontend.New_forms.training_course');
 Route::view('lab_test', 'frontend.New_forms.lab_test');
-Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
+Route::view('client-inquiry', 'frontend.New_forms.client-inquiry');
 Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
 Route::view('GCP_study', 'frontend.new_forms.GCP_study');
 Route::view('calibration', 'frontend.new_forms.calibration');
 Route::view('self-inspection', 'frontend.new_forms.self-inspection');
-Route::view('meeting-management', 'frontend.new_forms.meeting-management');
+// Route::view('meeting-management', 'frontend.new_forms.meeting-management');
+
 
 
 
@@ -534,3 +592,6 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 
 // ===============OOt form==========================\
 Route::view('OOT_form', 'frontend.OOT.OOT_form');
+
+
+// Route::view('additional_information', 'frontend.New_forms.additional_information');

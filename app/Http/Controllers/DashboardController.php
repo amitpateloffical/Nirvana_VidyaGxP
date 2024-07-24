@@ -23,6 +23,8 @@ use App\Models\Capa;
 use App\Models\RiskManagement;
 use App\Models\ManagementReview;
 use App\Models\LabIncident;
+use App\Models\MeetingManagement;
+use App\Models\AdditionalInformation;
 use App\Models\Auditee;
 use App\Models\AuditProgram;
 use App\Models\Deviation;
@@ -198,6 +200,9 @@ class DashboardController extends Controller
                 'Capa' => Capa::whereDate('due_date', '<', $current_date)->count(),
                 'AuditProgram' => AuditProgram::whereDate('due_date', '<', $current_date)->count(),
                 'LabIncident' => LabIncident::whereDate('due_date', '<', $current_date)->count(),
+                'MeetingManagement' => MeetingManagement::whereDate('due_date', '<', $current_date)->count(),
+                'AdditionalInformation' => AdditionalInformation::whereDate('due_date', '<', $current_date)->count(),
+                
                 'RiskManagement' => RiskManagement::whereDate('due_date', '<', $current_date)->count(),
                 'RootCauseAnalysis' => RootCauseAnalysis::whereDate('due_date', '<', $current_date)->count(),
                 'ManagementReview' => ManagementReview::whereDate('due_date', '<', $current_date)->count(),
@@ -215,6 +220,8 @@ class DashboardController extends Controller
                 'Capa' => Capa::count(),
                 'AuditProgram' => AuditProgram::count(),
                 'LabIncident' => LabIncident::count(),
+                'MeetingManagement' => MeetingManagement::count(),
+                'AdditionalInformation' => AdditionalInformation::count(),
                 'RiskManagement' => RiskManagement::count(),
                 'RootCauseAnalysis' => RootCauseAnalysis::count(),
                 'ManagementReview' => ManagementReview::count(),

@@ -42,7 +42,7 @@
     {{-- ====================================== CHANGE CONTROL VIEW ======================================= --}}
     <div id="change-control-view">
         <div class="container-fluid">
-
+`
             <div class="inner-block state-block">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="main-head">Record Workflow </div>

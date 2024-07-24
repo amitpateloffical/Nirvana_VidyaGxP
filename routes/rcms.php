@@ -11,12 +11,16 @@ use App\Http\Controllers\rcms\LabIncidentController;
 use App\Http\Controllers\rcms\ObservationController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\rcms\AuditProgramController;
+use App\Http\Controllers\rcms\AuditTaskController;
 use App\Http\Controllers\rcms\CapaController;
 use App\Http\Controllers\rcms\FormDivisionController;
 use App\Http\Controllers\rcms\ManagementReviewController;
 use App\Http\Controllers\rcms\RootCauseController;
 use App\Http\Controllers\RiskManagementController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\ClientInquiryController;
+use App\Http\Controllers\MeetingManagementController;
+use App\Http\Controllers\AdditionalInformationController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
 
@@ -174,6 +178,18 @@ Route::group(['prefix' => 'rcms'], function () {
              Route::get('deviation', [DeviationController::class, 'deviation']);
              Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
              Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
+             
+             Route::get('clientInquiryAuditReport/{id}', [ClientInquiryController::class, 'auditReport'])->name('deviationparentchildReport');
+             Route::get('clientinquarySingleReport/{id}', [ClientInquiryController::class, 'SingleReport'])->name('clientinquarySingleReport');
+            //  Route::get('auditDetailsClientInquiry/{id}', [ClientInquiryController::class, 'auditDetailsClientInquiry'])->name('CLientInquiryauditDetails');
+             Route::get('meetingManagementAuditReport/{id}', [MeetingManagementController::class, 'meetingauditReport'])->name('deviationparentchildReport');
+             Route::get('meetingmanagementSingleReport/{id}', [MeetingManagementController::class, 'SingleReport'])->name('meetingmanagementSingleReport');
+
+            Route::get('additionalinformationAuditReport/{id}', [AdditionalInformationController::class, 'additionalauditReport'])->name('deviationparentchildReport');
+             Route::get('additionalinformationSingleReport/{id}', [AdditionalInformationController::class, 'additionalSingleReport'])->name('additionalSingleReport');
+
+               Route::get('audittaskAuditReport/{id}', [AuditTaskController::class, 'audittaskauditReport'])->name('deviationparentchildReport');
+             Route::get('audittaskSingleReport/{id}', [AuditTaskController::class, 'auditSingleReport'])->name('auditSingleReport');
 
 
              

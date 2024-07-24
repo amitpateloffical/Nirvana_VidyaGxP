@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AdditionalInformation extends Model
+class MeetingManagement extends Model
 {
-    protected $table = 'additional_information';
+    use HasFactory;
+     protected $table = 'meeting_management';
     protected $casts = ['data' => 'array'];
 }
