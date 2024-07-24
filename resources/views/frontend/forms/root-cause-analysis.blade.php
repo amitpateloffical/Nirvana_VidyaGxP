@@ -387,16 +387,13 @@ $users = DB::table('users')->get();
                                                     <th>Initial Detectability- H(1)/M(2)/L(3)</th>
                                                     <th>Initial RPN</th>
                                                     <th>Risk Acceptance (Y/N)</th>
-                                                    <th>Proposed Additional Risk control measure (Mandatory for Risk
-                                                        elements having RPN>4)</th>
+                                                    <th>Proposed Additional Risk control measure (Mandatory for Risk elements having RPN>4)</th>
                                                     <th>Residual Severity- H(3)/M(2)/L(1)</th>
                                                     <th>Residual Probability- H(3)/M(2)/L(1)</th>
                                                     <th>Residual Detectability- H(1)/M(2)/L(3)</th>
                                                     <th>Residual RPN</th>
                                                     <th>Risk Acceptance (Y/N)</th>
-                                                    <th>Mitigation proposal (Mention either CAPA reference number, IQ,
-                                                        OQ or
-                                                        PQ)</th>
+                                                    <th>Mitigation proposal (Mention either CAPA reference number, IQ,OQ or PQ)</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -876,7 +873,7 @@ $users = DB::table('users')->get();
                                        <div class="col-md-6 mb-3">
                                            <div class="group-input">
                                                <label for="productionfeedback">Quality Control Review Completed By</label>
-                                               <input type="text" name="QualityAssurance__by" disabled>
+                                               <input type="text" name="Quality_Control_by" disabled>
                                            
                                            </div>
                                        </div>
@@ -2276,9 +2273,7 @@ $users = DB::table('users')->get();
                                 <button type="submit" class="saveButton">Save</button>
                                 <button type="button" class="backButton" onclick="previousStep()">Back</button>
                                 <button type="button" class="nextButton" onclick="nextStep()">Next</button>
-                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                        Exit </a> </button>
-
+                                <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit </a> </button>
                             </div>
                         </div>
                     </div>
@@ -2731,4 +2726,78 @@ $users = DB::table('users')->get();
         $('#rchars').text(textlen);
     });
 </script>
+
+<style>
+    #step-form>div {
+        display: none
+    }
+
+    #step-form>div:nth-child(1) {
+        display: block;
+    }
+</style>
+{{-- <script>
+    document.getElementById('myfile').addEventListener('change', function() {
+        var fileListDiv = document.querySelector('.file-list');
+        fileListDiv.innerHTML = ''; // Clear previous entries
+
+        for (var i = 0; i < this.files.length; i++) {
+            var file = this.files[i];
+            var listItem = document.createElement('div');
+            listItem.textContent = file.name;
+            fileListDiv.appendChild(listItem);
+        }
+    });
+</script> --}}
+
+<script>
+    VirtualSelect.init({
+        ele: '#reference_record, #notify_to'
+    });
+
+    $('#summernote').summernote({
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear', 'italic']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
+    $('.summernote').summernote({
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear', 'italic']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+    });
+
+    let referenceCount = 1;
+
+    function addReference() {
+        referenceCount++;
+        let newReference = document.createElement('div');
+        newReference.classList.add('row', 'reference-data-' + referenceCount);
+        newReference.innerHTML = `
+        <div class="col-lg-6">
+            <input type="text" name="reference-text">
+        </div>
+        <div class="col-lg-6">
+            <input type="file" name="references" class="myclassname">
+        </div><div class="col-lg-6">
+            <input type="file" name="references" class="myclassname">
+        </div>
+    `;
+        let referenceContainer = document.querySelector('.reference-data');
+        referenceContainer.parentNode.insertBefore(newReference, referenceContainer.nextSibling);
+    }
+</script>
+
 @endsection

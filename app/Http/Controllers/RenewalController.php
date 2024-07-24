@@ -8,23 +8,21 @@ use App\Models\RecordNumber;
 use App\Models\renewal_audit_trails;
 use App\Models\RoleGroup;
 use App\Models\Rgrid;
+use PDF;
 
 use Illuminate\Support\Facades\Auth; // Import Auth Facade
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Carbon\Carbon;
 use App\Models\User;
 
 class RenewalController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-      return view('frontend.new_forms.renewal');
+      return view('frontend.New_forms.renewal_new');
     }
 
     public function store(Request $request)
@@ -74,9 +72,8 @@ class RenewalController extends Controller
         }
          $renewal->save();
 
-         //-----------grid-----------
+//------------------------------------------grid-------------------------------------------------------------------------
          $rgrids=$renewal->id;
-
          $rgrid=Rgrid::where(['renewal_id'=>$rgrids, 'identifir'=> 'product information'])->firstOrNew();
          $rgrid->renewal_id = $rgrids;
          $rgrid->identifir = 'product information';
@@ -313,7 +310,7 @@ class RenewalController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
             $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_to ="Submission Preparation";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -329,7 +326,7 @@ class RenewalController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
             $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_to ="Submission Preparation";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -345,7 +342,7 @@ class RenewalController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
             $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_to ="Submission Preparation";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -361,7 +358,7 @@ class RenewalController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
             $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_to ="Submission Preparation";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -377,7 +374,7 @@ class RenewalController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
             $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_to ="Submission Preparation";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -393,7 +390,7 @@ class RenewalController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
             $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_to ="Submission Preparation";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -409,7 +406,7 @@ class RenewalController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
             $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_to ="Submission Preparation";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -425,7 +422,7 @@ class RenewalController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
             $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_to ="Submission Preparation";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -441,7 +438,7 @@ class RenewalController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
             $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_to ="Submission Preparation";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -456,8 +453,8 @@ class RenewalController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
-            $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_from ="RA";
+            $history->change_to ="Authority Assessment";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -472,8 +469,8 @@ class RenewalController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
-            $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_from ="RA";
+            $history->change_to ="Authority Assessment";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -488,8 +485,8 @@ class RenewalController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $renewal->status;
-            $history->change_from ="Initiator";
-            $history->change_to ="Opened";
+            $history->change_from ="RA";
+            $history->change_to ="Authority Assessment";
             $history->action_name ="Submit";        
             $history->save();
         }
@@ -502,7 +499,7 @@ class RenewalController extends Controller
             // -------------grid-----------
             $repo = Rgrid::where(['renewal_id'=> $id , 'identifir'=>'product information'])->first();
             
-            return view('frontend.new_forms.renewal-view',compact('repo','renewal'));
+            return view('frontend.New_forms.renewal-view',compact('repo','renewal'));
     }
     
     public function update(Request $request, $id)
@@ -552,7 +549,8 @@ class RenewalController extends Controller
             
             }
             $renewal->update();
-            
+
+// ----------------------------grid-update------------------------//
             $rgrids=$renewal->id;
 
             $rgrid=Rgrid::where(['renewal_id'=>$rgrids, 'identifir'=> 'product information'])->firstOrNew();
@@ -917,7 +915,8 @@ class RenewalController extends Controller
             }
 //===============================================cancel-stage===========================//
 
-    public function renewal_cancel_stage(Request $request, $id ){
+    public function renewal_cancel_stage(Request $request, $id )
+    {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)){
             $renewalstage = Renewal::find($id);
             $lastDocument = Renewal::find($id);
@@ -927,6 +926,38 @@ class RenewalController extends Controller
                     $renewalstage->cancelled_by = Auth::user()->name;
                     $renewalstage->cancelled_on = Carbon::now()->format('d-M-Y');
                     $renewalstage->cancelled_comment = $request->comment;
+
+                    $history = new renewal_audit_trails();
+                    $history->renewal_id = $id;
+                    $history->activity_type = 'Activity Log';
+                    $history->previous = "";
+                    $history->current = $renewalstage->submit_by;
+                    $history->comment = $request->comment;
+                    $history->user_id = Auth::user()->id;
+                    $history->user_name = Auth::user()->name;
+                    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                    $history->origin_state = $lastDocument->status;
+                    $history->stage = 'Authority Assessment';
+                    $history->save();
+
+
+                        $list = Helpers::getHodUserList();
+                        foreach ($list as $u) {
+                            if($u->q_m_s_divisions_id == $renewalstage->division_id){
+                                $email = Helpers::getInitiatorEmail($u->user_id);
+                                if ($email !== null) {
+                            
+                                Mail::send(
+                                    'mail.view-mail',
+                                    ['data' => $capa],
+                                    function ($message) use ($email) {
+                                        $message->to($email)
+                                            ->subject("Document is Submitted By ".Auth::user()->name);
+                                    }
+                                );
+                                }
+                        } 
+                    }
                     $renewalstage->update();
                     toastr()->success('Document Sent');
                     return back();
@@ -937,6 +968,37 @@ class RenewalController extends Controller
                     $renewalstage->cancelled_by = Auth::user()->name;
                     $renewalstage->cancelled_on = Carbon::now()->format('d-M-Y');
                     $renewalstage->cancelled_comment = $request->comment;
+                    $history = new renewal_audit_trails();
+                    $history->renewal_id = $id;
+                    $history->activity_type = 'Activity Log';
+                    $history->previous = "";
+                    $history->current = $renewalstage->submit_by;
+                    $history->comment = $request->comment;
+                    $history->user_id = Auth::user()->id;
+                    $history->user_name = Auth::user()->name;
+                    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                    $history->origin_state = $lastDocument->status;
+                    $history->stage = 'Authority Assessment';
+                    $history->save();
+
+
+                        $list = Helpers::getHodUserList();
+                        foreach ($list as $u) {
+                            if($u->q_m_s_divisions_id == $renewalstage->division_id){
+                                $email = Helpers::getInitiatorEmail($u->user_id);
+                                if ($email !== null) {
+                            
+                                Mail::send(
+                                    'mail.view-mail',
+                                    ['data' => $capa],
+                                    function ($message) use ($email) {
+                                        $message->to($email)
+                                            ->subject("Document is Submitted By ".Auth::user()->name);
+                                    }
+                                );
+                                }
+                        } 
+                    }
                     $renewalstage->update();
                     toastr()->success('Document Sent');
                     return back();
@@ -947,6 +1009,37 @@ class RenewalController extends Controller
                     $renewalstage->cancelled_by = Auth::user()->name;
                     $renewalstage->cancelled_on = Carbon::now()->format('d-M-Y');
                     $renewalstage->cancelled_comment = $request->comment;
+                    $history = new renewal_audit_trails();
+                    $history->renewal_id = $id;
+                    $history->activity_type = 'Activity Log';
+                    $history->previous = "";
+                    $history->current = $renewalstage->submit_by;
+                    $history->comment = $request->comment;
+                    $history->user_id = Auth::user()->id;
+                    $history->user_name = Auth::user()->name;
+                    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                    $history->origin_state = $lastDocument->status;
+                    $history->stage = 'Authority Assessment';
+                    $history->save();
+
+
+                        $list = Helpers::getHodUserList();
+                        foreach ($list as $u) {
+                            if($u->q_m_s_divisions_id == $renewalstage->division_id){
+                                $email = Helpers::getInitiatorEmail($u->user_id);
+                                if ($email !== null) {
+                            
+                                Mail::send(
+                                    'mail.view-mail',
+                                    ['data' => $capa],
+                                    function ($message) use ($email) {
+                                        $message->to($email)
+                                            ->subject("Document is Submitted By ".Auth::user()->name);
+                                    }
+                                );
+                                }
+                        } 
+                    }
                     $renewalstage->update();
                     toastr()->success('Document Sent');
                     return back();
@@ -961,7 +1054,8 @@ class RenewalController extends Controller
             
 //========================================stage====================================//
 
-    public function renewal_send_stage(Request $request, $id ){
+    public function renewal_send_stage(Request $request, $id )
+    {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)){
             $renewalstage = Renewal::find($id);
             $lastDocument = Renewal::find($id);
@@ -988,23 +1082,23 @@ class RenewalController extends Controller
                 $history->save();
 
 
-                //     $list = Helpers::getHodUserList();
-                //     foreach ($list as $u) {
-                //         if($u->q_m_s_divisions_id == $capa->division_id){
-                //             $email = Helpers::getInitiatorEmail($u->user_id);
-                //             if ($email !== null) {
+                    $list = Helpers::getHodUserList();
+                    foreach ($list as $u) {
+                        if($u->q_m_s_divisions_id == $renewal->division_id){
+                            $email = Helpers::getInitiatorEmail($u->user_id);
+                            if ($email !== null) {
                         
-                //             Mail::send(
-                //                 'mail.view-mail',
-                //                 ['data' => $capa],
-                //                 function ($message) use ($email) {
-                //                     $message->to($email)
-                //                         ->subject("Document is Submitted By ".Auth::user()->name);
-                //                 }
-                //             );
-                //             }
-                //     } 
-                // }
+                            Mail::send(
+                                'mail.view-mail',
+                                ['data' => $capa],
+                                function ($message) use ($email) {
+                                    $message->to($email)
+                                        ->subject("Document is Submitted By ".Auth::user()->name);
+                                }
+                            );
+                            }
+                    } 
+                }
                 $renewalstage->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -1074,23 +1168,23 @@ class RenewalController extends Controller
                 $history->save();
 
 
-                //     $list = Helpers::getHodUserList();
-                //     foreach ($list as $u) {
-                //         if($u->q_m_s_divisions_id == $capa->division_id){
-                //             $email = Helpers::getInitiatorEmail($u->user_id);
-                //             if ($email !== null) {
+                    $list = Helpers::getHodUserList();
+                    foreach ($list as $u) {
+                        if($u->q_m_s_divisions_id == $renewalstage->division_id){
+                            $email = Helpers::getInitiatorEmail($u->user_id);
+                            if ($email !== null) {
                         
-                //             Mail::send(
-                //                 'mail.view-mail',
-                //                 ['data' => $capa],
-                //                 function ($message) use ($email) {
-                //                     $message->to($email)
-                //                         ->subject("Document is Submitted By ".Auth::user()->name);
-                //                 }
-                //             );
-                //             }
-                //     } 
-                // }
+                            Mail::send(
+                                'mail.view-mail',
+                                ['data' => $capa],
+                                function ($message) use ($email) {
+                                    $message->to($email)
+                                        ->subject("Document is Submitted By ".Auth::user()->name);
+                                }
+                            );
+                            }
+                    } 
+                }
                 $renewalstage->update();
                 toastr()->success('Document Sent');
                 return back();
@@ -1112,27 +1206,27 @@ class RenewalController extends Controller
                 $history->user_name = Auth::user()->name;
                 $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $history->origin_state = $lastDocument->status;
-                $history->stage = 'Closed-Withdrawn';
+                $history->stage = 'Authority Assessment';
                 $history->save();
 
 
-                //     $list = Helpers::getHodUserList();
-                //     foreach ($list as $u) {
-                //         if($u->q_m_s_divisions_id == $capa->division_id){
-                //             $email = Helpers::getInitiatorEmail($u->user_id);
-                //             if ($email !== null) {
+                    $list = Helpers::getHodUserList();
+                    foreach ($list as $u) {
+                        if($u->q_m_s_divisions_id == $renewalstage->division_id){
+                            $email = Helpers::getInitiatorEmail($u->user_id);
+                            if ($email !== null) {
                         
-                //             Mail::send(
-                //                 'mail.view-mail',
-                //                 ['data' => $capa],
-                //                 function ($message) use ($email) {
-                //                     $message->to($email)
-                //                         ->subject("Document is Submitted By ".Auth::user()->name);
-                //                 }
-                //             );
-                //             }
-                //     } 
-                // }
+                            Mail::send(
+                                'mail.view-mail',
+                                ['data' => $capa],
+                                function ($message) use ($email) {
+                                    $message->to($email)
+                                        ->subject("Document is Submitted By ".Auth::user()->name);
+                                }
+                            );
+                            }
+                    } 
+                }
                 $renewalstage->update();
                 toastr()->success('Document Sent');
                 return back();      
@@ -1146,7 +1240,8 @@ class RenewalController extends Controller
     }
                          
 //==========================================backword-stage==============================================//
-    public function renewal_backword_stage(Request $request, $id ){
+    public function renewal_backword_stage(Request $request, $id )
+    {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)){
             $renewalstage = Renewal::find($id);
             $lastDocument = Renewal::find($id);
@@ -1157,6 +1252,38 @@ class RenewalController extends Controller
             $renewalstage->closed_retiredd_submit_by = Auth::user()->name;
             $renewalstage->closed_retired_submit_on = Carbon::now()->format('d-M-Y');
             $renewalstage->closed_retired_submit_comment = $request->comment;
+
+                $history = new renewal_audit_trails();
+                $history->renewal_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous = "";
+                $history->current = $renewalstage->submit_by;
+                $history->comment = $request->comment;
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->stage = 'Authority Assessment';
+                $history->save();
+
+
+                    $list = Helpers::getHodUserList();
+                    foreach ($list as $u) {
+                        if($u->q_m_s_divisions_id == $renewalstage->division_id){
+                            $email = Helpers::getInitiatorEmail($u->user_id);
+                            if ($email !== null) {
+                        
+                            Mail::send(
+                                'mail.view-mail',
+                                ['data' => $capa],
+                                function ($message) use ($email) {
+                                    $message->to($email)
+                                        ->subject("Document is Submitted By ".Auth::user()->name);
+                                }
+                            );
+                            }
+                    } 
+                }
             $renewalstage->update();
             toastr()->success('Document Sent');
             return back();      
@@ -1167,6 +1294,37 @@ class RenewalController extends Controller
             $renewalstage->closed_retiredd_submit_by = Auth::user()->name;
             $renewalstage->closed_retired_submit_on = Carbon::now()->format('d-M-Y');
             $renewalstage->closed_retired_submit_comment = $request->comment;
+            $history = new renewal_audit_trails();
+            $history->renewal_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->previous = "";
+            $history->current = $renewalstage->submit_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->stage = 'Authority Assessment';
+            $history->save();
+
+
+                $list = Helpers::getHodUserList();
+                foreach ($list as $u) {
+                    if($u->q_m_s_divisions_id == $renewalstage->division_id){
+                        $email = Helpers::getInitiatorEmail($u->user_id);
+                        if ($email !== null) {
+                    
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $capa],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Document is Submitted By ".Auth::user()->name);
+                            }
+                        );
+                        }
+                } 
+            }
             $renewalstage->update();
             toastr()->success('Document Sent');
             return back();      
@@ -1177,7 +1335,8 @@ class RenewalController extends Controller
         }
     }
  //===================================forword===================================================//
-    public function renewal_forword_close(Request $request, $id){
+    public function renewal_forword_close(Request $request, $id)
+    {
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)){
             $renewalstage = Renewal::find($id);
             $lastDocument = Renewal::find($id);
@@ -1189,36 +1348,36 @@ class RenewalController extends Controller
             $renewalstage->closed_not_approved_on = Carbon::now()->format('d-M-Y');
             $renewalstage->closed_not_approved_comment = $request->comment;
             $history = new renewal_audit_trails();
-                $history->renewal_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $renewalstage->submit_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Closed-Not Approved';
-                $history->save();
+            $history->renewal_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->previous = "";
+            $history->current = $renewalstage->submit_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->stage = 'Closed-Not Approved';
+            $history->save();
 
 
-                //     $list = Helpers::getHodUserList();
-                //     foreach ($list as $u) {
-                //         if($u->q_m_s_divisions_id == $capa->division_id){
-                //             $email = Helpers::getInitiatorEmail($u->user_id);
-                //             if ($email !== null) {
-                        
-                //             Mail::send(
-                //                 'mail.view-mail',
-                //                 ['data' => $capa],
-                //                 function ($message) use ($email) {
-                //                     $message->to($email)
-                //                         ->subject("Document is Submitted By ".Auth::user()->name);
-                //                 }
-                //             );
-                //             }
-                //     } 
-                // }
+                $list = Helpers::getHodUserList();
+                foreach ($list as $u) {
+                    if($u->q_m_s_divisions_id == $renewalstage->division_id){
+                        $email = Helpers::getInitiatorEmail($u->user_id);
+                        if ($email !== null) {
+                    
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $capa],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Document is Submitted By ".Auth::user()->name);
+                            }
+                        );
+                        }
+                } 
+            }
             $renewalstage->update();
             toastr()->success('Document Sent');
             return back();
@@ -1230,36 +1389,36 @@ class RenewalController extends Controller
             $renewalstage->approved_on = Carbon::now()->format('d-M-Y');
             $renewalstage->approved_comment = $request->comment;
             $history = new renewal_audit_trails();
-                $history->renewal_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $renewalstage->submit_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Approved';
-                $history->save();
+            $history->renewal_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->previous = "";
+            $history->current = $renewalstage->submit_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->stage = 'Approved';
+            $history->save();
 
 
-                //     $list = Helpers::getHodUserList();
-                //     foreach ($list as $u) {
-                //         if($u->q_m_s_divisions_id == $capa->division_id){
-                //             $email = Helpers::getInitiatorEmail($u->user_id);
-                //             if ($email !== null) {
-                        
-                //             Mail::send(
-                //                 'mail.view-mail',
-                //                 ['data' => $capa],
-                //                 function ($message) use ($email) {
-                //                     $message->to($email)
-                //                         ->subject("Document is Submitted By ".Auth::user()->name);
-                //                 }
-                //             );
-                //             }
-                //     } 
-                // }
+                $list = Helpers::getHodUserList();
+                foreach ($list as $u) {
+                    if($u->q_m_s_divisions_id == $renewalstage->division_id){
+                        $email = Helpers::getInitiatorEmail($u->user_id);
+                        if ($email !== null) {
+                    
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $capa],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Document is Submitted By ".Auth::user()->name);
+                            }
+                        );
+                        }
+                } 
+            }
             $renewalstage->update();
             toastr()->success('Document Sent');
             return back();
@@ -1271,7 +1430,8 @@ class RenewalController extends Controller
     }
 }
 //=======================================================================//
-   public function renewal_forword2_close(Request $request, $id){
+   public function renewal_forword2_close(Request $request, $id)
+   {
     if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)){
         $renewalstage = Renewal::find($id);
         $lastDocument = Renewal::find($id);
@@ -1283,36 +1443,36 @@ class RenewalController extends Controller
             $renewalstage->closed_not_approved_on = Carbon::now()->format('d-M-Y');
             $renewalstage->closed_not_approved_comment = $request->comment;
             $history = new renewal_audit_trails();
-                $history->renewal_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $renewalstage->submit_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Registration Update';
-                $history->save();
+            $history->renewal_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->previous = "";
+            $history->current = $renewalstage->submit_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->stage = 'Registration Update';
+            $history->save();
 
 
-                //     $list = Helpers::getHodUserList();
-                //     foreach ($list as $u) {
-                //         if($u->q_m_s_divisions_id == $capa->division_id){
-                //             $email = Helpers::getInitiatorEmail($u->user_id);
-                //             if ($email !== null) {
-                        
-                //             Mail::send(
-                //                 'mail.view-mail',
-                //                 ['data' => $capa],
-                //                 function ($message) use ($email) {
-                //                     $message->to($email)
-                //                         ->subject("Document is Submitted By ".Auth::user()->name);
-                //                 }
-                //             );
-                //             }
-                //     } 
-                // }
+                $list = Helpers::getHodUserList();
+                foreach ($list as $u) {
+                    if($u->q_m_s_divisions_id == $renewalstage->division_id){
+                        $email = Helpers::getInitiatorEmail($u->user_id);
+                        if ($email !== null) {
+                    
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $capa],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Document is Submitted By ".Auth::user()->name);
+                            }
+                        );
+                        }
+                } 
+            }
             $renewalstage->update();
             toastr()->success('Document Sent');
             return back();
@@ -1324,36 +1484,36 @@ class RenewalController extends Controller
             $renewalstage->approved_on = Carbon::now()->format('d-M-Y');
             $renewalstage->approved_comment = $request->comment;
             $history = new renewal_audit_trails();
-                $history->renewal_id = $id;
-                $history->activity_type = 'Activity Log';
-                $history->previous = "";
-                $history->current = $renewalstage->submit_by;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastDocument->status;
-                $history->stage = 'Registration Retired';
-                $history->save();
+            $history->renewal_id = $id;
+            $history->activity_type = 'Activity Log';
+            $history->previous = "";
+            $history->current = $renewalstage->submit_by;
+            $history->comment = $request->comment;
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lastDocument->status;
+            $history->stage = 'Registration Retired';
+            $history->save();
 
 
-                //     $list = Helpers::getHodUserList();
-                //     foreach ($list as $u) {
-                //         if($u->q_m_s_divisions_id == $capa->division_id){
-                //             $email = Helpers::getInitiatorEmail($u->user_id);
-                //             if ($email !== null) {
-                        
-                //             Mail::send(
-                //                 'mail.view-mail',
-                //                 ['data' => $capa],
-                //                 function ($message) use ($email) {
-                //                     $message->to($email)
-                //                         ->subject("Document is Submitted By ".Auth::user()->name);
-                //                 }
-                //             );
-                //             }
-                //     } 
-                // }
+                $list = Helpers::getHodUserList();
+                foreach ($list as $u) {
+                    if($u->q_m_s_divisions_id == $renewalstage->division_id){
+                        $email = Helpers::getInitiatorEmail($u->user_id);
+                        if ($email !== null) {
+                    
+                        Mail::send(
+                            'mail.view-mail',
+                            ['data' => $capa],
+                            function ($message) use ($email) {
+                                $message->to($email)
+                                    ->subject("Document is Submitted By ".Auth::user()->name);
+                            }
+                        );
+                        }
+                } 
+            }
             $renewalstage->update();
             toastr()->success('Document Sent');
             return back();
@@ -1370,7 +1530,8 @@ class RenewalController extends Controller
 
         }
 //===========================audit-trail=========================================/
-    public function renewalAuditTrial($id){
+    public function renewalAuditTrial($id)
+    {
         $audit = renewal_audit_trails::where('renewal_id', $id)->orderByDESC('id')->paginate(5);
         $today = Carbon::now()->format('d-m-y');
         $document = Renewal::where('id', $id)->first();
@@ -1378,15 +1539,15 @@ class RenewalController extends Controller
 
         return view("frontend.New_forms.renewal-audit-trail", compact('audit', 'document', 'today'));
     }
-    //=====================================================single-report====================================================//
+//=====================================================single-report====================================================//
     public static function singleReport($id)
     {    
-        $data = RenewalController::find($id);
+        $data = Renewal::find($id);
         if (!empty($data)) {
             $data->originator_id = User::where('id', $data->initiator_id)->value('name');
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.renewal-cause-analysis.singleReport', compact('data'))
+            $pdf = PDF::loadview('frontend.New_forms.renewal-single-report', compact('data'))
                 ->setOptions([
                     'defaultFont' => 'sans-serif',
                     'isHtml5ParserEnabled' => true,
@@ -1406,13 +1567,13 @@ class RenewalController extends Controller
 //===================================audit-report==============================//
     public static function auditReport($id)
     {
-        $doc = RenewalController::find($id);
+        $doc = Renewal::find($id);
         if (!empty($doc)) {
             $doc->originator_id = User::where('id', $doc->initiator_id)->value('name');
             $data = renewal_audit_trails::where('renewal_id', $id)->get();
             $pdf = App::make('dompdf.wrapper');
             $time = Carbon::now();
-            $pdf = PDF::loadview('frontend.renewal-cause-analysis.auditReport', compact('data', 'doc'))
+            $pdf = PDF::loadview('frontend.New_forms.renewal-audit-report', compact('data', 'doc'))
                 ->setOptions([
                     'defaultFont' => 'sans-serif',
                     'isHtml5ParserEnabled' => true,

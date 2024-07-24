@@ -533,7 +533,7 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Renewal Rule">(Parent) Renewal Rule</label>
-                                    <select name="">
+                                    <select name="renewal_rule">
                                         <option >--select--</option>
                                         <option value="1"{{ $renewal->renewal_rule == '1' ? 'selected' : ''  }}>1</option>
                                         <option value="2"{{ $renewal->renewal_rule == '2' ? 'selected' : ''  }}>2</option>
@@ -628,61 +628,61 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Started by">Started By</label>
-                                    <div class="static"></div>
+                                    <div class="static" name ="started_by"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Started on">Started On</label>
-                                    <div class="static"></div>
+                                    <div class="static" name="started_on"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Submitted by">Submitted By</label>
-                                    <div class="static"></div>
+                                    <div class="static" name="submitted_by"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Submitted on">Submitted On</label>
-                                    <div class="static"></div>
+                                    <div class="static"name="submitted_on"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Approved_by">Approved By</label>
-                                    <div class="static"></div>
+                                    <div class="static" name="approved_by"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Approved_on">Approved On</label>
-                                    <div class="static"></div>
+                                    <div class="static" name="approved_on"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Withdrawn_by">Withdrawn By</label>
-                                    <div class="static"></div>
+                                    <div class="static" name="withdrawn_by"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Withdrawn on">Withdrawn On</label>
-                                    <div class="static"></div>
+                                    <div class="static" name="withdrawn_on"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Refused">Refused By</label>
-                                    <div class="static"></div>
+                                    <div class="static" name="refused_by"></div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Refused on">Refused On</label>
-                                    <div class="static"></div>
+                                    <div class="static" name="refused_on"></div>
                                 </div>
                             </div>
 

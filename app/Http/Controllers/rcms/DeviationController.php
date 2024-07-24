@@ -1111,6 +1111,7 @@ class DeviationController extends Controller
         $deviation->QA_Feedbacks = $request->QA_Feedbacks;
         $deviation->Closure_Comments = $request->Closure_Comments;
         $deviation->Disposition_Batch = $request->Disposition_Batch;
+        
         $Cft = DeviationCft::withoutTrashed()->where('deviation_id', $id)->first();
         $Cft->Production_Review = $request->Production_Review;
         $Cft->Production_person = $request->Production_person;
