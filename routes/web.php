@@ -31,12 +31,14 @@ use App\Http\Controllers\tms\QuestionBankController;
 use App\Http\Controllers\tms\QuestionController;
 use App\Http\Controllers\tms\QuizeController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\ctms\ClinicalSiteController;
 use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\newForm\MedicalRegistrationController;
 use App\Http\Controllers\newForm\QualityFollolwupController;
 use App\Http\Controllers\Product_ValidationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -456,7 +458,7 @@ Route::view('monitoring_visit', 'frontend.ctms.monitoring_visit');
 Route::view('investigational_nda_anda', 'frontend.ctms.investigational_nda_anda');
 Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
 Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
-Route::view('clinical_site', 'frontend.ctms.clinical_site');
+// Route::view('clinical_site', 'frontend.ctms.clinical_site');
 
 Route::view('cta_submission', 'frontend.ctms.cta_submission');
 Route::view('masking', 'frontend.ctms.masking');
@@ -591,14 +593,26 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 // ===============OOt form==========================\
 Route::view('OOT_form', 'frontend.OOT.OOT_form');
 
-// ========recommended action===============
-Route::view('recommended_action_new', 'frontend.OOS.recommended_action');
+// ===============Additional Testing==========================\
+Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
 
-// ========follow up task===============
-Route::view('follow_up_task', 'frontend.newform.follow_up_task');
 
-// ========Analyst Interview===============
-Route::view('analyst_interview', 'frontend.newform.analyst_interview');
 
-// ========Hypothesis ===============
-Route::view('hypothesis', 'frontend.newform.hypothesis');
+
+
+// ========================================ClinicalSite start===============================
+
+Route::get('clinicalsiteindex',[ClinicalSiteController::class,'index'])->name('clinicalsite');
+Route::post('clinicalsitestore',[ClinicalSiteController::class,'store'])->name('clinicstore');
+Route::get('clinicalsiteshow/{id}',[ClinicalSiteController::class,'show'])->name('clinicshow');
+Route::put('clinicalsiteupdate/{id}',[ClinicalSiteController::class,'update'])->name('clinicupdate');
+Route::get('clinicalsiteAuditReport/{id}', [ClinicalSiteController::class, 'clinicalsiteAuditTrial'])->name('clinicalsiteAuditReport');
+Route::post('clinicalsitestagechange/{id}',[ClinicalSiteController::class,'ClinicalSiteStateChange'])->name('clin_site_stagechange');
+Route::post('clinicalsiteCansilstagechange/{id}',[ClinicalSiteController::class,'ClinicalSiteCancel'])->name('cansilstagechange');
+// Route::get('clinetauditTrailPdf/{id}', [ClinicalSiteController::class, 'auditTrailPdf'])->name('clinicalsiteTrailPdf');
+Route::post('clinicalsiteChild/{id}', [ClinicalSiteController::class, 'ClinicalChild'])->name('ClinicalsiteChild');
+
+
+
+
+// ========================================ClinicalSite end===============================
