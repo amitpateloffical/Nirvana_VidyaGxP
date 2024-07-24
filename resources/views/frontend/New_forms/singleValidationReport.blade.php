@@ -337,7 +337,7 @@
 
                         <tr>
                             <th class="w-30">Test End Date</th>
-                            <td class="w-20">@if($data->test_end_date){{\Carbon\}}@else Not Applicable @endif</td>
+                            <td class="w-20">@if($data->test_end_date){{ $data->test_end_date }}@else Not Applicable @endif</td>
                         </tr>
 
                         <tr>
@@ -366,72 +366,49 @@
             </div>
 
 
-
-
-
             <div class="block">
-                <div class="block-head">
-                    Signatures
+                {{-- <div class="block"> --}}
+                {{-- <div class="block-head"> --}}
+                <div style="font-weight: 200">Affected Equipment</div>
+                {{-- </div> --}}
+                <div class="border-table">
+                    <table>
+                        <tr class="table_bg">
+                            <th class="w-10">Sr. No.</th>
+                            <th class="w-20">Equipment Name/Code</th>
+                            <th class="w-20">Equipment ID</th>
+                            <th class="w-20">Asset No</th>
+                            <th class="w-20">Remarks</th>
+                        </tr>
+
+                        @php
+                        $data = $gridData->data ? json_decode($gridData->data, true) : null;
+                        @endphp
+
+                        @if ($data && is_array($data))
+                        @foreach ($data as $index => $item)
+                        <tr>
+                            <td>{{ $loop->index + 1 }}.</td>
+                            <td>{{ isset($item['equipment_name_code']) ? $item['equipment_name_code'] : '' }}</td>
+                            <td>{{ isset($item['equipment_id']) ? $item['equipment_id'] : '' }}</td>
+                            <td>{{ isset($item['asset_no']) ? $item['asset_no'] : '' }}</td>
+                            <td>{{ isset($item['remarks']) ? $item['remarks'] : '' }}</td>
+                        </tr>
+                        @endforeach
+                        @else
+                        <tr>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                            <td>Not Applicable</td>
+                        </tr>
+                        @endif
+                    </table>
                 </div>
-                <table>
-                    <tr>
-                        <th class="w-20">Submitted Protocol By</th>
-                        <td class="w-30">{{ $data->audit_schedule_by }}</td>
-                        <th class="w-20">Submitted Protocol On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->created_at) }}</td>
-                        <th class="w-20">Cancelled By</th>
-                        {{-- <td class="w-30">{{ $data }}</td> --}}
-                        <th class="w-20">Cancelled On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->cancelled_on) }}</td>
-                        {{-- <td class="w-30">{{ $data }}</td> --}}
-                    </tr>
-                    <tr>
-                        <th class="w-20">Review By</th>
-                        <td class="w-30">{{ $data->cancelled_by}}</td>
-                        <th class="w-20">Review On</th>
-                        <!-- <td class="w-30">{{ Helpers::getdateFormat($data->cancelled_on) }}</td>
-                        <th class="w-20">HOD Review Comments</th> -->
-                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
-                    </tr>
-                    <tr>
-                        <th class="w-20">1st Final Approval By</th>
-                        <td class="w-30">{{ $data->audit_observation_submitted_by }}</td>
-                        <th class="w-20">1st Final Approval On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_observation_submitted_on)  }}</td>
-                        <th class="w-20">2nd Final Approval By</th>
-                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
-                        <th class="w-20">2nd Final Approval On</th>
-                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
-                        <th class="w-20">Report Reject By</th>
-                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
-                        <th class="w-20">Report Reject On</th>
-                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
-                    </tr>
-                    <!-- <tr>
-                        <th class="w-20">QA Final Review Complete By</th>
-                        <td class="w-30">{{ $data->audit_mgr_more_info_reqd_by }}</td>
-                        <th class="w-20">QA Final Review Complete On</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_mgr_more_info_reqd_on) }}</td>
-                        <th class="w-20">QA Final Review Comments</th>
-                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
-                    </tr>
-                    <tr>
-                        <th class="w-20">Approved By</th>
-                        <td class="w-30">{{ $data->audit_observation_submitted_by }}</td>
-                        <th class="w-20">Approved ON</th>
-                        <td class="w-30">{{ Helpers::getdateFormat($data->audit_observation_submitted_on) }}</td>
-                        <th class="w-20">Approved Comments</th>
-                        {{-- <td class="w-30">{{ $data-> }}</td> --}}
-                   
- -->
-
-                </table>
+                {{-- </div> --}}
             </div>
-        </div>
-
-    </div>
-
-
+            <div>
 
 </body>
 

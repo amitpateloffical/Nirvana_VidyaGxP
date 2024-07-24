@@ -459,7 +459,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="phase_type">Phase Level</label>
                                     <select name="phase_type">
-                                        <!-- <option value="">Enter Your Selection Here</option> -->
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if ($validation->phase_type == 1) selected @endif>1</option>
                                         <option value="2" @if ($validation->phase_type == 2) selected @endif>2</option>
                                         <option value="3" @if ($validation->phase_type == 3) selected @endif>3</option>
@@ -475,7 +475,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Type">Document Reason</label>
                                     <select name="document_reason_type">
-                                        <!-- <option value="">Enter Your Selection Here</option> -->
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="yes" @if ($validation->document_reason_type == 'yes') selected @endif>yes</option>
                                         <option value="No" @if ($validation->document_reason_type == 'No') selected @endif>No</option>
                                     </select>
@@ -493,7 +493,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Outcome">Validation Category</label>
                                     <select name="validation_category">
-                                        <!-- <option value="">Enter Your Selection Here</option> -->
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if ($validation->validation_category == 1) selected @endif>1</option>
                                         <option value="2" @if ($validation->validation_category == 2) selected @endif>2</option>
                                         <option value="3" @if ($validation->validation_category == 3) selected @endif>3</option>
@@ -504,7 +504,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Patient_Involved">Validation Sub Category</label>
                                     <select name="validation_sub_category">
-                                        <!-- <option value="">Enter Your Selection Here</option> -->
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if ($validation->validation_sub_category == 1) selected @endif>1</option>
                                         <option value="2" @if ($validation->validation_sub_category == 2) selected @endif>2</option>
                                         <option value="3" @if ($validation->validation_sub_category == 3) selected @endif>3</option>
@@ -542,12 +542,10 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Reference Recores"> Related Records</label>
                                     <select multiple id="reference_record" name="related_record" id="">
-                                        <!-- <option value="">--Select---</option> -->
+                                        <option value="">--Select---</option>
                                         <option value="1" @if ($validation->related_record==1 ) selected @endif>Pankaj</option>
                                         <option value="2" @if ($validation->related_record==2) selected @endif>Gourav</option>
 
-                                        <!-- <option value="Pankaj">Pankaj</option>
-                                        <option value="Gourav">Gourav</option> -->
                                     </select>
                                 </div>
                             </div>
@@ -564,11 +562,10 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Type">Tests Required</label>
                                     <select name="tests_required">
-                                        <!-- <option value="">Enter Your Selection Here</option> -->
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if ($validation->tests_required == 1) selected @endif>Yes</option>
                                         <option value="2" @if ($validation->tests_required == 2) selected @endif>No</option>
-                                        <!-- <option value="Yes">Yes</option>
-                                        <option value="No">No</option> -->
+
                                     </select>
                                 </div>
                             </div>
@@ -577,11 +574,10 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="Type">Refrence Document</label>
                                     <select name="reference_document">
-                                        <!-- <option value="">Enter Your Selection Here</option> -->
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if ($validation->reference_document == 1) selected @endif>Yes</option>
                                         <option value="2" @if ($validation->reference_document == 2) selected @endif>Yes</option>
-                                        <!-- <option value="Yes">yes</option>
-                                        <option value="No">No</option> -->
+
                                     </select>
                                 </div>
                             </div>
