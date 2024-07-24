@@ -14,16 +14,18 @@ use App\Models\RiskManagement;
 use App\Models\LabIncident;
 use App\Models\Auditee;
 use App\Models\AuditProgram;
+use App\Models\Calibration;
+use App\Models\Sanction;
+use App\Models\Validation;
 use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 use App\Models\Deviation;
-use App\Models\MedicalDeviceRegistration;
-
-use App\Models\LabInvestigation_AuditTrails;
-use App\Models\LabInvestigation;
-use App\Models\labInvestigationgrid;
+use App\Models\Equipment;
+use App\Models\MonthlyWorking;
+use App\Models\NationalApproval;
 use Helpers;
 use App\Models\User;
+use App\Models\ValidationAudit;
 use Carbon\Carbon;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -70,10 +72,15 @@ class DashboardController extends Controller
         $datas11 = RootCauseAnalysis::orderByDesc('id')->get();
         $datas12 = Observation::orderByDesc('id')->get();
         $datas13 = Deviation::orderByDesc('id')->get();
-        $datas15 = MedicalDeviceRegistration::orderByDesc('id')->get();
-        $datas17 = LabInvestigation::orderByDesc('id')->get();
+        $datas14 = Validation::orderByDesc('id')->get();
+        $datas15 = Equipment::orderByDesc('id')->get();
+        $datas16 = Calibration::orderByDesc('id')->get();
+        $datas17 = NationalApproval::orderByDesc('id')->get();
+        $datas18 = Sanction::orderByDesc('id')->get();
+        $datas19 = MonthlyWorking::orderByDesc('id')->get();
 
 
+        // $datas16 = ClinicalSite::orderByDesc('id')->get();
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
 
@@ -340,6 +347,26 @@ class DashboardController extends Controller
                 "date_close" => $data->updated_at,
             ]);
         }
+        foreach ($datas14 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Validation",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
         foreach ($datas15 as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
 
@@ -348,18 +375,37 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "division_id" => $data->division_id,
-                "type" => "MedicalDeviceRegistration",
+                "type" => "Equipment",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
                 "initiator_id" => $data->initiator_id,
-                "intiation_date" => $data->intiation_date,
+                "intiation_date" => $data->initiation_date,
                 "stage" => $data->status,
                 "date_open" => $data->create,
                 "date_close" => $data->updated_at,
             ]);
         }
 
+        foreach ($datas16 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Calibration",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->initiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
         foreach ($datas17 as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
 
@@ -368,23 +414,64 @@ class DashboardController extends Controller
                 "parent" => $data->parent_record ? $data->parent_record : "-",
                 "record" => $data->record,
                 "division_id" => $data->division_id,
-                "type" => "lab-investigation",
+                "type" => "National Approval",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
                 "short_description" => $data->short_description ? $data->short_description : "-",
                 "initiator_id" => $data->initiator_id,
-                "intiation_date" => $data->intiation_date,
+                "intiation_date" => $data->initiation_date,
                 "stage" => $data->status,
                 "date_open" => $data->create,
                 "date_close" => $data->updated_at,
             ]);
         }
+
+        foreach ($datas18 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Sanction",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->initiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas19 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "MonthlyWorking",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->initiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
         // return $table;
         // $paginatedData = json_encode($table);
 
-      //  $datag = $this->paginate($table);
-      $datag = $this->paginate($table);
+        //  $datag = $this->paginate($table);
+        $datag = $this->paginate($table);
         //   $paginatedData = json_encode($datag);
 
         return view('frontend.rcms.dashboard', compact('datag'));
@@ -518,7 +605,7 @@ class DashboardController extends Controller
                         "type" => "Extension",
                         "short_description" => $data->short_description ? $data->short_description : "-",
                         "initiator_id" => $data->initiator_id,
-                        "intiation_date" => $data->intiation_date,
+                        "intiation_date" => $data->initiation_date,
                         "stage" => $data->status,
                         "date_open" => $data->created_at,
                         "date_close" => $data->updated_at,
@@ -570,6 +657,50 @@ class DashboardController extends Controller
                         "parent" => $data2->parent_record ? $data2->parent_record : "-",
                         "record" => $data2->record,
                         "type" => "Internal-Audit",
+                        "parent_id" => $data2->parent_id,
+                        "parent_type" => $data2->parent_type,
+                        "division_id" => $data2->division_id,
+                        "short_description" => $data2->short_description ? $data2->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "intiation_date" => $data2->intiation_date,
+                        "stage" => $data2->status,
+                        "date_open" => $data2->create,
+                        "date_close" => $data2->updated_at,
+                    ]
+                );
+            }
+            if ($data->parent_type == "Product Validation") {
+                $data2 = InternalAudit::where('id', $data->parent_id)->first();
+                $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
+                array_push(
+                    $table,
+                    [
+                        "id" => $data2->id,
+                        "parent" => $data2->parent_record ? $data2->parent_record : "-",
+                        "record" => $data2->record,
+                        "type" => "Product Validation",
+                        "parent_id" => $data2->parent_id,
+                        "parent_type" => $data2->parent_type,
+                        "division_id" => $data2->division_id,
+                        "short_description" => $data2->short_description ? $data2->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "intiation_date" => $data2->intiation_date,
+                        "stage" => $data2->status,
+                        "date_open" => $data2->create,
+                        "date_close" => $data2->updated_at,
+                    ]
+                );
+            }
+            if ($data->parent_type == "QualityFollowup") {
+                $data2 = InternalAudit::where('id', $data->parent_id)->first();
+                $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
+                array_push(
+                    $table,
+                    [
+                        "id" => $data2->id,
+                        "parent" => $data2->parent_record ? $data2->parent_record : "-",
+                        "record" => $data2->record,
+                        "type" => "QualityFollowup",
                         "parent_id" => $data2->parent_id,
                         "parent_type" => $data2->parent_type,
                         "division_id" => $data2->division_id,
@@ -670,6 +801,28 @@ class DashboardController extends Controller
                     ]
                 );
             }
+            if ($data->parent_type == "Validation_audit") {
+                $data2 = ValidationAudit::where('id', $data->parent_id)->first();
+                $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
+                array_push(
+                    $table,
+                    [
+                        "id" => $data2->id,
+                        "parent" => $data2->parent_record ? $data2->parent_record : "-",
+                        "record" => $data2->record,
+                        "type" => "Validation-Audit",
+                        "parent_id" => $data2->parent_id,
+                        "parent_type" => $data2->parent_type,
+                        "division_id" => $data2->division_id,
+                        "short_description" => $data2->short_description ? $data2->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "intiation_date" => $data2->intiation_date,
+                        "stage" => $data2->status,
+                        "date_open" => $data2->create,
+                        "date_close" => $data2->updated_at,
+                    ]
+                );
+            }
             if ($data->parent_type == "Change_control") {
                 $data2 = CC::where('id', $data->parent_id)->first();
                 $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
@@ -741,19 +894,22 @@ class DashboardController extends Controller
             $data = ActionItem::find($id);
             $single = "actionitemSingleReport/"  . $data->id;
             $audit = "actionitemAuditReport/" . $data->id;
+        } elseif ($type == "QualityFollowUp") {
+            $data = ActionItem::find($id);
+            $single = "qualityFollowUpSingleReport/"  . $data->id;
+            $audit = "qualityFollowUpAuditReport/" . $data->id;
         } elseif ($type == "Extension") {
             $data = Extension::find($id);
-            $single = "extensionSingleReport/" .$data->id;
-            $audit = "extensionAuditReport/" .$data->id;
-
+            $single = "extensionSingleReport/" . $data->id;
+            $audit = "extensionAuditReport/" . $data->id;
         } elseif ($type == "Observation") {
             $data = Observation::find($id);
             $single = "#";
-            $audit = "ObservationAuditTrialShow/" .$data->id;
+            $audit = "ObservationAuditTrialShow/" . $data->id;
         } elseif ($type == "Effectiveness-Check") {
             $data = EffectivenessCheck::find($id);
-            $single = "effectiveSingleReport/" .$data->id;
-            $audit = "effectiveAuditReport/" .$data->id;
+            $single = "effectiveSingleReport/" . $data->id;
+            $audit = "effectiveAuditReport/" . $data->id;
         } elseif ($type == "Management-Review") {
             $data = ManagementReview::find($id);
             $single = "managementReview/" . $data->id;
@@ -785,11 +941,94 @@ class DashboardController extends Controller
         
         elseif ($type == "Deviation") {
             $data = Deviation::find($id);
-            $single = "deviationSingleReport/". $data->id;
+            $single = "deviationSingleReport/" . $data->id;
             $audit = "#";
-            $parent="deviationparentchildReport/". $data->id;
+            $parent = "deviationparentchildReport/" . $data->id;
+        } elseif ($type == "Validation") {
+            $data = Validation::find($id);
+            $single = "validationSingleReport/" . $data->id;
+            $audit = "audit_validationPdf/" . $data->id;
+            $parent = "validationparentchildReport/" . $data->id;
+        } elseif ($type == "Equipment") {
+            $data = Equipment::find($id);
+            $single = "equipmentSingleReport/" . $data->id;
+            $audit = "audit_pdf/" . $data->id;
+            $parent = "equipmentparentchildReport/" . $data->id;
+        } elseif ($type == "Calibration") {
+            $data = Calibration::find($id);
+            $single = "calibrationSingleReport/" . $data->id;
+            $audit = "calibration_audit/" . $data->id;
+            $parent = "calibrationparentchildReport/" . $data->id;
+        } elseif ($type == "National Approval") {
+            $data = NationalApproval::find($id);
+            $single = "national_approvalSingleReport/" . $data->id;
+            $audit = "np_audit/" . $data->id;
+            $parent = "calibrationparentchildReport/" . $data->id;
+        } elseif ($type == "Sanction") {
+            $data = Sanction::find($id);
+            $single = "sanctionSingleReport/" . $data->id;
+            $audit = "sanction_audit/" . $data->id;
+            $parent = "sanctionparentchildReport/" . $data->id;
+        } elseif ($type == "MonthlyWorking") {
+            $data = MonthlyWorking::find($id);
+            $single = "monthlySingleReport/" . $data->id;
+            $audit = "monthly_audit/" . $data->id;
+            $parent = "monthlyparentchildReport/" . $data->id;
+        } elseif ($type == "Dossier Documents") {
+            $data = DosierDocuments::find($id);
+            $single = "dosierdocuments/single_report/" . $data->id;
+            $audit = "dosierdocuments/audit_report/" . $data->id;
+            $parent = "deviationparentchildReport/" . $data->id;
+        } elseif ($type == "Preventive Maintenance") {
+            $data = PreventiveMaintenances::find($id);
+            $single = "preventivemaintenance/single_report/" . $data->id;
+            $audit = "preventivemaintenance/audit_report/" . $data->id;
+            $parent = "deviationparentchildReport/" . $data->id;
+        } elseif ($type == "ClinicalSite") {
+            $data = ClinicalSite::find($id);
+            $audit = "pdf/" . $data->id;
+            $single = "pdf-report/" . $data->id;
+            $parent = "deviationparentchildReport/" . $data->id;
+
+            // $division = QMSDivision::find($data->division_id);
+            // $division_name = $division->name;
+
+        } elseif ($type == "Gcp-Study") {
+            $data = GcpStudy::find($id);
+            $single = "GCP_study/SingleReport/" . $data->id;
+            $audit = "GCP_study/AuditTrailPdf/" . $data->id;
+            $parent = "/" . $data->id;
+        } elseif ($type == "Supplier-Contract") {
+            $data = SupplierContract::find($id);
+            $single = "supplier_contract/SingleReport/" . $data->id;
+            $audit = "supplier_contract/AuditTrailPdf/" . $data->id;
+            $parent = "/" . $data->id;
+        } elseif ($type == "Subject-Action-Item") {
+            $data = SubjectActionItem::find($id);
+            $single = "subject_action_item/SingleReport/" . $data->id;
+            $audit = "subject_action_item/AuditTrailPdf/" . $data->id;
+            $parent = "/" . $data->id;
+        } elseif ($type == "Violation") {
+            $data = Violation::find($id);
+            $single = "Violation/SingleReport/" . $data->id;
+            $audit = "Violation/AuditTrailPdf/" . $data->id;
+            $parent = "/" . $data->id;
+        } elseif ($type == "CTA-Amendement") {
+            $data = CTAAmendement::find($id);
+            $single = "CTA_Amendement/SingleReport/" . $data->id;
+            $audit = "CTA_Amendement/AuditTrailPdf/" . $data->id;
+            $parent = "/" . $data->id;
+        } elseif ($type == "Correspondence") {
+            $data = Correspondence::find($id);
+            $single = "correspondence/SingleReport/" . $data->id;
+            $audit = "correspondence/AuditTrailPdf/" . $data->id;
+            $parent = "/" . $data->id;
+        } elseif ($type == "CTL-Audit") {
+            $data = ContractTestingLabAudit::find($id);
+            $single = "ctl_audit/SingleReport/" . $data->id;
+            $audit = "ctl_audit/AuditTrailPdf/" . $data->id;
+            $parent = "/" . $data->id;
         }
-       
 
         $html = '';
         $html = '<div class="block">

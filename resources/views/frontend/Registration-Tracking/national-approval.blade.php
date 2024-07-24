@@ -32,8 +32,8 @@
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">National Approval</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Approval Plan</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Manufacturer detail</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Registration information</button>
+            <!-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Manufacturer detail</button> -->
+            <!-- <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Registration information</button> -->
             <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signatures</button>
         </div>
 
@@ -348,7 +348,7 @@
                     </div>
                 </div>
 
-                <div id="CCForm3" class="inner-block cctabcontent">
+                <!-- <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
 
@@ -361,9 +361,9 @@
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div id="CCForm4" class="inner-block cctabcontent">
+                <!-- <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
 
@@ -376,7 +376,7 @@
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div id="CCForm5" class="inner-block cctabcontent">
                     <div class="inner-block-content">
