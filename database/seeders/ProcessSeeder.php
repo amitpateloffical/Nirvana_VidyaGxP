@@ -75,7 +75,8 @@ class ProcessSeeder extends Seeder
             "New Document",
             "Lab Incident",
             "Effective Check",
-            "Deviation"
+            "Deviation",
+            "Clinical Site"
         ];
 
         // Loop through each process name

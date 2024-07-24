@@ -1,5 +1,6 @@
 @extends('frontend.layout.main')
 @section('container')
+
 <style>
     textarea.note-codable {
         display: none !important;
@@ -19,13 +20,13 @@
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
 
-                    '<td><input type="text" name="Transaction[]"></td>' +
-                    '<td><input type="text" name="TransactionType[]"></td>' +
-                    '<td><input type="date" name="Date[]"></td>' +
-                    '<td><input type="number" name="Amount[]"></td>' +
-                    '<td><input type="text" name="Currencyused[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>' +
-
+                    '<td><input type="text" name="financial_transaction[' + serialNumber + '][Transaction]"></td>' +
+                    '<td><input type="text" name="financial_transaction[' + serialNumber + '][TransactionType]"></td>' +
+                    '<td><input type="date" name="financial_transaction[' + serialNumber + '][Date]"></td>' +
+                    '<td><input type="number" name="financial_transaction[' + serialNumber + '][Amount]"></td>' +
+                    '<td><input type="text" name="financial_transaction[' + serialNumber + '][CurrencyUsed]"></td>' +
+                    '<td><input type="text" name="financial_transaction[' + serialNumber + '][Remarks]"></td>' +
+                    '<td><button type="text" class="removeRowBtn">Remove</button></td>' +
 
                     //     '</tr>';
 
@@ -33,7 +34,7 @@
                     //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     // }
 
-                    // html += '</select></td>' + 
+                    // html += '</select></td>' +
 
                     '</tr>';
 
@@ -47,6 +48,9 @@
         });
     });
 </script>
+
+
+
 <div class="form-field-head">
     {{-- <div class="pr-id">
             New Child
@@ -70,10 +74,9 @@
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Contract</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Contract Detail</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
-
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('supplier_contract.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -90,19 +93,31 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
+                                    <label for="Initiator"> Record Number </label>
+                                    <input disabled type="text" name="record"
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Supplier-Contract/{{ date('Y') }}/{{ $record_number }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
-
-                                    <input type="text" disabled name="record_number" value="">
-
-
+                                    <input type="text" disabled name="initiator_id" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date of Initiation</b></label>
-                                    
-                                    <input disabled type="date" name="division_code" value="">
+                                    <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
 
                                 </div>
                             </div>
@@ -111,8 +126,8 @@
                             <div class="col-12">
                                 <div class="group-input">
                                     <label for="Short Description">Short Description<span class="text-danger">*</span>
-                                        <p>255 Characters remaining</p>
-                                        <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                    <p>255 Characters remaining</p>
+                                    <input id="docname" type="text" name="short_description_gi" maxlength="255" required>
                                 </div>
                             </div>
 
@@ -121,20 +136,20 @@
                                     <label  for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-                                    
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
-                                        <option value="">Select a value</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
 
-                                        
+                                    <select id="select-state" placeholder="Select..." name="assign_to_gi">
+                                        <option value="">Select a value</option>
+                                            @if(!empty($users))
+                                                @foreach ($users as $user)
+                                                  <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                @endforeach
+                                            @endif
 
                                     </select>
 
                                 </div>
                             </div>
-                            <div class="col-md-6 new-date-data-field">
+                            {{--<div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <p class="text-primary">Please mention expected date of completion</p>
@@ -143,15 +158,64 @@
                                         <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
                                 </div>
+                            </div>--}}
+
+
+                                @php
+                                    // Calculate the due date (30 days from the initiation date)
+                                    $initiationDate = date('Y-m-d'); // Current date as initiation date
+                                    $dueDate = date('Y-m-d', strtotime($initiationDate . '+30 days')); // Due date
+                                @endphp
+
+                            <div class="col-lg-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="Due Date">Due Date</label>
+                                    {{--<div><small class="text-primary">If revising Due Date, kindly mention revision
+                                            reason in "Due Date Extension Justification" data field.</small></div>--}}
+                                    <div class="calenderauditee">
+                                        <input type="text" id="due_date" readonly placeholder="DD-MM-YYYY" />
+                                        <input type="date" name="due_date" id="due_date" disabled
+                                            min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input"
+                                            oninput="handleDateInput(this, 'due_date')" />
+                                    </div>
+                                </div>
                             </div>
+
+                            <script>
+                           // Format the due date to DD-MM-YYYY
+                                    // Your input date
+                                    var dueDate = "{{ $dueDate }}"; // Replace {{ $dueDate }} with your actual date variable
+
+                                    // Create a Date object
+                                    var date = new Date(dueDate);
+
+                                    // Array of month names
+                                    var monthNames = [
+                                        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                                    ];
+
+                                    // Extracting day, month, and year from the date
+                                    var day = date.getDate().toString().padStart(2, '0'); // Ensuring two digits
+                                    var monthIndex = date.getMonth();
+                                    var year = date.getFullYear();
+
+                                    // Formatting the date in "dd-MMM-yyyy" format
+                                    var dueDateFormatted = `${day}-${monthNames[monthIndex]}-${year}`;
+
+                                    // Set the formatted due date value to the input field
+                                    document.getElementById('due_date').value = dueDateFormatted;
+                            </script>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Supplier List</label>
-                                    <select name="departments">
+                                    <select name="supplier_list_gi">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="supplier-performance-metrics">Supplier Performance Metrics</option>
+                                        <option value="contractual-terms-and-conditions">Contractual Terms and Conditions</option>
+                                        <option value="supplier-risk-assessment">Supplier Risk Assessment</option>
+                                        <option value="products/services-provided">Products/Services Provided</option>
                                     </select>
                                 </div>
                             </div>
@@ -159,37 +223,41 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Distribution List<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    {{--<textarea placeholder="" name="distribution_list_gi"></textarea>--}}
+                                    <select name="distribution_list_gi">
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="internal-stakeholders">Internal Stakeholders</option>
+                                        <option value="external-stakeholders">External Stakeholders</option>
+                                        <option value="project-specific-stakeholders">Project-Specific Stakeholders</option>
+                                        <option value="miscellaneous">Miscellaneous</option>
+                                    </select>
                                 </div>
                             </div>
-
-
-
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Description<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="description_gi"></textarea>
                                 </div>
                             </div>
-
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Manufacturer</b></label>
-                                    <input type="text" name="record_number" value="">
-
+                                    <input type="text" name="manufacturer_gi">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Priority level</label>
-                                    <select name="departments">
+                                    <select name="priority_level_gi">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
+                                        <option value="high-priority">High Priority</option>
+                                        <option value="medium-priority">Medium Priority</option>
+                                        <option value="low-priority">Low Priority</option>
                                     </select>
                                 </div>
                             </div>
@@ -197,37 +265,45 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label  for="Responsible Department">Zone </label>
-                                    <select name="departments">
+                                    <select name="zone_gi">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
+                                        <option value="asia">Asia</option>
+                                        <option value="europe">Europe</option>
+                                        <option value="africa">Africa</option>
+                                        <option value="central-america">Central America</option>
+                                        <option value="south-america">South America</option>
+                                        <option value="oceania">Oceania</option>
+                                        <option value="north-america">North America</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Country</b></label>
                                     <p class="text-primary">Auto filter according to selected zone</p>
-                                    <input type="text" name="record_number" value="">
-
+                                    <select name="country" class="form-select country" aria-label="Default select example" onchange="loadStates()">
+                                        <option value="">Select Country</option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RLS Record Number"><b>City</b></label>
-                                    <p class="text-primary">Auto filter according to selected country</p>
-                                    <input type="text" name="record_number" value="">
 
-                                </div>
-                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label  for="Responsible Department">State/District</label>
-                                    <p class="text-primary">Auto selected according to City</p>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
+                                    <p class="text-primary">Auto selected according to country</p>
+                                    <select name="state" class="form-select state" aria-label="Default select example" onchange="loadCities()">
+                                        <option value="">Select State/District</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="RLS Record Number"><b>City</b></label>
+                                    <p class="text-primary">Auto filter according to selected state</p>
+                                    <select name="city" class="form-select city" aria-label="Default select example">
+                                        <option value="">Select City</option>
                                     </select>
                                 </div>
                             </div>
@@ -235,10 +311,13 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label  for="Responsible Department">Type </label>
-                                    <select name="departments">
+                                    <select name="type_gi">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
+                                        <option value="supplier-type">Supplier Type</option>
+                                        <option value="payment-type">Payment Type</option>
+                                        <option value="risk-type">Risk Type</option>
+                                        <option value="quality-assurance-type">Quality Assurance Type</option>
+                                        <option value="relationship-type">Relationship Type</option>
                                     </select>
                                 </div>
                             </div>
@@ -246,8 +325,7 @@
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Other type</b></label>
                                     <p class="text-primary">If you choose "other" -please specify</p>
-                                    <input type="text" name="record_number" value="">
-
+                                    <input type="text" name="other_type" value="">
                                 </div>
                             </div>
 
@@ -258,7 +336,7 @@
                                         <div class="file-attachment-list" id="file_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="file_attachments_gi[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
                                     {{-- <input type="file" name="file_attach[]" multiple> --}}
@@ -267,7 +345,7 @@
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                           
+
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -285,8 +363,10 @@
                                 <div class="group-input input-date">
                                     <label for="start_date">Actual start Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        {{--<input type="text" id="actual_start_date_cd" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="actual_start_date_cd" name="actual_start_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_start_date_cd');" />--}}
+                                        <input type="text" id="actual_start_date_cd" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="actual_start_date_cd" name="actual_start_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_start_date_cd');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
@@ -294,19 +374,19 @@
                                 <div class="group-input input-date">
                                     <label for="start_date">Actual end Date</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="text" id="actual_end_date_cd" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="actual_end_date_cd" class="hide-input" oninput="handleDateInput(this, 'actual_end_date_cd');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Suppplier List</label>
-                                    <select name="departments">
+                                    <select name="suppplier_list_cd">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="risk-and-compliance">Risk and Compliance</option>
+                                        <option value="contractual-details">Contractual Details</option>
+                                        <option value="supplier-classification">Supplier Classification</option>
                                     </select>
                                 </div>
                             </div>
@@ -314,19 +394,15 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Negotiation Team<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="negotiation_team_cd"></textarea>
                                 </div>
                             </div>
-
                         </div>
-
-
-
 
                         <div class="group-input">
                             <label for="audit-agenda-grid">
-                                Financial Transaction (0)
-                                <button type="button" name="audit-agenda-grid" id="ReferenceDocument">+</button>
+                                Financial Transaction
+                                <button type="button" name="financial_transaction" id="ReferenceDocument">+</button>
                                 <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                     (open)
                                 </span>
@@ -340,37 +416,34 @@
                                             <th style="width: 16%">Transaction Type</th>
                                             <th style="width: 16%">Date</th>
                                             <th style="width: 16%">Amount</th>
-                                            <th style="width: 16%">Currency used</th>
+                                            <th style="width: 16%">Currency Used</th>
                                             <th style="width: 16%">Remarks</th>
-
+                                            <th style="width: 16%">Action</th>
                                         </tr>
                                     </thead>
 
                                     <tbody>
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="Transaction[]"></td>
-                                        <td><input type="text" name="TransactionType[]"></td>
-                                        <td><input type="date" name="Date[]"></td>
-                                        <td><input type="number" name="Amount[]"></td>
-                                        <td><input type="text" name="Currencyused[]"></td>
-                                        <td><input type="text" name="Remarks[]"></td>
-
-
-
-
+                                        <td><input disabled type="text" name="financial_transaction[0][serial]" value="1"></td>
+                                        <td><input type="text" name="financial_transaction[0][Transaction]"></td>
+                                        <td><input type="text" name="financial_transaction[0][TransactionType]"></td>
+                                        <td><input type="date" name="financial_transaction[0][Date]"></td>
+                                        <td><input type="number" name="financial_transaction[0][Amount]"></td>
+                                        <td><input type="text" name="financial_transaction[0][CurrencyUsed]"></td>
+                                        <td><input type="text" name="financial_transaction[0][Remarks]"></td>
+                                        <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                     </tbody>
                                 </table>
                             </div>
+
 
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Comments <span class="text-danger"></span></label>
-                                    <textarea name="description"></textarea>
+                                    <textarea name="comments_cd"></textarea>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="button-block">
@@ -391,28 +464,22 @@
                                 <div class="group-input">
                                     <label for="Victim">Signed By :</label>
                                     <div class="static"></div>
-                                  
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="group-input">
-
                                     <label for="Division Code"><b>Signed On :</b></label>
                                     <div class="date"></div>
-
-                                  
-
-
-                                </div>
+                               </div>
                             </div>
 
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                           
+
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                    Exit </a> </button>
+                                Exit </a> </button>
                         </div>
                     </div>
                 </div>
@@ -456,7 +523,7 @@
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                    Exit </a> </button>
+                                Exit </a> </button>
                         </div>
                     </div>
                 </div>
@@ -1074,4 +1141,105 @@
         $('#rchars').text(textlen);
     });
 </script>
+
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
+</script>
+
+     {{--Country Statecity API--}}
+    <script>
+        var config = {
+            cUrl: 'https://api.countrystatecity.in/v1',
+            ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+        };
+
+        var countrySelect = document.querySelector('.country'),
+            stateSelect = document.querySelector('.state'),
+            citySelect = document.querySelector('.city');
+
+        function loadCountries() {
+            let apiEndPoint = `${config.cUrl}/countries`;
+
+            $.ajax({
+                url: apiEndPoint,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.iso2;
+                        option.textContent = country.name;
+                        countrySelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading countries:', error);
+                }
+            });
+        }
+
+        function loadStates() {
+            stateSelect.disabled = false;
+            stateSelect.innerHTML = '<option value="">Select State</option>';
+
+            const selectedCountryCode = countrySelect.value;
+
+            $.ajax({
+                url: `${config.cUrl}/countries/${selectedCountryCode}/states`,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(state => {
+                        const option = document.createElement('option');
+                        option.value = state.iso2;
+                        option.textContent = state.name;
+                        stateSelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading states:', error);
+                }
+            });
+        }
+
+        function loadCities() {
+            citySelect.disabled = false;
+            citySelect.innerHTML = '<option value="">Select City</option>';
+
+            const selectedCountryCode = countrySelect.value;
+            const selectedStateCode = stateSelect.value;
+
+            $.ajax({
+                url: `${config.cUrl}/countries/${selectedCountryCode}/states/${selectedStateCode}/cities`,
+                headers: {
+                    "X-CSCAPI-KEY": config.ckey
+                },
+                success: function(data) {
+                    data.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city.name;
+                        option.textContent = city.name;
+                        citySelect.appendChild(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error loading cities:', error);
+                }
+            });
+        }
+        $(document).ready(function() {
+            loadCountries();
+        });
+    </script>
+{{--Country Statecity API End--}}
+
+
+
+
 @endsection
+
+

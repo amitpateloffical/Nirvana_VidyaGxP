@@ -35,10 +35,14 @@ use App\Http\Controllers\tms\QuestionBankController;
 use App\Http\Controllers\tms\QuestionController;
 use App\Http\Controllers\tms\QuizeController;
 use App\Http\Controllers\rcms\DeviationController;
+use App\Http\Controllers\ctms\ClinicalSiteController;
 use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\newForm\MedicalRegistrationController;
+use App\Http\Controllers\newForm\QualityFollolwupController;
+use App\Http\Controllers\Product_ValidationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -92,9 +96,9 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     //Route::post('set/division', [DocumentController::class, 'division'])->name('division_submit');
     Route::post('dcrDivision', [DocumentController::class, 'dcrDivision'])->name('dcrDivision_submit');
     Route::get('documents/generatePdf/{id}', [DocumentController::class, 'createPDF']);
-    
+
     Route::get('documents/reviseCreate/{id}', [DocumentController::class, 'revise_create']);
-    
+
     Route::get('documents/printPDF/{id}', [DocumentController::class, 'printPDF']);
     Route::get('documents/viewpdf/{id}', [DocumentController::class, 'viewPdf']);
     Route::resource('documentsContent', DocumentContentController::class);
@@ -149,13 +153,67 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
 // =======================medicsl device //==============================
 
 Route::middleware(['auth'])->group(function () {
-    
+
 Route::get('/medical_device_registration', [MedicalRegistrationController::class, 'index'])->name('auth');
 Route::post('medicalstore',[MedicalRegistrationController::class,'medicalCreate'])->name('medical.store');
 Route::get('medicalupdate/{id}/edit',[MedicalRegistrationController::class,'medicalEdit'])->name('medical_edit');
 Route::put('medicalupdated/{id}',[MedicalRegistrationController::class,'medicalUpdate'])->name('medical.update');
-    // Route::get('/your-route', [YourController::class, 'yourMethod']);
 });
+
+
+
+// =======================QualityFollow Up //==============================
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('qualityfollowup_page', [QualityFollolwupController::class, 'index'])->name('auth');
+    Route::post('qualitystore',[QualityFollolwupController::class,'qualityFollowCreate'])->name('quality.store');
+    Route::get('qualityshow/{id}',[QualityFollolwupController::class,'qualityFollowShow'])->name('quality_show');
+     Route::get('qualityupdate/{id}/edit',[QualityFollolwupController::class,'qualityfollowEdit'])->name('quality_edit');
+     Route::put('qualityupdated/{id}',[QualityFollolwupController::class,'qualityfollowUpdate'])->name('quality.update');
+    //     // Route::get('/your-route', [YourController::class, 'yourMethod']);
+    });
+
+    Route::post('quality_send_stage/{id}',[QualityFollolwupController::class,'quality_send_stage'])->name('quality_send_stage');
+    Route::post('quality_send2/{id}',[QualityFollolwupController::class,'quality_send2'])->name('quality_send2');
+
+
+    Route::get('rcms/QualityFollowupAuditTrialDetails/{id}',[QualityFollolwupController::class,'QualityFollowupAuditTrialDetails'])->name('QualityFollowupAuditTrialDetails');
+    Route::get('rcms/singleReports/{id}',[QualityFollolwupController::class, 'singleReports'])->name('singleReports');
+    Route::get('quality_audit/{id}', [QualityFollolwupController::class, 'auditTrailPdf'])->name('QualityAuditTrail.pdf');
+
+
+
+    //========================================================Production Validation===============================================================
+
+    Route::middleware(['auth'])->group(function () {
+
+        Route::get('production_page', [Product_ValidationController::class, 'index'])->name('auth');
+        Route::post('productionstore',[Product_ValidationController::class,'ProductionValidationCreate'])->name('production.store');
+         Route::get('productionshow/{id}',[Product_ValidationController::class,'ProductionShow'])->name('production_show');
+          Route::get('ProductionValidationupdate/{id}/edit',[Product_ValidationController::class,'ProductionValidationfollowEdit'])->name('quality_edit');
+          Route::put('ProductionValidationfollowupdated/{id}',[Product_ValidationController::class,'ProductionValidationfollowUpdate'])->name('ProductionValidationfollow.update');
+        // //     // Route::get('/your-route', [YourController::class, 'yourMethod']);
+         });
+
+         Route::post('production_send_stage/{id}',[Product_ValidationController::class,'production_send_stage'])->name('production_send_stage');
+         Route::post('rejectstateproductionValidation/{id}', [Product_ValidationController::class, 'RejectStateChange'])->name('rejectstateproductionValidation');
+         Route::post('rejectstateproductionValidation2/{id}', [Product_ValidationController::class, 'RejectStateChange2'])->name('rejectstateproductionValidation2');
+
+
+
+         Route::get('ProductionAuditTrialDetails/{id}',[Product_ValidationController::class,'ProductionAuditTrialDetails'])->name('ProductionAuditTrialDetails');
+         Route::get('rcms/singleReports/{id}',[Product_ValidationController::class, 'singleReports'])->name('singleReports');
+         Route::get('rcms/production_audit/{id}', [Product_ValidationController::class, 'auditTrailPdf'])->name('productionAuditTrail.pdf');
+
+
+         //========================================================== Stages=====================================================
+
+
+
+         Route::post('renewal/forword/{id}',[Product_ValidationController::class, 'renewal_forword_close'])->name('renewal_forword_close');
+          Route::post('renewal/forword2/{id}',[Product_ValidationController::class, 'renewal_forword2_close'])->name('renewal_forword2_close');
+        //  Route::post('renewal/child/{id}', [RenewalController::class, 'renewal_child_stage'])->name('renewal_child_stage');
 
 
 // ====================================Capa=======================
@@ -396,7 +454,7 @@ Route::view('QMSDashboardFormat', 'frontend.rcms.QMSDashboardFormat');
 
 //! ============================================
 //!                    FORMS
-//! ============================================ 
+//! ============================================
 
 
 Route::view('deviation', 'frontend.forms.deviation');
@@ -446,18 +504,18 @@ Route::view('action_item', 'frontend.ehs.action_item');
 
 // --------------------------------------ctms-------forms-------
 
-Route::view('violation', 'frontend.ctms.violation');
+//Route::view('violation', 'frontend.ctms.violation');
 Route::view('subject', 'frontend.ctms.subject');
-Route::view('subject_action_item', 'frontend.ctms.subject_action_item');
+//Route::view('subject_action_item', 'frontend.ctms.subject_action_item');
 
 Route::view('study', 'frontend.ctms.study');
 
 Route::view('serious_adverse_event', 'frontend.ctms.serious_adverse_event');
 Route::view('monitoring_visit', 'frontend.ctms.monitoring_visit');
 Route::view('investigational_nda_anda', 'frontend.ctms.investigational_nda_anda');
-Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
+//Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
 Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
-Route::view('clinical_site', 'frontend.ctms.clinical_site');
+// Route::view('clinical_site', 'frontend.ctms.clinical_site');
 
 Route::view('cta_submission', 'frontend.ctms.cta_submission');
 Route::view('masking', 'frontend.ctms.masking');
@@ -473,7 +531,7 @@ Route::view('equipment', 'frontend.new_forms.equipment');
 Route::view('production-line-audit', 'frontend.new_forms.production-line-audit');
 Route::view('renewal', 'frontend.new_forms.renewal');
 Route::view('validation', 'frontend.new_forms.validation');
-Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
+// Route::view('qualityFollowUp', 'frontend.new_forms.qualityFollowUp');
 Route::view('product-recall', 'frontend.new_forms.product-recall');
 Route::view('field-inquiry', 'frontend.new_forms.field-inquiry');
 Route::view('medical-device', 'frontend.new_forms.medical-device');
@@ -482,12 +540,10 @@ Route::view('training_course', 'frontend.New_forms.training_course');
 Route::view('lab_test', 'frontend.New_forms.lab_test');
 Route::view('client-inquiry', 'frontend.New_forms.client-inquiry');
 Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
-Route::view('GCP_study', 'frontend.new_forms.GCP_study');
+//Route::view('GCP_study', 'frontend.new_forms.GCP_study');
 Route::view('calibration', 'frontend.new_forms.calibration');
 Route::view('self-inspection', 'frontend.new_forms.self-inspection');
-// Route::view('meeting-management', 'frontend.new_forms.meeting-management');
-
-
+Route::view('meeting-management', 'frontend.new_forms.meeting-management');
 
 
 // ------------------------------R T Form--------------------//
@@ -522,10 +578,11 @@ Route::view('oos-form', 'frontend.OOS.oos-form');
 
 
 
-Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
+//Route::view('supplier_contract', 'frontend.New_forms.supplier_contract');
 Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');
-Route::view('correspondence', 'frontend.New_forms.correspondence');
-Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
+//Route::view('correspondence', 'frontend.New_forms.correspondence');
+//Route::view('contract_testing_lab_audit', 'frontend.New_forms.contract_testing_lab_audit');
+//Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
 Route::view('read_and_understand', 'frontend.New_forms.read_and_understand');
 // Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
 // Route::view('auditee', 'frontend.forms.auditee');
@@ -592,6 +649,3 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 
 // ===============OOt form==========================\
 Route::view('OOT_form', 'frontend.OOT.OOT_form');
-
-
-// Route::view('additional_information', 'frontend.New_forms.additional_information');

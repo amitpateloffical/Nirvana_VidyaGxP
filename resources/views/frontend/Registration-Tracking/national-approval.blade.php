@@ -32,8 +32,8 @@
         <div class="cctab">
             <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">National Approval</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Approval Plan</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Manufacturer detail</button>
-            <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Registration information</button>
+            <!-- <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Manufacturer detail</button> -->
+            <!-- <button class="cctablinks" onclick="openCity(event, 'CCForm4')">Registration information</button> -->
             <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signatures</button>
         </div>
 

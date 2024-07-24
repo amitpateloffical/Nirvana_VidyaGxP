@@ -100,15 +100,31 @@
             querySelect.options.add(new Option('Check Effectiveness', '2'));
             querySelect.options.add(new Option('Close - Done', '3'));
 
-        } else if (scopeValue === 'CC') {
-            querySelect.options.add(new Option('Opened', '1'));
-            querySelect.options.add(new Option('Under HOD Review', '2'));
-            querySelect.options.add(new Option('Pending QA Review', '3'));
-            querySelect.options.add(new Option('CFT Review', '4'));
-            querySelect.options.add(new Option('Pending Change Implementation', '5'));
-            querySelect.options.add(new Option('Close - Done', '6'));
-        }
-
+            }
+            else if (scopeValue === 'CC') {
+                querySelect.options.add(new Option('Opened', '1'));
+                querySelect.options.add(new Option('Under HOD Review', '2'));
+                querySelect.options.add(new Option('Pending QA Review', '3'));
+                querySelect.options.add(new Option('CFT Review', '4'));
+                querySelect.options.add(new Option('Pending Change Implementation', '5'));
+                querySelect.options.add(new Option('Close - Done', '6'));
+            }
+            else if (scopeValue === 'QualityFollowUp') {
+                querySelect.options.add(new Option('Opened', '1'));
+                querySelect.options.add(new Option('Under HOD Review', '2'));
+                querySelect.options.add(new Option('Pending QA Review', '3'));
+                querySelect.options.add(new Option('CFT Review', '4'));
+                querySelect.options.add(new Option('Pending Change Implementation', '5'));
+                querySelect.options.add(new Option('Close - Done', '6'));
+            }
+            else if (scopeValue === 'Product_Validation') {
+                querySelect.options.add(new Option('Opened', '1'));
+                querySelect.options.add(new Option('Under HOD Review', '2'));
+                querySelect.options.add(new Option('Pending QA Review', '3'));
+                querySelect.options.add(new Option('CFT Review', '4'));
+                querySelect.options.add(new Option('Pending Change Implementation', '5'));
+                querySelect.options.add(new Option('Close - Done', '6'));
+            }
 
         // Add more conditions based on other scope values
 
@@ -122,7 +138,7 @@
                 <div>
                     <div class="inner-block scope-table" style="height: calc(100vh - 170px); padding: 0;">
 
-                        <div class="grid-block">
+                       <div class="grid-block">
                             <div class="group-input">
                                 <label for="scope">Process</label>
                                 <select id="scope" name="form">
@@ -142,7 +158,9 @@
                                     <option value="Action Item">Action Item</option> --}}
                                     <option value="Effectiveness Check">Effectiveness Check</option>
                                     <option value="Deviation">Deviation</option>
-                                    {{-- <option value="tms">TMS</option>  --}}
+                                    <option value="GCP Study">GCP Study</option>
+                                    <option value="Supplier Contract">Supplier Contract</option>
+                                     {{-- <option value="tms">TMS</option>  --}}
                                 </select>
                             </div>
                             <div class="group-input">
@@ -170,7 +188,7 @@
                                         <th class="td_desc">Short Description</th>
                                         <th>Date Opened</th>
                                         <th>Originator</th>
-                                        <th> Initiation Date</th>
+                                        <th>Initiation Date</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -237,6 +255,20 @@
                                                             </div>
                                                         </a>
                                                     @endif
+                                                    @elseif ($datas->type == 'QualityFollowup')
+                                                    <a href="{{ route('quality_show', $datas->id) }}">
+                                                        {{ str_pad($datas->record_number, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/QualityFollowup">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
                                                 @elseif ($datas->type == 'External-Audit')
                                                     <a href="{{ route('showExternalAudit', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
@@ -251,6 +283,7 @@
                                                             </div>
                                                         </a>
                                                     @endif
+
                                                 @elseif ($datas->type == 'Audit-Program')
                                                     <a href="{{ route('ShowAuditProgram', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
@@ -433,6 +466,36 @@
                                                             </div>
                                                         </a>
                                                     @endif
+                                                    @elseif($datas->type == 'Product Validation')
+                                                    <a href="{{ route('production_show', $datas->id) }}">
+                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/Product_Validation">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+
+                                                    @elseif($datas->type == 'QualityFollowUp')
+                                                    <a href="{{ route('quality_show', $datas->id) }}">
+                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/QF">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+
                                                 @elseif($datas->type == 'MedicalDeviceRegistration')
                                                     <a href="{{ route('medical_edit', $datas->id) }}">
                                                         {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
@@ -447,7 +510,72 @@
                                                             </div>
                                                         </a>
                                                     @endif
+                                                    @elseif($datas->type == 'Dossier Documents')
+                                                    <a href="{{ route('dosierdocuments.view', $datas->id) }}">
+                                                    @elseif($datas->type == 'ClinicalSite')
+                                                    <a href="{{ route('clinicshow', $datas->id) }}">
+                                                        {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/clinicalsite">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+                                                    @elseif($datas->type == 'Preventive Maintenance')
+                                                    <a href="{{ route('preventivemaintenance.view', $datas->id) }}">
+                                                        {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+                                                    @elseif($datas->type == 'Dossier Documents')
+                                                    <a href="{{ route('dosierdocuments.view', $datas->id) }}">
+                                                    @elseif($datas->type == 'ClinicalSite')
+                                                    <a href="{{ route('clinicshow', $datas->id) }}">
+                                                        {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/clinicalsite">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+                                                    @elseif($datas->type == 'Preventive Maintenance')
+                                                    <a href="{{ route('preventivemaintenance.view', $datas->id) }}">
+                                                        {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+                                                
                                                 @endif
+
+
                                             </td>
                                             {{-- @if ($datas->parent != '-')
                                                         <td>
@@ -464,7 +592,7 @@
                                                 @if ($datas->division_id)
                                                     {{ Helpers::getDivisionName($datas->division_id) }}
                                                 @else
-                                                    KSA
+                                                Dewas/India
                                                 @endif
                                             </td>
                                             <td class="viewdetails" data-id="{{ $datas->id }}"

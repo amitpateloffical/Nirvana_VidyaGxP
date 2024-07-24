@@ -36,7 +36,7 @@
 
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('subject_action_item.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -53,123 +53,129 @@
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>Initiator</b></label>
-                                    <input disabled type="text" name="" value="">
+                                    <label for="Initiator">Record Number </label>
+                                    <input disabled type="text" name="record"
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Subject-Action-Item/{{ date('Y') }}/{{ $record_number }}">
+                                </div>
+                            </div>
 
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="RLS Record Number"><b>Initiator</b></label>
+                                    <input disabled type="text" disabled name="initiation_id" value="{{ auth()->user()->name }}">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 new-date-data-field">
+                                <div class="group-input input-date">
+                                    <label for="due-date">Date of Initiation<span class="text-danger"></span></label>
+                                    <div class="calenderauditee">
+                                        <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="group-input">
+                                    <label for="cancelled by">Short Description<span class="text-danger">*</span>
+                                    <input type="text" name="short_description_ti" maxlength="255" required>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Assigned To</b></label>
-                                    <select>
-                                        <option>Pankaj</option>
-                                        <option>Manish</option>
-
+                                    <select name="assign_to_gi">
+                                        <option value="">Select a value</option>
+                                            @if(!empty($users))
+                                                @foreach ($users as $user)
+                                                  <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                @endforeach
+                                            @endif
                                     </select>
                                 </div>
                             </div>
-
-                            {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="Due Date">Due Date</label>
-
-                                        @if (!empty($cc->due_date))
-                                        <div class="static"></div>
-                                        @endif
-                                    </div>
-                                </div> --}}
-
 
                             <div class="col-md-6 new-date-data-field">
                                 <div class="group-input input-date">
                                     <label for="due-date"> Date Due <span class="text-danger"></span></label>
                                     <p class="text-primary">Please mention expected date of completion</p>
-                                    <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                            value="" name="due_date"> -->
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Date of Initiation<span class="text-danger"></span></label>
-                                    <!-- <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
-                                            value="" name="due_date"> -->
-                                    <div class="calenderauditee">
-                                        <input type="text" disabled id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" disabled name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" />
+                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}" >
+                                        {{--<input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />--}}
                                     </div>
                                 </div>
                             </div>
 
                             <div class="sub-head">Study Details</div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Root Parent) Trade Name</b></label>
-                                    <input  type="text" name="" value="">
+                                    <input  type="text" name="trade_name_sd">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>(Root Parent) Assigned To</b></label>
-                                    <select>
-                                        <option>Pankaj</option>
-                                        <option>Manish</option>
-
+                                    <select name="assign_to_sd">
+                                        <option value="">--Select--</option>
+                                        <option value="manish">Manish</option>
+                                        <option value="pankaj">Pankaj</option>
                                     </select>
                                 </div>
                             </div>
 
-
                             <div class="sub-head">Subject Details</div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Subject Name</b></label>
-                                    <input  type="text" name="" value="">
+                                    <input  type="text" name="subject_name_sd">
                                 </div>
                             </div>
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Gender</b></label>
-                                    <select>
-                                        <option>Male</option>
-                                        <option>Female</option>
+                                    <select name="gender_sd">
+                                        <option value="">--Select--</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="others">Others</option>
                                     </select>
                                 </div>
                             </div>
 
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Date Of Birth</b></label>
-                                    <input  type="date" name="" value="">
+                                    <input  type="date" name="date_of_birth_sd">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>( Parent) Race</b></label>
-                                    <select>
-                                        <option>--Select--</option>
-
-                                        <option>23</option>
-                                        <option>23</option>
+                                    <select name="race_sd">
+                                        <option value="">--Select--</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
                                     </select>
                                 </div>
                             </div>
-
-
-
-
-
 
                         </div>
                         <div class="button-block">
@@ -185,24 +191,16 @@
 
                 <div id="CCForm2" class="inner-block cctabcontent">
                     <div class="inner-block-content">
-
                         <div class="row">
-
-                            <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="cancelled by">Short Description</label>
-                                    <input />
-                                </div>
-                            </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Clinical Efficacy</b></label>
-                                    <select>
-                                        <option>--Select--</option>
-
-                                        <option>none</option>
-                                        <option>pankaj</option>
+                                    <select name="clinical_efficacy_ti">
+                                        <option value="">--Select--</option>
+                                        <option value="efficacy-analysis">Efficacy Analysis</option>
+                                        <option value="interim-efficacy-assessment">Interim Efficacy Assessment</option>
+                                        <option value="efficacy-monitoring">Efficacy Monitoring</option>
+                                        <option value="efficacy-data-collection">Efficacy Data Collection</option>
                                     </select>
                                 </div>
                             </div>
@@ -210,11 +208,12 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Carry Over Effect</b></label>
-                                    <select>
-                                        <option>--Select--</option>
-
-                                        <option>1</option>
-                                        <option>2</option>
+                                    <select name="carry_over_effect_ti">
+                                        <option value="">--Select--</option>
+                                        <option value="data-collection-protocols">Data Collection Protocols</option>
+                                        <option value="statistical-analysis">Statistical Analysis</option>
+                                        <option value="regulatory-compliance">Regulatory Compliance</option>
+                                        <option value="pilot-studies">Pilot Studies</option>
                                     </select>
                                 </div>
                             </div>
@@ -222,10 +221,11 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number"><b>Last Monitered (Days)</b></label>
-                                    <select>
-                                        <option>--Select--</option>
-                                        <option>1Days</option>
-                                        <option>2Days</option>
+                                    <select name="last_monitered_ti">
+                                        <option value="">--Select--</option>
+                                        <option value="1Days">1Days</option>
+                                        <option value="2Days">2Days</option>
+                                        <option value="3Days">3Days</option>
                                     </select>
                                 </div>
                             </div>
@@ -233,22 +233,22 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="cancelled by">Total Doses Recieved</label>
-                                    <input />
+                                    <input name="total_doses_recieved_ti" />
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="cancelled by">Treatment Effect</label>
-                                    <input />
+                                    <input name="treatment_effect_ti" />
                                 </div>
                             </div>
 
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                    DCF (0)
-                                    <button type="button" name="audit-agenda-grid" id="DCFadd">+</button>
+                                    DCF
+                                    <button type="button" name="dfc_grid" id="DCFadd">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
                                     </span>
@@ -265,21 +265,20 @@
                                                 <th style="width: 15%">Data Collection Method </th>
                                                 <th style="width: 15%">Comment</th>
                                                 <th style="width: 15%">Remarks</th>
-
+                                                <th style="width: 15%">Remarks</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-
-                                            <td><input type="text" name="Number[]"></td>
-                                            <td><input type="date" name="date[]"></td>
-                                            <td><input type="date" name="SentDate[]"></td>
-                                            <td><input type="date" name="ReturnedDate[]"></td>
-                                            <td><input type="text" name="Data Collection Method[]"></td>
-                                            <td><input type="text" name="Comment[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
-
-
+                                            <td><input disabled type="text" name="dfc_grid[0][serial]" value="1"></td>
+                                            <td><input type="text" name="dfc_grid[0][Number]"></td>
+                                            <td><input type="date" name="dfc_grid[0][Date]"></td>
+                                            <td><input type="date" name="dfc_grid[0][SentDate]"></td>
+                                            <td><input type="date" name="dfc_grid[0][ReturnedDate]"></td>
+                                            <td><input type="text" name="dfc_grid[0][DataCollectionMethod]"></td>
+                                            <td><input type="text" name="dfc_grid[0][Comment]"></td>
+                                            <td><input type="text" name="dfc_grid[0][Remarks]"></td>
+                                            <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                            {{--<td><input readonly type="text"></td>--}}
                                         </tbody>
 
                                     </table>
@@ -288,8 +287,8 @@
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
-                                    Minor Protocol Voilation (0)
-                                    <button type="button" name="audit-agenda-grid" id="ObservationAdd">+</button>
+                                    Minor Protocol Voilation
+                                    <button type="button" name="minor_protocol_voilation" id="ObservationAdd">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
                                     </span>
@@ -300,44 +299,42 @@
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Item Description</th>
-                                                <th style="width: 16%"> Date</th>
+                                                <th style="width: 16%">Date</th>
                                                 <th style="width: 15%">Sent Date</th>
                                                 <th style="width: 15%">Returned Date</th>
                                                 <th style="width: 15%">Comment</th>
-
+                                                <th style="width: 15%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="ItemDescription[]"></td>
-                                            <td><input type="date" name="date[]"></td>
-                                            <td><input type="date" name="SentDate[]"></td>
-                                            <td><input type="date" name="ReturnedDate[]"></td>
-                                            <td><input type="text" name="Comment[]"></td>
-
-
+                                            <td><input disabled type="text" name="minor_protocol_voilation[0][serial]" value="1"></td>
+                                            <td><input type="text" name="minor_protocol_voilation[0][ItemDescription]"></td>
+                                            <td><input type="date" name="minor_protocol_voilation[0][Date]"></td>
+                                            <td><input type="date" name="minor_protocol_voilation[0][SentDate]"></td>
+                                            <td><input type="date" name="minor_protocol_voilation[0][ReturnedDate]"></td>
+                                            <td><input type="text" name="minor_protocol_voilation[0][Comment]"></td>
+                                            <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
+                                            {{--<td><input readonly type="text"></td>--}}
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
 
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <Label>Comments</Label>
-                                    <textarea></textarea>
+                                    <textarea name="comments_ti"></textarea>
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <Label>Summary </Label>
-                                    <textarea></textarea>
+                                    <textarea name="summary_ti"></textarea>
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -348,32 +345,28 @@
                     </div>
                 </div>
 
-
                 <div id="CCForm5" class="inner-block cctabcontent">
                     <div class="inner-block-content">
-
                         <div class="row">
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="cancelled by">Closed By</label>
                                     <div class="static"></div>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Closed on">Closed On</label>
                                     <div class="Date"></div>
                                 </div>
                             </div>
-
-
-
                         </div>
+
                         <div class="button-block">
                         <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                           
+
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">Exit
                                 </a> </button>
                         </div>
@@ -381,7 +374,6 @@
                 </div>
             </div>
         </form>
-
     </div>
 </div>
 
@@ -476,13 +468,14 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="ItemDescription[]"></td>' +
-                    '<td><input type="date" name="date[]"></td>' +
-                    '<td><input type="date" name="SentDate[]"></td>' +
-                    '<td><input type="date" name="ReturnedDate[]"></td>' +
-                    '<td><input type="text" name="Comment[]"></td>' +
-                    '<td><input type="text" name="Comment[]"></td>' +
-                    '<td><input type="text" name="Comment[]"></td>' +
+                    '<td><input type="text" name="dfc_grid[' + serialNumber + '][Number]"></td>' +
+                    '<td><input type="date" name="dfc_grid[' + serialNumber + '][Date]"></td>' +
+                    '<td><input type="date" name="dfc_grid[' + serialNumber + '][SentDate]"></td>' +
+                    '<td><input type="date" name="dfc_grid[' + serialNumber + '][ReturnedDate]"></td>' +
+                    '<td><input type="text" name="dfc_grid[' + serialNumber + '][DataCollectionMethod]"></td>' +
+                    '<td><input type="date" name="dfc_grid[' + serialNumber + '][Comment]"></td>' +
+                    '<td><input type="text" name="dfc_grid[' + serialNumber + '][Remarks]"></td>' +
+                    '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
 
                     '</tr>';
 
@@ -490,7 +483,7 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 '</tr>';
 
@@ -513,12 +506,12 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="Number[]"></td>' +
-                    '<td><input type="date" name="date[]"></td>' +
-                    '<td><input type="date" name="SentDate[]"></td>' +
-                    '<td><input type="date" name="ReturnedDate[]"></td>' +
-                    '<td><input type="text" name="Data Collection Method[]"></td>' +
-                    
+                    '<td><input type="text" name="minor_protocol_voilation[' + serialNumber + '][ItemDescription]"></td>' +
+                    '<td><input type="date" name="minor_protocol_voilation[' + serialNumber + '][Date]"></td>' +
+                    '<td><input type="date" name="minor_protocol_voilation[' + serialNumber + '][SentDate]"></td>' +
+                    '<td><input type="date" name="minor_protocol_voilation[' + serialNumber + '][ReturnedDate]"></td>' +
+                    '<td><input type="text" name="minor_protocol_voilation[' + serialNumber + '][Comment]"></td>' +
+                    '<td><button type="text" class="removeRowBtn" ">Remove</button></td>' +
 
                     '</tr>';
 
@@ -526,12 +519,13 @@
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
-                // html += '</select></td>' + 
+                // html += '</select></td>' +
 
                 '</tr>';
 
                 return html;
             }
+
 
             var tableBody = $('#minor-protocol-voilation tbody');
             var rowCount = tableBody.children('tr').length;
@@ -540,6 +534,13 @@
         });
     });
 </script>
+
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
+</script>
+
 
 <script>
     var maxLength = 255;
