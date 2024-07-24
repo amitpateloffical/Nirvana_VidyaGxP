@@ -317,7 +317,48 @@ class Helpers
         return $resp;
     }
    
+    // ========= kshitij ============
 
+    static function getInitiatorGroups()
+    {
+        $initiator_groups = [
+            'CQA' => 'Corporate Quality Assurance',
+            'QAB' => 'Quality Assurance Biopharma',
+            'CQC' => 'Central Quality Control',
+            'MANU' => 'Manufacturing',
+            'PSG' => 'Plasma Sourcing Group',
+            'CS' => 'Central Stores',
+            'ITG' => 'Information Technology Group',
+            'MM' => 'Molecular Medicine',
+            'CL' => 'Central Laboratory',
+            'TT' => 'Tech team',
+            'QA' => 'Quality Assurance',
+            'QM' => 'Quality Management',
+            'IA' => 'IT Administration',
+            'ACC' => 'Accounting',
+            'LOG' => 'Logistics',
+            'SM' => 'Senior Management',
+            'BA' => 'Business Administration'
+        ];
+
+        return $initiator_groups;
+
+
+    }
+    // =========== kuldeep ============
+
+    public static function getDueDate($days = 30, $formatDate = true)
+    {
+        try {
+
+            $date = Carbon::now()->addDays($days);
+            $formatted_date = $formatDate ? $date->format("d-F-Y") : $date->format('Y-m-d');
+            return $formatted_date;
+
+        } catch (\Exception $e) {
+            return "01-Jan-1999";
+        }
+    }
 
     public static function getDueDatemonthly($date = null, $addDays = false, $format = null)
     {
