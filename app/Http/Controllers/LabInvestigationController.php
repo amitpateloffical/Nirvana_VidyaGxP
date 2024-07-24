@@ -24,15 +24,15 @@ class LabInvestigationController extends Controller
     public function index()
     {
 
-        $record_number = ((RecordNumber::first()->value('counter')) + 1);
-        $record_number = str_pad($record_number, 4, '0', STR_PAD_LEFT);
+        $record = ((RecordNumber::first()->value('counter')) + 1);
+        $record = str_pad($record, 4, '0', STR_PAD_LEFT);
         $currentDate = Carbon::now();
         $zones = ['Zone 1', 'Zone 2']; // Example zones
         $countries = ['Country 1', 'Country 2']; // Example countries
         $states = ['State 1', 'State 2']; // Example states
         $cities = ['City 1', 'City 2']; // Example cities
        
-        return view('frontend.lab-investigation.lab_investigation',compact('record_number', 'zones', 'countries', 'states', 'cities'));
+        return view('frontend.lab-investigation.lab_investigation',compact('record', 'zones', 'countries', 'states', 'cities'));
     }
  
     public function store(Request $request)
@@ -555,7 +555,10 @@ class LabInvestigationController extends Controller
 
     public function edit(Request $request, $id)
     {
+
+        
         $data = LabInvestigation::find($id);
+        $data->record = str_pad($data->record, 4, '0', STR_PAD_LEFT);
         $riskEffectAnalysis = labInvestigationgrid::where('lab_investigation_id',$id)->where('type',"effect_analysis")->first();
        
        // $data1=labInvestigationgrid::find($id);

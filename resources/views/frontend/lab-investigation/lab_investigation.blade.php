@@ -244,7 +244,7 @@
                                     <div class="group-input">
                                         <label for="RLS Record Number"><b>Record Number</b></label>
                                         <input disabled type="text" name="record"
-                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/LI/{{ date('Y') }}/">
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/LI/{{ date('Y') }}/{{ $record }}">
 
                                     </div>
                                 </div>
