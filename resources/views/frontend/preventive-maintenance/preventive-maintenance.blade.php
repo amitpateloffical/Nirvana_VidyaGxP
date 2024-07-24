@@ -20,11 +20,10 @@
     </div>
 </div>
 
-
-
 {{-- ! ========================================= --}}
 {{-- !               DATA FIELDS                 --}}
 {{-- ! ========================================= --}}
+
 <div id="change-control-fields">
     <div class="container-fluid">
 
@@ -46,68 +45,67 @@
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Initiator"> Record Number </label>
-                                <input disabled type="text" name="record_number"
-                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/Preventive Maintenance/{{ date('Y') }}/{{ $record_number }}">
-                        </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="Short Description">Initiator <span class="text-danger"></span></label>
-                                <input type="hidden" name="initiator_id" value="{{ Auth::user()->id }}">
-                                <input disabled type="text" name="initiator"
-                                        value="{{ Auth::user()->name }}">
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Initiator"> Record Number </label>
+                                    <input disabled type="text" name="record_number" value="{{ Helpers::getDivisionName(session()->get('division')) }}/Preventive Maintenance/{{ date('Y') }}/{{ $record_number }}">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label disabled for="division_code">Division Code<span class="text-danger"></span></label>
-                                <input disabled type="text" name="division_code"
-                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Short Description">Initiator <span class="text-danger"></span></label>
+                                    <input type="hidden" name="initiator_id" value="{{ Auth::user()->id }}">
+                                    <input disabled type="text" name="initiator" value="{{ Auth::user()->name }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label disabled for="division_code">Division Code<span class="text-danger"></span></label>
+                                    <input disabled type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
                                     <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                </div>
                             </div>
-                        </div>
-                        
-                        <div class="col-md-6 ">
-                            <div class="group-input ">
-                                <label for="intiation-date"> Date Of Initiation<span class="text-danger"></span></label>
-                                <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
-                                <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+
+                            <div class="col-md-6 ">
+                                <div class="group-input ">
+                                    <label for="intiation-date"> Date Of Initiation<span class="text-danger"></span></label>
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                                    <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="group-input">
-                                <label for="assign to"> Assigned To</label>
-                                <select name="assign_to" >
-                                    <option>Enter Your Selection Here</option>
-                                    <option  value="Major">User1</option>
-                                    <option value="Minor">User2</option>
-                                </select>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="assign to"> Assigned To</label>
+                                    <select name="assign_to">
+                                        <option>Enter Your Selection Here</option>
+                                        <option value="Major">User1</option>
+                                        <option value="Minor">User2</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
                             <div class="col-md-6 pt-3">
                                 <div class="group-input">
-                                    <label for="Short Description">Short Description<span class="text-danger">*</span>
-                                        <p>255 characters remaining </p>
-                                        <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                    <<<<<<< HEAD:resources/views/frontend/New_forms/preventive-maintenance.blade.php <label for="Initiator"><b>Initiator</b></label>
+                                        <input disabled type="text" name="Initiator" value="{{Auth::user()->name}}">
+                                        =======
+                                        <label for="Short Description">Short Description<span class="text-danger">*</span>
+                                            <p>255 characters remaining </p>
+                                            <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                            >>>>>>> Nirvana_updated24july:resources/views/frontend/preventive-maintenance/preventive-maintenance.blade.php
                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
-                            <div class="group-input input-date">
-                                <label for="Date Due"> Due Date</label>
-                                <div><small class="text-primary">If revising Due Date, kindly mention revision
-                                        reason in "Due Date Extension Justification" data field.</small></div>
-                                <div class="calenderauditee">
-                                    <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                    <input type="date" name="due_date"
-                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
-                                        oninput="handleDateInput(this, 'due_date')" />
+                                <div class="group-input input-date">
+                                    <label for="Date Due"> Due Date</label>
+                                    <div><small class="text-primary">If revising Due Date, kindly mention revision
+                                            reason in "Due Date Extension Justification" data field.</small></div>
+                                    <div class="calenderauditee">
+                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-  
+
                             <div class="sub-head">PM Details </div>
 
                             <div class="col-lg-6">
@@ -148,7 +146,7 @@
                                             <td><input type="text" name="action_plan[0][action]" value=""></td>
                                             <td><input type="text" name="action_plan[0][responsible]" value=""></td>
                                             <td><input type="text" name="action_plan[0][deadline]" value=""></td>
-                                            <td><input type="text" name="action_plan[0][item_status]"value=""></td>
+                                            <td><input type="text" name="action_plan[0][item_status]" value=""></td>
                                             <td><input type="text" name="action_plan[0][remarks]" value=""></td>
                                         </tbody>
                                     </table>
@@ -335,29 +333,29 @@
 </script>
 
 <script>
-        $(document).ready(function() {
-            $('#Action_plan').click(function(e) {
-                function generateTableRow(serialNumber) {
-                    var html =
-                        '<tr>' +
-                            '<td><input disabled type="text" name="action_plan['+ serialNumber +'][serial]" value="' + serialNumber +
-                            '"></td>' +
-                            '<td><input type="text" name="action_plan['+ serialNumber +'][action]"></td>'+
-                            '<td><input type="text" name="action_plan['+ serialNumber +'][responsible]"></td>' +
-                            '<td><input type="text" name="action_plan['+ serialNumber +'][deadline]"></td>' +
-                            '<td><input type="text" name="action_plan['+ serialNumber +'][item_status]"></td>' +
-                            '<td><input type="text" name="action_plan['+ serialNumber +'][remarks]"></td>' +
-                        '</tr>';
-                    return html;
-                }
+    $(document).ready(function() {
+        $('#Action_plan').click(function(e) {
+            function generateTableRow(serialNumber) {
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="action_plan[' + serialNumber + '][serial]" value="' + serialNumber +
+                    '"></td>' +
+                    '<td><input type="text" name="action_plan[' + serialNumber + '][action]"></td>' +
+                    '<td><input type="text" name="action_plan[' + serialNumber + '][responsible]"></td>' +
+                    '<td><input type="text" name="action_plan[' + serialNumber + '][deadline]"></td>' +
+                    '<td><input type="text" name="action_plan[' + serialNumber + '][item_status]"></td>' +
+                    '<td><input type="text" name="action_plan[' + serialNumber + '][remarks]"></td>' +
+                    '</tr>';
+                return html;
+            }
 
-                var tableBody = $('#Action_plan_Details tbody');
-                var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1);
-                tableBody.append(newRow);
-            });
+            var tableBody = $('#Action_plan_Details tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1);
+            tableBody.append(newRow);
         });
-    </script>
+    });
+</script>
 
 
 <script>

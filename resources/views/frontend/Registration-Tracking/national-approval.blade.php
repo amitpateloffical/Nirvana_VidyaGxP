@@ -348,7 +348,7 @@
                     </div>
                 </div>
 
-                <div id="CCForm3" class="inner-block cctabcontent">
+                <!-- <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
 
@@ -361,9 +361,9 @@
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
-                <div id="CCForm4" class="inner-block cctabcontent">
+                <!-- <div id="CCForm4" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
 
@@ -376,7 +376,7 @@
                                     Exit </a> </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div id="CCForm5" class="inner-block cctabcontent">
                     <div class="inner-block-content">
