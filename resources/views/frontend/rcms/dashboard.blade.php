@@ -427,42 +427,13 @@
                                                         </a>
                                                     @endif
 
-
-                                                @elseif($datas->type == 'PSUR')
-                                                    <a href="{{ route('psur.view', $datas->id) }}">
-                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                                    @elseif($datas->type == 'MedicalDeviceRegistration')
+                                                    <a href="{{ route('medical_edit', $datas->id) }}">
+                                                        {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
                                                     @if (!empty($datas->parent_id))
                                                         <a
-                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/psur">
-                                                            <div class="icon" onclick="showChild()"
-                                                                data-bs-toggle="tooltip" title="Related Records">
-                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
-                                                                    alt="..." class="w-100 h-100"> --}}
-                                                            </div>
-                                                        </a>
-                                                    @endif
-                                                    @elseif($datas->type == 'Commitment')
-                                                    <a href="{{ route('commitment.view', $datas->id) }}">
-                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
-                                                    </a>
-                                                    @if (!empty($datas->parent_id))
-                                                        <a
-                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/commitment">
-                                                            <div class="icon" onclick="showChild()"
-                                                                data-bs-toggle="tooltip" title="Related Records">
-                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
-                                                                    alt="..." class="w-100 h-100"> --}}
-                                                            </div>
-                                                        </a>
-                                                    @endif
-                                                    @elseif($datas->type == 'TrainingCourse')
-                                                    <a href="{{ route('commitment.view', $datas->id) }}">
-                                                        {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
-                                                    </a>
-                                                    @if (!empty($datas->parent_id))
-                                                        <a
-                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/commitment">
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/root_cause_analysis">
                                                             <div class="icon" onclick="showChild()"
                                                                 data-bs-toggle="tooltip" title="Related Records">
                                                                 {{-- <img src="{{ asset('user/images/parent.png') }}"
