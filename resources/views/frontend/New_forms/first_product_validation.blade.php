@@ -33,7 +33,7 @@
                     //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     // }
 
-                    // html += '</select></td>' + 
+                    // html += '</select></td>' +
 
                     '</tr>';
 
@@ -73,7 +73,7 @@
 
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('production.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -88,20 +88,39 @@
                             General Information
                         </div> <!-- RECORD NUMBER -->
                         <div class="row">
+
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Originator"><b>Record Number</b></label>
+                                    <input disabled type="text" name="record_number"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/PV/{{ date('Y') }}/{{ $record_number }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>Division ID </b></label>
+                                    <input readonly type="text" name="division_code"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                    {{-- <div class="static">QMS-North America</div> --}}
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
 
                                     <label for="RLS Record Number"><b>Initiator</b></label>
 
-                                    <input type="text" disabled name="record_number" value="">
+                                    <input type="text" name="initiator_id" value="{{ $validation->initiator_id ?? Auth::user()->name }}" disabled>
 
 
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>Date of Initiation</b></label>
-                                    <input disabled type="date" name="division_code" value="">
+                                    <label for="Division Code"><b>Date Of Initiation</b></label>
+                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="date_of_initiation">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="date_of_initiation">
 
                                 </div>
                             </div>
@@ -111,12 +130,12 @@
                                 <div class="group-input">
                                     <label for="Short Description">Product<span class="text-danger"></span>
 
-                                        <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                        <input id="docname" type="text" name="product"  >
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="group-input">
-                                    <label for="Short Description">Short Description<span class="text-danger"></span>
+                                    <label for="Short Description">Short Description<span class="text-danger">*</span>
                                         <p>255 characters remaining</p>
 
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
@@ -132,30 +151,29 @@
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
 
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="Vibha">Vibha</option>
+                                        <option value="Shruti">Shruti</option>
+                                        <option value="Monika">Monika</option>
 
 
                                     </select>
 
                                 </div>
                             </div>
-                            <div class="col-md-6 new-date-data-field">
+                            <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <p class="text-primary">Please mention expected date of completion</p>
-
+                                    <label for="Due Date"> Due Date </label>
+                                    <div><small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small></div>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input type="hidden" value="{{$due_date}}" name="due_date">
+                                        <input  type="text" value="{{Helpers::getdateFormat($due_date)}}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Priority Level</label>
-                                    <select name="departments">
+                                    <select name="priority_level">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -166,7 +184,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Type of Product</label>
-                                    <select name="departments">
+                                    <select name="product_type">
                                         <option value="">Enter Your Selection Here</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -178,13 +196,13 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Description<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="discription"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Comments<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="comments"></textarea>
                                 </div>
                             </div>
 
@@ -200,10 +218,10 @@
                                         Please Attach all relevant or supporting documents
                                     </small>
                                     <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attach"></div>
+                                        <div class="file-attachment-list" id="inv_attachment[]"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="inv_attachment[]" oninput="addMultipleFiles(this, 'inv_attachment[]')" multiple>
                                         </div>
                                     </div>
 
@@ -212,11 +230,11 @@
                             <div class="col-lg-6 pt-2">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related URL</label>
-                                    <select name="departments">
+                                    <select name="related_url">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="Ankit">Ankit</option>
+                                        <option value="Rohit">Rohit</option>
+                                        <option value="Ank">Ank</option>
                                     </select>
                                 </div>
                             </div>
@@ -224,11 +242,11 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Related Records</label>
-                                    <select name="departments">
+                                    <select name="related_record">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
@@ -238,7 +256,7 @@
                         </div>
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                          
+
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -259,7 +277,7 @@
                                     <label for="start_date">Sample Scheduled To</label>
                                     <div class="calenderauditee">
                                         <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" id="start_date_checkdate" name="start_date" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                                     </div>
                                 </div>
                             </div>
@@ -269,7 +287,7 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Sample details<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="sample_details"></textarea>
                                 </div>
                             </div>
 
@@ -277,24 +295,24 @@
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Actions">Sample Validation Summary<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="validation_summary"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Send to external lab?</label>
-                                    <select name="departments">
+                                    <select name="externail_lab">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Lab Comments<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="lab_commnets"></textarea>
                                 </div>
                             </div>
 
@@ -311,13 +329,13 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Product Release Summary<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="product_release"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Product Recall Details<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description"></textarea>
+                                    <textarea placeholder="" name="product_recelldetails"></textarea>
                                 </div>
                             </div>
 
@@ -337,51 +355,135 @@
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
-
-                            <div class="col-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Victim">Submitted By :</label>
+                                    <label for="Submitted By">Submitted By</label>
                                     <div class="static"></div>
-
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
-
-                                    <label for="Division Code"><b>Submitted On :</b></label>
-                                    <div class="date"></div>
-
-
-
-
+                                    <label for="Submitted On">Submitted On</label>
+                                    <div class="Date"></div>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Victim">Product Released By :</label>
+                                    <label for="Incident Review Completed By">Incident Review Completed
+                                        By</label>
                                     <div class="static"></div>
-
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
-
-                                    <label for="Division Code"><b>Product Released On :</b></label>
-                                    <div class="date"></div>
-
-
-
-
+                                    <label for="Incident Review Completed On">Incident Review Completed
+                                        On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Investigation Completed By">Investigation Completed By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Investigation Completed On">Investigation Completed On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="QA Review Completed By">QA Review Completed By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="QA Review Completed On">QA Review Completed On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="QA Head Approval Completed By">QA Head Approval Completed By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="QA Head Approval Completed On">QA Head Approval Completed On</label>
+                                    <div class="Date"></div>
                                 </div>
                             </div>
 
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="All Activities Completed By">All Activities Completed By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="All Activities Completed On">All Activities Completed On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                             <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Review Completed By">Review Completed By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Review Completed On">Review Completed On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Cancelled By">Cancelled By</label>
+                                    <div class="static"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Cancelled On">Cancelled On</label>
+                                    <div class="Date"></div>
+                                </div>
+                            </div>
+                            {{-- <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="All Activities Completed By">All Activities Completed By</label>
+                                    <div class="static">{{ $data->all_activities_completed_by }}</div>
+                                </div>
+                            </div> --}}
+                            {{-- <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="All Activities Completed On">All Activities Completed On</label>
+                                    <div class="Date">{{ $data->all_activities_completed_on }}</div>
+                                </div>
+                            </div> --}}
+                            {{-- <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Review Completed By">Review Completed By</label>
+                                    <div class="static">{{$data->review_completed_by}}</div>
+                                </div>
+                            </div> --}}
+                            {{-- <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Review Completed On">Review Completed On</label>
+                                    <div class="Date">{{$data->review_completed_on}}</div>
+                                </div>
+                            </div> --}}
                         </div>
                         <div class="button-block">
-                            <button type="submit" class="saveButton">Save</button>
+                            <button type="submit" class="saveButton" >Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                          
-                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                    Exit </a> </button>
+                            <button type="submit">Submit</button>
+                            <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}"> Exit </a> </button>
                         </div>
                     </div>
                 </div>

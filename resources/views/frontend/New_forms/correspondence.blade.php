@@ -19,14 +19,12 @@
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-
-
-                    '<td><input type="text" name="Action[]"></td>' +
-                    '<td><input type="text" name="Responsible[]"></td>' +
-                    '<td><input type="date" name="Deadline[]"></td>' +
-                    '<td><input type="text" name="ItemStatus[]"></td>' +
-                    '<td><input type="text" name="Remarks[]"></td>' +
-
+                    '<td><input type="text" name="action_plan[' + serialNumber + '][Action]"></td>' +
+                    '<td><input type="text" name="action_plan[' + serialNumber + '][Responsible]"></td>' +
+                    '<td><input type="date" name="action_plan[' + serialNumber + '][Deadline]"></td>' +
+                    '<td><input type="text" name="action_plan[' + serialNumber + '][ItemStatus]"></td>' +
+                    '<td><input type="text" name="action_plan[' + serialNumber + '][Remarks]"></td>' +
+                    '<td><button type="text" class="removeRowBtn">Remove</button></td>' +
 
 
                     //     '</tr>';
@@ -35,7 +33,7 @@
                     //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                     // }
 
-                    // html += '</select></td>' + 
+                    // html += '</select></td>' +
 
                     '</tr>';
 
@@ -48,6 +46,12 @@
             tableBody.append(newRow);
         });
     });
+</script>
+
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
 </script>
 
 <div class="form-field-head">
@@ -77,7 +81,7 @@
 
         </div>
 
-        <form action="{{ route('actionItem.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('correspondence.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div id="step-form">
@@ -92,52 +96,37 @@
                             General Information
                         </div> <!-- RECORD NUMBER -->
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="group-input">
-                                    <label for="search">
-                                        (Parent) Process/Application
-                                    </label>
 
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
-                                        <option value="">Select a value</option>
-
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                        <option value="">4</option>
-
-
-                                    </select>
-
-                                </div>
-                            </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Division Code"><b>(Root Parent) Trade Name</b></label>
-
-                                    <input type="text" name="division_code" value="">
-
+                                    <label for="Initiator">Record Number </label>
+                                    <input disabled type="text" name="record"
+                                    value="{{ Helpers::getDivisionName(session()->get('division')) }}/Correspondence/{{ date('Y') }}/{{ $record_number }}">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="division_code"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                </div>
+                            </div>
 
+                            <div class="col-lg-6">
+                                <div class="group-input">
                                     <label for="RLS Record Number"><b>Initiator</b></label>
-
-                                    <input type="text" disabled name="record_number" value="">
-
-
+                                    <input type="text" disabled name="record_number" value="{{ auth()->user()->name }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date of Initiation</b></label>
-
-                                    <input disabled type="date" name="division_code" value="">
-
+                                    <input readonly type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
                                 </div>
                             </div>
-
 
                             <div class="col-12">
                                 <div class="group-input">
@@ -152,16 +141,14 @@
                                     <label for="search">
                                         Assigned To <span class="text-danger"></span>
                                     </label>
-
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
+                                    <select id="select-state" placeholder="Select..." name="assigned_to">
                                         <option value="">Select a value</option>
-
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-
+                                        @if(!empty($users))
+                                            @foreach ($users as $user)
+                                               <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        @endif
                                     </select>
-
                                 </div>
                             </div>
                             <div class="col-md-6 new-date-data-field">
@@ -169,33 +156,63 @@
                                     <label for="due-date">Date Due <span class="text-danger"></span></label>
                                     <p class="text-primary">Please mention expected date of completion</p>
                                     <div class="calenderauditee">
-                                        <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
+                                        <input  type="hidden" value="{{ $due_date }}" name="due_date">
+                                        <input disabled type="text" value="{{ Helpers::getdateFormat($due_date) }}">
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-md-6">
+                                <div class="group-input">
+                                    <label for="search">
+                                        (Parent) Process/Application
+                                    </label>
+                                    <select id="select-state" placeholder="Select..." name="process_application">
+                                        <option value="">Select a value</option>
+                                        <option value="research-and-development">Research and Development</option>
+                                        <option value="regulatory-affairs">Regulatory Affairs</option>
+                                        <option value="quality-assurance-and-control">Quality Assurance and Control</option>
+                                        <option value="manufacturing">Manufacturing</option>
+                                        <option value="clinical-operations">Clinical Operations</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
+                                    <label for="Division Code"><b>(Root Parent) Trade Name</b></label>
+                                    <input type="text" name="trade_name">
+                                </div>
+                            </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">How Initiated</label>
-                                    <select name="departments">
+                                    <select name="how_initiated">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="general-triggers">General Triggers</option>
+                                        <option value="research-and-development">Research and Development</option>
+                                        <option value="quality-assurance-and-control">Quality Assurance and Control</option>
+                                        <option value="clinical-operations">Clinical Operations</option>
+                                        <option value="Medical Affairs">Medical Affairs</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Type</label>
-                                    <select name="departments">
+                                    <select name="type">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="general-types">General Types</option>
+                                        <option value="research-and-development">Research and Development</option>
+                                        <option value="regulatory-affairs">Regulatory Affairs</option>
+                                        <option value="quality-assurance-and-control">Quality Assurance and Control</option>
+                                        <option value="legal-and-compliance">Legal and Compliance</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Audit Attachments">File Attachments</label>
@@ -206,36 +223,39 @@
                                         <div class="file-attachment-list" id="file_attach"></div>
                                         <div class="add-btn">
                                             <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attach[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
+                                            <input type="file" id="myfile" name="file_attachments[]" oninput="addMultipleFiles(this, 'file_attach')" multiple>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Authority Type</label>
-                                    <select name="departments">
+                                    <select name="authority_type">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="group-input">
-                                    <label for="Responsible Department">Authority</label>
-                                    <select name="departments">
-                                        <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="regulatory-authorities">Regulatory Authorities</option>
+                                        <option value="international-organizations">International Organizations</option>
+                                        <option value="national-regulatory-bodies">National Regulatory Bodies</option>
+                                        <option value="ethics-and-compliance-committees">Ethics and Compliance Committees</option>
+                                        <option value="quality-and-standards-organizations">Quality and Standards Organizations</option>
                                     </select>
                                 </div>
                             </div>
 
+                            <div class="col-lg-12">
+                                <div class="group-input">
+                                    <label for="Responsible Department">Authority</label>
+                                    <select name="authority">
+                                        <option value="">Enter Your Selection Here</option>
+                                        <option value="occupational-safety-and-health-administration">Occupational Safety and Health Administration</option>
+                                        <option value="national-institute-for-occupational-safety-and-health">National Institute for Occupational Safety and Health</option>
+                                        <option value="international-organization-for-standardization">International Organization for Standardization</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="group-input">
@@ -247,19 +267,21 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Responsible Department">Commitment Required?</label>
-                                    <select name="departments">
+                                    <select name="commitment_required">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
+                                        <option value="approval-of-study-protocol">Approval of Study Protocol</option>
+                                        <option value="submission-of-research-data">Submission of Research Data</option>
+                                        <option value="participation-in-collaborative-research">Participation in Collaborative Research</option>
+                                        <option value="compliance-with-study-requirements">Compliance with Study Requirements</option>
+                                        <option value="ethics-committee-approval">Ethics Committee Approval</option>
                                     </select>
                                 </div>
                             </div>
-
                         </div>
+
                         <div class="group-input">
                             <label for="audit-agenda-grid">
-                                Action Plan (0)
+                                Action Plan
                                 <button type="button" name="audit-agenda-grid" id="ReferenceDocument">+</button>
                                 <span class="text-primary" data-bs-toggle="modal" data-bs-target="#document-details-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                     (open)
@@ -275,67 +297,63 @@
                                             <th style="width: 16%">Deadline</th>
                                             <th style="width: 16%">Item Status</th>
                                             <th style="width: 16%">Remarks</th>
-
+                                            <th style="width: 16%">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                                            <td><input type="text" name="Action[]"></td>
-                                            <td><input type="text" name="Responsible[]"></td>
-                                            <td><input type="date" name="Deadline[]"></td>
-                                            <td><input type="text" name="ItemStatus[]"></td>
-                                            <td><input type="text" name="Remarks[]"></td>
+                                            <td><input disabled type="text" name="action_plan[0][serial]" value="1"></td>
+                                            <td><input type="text" name="action_plan[0][Action]"></td>
+                                            <td><input type="text" name="action_plan[0][Responsible]"></td>
+                                            <td><input type="date" name="action_plan[0][Deadline]"></td>
+                                            <td><input type="text" name="action_plan[0][ItemStatus]"></td>
+                                            <td><input type="text" name="action_plan[0][Remarks]"></td>
+                                            <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
+
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Responsible Department">Priority Level</label>
-                                    <select name="departments">
+                                    <select name="priority_level">
                                         <option value="">Enter Your Selection Here</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="general-priority-levels">General Priority Levels</option>
+                                        <option value="detailed-priority-levels">Detailed Priority Levels</option>
+                                        <option value="specific-contexts">Specific Contexts</option>
+                                        <option value="quality-assurance-and-control">Quality Assurance and Control</option>
+                                        <option value="finance-and-procurement">Finance and Procurement</option>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Date Due to Authority</b></label>
-
-                                    <input type="date" name="division_code" value="">
-
+                                    <input type="date" name="date_due_to_authority" value="">
                                 </div>
                             </div>
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Scheduled Start Date</b></label>
-
-                                    <input type="date" name="division_code" value="">
-
+                                    <input type="date" name="scheduled_start_date" value="">
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Scheduled End Date</b></label>
-
-                                    <input type="date" name="division_code" value="">
-
+                                    <input type="date" name="scheduled_end_date" value="">
                                 </div>
                             </div>
-
-
                         </div>
 
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
-                           
                             <button type="button" class="nextButton" onclick="nextStep()">Next</button>
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
@@ -478,7 +496,7 @@
                         </div>
                     </div>
                 </div> -->
-<!-- 
+<!--
                 <div id="CCForm3" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
@@ -591,7 +609,7 @@
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
-                         
+
                             <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
                                     Exit </a> </button>
                         </div>
