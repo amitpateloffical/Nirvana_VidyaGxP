@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Connexo - Software</title>
+    <title>Vidyagxp- Software</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/fontawesome.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
@@ -109,12 +109,14 @@
             width: 500px;
             background: white;
             background-size: cover;
+            border-radius: 5px;
             background-position: center;
         }
 
+
         #rcms_login_block .login-form-block .top-block {
             padding: 50px 20px 15px;
-            border-bottom: 2px solid white;
+            border-bottom: 2px solid rgb(15, 15, 15);
         }
 
         #rcms_login_block .login-form-block .logo {
@@ -123,7 +125,7 @@
         }
 
         #rcms_login_block .login-form-block .logo img {
-            filter: brightness(0) invert(1);
+            /* filter: brightness(0) invert(1); */
         }
 
         #rcms_login_block .login-form-block .head {
@@ -131,7 +133,8 @@
             font-weight: bold;
             text-transform: uppercase;
             text-align: center;
-            color: white;
+            color: black;
+            margin-top: -10px;
             letter-spacing: 2px
         }
 
@@ -140,19 +143,21 @@
         }
 
         #rcms_login_block .group-input {
-            margin-bottom: 20px;
-            display: grid;
-            grid-template-columns: 70px 1fr;
-            align-items: center;
-            border: 2px solid white;
-            padding: 5px;
-            border-radius: 5px;
-        }
+          
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    align-items: center;
+    border: 2px solid gray;
+    padding: 5px;
+    border-radius: 5px;
+}
+        
 
         #rcms_login_block label {
             font-size: 1.2rem;
             margin-bottom: 3px;
-            color: white;
+            color: rgb(23, 22, 22);
             display: block;
             font-weight: bold;
             text-align: center;
@@ -162,7 +167,7 @@
             border: 0;
             outline: none;
             background: transparent;
-            color: white
+            color: black;
         }
 
         #rcms_login_block select {
@@ -177,8 +182,8 @@
             text-align: center;
             width: 100%;
             padding: 10px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, .15) 0%, rgba(255, 255, 255, 0) 100%), #f6f8fa;
-            color: black;
+            background: linear-gradient(180deg, rgb(8 8 8 / 15%) 0%, rgba(255, 255, 255, 0) 100%), #505152;
+            color: #ede3e3;
             margin-left: auto;
             text-transform: uppercase;
             font-weight: bold;
@@ -200,6 +205,10 @@
             transform: translateY(-50%);
             cursor: pointer;
         }
+
+      
+          
+        
     </style>
 </head>
 
@@ -211,16 +220,22 @@
     <div id="preloader">
         <span class="loader"></span>
     </div>
-
+    {{-- {{ asset('user/images/rcms-login-bg.png') }} --}}
+    {{-- {{ asset('user/images/rcms-login-bg2.png') }} --}}
     {{-- ======================================
                     LOGIN FORM
     ======================================= --}}
-    <div id="rcms_login_block" style="background-image: url('{{ asset('user/images/rcms-login-bg.png') }}')">
-        <div class="login-form-block" style="background-image: url('{{ asset('user/images/rcms-login-bg2.png') }}')">
+    <div id="rcms_login_block" style="background-image: url('')">
+        <div class="login-form-block" style="background-image: url('');, border-radius: 5px;">
             <div class="top-block">
-                <div class="logo">
-                    <img src="{{ asset('user/images/logo.png') }}" alt="..." class="w-100 h-100">
-                </div>
+                <div style="display: flex;" class="logo ">
+                    <div class="v_logo">
+                        <img src="{{ asset('user/images/vidhyagxp.png') }}" alt="..." class="w-100 h-100" style="scale: 1;">
+                    </div>        
+                    <div class="n_logo">
+                        <img src="{{ asset('user/images/nirvana.png') }}" alt="..." class="w-100 h-100" style="scale:1;">
+                    </div>            
+             </div>
                 <div class="head">
                     Set Your New Password </div>
             </div>

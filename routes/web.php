@@ -31,10 +31,12 @@ use App\Http\Controllers\tms\QuestionBankController;
 use App\Http\Controllers\tms\QuestionController;
 use App\Http\Controllers\tms\QuizeController;
 use App\Http\Controllers\rcms\DeviationController;
-use App\Http\Controllers\GcpStudyController;
+use App\Http\Controllers\ctms\ClinicalSiteController;
 use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\newForm\MedicalRegistrationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -138,8 +140,21 @@ Route::middleware(['auth', 'prevent-back-history', 'user-activity'])->group(func
     Route::get('data/{id}', [QuizeController::class, 'datag'])->name('data');
     Route::get('datag/{id}', [QuizeController::class, 'data'])->name('datag');
     //-----------------------QMS----------------
-    Route::get('qms-dashboard', [RcmsDashboardController::class, 'index']);
+    // Route::get('qms-dashboard', [RcmsDashboardController::class, 'index']);
 });
+
+
+// =======================medicsl device //==============================
+
+Route::middleware(['auth'])->group(function () {
+
+Route::get('/medical_device_registration', [MedicalRegistrationController::class, 'index'])->name('auth');
+Route::post('medicalstore',[MedicalRegistrationController::class,'medicalCreate'])->name('medical.store');
+Route::get('medicalupdate/{id}/edit',[MedicalRegistrationController::class,'medicalEdit'])->name('medical_edit');
+Route::put('medicalupdated/{id}',[MedicalRegistrationController::class,'medicalUpdate'])->name('medical.update');
+    // Route::get('/your-route', [YourController::class, 'yourMethod']);
+});
+
 
 // ====================================Capa=======================
 Route::get('capa', [CapaController::class, 'capa']);
@@ -387,7 +402,7 @@ Route::view('monitoring_visit', 'frontend.ctms.monitoring_visit');
 Route::view('investigational_nda_anda', 'frontend.ctms.investigational_nda_anda');
 //Route::view('cta_amendement', 'frontend.ctms.cta_amendement');
 Route::view('country_sub_data', 'frontend.ctms.country_sub_data');
-Route::view('clinical_site', 'frontend.ctms.clinical_site');
+// Route::view('clinical_site', 'frontend.ctms.clinical_site');
 
 Route::view('cta_submission', 'frontend.ctms.cta_submission');
 Route::view('masking', 'frontend.ctms.masking');
@@ -423,7 +438,8 @@ Route::view('national-approval', 'frontend.Registration-Tracking.national-approv
 Route::view('variation', 'frontend.Registration-Tracking.variation');
 Route::view('PSUR', 'frontend.Registration-Tracking.PSUR');
 Route::view('dosier-documents', 'frontend.Registration-Tracking.dosier-documents');
-Route::view('commitment', 'frontend.Registration-Tracking.commitment');
+Route::view('commit
+ment', 'frontend.Registration-Tracking.commitment');
 
 
 //--------------------------------ERRATA-----form---------------//
@@ -455,7 +471,7 @@ Route::view('supplier_audit', 'frontend.New_forms.supplier_audit');
 //Route::view('contract_testing_lab_audit', 'frontend.New_forms.contract_testing_lab_audit');
 //Route::view('first_product_validation', 'frontend.New_forms.first_product_validation');
 Route::view('read_and_understand', 'frontend.New_forms.read_and_understand');
-Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
+// Route::view('medical_device_registration', 'frontend.New_forms.medical_device_registration');
 // Route::view('auditee', 'frontend.forms.auditee');
 Route::get('auditee', [AuditeeController::class, 'external_audit']);
 
@@ -520,3 +536,27 @@ Route::view('review-management-report', 'frontend.review-management.review-manag
 
 // ===============OOt form==========================\
 Route::view('OOT_form', 'frontend.OOT.OOT_form');
+
+// ===============Additional Testing==========================\
+Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
+
+
+
+
+
+// ========================================ClinicalSite start===============================
+
+Route::get('clinicalsiteindex',[ClinicalSiteController::class,'index'])->name('clinicalsite');
+Route::post('clinicalsitestore',[ClinicalSiteController::class,'store'])->name('clinicstore');
+Route::get('clinicalsiteshow/{id}',[ClinicalSiteController::class,'show'])->name('clinicshow');
+Route::put('clinicalsiteupdate/{id}',[ClinicalSiteController::class,'update'])->name('clinicupdate');
+Route::get('clinicalsiteAuditReport/{id}', [ClinicalSiteController::class, 'clinicalsiteAuditTrial'])->name('clinicalsiteAuditReport');
+Route::post('clinicalsitestagechange/{id}',[ClinicalSiteController::class,'ClinicalSiteStateChange'])->name('clin_site_stagechange');
+Route::post('clinicalsiteCansilstagechange/{id}',[ClinicalSiteController::class,'ClinicalSiteCancel'])->name('cansilstagechange');
+// Route::get('clinetauditTrailPdf/{id}', [ClinicalSiteController::class, 'auditTrailPdf'])->name('clinicalsiteTrailPdf');
+Route::post('clinicalsiteChild/{id}', [ClinicalSiteController::class, 'ClinicalChild'])->name('ClinicalsiteChild');
+
+
+
+
+// ========================================ClinicalSite end===============================
