@@ -5,6 +5,7 @@ use App\Http\Controllers\ctms\SubjectController;
 use App\Http\Controllers\rcms\ActionItemController;
 use App\Http\Controllers\rcms\AuditeeController;
 use App\Http\Controllers\rcms\AuditProgramController;
+use App\Http\Controllers\rcms\AuditTaskController;
 use App\Http\Controllers\rcms\CapaController;
 use App\Http\Controllers\rcms\CCController;
 use App\Http\Controllers\rcms\DashboardController;

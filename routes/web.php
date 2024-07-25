@@ -258,6 +258,9 @@ Route::get('auditDetailsCapa/{id}', [CapaController::class, 'auditDetailsCapa'])
 Route::post('capa_child/{id}', [CapaController::class, 'child_change_control'])->name('capa_child_changecontrol');
 Route::post('effectiveness_check/{id}', [CapaController::class, 'effectiveness_check'])->name('capa_effectiveness_check');
 
+
+
+
 // ==============================management review ==========================manage
 
 Route::post('managestore', [ManagementReviewController::class, 'managestore'])->name('managestore');
@@ -505,7 +508,7 @@ Route::view('medical-device', 'frontend.new_forms.medical-device');
 Route::view('risk-management', 'frontend.new_forms.risk-management');
 Route::view('training_course', 'frontend.New_forms.training_course');
 Route::view('lab_test', 'frontend.New_forms.lab_test');
-Route::view('client_inquiry', 'frontend.New_forms.client_inquiry');
+Route::view('client-inquiry', 'frontend.New_forms.client-inquiry');
 Route::view('lab_investigation', 'frontend.New_forms.lab_investigation');
 //Route::view('GCP_study', 'frontend.new_forms.GCP_study');
 Route::view('calibration', 'frontend.new_forms.calibration');

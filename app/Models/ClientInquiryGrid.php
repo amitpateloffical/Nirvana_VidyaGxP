@@ -5,8 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AdditionalInformation extends Model
+class ClientInquiryGrid extends Model
 {
-    protected $table = 'additional_information';
+    use HasFactory;
+
+    protected $table = 'client_inquiry_grids';
     protected $casts = ['data' => 'array'];
 }
