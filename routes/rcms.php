@@ -38,6 +38,17 @@ use App\Http\Controllers\rcms\FirstProductValidationController;
 use App\Http\Controllers\UserLoginController;
 use App\Models\EffectivenessCheck;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\rcms\AuditTaskController;
+use App\Http\Controllers\ClientInquiryController;
+use App\Http\Controllers\MeetingManagementController;
+use App\Http\Controllers\AdditionalInformationController;
+use App\Http\Controllers\medicaldeviceController;
+use App\Http\Controllers\MedicalDeviceController as ControllersMedicalDeviceController;
+use App\Http\Controllers\PSURController;
+use App\Http\Controllers\CommitmentController;
+use App\Http\Controllers\MonitoringVisitController;
+
+
 
 
 // ============================================
@@ -207,27 +218,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('vali_summary/{id}', [ValidationController::class, 'valiSummery_pdf']);
             Route::get('vali_audit/{id}', [ValidationController::class, 'valiAudit_pdf']);
 
-            /**
-             *DosierDocumentsController
-             */
-            Route::group(['prefix' => 'dosierdocuments', 'as' => 'dosierdocuments.'], function () {
-
-                Route::get('/', [DosierDocumentsController::class, 'index'])->name('index');
-                Route::post('/store', [DosierDocumentsController::class, 'store'])->name('store');
-                Route::get('view/{id}', [DosierDocumentsController::class, 'show'])->name('view');
-                Route::post('update/{id}', [DosierDocumentsController::class, 'update'])->name('update');
-
-                Route::post('sendstage/{id}', [DosierDocumentsController::class, 'send_stage'])->name('send_stage');
-                Route::post('requestmoreinfo_back_stage/{id}', [DosierDocumentsController::class, 'requestmoreinfo_back_stage'])->name('requestmoreinfo_back_stage');
-                Route::post('cancel_stage/{id}', [DosierDocumentsController::class, 'cancel_stage'])->name('cancel_stage');;
-                Route::post('thirdStage/{id}', [DosierDocumentsController::class, 'stageChange'])->name('thirdStage');
-                Route::get('AuditTrial/{id}', [DosierDocumentsController::class, 'AuditTrial'])->name('audit_trial');
-                Route::post('AuditTrial/{id}', [DosierDocumentsController::class, 'store_audit_review'])->name('store_audit_review');
-                Route::get('auditDetails/{id}', [DosierDocumentsController::class, 'auditDetails'])->name('audit_details');
-
-                Route::get('audit_report/{id}', [DosierDocumentsController::class, 'auditReport'])->name('audit_report');
-                Route::get('single_report/{id}', [DosierDocumentsController::class, 'singleReport'])->name('single_report');
-
+            
                 //  Route::post('send-vali/{id}',[DemoValidationController::class,'stageChange'])->name('stageChange');
                 Route::post('equipment/stage/{id}', [EquipmentController::class, 'equipment_send_stage'])->name('equipment_send_stage');
                 Route::post('equipment_rejects', [EquipmentController::class, 'equipment_reject'])->name('equipment_reject');
@@ -499,23 +490,6 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('lab_auditReport/{id}', [LabInvestigationController::class, 'auditReport'])->name('labAuditReport');
                   
             //----------------------------------------------lab investigation------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             //  Route::get('clinetauditTrailPdf/{id}', [ClinicalSiteController::class, 'auditTrailPdf'])->name('clinicalsiteTrailPdf');
             Route::get('pdf/{id}', [ClinicalSiteController::class, 'pdf']);
             Route::get('pdf-report/{id}', [ClinicalSiteController::class, 'singleReport']);
@@ -525,9 +499,124 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('subjectupdate/{id}', [SubjectController::class, 'show'])->name('subjectshow');
             Route::put('subjectsaveupdate/{id}', [SubjectController::class, 'update'])->name('subjectupdate');
             Route::post('subjectstagechange/{id}', [SubjectController::class, 'subjectStateChange'])->name('subject_stagechange');
+            //  ========= suneel =============
+
+            // Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
+            Route::post('send-child/{id}', [ValidationController::class, 'stageChange'])->name('stageChange');
+            Route::post('validation/stage/{id}', [ValidationController::class, 'validation_send_stage'])->name('validation_send_stage');
+            Route::post('validation_rejects', [ValidationController::class, 'validation_reject'])->name('validation_reject');
+            Route::post('validation/cancel/{id}', [ValidationController::class, 'validationCancel'])->name('validationCancel');
+            Route::post('validation/check/{id}', [ValidationController::class, 'check'])->name('validation_check');
+            Route::post('validation/check2/{id}', [ValidationController::class, 'check2'])->name('validation_check2');
+            Route::post('validation/check3/{id}', [ValidationController::class, 'check3'])->name('validation_check3');
+            Route::get('validationSingleReport/{id}', [ValidationController::class, 'singleReport'])->name('validationSingleReport');
+            Route::get('/audit_validationPdf/{id}', [ValidationController::class, 'audit_pdf2']);
+
+            Route::get('vali_summary/{id}', [ValidationController::class, 'valiSummery_pdf']);
+            Route::get('vali_audit/{id}', [ValidationController::class, 'valiAudit_pdf']);
 
 
+            //  Route::post('send-vali/{id}',[DemoValidationController::class,'stageChange'])->name('stageChange');
+            Route::post('equipment/stage/{id}', [EquipmentController::class, 'equipment_send_stage'])->name('equipment_send_stage');
+            Route::post('equipment_rejects', [EquipmentController::class, 'equipment_reject'])->name('equipment_reject');
+            Route::post('equipment/cancel/{id}', [EquipmentController::class, 'equipmentCancel'])->name('equipmentCancel');
+            Route::post('equipment/check/{id}', [EquipmentController::class, 'check'])->name('equipment_check');
+            Route::post('equipment/check2/{id}', [EquipmentController::class, 'check2'])->name('equipment_check2');
+            Route::post('equipment/check3/{id}', [EquipmentController::class, 'check3'])->name('equipment_check3');
+            Route::get('equipmentSingleReport/{id}', [EquipmentController::class, 'singleReport'])->name('equipmentSingleReport');
+            Route::get('/audit_pdf/{id}', [EquipmentController::class, 'audit_pdf1']);
 
+
+            Route::post('calibration/stage/{id}', [CalibrationController::class, 'calibration_send_stage'])->name('calibration_send_stage');
+            Route::post('calibration_rejects', [CalibrationController::class, 'calibration_reject'])->name('calibration_reject');
+            Route::post('calibration/cancel/{id}', [CalibrationController::class, 'calibrationCancel'])->name('calibrationCancel');
+            Route::post('calibration/check/{id}', [CalibrationController::class, 'check'])->name('calibration_check');
+            Route::post('calibration/check2/{id}', [CalibrationController::class, 'check2'])->name('calibration_check2');
+            Route::post('calibration/check3/{id}', [CalibrationController::class, 'check3'])->name('calibration_check3');
+            Route::get('calibrationSingleReport/{id}', [CalibrationController::class, 'singleReport'])->name('calibrationSingleReport');
+            Route::get('/calibration_audit/{id}', [CalibrationController::class, 'audit_pdf']);
+
+            //============National Approval ============
+            Route::post('national_approval/stage/{id}', [NationalApprovalController::class, 'nationalApproval_send_stage'])->name('national_approval_send_stage');
+            Route::post('national_approval_rejects', [NationalApprovalController::class, 'nationalApproval_reject'])->name('nationalApprovalReject');
+            Route::post('national_approval/cancel/{id}', [NationalApprovalController::class, 'national_approvalCancel'])->name('nationalApprovalCancel');
+            Route::post('national_approval/check/{id}', [NationalApprovalController::class, 'check'])->name('national_approval_check');
+            Route::post('np_qa_more_info/{id}', [NationalApprovalController::class, 'np_qa_more_info'])->name('np_qa_more_info');
+            Route::post('national_approval/check2/{id}', [NationalApprovalController::class, 'check2'])->name('national_approval_check2');
+            Route::post('national_approval/check3/{id}', [NationalApprovalController::class, 'check3'])->name('national_approval_check3');
+            Route::get('national_approvalSingleReport/{id}', [NationalApprovalController::class, 'singleReport'])->name('national_approvalSingleReport');
+            Route::get('/np_audit/{id}', [NationalApprovalController::class, 'audit1_pdf']);
+
+
+            //============ Sanction =============
+            Route::post('sanction/stage/{id}', [SanctionController::class, 'sanction_send_stage'])->name('sanction_send_stage');
+            Route::post('sanction', [SanctionController::class, 'sanction_reject'])->name('sanctionReject');
+            Route::post('sanction/cancel/{id}', [SanctionController::class, 'sanctionCancel'])->name('sanctionCancel');
+            Route::post('sanction/check/{id}', [SanctionController::class, 'check'])->name('sanction_check');
+            Route::post('sanction_qa_more_info/{id}', [SanctionController::class, 'sanction_qa_more_info'])->name('sanction_qa_more_info');
+            Route::post('sanction/check2/{id}', [SanctionController::class, 'check2'])->name('sanction_check2');
+            Route::post('sanction/check3/{id}', [SanctionController::class, 'check3'])->name('sanction_check3');
+            Route::get('sanctionSingleReport/{id}', [SanctionController::class, 'singleReport'])->name('sanctionSingleReport');
+            Route::get('/sanction_audit/{id}', [SanctionController::class, 'audit2_pdf']);
+
+
+            //============ Sanction =============
+            Route::post('monthly', [MonthlyWorkingController::class, 'monthly_reject'])->name('monthlyReject');
+            Route::post('monthly/cancel/{id}', [MonthlyWorkingController::class, 'monthlynCancel'])->name('monthlyCancel');
+            Route::post('monthly/check/{id}', [MonthlyWorkingController::class, 'check'])->name('monthly_check');
+            Route::post('monthly_qa_more_info/{id}', [MonthlyWorkingController::class, 'monthly_qa_more_info'])->name('monthly_qa_more_info');
+            Route::post('monthly/check2/{id}', [MonthlyWorkingController::class, 'check2'])->name('monthly_check2');
+            Route::post('monthly/check3/{id}', [MonthlyWorkingController::class, 'check3'])->name('monthly_check3');
+            Route::post('monthlyWorking/stage/{id}', [MonthlyWorkingController::class, 'monthly_send_stage'])->name('monthly_send_stage');
+            Route::get('monthlySingleReport/{id}', [MonthlyWorkingController::class, 'singleReport'])->name('monthlySingleReport');
+            Route::get('/monthly_audit/{id}', [MonthlyWorkingController::class, 'audit2_pdf']);
+            
+            // =========== kshitij ================
+            Route::get('clientInquiryAuditReport/{id}', [ClientInquiryController::class, 'auditReport'])->name('deviationparentchildReport');
+            Route::get('clientinquarySingleReport/{id}', [ClientInquiryController::class, 'SingleReport'])->name('clientinquarySingleReport');
+            //  Route::get('auditDetailsClientInquiry/{id}', [ClientInquiryController::class, 'auditDetailsClientInquiry'])->name('CLientInquiryauditDetails');
+            Route::get('meetingManagementAuditReport/{id}', [MeetingManagementController::class, 'meetingauditReport'])->name('deviationparentchildReport');
+            Route::get('meetingmanagementSingleReport/{id}', [MeetingManagementController::class, 'SingleReport'])->name('meetingmanagementSingleReport');
+
+            Route::get('additionalinformationAuditReport/{id}', [AdditionalInformationController::class, 'additionalauditReport'])->name('deviationparentchildReport');
+            Route::get('additionalinformationSingleReport/{id}', [AdditionalInformationController::class, 'additionalSingleReport'])->name('additionalSingleReport');
+
+            Route::get('audittaskAuditReport/{id}', [AuditTaskController::class, 'audittaskauditReport'])->name('deviationparentchildReport');
+            Route::get('audittaskSingleReport/{id}', [AuditTaskController::class, 'auditSingleReport'])->name('auditSingleReport');
+            // ============== shruti ==============
+            Route::get('PSURSingleReport/{id}', [PSURController::class, 'singleReport'])->name('PSURSingleReport');
+            Route::get('Psur_audit/{id}', [PSURController::class, 'auditTrailPdf'])->name('Psuraudit.pdf');
+            Route::get('psur_auditpdf/{id}', [PSURController::class, 'auditReport'])->name('psurauditpdf');
+
+
+            Route::get('medicaldevice_audit/{id}', [MedicalDeviceController::class, 'auditTrailPdf'])->name('medicaldeviceaudit.pdf');
+            Route::get('medicalSingleReport/{id}', [MedicalDeviceController::class, 'singleReport'])->name('medicalSingleReport');
+
+            Route::get('CommitmentSingleReport/{id}', [CommitmentController::class, 'singleReport'])->name('CommitmentSingleReport');
+            Route::get('Commitment_audit/{id}', [CommitmentController::class, 'auditTrailPdf'])->name('Commitmentaudit.pdf');
+            Route::get('Commitmentaudit.pdf/{id}', [CommitmentController::class, 'auditReport'])->name('Commitmentaudit.pdf');
+            // ============ navneet =============
+            Route::get('MonitoringVisitSingleReport/{id}', [MonitoringVisitController::class, 'SingleReport'])->name('MonitoringVisitSingleReport');
+            Route::get('MonitoringVisitAuditReport/{id}', [MonitoringVisitController::class, 'AuditReport'])->name('MonitoringVisitAuditReport');
+            //  ============== sonali =================
+            /**  DosierDocumentsController  */
+            Route::group(['prefix' => 'dosierdocuments', 'as' => 'dosierdocuments.'], function () {
+
+                Route::get('/', [DosierDocumentsController::class, 'index'])->name('index');
+                Route::post('/store', [DosierDocumentsController::class, 'store'])->name('store');
+                Route::get('view/{id}', [DosierDocumentsController::class, 'show'])->name('view');
+                Route::post('update/{id}', [DosierDocumentsController::class, 'update'])->name('update');
+
+                Route::post('sendstage/{id}', [DosierDocumentsController::class, 'send_stage'])->name('send_stage');
+                Route::post('requestmoreinfo_back_stage/{id}', [DosierDocumentsController::class, 'requestmoreinfo_back_stage'])->name('requestmoreinfo_back_stage');
+                Route::post('cancel_stage/{id}', [DosierDocumentsController::class, 'cancel_stage'])->name('cancel_stage');;
+                Route::post('thirdStage/{id}', [DosierDocumentsController::class, 'stageChange'])->name('thirdStage');
+                Route::get('AuditTrial/{id}', [DosierDocumentsController::class, 'AuditTrial'])->name('audit_trial');
+                Route::post('AuditTrial/{id}', [DosierDocumentsController::class, 'store_audit_review'])->name('store_audit_review');
+                Route::get('auditDetails/{id}', [DosierDocumentsController::class, 'auditDetails'])->name('audit_details');
+
+                Route::get('audit_report/{id}', [DosierDocumentsController::class, 'auditReport'])->name('audit_report');
+                Route::get('single_report/{id}', [DosierDocumentsController::class, 'singleReport'])->name('single_report');
 
             /**
              *PreventiveMaintenanceController

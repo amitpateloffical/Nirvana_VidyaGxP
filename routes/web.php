@@ -656,7 +656,6 @@ Route::view('medical_device_view', 'frontend.new_forms.medical_device_view');
 
 // =========================== Suneel =========================
 
-//Web Route
 //! ============================================
 //!                    New Forms - Validation Form
 //! ============================================
