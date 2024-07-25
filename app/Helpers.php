@@ -321,6 +321,7 @@ class Helpers
 
     static function getInitiatorGroups()
     {
+        
         $initiator_groups = [
             'CQA' => 'Corporate Quality Assurance',
             'QAB' => 'Quality Assurance Biopharma',

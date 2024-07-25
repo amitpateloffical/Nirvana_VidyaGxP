@@ -180,6 +180,7 @@
                             </div> --}}
                         </div>
                     </div>
+                    
                     <div class="right-block">
                         <div class="search-bar">
                             <form>
