@@ -14,22 +14,30 @@ use App\Models\RiskManagement;
 use App\Models\LabIncident;
 use App\Models\Auditee;
 use App\Models\AuditProgram;
+use App\Models\Deviation;
+
+use App\Models\RootCauseAnalysis;
+use App\Models\Observation;
+
 use App\Models\Calibration;
 use App\Models\Sanction;
 use App\Models\Validation;
-use App\Models\RootCauseAnalysis;
-use App\Models\Observation;
-use App\Models\Deviation;
-
 use App\Models\Equipment;
 use App\Models\MonthlyWorking;
 use App\Models\NationalApproval;
+
 use App\Models\LabInvestigation;
 
 use App\Models\GcpStudy;
 use App\Models\SupplierContract;
 use App\Models\SubjectActionItem;
 use App\Models\Violation;
+use App\Models\CTAAmendement;
+use App\Models\Correspondence;
+use App\Models\ContractTestingLabAudit;
+use App\Models\ClinicalSite;
+use App\Models\DosierDocuments;
+use App\Models\PreventiveMaintenances;
 
 use Helpers;
 use App\Models\User;
@@ -80,20 +88,29 @@ class DashboardController extends Controller
         $datas11 = RootCauseAnalysis::orderByDesc('id')->get();
         $datas12 = Observation::orderByDesc('id')->get();
         $datas13 = Deviation::orderByDesc('id')->get();
+
         $datas14 = Validation::orderByDesc('id')->get();
         $datas15 = Equipment::orderByDesc('id')->get();
         $datas16 = Calibration::orderByDesc('id')->get();
         $datas17 = NationalApproval::orderByDesc('id')->get();
         $datas18 = Sanction::orderByDesc('id')->get();
         $datas19 = MonthlyWorking::orderByDesc('id')->get();
+
         $datas20 = LabInvestigation::orderByDesc('id')->get();
+        
+        $datas21 = GcpStudy::orderByDesc('id')->get();
+        $datas22 = SupplierContract::orderByDesc('id')->get();
+        $datas23 = SubjectActionItem::orderByDesc('id')->get();
+        $datas24 = Violation::orderByDesc('id')->get();
+        $datas25 = CTAAmendement::orderByDesc('id')->get();
+        $datas26 = Correspondence::orderByDesc('id')->get();
+        $datas27 = ContractTestingLabAudit::orderByDesc('id')->get();
+        $datas28 = ClinicalSite::orderByDesc('id')->get();
 
-        $datas21 = NationalApproval::orderByDesc('id')->get();
-        $datas22 = Sanction::orderByDesc('id')->get();
-        $datas23 = MonthlyWorking::orderByDesc('id')->get();
-        $datas24 = LabInvestigation::orderByDesc('id')->get();
+        $datas29 = DosierDocuments::orderByDesc('id')->get();
+        $datas30 = PreventiveMaintenances::orderByDesc('id')->get();
 
-
+        
         // $datas16 = ClinicalSite::orderByDesc('id')->get();
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -568,7 +585,7 @@ class DashboardController extends Controller
                 "type" => "Violation",
                 "parent_id" => $data->parent_id,
                 "parent_type" => $data->parent_type,
-                "short_description" => $data->short_description_ti ? $data->short_description_ti : "-",
+                "short_description" => $data->short_description ? $data->short_description : "-",
                 "initiator_id" => $data->initiator_id,
                 "intiation_date" => $data->intiation_date,
                 "stage" => $data->status,
@@ -576,6 +593,127 @@ class DashboardController extends Controller
                 "date_close" => $data->updated_at,
             ]);
         }
+
+        
+        foreach ($datas25 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "CTA-Amendement",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas26 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Correspondence",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas27 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "CTL-Audit",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas28 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "ClinicalSite",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas29 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Dossier Documents",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas30 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Preventive Maintenance",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        
+
     
 
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
