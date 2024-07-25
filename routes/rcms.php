@@ -567,8 +567,8 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('MonitoringVisitSingleReport/{id}', [MonitoringVisitController::class, 'SingleReport'])->name('MonitoringVisitSingleReport');
             Route::get('MonitoringVisitAuditReport/{id}', [MonitoringVisitController::class, 'AuditReport'])->name('MonitoringVisitAuditReport');
             
-            //  ============== sonali =================
-            /**  DosierDocumentsController  */
+            //  ==============By sonali =================
+            /**  ---------- DosierDocumentsController--------  */
             Route::group(['prefix' => 'dosierdocuments', 'as' => 'dosierdocuments.'], function () {
 
                 Route::get('/', [DosierDocumentsController::class, 'index'])->name('index');
@@ -586,10 +586,8 @@ Route::group(['prefix' => 'rcms'], function () {
 
                 Route::get('audit_report/{id}', [DosierDocumentsController::class, 'auditReport'])->name('audit_report');
                 Route::get('single_report/{id}', [DosierDocumentsController::class, 'singleReport'])->name('single_report');
-
-            /**
-             *PreventiveMaintenanceController
-             */
+            });
+            /**  --------- PreventiveMaintenanceController----------- */
             Route::group(['prefix' => 'preventivemaintenance', 'as' => 'preventivemaintenance.'], function () {
 
                 Route::get('/', [PreventiveMaintenanceController::class, 'index'])->name('index');
@@ -607,7 +605,5 @@ Route::group(['prefix' => 'rcms'], function () {
                 Route::get('audit_report/{id}', [PreventiveMaintenanceController::class, 'auditReport'])->name('audit_report');
                 Route::get('single_report/{id}', [PreventiveMaintenanceController::class, 'singleReport'])->name('single_report');
             });
-        }
 
-    );
 });

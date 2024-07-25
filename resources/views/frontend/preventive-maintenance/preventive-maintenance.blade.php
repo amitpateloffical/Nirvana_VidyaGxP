@@ -85,14 +85,11 @@
                             </div>
                             <div class="col-md-6 pt-3">
                                 <div class="group-input">
-                                    <<<<<<< HEAD:resources/views/frontend/New_forms/preventive-maintenance.blade.php <label for="Initiator"><b>Initiator</b></label>
-                                        <input disabled type="text" name="Initiator" value="{{Auth::user()->name}}">
-                                        =======
-                                        <label for="Short Description">Short Description<span class="text-danger">*</span>
+                                  <input disabled type="text" name="Initiator" value="{{Auth::user()->name}}">
+                                       <label for="Short Description">Short Description<span class="text-danger">*</span>
                                             <p>255 characters remaining </p>
-                                            <input id="docname" type="text" name="short_description" maxlength="255" required>
-                                            >>>>>>> Nirvana_updated24july:resources/views/frontend/preventive-maintenance/preventive-maintenance.blade.php
-                                </div>
+                                        <input id="docname" type="text" name="short_description" maxlength="255" required>
+                                 </div>
                             </div>
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">

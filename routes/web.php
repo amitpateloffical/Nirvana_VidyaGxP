@@ -54,6 +54,12 @@ use App\Http\Controllers\newForm\NationalApprovalController;
 use App\Http\Controllers\newForm\SanctionController;
 use App\Http\Controllers\newForm\ValidationController;
 
+use App\Http\Controllers\ClientInquiryController;
+use App\Http\Controllers\MeetingManagementController;
+use App\Http\Controllers\AdditionalInformationController;
+use App\Http\Controllers\rcms\AuditTaskController;
+
+
 
 
 /*
@@ -669,7 +675,7 @@ Route::view("additional_testing", 'frontend.additional-testing.additional_testin
         Route::post('monthly_working_child/{id}', [MonthlyWorkingController::class, 'monthly_working_child_1'])->name('monthly_working_child_1');
         Route::get('audit_trail_monthly_working/{id}', [MonthlyWorkingController::class, 'audit_monthly_working']);
         Route::get('monthly_workingAuditTrialDetails/{id}', [MonthlyWorkingController::class, 'monthly_workingAuditTrialDetails']);
-        //  ====================== Kshitij Client Inquiry===================
+        // ----------------------- Kshitij Client Inquiry ----------------------
         Route::get('client-inquiry', [ClientInquiryController::class, 'clientinquiry']);
         Route::get('client_inquiry', [ClientInquiryController::class, 'index']);
         Route::post('client_inquiry_store', [ClientInquiryController::class, 'store'])->name('client_inquiry_store');
