@@ -206,7 +206,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('deviation', [DeviationController::class, 'deviation']);
             Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
             Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
-
+            // --------------------- By Suneel  ------------------
             // Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
             Route::post('send-child/{id}', [ValidationController::class, 'stageChange'])->name('stageChange');
             Route::post('validation/stage/{id}', [ValidationController::class, 'validation_send_stage'])->name('validation_send_stage');
@@ -277,9 +277,8 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('monthlySingleReport/{id}', [MonthlyWorkingController::class, 'singleReport'])->name('monthlySingleReport');
             Route::get('/monthly_audit/{id}', [MonthlyWorkingController::class, 'audit2_pdf']);
         });
-            //-------------------- Monika GCP Study Route Start-------------------//
-
-            //form
+            //-------------------- By  Monika GCP Study Route Start-------------------//
+            
             Route::get('/GCP_study', [GcpStudyController::class, 'index'])->name('GCP_study.index')->middleware('auth');
             Route::post('/GCP_study_store', [GcpStudyController::class, 'store'])->name('GCP_study.store')->middleware('auth');;
             Route::get('/GCP_study_edit/{id}', [GcpStudyController::class, 'edit'])->name('GCP_study.edit')->middleware('auth');;
@@ -296,8 +295,6 @@ Route::group(['prefix' => 'rcms'], function () {
             //audittrail
             Route::get('GCP_study/AuditTrail/{id}', [GcpStudyController::class, 'GCP_studyAuditTrial'])->name('GCP_study_audit_trail');
             Route::get('GCP_study/AuditTrailPdf/{id}', [GcpStudyController::class, 'GCP_study_AuditTrailPdf'])->name('GCP_study_AuditTrailPdf');
-
-            //--------------------GCP Study Route End-------------------//
 
             //form
             Route::get('/supplier_contract', [SupplierContractController::class, 'index'])->name('supplier_contract.index')->middleware('auth');
@@ -469,7 +466,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('subjectupdate/{id}', [SubjectController::class, 'show'])->name('subjectshow');
             Route::put('subjectsaveupdate/{id}', [SubjectController::class, 'update'])->name('subjectupdate');
             Route::post('subjectstagechange/{id}', [SubjectController::class, 'subjectStateChange'])->name('subject_stagechange');
-            //  ========= suneel =============
+            //  ========= By suneel =============
 
             // Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
             Route::post('send-child/{id}', [ValidationController::class, 'stageChange'])->name('stageChange');
@@ -541,7 +538,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('monthlySingleReport/{id}', [MonthlyWorkingController::class, 'singleReport'])->name('monthlySingleReport');
             Route::get('/monthly_audit/{id}', [MonthlyWorkingController::class, 'audit2_pdf']);
             
-            // =========== kshitij ================
+            // ===========By kshitij ================
             Route::get('clientInquiryAuditReport/{id}', [ClientInquiryController::class, 'auditReport'])->name('deviationparentchildReport');
             Route::get('clientinquarySingleReport/{id}', [ClientInquiryController::class, 'SingleReport'])->name('clientinquarySingleReport');
             //  Route::get('auditDetailsClientInquiry/{id}', [ClientInquiryController::class, 'auditDetailsClientInquiry'])->name('CLientInquiryauditDetails');
@@ -565,7 +562,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('CommitmentSingleReport/{id}', [CommitmentController::class, 'singleReport'])->name('CommitmentSingleReport');
             Route::get('Commitment_audit/{id}', [CommitmentController::class, 'auditTrailPdf'])->name('Commitmentaudit.pdf');
             Route::get('Commitmentaudit.pdf/{id}', [CommitmentController::class, 'auditReport'])->name('Commitmentaudit.pdf');
-            // ============ navneet =============
+            // ============By  navneet =============
             Route::get('MonitoringVisitSingleReport/{id}', [MonitoringVisitController::class, 'SingleReport'])->name('MonitoringVisitSingleReport');
             Route::get('MonitoringVisitAuditReport/{id}', [MonitoringVisitController::class, 'AuditReport'])->name('MonitoringVisitAuditReport');
             
