@@ -20,9 +20,17 @@ use App\Models\Validation;
 use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 use App\Models\Deviation;
+
 use App\Models\Equipment;
 use App\Models\MonthlyWorking;
 use App\Models\NationalApproval;
+use App\Models\LabInvestigation;
+
+use App\Models\GcpStudy;
+use App\Models\SupplierContract;
+use App\Models\SubjectActionItem;
+use App\Models\Violation;
+
 use Helpers;
 use App\Models\User;
 use App\Models\ValidationAudit;
@@ -78,6 +86,12 @@ class DashboardController extends Controller
         $datas17 = NationalApproval::orderByDesc('id')->get();
         $datas18 = Sanction::orderByDesc('id')->get();
         $datas19 = MonthlyWorking::orderByDesc('id')->get();
+        $datas20 = LabInvestigation::orderByDesc('id')->get();
+
+        $datas21 = NationalApproval::orderByDesc('id')->get();
+        $datas22 = Sanction::orderByDesc('id')->get();
+        $datas23 = MonthlyWorking::orderByDesc('id')->get();
+        $datas24 = LabInvestigation::orderByDesc('id')->get();
 
 
         // $datas16 = ClinicalSite::orderByDesc('id')->get();
@@ -464,6 +478,105 @@ class DashboardController extends Controller
                 "date_close" => $data->updated_at,
             ]);
         }
+        
+        foreach ($datas20 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+    
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "lab-investigation",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas21 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Gcp-Study",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description_gi ? $data->short_description_gi : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas22 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Supplier-Contract",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description_gi ? $data->short_description_gi : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas23 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Subject-Action-Item",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description_ti ? $data->short_description_ti : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas24 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Violation",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description_ti ? $data->short_description_ti : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+    
 
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
         // return $table;
@@ -857,7 +970,6 @@ class DashboardController extends Controller
     public function ccView($id, $type)
     {
 
-
         if ($type == "Change-Control") {
             $data = CC::find($id);
             $single = "change_control_single_pdf/" . $data->id;
@@ -915,26 +1027,7 @@ class DashboardController extends Controller
             $data = RootCauseAnalysis::find($id);
             $single = "rootSingleReport/" . $data->id;
             $audit = "rootAuditReport/" . $data->id;
-
-            
         } 
-        // elseif ($type == "lab-investigation") {
-        //     $data = LabInvestigation::find($id);
-        //     $single = "lab_singleReport/" . $data->id;
-        //     $audit = "lab_auditReport/" . $data->id;
-
-            
-        // } 
-        
-        
-        elseif ($type == "lab-investigation") {
-            $data = LabInvestigation::find($id);
-            $single = "lab_singleReport/". $data->id;
-            $audit = "lab_auditReport/".$data->id;
-            $parent="#". $data->id;
-        }
-
-        
         elseif ($type == "Deviation") {
             $data = Deviation::find($id);
             $single = "deviationSingleReport/" . $data->id;
@@ -970,7 +1063,13 @@ class DashboardController extends Controller
             $single = "monthlySingleReport/" . $data->id;
             $audit = "monthly_audit/" . $data->id;
             $parent = "monthlyparentchildReport/" . $data->id;
-        } elseif ($type == "Dossier Documents") {
+        } elseif ($type == "lab-investigation") {
+            $data = LabInvestigation::find($id);
+            $single = "lab_singleReport/". $data->id;
+            $audit = "lab_auditReport/".$data->id;
+            $parent="#". $data->id;
+        } 
+        elseif ($type == "Dossier Documents") {
             $data = DosierDocuments::find($id);
             $single = "dosierdocuments/single_report/" . $data->id;
             $audit = "dosierdocuments/audit_report/" . $data->id;
@@ -985,10 +1084,6 @@ class DashboardController extends Controller
             $audit = "pdf/" . $data->id;
             $single = "pdf-report/" . $data->id;
             $parent = "deviationparentchildReport/" . $data->id;
-
-            // $division = QMSDivision::find($data->division_id);
-            // $division_name = $division->name;
-
         } elseif ($type == "Gcp-Study") {
             $data = GcpStudy::find($id);
             $single = "GCP_study/SingleReport/" . $data->id;
@@ -1006,8 +1101,8 @@ class DashboardController extends Controller
             $parent = "/" . $data->id;
         } elseif ($type == "Violation") {
             $data = Violation::find($id);
-            $single = "Violation/SingleReport/" . $data->id;
-            $audit = "Violation/AuditTrailPdf/" . $data->id;
+            $single = "violation/SingleReport/" . $data->id;
+            $audit = "violation/AuditTrailPdf/" . $data->id;
             $parent = "/" . $data->id;
         } elseif ($type == "CTA-Amendement") {
             $data = CTAAmendement::find($id);
