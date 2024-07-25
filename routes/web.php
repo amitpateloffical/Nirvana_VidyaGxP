@@ -715,4 +715,99 @@ Route::put('/monthly_working_update/{id}', [MonthlyWorkingController::class, 'mo
 Route::post('monthly_working_child/{id}', [MonthlyWorkingController::class, 'monthly_working_child_1'])->name('monthly_working_child_1');
 Route::get('audit_trail_monthly_working/{id}', [MonthlyWorkingController::class, 'audit_monthly_working']);
 Route::get('monthly_workingAuditTrialDetails/{id}', [MonthlyWorkingController::class, 'monthly_workingAuditTrialDetails']);
-//  ====================== close suneel routing ===================
+//  ====================== Kshitij routing ===================
+          //=================Client Inquiry============================
+Route::get('client-inquiry', [ClientInquiryController::class, 'clientinquiry']);
+Route::get('client_inquiry', [ClientInquiryController::class, 'index']);
+Route::post('client_inquiry_store', [ClientInquiryController::class, 'store'])->name('client_inquiry_store');
+Route::put('client_inquiry_update/{id}', [ClientInquiryController::class, 'update'])->name('client_update');
+Route::post('ClientInquirystagechange/{id}', [ClientInquiryController::class, 'StageChange'])->name('CIStage_change');
+Route::post('ClientInquirystage/{id}', [ClientInquiryController::class, 'Stage'])->name('CIStages_change');
+Route::post('ClientInquirycstage/{id}', [ClientInquiryController::class, 'CStage'])->name('CIStages_changes');
+Route::post('RStages_change/{id}', [ClientInquiryController::class, 'RejectStateChanges'])->name('RStages_change');
+Route::post('ClientInquiryrejectstate/{id}', [ClientInquiryController::class, 'RejectState'])->name('RJCStages_change');
+Route::get('client_inquiry_view/{id}',[ClientInquiryController::class,'show'])->name('client_inquiry_view');
+Route::get('ClientInquiry_AuditTrial/{id}',[ClientInquiryController::class,'ClientInquiryAuditTrial'])->name('ClientInquiry_AuditTrial');
+Route::post('Action_item',[ClientInquiryController::class,'Actionchild'])->name('action_item_show');
+Route::get('audit-program/{id}', [AuditProgramController::class, 'auditprogram']);
+Route::post('CNStages_change/{id}', [ClientInquiryController::class, 'ClientCancel'])->name('CNStages_change');
+
+         //----------------------Meeting Management----------------
+
+// Route::get('meeting-management', [MeetingManagementController::class, 'meetingmanagement']);
+Route::get('meeting_management', [MeetingManagementController::class, 'index']);
+Route::post('meeting_management_store', [MeetingManagementController::class, 'store'])->name('meeting_management_store');
+Route::put('meeting_management_update/{id}', [MeetingManagementController::class, 'update'])->name('meeting_update');
+Route::get('meeting_management_view/{id}',[MeetingManagementController::class,'show'])->name('meeting_management_view');
+Route::post('meetingmanagementstagechange/{id}', [MeetingManagementController::class, 'StageChange'])->name('MMStage_change');
+Route::get('meeting_management_AuditTrial/{id}',[MeetingManagementController::class,'MeetingManagementAuditTrial'])->name('meeting_management_AuditTrial');
+
+//----------------------Additional Information-------------------
+Route::get('additional_information', [AdditionalInformationController::class, 'index']);
+Route::post('additional_information_create', [AdditionalInformationController::class, 'create'])->name('additional_information_create');
+Route::put('additional_information_update/{id}', [AdditionalInformationController::class, 'update'])->name('additional_update');
+Route::get('additional_information_view/{id}',[AdditionalInformationController::class,'show'])->name('additional_information_view');
+Route::post('additionalinformationstagechange/{id}', [AdditionalInformationController::class, 'StageChange'])->name('AIStage_change');
+Route::post('CancelStages_change/{id}', [AdditionalInformationController::class, 'CancelStateChanges'])->name('CNStages_change');
+Route::post('MoreInfoStages_change/{id}', [AdditionalInformationController::class, 'MoreInfoStateChanges'])->name('MoreInfotages_change');
+Route::get('additional_information_AuditTrial/{id}',[AdditionalInformationController::class,'AdditionalInformationAuditTrial'])->name('additional_information_AuditTrial');
+
+//---------------------Audit Task-------------------------------------------
+Route::get('audit-task',[AuditTaskController::class,'index']);
+Route::post('store-audit',[AuditTaskController::class,'Store'])->name('audit_store');
+Route::get('show-audit-task/{id}',[AuditTaskController::class,'AuditTaskShow'])->name('show_audit_task');
+Route::post('task-update/{id}',[AuditTaskController::class, 'update'])->name('update');
+// Route::get('auditReport/{id}',[AuditTaskController::class,'AuditTrial'])->name('auditReport');
+// Route::get('singleReport/{id}',[AuditTaskController::class,'AuditSingleReport'])->name('singleReport');
+Route::post('Follow_up',[AuditTaskController::class,'Followupchild'])->name('follow_up_show');
+Route::post('audittaskchangeStage/{id}',[AuditTaskController::class,'auditStage'])->name('ATStage_change');
+Route::post('reject/{id}', [AuditTaskController::class, 'auditReject'])->name('MoreInfostage_change');
+Route::post('cancel/{id}', [AuditTaskController::class, 'auditCancle'])->name('ATCNStages_change');
+Route::get('audit_task_AuditTrial/{id}',[AuditTaskController::class,'AuditTaskAuditTrial'])->name('audit_task_AuditTrial');
+Route::view('client-inquiry', 'frontend.New_forms.client-inquiry');
+Route::get('audit-program', [AuditProgramController::class, 'auditprogram']);
+
+// ------------------------------------Shruti Commitment ------------------------------------
+Route::view('commitment', 'frontend.Registration-Tracking.commitment');
+Route::get('commitment', [CommitmentController::class, 'index'])->name('commitment.index');
+Route::post('commitment_store', [CommitmentController::class,'store'])->name('commitment.store');
+Route::get('commitment_view/{id}', [CommitmentController::class, 'show'])->name('commitment.view');
+Route::put('commitment_Update/{id}', [CommitmentController::class, 'update'])->name('comm_Update');
+Route::post('commitment_stageChange/{id}', [CommitmentController::class, 'stageChange'])->name('commitment.stageChange');
+Route::post('commitment/cancel/{id}', [CommitmentController::class, 'stage_cancel'])->name('commitment.cancel');
+Route::get('commitment_audittrail/{id}', [CommitmentController::class, 'auditTrialshow'])->name('commitment.audittrail');
+Route::get('commitment_auditDetails/{id}', [CommitmentController::class, 'commitmentAuditDetails'])->name('commitment.auditDetails');
+
+//----------------------------------------PSUR----FORM-------------//
+
+Route::get('psur', [PSURController::class, 'index'])->name('psur.index');
+Route::post('psur_store', [PSURController::class, 'store'])->name('psur.store');
+Route::get('Psur_view/{id}', [PSURController::class, 'show'])->name('psur.view');
+Route::post('Psur_Update/{id}', [PSURController::class, 'Update'])->name('PSUR_Update');
+Route::post('psur_stageChange/{id}', [PSURController::class, 'stageChange'])->name('psur.stageChange');
+Route::post('psur/cancel/{id}', [PSURController::class, 'psur_cancel'])->name('psur_cancel');
+Route::post('psur_stagereject/{id}', [PSURController::class, 'stagereject'])->name('psur.stagereject');
+Route::get('psur_audittrail/{id}', [PSURController::class, 'auditTrialshow'])->name('psur_audittrail');
+Route::get('psur_auditDetails/{id}', [PSURController::class, 'psurAuditDetails'])->name('psur.auditDetails');
+
+//-------------------------------Medical-device------------------
+Route::get('medical-devices', [medicaldeviceController::class, 'index'])->name('medical-devices.index');
+Route::post('medical-devices_store', [medicaldeviceController::class, 'store'])->name('medical-devices');
+Route::get('medical_Device_view/{id}', [medicaldeviceController::class, 'show'])->name('medical_Device_view');
+Route::post('medicaldeviceUpdate/{id}', [MedicalDeviceController::class, 'Update'])->name('Update');
+Route::post('medicaldevice_stageChange/{id}', [MedicalDeviceController::class, 'stageChange'])->name('medicaldevice_stageChange');
+Route::post('medicalDevice/cancel/{id}', [MedicalDeviceController::class, 'medicalDevice_cancel'])->name('medicalDevice_cancel');
+Route::get('medialdevice_audittrail/{id}', [MedicalDeviceController::class, 'auditTrialshow'])->name('medialdevice_audittrail');
+Route::view('medical_device_view', 'frontend.new_forms.medical_device_view');
+// ==========================  Navneet =======================
+//-----------------monitoring_visit--------------------
+
+Route::get('monitoring_visit', [MonitoringVisitController::class, 'index'])->name('monitoring_visit');
+Route::post('monitoring_visit_store', [MonitoringVisitController::class, 'store'])->name('monitoring_visit_store');
+Route::put('monitoring_visit_update/{id}', [MonitoringVisitController::class, 'update'])->name('monitoring_visit_update');
+Route::get('monitoring_visit_view/{id}', [MonitoringVisitController::class, 'show'])->name('monitoring_visit_view');
+Route::post('monitoring_visit_stage_change/{id}', [MonitoringVisitController::class, 'StageChange'])->name('MVStage_Change');
+Route::post('Violation_item', [MonitoringVisitController::class, 'ViolationChild'])->name('violation_item_show');
+Route::post('MVstages_change/{id}', [MonitoringVisitController::class, 'MonitoringVisitCancel'])->name('MVstages_change');
+Route::get('Monitoring_Visit_AuditTrial/{id}', [MonitoringVisitController::class, 'MonitoringVisitAuditTrial'])->name('Monitoring_Visit_AuditTrial');
+// Route::get('MonitoringVisitSingleReport/{id}', [MonitoringVisitController::class, 'MonitoringVisitSingleReport'])->name('MonitoringVisitSingleReport');
