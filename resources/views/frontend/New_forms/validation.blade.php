@@ -418,7 +418,7 @@ $users = DB::table('users')->get();
                                 </label>
 
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Details-table">
+                                    <table class="table table-bordered" id="Details-table-equipment">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -429,51 +429,18 @@ $users = DB::table('users')->get();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
-                                            <td><input type="text" name="details[0][equipment_name_code]"></td>
-                                            <td><input type="text" name="details[0][equipment_id]"></td>
-                                            <td><input type="text" name="details[0][asset_no]"></td>
-                                            <td><input type="text" name="details[0][remarks]"></td>
-
+                                            <tr>
+                                                <td><input disabled type="text" name="details[0][serial]" value="1"></td>
+                                                <td><input type="text" name="details[0][equipment_name_code]"></td>
+                                                <td><input type="text" name="details[0][equipment_id]"></td>
+                                                <td><input type="text" name="details[0][asset_no]"></td>
+                                                <td><input type="text" name="details[0][remarks]"></td>
+                                            </tr>
                                         </tbody>
 
                                     </table>
                                 </div>
                             </div>
-                            <script>
-                                $(document).ready(function() {
-                                    $('#Affected_equipment_add').click(function(e) {
-                                        function generateTableRow(serialNumber) {
-                                            var html = '';
-                                            html += '<tr>' +
-                                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                                                '"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber +
-                                                '][equipment_name_code]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][equipment_id]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][asset_no]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][remarks]"></td>' +
-                                                // '<td><button type="text" class="removeRowBtn" >Remove</button></td>' +
-                                                '</tr>';
-
-                                            // for (var i = 0; i < users.length; i++) {
-                                            //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                                            // }
-
-                                            // html += '</select></td>' +
-
-                                            '</tr>';
-
-                                            return html;
-                                        }
-
-                                        var tableBody = $('#Details-table tbody');
-                                        var rowCount = tableBody.children('tr').length;
-                                        var newRow = generateTableRow(rowCount + 1);
-                                        tableBody.append(newRow);
-                                    });
-                                });
-                            </script>
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
@@ -484,7 +451,7 @@ $users = DB::table('users')->get();
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Details-table">
+                                    <table class="table table-bordered" id="Details-table-item">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -495,50 +462,62 @@ $users = DB::table('users')->get();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
-                                            <td><input type="text" name="details[0][item_type]"></td>
-                                            <td><input type="text" name="details[0][item_name]"></td>
-                                            <td><input type="text" name="details[0][item_no]"></td>
-                                            <td><input type="text" name="details[0][item_remarks]"></td>
+                                            <tr>
+                                                <td><input disabled type="text" name="affected_equipments[0][serial]" value="1"></td>
+                                                <td><input type="text" name="affected_equipments[0][item_type]"></td>
+                                                <td><input type="text" name="affected_equipments[0][item_name]"></td>
+                                                <td><input type="text" name="affected_equipments[0][item_no]"></td>
+                                                <td><input type="text" name="affected_equipments[0][item_remarks]"></td>
+                                            </tr>
                                         </tbody>
 
                                     </table>
                                 </div>
                             </div>
+
                             <script>
                                 $(document).ready(function() {
-                                    $('#Affected_item_add').click(function(e) {
-                                        function generateTableRow(serialNumber) {
+                                    $('#Affected_equipment_add').click(function(e) {
+                                        function generateEquipmentRow(serialNumber) {
                                             var html = '';
                                             html += '<tr>' +
-                                                '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                                                '"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber +
-                                                '][item_type]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][item_name]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][item_no]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][item_remarks]"></td>' +
-                                                // '<td><button type="text" class="removeRowBtn" >Remove</button></td>' +
+                                                '<td><input disabled type="text" name="details[' + serialNumber + '][serial]" value="' + serialNumber + '"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][equipment_name_code]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][equipment_id]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][asset_no]"></td>' +
+                                                '<td><input type="text" name="details[' + serialNumber + '][remarks]"></td>' +
                                                 '</tr>';
+                                            return html;
+                                        }
+                                        var tableBody = $('#Details-table-equipment tbody');
+                                        var rowCount = tableBody.children('tr').length;
+                                        var newRow = generateEquipmentRow(rowCount + 1);
+                                        tableBody.append(newRow);
+                                    });
 
-                                            // for (var i = 0; i < users.length; i++) {
-                                            //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                                            // }
-
-                                            // html += '</select></td>' +
-
-                                            '</tr>';
-
+                                    $('#Affected_item_add').click(function(e) {
+                                        function generateItemRow(serialNumber) {
+                                            var html = '';
+                                            html += '<tr>' +
+                                                '<td><input disabled type="text" name="affected_equipments[' + serialNumber + '][serial]" value="' + serialNumber + '"></td>' +
+                                                '<td><input type="text" name="affected_equipments[' + serialNumber + '][item_type]"></td>' +
+                                                '<td><input type="text" name="affected_equipments[' + serialNumber + '][item_name]"></td>' +
+                                                '<td><input type="text" name="affected_equipments[' + serialNumber + '][item_no]"></td>' +
+                                                '<td><input type="text" name="affected_equipments[' + serialNumber + '][item_remarks]"></td>' +
+                                                '</tr>';
                                             return html;
                                         }
 
-                                        var tableBody = $('#Details-table tbody');
+                                        var tableBody = $('#Details-table-item tbody');
                                         var rowCount = tableBody.children('tr').length;
-                                        var newRow = generateTableRow(rowCount + 1);
+                                        var newRow = generateItemRow(rowCount + 1);
                                         tableBody.append(newRow);
                                     });
                                 });
                             </script>
+
+
+                            <!-- grid 3 -->
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
@@ -549,7 +528,7 @@ $users = DB::table('users')->get();
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Details-table">
+                                    <table class="table table-bordered" id="Details-table-facilities">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -560,11 +539,11 @@ $users = DB::table('users')->get();
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
-                                            <td><input type="text" name="details[0][facility_location]"></td>
-                                            <td><input type="text" name="details[0][facility_type]"></td>
-                                            <td><input type="text" name="details[0][facility_name]"></td>
-                                            <td><input type="text" name="details[0][facility_remarks]"></td>
+                                            <td><input disabled type="text" name="affected_facilities[0][serial]" value="1"></td>
+                                            <td><input type="text" name="affected_facilities[0][facility_location]"></td>
+                                            <td><input type="text" name="affected_facilities[0][facility_type]"></td>
+                                            <td><input type="text" name="affected_facilities[0][facility_name]"></td>
+                                            <td><input type="text" name="affected_facilities[0][facility_remarks]"></td>
 
                                         </tbody>
 
@@ -580,26 +559,17 @@ $users = DB::table('users')->get();
                                             html += '<tr>' +
                                                 '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                                                 '"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber +
+                                                '<td><input type="text" name="affected_facilities[' + serialNumber +
                                                 '][facility_location]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][facility_type]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][facility_name]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][facility_remarks]"></td>' +
+                                                '<td><input type="text" name="affected_facilities[' + serialNumber + '][facility_type]"></td>' +
+                                                '<td><input type="text" name="affected_facilities[' + serialNumber + '][facility_name]"></td>' +
+                                                '<td><input type="text" name="affected_facilities[' + serialNumber + '][facility_remarks]"></td>' +
                                                 // '<td><button type="text" class="removeRowBtn" >Remove</button></td>' +
                                                 '</tr>';
 
-                                            // for (var i = 0; i < users.length; i++) {
-                                            //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                                            // }
-
-                                            // html += '</select></td>' +
-
-                                            '</tr>';
-
                                             return html;
                                         }
-
-                                        var tableBody = $('#Details-table tbody');
+                                        var tableBody = $('#Details-table-facilities tbody');
                                         var rowCount = tableBody.children('tr').length;
                                         var newRow = generateTableRow(rowCount + 1);
                                         tableBody.append(newRow);

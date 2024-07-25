@@ -160,13 +160,38 @@ class ValidationController extends Controller
 
             $validation->save();
 
-            // Grid Start
+            // Grid1 Start
             $validation_id = $validation->id;
             $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'details'])->firstOrCreate();
             $newDataGridErrata->validation_id = $validation_id;
-            $newDataGridErrata->identifier = 'details';
             $newDataGridErrata->data = $request->details;
             $newDataGridErrata->save();
+
+            // Grid2 Start
+            // $validation_id = $validation->id;
+            $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'affected_equipments'])->firstOrCreate();
+            $newDataGridErrata->validation_id = $validation_id;
+            $newDataGridErrata->identifier = 'affected_equipments';
+            $newDataGridErrata->data = $request->affected_equipments;
+            $newDataGridErrata->save();
+
+            // Grid3 Start
+            // $validation_id = $validation->id;
+            $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'affected_facilities'])->firstOrCreate();
+            $newDataGridErrata->validation_id = $validation_id;
+            $newDataGridErrata->identifier = 'affected_facilities';
+            $newDataGridErrata->data = $request->affected_facilities;
+            $newDataGridErrata->save();
+
+
+            // Grid4 Start
+            // $validation_id = $validation->id;
+            $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'audit_agenda_grid'])->firstOrCreate();
+            $newDataGridErrata->validation_id = $validation_id;
+            $newDataGridErrata->identifier = 'audit_agenda_grid';
+            $newDataGridErrata->data = $request->audit_agenda_grid;
+            $newDataGridErrata->save();
+
 
             if (!empty($request->short_description)) {
                 $validation2 = new ValidationAudit();
@@ -513,15 +538,16 @@ class ValidationController extends Controller
     public function validationEdit($id)
     {
         $validation = Validation::findOrFail($id);
+        $details = ValidationGrid::where('validation_id', $id)->where('identifier', 'details')->first();
+        $affected_equipments = ValidationGrid::where('validation_id', $id)->where('identifier', 'affected_equipments')->first();
+        $affected_facilities = ValidationGrid::where('validation_id', $id)->where('identifier', 'affected_facilities')->first();
+        $audit_agenda_grid = ValidationGrid::where('validation_id', $id)->where('identifier', 'audit_agenda_grid')->first();
 
-        $packagingDetails = ValidationGrid::where('validation_id', $id)->where('identifier', 'details')->first();
-
-        $details = $packagingDetails ? json_decode($packagingDetails->data, true) : [];
         $currentDate = Carbon::now();
         $formattedDate = $currentDate->addDays(30);
         $due_date = $formattedDate->format('Y-m-d');
 
-        return view('frontend.new_forms.updateValidation', compact('validation', 'details', 'due_date'));
+        return view('frontend.new_forms.updateValidation', compact('validation', 'details', 'affected_equipments', 'affected_facilities', 'audit_agenda_grid', 'due_date'));
     }
 
     public function validationUpdate(Request $request, $id)
@@ -614,12 +640,42 @@ class ValidationController extends Controller
 
             $validations->update();
 
+            // Grid1 Start
             $validation_id = $validations->id;
-            $newDataGrid = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'details'])->firstOrCreate();
-            $newDataGrid->validation_id = $validation_id;
-            $newDataGrid->identifier = 'details';
-            $newDataGrid->data = $request->details;
-            $newDataGrid->save();
+            $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'details'])->firstOrCreate();
+            $newDataGridErrata->validation_id = $validation_id;
+            $newDataGridErrata->identifier = 'details';
+            $newDataGridErrata->data = $request->details;
+            $newDataGridErrata->save();
+
+            // Grid2 Start
+            // $validation_id = $validation->id;
+            $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'affected_equipments'])->firstOrCreate();
+            $newDataGridErrata->validation_id = $validation_id;
+            $newDataGridErrata->identifier = 'affected_equipments';
+            $newDataGridErrata->data = $request->affected_equipments;
+            $newDataGridErrata->save();
+
+            // Grid3 Start
+            // $validation_id = $validation->id;
+            $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'affected_facilities'])->firstOrCreate();
+            $newDataGridErrata->validation_id = $validation_id;
+            $newDataGridErrata->identifier = 'affected_facilities';
+            $newDataGridErrata->data = $request->affected_facilities;
+            $newDataGridErrata->save();
+
+
+            // Grid4 Start
+            // $validation_id = $validation->id;
+            $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'audit_agenda_grid'])->firstOrCreate();
+            $newDataGridErrata->validation_id = $validation_id;
+            $newDataGridErrata->identifier = 'audit_agenda_grid';
+            $newDataGridErrata->data = $request->audit_agenda_grid;
+            $newDataGridErrata->save();
+
+
+
+
 
             if ($lastDocument->short_description != $request->short_description) {
                 $validation2 = new ValidationAudit();
@@ -1053,8 +1109,6 @@ class ValidationController extends Controller
             return redirect()->back()->with('error', 'Failed to save validation: ' . $e->getMessage());
         }
     }
-
-
 
     function auditValidation($id)
     {
@@ -1582,7 +1636,8 @@ class ValidationController extends Controller
         $data = Validation::find($id);
         if (!empty($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
-
+            $gridData = ValidationGrid::where(['validation_id' => $id, 'identifier' => "details"])->first();
+            //dd($gridData);
             $doc = ValidationAudit::where('validation_id', $data->id)->first();
             $detail_data = ValidationAudit::where('activity_type', $data->activity_type)
                 ->where('validation_id', $data->validation_id)
@@ -1595,7 +1650,8 @@ class ValidationController extends Controller
             $pdf = PDF::loadview('frontend.New_forms.singleValidationReport', compact(
                 'detail_data',
                 'doc',
-                'data'
+                'data',
+                'gridData'
             ))
                 ->setOptions([
                     'defaultFont' => 'sans-serif',
@@ -1635,6 +1691,7 @@ class ValidationController extends Controller
         // Handle the case where the $data is empty or not found
         return redirect()->back()->with('error', 'Validation not found.');
     }
+
 
     public function ValidationAuditTrialDetails($id)
     {

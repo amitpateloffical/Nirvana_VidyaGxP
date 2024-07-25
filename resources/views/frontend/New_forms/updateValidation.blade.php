@@ -294,8 +294,15 @@ $users = DB::table('users')->get();
             <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Test Results</button>
             <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
         </div>
+        <script>
+            $(document).ready(function() {
+                <?php if (in_array($validation->stage, [9])) : ?>
+                    $("#target :input").prop("disabled", true);
+                <?php endif; ?>
+            });
+        </script>
 
-        <form action="{{ route('validation.update', $validation->id) }}" method="POST" enctype="multipart/form-data">
+        <form id="target" action="{{ route('validation.update', $validation->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -313,6 +320,13 @@ $users = DB::table('users')->get();
 
                             <div class="col-lg-6">
                                 <div class="group-input">
+                                    <label for="Division Code"><b>Site/Location Code</b></label>
+                                    <input readonly type="text" name="divison_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="group-input">
                                     <label for="Originator"><b>Initiator</b></label>
                                     <input disabled type="text" name="validation" value="{{ Auth::user()->name }}">
                                     <input type="hidden" name="validation" value="{{ Auth::user()->name }}">
@@ -322,8 +336,6 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="RLS Record Number">Record Number</label>
-                                    <!-- <input disabled type="text" name="record"
-                                            value="{{ Helpers::getDivisionName(session()->get('division')) }}/DEMOVALIDATION/{{ date('Y') }}"> -->
                                     <input disabled type="text" name="record" value="{{ Helpers::getDivisionName($validation->division_id) }}/VALIDATION/{{ Helpers::year($validation->created_at) }}/{{ $validation->record }}">
                                 </div>
                             </div>
@@ -350,26 +362,6 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
 
-                            <!-- <div class="col-md-6">
-                                <div class="group-input">
-                                    <label for="search">
-                                        Assigned To <span class="text-danger"></span>
-                                    </label>
-                                    <select id="select-state" placeholder="Select..." name="assign_to">
-                                        <option value="">Select a value</option>
-                                        @foreach ($users as $datas)
-                                        @if(Helpers::checkUserRolesassign_to($datas))
-                                        <option value="{{ $datas->id }}" {{ $validation->assign_to == $datas->id ? 'selected' : '' }} {{-- @if ($data->assign_to == $datas->id) selected @endif --}}>
-                                            {{ $datas->name }}
-                                        </option>
-                                        @endif
-                                        @endforeach
-                                    </select>
-                                    @error('assigned_user_id')
-                                    <p class="text-danger">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                            </div> -->
 
                             <div class="col-md-6">
                                 <div class="group-input">
@@ -398,30 +390,12 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
 
-                            <!-- <div class="col-md-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="due-date">Date Due <span class="text-danger"></span></label>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="assign_due_date_display" readonly placeholder="DD-MM-YY" />
-                                        <input type="date" name="assign_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ \Helpers::getdateFormat($validation->assign_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'assign_due_date_display')" />
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <!-- <script>
-                                function handleDateInput(dateInput, displayId) {
-                                    const date = new Date(dateInput.value);
-                                    const formattedDate = `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getFullYear()).slice(-2)}`;
-                                    document.getElementById(displayId).value = formattedDate;
-                                }
-                            </script> -->
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Type">Validation Type</label>
                                     <select name="validation_type">
-                                        <!-- <option value="">Enter Your Selection Here</option> -->
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if ($validation->validation_type == 1) selected @endif>1</option>
                                         <option value="2" @if ($validation->validation_type == 2) selected @endif>2</option>
                                         <option value="3" @if ($validation->validation_type == 3) selected @endif>3</option>
@@ -434,10 +408,7 @@ $users = DB::table('users')->get();
                                     <label for="validation_due_date">Date Due <span class="text-danger"></span></label>
                                     <div><small class="text-primary">Please mention expected date of completion</small></div>
                                     <div class="calenderauditee">
-                                        <!-- <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
-                                        <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" 
-                                        value="{{ \Helpers::getdateFormat($validation->validation_due_date) }}" 
-                                        class="hide-input" oninput="handleDateInput(this, 'due_date')" /> -->
+
                                         <input type="text" id="due_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" name="validation_due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ \Helpers::getdateFormat($validation->validation_due_date) }}" class="hide-input" oninput="handleDateInput(this, 'due_date')" />
                                     </div>
@@ -448,7 +419,7 @@ $users = DB::table('users')->get();
                                 <div class="group-input">
                                     <label for="notify_type">Notify When Approved?</label>
                                     <select name="notify_type">
-                                        <!-- <option value="">Enter Your Selection Here</option> -->
+                                        <option value="">Enter Your Selection Here</option>
                                         <option value="1" @if ($validation->notify_type == 1) selected @endif>yes</option>
                                         <option value="2" @if ($validation->notify_type == 2) selected @endif>No</option>
                                     </select>
@@ -604,13 +575,13 @@ $users = DB::table('users')->get();
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Affected Equipment({{ is_array($details) ? count($details) : 0 }})
-                                    <button type="button" name="affected_equipments" id="Affected_equipment_add">+</button>
+                                    <button type="button" name="details" id="Affected_equipment_add">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         Open
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Details-table">
+                                    <table class="table table-bordered" id="Details-table-equipment">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -618,20 +589,24 @@ $users = DB::table('users')->get();
                                                 <th style="width: 16%">Equipment ID</th>
                                                 <th style="width: 16%">Asset No</th>
                                                 <th style="width: 16%">Remarks</th>
-
-
+                                                <th style="width: 16%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                            $data = isset($details) && $details->data ? json_decode($details->data, true) : null;
+                                            @endphp
 
-                                            @if (is_array($details))
-                                            @foreach($details as $index => $detail)
+                                            @if ($data && is_array($data))
+                                            @foreach($data as $index => $detail)
                                             <tr>
-                                                <td><input disabled type="text" name="details[{{ $index }}][serial]" value="{{ $index + 1 }}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][equipment_name_code]" value="{{ $detail['equipment_name_code'] ?? '' }}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][equipment_id]" value="{{ $detail['equipment_id'] ?? ''}}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][asset_no]" value="{{ $detail['asset_no'] ?? ''}}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][remarks]" value="{{ $detail['remarks'] ?? ''}}"></td>
+                                                <td><input disabled type="text" name="details[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                <td><input type="text" name="details[{{ $loop->index }}][equipment_name_code]" value="{{ $detail['equipment_name_code'] ?? '' }}"></td>
+                                                <td><input type="text" name="details[{{ $loop->index }}][equipment_id]" value="{{ $detail['equipment_id'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $loop->index }}][asset_no]" value="{{ $detail['asset_no'] ?? ''}}"></td>
+                                                <td><input type="text" name="details[{{ $loop->index }}][remarks]" value="{{ $detail['remarks'] ?? ''}}"></td>
+                                                <td><button type="button" onclick="removeRow(this)">Remove</button></td>
+
                                             </tr>
                                             @endforeach
                                             @endif
@@ -643,7 +618,7 @@ $users = DB::table('users')->get();
 
                             <script>
                                 document.getElementById('Affected_equipment_add').addEventListener('click', function() {
-                                    var table = document.getElementById('Details-table').getElementsByTagName('tbody')[0];
+                                    var table = document.getElementById('Details-table-equipment').getElementsByTagName('tbody')[0];
                                     var rowCount = table.rows.length;
                                     var row = table.insertRow(rowCount);
 
@@ -656,6 +631,14 @@ $users = DB::table('users')->get();
                                     `;
                                 });
                             </script>
+                            <script>
+                                function removeRow(button) {
+                                    var row = button.closest('tr');
+                                    row.parentNode.removeChild(row);
+                                }
+                            </script>
+
+
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
@@ -666,7 +649,7 @@ $users = DB::table('users')->get();
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Details-table">
+                                    <table class="table table-bordered" id="Details-table-item">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -674,17 +657,23 @@ $users = DB::table('users')->get();
                                                 <th style="width: 16%">Item Name</th>
                                                 <th style="width: 16%">Item No</th>
                                                 <th style="width: 16%"> Remarks</th>
+                                                <th style="width: 16%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if (is_array($details))
-                                            @foreach($details as $index => $detail)
+                                            @php
+                                            $data = isset($affected_equipments) && $affected_equipments->data ? json_decode($affected_equipments->data, true) : null;
+                                            @endphp
+
+                                            @if($data && is_array($data))
+                                            @foreach($data as $index =>$detail)
                                             <tr>
-                                                <td><input disabled type="text" name="details[{{ $index }}][serial]" value="{{ $index + 1 }}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][item_type]" value="{{ $detail['item_type'] ?? ''}}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][item_name]" value="{{ $detail['item_name'] ?? ''}}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][item_no]" value="{{ $detail['item_no'] ?? ''}}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][item_remarks]" value="{{ $detail['item_remarks'] ?? ''}}"></td>
+                                                <td><input disabled type="text" name="affected_equipments[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                <td><input type="text" name="affected_equipments[{{ $loop->index }}][item_type]" value="{{ $detail['item_type'] ?? ''}}"></td>
+                                                <td><input type="text" name="affected_equipments[{{ $loop->index }}][item_name]" value="{{ $detail['item_name'] ?? ''}}"></td>
+                                                <td><input type="text" name="affected_equipments[{{ $loop->index }}][item_no]" value="{{ $detail['item_no'] ?? ''}}"></td>
+                                                <td><input type="text" name="affected_equipments[{{ $loop->index }}][item_remarks]" value="{{ $detail['item_remarks'] ?? ''}}"></td>
+                                                <td><button type="button" onclick="removeRow(this)">Remove</button></td>
                                             </tr>
                                             @endforeach
                                             @endif
@@ -693,18 +682,19 @@ $users = DB::table('users')->get();
                                     </table>
                                 </div>
                             </div>
+
                             <script>
                                 document.getElementById('Affected_item_add').addEventListener('click', function() {
-                                    var table = document.getElementById('Details-table').getElementsByTagName('tbody')[0];
+
+                                    var table = document.getElementById('Details-table-item').getElementsByTagName('tbody')[0];
                                     var rowCount = table.rows.length;
                                     var row = table.insertRow(rowCount);
-
                                     row.innerHTML = `
-                                        <td><input disabled type="text" name="details[${rowCount}][serial]" value="${rowCount + 1}"></td>
-                                        <td><input type="text" name="details[${rowCount}][item_type]"></td>
-                                        <td><input type="text" name="details[${rowCount}][item_name]"></td>
-                                        <td><input type="text" name="details[${rowCount}][item_no]"></td>
-                                        <td><input type="text" name="details[${rowCount}][item_remarks]"></td>
+  <td><input disabled type="text" name="affected_equipments[${rowCount}][serial]" value="${rowCount + 1}"></td>
+                                        <td><input type="text" name="affected_equipments[${rowCount}][item_type]"></td>
+                                        <td><input type="text" name="affected_equipments[${rowCount}][item_name]"></td>
+                                        <td><input type="text" name="affected_equipments[${rowCount}][item_no]"></td>
+                                        <td><input type="text" name="affected_equipments[${rowCount}][item_remarks]"></td>
                                     `;
                                 });
                             </script>
@@ -718,7 +708,7 @@ $users = DB::table('users')->get();
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Details-table">
+                                    <table class="table table-bordered" id="Details-table-facilities">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -726,19 +716,23 @@ $users = DB::table('users')->get();
                                                 <th style="width: 16%">Facility-Type</th>
                                                 <th style="width: 16%">Facility-Name</th>
                                                 <th style="width: 16%">Remarks</th>
-
-
+                                                <th style="width: 16%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if (is_array($details))
-                                            @foreach($details as $index => $detail)
+                                            @php
+                                            $data = isset($affected_facilities) && $affected_facilities->data ? json_decode($affected_facilities->data, true) : null;
+                                            @endphp
+
+                                            @if (is_array($data))
+                                            @foreach($data as $index => $detail)
                                             <tr>
-                                                <td><input disabled type="text" name="details[{{ $index }}][serial]" value="{{ $index + 1 }}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][facility_location]" value="{{ $detail['facility_location'] ?? ''}}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][facility_type]" value="{{ $detail['facility_type'] ?? ''}}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][facility_name]" value="{{ $detail['facility_name'] ?? ''}}"></td>
-                                                <td><input type="text" name="details[{{ $index }}][facility_remarks]" value="{{ $detail['facility_remarks'] ?? ''}}"></td>
+                                                <td><input disabled type="text" name="affected_facilities[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                                <td><input type="text" name="affected_facilities[{{ $loop->index}}][facility_location]" value="{{ $detail['facility_location'] ?? ''}}"></td>
+                                                <td><input type="text" name="affected_facilities[{{ $loop->index}}][facility_type]" value="{{ $detail['facility_type'] ?? ''}}"></td>
+                                                <td><input type="text" name="affected_facilities[{{ $loop->index}}][facility_name]" value="{{ $detail['facility_name'] ?? ''}}"></td>
+                                                <td><input type="text" name="affected_facilities[{{ $loop->index}}][facility_remarks]" value="{{ $detail['facility_remarks'] ?? ''}}"></td>
+                                                <td><button type="button" onclick="removeRow(this)">Remove</button></td>
                                             </tr>
                                             @endforeach
                                             @endif
@@ -748,21 +742,19 @@ $users = DB::table('users')->get();
                             </div>
                             <script>
                                 document.getElementById('Affected_facilities_add').addEventListener('click', function() {
-                                    var table = document.getElementById('Details-table').getElementsByTagName('tbody')[0];
+                                    var table = document.getElementById('Details-table-facilities').getElementsByTagName('tbody')[0];
                                     var rowCount = table.rows.length;
                                     var row = table.insertRow(rowCount);
 
                                     row.innerHTML = `
-                                        <td><input disabled type="text" name="details[${rowCount}][serial]" value="${rowCount + 1}"></td>
-                                        <td><input type="text" name="details[${rowCount}][facility_location]"></td>
-                                        <td><input type="text" name="details[${rowCount}][facility_type]"></td>
-                                        <td><input type="text" name="details[${rowCount}][facility_name]"></td>
-                                        <td><input type="text" name="details[${rowCount}][facility_remarks]"></td>
+                                     <td><input disabled type="text" name="affected_facilities[${rowCount}][serial]" value="${rowCount + 1}"></td>
+                                        <td><input type="text" name="affected_facilities[${rowCount}][facility_location]"></td>
+                                        <td><input type="text" name="affected_facilities[${rowCount}][facility_type]"></td>
+                                        <td><input type="text" name="affected_facilities[${rowCount}][facility_name]"></td>
+                                        <td><input type="text" name="affected_facilities[${rowCount}][facility_remarks]"></td>
                                     `;
                                 });
                             </script>
-
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">

@@ -381,10 +381,10 @@
                             <th class="w-20">Remarks</th>
                         </tr>
 
-                        @php
-                        $data = $gridData->data ? json_decode($gridData->data, true) : null;
-                        @endphp
 
+                        {{-- @php
+                        $data = $gridData->data ? json_decode($gridData->data, true) : null;
+                        @endphp --}}
                         @if ($data && is_array($data))
                         @foreach ($data as $index => $item)
                         <tr>
