@@ -39,6 +39,15 @@ use App\Models\ClinicalSite;
 use App\Models\DosierDocuments;
 use App\Models\PreventiveMaintenances;
 
+use App\Models\ClientInquiry;
+use App\Models\MeetingManagement;
+use App\Models\AdditionalInformation;
+use App\Models\AuditTask;
+
+use App\Models\PSUR;
+use App\Models\MedicalDevice;
+use App\Models\Commitment;
+
 use Helpers;
 use App\Models\User;
 use App\Models\ValidationAudit;
@@ -109,6 +118,16 @@ class DashboardController extends Controller
 
         $datas29 = DosierDocuments::orderByDesc('id')->get();
         $datas30 = PreventiveMaintenances::orderByDesc('id')->get();
+
+        $datas31 = ClientInquiry::orderByDesc('id')->get();
+        $datas32 = MeetingManagement::orderByDesc('id')->get();
+        $datas33 = AdditionalInformation::orderByDesc('id')->get();
+        $datas34 = AuditTask::orderByDesc('id')->get();
+
+        $datas35 = MedicalDevice::orderByDesc('id')->get();
+        $datas36 = PSUR::orderByDesc('id')->get();
+        $datas37 =Commitment::orderByDesc('id')->get();
+
 
         
         // $datas16 = ClinicalSite::orderByDesc('id')->get();
@@ -713,6 +732,142 @@ class DashboardController extends Controller
         }
 
         
+        foreach ($datas31 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "ClientInquiry",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->originator,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas32 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "MeetingManagement",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas33 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "AdditionalInformation",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas34 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "AuditTask",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->date_opened,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+        foreach ($datas35 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Medical Device",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->date_of_initiation,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas36 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "PSUR",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
+
+        foreach ($datas37 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Commitment",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator,
+                "intiation_date" => $data->date_of_initiaton,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
 
     
 
@@ -983,7 +1138,28 @@ class DashboardController extends Controller
                 );
             }
 
-            
+            if ($data->parent_type == "meeting_management") {
+                $data2 = CC::where('id', $data->parent_id)->first();
+                $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
+                array_push(
+                    $table,
+                    [
+                        "id" => $data2->id,
+                        "parent" => $data2->parent_record ? $data2->parent_record : "-",
+                        "record" => $data2->record,
+                        "type" => "meeting-management",
+                        "parent_id" => $data2->parent_id,
+                        "parent_type" => $data2->parent_type,
+                        "division_id" => $data2->division_id,
+                        "short_description" => $data2->short_description ? $data2->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "intiation_date" => $data2->intiation_date,
+                        "stage" => $data2->status,
+                        "date_open" => $data2->create,
+                        "date_close" => $data2->updated_at,
+                    ]
+                );
+            }
             if ($data->parent_type == "MeetingManagement") {
                 $data2 = MeetingManagement::where('id', $data->parent_id)->first();
                 $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
@@ -1006,7 +1182,7 @@ class DashboardController extends Controller
                     ]
                 );
             }
-               if ($data->parent_type == "AdditionalInformation") {
+            if ($data->parent_type == "AdditionalInformation") {
                 $data2 = MeetingManagement::where('id', $data->parent_id)->first();
                 $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
                 array_push(
@@ -1183,28 +1359,7 @@ class DashboardController extends Controller
                     ]
                 );
             }
-                if ($data->parent_type == "meeting_management") {
-                $data2 = CC::where('id', $data->parent_id)->first();
-                $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
-                array_push(
-                    $table,
-                    [
-                        "id" => $data2->id,
-                        "parent" => $data2->parent_record ? $data2->parent_record : "-",
-                        "record" => $data2->record,
-                        "type" => "meeting-management",
-                        "parent_id" => $data2->parent_id,
-                        "parent_type" => $data2->parent_type,
-                        "division_id" => $data2->division_id,
-                        "short_description" => $data2->short_description ? $data2->short_description : "-",
-                        "initiator_id" => $data->initiator_id,
-                        "intiation_date" => $data2->intiation_date,
-                        "stage" => $data2->status,
-                        "date_open" => $data2->create,
-                        "date_close" => $data2->updated_at,
-                    ]
-                );
-            }
+                
         } else {
             return redirect(url('rcms/qms-dashboard'));
         }
@@ -1371,6 +1526,47 @@ class DashboardController extends Controller
             $audit = "ctl_audit/AuditTrailPdf/" . $data->id;
             $parent = "/" . $data->id;
         }
+        elseif ($type == "ClientInquiry") {
+            $data = ClientInquiry::find($id);
+            $single = "clientinquarySingleReport/". $data->id;
+            $audit = "clientInquiryAuditReport/". $data->id;
+            $parent="#". $data->id;
+        }elseif ($type == "MeetingManagement") {
+            $data = MeetingManagement::find($id);
+            $single = "meetingmanagementSingleReport/". $data->id;
+            $audit = "meetingManagementAuditReport/". $data->id;
+            $parent="#". $data->id;
+        }
+        elseif ($type == "AdditionalInformation") {
+            $data = AdditionalInformation::find($id);
+            $single = "additionalinformationSingleReport/". $data->id;
+            $audit = "additionalinformationAuditReport/". $data->id;
+            $parent="#". $data->id;
+        }
+         elseif ($type == "AuditTask") {
+            $data = AuditTask::find($id);
+            $single = "audittaskSingleReport/". $data->id;
+            $audit = "audittaskAuditReport/". $data->id;
+            $parent="#". $data->id;
+        }
+        elseif ($type == "Medical Device") {
+            $data = MedicalDevice::find($id);
+            $single = "medicalSingleReport/". $data->id;
+            $audit = "medicaldevice_audit/";
+            $parent="medicalparentchildReport/". $data->id;
+        }elseif ($type == "PSUR") {
+            $data = PSUR::find($id);
+            $single = "PSURSingleReport/". $data->id;
+            $audit = "psur_auditpdf/". $data->id;
+            $parent= "#";
+        }elseif ($type == "Commitment") {
+            $data = Commitment::find($id);
+            $single = "CommitmentSingleReport/". $data->id;
+            $audit = "Commitmentaudit.pdf/". $data->id;
+            $parent= "#";
+        }
+
+
 
         $html = '';
         $html = '<div class="block"> 

@@ -676,7 +676,6 @@ Route::view("additional_testing", 'frontend.additional-testing.additional_testin
         Route::get('audit_trail_monthly_working/{id}', [MonthlyWorkingController::class, 'audit_monthly_working']);
         Route::get('monthly_workingAuditTrialDetails/{id}', [MonthlyWorkingController::class, 'monthly_workingAuditTrialDetails']);
         // ----------------------- Kshitij Client Inquiry ----------------------
-        Route::get('client-inquiry', [ClientInquiryController::class, 'clientinquiry']);
         Route::get('client_inquiry', [ClientInquiryController::class, 'index']);
         Route::post('client_inquiry_store', [ClientInquiryController::class, 'store'])->name('client_inquiry_store');
         Route::put('client_inquiry_update/{id}', [ClientInquiryController::class, 'update'])->name('client_update');
