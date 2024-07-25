@@ -382,11 +382,12 @@
                         </tr>
 
 
-                        {{-- @php
+                        @php
                         $data = $gridData->data ? json_decode($gridData->data, true) : null;
-                        @endphp --}}
+                        @endphp
                         @if ($data && is_array($data))
                         @foreach ($data as $index => $item)
+
                         <tr>
                             <td>{{ $loop->index + 1 }}.</td>
                             <td>{{ isset($item['equipment_name_code']) ? $item['equipment_name_code'] : '' }}</td>

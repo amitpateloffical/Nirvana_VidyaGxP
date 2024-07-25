@@ -269,7 +269,7 @@
                     <td>
                         <div>
                             <strong> Action Name
-                                :</strong>{{ $dataDemo->action_name ? $dataDemo->action_name : 'Not Applicable' }}
+                                :</strong>{{ $dataDemo->action ? $dataDemo->action : 'Not Applicable' }}
 
                         </div>
                     </td>
@@ -365,11 +365,9 @@
 
             if (auditid > 0) {
 
-                // AJAX request
                 var url = "{{ route('audit-details', [':auditid']) }}";
                 url = url.replace(':auditid', auditid);
 
-                // Empty modal data
                 $('#auditTableinfo').empty();
 
                 $.ajax({
@@ -377,10 +375,8 @@
                     dataType: 'json',
                     success: function(response) {
 
-                        // Add employee details
                         $('#auditTableinfo').append(response.html);
 
-                        // Display Modal
                         $('#activity-modal').modal('show');
                     }
                 });

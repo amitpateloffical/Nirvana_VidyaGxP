@@ -92,7 +92,7 @@ $users = DB::table('users')->get();
                                     <select id="select-state" placeholder="Select..." name="assign_to">
                                         <option value="">Select a value</option>
                                         @foreach ($users as $key => $value)
-                                        <option value="{{ $value->id }}">
+                                        <option value="{{ $value->name }}">
                                             {{ $value->name }}
                                         </option>
                                         @endforeach

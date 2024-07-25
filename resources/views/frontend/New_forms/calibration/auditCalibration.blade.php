@@ -278,11 +278,11 @@
                                 :</strong>{{ $dataDemo->user_name ? $dataDemo->user_name : 'Not Applicable' }}
                         </div>
                         <div style="margin-top: 5px;"> <strong>Performed On
-                                :</strong>{{ \Carbon\Carbon::parse($dataDemo->created_at )->format('d-M-Y h:i A') }}
+                                :</strong>{{ \Carbon\Carbon::parse($dataDemo->created_at )->format('d-M-Y h:i A') ? \Carbon\Carbon::parse($dataDemo->created_at)->format('d-M-Y h:i A') }}
                         </div>
                         <div style="margin-top: 5px;"><strong> Comments
-                                :</strong>{{ $dataDemo->comment ? $dataDemo->comment : 'Not Applicable' }}</div>
-
+                                :</strong>{{ $dataDemo->comment ? $dataDemo->comment : 'Not Applicable' }}
+                        </div>
                     </td>
                 </tr>
                 @endforeach
