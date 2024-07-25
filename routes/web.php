@@ -37,6 +37,7 @@ use App\Imports\DocumentsImport;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Facades\Excel;
 // use App\Http\Controllers\newForm\MedicalRegistrationController;
+use App\Http\Controllers\newForm\ReccomendedController;
 use App\Http\Controllers\newForm\QualityFollolwupController;
 use App\Http\Controllers\Product_ValidationController;
 use App\Http\Controllers\TMSController;
@@ -170,18 +171,36 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+//================================ Juned Recccomended Action =======================================================================================================================================
 
-// ======================= Juned QualityFollow Up //==============================
 
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('reccomendedAction_page',[ReccomendedController::class, 'index'])->name('auth');
+     Route::post('reccomendedstore',[ReccomendedController::class,'ReccomendedCreate'])->name('reccomended.store');
+     Route::get('ReccomendationShow/{id}',[ReccomendedController::class,'ReccomendationShow'])->name('Reccomendation_show');
+    //  Route::get('qualityupdate/{id}/edit',[QualityFollolwupController::class,'qualityfollowEdit'])->name('quality_edit');
+      Route::put('reccomendedUpdate/{id}',[ReccomendedController::class,'ReccomendedUpdate'])->name('reccomended.update');
+      // Route::get('/your-route', [YourController::class, 'yourMethod']);
+     Route::post('reccomend_send_stage/{id}',[ReccomendedController::class,'reccomended_send_stage'])->name('reccomend_send_stage');
+
+     });
+     Route::post('reccomend_send_stage2/{id}',[ReccomendedController::class, 'renewal_forword2'])->name('reccomend_send_stage2');
+
+    // Route::post('quality_send2/{id}',[QualityFollolwupController::class,'quality_send2'])->name('quality_send2');
+    Route::get('RecommendedAuditTrialDetails/{id}',[ReccomendedController::class,'RecommendedAuditTrialDetails'])->name('RecommendedAuditTrialDetails');
+    //  Route::get('reccomended_singleReports/{id}',[ReccomendedController::class, 'singleReports'])->name('singleReports');
+
+    // =======================  QualityFollow Up //==============================
+
+    Route::middleware(['auth'])->group(function () {
 
     Route::get('qualityfollowup_page', [QualityFollolwupController::class, 'index'])->name('auth');
     Route::post('qualitystore', [QualityFollolwupController::class, 'qualityFollowCreate'])->name('quality.store');
     Route::get('qualityshow/{id}', [QualityFollolwupController::class, 'qualityFollowShow'])->name('quality_show');
     Route::get('qualityupdate/{id}/edit', [QualityFollolwupController::class, 'qualityfollowEdit'])->name('quality_edit');
     Route::put('qualityupdated/{id}', [QualityFollolwupController::class, 'qualityfollowUpdate'])->name('quality.update');
-    //     // Route::get('/your-route', [YourController::class, 'yourMethod']);
-});
+  });
 
 Route::post('quality_send_stage/{id}', [QualityFollolwupController::class, 'quality_send_stage'])->name('quality_send_stage');
 Route::post('quality_send2/{id}', [QualityFollolwupController::class, 'quality_send2'])->name('quality_send2');
