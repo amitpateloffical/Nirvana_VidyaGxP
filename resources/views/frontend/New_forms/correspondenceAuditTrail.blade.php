@@ -183,18 +183,18 @@
 
                     <table>
                         <div class="heading">
+
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="heading-new">
                                     Audit Trail
                                 </div>
-                                <div class="d-flex" style="gap:15px; margin-right: 20px;"><button type="button"> <a
-                                            class="text-white" href="{{ route('correspondence.edit', $document->id) }}">
-                                            Back </a>
-                                    </button> <button type="button"> <a class="text-white"
-                                            href="{{ url('rcms/qms-dashboard') }}">
-                                            Exit </a> </button>
+                                <div class="d-flex" style="gap:15px; margin-right: 20px;"><a class="button_theme1" href="{{ route('correspondence.edit', $document->id) }}">
+                                    Back </a>
+                                <a class="button_theme1" href="{{ url('rcms/qms-dashboard') }}">
+                                    Exit </a>
                                 </div>
                             </div>
+
                             <div> <strong>Record ID. </strong> {{ str_pad($document->record, 4, '0', STR_PAD_LEFT) }}</div>
                             <div style="margin-bottom: 5px;  font-weight: bold;"> Originator
                                 : {{ $document->originator ? $document->originator : '' }}</div>

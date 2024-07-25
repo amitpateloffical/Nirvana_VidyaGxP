@@ -568,7 +568,7 @@
                             <div class="col-lg-12">
                                 <div class="group-input">
                                     <label for="Actions">Description<span class="text-danger"></span></label>
-                                    <textarea placeholder="" name="description">{{ $correspondence_data->description }}</textarea>
+                                    <textarea name="description">{{ $correspondence_data->description }}</textarea>
                                 </div>
                             </div>
 
@@ -616,12 +616,12 @@
                                     @if ($data && is_array($data))
                                        @foreach ($data as $index => $item)
                                         <tr>
-                                            <td><input disabled type="text" name="[{{ $index }}][serial]" value="{{ $index + 1 }}"></td>
-                                            <td><input type="text" name="action_plan[{{ $index }}][Action]" value="{{ isset($item['Action']) ? $item['Action'] : '' }}"></td>
-                                            <td><input type="text" name="action_plan[{{ $index }}][Responsible]" value="{{ isset($item['Responsible']) ? $item['Responsible'] : '' }}"></td>
-                                            <td><input type="date" name="action_plan[{{ $index }}][Deadline]" value="{{ isset($item['Deadline']) ? $item['Deadline'] : '' }}"></td>
-                                            <td><input type="text" name="action_plan[{{ $index }}][ItemStatus]" value="{{ isset($item['ItemStatus']) ? $item['ItemStatus'] : '' }}"></td>
-                                            <td><input type="text" name="action_plan[{{ $index }}][Remarks]" value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}"></td>
+                                            <td><input disabled type="text" name="[{{ $loop->index }}][serial]" value="{{ $loop->index + 1 }}"></td>
+                                            <td><input type="text" name="action_plan[{{ $loop->index }}][Action]" value="{{ isset($item['Action']) ? $item['Action'] : '' }}"></td>
+                                            <td><input type="text" name="action_plan[{{ $loop->index }}][Responsible]" value="{{ isset($item['Responsible']) ? $item['Responsible'] : '' }}"></td>
+                                            <td><input type="date" name="action_plan[{{ $loop->index }}][Deadline]" value="{{ isset($item['Deadline']) ? $item['Deadline'] : '' }}"></td>
+                                            <td><input type="text" name="action_plan[{{ $loop->index }}][ItemStatus]" value="{{ isset($item['ItemStatus']) ? $item['ItemStatus'] : '' }}"></td>
+                                            <td><input type="text" name="action_plan[{{ $loop->index }}][Remarks]" value="{{ isset($item['Remarks']) ? $item['Remarks'] : '' }}"></td>
                                             <td><button readonly type="text" class="removeRowBtn">Remove</button></td>
                                         </tr>
                                       @endforeach

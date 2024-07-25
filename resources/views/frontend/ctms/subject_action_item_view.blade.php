@@ -522,7 +522,7 @@
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
                                                 <th style="width: 12%">Number</th>
-                                                <th style="width: 16%"> Date</th>
+                                                <th style="width: 16%">Date</th>
                                                 <th style="width: 15%">Sent Date</th>
                                                 <th style="width: 15%">Returned Date</th>
                                                 <th style="width: 15%">Data Collection Method </th>

@@ -188,10 +188,10 @@
                                 <div class="heading-new">
                                     Audit Trail
                                 </div>
-                                <div class="d-flex" style="gap:15px; margin-right: 20px;"><button type="button"> <a class="text-white" href="{{ route('subject_action_item.edit', $document->id) }}">
+                                <div class="d-flex" style="gap:15px; margin-right: 20px;"><a class="button_theme1" href="{{ route('subject_action_item.edit', $document->id) }}">
                                     Back </a>
-                                </button> <button type="button"> <a class="text-white" href="{{ url('rcms/qms-dashboard') }}">
-                                    Exit </a> </button>
+                                <a class="button_theme1" href="{{ url('rcms/qms-dashboard') }}">
+                                    Exit </a>
                                 </div>
                             </div>
 

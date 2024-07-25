@@ -201,21 +201,18 @@ border-radius:10px;
                             <div class="">CTL Audit Execution</div>
                         @endif
 
-                        {{--@if($audit_data->stage != 5)--}}
-                            @if ($audit_data->stage >= 4)
-                                <div class="active">CTL Audit Report Preparation & Approval</div>
-                            @else
-                                <div class="">CTL Audit Report Preparation & Approval</div>
-                            @endif
-                        {{--@endif--}}
+                        @if ($audit_data->stage >= 4)
+                            <div class="active">CTL Audit Report Preparation & Approval</div>
+                        @else
+                            <div class="">CTL Audit Report Preparation & Approval</div>
+                        @endif
 
-                       {{--@if($audit_data->stage != 4)--}}
+
                         @if ($audit_data->stage >= 5)
                             <div class="active">Under CTL Audit Report Issuance</div>
                         @else
                             <div class="">Under CTL Audit Report Issuance</div>
                         @endif
-                      {{--@endif--}}
 
                         @if ($audit_data->stage >= 6)
                             <div class="active">Pending CTL Response</div>
@@ -309,7 +306,6 @@ border-radius:10px;
         </div>
     </div>
 </div>
-
 {{--signature button Model Open--}}
 
 {{-- cancel button Model Open--}}
@@ -910,7 +906,7 @@ border-radius:10px;
 
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="Comments_Remarks">Comments / Remarks(If Any)</label>
+                                    <label for="Comments_Remarks">Comments/Remarks(If Any)</label>
                                     <textarea name="comments_remarks">{{ $audit_data->comments_remarks }}</textarea>
                                 </div>
                             </div>

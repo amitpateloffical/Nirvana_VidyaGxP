@@ -1246,7 +1246,7 @@ border-radius:10px;
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Actual_Withdrawn_Date"> Actual Withdrawn Date </label>
+                                    <label for="Actual_Withdrawn_Date">Actual Withdrawn Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $amendement_data->actual_withdrawn_date }}" id="actual_withdrawn_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" value="{{ $amendement_data->actual_withdrawn_date }}" name="actual_withdrawn_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'actual_withdrawn_date')" />
@@ -1256,7 +1256,7 @@ border-radius:10px;
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Inquiry_Date"> Inquiry Date </label>
+                                    <label for="Inquiry_Date">Inquiry Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $amendement_data->inquiry_date }}" id="inquiry_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" value="{{ $amendement_data->inquiry_date }}" name="inquiry_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'inquiry_date')" />
@@ -1266,7 +1266,7 @@ border-radius:10px;
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Planened_Submission_Date"> Planned Submission Date </label>
+                                    <label for="Planened_Submission_Date">Planned Submission Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $amendement_data->planned_submission_date }}" id="planned_submission_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" value="{{ $amendement_data->planned_submission_date }}" name="planned_submission_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'planned_submission_date')" />
@@ -1276,7 +1276,7 @@ border-radius:10px;
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Planned_DateSent_To_Affiliate"> Planned Date Sent To Affiliate </label>
+                                    <label for="Planned_DateSent_To_Affiliate">Planned Date Sent To Affiliate</label>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $amendement_data->planned_date_sent_to_affiliate }}" id="planned_date_sent_to_affiliate" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" value="{{ $amendement_data->planned_date_sent_to_affiliate }}" name="planned_date_sent_to_affiliate" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'planned_date_sent_to_affiliate')" />
@@ -1286,7 +1286,7 @@ border-radius:10px;
 
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Effective Date"> Effective Date </label>
+                                    <label for="Effective Date">Effective Date</label>
                                     <div class="calenderauditee">
                                         <input type="text" value="{{ $amendement_data->effective_date }}" id="effective_date" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" value="{{ $amendement_data->effective_date }}" name="effective_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'effective_date')" />
@@ -1379,7 +1379,7 @@ border-radius:10px;
 
                             <div class="col-md-6">
                                 <div class="group-input">
-                                    <label for="Justification/ Rationale">Justification/ Rationale</label>
+                                    <label for="Justification/ Rationale">Justification/Rationale</label>
                                     <textarea name="justification_rationale">{{ $amendement_data->justification_rationale }}</textarea>
                                 </div>
                             </div>
