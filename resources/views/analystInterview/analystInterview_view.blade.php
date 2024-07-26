@@ -300,7 +300,7 @@ $users = DB::table('users')->get();
                                 <input type="text" name="parent_analyst_name" value="{{$analystinterview->parent_analyst_name}}" >
                             </div>
                         </div>
-
+{{-- --------------------- grid 1------------------------------------------------ --}}
         <div class="group-input">
             <label for="audit-agenda-grid">
                 (Parent) Info. On Product/ Material
@@ -312,7 +312,7 @@ $users = DB::table('users')->get();
                 </span>
             </label>
             <div class="table-responsive">
-                <table class="table table-bordered" id="parent_info_on_product_material1" style="width: 100%;">
+                <table class="table table-bordered" id="Product_Material1_table" style="width: 100%;">
                     <!-- Table headers -->
                     <thead>
                         <tr>
@@ -334,35 +334,14 @@ $users = DB::table('users')->get();
                         <!-- Existing first row -->
                         @foreach($gridDatas01->data as $datas)
                         <tr>
-                            <td><input disabled type="text" name="serial[]" value="1"></td>
-                            <td><input type="text" name="parent_info_on_product_material1[0][item_product_code]" value="{{$datas['item_product_code']}}"></td>
-                            <td><input type="text" name="parent_info_on_product_material1[0][batch_no]" value="{{$datas['batch_no']}}"></td>
-                            <td><input type="text" name="parent_info_on_product_material1[0][ar_number]" value="{{$datas['ar_number']}}"></td>
-                            <td>
-                                <div class="group-input new-date-data-field mb-0">
-                                    <div class="input-date">
-                                        <div class="calenderauditee">
-                                            <input type="text" id="agenda_date52_0" readonly placeholder="DD-MMM-YYYY" value="{{$datas['mfg_date']}}" />
-                                            <input type="date" name="parent_info_on_product_material1[0][mfg_date]" class="hide-input"
-                                                    oninput="handleDateInput(this, 'agenda_date52_0');" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="group-input new-date-data-field mb-0">
-                                    <div class="input-date">
-                                        <div class="calenderauditee">
-                                            <input type="text" id="agenda_date53_0" readonly placeholder="DD-MMM-YYYY"  value="{{$datas['exp_date']}}"/>
-                                            <input type="date" name="parent_info_on_product_material1[0][exp_date]" class="hide-input"
-                                                    oninput="handleDateInput(this, 'agenda_date53_0');" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td><input type="text" name="parent_info_on_product_material1[0][label_claim]" value="{{$datas['label_claim']}}"></td>
-                            <td><input type="text" name="parent_info_on_product_material1[0][pack_size]" value="{{$datas['pack_size']}}"></td>
-                            {{-- <td><input type="text" name="parent_info_on_product_material1[0][lot_batch_number]"></td> --}}
+                            <td><input disabled type="text" name="serial[{{ $loop->index }}]" value="{{$loop->index + 1}}" readonly></td>
+                            <td><input type="text" name="parent_info_on_product_material1[{{$loop->index}}][item_product_code]" value="{{$datas['item_product_code']}}" ></td>
+                            <td><input type="text" name="parent_info_on_product_material1[{{$loop->index}}][batch_no]" value="{{$datas['batch_no']}}" ></td>
+                            <td><input type="text" name="parent_info_on_product_material1[{{$loop->index}}][ar_number]" value="{{$datas['ar_number']}}" ></td>
+                            <td><input type="date" name="parent_info_on_product_material1[{{$loop->index}}][mfg_date]" value="{{$datas['mfg_date']}}" ></td>
+                            <td><input type="date" name="parent_info_on_product_material1[{{$loop->index}}][exp_date]" value="{{$datas['exp_date']}}" ></td>
+                            <td><input type="text" name="parent_info_on_product_material1[{{$loop->index}}][label_claim]" value="{{$datas['label_claim']}}" ></td>
+                            <td><input type="text" name="parent_info_on_product_material1[{{$loop->index}}][pack_size]" value="{{$datas['pack_size']}}" ></td>
                             <td><button type="button" class="removeRowBtn">Remove</button></td>
                         </tr>
                         @endforeach
@@ -384,7 +363,7 @@ $users = DB::table('users')->get();
                             </span>
                         </label>
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="Product_Material3" style="width: 100%;">
+                            <table class="table table-bordered" id="Product_Material3_table" style="width: 100%;">
                                 <thead>
                                     <tr>
                                         <th style="width: 4%">Row#</th>
@@ -400,20 +379,12 @@ $users = DB::table('users')->get();
                         @foreach($gridDatas02->data as $datas)
 
                                     <tr>
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text"
-                                                name="root_parent_oos_details[0][ar_number]" value="{{$datas['ar_number']}}">
-                                        </td>
-                                        <td><input type="text"
-                                                name="root_parent_oos_details[0][test_name_of_oos]" value="{{$datas['test_name_of_oos']}}">
-                                        </td>
-                                        <td><input type="text"
-                                                name="root_parent_oos_details[0][results_obtained]"value="{{$datas['results_obtained']}}">
-                                        </td>
-                                        <td><input type="text"
-                                                name="root_parent_oos_details[0][specification_limit]"value="{{$datas['specification_limit']}}">
-                                        </td>
-                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+                                          <td><input disabled type="text" name="serial[{{ $loop->index }}]" value="{{ $loop->index + 1 }}"></td>
+                                        <td><input type="text"name="root_parent_oos_details[{{$loop->index}}][ar_number]" value="{{$datas['ar_number']}}"></td>
+                                        <td><input type="text"name="root_parent_oos_details[{{$loop->index}}][test_name_of_oos]" value="{{$datas['test_name_of_oos']}}">
+                                        </td><td><input type="text"name="root_parent_oos_details[{{$loop->index}}][results_obtained]"value="{{$datas['results_obtained']}}">
+                                        </td><td><input type="text"name="root_parent_oos_details[{{$loop->index}}][specification_limit]"value="{{$datas['specification_limit']}}">
+                                        </td><td><button type="button" class="removeRowBtn">Remove</button></td>
                                     </tr>
                                     @endforeach
 
@@ -433,7 +404,7 @@ $users = DB::table('users')->get();
                                         </span>
                                     </label>
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="Product_Material4" style="width: 100%;">
+                                        <table class="table table-bordered" id="Product_Material4_table" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 4%">Row#</th>
@@ -445,30 +416,22 @@ $users = DB::table('users')->get();
                                                     <th style="width: 8%">Initial Interview Details</th>
                                                     <th style="width: 8%">Trend Limit</th>
                                                     <th style="width: 5%">Action</th>
-
-                                                </tr>
+                                                 </tr>
                                             </thead>
                                             <tbody>
                         @foreach($gridDatas03->data as $datas)
-
-                                                <tr>
-                                                    <td><input disabled type="text" name="serial[]" value="1"></td>
-                                                    <td><input type="text" name="parent_oot_results[0][ar_number]" value="{{$datas['ar_number']}}"></td>
-                                                    <td><input type="text" name="parent_oot_results[0][test_number_of_oot]" value="{{$datas['test_number_of_oot']}}" >
-                                                    </td>
-                                                    <td><input type="text" name="parent_oot_results[0][results_obtained]" value="{{$datas['results_obtained']}}" >
-                                                    </td>
-                                                    <td><input type="text" name="parent_oot_results[0][prev_interval_details]" value="{{$datas['prev_interval_details']}}" >
-                                                    </td>
-                                                    <td><input type="text" name="parent_oot_results[0][diff_of_results]" value="{{$datas['diff_of_results']}}" >
-                                                    </td>
-                                                    <td><input type="text"
-                                                            name="parent_oot_results[0][initial_interview_details]" value="{{$datas['initial_interview_details']}}" >
-                                                    </td>
-                                                    <td><input type="text" name="parent_oot_results[0][trend_limit]" value="{{$datas['trend_limit']}}" ></td>
+                                                     <tr>
+                                                    <td><input disabled type="text" name="serial[{{ $loop->index }}]" value="{{ $loop->index + 1 }}"></td>
+                                                    <td><input type="text" name="parent_oot_results[{{$loop->index+1}}][ar_number]" value="{{$datas['ar_number']}}"></td>
+                                                    <td><input type="text" name="parent_oot_results[{{$loop->index+1}}][test_number_of_oot]" value="{{$datas['test_number_of_oot']}}" ></td>
+                                                    <td><input type="text" name="parent_oot_results[{{$loop->index+1}}][results_obtained]" value="{{$datas['results_obtained']}}" ></td>
+                                                    <td><input type="text" name="parent_oot_results[{{$loop->index+1}}][prev_interval_details]" value="{{$datas['prev_interval_details']}}" ></td>
+                                                    <td><input type="text" name="parent_oot_results[{{$loop->index+1}}][diff_of_results]" value="{{$datas['diff_of_results']}}" ></td>
+                                                    <td><input type="text" name="parent_oot_results[{{$loop->index+1}}][initial_interview_details]" value="{{$datas['initial_interview_details']}}" ></td>
+                                                    <td><input type="text" name="parent_oot_results[{{$loop->index+1}}][trend_limit]" value="{{$datas['trend_limit']}}" ></td>
                                                     <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
-                                    @endforeach
+                                           @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -486,7 +449,7 @@ $users = DB::table('users')->get();
                                         </span>
                                     </label>
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="Product_Material5" style="width: 100%;">
+                                        <table class="table table-bordered" id="Product_Material5_table" style="width: 100%;">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 4%">Row#</th>
@@ -502,20 +465,20 @@ $users = DB::table('users')->get();
                         @foreach($gridDatas04->data as $datas)
                         <tbody>
                                                 <tr>
-                                                    <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                    <td><input disabled type="text" name="serial[{{$loop->index}}]" value="{{ $loop->index + 1 }}"></td>
                                                     <td><input type="text"
-                                                            name="parent_details_of_stability_study[0][ar_number]" value="{{$datas['ar_number']}}" >
+                                                            name="parent_details_of_stability_study[{{$loop->index}}][ar_number]" value="{{$datas['ar_number']}}" >
                                                     </td>
                                                     <td><input type="text"
-                                                            name="parent_details_of_stability_study[0][condition_temp_and_rh]" value="{{$datas['condition_temp_and_rh']}}" >
+                                                            name="parent_details_of_stability_study[{{$loop->index}}][condition_temp_and_rh]" value="{{$datas['condition_temp_and_rh']}}" >
                                                     </td>
                                                     <td><input type="text"
-                                                            name="parent_details_of_stability_study[0][interval]" value="{{$datas['interval']}}" >
+                                                            name="parent_details_of_stability_study[{{$loop->index}}][interval]" value="{{$datas['interval']}}" >
                                                     </td>
                                                     <td><input type="text"
-                                                            name="parent_details_of_stability_study[0][orientation]" value="{{$datas['orientation']}}" ></td>
+                                                            name="parent_details_of_stability_study[{{$loop->index}}][orientation]" value="{{$datas['orientation']}}" ></td>
                                                     <td><input type="text"
-                                                            name="parent_details_of_stability_study[0][pack_details_if_any]" value="{{$datas['pack_details_if_any']}}" >
+                                                            name="parent_details_of_stability_study[{{$loop->index}}][pack_details_if_any]" value="{{$datas['pack_details_if_any']}}" >
                                                     </td>
                                                     <td><button type="button" class="removeRowBtn">Remove</button></td>
                                                 </tr>
@@ -525,6 +488,8 @@ $users = DB::table('users')->get();
                                         </table>
                                     </div>
                                 </div>
+
+
 
                                 <div class="sub-head pt-3">General Information</div>
                                 <div class="row">
@@ -578,7 +543,6 @@ $users = DB::table('users')->get();
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
                                                 class="text-danger">*</span></label><span id="rchars2"></span>
-
                                         <input id="docname" type="text" name="short_description" maxlength="255" required value="{{$analystinterview->short_description}}">
                                     </div>
                                 </div>
@@ -600,6 +564,8 @@ $users = DB::table('users')->get();
 
                             </div>
                         </div>
+
+                        
                         <div class="button-block">
                             <button type="submit" class="saveButton">Save</button>
                             <button type="button" class="backButton" onclick="previousStep()">Back</button>
@@ -1700,72 +1666,39 @@ $users = DB::table('users')->get();
 {{-- All Grids Script  --}}
 
 
-    <!-- ------------------------ ----grid-2--------------------------------->
+    <!-- ------------------------ ----grid-1--------------------------------->
     <script>
         $(document).ready(function() {
-            var index = 1; // Start index from 1 since the first row is already present
-
+            let productMaterialIndex = {{ $gridDatas01 && is_array($gridDatas01->data) ? count($gridDatas01->data) : 0 }};
             $('#Product_Material1').click(function(e) {
-                e.preventDefault(); // Prevent default action of button click
-
-                function generateTableRow(serialNumber, index) {
+                e.preventDefault();
+                function generateTableRowP(serialNumber) {
                     var html =
                         '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                        '"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][item_product_code]"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][batch_no]"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][ar_number]"></td>' +
-                        '<td>' +
-                        '<div class="group-input new-date-data-field mb-0">' +
-                        '<div class="input-date">' +
-                        '<div class="calenderauditee">' +
-                        '<input type="text" id="agenda_date52_' + index +
-                        '" readonly placeholder="DD-MMM-YYYY" />' +
-                        '<input type="date" name="parent_info_on_product_material1[' + index +
-                        '][mfg_date]" ' +
-                        'min="yyyy-mm-dd" class="hide-input" ' +
-                        'oninput="handleDateInput(this, \'agenda_date52_' + index + '\');" />' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</td>' +
-                        '<td>' +
-                        '<div class="group-input new-date-data-field mb-0">' +
-                        '<div class="input-date">' +
-                        '<div class="calenderauditee">' +
-                        '<input type="text" id="agenda_date53_' + index +
-                        '" readonly placeholder="DD-MMM-YYYY" />' +
-                        '<input type="date" name="parent_info_on_product_material1[' + index +
-                        '][exp_date]" ' +
-                        'min="yyyy-mm-dd" class="hide-input" ' +
-                        'oninput="handleDateInput(this, \'agenda_date53_' + index + '\');" />' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][label_claim]"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][pack_size]"></td>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material1[' + productMaterialIndex + '][item_product_code]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material1[' + productMaterialIndex + '][batch_no]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material1[' + productMaterialIndex + '][ar_number]"></td>' +
+                        '<td><input type="date" name="parent_info_on_product_material1[' + productMaterialIndex + '][mfg_date]"></td>' +
+                        '<td><input type="date" name="parent_info_on_product_material1[' + productMaterialIndex + '][exp_date]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material1[' + productMaterialIndex + '][label_claim]"></td>' +
+                        '<td><input type="text" name="parent_info_on_product_material1[' + productMaterialIndex + '][pack_size]"></td>' +
                         '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
-
-                return html;
-            }
-
-                var tableBody = $('#parent_info_on_product_material1 tbody');
-                var rowCount = tableBody.find('tr').length;
-                var newRow = generateTableRow(rowCount + 1, index);
+                    productMaterialIndex++;
+                    return html;
+                }
+                var tableBody = $('#Product_Material1_table tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRowP(rowCount + 1);
                 tableBody.append(newRow);
-                index++; // Increment the index for the next row
+            });
+            // Event delegation for dynamically added remove buttons
+            $('#Product_Material1_table').on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
             });
         });
     </script>
-
 
     <!-- -----------------------------grid-3--------------------------------->
     <script>
@@ -1774,8 +1707,7 @@ $users = DB::table('users')->get();
                 function generateTableRow(serialNumber) {
                     var html =
                         '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                        '"></td>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +'"></td>' +
                         ' <td><input type="text" name="root_parent_oos_details[0][ar_number]"></td>' +
                         '  <td><input type="text" name="root_parent_oos_details[0][test_name_of_oos]"></td>' +
                         ' <td><input type="text" name="root_parent_oos_details[0][results_obtained]"></td>' +
@@ -1786,7 +1718,7 @@ $users = DB::table('users')->get();
                     return html;
                 }
 
-                var tableBody = $('#Product_Material3 tbody');
+                var tableBody = $('#Product_Material3_table tbody');
                 var rowCount = tableBody.children('tr').length;
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
@@ -1816,7 +1748,7 @@ $users = DB::table('users')->get();
                     return html;
                 }
 
-                var tableBody = $('#Product_Material4 tbody');
+                var tableBody = $('#Product_Material4_table tbody');
                 var rowCount = tableBody.children('tr').length;
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);
@@ -1844,7 +1776,7 @@ $users = DB::table('users')->get();
                     return html;
                 }
 
-                var tableBody = $('#Product_Material5 tbody');
+                var tableBody = $('#Product_Material5_table tbody');
                 var rowCount = tableBody.children('tr').length;
                 var newRow = generateTableRow(rowCount + 1);
                 tableBody.append(newRow);

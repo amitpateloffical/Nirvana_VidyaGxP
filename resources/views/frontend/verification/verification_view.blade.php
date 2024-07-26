@@ -90,6 +90,16 @@
             }
         }
     </script> --}}
+{{-- dateformat jquery links --}}
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- jQuery UI -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
     <script>
         // Initialize VirtualSelect
         VirtualSelect.init({
@@ -260,99 +270,120 @@
     </script>
 
     <!-- ------------------------------grid-3-------------------------script -->
-        <script>
-        $(document).ready(function() {
-            var index = 1;
-            $('#OOS_Details').click(function(e) {
-                function generateTableRow(serialNumber,index) {
-                    var html =
-                        '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                        '<td><input type="text" name="parent_oos_details['+ index +'][ar_number]"></td>' +
-                        '<td><input type="text" name="parent_oos_details['+ index +'][test_name_of_oos]"></td>' +
-                        '<td><input type="text" name="parent_oos_details['+ index +'][result_obtained]"></td>' +
-                        '<td><input type="text" name="parent_oos_details['+ index +'][specification_limit]"></td>' +
-                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
-                    '</tr>';
-                    return html;
-                }
-                var tableBody = $('#OOS_Details_details tbody');
-                var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1,index);
-                tableBody.append(newRow);
-                index++;
-            });
-        });
-    </script>
 
-    <!-- ---------------------------grid-4 -------------------------------- -->
 
     <script>
         $(document).ready(function() {
-            var index = 1;
-            $('#OOT_Results4').click(function(e) {
-                function generateTableRow(serialNumber,index) {
+            let productMaterialIndex3 = {{ $gridDatas03 && is_array($gridDatas03->data) ? count($gridDatas03->data) : 0 }};
+            $('#OOS_Details').click(function(e) {
+                e.preventDefault();
 
-
+                function generateTableRowP(serialNumber) {
                     var html =
                         '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                        '"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][AR_Number]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Test_Name_Of_OOT]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Result_Obtained]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Initial_Interval_Details]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Previous_Interval_Details]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Difference_Of_Results]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Trend_Limit]"></td>' +
-                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
-
-                    '</tr>';
-
+                             '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                            '<td><input type="text" name="parent_oos_details['+ productMaterialIndex3 +'][ar_number]"></td>' +
+                            '<td><input type="text" name="parent_oos_details['+ productMaterialIndex3 +'][test_name_of_oos]"></td>' +
+                            '<td><input type="text" name="parent_oos_details['+ productMaterialIndex3 +'][result_obtained]"></td>' +
+                            '<td><input type="text" name="parent_oos_details['+ productMaterialIndex3 +'][specification_limit]"></td>' +
+                            '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
+                   '</tr>';
+                    productMaterialIndex3++;
                     return html;
                 }
 
-                var tableBody = $('#OOT_Results4_Details tbody');
+                var tableBody = $('#OOS_Details_details tbody');
                 var rowCount = tableBody.children('tr').length;
-                var newRow = generateTableRow(rowCount + 1,index );
+                var newRow = generateTableRowP(rowCount + 1);
                 tableBody.append(newRow);
-                index++;
+            });
+
+            // Event delegation for dynamically added remove buttons
+            $('#OOS_Details_details').on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
             });
         });
     </script>
+
+
+    <!-- ---------------------------grid-4 -------------------------------- -->
+<script>
+    $(document).ready(function() {
+        let productMaterialIndex4 = {{ $gridDatas04 && is_array($gridDatas04->data) ? count($gridDatas04->data) : 0 }};
+
+        $('#OOT_Results4').click(function(e) {
+            e.preventDefault();
+
+            function generateTableRowP(serialNumber) {
+                var html =
+                    '<tr>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ productMaterialIndex4 +'][AR_Number]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ productMaterialIndex4 +'][Test_Name_Of_OOT]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ productMaterialIndex4 +'][Result_Obtained]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ productMaterialIndex4 +'][Initial_Interval_Details]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ productMaterialIndex4 +'][Previous_Interval_Details]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ productMaterialIndex4 +'][Difference_Of_Results]"></td>' +
+                        '<td><input type="text" name="OOT_Results['+ productMaterialIndex4 +'][Trend_Limit]"></td>' +
+                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
+                     '</tr>';
+
+                productMaterialIndex4++;
+                return html;
+            }
+
+            var tableBody = $('#OOT_Results4_Details tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRowP(rowCount + 1);
+            tableBody.append(newRow);
+        });
+
+        // Event delegation for dynamically added remove buttons
+        $('#OOT_Results4_Details').on('click', '.removeRowBtn', function() {
+            $(this).closest('tr').remove();
+        });
+    });
+</script>
+
+
 
 
 <!-- --------------------------------grid-5--------------------------script -->
 
 <script>
     $(document).ready(function() {
-        var index = 1;
+        let productMaterialIndex5 = {{ $gridDatas05 && is_array($gridDatas05->data) ? count($gridDatas05->data) : 0 }};
+
         $('#Details_Stability').click(function(e) {
-            function generateTableRow(serialNumber,index) {
+            e.preventDefault();
 
-
+            function generateTableRowP(serialNumber) {
                 var html =
                     '<tr>' +
-                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study['+ index +'][ar_number]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study['+ index +'][temperature_rh]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study['+ index +'][interval]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study['+ index +'][orientation]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study['+ index +'][pack_details]"></td>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ productMaterialIndex5 +'][ar_number]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study['+ productMaterialIndex5 +'][temperature_rh]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study['+ productMaterialIndex5 +'][interval]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study['+ productMaterialIndex5 +'][orientation]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study['+ productMaterialIndex5 +'][pack_details]"></td>' +
                     '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
                 '</tr>';
+                productMaterialIndex5++;
                 return html;
             }
 
             var tableBody = $('#Details_Stability_details tbody');
             var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1,index);
+            var newRow = generateTableRowP(rowCount + 1);
             tableBody.append(newRow);
-            index++;
+        });
+
+        // Event delegation for dynamically added remove buttons
+        $('#Details_Stability_details').on('click', '.removeRowBtn', function() {
+            $(this).closest('tr').remove();
         });
     });
 </script>
-
 <script>
     $(document).on('click', '.removeRowBtn', function() {
         $(this).closest('tr').remove();
@@ -725,9 +756,7 @@
                                             <th style="width: 8%">Expiry Date</th>
                                             <th style="width: 8%"> Label Claim.</th>
                                             <th style="width: 8%">Pack Size</th>
-                                            {{-- <th style="width: 8%">Lot/Batch Number</th> --}}
                                             <th style="width: 5%">Action</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -816,21 +845,19 @@
                                             <th style="width: 8%">%Difference Of Results</th>
                                             <th style="width: 8%">Trend Limit</th>
                                             <th style="width: 5%">Action</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
-
                                     @foreach($gridDatas04->data as $datas)
                                         <tr>
                                         <td><input disabled type="text" name="serial[]" value="{{$loop->index+1}}"></td>
-                                        <td><input type="text" name="OOT_Results[0][AR_Number]" value="{{$datas['AR_Number']}}" ></td>
-                                        <td><input type="text" name="OOT_Results[0][Test_Name_Of_OOT]" value="{{$datas['Test_Name_Of_OOT']}}" ></td>
-                                        <td><input type="text" name="OOT_Results[0][Result_Obtained]" value="{{$datas['Result_Obtained']}}" ></td>
-                                        <td><input type="text" name="OOT_Results[0][Initial_Interval_Details]" value="{{$datas['Initial_Interval_Details']}}" ></td>
-                                        <td><input type="text" name="OOT_Results[0][Previous_Interval_Details]" value="{{$datas['Previous_Interval_Details']}}" ></td>
-                                        <td><input type="text" name="OOT_Results[0][Difference_Of_Results]" value="{{$datas['Difference_Of_Results']}}" ></td>
-                                        <td><input type="text" name="OOT_Results[0][Trend_Limit]" value="{{$datas['Trend_Limit']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[{{$loop->index}}][AR_Number]" value="{{$datas['AR_Number']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[{{$loop->index}}][Test_Name_Of_OOT]" value="{{$datas['Test_Name_Of_OOT']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[{{$loop->index}}][Result_Obtained]" value="{{$datas['Result_Obtained']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[{{$loop->index}}][Initial_Interval_Details]" value="{{$datas['Initial_Interval_Details']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[{{$loop->index}}][Previous_Interval_Details]" value="{{$datas['Previous_Interval_Details']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[{{$loop->index}}][Difference_Of_Results]" value="{{$datas['Difference_Of_Results']}}" ></td>
+                                        <td><input type="text" name="OOT_Results[{{$loop->index}}][Trend_Limit]" value="{{$datas['Trend_Limit']}}" ></td>
                                         <td><button type="button" class="removeRowBtn">Remove</button></td>
                                         </tr>
                                     @endforeach
@@ -871,11 +898,11 @@
                                         @foreach($gridDatas05->data as $datas)
                                         <tr>
                                         <td><input disabled type="text" name="serial[]" value="{{$loop->index+1}}"></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][ar_number]" value="{{$datas['ar_number']}}"  ></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][temperature_rh]" value="{{$datas['temperature_rh']}}"  ></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][interval]" value="{{$datas['interval']}}"  ></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][orientation]" value="{{$datas['orientation']}}"  ></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][pack_details]" value="{{$datas['pack_details']}}"  ></td>
+                                        <td><input type="text" name="parent_details_of_stability_study[{{$loop->index}}][ar_number]" value="{{$datas['ar_number']}}" ></td>
+                                        <td><input type="text" name="parent_details_of_stability_study[{{$loop->index}}][temperature_rh]" value="{{$datas['temperature_rh']}}"></td>
+                                        <td><input type="text" name="parent_details_of_stability_study[{{$loop->index}}][interval]" value="{{$datas['interval']}}" ></td>
+                                        <td><input type="text" name="parent_details_of_stability_study[{{$loop->index}}][orientation]" value="{{$datas['orientation']}}"  ></td>
+                                        <td><input type="text" name="parent_details_of_stability_study[{{$loop->index}}][pack_details]" value="{{$datas['pack_details']}}"  ></td>
                                         <td><button type="button" class="removeRowBtn">Remove</button></td>
                                         </tr>
                                         @endforeach
@@ -941,7 +968,8 @@
                             <div class="group-input">
                                 <label for="Initiator Group Code"> Short description <span
                                     class="text-danger">*</span></label>
-                                <textarea type="text" name="short_description" >{{$verification->short_description}}</textarea>
+                                <input id="docname" type="text" name="short_description" maxlength="255" value="{{$verification->short_description}}" required>
+
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -1801,6 +1829,10 @@
         </div>
     </div>
 </div>
+
+
+
+
 
 
 

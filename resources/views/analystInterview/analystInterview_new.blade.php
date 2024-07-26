@@ -120,10 +120,11 @@ $users = DB::table('users')->get();
                             </div>
                         </div>
 
+                        {{-- grid 1 --------------------------01-------}}
         <div class="group-input">
             <label for="audit-agenda-grid">
                 (Parent) Info. On Product/ Material
-                <button type="button" name="parent_info_on_product_material1" id="Product_Material1">+</button>
+                <button type="button"  id="Product_Material1">+</button>
                 <span class="text-primary" data-bs-toggle="modal"
                         data-bs-target="#document-details-field-instruction-modal"
                         style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
@@ -131,8 +132,7 @@ $users = DB::table('users')->get();
                 </span>
             </label>
             <div class="table-responsive">
-                <table class="table table-bordered" id="parent_info_on_product_material1" style="width: 100%;">
-                    <!-- Table headers -->
+                <table class="table table-bordered" id="product_material1_table" style="width: 100%;">
                     <thead>
                         <tr>
                             <th style="width: 4%">Row#</th>
@@ -144,44 +144,19 @@ $users = DB::table('users')->get();
                             <th style="width: 8%">Label Claim.</th>
                             <th style="width: 8%">Pack Size</th>
                             <th style="width: 5%">Action</th>
-
-                            {{-- <th style="width: 8%">Lot/Batch Number</th> --}}
                         </tr>
                     </thead>
-                    <!-- Table body -->
                     <tbody>
-                        <!-- Existing first row -->
                         <tr>
-                            <td><input disabled type="text" name="serial[]" value="1"></td>
+                            <td><input disabled type="text" name="serial[]" value="1" readonly></td>
                             <td><input type="text" name="parent_info_on_product_material1[0][item_product_code]"></td>
                             <td><input type="text" name="parent_info_on_product_material1[0][batch_no]"></td>
                             <td><input type="text" name="parent_info_on_product_material1[0][ar_number]"></td>
-                            <td>
-                                <div class="group-input new-date-data-field mb-0">
-                                    <div class="input-date">
-                                        <div class="calenderauditee">
-                                            <input type="text" id="agenda_date52_0" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="parent_info_on_product_material1[0][mfg_date]" class="hide-input"
-                                                    oninput="handleDateInput(this, 'agenda_date52_0');" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="group-input new-date-data-field mb-0">
-                                    <div class="input-date">
-                                        <div class="calenderauditee">
-                                            <input type="text" id="agenda_date53_0" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="parent_info_on_product_material1[0][exp_date]" class="hide-input"
-                                                    oninput="handleDateInput(this, 'agenda_date53_0');" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
+                            <td><input type="date" name="parent_info_on_product_material1[0][mfg_date]"></td>
+                            <td><input type="date" name="parent_info_on_product_material1[0][exp_date]"></td>
                             <td><input type="text" name="parent_info_on_product_material1[0][label_claim]"></td>
                             <td><input type="text" name="parent_info_on_product_material1[0][pack_size]"></td>
                             <td><button type="button" class="removeRowBtn">Remove</button></td>
-                            {{-- <td><input type="text" name="parent_info_on_product_material1[0][lot_batch_number]"></td> --}}
                         </tr>
                     </tbody>
                 </table>
@@ -386,7 +361,6 @@ $users = DB::table('users')->get();
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
                                                 class="text-danger">*</span></label><span id="rchars2"></span>
-
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
                                 </div>
@@ -1470,72 +1444,67 @@ $users = DB::table('users')->get();
 {{-- All Grids Script  --}}
 
 
-    <!-- ------------------------ ----grid-2--------------------------------->
+    <!-- ------------------------ ----grid-1--------------------------------->
+
+
     <script>
         $(document).ready(function() {
-            var index = 1; // Start index from 1 since the first row is already present
-
-            $('#Product_Material1').click(function(e) {
-                e.preventDefault(); // Prevent default action of button click
-
-                function generateTableRow(serialNumber, index) {
-                    var html =
-                        '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                        '"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][item_product_code]"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][batch_no]"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][ar_number]"></td>' +
-                        '<td>' +
-                        '<div class="group-input new-date-data-field mb-0">' +
-                        '<div class="input-date">' +
-                        '<div class="calenderauditee">' +
-                        '<input type="text" id="agenda_date52_' + index +
-                        '" readonly placeholder="DD-MMM-YYYY" />' +
-                        '<input type="date" name="parent_info_on_product_material1[' + index +
-                        '][mfg_date]" ' +
-                        'min="yyyy-mm-dd" class="hide-input" ' +
-                        'oninput="handleDateInput(this, \'agenda_date52_' + index + '\');" />' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</td>' +
-                        '<td>' +
-                        '<div class="group-input new-date-data-field mb-0">' +
-                        '<div class="input-date">' +
-                        '<div class="calenderauditee">' +
-                        '<input type="text" id="agenda_date53_' + index +
-                        '" readonly placeholder="DD-MMM-YYYY" />' +
-                        '<input type="date" name="parent_info_on_product_material1[' + index +
-                        '][exp_date]" ' +
-                        'min="yyyy-mm-dd" class="hide-input" ' +
-                        'oninput="handleDateInput(this, \'agenda_date53_' + index + '\');" />' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][label_claim]"></td>' +
-                        '<td><input type="text" name="parent_info_on_product_material1[' + index +
-                        '][pack_size]"></td>' +
-                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
-                        '</tr>';
-
+            let index = 1; // Start index for new rows
+            $('#Product_Material').click(function(e) {
+                function generateTableRow(serialNumber) {
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][item_product_code]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][lot_batch_number]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][ar_number]"></td>' +
+                    '<td><input type="date" name="parent_info_on_product_material[' + index + '][mfg_date]"></td>' +
+                    '<td><input type="date" name="parent_info_on_product_material[' + index + '][exp_date]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][label_claim]"></td>' +
+                    '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
+                    '</tr>';
+                 index++;
                 return html;
             }
-
-                var tableBody = $('#parent_info_on_product_material1 tbody');
-                var rowCount = tableBody.find('tr').length;
-                var newRow = generateTableRow(rowCount + 1, index);
-                tableBody.append(newRow);
-                index++; // Increment the index for the next row
-            });
+            var tableBody = $('#parent_info_on_product_material01 tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1,index);
+            tableBody.append(newRow);
+        });
         });
     </script>
 
+{{---------------------------------- script grid 1 ---------------01----------------------------}}
+
+
+
+    <script>
+        $(document).ready(function() {
+            let index = 1; // Start index for new rows
+            $('#Product_Material1').click(function(e) {
+                function generateTableRow(serialNumber) {
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material1[' + index + '][item_product_code]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material1[' + index + '][batch_no]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material1[' + index + '][ar_number]"></td>' +
+                    '<td><input type="date" name="parent_info_on_product_material1[' + index + '][mfg_date]"></td>' +
+                    '<td><input type="date" name="parent_info_on_product_material1[' + index + '][exp_date]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material1[' + index + '][label_claim]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material1[' + index + '][pack_size]"></td>' +
+                    '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
+                    '</tr>';
+                 index++;
+                return html;
+            }
+            var tableBody = $('#product_material1_table tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1,index);
+            tableBody.append(newRow);
+        });
+        });
+    </script>
 
     <!-- -----------------------------grid-3--------------------------------->
     <script>

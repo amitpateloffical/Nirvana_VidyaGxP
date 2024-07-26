@@ -181,7 +181,7 @@ class AnalystInterviewController extends Controller
         if (!empty($analystinterview->short_description)) {
             $history = new AnalystInterviewAuditTrail();
             $history->analystinterview_id = $analystinterview->id;
-            $history->activity_type = 'Short Description';
+            $history->activity_type = 'Initiator';
             $history->previous = "Null";
             $history->current = $analystinterview->short_description;
             $history->comment = "Not Applicable";
@@ -190,6 +190,10 @@ class AnalystInterviewController extends Controller
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $analystinterview->status;
             $history->action_name = 'Submit';
+            $history->change_from = "Initiation";
+            $history->change_to = "Opened";
+
+
             $history->save();
             }
 
@@ -220,7 +224,9 @@ class AnalystInterviewController extends Controller
                 if (!empty($analystinterview->$key)) {
                     $history = new AnalystInterviewAuditTrail();
                     $history->analystinterview_id = $analystinterview->id;
-                    $history->activity_type = $value;
+                    // $history->activity_type = $value;
+                    $history->activity_type = "Initiator";
+
                     $history->previous = "Null";
                     $history->current = $analystinterview->$key;
                     $history->comment = "Not Applicable";
@@ -424,6 +430,8 @@ class AnalystInterviewController extends Controller
             $history = new AnalystInterviewAuditTrail();
             $history->analystinterview_id = $id;
             $history->activity_type = $value;
+            $history->action_name = 'Update';
+
             $history->previous = $lastAnalystinterview->$key;
                $history->change_to = "Not Applicable";
                 $history->change_from = $lastAnalystinterview->status;
@@ -433,7 +441,6 @@ class AnalystInterviewController extends Controller
             $history->user_name = Auth::user()->name;
             $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
             $history->origin_state = $lastAnalystinterview->status;
-            $history->action_name = 'Update';
             $history->save();
             // }
         }

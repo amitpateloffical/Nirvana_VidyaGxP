@@ -247,15 +247,7 @@ $combinedfields = [
 
     public function update(Request $request, $id)
     {
-        // if (!$request->short_description) {
-        //     toastr()->error("Short description is required");
-        //     return redirect()->back();
-        // }
-        // $lastDeviation = deviation::find($id);
-        //$deviation->parent_id = $request->parent_id;
-        //$deviation->parent_type = $request->parent_type;
-        //$deviation->division_id = $request->division_id;
-        //$deviation->text = $request->text;
+        
 
         $lastVerification = Verification::find($id);
 

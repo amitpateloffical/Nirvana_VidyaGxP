@@ -200,13 +200,12 @@
             $('#Product_Material3').click(function(e) {
                 function generateTableRow(serialNumber,index) {
                     var html =
-                        '<tr>' +
-                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
-                        '"></td>' +
-                        ' <td><input type="text" name="root_parent_oos_details['+ index +'][ar_number]"></td>' +
-                        '  <td><input type="text" name="root_parent_oos_details['+ index +'][test_name_of_oos]"></td>' +
-                        ' <td><input type="text" name="root_parent_oos_details['+ index +'][results_obtained]"></td>' +
-                        '  <td><input type="text" name="root_parent_oos_details['+ index +'][specification_limit]"></td>' +
+                        '<tr>'+
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>'+
+                        '<td><input type="text" name="root_parent_oos_details['+ index +'][ar_number]"></td>' +
+                        '<td><input type="text" name="root_parent_oos_details['+ index +'][test_name_of_oos]"></td>' +
+                        '<td><input type="text" name="root_parent_oos_details['+ index +'][results_obtained]"></td>' +
+                        '<td><input type="text" name="root_parent_oos_details['+ index +'][specification_limit]"></td>' +
                         '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
                     return html;
@@ -577,7 +576,6 @@
                                                                 name="root_parent_oos_details[0][specification_limit]">
                                                         </td>
                                                         <td><button type="button" class="removeRowBtn">Remove</button></td>
-
                                                     </tr>
                                                 </tbody>
                                             </table>

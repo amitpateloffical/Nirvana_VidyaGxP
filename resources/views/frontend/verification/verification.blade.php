@@ -197,6 +197,9 @@
             var newRow = generateTableRow(rowCount + 1,index);
             tableBody.append(newRow);
         });
+        $('#Product_Material_details').on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
+            });
         });
     </script>
     <!-- -----------------------------grid-2----------------------------script -->
@@ -216,7 +219,7 @@
                     '<td><input type="text" name="parent_info_no_product_material1[' + index + '][batch_no]"></td>' +
                     '<td><input type="text" name="parent_info_no_product_material1[' + index + '][ar_number]"></td>' +
                     '<td><input type="date" name="parent_info_no_product_material1[' + index + '][mfg_date]"></td>' +
-                    '<td><input type="date" name="parent_info_no_product_material1[' + index + '][exp_date]"></td>' +
+                    '<td><input type="date" name="parent_info_no_product_material1[' + index + '][expiry_date]"></td>' +
                     '<td><input type="text" name="parent_info_no_product_material1[' + index + '][name]"></td>' +
                     '<td><input type="text" name="parent_info_no_product_material1[' + index + '][pack_size]"></td>' +
                     '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
@@ -229,6 +232,9 @@
             var newRow = generateTableRow(rowCount + 1,index);
             tableBody.append(newRow);
         });
+        $('#Product_Material1_details').on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
+            });
         });
     </script>
 
@@ -249,15 +255,6 @@
                         '<td><input type="text" name="parent_oos_details['+ index +'][result_obtained]"></td>' +
                         '<td><input type="text" name="parent_oos_details['+ index +'][specification_limit]"></td>' +
                         '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
-
-
-
-                    // for (var i = 0; i < users.length; i++) {
-                    //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                    // }
-
-                    // html += '</select></td>' +
-
                     '</tr>';
 
                     return html;
@@ -269,29 +266,34 @@
                 tableBody.append(newRow);
                 index++;
             });
+            $('#OOS_Details_details').on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
+            });
         });
     </script>
 
     <!-- ---------------------------grid-4 -------------------------------- -->
 
+
     <script>
         $(document).ready(function() {
-            var index = 1;
+          var  index = 1;
             $('#OOT_Results4').click(function(e) {
-                function generateTableRow(serialNumber, index) {
+                function generateTableRow(serialNumber,index) {
                     var html =
                         '<tr>' +
                         '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                         '"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][AR_Number]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Test_Name_Of_OOT]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Result_Obtained]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Initial_Interval_Details]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Previous_Interval_Details]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Difference_Of_Results]"></td>' +
-                        '<td><input type="text" name="OOT_Results['+ index +'][Trend_Limit]"></td>' +
-                        '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
+                        '  <td><input type="text" name="OOT_Results['+ index +'][AR_Number]"></td>' +
+                        '  <td><input type="text" name="OOT_Results['+ index +'][Test_Name_Of_OOT]"></td>' +
+                        '  <td><input type="text" name="OOT_Results['+ index +'][Result_Obtained]"></td>' +
+                        '  <td><input type="text" name="OOT_Results['+ index +'][Initial_Interval_Details]"></td>' +
+                        '  <td><input type="text" name="OOT_Results['+ index +'][Previous_Interval_Details]"></td>' +
+                        '  <td><input type="text" name="OOT_Results['+ index +'][Difference_Of_Results]"></td>' +
+                        '  <td><input type="text" name="OOT_Results['+ index +'][Trend_Limit]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
                         '</tr>';
+
                     return html;
                 }
 
@@ -301,9 +303,11 @@
                 tableBody.append(newRow);
                 index++;
             });
+            $('#OOT_Results4_Details').on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
+            });
         });
     </script>
-
 
 <!-- --------------------------------grid-5--------------------------script -->
 
@@ -312,8 +316,6 @@
         var index = 1 ;
         $('#Details_Stability').click(function(e) {
             function generateTableRow(serialNumber,index) {
-
-
                 var html =
                     '<tr>' +
                     '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
@@ -325,9 +327,7 @@
                     '<td><input type="text" name="parent_details_of_stability_study['+ index +'][pack_details]"></td>' +
                     '<td><button type="button" class="removeRowBtn">Remove</button></td>'+
 
-
-
-                // for (var i = 0; i < users.length; i++) {
+                    // for (var i = 0; i < users.length; i++) {
                 //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
                 // }
 
@@ -344,6 +344,9 @@
             tableBody.append(newRow);
             index++;
         });
+        $('#Details_Stability_details').on('click', '.removeRowBtn', function() {
+                $(this).closest('tr').remove();
+            });
     });
 </script>
 
@@ -536,22 +539,21 @@
                                 (Parent) OOS Details
                                 <button type="button" name="parent_oos_details" id="OOS_Details">+</button>
                                 <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#document-details-field-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                    (Launch Instruction)
-                                </span>
+                                        data-bs-target="#document-details-field-instruction-modal"
+                                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                        (Launch Instructions)
+                                    </span>
                             </label>
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="OOS_Details_details" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th style="width: 4%">Row#</th>
-                                            <th style="width: 8%"> A.R.Number</th>
-                                            <th style="width: 8%"> Test Name Of OOS</th>
-                                            <th style="width: 8%">Result Obtained</th>
+                                            <th style="width: 10%">A.R. Number</th>
+                                            <th style="width: 8%">Test Name of OOS</th>
+                                            <th style="width: 8%">Results Obtained</th>
                                             <th style="width: 8%">Specification Limit</th>
                                             <th style="width: 5%">Action</th>
-
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -568,46 +570,48 @@
 
     <!-- ---------------------------grid-4 -------------------------------- -->
 
-                        <div class="group-input">
-                            <label for="audit-agenda-grid">
-                                (Parent) OOT Results
-                                <button type="button" name="OOT_Results" id="OOT_Results4">+</button>
-                                <span class="text-primary" data-bs-toggle="modal"
-                                    data-bs-target="#document-details-field-instruction-modal"
-                                    style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
-                                    (Launch Instruction)
-                                </span>
-                            </label>
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="OOT_Results4_Details" style="width: 100%;">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 4%">Row#</th>
-                                            <th style="width: 8%"> A.R.Number</th>
-                                            <th style="width: 8%"> Test Name Of OOT</th>
-                                            <th style="width: 8%">Result Obtained</th>
-                                            <th style="width: 8%">Initial Interval Details</th>
-                                            <th style="width: 8%">Previous Interval Details</th>
-                                            <th style="width: 8%">%Difference Of Results</th>
-                                            <th style="width: 8%">Trend Limit</th>
-                                            <th style="width: 5%">Action</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <td><input disabled type="text" name="serial[]" value="1"></td>
-                                        <td><input type="text" name="OOT_Results[0][AR_Number]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Test_Name_Of_OOT]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Result_Obtained]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Initial_Interval_Details]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Previous_Interval_Details]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Difference_Of_Results]"></td>
-                                        <td><input type="text" name="OOT_Results[0][Trend_Limit]"></td>
-                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+    <div class="group-input">
+        <label for="audit-agenda-grid">
+            (Parent) OOT Results (0)
+            <button type="button" name="OOT_Results" id="OOT_Results4">+</button>
+            <span class="text-primary" data-bs-toggle="modal"
+                data-bs-target="#document-details-field-instruction-modal"
+                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                (Launch Instruction)
+            </span>
+        </label>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="OOT_Results4_Details" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th style="width: 4%">Row#</th>
+                        <th style="width: 10%">A.R. Number</th>
+                        <th style="width: 8%">Test Number of OOT</th>
+                        <th style="width: 8%">Results Obtained</th>
+                        <th style="width: 8%">Previous Interval Details</th>
+                        <th style="width: 8%">% Difference of Results</th>
+                        <th style="width: 8%">Initial Interview Details</th>
+                        <th style="width: 8%">Trend Limit</th>
+                        <th style="width: 5%">Action</th>
+                    </tr>
+                    </thead>
+                        <tbody>
+                         <tr>
+                            <td><input disabled type="text" name="serial[]" value="1"></td>
+                            <td><input type="text" name="OOT_Results[0][AR_Number]"></td>
+                            <td><input type="text" name="OOT_Results[0][Test_Name_Of_OOT]"></td>
+                            <td><input type="text" name="OOT_Results[0][Result_Obtained]"></td>
+                            <td><input type="text" name="OOT_Results[0][Initial_Interval_Details]"></td>
+                            <td><input type="text" name="OOT_Results[0][Previous_Interval_Details]"></td>
+                            <td><input type="text" name="OOT_Results[0][Difference_Of_Results]"></td>
+                            <td><input type="text" name="OOT_Results[0][Trend_Limit]"></td>
+                            <td><button type="button" class="removeRowBtn">Remove</button></td>
+                         </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <!-- ---------------------------grid-5 -------------------------------- -->
 
@@ -717,7 +721,8 @@
                             <div class="group-input">
                                 <label for="Initiator Group Code"> Short description <span
                                     class="text-danger">*</span></label>
-                                <textarea type="text" name="short_description" ></textarea>
+                                <input id="docname" type="text" name="short_description" maxlength="255" required>
+
                             </div>
                         </div>
                         <div class="col-lg-6">
