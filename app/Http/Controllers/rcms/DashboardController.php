@@ -15,7 +15,6 @@ use App\Models\LabIncident;
 use App\Models\Auditee;
 use App\Models\AuditProgram;
 use App\Models\Deviation;
-use App\Models\RootCauseAnalysis;
 use App\Models\Observation;
 
 use App\Models\Calibration;
@@ -50,6 +49,11 @@ use App\Models\Commitment;
 use App\Models\QualityFollowup;
 use App\Models\Product_Validation;
 use App\Models\Reccomended_action;
+
+use App\Models\RootCauseAnalysis;
+use App\Models\Hypothesis;
+use App\Models\Renewal;
+
 
 use Helpers;
 use App\Models\User;
@@ -134,8 +138,9 @@ class DashboardController extends Controller
         $datas39 = Product_Validation::orderByDesc('id')->get();
         $datas40 = Reccomended_action::orderByDesc('id')->get();
 
-        
-        // $datas16 = ClinicalSite::orderByDesc('id')->get();
+        $datas41 = Hypothesis::orderByDesc('id')->get();
+        // $datas42 = Renewal::orderByDesc('id')->get();
+
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
 
@@ -929,9 +934,49 @@ class DashboardController extends Controller
                 "date_open" => $data->create,
                 "date_close" => $data->updated_at,
             ]);
+        }
+        foreach ($datas41 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Hypothesis",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->parent_short_desecription ? $data->parent_short_desecription : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->date_of_initiation,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
 
         }
+        // foreach ($datas42 as $data) {
+        //     $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
 
+        //     array_push($table, [
+        //         "id" => $data->id,
+        //         "parent" => $data->parent_record ? $data->parent_record : "-",
+        //         "record" => $data->record,
+        //         "division_id" => $data->division_id,
+        //         "type" => "Renewal",
+        //         "parent_id" => $data->parent_id,
+        //         "parent_type" => $data->parent_type,
+        //         "short_description" => $data->parent_short_desecription ? $data->parent_short_desecription : "-",
+        //         "initiator_id" => $data->initiator_id,
+        //         "intiation_date" => $data->date_of_initiation,
+        //         "stage" => $data->status,
+        //         "date_open" => $data->create,
+        //         "date_close" => $data->updated_at,
+        //     ]);
+
+        // }
+
+        
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
         // return $table;
         // $paginatedData = json_encode($table);
@@ -1667,7 +1712,19 @@ class DashboardController extends Controller
             $single = "singleReports/". $data->id;
             $audit = "QualityAuditTrail.pdf/". $data->id;
             $parent= "#";
+        }elseif ($type == "Hypothesis") {
+            $data = Hypothesis::find($id);
+            $single = "deviationSingleReport/". $data->id;
+            $audit = "#";
+            $parent="#". $data->id;
         }
+        // elseif ($type == "Renewal") {
+        //     $data = Renewal::find($id);
+        //     $single = "deviationSingleReport/". $data->id;
+        //     $audit = "#";
+        //     $parent="#". $data->id;
+        // }
+        
 
         $html = '';
         $html = '<div class="block"> 

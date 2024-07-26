@@ -598,7 +598,7 @@ Route::view("additional_testing", 'frontend.additional-testing.additional_testin
             //!                    External Audit
             //! ============================================
 
-        // ======================================== Kuldeep ClinicalSite start===============================
+        // ========================================By Kuldeep ClinicalSite start===============================
 
         Route::get('clinicalsiteindex', [ClinicalSiteController::class, 'index'])->name('clinicalsite');
         Route::post('clinicalsitestore', [ClinicalSiteController::class, 'store'])->name('clinicstore');
@@ -662,7 +662,7 @@ Route::view("additional_testing", 'frontend.additional-testing.additional_testin
         Route::post('monthly_working_child/{id}', [MonthlyWorkingController::class, 'monthly_working_child_1'])->name('monthly_working_child_1');
         Route::get('audit_trail_monthly_working/{id}', [MonthlyWorkingController::class, 'audit_monthly_working']);
         Route::get('monthly_workingAuditTrialDetails/{id}', [MonthlyWorkingController::class, 'monthly_workingAuditTrialDetails']);
-        // ----------------------- Kshitij Client Inquiry ----------------------
+        // -----------------------By Kshitij Client Inquiry ----------------------
         Route::get('client_inquiry', [ClientInquiryController::class, 'index']);
         Route::post('client_inquiry_store', [ClientInquiryController::class, 'store'])->name('client_inquiry_store');
         Route::put('client_inquiry_update/{id}', [ClientInquiryController::class, 'update'])->name('client_update');
@@ -713,7 +713,7 @@ Route::view("additional_testing", 'frontend.additional-testing.additional_testin
         Route::get('audit-program', [AuditProgramController::class, 'auditprogram']);
 
 
-        // ------------------------------------Shruti Commitment ------------------------------------
+        // ------------------------------------By Shruti Commitment ------------------------------------
         Route::view('commitment', 'frontend.Registration-Tracking.commitment');
         Route::get('commitment', [CommitmentController::class, 'index'])->name('commitment.index');
         Route::post('commitment_store', [CommitmentController::class,'store'])->name('commitment.store');
