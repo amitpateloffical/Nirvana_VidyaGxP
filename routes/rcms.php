@@ -49,7 +49,7 @@ use App\Http\Controllers\PSURController;
 use App\Http\Controllers\CommitmentController;
 
 use App\Http\Controllers\MonitoringVisitController;
-
+use App\Http\Controllers\RenewalController;
 
 
 
@@ -575,8 +575,11 @@ Route::group(['prefix' => 'rcms'], function () {
             
             Route::get('quality_singleReports/{id}',[QualityFollolwupController::class, 'singleReports'])->name('singleReports');
             Route::get('quality_audit/{id}', [QualityFollolwupController::class, 'auditTrailPdf'])->name('QualityAuditTrail.pdf');
-       
-            //  ==============By sonali =================
+            //  ---------------------- By Sheetal ----------------------------------
+            
+            Route::get('renewal/AuditTrial/{id}', [RenewalController::class, 'renewalAuditTrial'])->name('renewalAuditTrial');
+
+            //  ---------------------- By sonali ----------------------------------
             /**  ---------- DosierDocumentsController--------  */
             Route::group(['prefix' => 'dosierdocuments', 'as' => 'dosierdocuments.'], function () {
 

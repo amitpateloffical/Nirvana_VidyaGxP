@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('user_name');
             $table->string('origin_state');
             $table->string('user_role');
+            $table->string('change_from')->nullable();
+            $table->string('change_to')->nullable();
+            $table->string('action_name')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

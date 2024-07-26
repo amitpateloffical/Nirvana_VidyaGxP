@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('root_cause_analyses', function (Blueprint $table) {
             $table->id();
             $table->string('originator_id')->nullable();
-            $table->string('form_type')->nullable();
+            $table->string('type')->nullable();
             $table->string('division_id')->nullable();
             $table->string('date_opened')->nullable();
             $table->string('severity_level')->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->longText('cft_comments_new')->nullable();
             $table->text('qa_comments_new')->nullable();
             $table->string('cft_attchament_new')->nullable();
-            $table->string('Type')->nullable();
+            $table->string('Type1')->nullable();
             $table->string('investigators')->nullable();
             $table->string('department')->nullable();
             $table->longText('description')->nullable();
@@ -108,6 +108,36 @@ return new class extends Migration
             $table->string('cancelled_on')->nullable();
             $table->string('report_result_by')->nullable();
             $table->string('submitted_on')->nullable();
+
+            $table->string('hod_review_complete_by')->nullable();
+            $table->string('hod_review_complete_on')->nullable();
+            $table->string('responsible_person_update_by')->nullable();
+            $table->string('responsible_person_update_on')->nullable();
+            $table->string('initial_qa_review_by')->nullable();
+            $table->string('initial_qa_review_on')->nullable();
+            $table->string('cft_review_by')->nullable();
+            $table->string('cft_review_on')->nullable();
+            $table->string('qa_approve_review_by')->nullable();
+            $table->string('qa_approve_review_on')->nullable();
+            $table->string('hod_final_review_by')->nullable();
+            $table->string('hod_final_review_on')->nullable();
+            $table->string('child_closure_by')->nullable();
+            $table->string('child_closure_on')->nullable();
+            $table->string('qa_head_review_by')->nullable();
+            $table->string('qa_head_review_on')->nullable();
+            $table->string('close_done_by')->nullable();
+            $table->string('close_done_on')->nullable();
+            $table->string('re_open_addendum_by')->nullable();
+            $table->string('re_open_addendum_on')->nullable();
+            $table->string('addendum_approved_by')->nullable();
+            $table->string('addendum_approved_on')->nullable();
+            $table->string('under_addendum_execution_by')->nullable();
+            $table->string('under_addendum_execution_on')->nullable();
+            $table->string('under_addendum_verification_by')->nullable();
+            $table->string('under_addendum_verification_on')->nullable();
+            $table->string('closed_done_by')->nullable();
+            $table->string('closed_done_on')->nullable();
+            
             $table->timestamps();
         });
     }

@@ -59,8 +59,8 @@ use App\Http\Controllers\MeetingManagementController;
 use App\Http\Controllers\AdditionalInformationController;
 use App\Http\Controllers\rcms\AuditTaskController;
 
-
-
+use App\Http\Controllers\RenewalController;
+use App\Http\Controllers\HypoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -291,21 +291,8 @@ Route::get('riskAuditTrial/{id}', [RiskManagementController::class, 'riskAuditTr
 Route::get('auditDetailsrisk/{id}', [RiskManagementController::class, 'auditDetailsrisk'])->name('showriskAuditDetails');
 Route::post('child/{id}', [RiskManagementController::class, 'child'])->name('riskAssesmentChild');
 
-// ======================================================
 // =================QRM fORM=====================================
 Route::view('qrm', 'frontend.QRM.qrm');
-
-// ====================================root cause analysis=======================
-Route::get('root-cause-analysis', [RootCauseController::class, 'rootcause']);
-Route::post('rootstore', [RootCauseController::class, 'root_store'])->name('root_store');
-Route::post('rootUpdate/{id}', [RootCauseController::class, 'root_update'])->name('root_update');
-Route::get('rootshow/{id}', [RootCauseController::class, 'root_show'])->name('root_show');
-Route::post('root/stage/{id}', [RootCauseController::class, 'root_send_stage'])->name('root_send_stage');
-Route::post('root/cancel/{id}', [RootCauseController::class, 'root_Cancel'])->name('root_Cancel');
-Route::post('root/reject/{id}', [RootCauseController::class, 'root_reject'])->name('root_reject');
-Route::get('rootAuditTrial/{id}', [RootCauseController::class, 'rootAuditTrial']);
-Route::get('auditDetailsRoot/{id}', [RootCauseController::class, 'auditDetailsroot'])->name('showrootAuditDetails');
-
 // ====================================InternalauditController=======================
 Route::post('internalauditreject/{id}', [InternalauditController::class, 'RejectStateChange']);
 Route::post('InternalAuditCancel/{id}', [InternalauditController::class, 'InternalAuditCancel']);
@@ -765,3 +752,52 @@ Route::view("additional_testing", 'frontend.additional-testing.additional_testin
         Route::post('MVstages_change/{id}', [MonitoringVisitController::class, 'MonitoringVisitCancel'])->name('MVstages_change');
         Route::get('Monitoring_Visit_AuditTrial/{id}', [MonitoringVisitController::class, 'MonitoringVisitAuditTrial'])->name('Monitoring_Visit_AuditTrial');
         // Route::get('MonitoringVisitSingleReport/{id}', [MonitoringVisitController::class, 'MonitoringVisitSingleReport'])->name('MonitoringVisitSingleReport');
+        // ------------------------------ By sheetal --------------------------------        
+        Route::get('/renewal',[RenewalController::class,'index'])->name('renewal');
+        Route::post('/renewal/store',[RenewalController::class,'store'])->name('renewal.store')->middleware('auth');
+        Route::get('renewal/show/{id}',[RenewalController::class,'show'])->name('renewal.show')->middleware('auth');
+        Route::post('renewal/update/{id}', [RenewalController::class, 'update'])->name('renewal.update')->middleware('auth');
+        
+        //--------------------------stage routes------------------------------------------------------------//
+
+        Route::post('renewal/cancel/{id}', [RenewalController::class, 'renewal_cancel_stage'])->name('renewal_cancel_stage')->middleware('auth');
+        Route::post('renewal/stage/{id}',[RenewalController::class, 'renewal_send_stage'])->name('renewal_send_stage')->middleware('auth');
+        Route::post('renewal/backword/{id}',[RenewalController::class, 'renewal_backword_stage'])->name('renewal_backword_stage')->middleware('auth');
+        Route::post('renewal/forword/{id}',[RenewalController::class, 'renewal_forword_close'])->name('renewal_forword_close');
+        Route::post('renewal/forword2/{id}',[RenewalController::class, 'renewal_forword2_close'])->name('renewal_forword2_close');
+        Route::post('renewal/child/{id}', [RenewalController::class, 'renewal_child_stage'])->name('renewal_child_stage');
+
+        Route::get('renewal/AuditTrial/{id}', [RenewalController::class, 'renewalAuditTrial'])->name('renewalAuditTrial');
+        Route::get('renewal/singleReport/{id}', [RenewalController::class, 'singleReport'])->name('singleReport');
+        Route::get('renewal/auditReport/{id}', [RenewalController::class, 'auditReport'])->name('auditReport');
+        //=========================================================================================================//
+        
+        //Route::view('hypothesis', 'frontend.newform.hypothesis');
+        Route::get('/hypothesis',[HypoController::class,'index']);
+        Route::post('/store',[HypoController::class,'store'])->name('hypothesis.store');
+        Route::get('hypothesis/show/{id}',[HypoController::class,'show'])->name('hypothesis.show');
+        Route::post('hypothesis/update/{id}', [HypoController::class, 'update'])->name('hypothesis.update');
+
+        //====================================stage-hypothesis=====================
+       
+        Route::post('hypothesis/stage/{id}',[HypoController::class, 'hypothesis_send_stage'])->name('hypothesis_send_stage')->middleware('auth');
+        // Route::post('hypothesis/stage/{id}',[HypoController::class, 'hypothesis_send_stage'])->name('hypothesis_send_stage');
+        Route::post('hypothesis/backword/{id}', [HypoController::class, 'hypothesis_backword'])->name('hypothesis_backword');
+        Route::get('hypothesis/hypothesisAuditTrial/{id}', [HypoController::class, 'hypothesisAuditTrial'])->name('hypothesisAuditTrial');
+        Route::get('hypothesis/auditReport/{id}', [HypoController::class, 'auditReport'])->name('auditReport');
+        Route::post('hypothesis/cancel/{id}', [HypoController::class, 'hypothesis_Cancel'])->name('hypothesis_Cancel');
+        Route::get('hypothesis/singleReport/{id}', [HypoController::class, 'singleReport'])->name('singleReport');
+       
+        // ====================================root cause analysis=======================
+        Route::get('root-cause-analysis', [RootCauseController::class, 'rootcause']);
+        Route::post('rootstore', [RootCauseController::class, 'root_store'])->name('root_store');
+        Route::post('rootUpdate/{id}', [RootCauseController::class, 'root_update'])->name('root_update');
+        Route::get('rootshow/{id}', [RootCauseController::class, 'root_show'])->name('root_show');
+        Route::post('root/stage/{id}', [RootCauseController::class, 'root_send_stage'])->name('root_send_stage');
+        Route::post('root/cancel/{id}', [RootCauseController::class, 'root_Cancel'])->name('root_Cancel');
+        Route::post('root/reject/{id}', [RootCauseController::class, 'root_reject'])->name('root_reject');
+        Route::post('root/backword/{id}', [RootCauseController::class, 'root_backword'])->name('root_backword');
+        Route::post('root/backword2/{id}', [RootCauseController::class, 'root_backword_2'])->name('root_backword_2');
+        Route::post('root/child/{id}', [RootCauseController::class, 'root_child'])->name('root_child');
+        Route::get('rootAuditTrial/{id}', [RootCauseController::class, 'rootAuditTrial']);
+        Route::get('auditDetailsRoot/{id}', [RootCauseController::class, 'auditDetailsroot'])->name('showrootAuditDetails');
