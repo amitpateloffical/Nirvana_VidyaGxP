@@ -19,6 +19,7 @@ return new class extends Migration
             $table->id();
             $table->string('division_id')->nullable();
             $table->integer('record')->nullable();
+            $table->integer('record_number')->nullable();
             $table->string('initiator_id')->nullable();
             $table->date('date_of_initiation')->nullable();
             $table->string('short_description')->nullable();

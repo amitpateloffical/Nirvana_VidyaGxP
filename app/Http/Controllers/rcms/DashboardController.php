@@ -939,7 +939,7 @@ class DashboardController extends Controller
         //  $datag = $this->paginate($table);
         $datag = $this->paginate($table);
         //   $paginatedData = json_encode($datag);
-
+        
         return view('frontend.rcms.dashboard', compact('datag'));
     }
     public function dashboard_child($id, $process){
@@ -1497,12 +1497,7 @@ class DashboardController extends Controller
             $data = ActionItem::find($id);
             $single = "qualityFollowUpSingleReport/"  . $data->id;
             $audit = "qualityFollowUpAuditReport/" . $data->id;
-        } elseif ($type == "Quality-Follow-Up") {
-            $data = QualityFollowup::find($id);
-            $single = "quality_singleReports/". $data->id;
-            $audit = "quality_audit/". $data->id;
-            $parent="#". $data->id;
-        }elseif ($type == "Extension") {
+        } elseif ($type == "Extension") {
             $data = Extension::find($id);
             $single = "extensionSingleReport/" . $data->id;
             $audit = "extensionAuditReport/" . $data->id;
@@ -1655,8 +1650,24 @@ class DashboardController extends Controller
             $audit = "Commitmentaudit.pdf/". $data->id;
             $parent= "#";
         }
-
-
+        
+        elseif ($type == "Quality-Follow-Up") {
+            $data = QualityFollowup::find($id);
+            $single = "quality_singleReports/". $data->id;
+            $audit = "quality_audit/". $data->id;
+            $parent="#". $data->id;
+        }
+        elseif ($type == "Reccomended_action") {
+            $data = Reccomended_action::find($id);
+            $single = "singleReports/". $data->id;
+            $audit = "RcomendedAuditTrail.pdf/". $data->id;
+            $parent="#". $data->id;
+        }elseif ($type == "Product_Validation") {
+            $data = Product_Validation::find($id);
+            $single = "singleReports/". $data->id;
+            $audit = "QualityAuditTrail.pdf/". $data->id;
+            $parent= "#";
+        }
 
         $html = '';
         $html = '<div class="block"> 

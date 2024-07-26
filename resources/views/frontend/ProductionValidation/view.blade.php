@@ -810,7 +810,7 @@
                 <h4 class="modal-title">E-Signature</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form action="{{ route('renewal_forword3_close', $data->id) }}" method="POST">
+            <form action="{{ route('renewal_forword2_close', $data->id) }}" method="POST">
                 @csrf
                 <!-- Modal body -->
                 <div class="modal-body">

@@ -183,12 +183,12 @@
                                     <option value="Action Item">Action Item</option> --}}
                                 <option value="Effectiveness Check">Effectiveness Check</option>
                                 <option value="Deviation">Deviation</option>
-                                <<<<<<< HEAD <option value="Equipment">Equipment</option>
-                                    =======
+                                <option value="Equipment">Equipment</option>
+                                  
                                     <option value="GCP Study">GCP Study</option>
                                     <option value="Supplier Contract">Supplier Contract</option>
                                     {{-- <option value="tms">TMS</option>  --}}
-                                    >>>>>>> Nirvana_updated24july
+                                   
                             </select>
                         </div>
                         <div class="group-input">
@@ -276,18 +276,7 @@
                                             </div>
                                         </a>
                                         @endif
-                                        @elseif ($datas->type == 'QualityFollowup')
-                                        <a href="{{ route('quality_show', $datas->id) }}">
-                                            {{ str_pad($datas->record_number, 4, '0', STR_PAD_LEFT) }}
-                                        </a>
-                                        @if (!empty($datas->parent_id))
-                                        <a href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/QualityFollowup">
-                                            <div class="icon" onclick="showChild()" data-bs-toggle="tooltip" title="Related Records">
-                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
-                                                alt="..." class="w-100 h-100"> --}}
-                                            </div>
-                                        </a>
-                                        @endif
+                                       
                                         @elseif ($datas->type == 'External-Audit')
                                         <a href="{{ route('showExternalAudit', $datas->id) }}">
                                             {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
@@ -502,25 +491,37 @@
                                         </a>
                                         @endif
 
-                                        @elseif($datas->type == 'Product Validation')
+                                  
+                                        @elseif($datas->type == 'Product_Validation')
                                         <a href="{{ route('production_show', $datas->id) }}">
                                             {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                         </a>
                                         @if (!empty($datas->parent_id))
-                                        <a href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/Product_Validation">
+                                        <a href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/production_page">
                                             <div class="icon" onclick="showChild()" data-bs-toggle="tooltip" title="Related Records">
                                                 {{-- <img src="{{ asset('user/images/parent.png') }}"
                                                 alt="..." class="w-100 h-100"> --}}
                                             </div>
                                         </a>
                                         @endif
-
-                                        @elseif($datas->type == 'QualityFollowUp')
+                                        @elseif($datas->type == 'Reccomended_action')
+                                        <a href="{{ route('Reccomendation_show', $datas->id) }}">
+                                            {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                        </a>
+                                        @if (!empty($datas->parent_id))
+                                        <a href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/reccomendedAction_page">
+                                            <div class="icon" onclick="showChild()" data-bs-toggle="tooltip" title="Related Records">
+                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                alt="..." class="w-100 h-100"> --}}
+                                            </div>
+                                        </a>
+                                        @endif
+                                        @elseif($datas->type == 'Quality-Follow-Up')
                                         <a href="{{ route('quality_show', $datas->id) }}">
                                             {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                         </a>
                                         @if (!empty($datas->parent_id))
-                                        <a href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/QF">
+                                        <a href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/qualityfollowup_page">
                                             <div class="icon" onclick="showChild()" data-bs-toggle="tooltip" title="Related Records">
                                                 {{-- <img src="{{ asset('user/images/parent.png') }}"
                                                 alt="..." class="w-100 h-100"> --}}
@@ -700,7 +701,7 @@
 
 
 
-  @elseif($datas->type == 'MeetingManagement')
+                                                    @elseif($datas->type == 'MeetingManagement')
                                                     <a href="{{ route('meeting_management_view', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
@@ -743,31 +744,31 @@
                                                         </a>
                                                     @endif
                                                     else if (scopeValue === 'MedicalDevice') {
-                querySelect.options.add(new Option('Opened', '1'));
-                querySelect.options.add(new Option('Under HOD Review', '2'));
-                querySelect.options.add(new Option('Pending QA Review', '3'));
-                querySelect.options.add(new Option('CFT Review', '4'));
-                querySelect.options.add(new Option('Pending Change Implementation', '5'));
-                querySelect.options.add(new Option('Close - Done', '6'));
-            }
-            else if (scopeValue === 'PSUR') {
-                querySelect.options.add(new Option('Opened', '1'));
-                querySelect.options.add(new Option('Submission Preparation', '2'));
-                querySelect.options.add(new Option('Pending Submission review', '3'));
-                querySelect.options.add(new Option('Authority Assesment', '4'));
-                querySelect.options.add(new Option('Close - Done', '5'));
-                // querySelect.options.add(new Option('Close - Done', '6'));
-            }
-            else if (scopeValue === 'Commitment') {
-                querySelect.options.add(new Option('Opened', '1'));
-                querySelect.options.add(new Option('Execution in Progress', '2'));
-                querySelect.options.add(new Option('Close - Done', '3'));
-                // querySelect.options.add(new Option('Close - Done', '6'));
-            }
+                                                         querySelect.options.add(new Option('Opened', '1'));
+                                                                querySelect.options.add(new Option('Under HOD Review', '2'));
+                                                                querySelect.options.add(new Option('Pending QA Review', '3'));
+                                                                querySelect.options.add(new Option('CFT Review', '4'));
+                                                                querySelect.options.add(new Option('Pending Change Implementation', '5'));
+                                                                querySelect.options.add(new Option('Close - Done', '6'));
+                                                            }
+                                                            else if (scopeValue === 'PSUR') {
+                                                                querySelect.options.add(new Option('Opened', '1'));
+                                                                querySelect.options.add(new Option('Submission Preparation', '2'));
+                                                                querySelect.options.add(new Option('Pending Submission review', '3'));
+                                                                querySelect.options.add(new Option('Authority Assesment', '4'));
+                                                                querySelect.options.add(new Option('Close - Done', '5'));
+                                                                // querySelect.options.add(new Option('Close - Done', '6'));
+                                                            }
+                                                            else if (scopeValue === 'Commitment') {
+                                                                querySelect.options.add(new Option('Opened', '1'));
+                                                                querySelect.options.add(new Option('Execution in Progress', '2'));
+                                                                querySelect.options.add(new Option('Close - Done', '3'));
+                                                                // querySelect.options.add(new Option('Close - Done', '6'));
+                                                            }
 
 
 
-  @elseif($datas->type == 'Medical Device')
+                                                @elseif($datas->type == 'Medical Device')``
                                                     <a href="{{ route('medical_Device_view', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>
@@ -782,7 +783,7 @@
                                                         </a>
                                                     @endif
 
-   @elseif($datas->type == 'PSUR')
+                                                 @elseif($datas->type == 'PSUR')
                                                     <a href="{{ route('psur.view', $datas->id) }}">
                                                         {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
                                                     </a>

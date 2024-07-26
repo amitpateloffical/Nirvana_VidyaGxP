@@ -570,7 +570,9 @@ Route::group(['prefix' => 'rcms'], function () {
 
             Route::get('recomended_audit/{id}', [ReccomendedController::class, 'auditTrailPdf'])->name('RcomendedAuditTrail.pdf');
             Route::get('reccomended_singleReports/{id}',[ReccomendedController::class, 'singleReports'])->name('singleReports');
+           
             Route::get('production_singleReports/{id}',[Product_ValidationController::class, 'singleReports'])->name('singleReports');
+            
             Route::get('quality_singleReports/{id}',[QualityFollolwupController::class, 'singleReports'])->name('singleReports');
             Route::get('quality_audit/{id}', [QualityFollolwupController::class, 'auditTrailPdf'])->name('QualityAuditTrail.pdf');
        
