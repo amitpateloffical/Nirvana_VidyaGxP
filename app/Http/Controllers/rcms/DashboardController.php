@@ -49,7 +49,7 @@ use App\Models\Commitment;
 
 use App\Models\QualityFollowup;
 use App\Models\Product_Validation;
-// use App\Models\Reccomended_action;
+use App\Models\Reccomended_action;
 
 use Helpers;
 use App\Models\User;
@@ -132,7 +132,7 @@ class DashboardController extends Controller
 
         $datas38 = QualityFollowup::orderByDesc('id')->get();
         $datas39 = Product_Validation::orderByDesc('id')->get();
-        // $datas40 = Reccomended_action::orderByDesc('id')->get();
+        $datas40 = Reccomended_action::orderByDesc('id')->get();
 
         
         // $datas16 = ClinicalSite::orderByDesc('id')->get();
@@ -911,26 +911,26 @@ class DashboardController extends Controller
                 "date_close" => $data->updated_at,
             ]);
         }
-        // foreach ($datas40 as $data) {
-        //     $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+        foreach ($datas40 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
 
-        //     array_push($table, [
-        //         "id" => $data->id,
-        //         "parent" => $data->parent_record ? $data->parent_record : "-",
-        //         "record" => $data->record,
-        //         "division_id" => $data->division_id,
-        //         "type" => "Reccomended_action",
-        //         "parent_id" => $data->parent_id,
-        //         "parent_type" => $data->parent_type,
-        //         "short_description" => $data->parent_short_desecription ? $data->parent_short_desecription : "-",
-        //         "initiator_id" => $data->initiator_id,
-        //         "intiation_date" => $data->date_of_initiation,
-        //         "stage" => $data->status,
-        //         "date_open" => $data->create,
-        //         "date_close" => $data->updated_at,
-        //     ]);
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Reccomended_action",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->parent_short_desecription ? $data->parent_short_desecription : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->date_of_initiation,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
 
-        // }
+        }
 
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
         // return $table;
@@ -1177,28 +1177,28 @@ class DashboardController extends Controller
                     ]
                 );
             }
-            // if ($data->parent_type == "Reccomended_action") {
-            //     $data2 = InternalAudit::where('id', $data->parent_id)->first();
-            //     $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
-            //     array_push(
-            //         $table,
-            //         [
-            //             "id" => $data2->id,
-            //             "parent" => $data2->parent_record ? $data2->parent_record : "-",
-            //             "record" => $data2->record,
-            //             "type" => "Reccomended_action",
-            //             "parent_id" => $data2->parent_id,
-            //             "parent_type" => $data2->parent_type,
-            //             "division_id" => $data2->division_id,
-            //             "short_description" => $data2->short_description ? $data2->short_description : "-",
-            //             "initiator_id" => $data->initiator_id,
-            //             "intiation_date" => $data2->intiation_date,
-            //             "stage" => $data2->status,
-            //             "date_open" => $data2->create,
-            //             "date_close" => $data2->updated_at,
-            //         ]
-            //     );
-            // }
+            if ($data->parent_type == "Reccomended_action") {
+                $data2 = InternalAudit::where('id', $data->parent_id)->first();
+                $data2->create = Carbon::parse($data2->created_at)->format('d-M-Y h:i A');
+                array_push(
+                    $table,
+                    [
+                        "id" => $data2->id,
+                        "parent" => $data2->parent_record ? $data2->parent_record : "-",
+                        "record" => $data2->record,
+                        "type" => "Reccomended_action",
+                        "parent_id" => $data2->parent_id,
+                        "parent_type" => $data2->parent_type,
+                        "division_id" => $data2->division_id,
+                        "short_description" => $data2->short_description ? $data2->short_description : "-",
+                        "initiator_id" => $data->initiator_id,
+                        "intiation_date" => $data2->intiation_date,
+                        "stage" => $data2->status,
+                        "date_open" => $data2->create,
+                        "date_close" => $data2->updated_at,
+                    ]
+                );
+            }
 
             if ($data->parent_type == "External_audit") {
                 $data2 = Auditee::where('id', $data->parent_id)->first();

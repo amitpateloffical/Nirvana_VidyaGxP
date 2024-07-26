@@ -208,46 +208,46 @@ Route::middleware(['auth'])->group(function () {
     Route::put('qualityupdated/{id}', [QualityFollolwupController::class, 'qualityfollowUpdate'])->name('quality.update');
   });
 
-Route::post('quality_send_stage/{id}', [QualityFollolwupController::class, 'quality_send_stage'])->name('quality_send_stage');
-Route::post('quality_send2/{id}', [QualityFollolwupController::class, 'quality_send2'])->name('quality_send2');
+        Route::post('quality_send_stage/{id}', [QualityFollolwupController::class, 'quality_send_stage'])->name('quality_send_stage');
+        Route::post('quality_send2/{id}', [QualityFollolwupController::class, 'quality_send2'])->name('quality_send2');
 
 
-Route::get('rcms/QualityFollowupAuditTrialDetails/{id}', [QualityFollolwupController::class, 'QualityFollowupAuditTrialDetails'])->name('QualityFollowupAuditTrialDetails');
-Route::get('rcms/singleReports/{id}', [QualityFollolwupController::class, 'singleReports'])->name('singleReports');
-Route::get('quality_audit/{id}', [QualityFollolwupController::class, 'auditTrailPdf'])->name('QualityAuditTrail.pdf');
-
-
-
-//========================================================Production Validation===============================================================
-
-Route::middleware(['auth'])->group(function () {
-
-    Route::get('production_page', [Product_ValidationController::class, 'index'])->name('auth');
-    Route::post('productionstore', [Product_ValidationController::class, 'ProductionValidationCreate'])->name('production.store');
-    Route::get('productionshow/{id}', [Product_ValidationController::class, 'ProductionShow'])->name('production_show');
-    Route::get('ProductionValidationupdate/{id}/edit', [Product_ValidationController::class, 'ProductionValidationfollowEdit'])->name('quality_edit');
-    Route::put('ProductionValidationfollowupdated/{id}', [Product_ValidationController::class, 'ProductionValidationfollowUpdate'])->name('ProductionValidationfollow.update');
-    // //     // Route::get('/your-route', [YourController::class, 'yourMethod']);
-});
-
-Route::post('production_send_stage/{id}', [Product_ValidationController::class, 'production_send_stage'])->name('production_send_stage');
-Route::post('rejectstateproductionValidation/{id}', [Product_ValidationController::class, 'RejectStateChange'])->name('rejectstateproductionValidation');
-Route::post('rejectstateproductionValidation2/{id}', [Product_ValidationController::class, 'RejectStateChange2'])->name('rejectstateproductionValidation2');
+        Route::get('rcms/QualityFollowupAuditTrialDetails/{id}', [QualityFollolwupController::class, 'QualityFollowupAuditTrialDetails'])->name('QualityFollowupAuditTrialDetails');
+        Route::get('rcms/singleReports/{id}', [QualityFollolwupController::class, 'singleReports'])->name('singleReports');
+        Route::get('quality_audit/{id}', [QualityFollolwupController::class, 'auditTrailPdf'])->name('QualityAuditTrail.pdf');
 
 
 
-Route::get('ProductionAuditTrialDetails/{id}', [Product_ValidationController::class, 'ProductionAuditTrialDetails'])->name('ProductionAuditTrialDetails');
-Route::get('rcms/singleReports/{id}', [Product_ValidationController::class, 'singleReports'])->name('singleReports');
-Route::get('rcms/production_audit/{id}', [Product_ValidationController::class, 'auditTrailPdf'])->name('productionAuditTrail.pdf');
+        //========================================================Production Validation===============================================================
+
+        Route::middleware(['auth'])->group(function () {
+
+            Route::get('production_page', [Product_ValidationController::class, 'index'])->name('auth');
+            Route::post('productionstore', [Product_ValidationController::class, 'ProductionValidationCreate'])->name('production.store');
+            Route::get('productionshow/{id}', [Product_ValidationController::class, 'ProductionShow'])->name('production_show');
+            Route::get('ProductionValidationupdate/{id}/edit', [Product_ValidationController::class, 'ProductionValidationfollowEdit'])->name('quality_edit');
+            Route::put('ProductionValidationfollowupdated/{id}', [Product_ValidationController::class, 'ProductionValidationfollowUpdate'])->name('ProductionValidationfollow.update');
+            // //     // Route::get('/your-route', [YourController::class, 'yourMethod']);
+        });
+
+        Route::post('production_send_stage/{id}', [Product_ValidationController::class, 'production_send_stage'])->name('production_send_stage');
+        Route::post('rejectstateproductionValidation/{id}', [Product_ValidationController::class, 'RejectStateChange'])->name('rejectstateproductionValidation');
+        Route::post('rejectstateproductionValidation2/{id}', [Product_ValidationController::class, 'RejectStateChange2'])->name('rejectstateproductionValidation2');
 
 
-//========================================================== Stages=====================================================
+
+        Route::get('ProductionAuditTrialDetails/{id}', [Product_ValidationController::class, 'ProductionAuditTrialDetails'])->name('ProductionAuditTrialDetails');
+        Route::get('rcms/singleReports/{id}', [Product_ValidationController::class, 'singleReports'])->name('singleReports');
+        Route::get('rcms/production_audit/{id}', [Product_ValidationController::class, 'auditTrailPdf'])->name('productionAuditTrail.pdf');
+
+
+    //========================================================== Stages=====================================================
 
 
 
-Route::post('renewal/forword/{id}', [Product_ValidationController::class, 'renewal_forword_close'])->name('renewal_forword_close');
-Route::post('renewal/forword2/{id}', [Product_ValidationController::class, 'renewal_forword2_close'])->name('renewal_forword2_close');
-//  Route::post('renewal/child/{id}', [RenewalController::class, 'renewal_child_stage'])->name('renewal_child_stage');
+    Route::post('renewal/forword/{id}', [Product_ValidationController::class, 'renewal_forword_close'])->name('renewal_forword_close');
+    Route::post('renewal/forword2/{id}', [Product_ValidationController::class, 'renewal_forword2_close'])->name('renewal_forword2_close');
+    //  Route::post('renewal/child/{id}', [RenewalController::class, 'renewal_child_stage'])->name('renewal_child_stage');
 
 
 // ====================================Capa=======================

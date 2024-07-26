@@ -37,27 +37,27 @@ $users = DB::table('users')->get();
 
         </div>
 
-        <form action="{{ route('managestore') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('reccomended.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div id="step-form">
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
                         <div class="row">
                             <div class='sub-head'>Parent Record Information</div>
-                           
-                        
+
+
                         <div class="col-lg-6">
                             <div class="group-input">
                                 <label for="RLS Record Number"><b>(Parent) OOS No.</b></label>
-                            <input type="text" name="parent_oos_no.">
-                        
+                            <input type="text" name="parent_oos_no"   disabled>
+
                         <!-- {{-- <div class="static">QMS-EMEA/CAPA/{{ date('Y') }}/{{ $record_number }}</div> --}} -->
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Division Code"><b>(Parent) OOT No.</b></label>
-                            <input type="text" name="parent_oot_no">
+                            <input type="text" name="division_id" disabled>
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@ $users = DB::table('users')->get();
                                         <label for="Date Due"><b>(Parent) Date Opened</b></label>
                                          <input  type="text" value="{{ date('d-M-Y') }}" name="intiation_date"> -->
                                         <!-- <div class="calenderauditee">
-                                            <input type="text" id="due_date" 
+                                            <input type="text" id="due_date"
                                                 placeholder="DD-MMM-YYYY" />
                                             <input type="date" name="due_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
                                                 oninput="handleDateInput(this, 'due_date')" />
@@ -78,15 +78,15 @@ $users = DB::table('users')->get();
                         <div class="group-input input-date">
                             <label for="Scheduled Start Date">(Parent) Date Opened</label>
                             <div class="calenderauditee">
-                                <input type="text" id="start_date" readonly placeholder="DD-MM-YYYY" />
-                                <input type="date" id="start_date_checkdate" name="parent_date_opened" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                            </div>
+                                <input disabled type="text" value="{{ date('d-M-Y') }}" name="date_of_initiation">
+                                <input type="hidden" value="" name=parent_date_opened"></div>
                         </div>
                     </div>
-                
+
                     <div class="col-lg-6">
                         <div class="group-input">
-                            <label for="Division Code"><b>(Parent) Short Desecription</b></label>
+                            <label for="Division Code"><b>(Parent) Short Desecription<span
+                                class="text-danger">*</span></b></label>
                             <input type="text" name="parent_short_desecription">
                         </div>
                     </div>
@@ -104,12 +104,12 @@ $users = DB::table('users')->get();
                             <label for="Scheduled Start Date">(Parent) Target Closure Date</label>
                         <div class="calenderauditee">
                             <input type="text" id="target_closure_date" readonly placeholder="DD-MM-YYYY" />
-                                <input type="date" id="start_date_checkdate" name="target_closure_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'target_closure_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                <input type="date" id="start_date_checkdate" name="target_closure_date" min="{{ \Carbon\Carbon::now()->format('d-M-Y') }}" class="hide-input" oninput="handleDateInput(this, 'target_closure_date');checkDate('start_date_checkdate','end_date_checkdate')" />
                             </div>
                         </div>
                     </div>
-                
-                
+
+
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="Division Code"><b>(Parent) Product/Material Name</b></label>
@@ -125,7 +125,7 @@ $users = DB::table('users')->get();
                                         <input  type="text" name="division_code">
                                     </div>
                                 </div> -->
-                            
+
                             <!-- <div class="col-md-6">
                                     <div class="group-input">
                                         <label for="search">
@@ -142,7 +142,7 @@ $users = DB::table('users')->get();
                                         @enderror
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Date Due">Date Due</label>
@@ -155,7 +155,7 @@ $users = DB::table('users')->get();
                                                 oninput="handleDateInput(this, 'due_date')" />
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="Initiator Group"><b>Initiator Group</b></label>
@@ -222,7 +222,7 @@ $users = DB::table('users')->get();
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-lg-6">
                                     <div class="group-input">
                                         <label for="type">Type</label>
@@ -251,11 +251,11 @@ $users = DB::table('users')->get();
                                         </select>
                                     </div>
                                 </div>
-                             
-                                
+
+
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
-                                        <label for="Scheduled Start Date">Scheduled Start Date</label>                                        
+                                        <label for="Scheduled Start Date">Scheduled Start Date</label>
                                         <div class="calenderauditee">
                                             <input type="text" id="start_date" readonly placeholder="DD-MMM-YYYY" />
                                             <input type="date" id="start_date_checkdate"  name="start_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
@@ -263,7 +263,7 @@ $users = DB::table('users')->get();
                                         </div>
                                     </div>
                                 </div>
-                               
+
                                 <div class="col-lg-6 new-date-data-field">
                                     <div class="group-input input-date">
                                         <label for="Scheduled end date">Scheduled End Date</label>
@@ -279,6 +279,7 @@ $users = DB::table('users')->get();
                                         <label for="Attendees">Attendess</label>
                                         <textarea name="attendees"></textarea>
                                     </div>
+
                                 </div> -->
                     <!-- <div class="col-12">
                                     <div class="group-input">
@@ -300,11 +301,11 @@ $users = DB::table('users')->get();
                                             <tbody>
                                                 <tr>
                                                     <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                               
+
                                            <td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee">
                                                         <input type="text" id="agenda_date0" readonly placeholder="DD-MMM-YYYY" />
-                                                        <input type="date" name="date[]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" 
-                                                        oninput="handleDateInput(this, `agenda_date0`);" /></div></div></div></td>                                       
+                                                        <input type="date" name="date[]"   min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input"
+                                                        oninput="handleDateInput(this, `agenda_date0`);" /></div></div></div></td>
                                                     <td><input type="text" name="topic[]"></td>
                                                     <td><input type="text" name="responsible[]"></td>
                                                     <td><input type="time" name="start_time[]"></td>
@@ -332,40 +333,29 @@ $users = DB::table('users')->get();
                                         <th>Expiry Date</th>
                                         <th>Label Claim</th>
                                         <th>Pack Size</th>
+                                        <th style="width: 5%">Action</th>
                                         <!-- <th>Action</th> -->
                                         {{-- <th>Instru. Caliberation Due Date</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     <tr>
 
                                     <td><input disabled type="text" name="serial_number[]" value="1"></td>
                                         <td><input type="text" name="parent_info_on_product_material[0][item_product_code]"></td>
                                         <td><input type="text" name="parent_info_on_product_material[0][lot_batch_number]"></td>
                                         <td><input type="text" name="parent_info_on_product_material[0][a_r_number]"></td>
-                                        <td>
-                                            <div class="col-lg-6 new-date-data-field">
-                                                <div class="group-input input-date">
 
-                                                    <div class="calenderauditee">
-                                                        <input type="text" id="mfg_date" readonly placeholder="DD-MM-YYYY" />
-                                                        <input type="date" id="start_date_checkdate" name="parent_info_on_product_material[0][mfg_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'mfg_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
                                         <td>
-                                            <div class="col-lg-6 new-date-data-field">
-                                                <div class="group-input input-date">
-                                                    <div class="calenderauditee">
-                                                        <input type="text" id="expiry_date" readonly placeholder="DD-MM-YYYY" />
-                                                        <input type="date" id="start_date_checkdate" name="parent_info_on_product_material[0][expiry_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'expiry_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
+
+                                            <input type="date" name="parent_info_on_product_material[0][mfg_date]"></td>
+                                        <td><input type="date" name="parent_info_on_product_material[0][expiry_date]"></td>
+
                                         <td><input type="text" name="parent_info_on_product_material[0][label_claim]"></td>
                                         <td><input type="text" name="parent_info_on_product_material[0][pack_size]"></td>
+                                        <td><button type="button" class="removeRowBtn" >Remove</button></td>
+
                                         <!-- <td><button type="button" name="agenda" id="oos_details">Remove</button></td> -->
                                     </tr>
                                 </tbody>
@@ -386,6 +376,8 @@ $users = DB::table('users')->get();
                                         <th>Test Name of OOS</th>
                                         <th>Results Obtained</th>
                                         <th>Specification Limit</th>
+                                        <th style="width: 5%">Action</th>
+
                                         {{-- <th>Instru. Caliberation Due Date</th> --}}
                                     </tr>
                                 </thead>
@@ -396,6 +388,8 @@ $users = DB::table('users')->get();
                                         <td><input type="text" name="parent_oos_details[0][test_name_of_oos]"></td>
                                         <td><input type="text" name="parent_oos_details[0][results_obtained]"></td>
                                         <td><input type="text" name="parent_oos_details[0][specification_limit]"></td>
+                                        <td><button type="button" class="removeRowBtn" >Remove</button></td>
+
                                     </tr>
                                 </tbody>
                             </table>
@@ -420,6 +414,8 @@ $users = DB::table('users')->get();
                                         <th>%Difference of Results</th>
                                         <th>Initial Interview Details</th>
                                         <th>Trend Limit</th>
+                                        <th style="width: 5%">Action</th>
+
                                         {{-- <th>Instru. Caliberation Due Date</th> --}}
                                     </tr>
                                 </thead>
@@ -434,6 +430,8 @@ $users = DB::table('users')->get();
                                         <td><input type="text" name="parent_oot_results[0][difference_of_results]"></td>
                                         <td><input type="text" name="parent_oot_results[0][initial_interview_details]"></td>
                                         <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>
+                                        <td><button type="button" class="removeRowBtn" >Remove</button></td>
+
                                     </tr>
                                 </tbody>
                             </table>
@@ -453,6 +451,8 @@ $users = DB::table('users')->get();
                                         <th>Interval</th>
                                         <th>Orientation</th>
                                         <th>Pack Details(if any)</th>
+                                        <th style="width: 5%">Action</th>
+
                                         {{-- <th>Instru. Caliberation Due Date</th> --}}
                                     </tr>
                                 </thead>
@@ -464,6 +464,8 @@ $users = DB::table('users')->get();
                                         <td><input type="text" name="parent_details_of_stability_study[0][interval]"></td>
                                         <td><input type="text" name="parent_details_of_stability_study[0][orientation]"></td>
                                         <td><input type="text" name="parent_details_of_stability_study[0][pack_details]"></td>
+                                        <td><button type="button" class="removeRowBtn" >Remove</button></td>
+
                                     </tr>
                                 </tbody>
                             </table>
@@ -474,11 +476,13 @@ $users = DB::table('users')->get();
                     <div class="sub-head">General Information</div>
                     <div class="inner-block-content">
                         <div class="row">
-                           
+
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>Record Number</b></label>
-                                <input disabled type="text" name="record_number">
+                                    <label for=""><b>Record Number</b></label>
+
+                                    <input disabled type="text" name="record_number"
+                                        value="{{ Helpers::getDivisionName(session()->get('division')) }}/RA/{{ date('Y') }}/">
 
                                 </div>
                             </div>
@@ -494,18 +498,18 @@ $users = DB::table('users')->get();
                                     <label for="Initiator"><b>Initiator</b></label>
                                     {{-- <div class="static">{{ Auth::user()->name }}
                                 </div> --}}
-                                <input disabled type="text" value="">
+                                <input type="text" name="initiator_id"  disabled   value="{{ $validation->initiator_id ?? Auth::user()->name }}">
                             </div>
                         </div>
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="Date Due"><b>Date of Initiation</b></label>
-                        <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                        <input disabled type="text" value="{{ date('d-M-Y') }}" name="date_of_initiation">
+                    <input type="hidden" value="{{ date('Y-m-d') }}" name="date_of_initiation">
                 {{-- <div class="static">{{ date('d-M-Y') }}
                     </div> --}}
                 </div>
-            
+
                 </div>
 
                     <div class="col-lg-6">
@@ -514,36 +518,46 @@ $users = DB::table('users')->get();
                             <input type="text" name="assignee">
                         </div>
                     </div>
-                
+
                 <div class="col-lg-6">
                     <div class="group-input">
                         <label for="RLS Record Number"><b>AQA Approver</b></label>
                     <input type="text" name="aqa_approver">
                 </div>
             </div>
-        
+
                     <div class="col-lg-6">
                         <div class="group-input">
                             <label for="RLS Record Number"><b>Supervisor</b></label>
                         <input type="text" name="supervisor">
                     </div>
                 </div>
+
+                <div class="col-lg-6 new-date-data-field">
+                    <div class="group-input input-date">
+                        <label for="Date Due">Date Due</label>
+                        <div><small class="text-primary">Please mention expected date of completion</small>
+                        </div>
+                        <div class="calenderauditee">
+                            <input type="hidden" value="{{$due_date}}" name="due_date">
+                            <input  type="text" value="{{Helpers::getdateFormat($due_date)}}">
+                        </div>
+                    </div>
                 </div>
-            
             <div class="col-12">
                         <div class="group-input">
                             <label for="Description">Recommended Action</label>
-                            <textarea name="recommended_action"></textarea>
+                            <textarea type = "text" name="recommended_action"></textarea>
                         </div>
                     </div>
 
                     <div class="col-12">
                         <div class="group-input">
                             <label for="Description">Justify-Recommended Actions</label>
-                            <textarea name="justify_recommended_actions"></textarea>
+                            <textarea type = "text" name="ustify_recommended_actions"></textarea>
                         </div>
                     </div>
-                    <!-- 
+                    <!--
                     <div class="col-6">
                         <div class="group-input">
                             <label for="Description">Submit BY</label>
@@ -563,7 +577,7 @@ $users = DB::table('users')->get();
 
 
 
-<!-- 
+<!--
                     <div class="sub-head">hidden field </div>
                     <div class="col-lg-6 new-date-data-field">
                         <div class="group-input input-date">
@@ -576,21 +590,21 @@ $users = DB::table('users')->get();
                     </div> -->
 
 
-                    <!--                     
+
                     <div class="col-12">
                         <div class="group-input">
                             <label for="Inv Attachments">File Attachment</label>
                             <div><small class="text-primary">Please Attach all relevant or supporting
                                     documents</small></div>
                             <div class="file-attachment-field">
-                                <div class="file-attachment-list" id="inv_attachment"></div>
+                                <div class="file-attachment-list" id="inv_attachment[]"></div>
                                 <div class="add-btn">
                                     <div>Add</div>
-                                    <input type="file" id="myfile" name="inv_attachment[]" oninput="addMultipleFiles(this, 'inv_attachment')" multiple>
+                                    <input type="file" id="myfile" name="inv_attachment[]" oninput="addMultipleFiles(this, 'inv_attachment[]')" multiple>
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                 </div>
                 <div class="button-block">
                     <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
@@ -599,7 +613,7 @@ $users = DB::table('users')->get();
                 </div>
             </div>
     </div>
-
+                </div>
 
     <div id="CCForm2" class="inner-block cctabcontent">
         <div class="inner-block-content">
@@ -1183,20 +1197,18 @@ $users = DB::table('users')->get();
 
 <div class="col-12">
     <div class="group-input">
-        <label for="Description">AQA Review Attachment</label>
-
+        <label for="Inv Attachments">AQA Review Attachment</label>
         <div><small class="text-primary">Please Attach all relevant or supporting
                 documents</small></div>
         <div class="file-attachment-field">
-            <div class="file-attachment-list" id="file_attchment_if_any"></div>
+            <div class="file-attachment-list" id="file_attchment_if_any1[]"></div>
             <div class="add-btn">
                 <div>Add</div>
-                <input type="file" id="myfile" name="aqa_review_attachment" {{-- ignore --}} oninput="addMultipleFiles(this, 'file_attchment_if_any')" multiple>
+                <input type="file" id="myfile" name="file_attchment_if_any1[]" oninput="addMultipleFiles(this, 'file_attchment_if_any1[]')" multiple>
             </div>
         </div>
     </div>
 </div>
-
 <!-- <div class="col-6">
     <div class="group-input">
         <label for="Description">AQA Reviewed By</label>
@@ -1213,14 +1225,7 @@ $users = DB::table('users')->get();
             <input type="text" id="start_date" readonly placeholder="DD-MM-YYYY" />
             <input type="date" id="start_date_checkdate" name="start_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'start_date');checkDate('start_date_checkdate','end_date_checkdate')" />
         </div>
-    </div>
-</div> -->
-
-
-<!-- <div class="group-input">
-    <label for="Operations">
-        Operations
-        <span class="text-primary" data-bs-toggle="modal" data-bs-target="#management-review-operations-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor:pointer;">
+    </div>Tertarget="#management-review-operations-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor:pointer;">
             (Launch Instruction)
         </span>
     </label>
@@ -1334,7 +1339,7 @@ $users = DB::table('users')->get();
         <div class="col-12">
             <div class="group-input">
                 <label for="Description">Results & Conclusion</label>
-                <textarea name="results_&_conclusion"></textarea>
+                <textarea name="results_conclusion"></textarea>
             </div>
         </div>
 
@@ -1343,10 +1348,10 @@ $users = DB::table('users')->get();
             <div><small class="text-primary">Please Attach all relevant or supporting
                     documents</small></div>
             <div class="file-attachment-field">
-                <div class="file-attachment-list" id="file_attchment_if_any"></div>
+                <div class="file-attachment-list" id="execution_attchment_if_any"></div>
                 <div class="add-btn">
                     <div>Add</div>
-                    <input type="file" id="myfile" name="execution_attchment_if_any" {{-- ignore --}} oninput="addMultipleFiles(this, 'file_attchment_if_any')" multiple>
+                    <input type="file" id="myfile" name="execution_attchment_if_any[]" {{-- ignore --}} oninput="addMultipleFiles(this, 'execution_attchment_if_any')" multiple>
                 </div>
             </div>
         </div>
@@ -1458,10 +1463,10 @@ $users = DB::table('users')->get();
             <div><small class="text-primary">Please Attach all relevant or supporting
                     documents</small></div>
             <div class="file-attachment-field">
-                <div class="file-attachment-list" id="file_attchment_if_any"></div>
+                <div class="file-attachment-list" id="file_attchment_if1"></div>
                 <div class="add-btn">
                     <div>Add</div>
-                    <input type="file" id="myfile" name="file_attchment_if_any" {{-- ignore --}} oninput="addMultipleFiles(this, 'file_attchment_if_any')" multiple>
+                    <input type="file" id="file_attchment_if1[]" name="file_attchment_if1[]" {{-- ignore --}} oninput="addMultipleFiles(this, 'file_attchment_if1')" multiple>
                 </div>
             </div>
         </div>
@@ -1523,15 +1528,15 @@ $users = DB::table('users')->get();
 
 
                     <td><input type="text" name="remark[]"></td>
-                    <!-- <td><input type="text" name="capa_type[]"></td> 
+                    <!-- <td><input type="text" name="capa_type[]"></td>
                                         {{-- <td><input type="date" name="date_opened[]"></td> --}}
                                         <td><div class="group-input new-date-data-field mb-0">
                                             <div class="input-date "><div
                                              class="calenderauditee">
                                             <input type="text" id="date_due00' + serialNumber +'" readonly placeholder="DD-MMM-YYYY" />
-                                            <input type="date" name="date_opened[]" class="hide-input" 
+                                            <input type="date" name="date_opened[]" class="hide-input"
                                             oninput="handleDateInput(this, `date_due00' + serialNumber +'`)" /></div></div></div></td> -->
-        <!-- 
+        <!--
                 </tbody>
             </table>
         </div>
@@ -1905,21 +1910,23 @@ $users = DB::table('users')->get();
 </script>
 
 <script>
-    $(document).ready(function() {
-        // 3
-
-        $('#product_material').click(function(e) {
+     $(document).ready(function() {
+    $('#product_material').click(function(e) {
+        e.preventDefault();
             function generateTableRow(serialNumber) {
                 var html =
                 '<tr>' +
                     '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[0][item_product_code]"></td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[0][lot_batch_number]"></td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[0][a_r_number]"></td>' +
-                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="text" id="mfg_date" readonly placeholder="DD-MM-YYYY" /><input type="date" name="parent_info_on_product_material[0][mfg_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d')}}" class="hide-input" oninput="handleDateInput(this, mfg_date);" /></div></div></div></td>' +
-                    '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="text" id="expiry_date" readonly placeholder="DD-MM-YYYY" /><input type="date" name="parent_info_on_product_material[0][expiry_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, expiry_date);" /></div></div></div></td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[0][label_claim]"></td>' +
-                    '<td><input type="text" name="parent_info_on_product_material[0][pack_size]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + serialNumber + '][item_product_code]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + serialNumber + '][lot_batch_number]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + serialNumber + '][a_r_number]"></td>' +
+                    '<td><input type="date" name="parent_info_on_product_material[' + serialNumber + '][mfg_date]"></td>' +
+'<td><input type="date" name="parent_info_on_product_material[' + serialNumber + '][expiry_date]"></td>' +
+                    // '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="date" id="mfg_date" readonly placeholder="DD-MM-YYYY" /><input type="date" name="parent_info_on_product_material[0][mfg_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d')}}" class="hide-input" oninput="handleDateInput(this, mfg_date);" /></div></div></div></td>' +
+                    // '<td><div class="group-input new-date-data-field mb-0"><div class="input-date "><div class="calenderauditee"><input type="date" id="expiry_date" readonly placeholder="DD-MM-YYYY" /><input type="date" name="parent_info_on_product_material[0][expiry_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, expiry_date);" /></div></div></div></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + serialNumber + '][label_claim]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + serialNumber + '][pack_size]"></td>' +
+                    '<td><button type="button" class="removeRowBtn" >Remove</button></td>'
 
                     '</tr>';
                 return html;
@@ -1928,46 +1935,52 @@ $users = DB::table('users')->get();
             var rowCount = tableBody.children('tr').length;
             var newRow = generateTableRow(rowCount + 1);
             // var newRow = generateTableRow(rowCount - 1);
-            tableBody.append(newRow); 
-            
-           
+            tableBody.append(newRow);
+
+
         });
 
+   $(document).ready(function() {
+    $('#oos_details').click(function(e) {
+        e.preventDefault(); // Prevent default form submission behavior
 
-        $('#oos_details').click(function(e) {
-            function generateTableRow(serialNumber) {
-                var html =
+        function generateTableRow(serialNumber) {
+            var html =
                 '<tr>' +
                     '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    '<td><input type="text" name="parent_oos_details[0][ar_no]"></td>' +
-                    '<td><input type="text" name="parent_oos_details[0][test_name_of_oos]"></td>' +
-                    '<td><input type="text" name="parent_oos_details[0][results_obtained]"></td>' +
-                    '<td><input type="text" name="parent_oos_details[0][specification_limit]"></td>' +
-                    '</tr>';
-                return html;
-            }
-            var tableBody = $('#oos_details_body2 tbody');
-            var rowCount = tableBody.children('tr').length;
-            var newRow = generateTableRow(rowCount + 1);
-            tableBody.append(newRow);
-        });
+                    '<td><input type="text" name="parent_oos_details[' + serialNumber + '][ar_no]"></td>' +
+                    '<td><input type="text" name="parent_oos_details[' + serialNumber + '][test_name_of_oos]"></td>' +
+                    '<td><input type="text" name="parent_oos_details[' + serialNumber + '][results_obtained]"></td>' +
+                    '<td><input type="text" name="parent_oos_details[' + serialNumber + '][specification_limit]"></td>' +
+                    '<td><button type="button" class="removeRowBtn" >Remove</button></td>'
+
+                '</tr>';
+            return html;
+        }
+
+        var tableBody = $('#oos_details_body2 tbody');
+        var rowCount = tableBody.children('tr').length;
+        var newRow = generateTableRow(rowCount + 1);
+        tableBody.append(newRow);
+    });
+});
 
         $('#oot_results').click(function(e) {
             function generateTableRow(serialNumber) {
                 var html =
-                    '<tr>' +
+                '<tr>' +
                     '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
-                    // '<td><input type="date" name="date[]"></td>' +
-                    '<td><input type="text" name="parent_oot_results[0][ar_no]"></td>' +
-                    '<td><input type="text" name="parent_oot_results[0][test_name_of_oot]"></td>' +
-                    '<td><input type="text" name="parent_oot_results[0][results_obtained]"></td>' +
-                    '<td><input type="text" name="parent_oot_results[0][initial_intervel_details]"></td>' +
-                    '<td><input type="text" name="parent_oot_results[0][previous_interval_details]"></td>' +
-                    '<td><input type="text" name="parent_oot_results[0][difference_of_results]"></td>' +
-                    '<td><input type="text" name="parent_oot_results[0][initial_interview_details]"></td>' +
-                    '<td><input type="text" name="parent_oot_results[0][trend_limit]"></td>' +
+                    '<td><input type="text" name="parent_oot_results[' + serialNumber + '][ar_no]"></td>' +
+                    '<td><input type="text" name="parent_oot_results[' + serialNumber + '][test_name_of_oot]"></td>' +
+                    '<td><input type="text" name="parent_oot_results[' + serialNumber + '][results_obtained]"></td>' +
+                    '<td><input type="text" name="parent_oot_results[' + serialNumber + '][initial_intervel_details]"></td>' +
+                    '<td><input type="text" name="parent_oot_results[' + serialNumber + '][previous_interval_details]"></td>' +
+                    '<td><input type="text" name="parent_oot_results[' + serialNumber + '][difference_of_results]"></td>' +
+                    '<td><input type="text" name="parent_oot_results[' + serialNumber + '][initial_interview_details]"></td>' +
+                    '<td><input type="text" name="parent_oot_results[' + serialNumber + '][trend_limit]"></td>' +
+                    '<td><button type="button" class="removeRowBtn" >Remove</button></td>'
 
-                    '</tr>';
+                '</tr>';
                 return html;
             }
             var tableBody = $('#oot_results_body3 tbody');
@@ -1979,15 +1992,17 @@ $users = DB::table('users')->get();
         $('#details_of_stability_study').click(function(e) {
             function generateTableRow(serialNumber) {
                 var html =
-                    '<tr>' +
+                '<tr>' +
                     '<td><input disabled type="text" name="serial_number[]" value="' + serialNumber + '"></td>' +
                     // '<td><input type="date" name="date[]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study[0][ar_no]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study[0][condition_temperature_&_rh]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study[0][interval]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study[0][orientation]"></td>' +
-                    '<td><input type="text" name="parent_details_of_stability_study[0][pack_details]"></td>' +
-                    '</tr>';
+                    '<td><input type="text" name="parent_details_of_stability_study[' + serialNumber + '][ar_no]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study[' + serialNumber + '][condition_temperature_&_rh]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study[' + serialNumber + '][interval]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study[' + serialNumber + '][orientation]"></td>' +
+                    '<td><input type="text" name="parent_details_of_stability_study[' + serialNumber + '][pack_details]"></td>' +
+                    '<td><button type="button" class="removeRowBtn" >Remove</button></td>'
+
+                '</tr>';
                 return html;
             }
             var tableBody = $('#details_of_stability_study_body4 tbody');
@@ -2076,5 +2091,11 @@ $users = DB::table('users')->get();
         var textlen = maxLength - $(this).val().length;
         $('#rchars').text(textlen);
     });
+</script>
+
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
 </script>
 @endsection

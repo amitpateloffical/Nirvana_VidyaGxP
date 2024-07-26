@@ -916,21 +916,21 @@ if (!empty($data->parent_short_desecription)) {
                 $history->save();
             }
           // return 'history';
-                $history = new RecommendedAuditTrialDetails;
-                $history->root_id = $id;
-                $history->activity_type = '(Parent) Target Closure Date';
-                $history->previous = $lastData->target_closure_date;
-                $history->current = $data->target_closure_date;
-                $history->comment = $request->comment;
-                $history->user_id = Auth::user()->id;
-                $history->user_name = Auth::user()->name;
-                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
-                $history->origin_state = $lastData->status;
-                $history->change_to =   "Not Applicable";
-                $history->change_from = $lastData->status;
-                $history->action_name = $lastDataAudittrail  ? 'Update' : 'New';
-                $history->save();
-            }
+            //     $history = new RecommendedAuditTrialDetails;
+            //     $history->root_id = $id;
+            //     $history->activity_type = '(Parent) Target Closure Date';
+            //     $history->previous = $lastData->target_closure_date;
+            //     $history->current = $data->target_closure_date;
+            //     $history->comment = $request->comment;
+            //     $history->user_id = Auth::user()->id;
+            //     $history->user_name = Auth::user()->name;
+            //     $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            //     $history->origin_state = $lastData->status;
+            //     $history->change_to =   "Not Applicable";
+            //     $history->change_from = $lastData->status;
+            //     $history->action_name = $lastDataAudittrail  ? 'Update' : 'New';
+            //     $history->save();
+            // }
 
 
                 if ($lastData->initiator_id!= $data->initiator_id|| ! empty($request->initiator_id_comment)) {
