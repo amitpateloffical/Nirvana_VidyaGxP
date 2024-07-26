@@ -749,6 +749,7 @@
                         </label>
                         <div class="table-responsive">
                             <table class="table table-bordered" id="StudySiteInformation_details" style="width: 100%;">
+
                                 <thead>
                                     <tr>
                                         <th style="width: 4%">Row#</th>
@@ -762,6 +763,7 @@
                                         <th style="width: 16%">Action</th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     @if ($grid_DataS && is_array($grid_DataS->data))
                                      @foreach ($grid_DataS->data as $grid_DataS)
@@ -780,10 +782,10 @@
                                      @endforeach
                                     @endif
                                 </tbody>
-
                             </table>
                           </div>
                         </div>
+
                     <div class="button-block">
                         <button type="submit" class="saveButton">Save</button>
                         <button type="button" class="backButton" onclick="previousStep()">Back</button>

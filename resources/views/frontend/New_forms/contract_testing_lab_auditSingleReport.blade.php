@@ -302,7 +302,6 @@
                     <table>
 
                       <tr>
-
                             <th class="w-20">Application Sites</th>
                             <td class="w-30">
                                 @if ($audit_data->application_sites)
@@ -323,14 +322,14 @@
                           <th class="w-20">Date of Last Audit</th>
                             <td class="w-30">
                                 @if ($audit_data->date_of_last_audit)
-                                    {{ date('d-M-Y', strtotime($audit_data->date_of_last_audit)) }}
+                                    {{ Helpers::getdateFormat($audit_data->date_of_last_audit) }}
 
                                 @endif
                             </td>
                           <th class="w-20">Audit Due On Month</th>
                             <td class="w-30">
                                 @if ($audit_data->audit_due_on_month)
-                                    {{ date('d-M-Y', strtotime($audit_data->audit_due_on_month)) }}
+                                    {{ Helpers::getdateFormat($audit_data->audit_due_on_month) }}
 
                                 @endif
                             </td>
@@ -340,7 +339,7 @@
                             <th class="w-20">TCD For Audit Completion</th>
                             <td class="w-30">
                                 @if ($audit_data->tcd_for_audit_completion)
-                                    {{ date('d-M-Y', strtotime($audit_data->tcd_for_audit_completion)) }}
+                                    {{ Helpers::getdateFormat($audit_data->tcd_for_audit_completion) }}
 
                                 @endif
                             </td>
@@ -348,7 +347,7 @@
                             <th class="w-20">Audit Planing to be Done On</th>
                             <td class="w-30">
                                 @if ($audit_data->audit_planing_to_be_done_on)
-                                    {{ date('d-M-Y', strtotime($audit_data->audit_planing_to_be_done_on)) }}
+                                    {{ Helpers::getdateFormat($audit_data->audit_planing_to_be_done_on) }}
 
                                 @endif
                             </td>
@@ -367,7 +366,7 @@
                             <th class="w-20">Proposed Audit Start Date</th>
                             <td class="w-30">
                                 @if ($audit_data->proposed_audit_start_date)
-                                    {{ date('d-M-Y', strtotime($audit_data->proposed_audit_start_date)) }}
+                                    {{ Helpers::getdateFormat($audit_data->proposed_audit_start_date) }}
 
                                 @endif
                             </td>
@@ -378,7 +377,7 @@
                             <th class="w-20">Proposed Audit Completion</th>
                             <td class="w-30">
                                 @if ($audit_data->proposed_audit_completion)
-                                    {{ date('d-M-Y', strtotime($audit_data->proposed_audit_completion)) }}
+                                    {{ Helpers::getdateFormat($audit_data->proposed_audit_completion) }}
 
                                 @endif
                             </td>
@@ -469,7 +468,7 @@
                         <table>
                             <tr>
                                 <th class="w-20">Audit Agenda Sent On</th>
-                                <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->audit_agenda_sent_on)) }}</td>
+                                <td class="w-30">{{ Helpers::getdateFormat($audit_data->audit_agenda_sent_on) }}</td>
 
                                 <th class="w-20">Audit Agenda Sent To</th>
                                 <td class="w-30">{{ $audit_data->audit_agenda_sent_to }}</td>
@@ -499,10 +498,10 @@
                         <table>
                             <tr>
                                 <th class="w-20">CTL Audit Started On</th>
-                                <td class="w-20">{{ date('d-M-Y', strtotime($audit_data->ctl_audit_started_on)) }}</td>
+                                <td class="w-20">{{ Helpers::getdateFormat($audit_data->ctl_audit_started_on) }}</td>
 
                                 <th class="w-20">CTL Audit Completed On</th>
-                                <td class="w-20">{{ date('d-M-Y', strtotime($audit_data->ctl_audit_completed_on)) }}</td>
+                                <td class="w-20">{{ Helpers::getdateFormat($audit_data->ctl_audit_completed_on) }}</td>
                             </tr>
                         </table>
 
@@ -669,12 +668,12 @@
                             <td class="w-30">{{ $audit_data->audit_report_ref_no }}</td>
 
                             <th class="w-20">Audit Report Signed On</th>
-                            <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->audit_report_signed_on)) }}</td>
+                            <td class="w-30">{{ Helpers::getdateFormat($audit_data->audit_report_signed_on) }}</td>
                         </tr>
 
                         <tr>
                             <th class="w-20">Audit Report Approved On</th>
-                            <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->audit_report_approved_on)) }}</td>
+                            <td class="w-30">{{ Helpers::getdateFormat($audit_data->audit_report_approved_on) }}</td>
 
                             <th class="w-20">Supportive Documents</th>
                             <td class="w-30">{{ $audit_data->supportive_documents }}</td>
@@ -699,10 +698,10 @@
                 <table>
                     <tr>
                         <th class="w-20">CTL Audit Report Issue Date</th>
-                        <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->ctl_audit_report_issue_date)) }}</td>
+                        <td class="w-30">{{ Helpers::getdateFormat($audit_data->ctl_audit_report_issue_date) }}</td>
 
                         <th class="w-20">Audit Report Sent To CTL On</th>
-                        <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->audit_report_sent_to_ctl_on)) }}</td>
+                        <td class="w-30">{{ Helpers::getdateFormat($audit_data->audit_report_sent_to_ctl_on) }}</td>
                     </tr>
 
                     <tr>
@@ -710,12 +709,12 @@
                         <td class="w-20">{{ $audit_data->audit_report_sent_to }}</td>
 
                         <th class="w-30">Report Acknowledged On</th>
-                        <td class="w-20">{{ date('d-M-Y', strtotime($audit_data->report_acknowledged_on)) }}</td>
+                        <td class="w-20">{{ Helpers::getdateFormat($audit_data->report_acknowledged_on) }}</td>
                     </tr>
 
                     <tr>
                         <th class="w-30">TCD for Receipt of Compliance</th>
-                        <td class="w-20">{{ date('d-M-Y', strtotime($audit_data->tcd_for_receipt_of_compliance)) }}</td>
+                        <td class="w-20">{{ Helpers::getdateFormat($audit_data->tcd_for_receipt_of_compliance) }}</td>
                     </tr>
                 </table>
 
@@ -736,10 +735,10 @@
                 <table>
                     <tr>
                         <th class="w-20">Initial Response Received On</th>
-                        <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->initial_response_received_on)) }}</td>
+                        <td class="w-30">{{ Helpers::getdateFormat($audit_data->initial_response_received_on) }}</td>
 
                         <th class="w-20">Final Response Received On</th>
-                        <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->final_response_received_on)) }}</td>
+                        <td class="w-30">{{ Helpers::getdateFormat($audit_data->final_response_received_on) }}</td>
                     </tr>
 
                     <tr>
@@ -814,7 +813,7 @@
                         <td class="w-30">{{ $audit_data->requalification_frequency }}</td>
 
                         <th class="w-20">Next Audit Due Date</th>
-                        <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->next_audit_due_date)) }}</td>
+                        <td class="w-30">{{ Helpers::getdateFormat($audit_data->next_audit_due_date) }}</td>
                     </tr>
                 </table>
             </div>
@@ -855,10 +854,10 @@
             <table>
                 <tr>
                     <th class="w-20">Implementation Completed On</th>
-                    <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->implementation_completed_on)) }}</td>
+                    <td class="w-30">{{ Helpers::getdateFormat($audit_data->implementation_completed_on) }}</td>
 
                     <th class="w-20">Audit Closure Report Issued On</th>
-                    <td class="w-30">{{ date('d-M-Y', strtotime($audit_data->audit_closure_report_issued_on)) }}</td>
+                    <td class="w-30">{{ Helpers::getdateFormat($audit_data->audit_closure_report_issued_on) }}</td>
                 </tr>
             </table>
         </div>
