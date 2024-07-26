@@ -414,13 +414,13 @@ Route::view('renewal', 'frontend.new_forms.renewal');
 //! ============================================
 // Route::view('validation', 'frontend.new_forms.validation');
 //Validation form  route
-Route::get('/validation', [DemoValidationController::class, 'validationIndex'])->name('create');
-Route::post('/validation-create', [DemoValidationController::class, 'store'])->name('validation_store');
-Route::get('/validation/{id}/edit', [DemoValidationController::class, 'validationEdit'])->name('validation.edit');
-Route::put('/validation/{id}', [DemoValidationController::class, 'validationUpdate'])->name('validation.update');
-Route::get('validationAuditTrialDetails/{id}', [DemoValidationController::class, 'ValidationAuditTrialDetails']);
+Route::get('/validation', [ValidationController::class, 'validationIndex'])->name('create');
+Route::post('/validation-create', [ValidationController::class, 'store'])->name('validation_store');
+Route::get('/validation/{id}/edit', [ValidationController::class, 'validationEdit'])->name('validation.edit');
+Route::put('/validation/{id}', [ValidationController::class, 'validationUpdate'])->name('validation.update');
+Route::get('validationAuditTrialDetails/{id}', [ValidationController::class, 'ValidationAuditTrialDetails']);
 
-Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
+Route::get('auditValidation/{id}', [ValidationController::class, 'auditValidation']);
 
 //=============================
 //              New Forms - Equipment

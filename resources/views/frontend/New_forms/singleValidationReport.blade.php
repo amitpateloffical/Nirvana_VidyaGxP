@@ -411,6 +411,153 @@
             </div>
             <div>
 
+
+
+                <div class="block">
+                    {{-- <div class="block"> --}}
+                    {{-- <div class="block-head"> --}}
+                    <div style="font-weight: 200">Affected Item</div>
+                    {{-- </div> --}}
+                    <div class="border-table">
+                        <table>
+                            <tr class="table_bg">
+                                <th class="w-10">Sr. No.</th>
+                                <th class="w-20">Item Type</th>
+                                <th class="w-20">Item Name</th>
+                                <th class="w-20">Item No</th>
+                                <th class="w-20">Remarks</th>
+                            </tr>
+
+
+                            @php
+                            $data = $gridData2->data ? json_decode($gridData2->data, true) : null;
+                            @endphp
+                            @if ($data && is_array($data))
+                            @foreach ($data as $index => $item)
+
+                            <tr>
+                                <td>{{ $loop->index + 1 }}.</td>
+                                <td>{{ isset($item['item_type']) ? $item['item_type'] : '' }}</td>
+                                <td>{{ isset($item['item_name']) ? $item['item_name'] : '' }}</td>
+                                <td>{{ isset($item['item_no']) ? $item['item_no'] : '' }}</td>
+                                <td>{{ isset($item['item_remarks']) ? $item['item_remarks'] : '' }}</td>
+                            </tr>
+                            @endforeach
+                            @else
+                            <tr>
+                                <td>Not Applicable</td>
+                                <td>Not Applicable</td>
+                                <td>Not Applicable</td>
+                                <td>Not Applicable</td>
+                                <td>Not Applicable</td>
+                            </tr>
+                            @endif
+                        </table>
+                    </div>
+                    {{-- </div> --}}
+                </div>
+                <div>
+
+
+                    <div class="block">
+                        {{-- <div class="block"> --}}
+                        {{-- <div class="block-head"> --}}
+                        <div style="font-weight: 200">Affected Facilities</div>
+                        {{-- </div> --}}
+                        <div class="border-table">
+                            <table>
+                                <tr class="table_bg">
+                                    <th class="w-10">Sr. No.</th>
+                                    <th class="w-20">Facility-Location</th>
+                                    <th class="w-20">Facility-Type</th>
+                                    <th class="w-20">Facility-Name</th>
+                                    <th class="w-20">Remarks</th>
+                                </tr>
+
+
+                                @php
+                                $data = $gridData3->data ? json_decode($gridData3->data, true) : null;
+                                @endphp
+
+                                @if ($data && is_array($data))
+                                @foreach ($data as $index => $item)
+                                <tr>
+                                    <td>{{ $loop->index + 1 }}.</td>
+                                    <td>{{ isset($item['facility_location']) ? $item['facility_location'] : '' }}</td>
+                                    <td>{{ isset($item['facility_type']) ? $item['facility_type'] : '' }}</td>
+                                    <td>{{ isset($item['facility_name']) ? $item['facility_name'] : '' }}</td>
+                                    <td>{{ isset($item['facility_remarks']) ? $item['facility_remarks'] : '' }}</td>
+
+                                </tr>
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td>Not Applicable</td>
+                                    <td>Not Applicable</td>
+                                    <td>Not Applicable</td>
+                                    <td>Not Applicable</td>
+                                    <td>Not Applicable</td>
+                                </tr>
+                                @endif
+                            </table>
+                        </div>
+                        {{-- </div> --}}
+                    </div>
+                    <div>
+
+
+
+                        <div class="block">
+                            {{-- <div class="block"> --}}
+                            {{-- <div class="block-head"> --}}
+                            <div style="font-weight: 200">Summary Of Results</div>
+                            {{-- </div> --}}
+                            <div class="border-table">
+                                <table>
+                                    <tr class="table_bg">
+                                        <th class="w-10">Sr. No.</th>
+                                        <th class="w-20">Deviation Occured</th>
+                                        <th class="w-20">Test-Name</th>
+                                        <th class="w-20">Test-Number</th>
+                                        <th class="w-20">Test-Method</th>
+                                        <th class="w-20">Test-Result</th>
+                                        <th class="w-20">Test-Accepted</th>
+                                        <th class="w-20">Remarks</th>
+                                    </tr>
+
+
+                                    @php
+                                    $data = $gridData4->data ? json_decode($gridData3->data, true) : null;
+                                    @endphp
+
+                                    @if ($data && is_array($data))
+                                    @foreach ($data as $index => $item)
+                                    <tr>
+                                        <td>{{ $loop->index + 1 }}.</td>
+                                        <td>{{ isset($item['deviation_occured']) ? $item['deviation_occured'] : '' }}</td>
+                                        <td>{{ isset($item['test_name']) ? $item['test_name'] : '' }}</td>
+                                        <td>{{ isset($item['test_number']) ? $item['test_number'] : '' }}</td>
+                                        <td>{{ isset($item['test_method']) ? $item['test_method'] : '' }}</td>
+                                        <td>{{ isset($item['test_result']) ? $item['test_result'] : '' }}</td>
+                                        <td>{{ isset($item['test_accepted']) ? $item['test_accepted'] : '' }}</td>
+                                        <td>{{ isset($item['remarks']) ? $item['remarks'] : '' }}</td>
+                                    </tr>
+                                    @endforeach
+                                    @else
+                                    <tr>
+                                        <td>Not Applicable</td>
+                                        <td>Not Applicable</td>
+                                        <td>Not Applicable</td>
+                                        <td>Not Applicable</td>
+                                        <td>Not Applicable</td>
+                                    </tr>
+                                    @endif
+                                </table>
+                            </div>
+                            {{-- </div> --}}
+                        </div>
+                        <div>
+
 </body>
 
 </html>

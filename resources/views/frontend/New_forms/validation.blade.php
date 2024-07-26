@@ -149,7 +149,7 @@ $users = DB::table('users')->get();
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Division Code"><b>Site/Location Code</b></label>
-                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
+                                    <input readonly type="text" name="divison_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
                                     <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
                                 </div>
                             </div>
@@ -210,8 +210,11 @@ $users = DB::table('users')->get();
                                             <small class="text-primary">If revising Due Date, kindly mention revision reason in "Due Date Extension Justification" data field.</small>
                                         </div>
                                         <div class="calenderauditee">
-                                            <input type="text" id="assign_due_date_display" readonly placeholder="DD-MMM-YYYY">
-                                            <input type="hidden" name="assign_due_date" id="assign_due_date">
+                                            {{-- <input type="text" id="assign_due_date_display" readonly placeholder="DD-MM-YYYY">
+                                            <input type="hidden" name="assign_due_date" id="assign_due_date"> --}}
+
+                                            <input type="hidden" value="{{$due_date}}" name="assign_due_date">
+                                            <input disabled type="text" value="{{Helpers::getdateFormat($due_date)}}">
                                         </div>
                                     </div>
                                 </div>
@@ -287,9 +290,6 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
 
-
-
-
                             <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Outcome">Validation Category</label>
@@ -312,25 +312,6 @@ $users = DB::table('users')->get();
                                     </select>
                                 </div>
                             </div>
-
-
-                            <!-- <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="closure attachment">Download Templates </label>
-                                    <div><small class="text-primary">
-                                        </small>
-                                    </div>
-                                    <div class="file-attachment-field">
-                                        <div class="file-attachment-list" id="file_attechment"></div>
-                                        <div class="add-btn">
-                                            <div>Add</div>
-                                            <input type="file" id="myfile" name="file_attechment[]" oninput="addMultipleFiles(this, 'file_attechment')" multiple>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
-
 
                             <div class="col-lg-6">
                                 <div class="group-input">
@@ -437,7 +418,6 @@ $users = DB::table('users')->get();
                                                 <td><input type="text" name="details[0][remarks]"></td>
                                             </tr>
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
@@ -470,7 +450,6 @@ $users = DB::table('users')->get();
                                                 <td><input type="text" name="affected_equipments[0][item_remarks]"></td>
                                             </tr>
                                         </tbody>
-
                                     </table>
                                 </div>
                             </div>
@@ -489,6 +468,7 @@ $users = DB::table('users')->get();
                                                 '</tr>';
                                             return html;
                                         }
+
                                         var tableBody = $('#Details-table-equipment tbody');
                                         var rowCount = tableBody.children('tr').length;
                                         var newRow = generateEquipmentRow(rowCount + 1);
@@ -516,8 +496,6 @@ $users = DB::table('users')->get();
                                 });
                             </script>
 
-
-                            <!-- grid 3 -->
 
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
@@ -567,8 +545,10 @@ $users = DB::table('users')->get();
                                                 // '<td><button type="text" class="removeRowBtn" >Remove</button></td>' +
                                                 '</tr>';
 
+
                                             return html;
                                         }
+
                                         var tableBody = $('#Details-table-facilities tbody');
                                         var rowCount = tableBody.children('tr').length;
                                         var newRow = generateTableRow(rowCount + 1);
@@ -712,13 +692,13 @@ $users = DB::table('users')->get();
                             <div class="group-input">
                                 <label for="audit-agenda-grid">
                                     Summary Of Results(0)
-                                    <button type="button" name="audit-agenda-grid" id="SummaryOfResults_add">+</button>
+                                    <button type="button" name="audit_agenda_grid" id="SummaryOfResults_add">+</button>
                                     <span class="text-primary" data-bs-toggle="modal" data-bs-target="#observation-field-instruction-modal" style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
                                         (Open)
                                     </span>
                                 </label>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="Details-table">
+                                    <table class="table table-bordered" id="Details-table-agenda">
                                         <thead>
                                             <tr>
                                                 <th style="width: 5%">Row#</th>
@@ -734,14 +714,14 @@ $users = DB::table('users')->get();
                                         </thead>
                                         <tbody>
 
-                                            <td><input disabled type="text" name="details[0][serial]" value="1"></td>
-                                            <td><input type="text" name="details[0][deviation_occured]"></td>
-                                            <td><input type="text" name="details[0][test_name]"></td>
-                                            <td><input type="text" name="details[0][test_number]"></td>
-                                            <td><input type="text" name="details[0][test_method]"></td>
-                                            <td><input type="text" name="details[0][test_result]"></td>
-                                            <td><input type="text" name="details[0][test_accepted]"></td>
-                                            <td><input type="text" name="details[0][remarks]"></td>
+                                            <td><input disabled type="text" name="audit_agenda_grid[0][serial]" value="1"></td>
+                                            <td><input type="text" name="audit_agenda_grid[0][deviation_occured]"></td>
+                                            <td><input type="text" name="audit_agenda_grid[0][test_name]"></td>
+                                            <td><input type="text" name="audit_agenda_grid[0][test_number]"></td>
+                                            <td><input type="text" name="audit_agenda_grid[0][test_method]"></td>
+                                            <td><input type="text" name="audit_agenda_grid[0][test_result]"></td>
+                                            <td><input type="text" name="audit_agenda_grid[0][test_accepted]"></td>
+                                            <td><input type="text" name="audit_agenda_grid[0][remarks]"></td>
                                         </tbody>
                                     </table>
                                 </div>
@@ -755,29 +735,23 @@ $users = DB::table('users')->get();
                                             html += '<tr>' +
                                                 '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
                                                 '"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber +
+                                                '<td><input type="text" name="audit_agenda_grid[' + serialNumber +
                                                 '][deviation_occured]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][test_name]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][test_number]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][test_method]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][test_result]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][test_accepted]"></td>' +
-                                                '<td><input type="text" name="details[' + serialNumber + '][remarks]"></td>' +
+                                                '<td><input type="text" name="audit_agenda_grid[' + serialNumber + '][test_name]"></td>' +
+                                                '<td><input type="text" name="audit_agenda_grid[' + serialNumber + '][test_number]"></td>' +
+                                                '<td><input type="text" name="audit_agenda_grid[' + serialNumber + '][test_method]"></td>' +
+                                                '<td><input type="text" name="audit_agenda_grid[' + serialNumber + '][test_result]"></td>' +
+                                                '<td><input type="text" name="audit_agenda_grid[' + serialNumber + '][test_accepted]"></td>' +
+                                                '<td><input type="text" name="audit_agenda_grid[' + serialNumber + '][remarks]"></td>' +
                                                 // '<td><button type="text" class="removeRowBtn" >Remove</button></td>' +
                                                 '</tr>';
 
-                                            // for (var i = 0; i < users.length; i++) {
-                                            //     html += '<option value="' + users[i].id + '">' + users[i].name + '</option>';
-                                            // }
 
-                                            // html += '</select></td>' +
-
-                                            '</tr>';
 
                                             return html;
                                         }
 
-                                        var tableBody = $('#Details-table tbody');
+                                        var tableBody = $('#Details-table-agenda tbody');
                                         var rowCount = tableBody.children('tr').length;
                                         var newRow = generateTableRow(rowCount + 1);
                                         tableBody.append(newRow);
@@ -1110,7 +1084,7 @@ $users = DB::table('users')->get();
     });
 </script>
 
-<script>
+<!-- <script>
     $(document).ready(function() {
         $('#Affected_equipment_add').click(function(e) {
             function generateTableRow(serialNumber) {
@@ -1134,8 +1108,8 @@ $users = DB::table('users')->get();
             tableBody.append(newRow);
         });
     });
-</script>
-
+</script> -->
+<!-- 
 <script>
     $(document).ready(function() {
         $('#Affected_item_add').click(function(e) {
@@ -1160,8 +1134,8 @@ $users = DB::table('users')->get();
             tableBody.append(newRow);
         });
     });
-</script>
-<script>
+</script> -->
+<!-- <script>
     $(document).ready(function() {
         $('#Affected_facilities_add').click(function(e) {
             function generateTableRow(serialNumber) {
@@ -1185,7 +1159,7 @@ $users = DB::table('users')->get();
             tableBody.append(newRow);
         });
     });
-</script>
+</script> -->
 
 <script>
     var maxLength = 255;

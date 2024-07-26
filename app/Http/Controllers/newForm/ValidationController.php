@@ -40,8 +40,6 @@ class ValidationController extends Controller
 
     public function store(Request $request)
     {
-
-
         $request->validate([
             'file_attachment.*' => 'required|mimes:jpg,png,pdf,doc,docx|max:2048',
         ]);
@@ -164,6 +162,7 @@ class ValidationController extends Controller
             $validation_id = $validation->id;
             $newDataGridErrata = ValidationGrid::where(['validation_id' => $validation_id, 'identifier' => 'details'])->firstOrCreate();
             $newDataGridErrata->validation_id = $validation_id;
+            $newDataGridErrata->identifier = 'details';
             $newDataGridErrata->data = $request->details;
             $newDataGridErrata->save();
 
@@ -191,6 +190,7 @@ class ValidationController extends Controller
             $newDataGridErrata->identifier = 'audit_agenda_grid';
             $newDataGridErrata->data = $request->audit_agenda_grid;
             $newDataGridErrata->save();
+
 
 
             if (!empty($request->short_description)) {
@@ -538,6 +538,7 @@ class ValidationController extends Controller
     public function validationEdit($id)
     {
         $validation = Validation::findOrFail($id);
+
         $details = ValidationGrid::where('validation_id', $id)->where('identifier', 'details')->first();
         $affected_equipments = ValidationGrid::where('validation_id', $id)->where('identifier', 'affected_equipments')->first();
         $affected_facilities = ValidationGrid::where('validation_id', $id)->where('identifier', 'affected_facilities')->first();
@@ -674,9 +675,6 @@ class ValidationController extends Controller
             $newDataGridErrata->save();
 
 
-
-
-
             if ($lastDocument->short_description != $request->short_description) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
@@ -696,6 +694,7 @@ class ValidationController extends Controller
                 }
                 $validation2->save();
             }
+
 
             if ($lastDocument->intiation_date != $request->intiation_date) {
                 $validation2 = new ValidationAudit();
@@ -760,6 +759,7 @@ class ValidationController extends Controller
                 $validation2->save();
             }
 
+
             if ($lastDocument->validation_type != $request->validation_type) {
                 $validation2 = new ValidationAudit();
                 $validation2->validation_id = $id;
@@ -781,6 +781,7 @@ class ValidationController extends Controller
 
                 $validation2->save();
             }
+
 
             if ($lastDocument->validation_due_date != $request->validation_due_date) {
                 $validation2 = new ValidationAudit();
@@ -1110,6 +1111,8 @@ class ValidationController extends Controller
         }
     }
 
+
+
     function auditValidation($id)
     {
         $audit = ValidationAudit::where('validation_id', $id)->orderByDESC('id')->paginate(30);
@@ -1149,7 +1152,7 @@ class ValidationController extends Controller
                 $validation1->user_name = Auth::user()->name;
                 $validation1->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
                 $validation1->change_from = $lastDocument->status;
-                $validation1->action = 'Submit Protoco';
+                $validation1->action = 'Submit Protocol';
                 $validation1->change_to = 'Review';
                 $validation1->stage = 'Submited';
                 $validation1->save();
@@ -1165,7 +1168,7 @@ class ValidationController extends Controller
                 $validation->status = "Protocol Approval";
                 $validation->review_by = Auth::user()->name;
                 $validation->review_on = Carbon::now()->format('d-M-Y');
-                $validation->comment = $request->comment;
+                // $validation->comment = $request->comment;
 
                 $validation1 = new ValidationAudit();
                 $validation1->validation_id = $id;
@@ -1218,8 +1221,11 @@ class ValidationController extends Controller
                 $validation->stage = "5";
                 $validation->status = "Deviation in Progress";
 
-                $validation->final_approved_by = Auth::user()->name;
-                $validation->final_approved_on = Carbon::now()->format('d-M-Y');
+                $validation->review_by = Auth::user()->name;
+                $validation->review_on = Carbon::now()->format('d-M-Y');
+
+                // $validation->final_approved_by = Auth::user()->name;
+                // $validation->final_approved_on = Carbon::now()->format('d-M-Y');
 
                 $validation1 = new ValidationAudit();
                 $validation1->validation_id = $id;
@@ -1637,7 +1643,10 @@ class ValidationController extends Controller
         if (!empty($data)) {
             $data->originator = User::where('id', $data->initiator_id)->value('name');
             $gridData = ValidationGrid::where(['validation_id' => $id, 'identifier' => "details"])->first();
-            //dd($gridData);
+            $gridData2 = ValidationGrid::where(['validation_id' => $id, 'identifier' => "affected_equipments"])->first();
+            $gridData3 = ValidationGrid::where(['validation_id' => $id, 'identifier' => "affected_facilities"])->first();
+            $gridData4 = ValidationGrid::where(['validation_id' => $id, 'identifier' => "audit_agenda_grid"])->first();
+
             $doc = ValidationAudit::where('validation_id', $data->id)->first();
             $detail_data = ValidationAudit::where('activity_type', $data->activity_type)
                 ->where('validation_id', $data->validation_id)
@@ -1651,7 +1660,10 @@ class ValidationController extends Controller
                 'detail_data',
                 'doc',
                 'data',
-                'gridData'
+                'gridData',
+                'gridData2',
+                'gridData3',
+                'gridData4'
             ))
                 ->setOptions([
                     'defaultFont' => 'sans-serif',
@@ -1667,12 +1679,8 @@ class ValidationController extends Controller
             $width = $canvas->get_width();
 
             $canvas->page_script('$pdf->set_opacity(0.1,"Multiply");');
-
-            // Ensure that the text parameter is a string
             $text = 'Sample Watermark';  // Replace with actual text if needed
-            // Ensure the color is an array of three integers
-            $color = [0, 0, 0];  // RGB color array
-
+            $color = [0, 0, 0];
             $canvas->page_text(
                 $width / 4,
                 $height / 2,
@@ -1684,11 +1692,8 @@ class ValidationController extends Controller
                 6, // Character spacing
                 -20 // Angle
             );
-
             return $pdf->stream('SOP' . $id . '.pdf');
         }
-
-        // Handle the case where the $data is empty or not found
         return redirect()->back()->with('error', 'Validation not found.');
     }
 
