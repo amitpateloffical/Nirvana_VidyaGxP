@@ -53,7 +53,7 @@ return new class extends Migration
             $table->string('Create_Recall_on')->nullable();
 
             $table->string('Recall_Closed_by')->nullable();
-            $table->string('Recall_Close_on')->nullable();
+            $table->string('Recall_Closed_on')->nullable();
 
             $table->string('Analyzee_by')->nullable();
             $table->string('Analyze_on')->nullable();
