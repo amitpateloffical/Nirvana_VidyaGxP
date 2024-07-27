@@ -112,16 +112,15 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('audit/{id}', [CCController::class, 'audit_pdf']);
 
 
-
-
             Route::get('ccView/{id}/{type}', [DashboardController::class, 'ccView'])->name('ccView');
             Route::view('summary_pdf', 'frontend.change-control.summary_pdf');
             Route::view('audit_trial_pdf', 'frontend.change-control.audit_trial_pdf');
             Route::view('change_control_single_pdf', 'frontend.change-control.change_control_single_pdf');
-            Route::get('change_control_family_pdf', [CCController::class, 'parent_child']);
 
+            Route::get('change_control_family_pdf', [CCController::class, 'parent_child']);
             Route::get('change_control_single_pdf/{id}', [CCController::class, 'single_pdf']);
             Route::get('eCheck/{id}', [CCController::class, 'eCheck']);
+
             Route::resource('effectiveness', EffectivenessCheckController::class);
             Route::post('send-effectiveness/{id}', [EffectivenessCheckController::class, 'stageChange']);
             Route::post('effectiveness-reject/{id}', [EffectivenessCheckController::class, 'reject']);
@@ -211,7 +210,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('deviation', [DeviationController::class, 'deviation']);
             Route::get('deviationSingleReport/{id}', [DeviationController::class, 'singleReport'])->name('deviationSingleReport');
             Route::get('deviationparentchildReport/{id}', [DeviationController::class, 'parentchildReport'])->name('deviationparentchildReport');
-            // --------------------- By Suneel  ------------------
+            // -------------------------------------------- By Suneel  ---------------------------------------
             // Route::get('auditValidation/{id}', [DemoValidationController::class, 'auditValidation']);
             Route::post('send-child/{id}', [ValidationController::class, 'stageChange'])->name('stageChange');
             Route::post('validation/stage/{id}', [ValidationController::class, 'validation_send_stage'])->name('validation_send_stage');
@@ -258,7 +257,6 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('national_approvalSingleReport/{id}', [NationalApprovalController::class, 'singleReport'])->name('national_approvalSingleReport');
             Route::get('/np_audit/{id}', [NationalApprovalController::class, 'audit1_pdf']);
 
-
             //============ Sanction =============
             Route::post('sanction/stage/{id}', [SanctionController::class, 'sanction_send_stage'])->name('sanction_send_stage');
             Route::post('sanction', [SanctionController::class, 'sanction_reject'])->name('sanctionReject');
@@ -269,7 +267,6 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::post('sanction/check3/{id}', [SanctionController::class, 'check3'])->name('sanction_check3');
             Route::get('sanctionSingleReport/{id}', [SanctionController::class, 'singleReport'])->name('sanctionSingleReport');
             Route::get('/sanction_audit/{id}', [SanctionController::class, 'audit2_pdf']);
-
 
             //============ Sanction =============
             Route::post('monthly', [MonthlyWorkingController::class, 'monthly_reject'])->name('monthlyReject');
@@ -282,7 +279,7 @@ Route::group(['prefix' => 'rcms'], function () {
             Route::get('monthlySingleReport/{id}', [MonthlyWorkingController::class, 'singleReport'])->name('monthlySingleReport');
             Route::get('/monthly_audit/{id}', [MonthlyWorkingController::class, 'audit2_pdf']);
         });
-            //-------------------- By  Monika GCP Study Route Start-------------------//
+        //-------------------- By  Monika GCP Study Route Start------------------------------//
             
             Route::get('/GCP_study', [GcpStudyController::class, 'index'])->name('GCP_study.index')->middleware('auth');
             Route::post('/GCP_study_store', [GcpStudyController::class, 'store'])->name('GCP_study.store')->middleware('auth');;
