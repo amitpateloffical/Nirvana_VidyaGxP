@@ -490,6 +490,18 @@
                                             </div>
                                         </a>
                                         @endif
+                                        @elseif($datas->type == 'Renewal')
+                                        <a href="{{ route('renewal.show', $datas->id) }}">
+                                            {{ str_pad($datas->record, 4, '0', STR_PAD_LEFT) }}
+                                        </a>
+                                        @if (!empty($datas->parent_id))
+                                        <a href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/renewal">
+                                            <div class="icon" onclick="showChild()" data-bs-toggle="tooltip" title="Related Records">
+                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                alt="..." class="w-100 h-100"> --}}
+                                            </div>
+                                        </a>
+                                        @endif
                                   
                                         @elseif($datas->type == 'Product_Validation')
                                         <a href="{{ route('production_show', $datas->id) }}">

@@ -144,7 +144,7 @@ class DashboardController extends Controller
         $datas40 = Reccomended_action::orderByDesc('id')->get();
 
         $datas41 = Hypothesis::orderByDesc('id')->get();
-        // $datas42 = Renewal::orderByDesc('id')->get();
+        $datas42 = Renewal::orderByDesc('id')->get();
 
         $datas43 = Resampling::orderByDesc('id')->get();
         $datas44 = Verification::orderByDesc('id')->get();
@@ -964,25 +964,25 @@ class DashboardController extends Controller
                 "date_close" => $data->updated_at,
             ]);
         }
-        // foreach ($datas42 as $data) {
-        //     $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+        foreach ($datas42 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
 
-        //     array_push($table, [
-        //         "id" => $data->id,
-        //         "parent" => $data->parent_record ? $data->parent_record : "-",
-        //         "record" => $data->record,
-        //         "division_id" => $data->division_id,
-        //         "type" => "Renewal",
-        //         "parent_id" => $data->parent_id,
-        //         "parent_type" => $data->parent_type,
-        //         "short_description" => $data->parent_short_desecription ? $data->parent_short_desecription : "-",
-        //         "initiator_id" => $data->initiator_id,
-        //         "intiation_date" => $data->date_of_initiation,
-        //         "stage" => $data->status,
-        //         "date_open" => $data->create,
-        //         "date_close" => $data->updated_at,
-        //     ]);
-        // }
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record ? $data->parent_record : "-",
+                "record" => $data->record,
+                "division_id" => $data->division_id,
+                "type" => "Renewal",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "short_description" => $data->parent_short_desecription ? $data->parent_short_desecription : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->date_of_initiation,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
         foreach ($datas43 as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
             array_push($table, [
