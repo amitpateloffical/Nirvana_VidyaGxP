@@ -690,15 +690,18 @@
 </div>
 
 <div class="sub-head">Geogrephic Information</div>
-
 <div class="col-lg-6">
     <div class="group-input">
         <label for="Zone">Zone</label>
-        <select name="zone" id="zone">
+        <select name="zone">
             <option value="">Enter Your Selection Here</option>
-            @foreach($zones as $zoneKey => $zoneValue)
-                <option value="{{ $zoneKey }}" {{ $data->zone == $zoneKey ? 'selected' : '' }}>{{ $zoneValue }}</option>
-            @endforeach
+            <option value="Asia" @if ($data->zone == "Asia") selected @endif>Asia</option>
+            <option value="Europe" @if ($data->zone == "Europe") selected @endif>Europe</option>
+            <option value="Africa" @if ($data->zone == "Africa") selected @endif>Africa</option>
+            <option value="Central America" @if ($data->zone == "Central America") selected @endif>Central America</option>
+            <option value="South America" @if ($data->zone == "South America") selected @endif>South America</option>
+            <option value="Oceania" @if ($data->zone == "Oceania") selected @endif>Oceania</option>
+            <option value="North America" @if ($data->zone == "North America") selected @endif>North America</option>
         </select>
     </div>
 </div>
@@ -706,38 +709,136 @@
 <div class="col-lg-6">
     <div class="group-input">
         <label for="Country">Country</label>
-        <select name="country" class="countries" id="country">
-            <option value="">Select Country</option>
-            @foreach($countries as $countryKey => $countryValue)
-                <option value="{{ $countryKey }}" {{ $data->country == $countryKey ? 'selected' : '' }}>{{ $countryValue }}</option>
-            @endforeach
+        <select name="country" class="form-select country" aria-label="Default select example" onchange="loadStates()">
+            <option value="{{ $data->country }}" selected>{{ $data->country }}</option>
         </select>
     </div>
 </div>
-
 <div class="col-lg-6">
     <div class="group-input">
-        <label for="City">City</label>
-        <select name="city" class="cities" id="city">
-            <option value="">Select City</option>
-            @foreach($cities as $cityKey => $cityValue)
-                <option value="{{ $cityKey }}" {{ $data->city == $cityKey ? 'selected' : '' }}>{{ $cityValue }}</option>
-            @endforeach
+        <label for="City">State</label>
+        <select name="state_district" class="form-select state" aria-label="Default select example" onchange="loadCities()">
+            <option value="{{ $data->state_district }}" selected>{{ $data->state_district }}</option>
         </select>
     </div>
 </div>
-
 <div class="col-lg-6">
     <div class="group-input">
-        <label for="State/District">State/District</label>
-        <select name="state_district" class="states" id="stateId">
-            <option value="">Select State</option>
-            @foreach($states as $stateKey => $stateValue)
-                <option value="{{ $stateKey }}" {{ $data->state_district == $stateKey ? 'selected' : '' }}>{{ $stateValue }}</option>
-            @endforeach
+        <label for="State/District">City</label>
+        <select name="city" class="form-select city" aria-label="Default select example">
+            <option value="{{ $data->city }}" selected>{{ $data->city }}</option>
         </select>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+var config = {
+    cUrl: 'https://api.countrystatecity.in/v1',
+    ckey: 'NHhvOEcyWk50N2Vna3VFTE00bFp3MjFKR0ZEOUhkZlg4RTk1MlJlaA=='
+};
+
+var countrySelect = document.querySelector('.country'),
+    stateSelect = document.querySelector('.state'),
+    citySelect = document.querySelector('.city');
+
+function loadCountries() {
+    let apiEndPoint = `${config.cUrl}/countries`;
+
+    $.ajax({
+        url: apiEndPoint,
+        headers: {
+            "X-CSCAPI-KEY": config.ckey
+        },
+        success: function(data) {
+            data.forEach(country => {
+                const option = document.createElement('option');
+                option.value = country.iso2;
+                option.textContent = country.name;
+                countrySelect.appendChild(option);
+            });
+
+            // Set the selected country if available
+            const selectedCountryCode = '{{ $data->country }}';
+            if (selectedCountryCode) {
+                countrySelect.value = selectedCountryCode;
+                loadStates();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error loading countries:', error);
+        }
+    });
+}
+
+function loadStates() {
+    stateSelect.disabled = false;
+    stateSelect.innerHTML = '<option value="">Select State</option>';
+
+    const selectedCountryCode = countrySelect.value;
+
+    $.ajax({
+        url: `${config.cUrl}/countries/${selectedCountryCode}/states`,
+        headers: {
+            "X-CSCAPI-KEY": config.ckey
+        },
+        success: function(data) {
+            data.forEach(state => {
+                const option = document.createElement('option');
+                option.value = state.iso2;
+                option.textContent = state.name;
+                stateSelect.appendChild(option);
+            });
+
+            // Set the selected state if available
+            const selectedStateCode = '{{ $data->state_district }}';
+            if (selectedStateCode) {
+                stateSelect.value = selectedStateCode;
+                loadCities();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error loading states:', error);
+        }
+    });
+}
+
+function loadCities() {
+    citySelect.disabled = false;
+    citySelect.innerHTML = '<option value="">Select City</option>';
+
+    const selectedCountryCode = countrySelect.value;
+    const selectedStateCode = stateSelect.value;
+
+    $.ajax({
+        url: `${config.cUrl}/countries/${selectedCountryCode}/states/${selectedStateCode}/cities`,
+        headers: {
+            "X-CSCAPI-KEY": config.ckey
+        },
+        success: function(data) {
+            data.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city.id;
+                option.textContent = city.name;
+                citySelect.appendChild(option);
+            });
+
+            // Set the selected city if available
+            const selectedCityId = '{{ $data->city }}';
+            if (selectedCityId) {
+                citySelect.value = selectedCityId;
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error loading cities:', error);
+        }
+    });
+}
+
+$(document).ready(function() {
+    loadCountries();
+});
+</script>
 
 
                         </div>

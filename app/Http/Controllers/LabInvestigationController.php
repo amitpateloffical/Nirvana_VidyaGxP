@@ -27,12 +27,8 @@ class LabInvestigationController extends Controller
         $record = ((RecordNumber::first()->value('counter')) + 1);
         $record = str_pad($record, 4, '0', STR_PAD_LEFT);
         $currentDate = Carbon::now();
-        $zones = ['Zone 1', 'Zone 2']; // Example zones
-        $countries = ['Country 1', 'Country 2']; // Example countries
-        $states = ['State 1', 'State 2']; // Example states
-        $cities = ['City 1', 'City 2']; // Example cities
        
-        return view('frontend.lab-investigation.lab_investigation',compact('record', 'zones', 'countries', 'states', 'cities'));
+        return view('frontend.lab-investigation.lab_investigation',compact('record'));
     }
  
     public function store(Request $request)
@@ -696,18 +692,15 @@ foreach ($serializeFields as $field) {
         }
         $data->departments = explode(',', $data->departments); 
 
-        $zones = ['Zone 1', 'Zone 2']; // Example zones
-        $countries = ['Country 1', 'Country 2']; // Example countries
-        $states = ['State 1', 'State 2']; // Example states
-        $cities = ['City 1', 'City 2']; // Example cities
+      
     
         $users = User::all(); // Fetch all users to populate the dropdowns
-        return view('frontend.lab-investigation.lab_investigation_view', compact('data', 'riskEffectAnalysis','users', 'zones', 'countries', 'states', 'cities'));
+        return view('frontend.lab-investigation.lab_investigation_view', compact('data', 'riskEffectAnalysis','users'));
     }
     
 
 
-    public function     update(Request $request,$id)
+    public function update(Request $request,$id)
     {
 
 
