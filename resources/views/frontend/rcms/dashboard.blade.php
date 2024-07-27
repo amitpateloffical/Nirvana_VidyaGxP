@@ -490,7 +490,6 @@
                                             </div>
                                         </a>
                                         @endif
-
                                   
                                         @elseif($datas->type == 'Product_Validation')
                                         <a href="{{ route('production_show', $datas->id) }}">
@@ -528,6 +527,67 @@
                                             </div>
                                         </a>
                                         @endif
+                                        @elseif ($datas->type == 'Resampling')
+                                                    <a href="{{ route('resampling_edit', $datas->id) }}">
+                                                        {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                    @if (!empty($datas->parent_id))
+                                                        <a
+                                                            href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/resampling">
+                                                            <div class="icon" onclick="showChild()"
+                                                                data-bs-toggle="tooltip" title="Related Records">
+                                                                {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                    alt="..." class="w-100 h-100"> --}}
+                                                            </div>
+                                                        </a>
+                                                    @endif
+
+
+
+
+ @elseif ($datas->type == 'Verification')
+                                                <a href="{{ route('verification_edit', $datas->id) }}">
+                                                    {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                </a>
+                                                @if (!empty($datas->parent_id))
+                                                    <a
+                                                        href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/verification">
+                                                        <div class="icon" onclick="showChild()"
+                                                            data-bs-toggle="tooltip" title="Related Records">
+                                                            {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                alt="..." class="w-100 h-100"> --}}
+                                                        </div>
+                                                    </a>
+                                                @endif
+                                                @elseif ($datas->type == 'Analyst Interview')
+                                                <a href="{{ route('analystinterview_edit', $datas->id) }}">
+                                                    {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                </a>
+                                                @if (!empty($datas->parent_id))
+                                                    <a
+                                                        href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/analystinterview">
+                                                        <div class="icon" onclick="showChild()"
+                                                            data-bs-toggle="tooltip" title="Related Records">
+                                                            {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                alt="..." class="w-100 h-100"> --}}
+                                                        </div>
+                                                    </a>
+                                                @endif
+
+                                                @elseif ($datas->type == 'Additional Testing')
+                                                <a href="{{ route('additionaltesting_edit', $datas->id) }}">
+                                                    {{ str_pad($datas->id, 4, '0', STR_PAD_LEFT) }}
+                                                </a>
+                                                @if (!empty($datas->parent_id))
+                                                    <a
+                                                        href="{{ url('rcms/qms-dashboard_new', $datas->id) }}/additionaltesting">
+                                                        <div class="icon" onclick="showChild()"
+                                                            data-bs-toggle="tooltip" title="Related Records">
+                                                            {{-- <img src="{{ asset('user/images/parent.png') }}"
+                                                                alt="..." class="w-100 h-100"> --}}
+                                                        </div>
+                                                    </a>
+                                                @endif
 
                                         @elseif($datas->type == 'MedicalDeviceRegistration')
                                         <a href="{{ route('medical_edit', $datas->id) }}">

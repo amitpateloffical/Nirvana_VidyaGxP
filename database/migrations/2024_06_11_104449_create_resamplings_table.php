@@ -57,7 +57,7 @@ return new class extends Migration
             $table->longText('delay_Justification')->nullable();
             $table->longText('file_attchment_pending_sample')->nullable();
 
-
+            $table->longText('type')->nullable();
             $table->string('status')->nullable();
             $table->integer('stage')->nullable();
 

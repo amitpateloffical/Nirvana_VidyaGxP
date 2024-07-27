@@ -51,6 +51,11 @@ use App\Http\Controllers\CommitmentController;
 use App\Http\Controllers\MonitoringVisitController;
 use App\Http\Controllers\RenewalController;
 
+use App\Http\Controllers\AdditionalTestingController;
+use App\Http\Controllers\AnalystInterviewController;
+use App\Http\Controllers\ResamplingController;
+use App\Http\Controllers\VerificationController;
+
 
 
 

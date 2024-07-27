@@ -4,8 +4,6 @@ namespace App\Http\Controllers\rcms;
 
 use App\Http\Controllers\Controller;
 use App\Models\ActionItem;
-use App\Models\AdditionalTesting;
-use App\Models\AnalystInterview;
 use App\Models\Capa;
 use App\Models\CC;
 use App\Models\EffectivenessCheck;
@@ -25,7 +23,6 @@ use App\Models\Validation;
 use App\Models\Equipment;
 use App\Models\MonthlyWorking;
 use App\Models\NationalApproval;
-
 use App\Models\LabInvestigation;
 
 use App\Models\GcpStudy;
@@ -55,6 +52,12 @@ use App\Models\Reccomended_action;
 use App\Models\RootCauseAnalysis;
 use App\Models\Hypothesis;
 use App\Models\Renewal;
+
+use App\Models\Resampling;
+use App\Models\Verification;
+use App\Models\AnalystInterview;
+use App\Models\AdditionalTesting;
+
 
 
 use Helpers;
@@ -142,6 +145,11 @@ class DashboardController extends Controller
 
         $datas41 = Hypothesis::orderByDesc('id')->get();
         // $datas42 = Renewal::orderByDesc('id')->get();
+
+        $datas43 = Resampling::orderByDesc('id')->get();
+        $datas44 = Verification::orderByDesc('id')->get();
+        $datas45 = AnalystInterview::orderByDesc('id')->get();
+        $datas46 = AdditionalTesting::orderByDesc('id')->get();
 
         foreach ($datas as $data) {
             $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -955,7 +963,6 @@ class DashboardController extends Controller
                 "date_open" => $data->create,
                 "date_close" => $data->updated_at,
             ]);
-
         }
         // foreach ($datas42 as $data) {
         //     $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
@@ -975,8 +982,80 @@ class DashboardController extends Controller
         //         "date_open" => $data->create,
         //         "date_close" => $data->updated_at,
         //     ]);
-
         // }
+        foreach ($datas43 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record_number ? $data->parent_record_number : "-",
+                "record" => $data->record_number,
+                "type" => "Resampling",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "division_id" => $data->division_id,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas44 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record_number ? $data->parent_record_number : "-",
+                "record" => $data->record_number,
+                "type" => "Verification",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "division_id" => $data->division_id,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas45 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record_number ? $data->parent_record_number : "-",
+                "record" => $data->record_number,
+                "type" => "Analyst Interview",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "division_id" => $data->division_id,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+        foreach ($datas46 as $data) {
+            $data->create = Carbon::parse($data->created_at)->format('d-M-Y h:i A');
+            array_push($table, [
+                "id" => $data->id,
+                "parent" => $data->parent_record_number ? $data->parent_record_number : "-",
+                "record" => $data->record_number,
+                "type" => "Additional Testing",
+                "parent_id" => $data->parent_id,
+                "parent_type" => $data->parent_type,
+                "division_id" => $data->division_id,
+                "short_description" => $data->short_description ? $data->short_description : "-",
+                "initiator_id" => $data->initiator_id,
+                "intiation_date" => $data->intiation_date,
+                "stage" => $data->status,
+                "date_open" => $data->create,
+                "date_close" => $data->updated_at,
+            ]);
+        }
+
 
         
         $table  = collect($table)->sortBy('record')->reverse()->toArray();
@@ -1726,6 +1805,30 @@ class DashboardController extends Controller
         //     $audit = "#";
         //     $parent="#". $data->id;
         // }
+        elseif ($type == "Resampling") {
+            $data = Resampling::find($id);
+            $single = "deviationSingleReport/". $data->id;
+            $audit = "#";
+            $parent="deviationparentchildReport/". $data->id;
+        }
+        elseif ($type == "Verification") {
+            $data = Verification::find($id);
+            $single = "Vsingle_report/". $data->id;
+            $audit = "Vaudit_report/".$data->id;
+            $parent="/". $data->id;
+        }
+        elseif ($type == "Analyst Interview") {
+            $data = AnalystInterview::find($id);
+            $single = "AIsingle_report/". $data->id;
+            $audit = "AIaudit_report/".$data->id;
+            $parent="#". $data->id;
+        }
+        elseif ($type == "Additional Testing") {
+            $data = AdditionalTesting::find($id);
+            $single = "ATsingle_report/". $data->id;
+            $audit = "ATaudit_report/".$data->id;
+            $parent = "". $data->id;
+        }
         
 
         $html = '';
