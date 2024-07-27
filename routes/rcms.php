@@ -578,7 +578,27 @@ Route::group(['prefix' => 'rcms'], function () {
             //  ---------------------- By Sheetal ----------------------------------
             
             Route::get('renewal/AuditTrial/{id}', [RenewalController::class, 'renewalAuditTrial'])->name('renewalAuditTrial');
-
+           
+            //  ---------------------- By Payal ----------------------------------
+            //  -------------------VERIFICATION------------------------------------------------
+             Route::get('Vaudit_report/{id}', [VerificationController::class, 'auditReport'])->name('Vaudit_report');
+             Route::get('Vsingle_report/{id}', [VerificationController::class, 'singleReport'])->name('Vsingle_report');
+             Route::get('AuditTrial/{id}', [VerificationController::class, 'AuditTrial'])->name('Vaudit_trial');
+             
+            // ---------------------Analyst Interview---------------------------------------------------------------
+             Route::get('AIaudit_report/{id}', [AnalystInterviewController::class, 'auditReport'])->name('AIaudit_report');
+             Route::get('AIsingle_report/{id}', [AnalystInterviewController::class, 'singleReport'])->name('AIsingle_report');
+             Route::get('AuditTrial/{id}', [AnalystInterviewController::class, 'AuditTrial'])->name('AIaudit_trial');
+             Route::view('analyst_interview','analystInterview.analystInterview_new')->name('analyst_interview');
+             // Route::get('AuditTrial/{id}', [AnalystInterviewController::class, 'AuditTrial'])->name('AIaudit_trial');
+ 
+             // ---------------------Additional Testing---------------------------------------------------------------
+ 
+             Route::get('auditDetails/{id}', [AdditionalTestingController::class, 'auditDetails'])->name('ATaudit_details');
+             Route::get('ATaudit_report/{id}', [AdditionalTestingController::class, 'auditReport'])->name('ATaudit_report');
+             Route::get('ATsingle_report/{id}', [AdditionalTestingController::class, 'singleReport'])->name('ATsingle_report');
+             Route::get('AuditTrial/{id}', [AdditionalTestingController::class, 'AuditTrial'])->name('ATaudit_trial');
+ 
             //  ---------------------- By sonali ----------------------------------
             /**  ---------- DosierDocumentsController--------  */
             Route::group(['prefix' => 'dosierdocuments', 'as' => 'dosierdocuments.'], function () {

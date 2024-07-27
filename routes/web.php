@@ -586,19 +586,16 @@ Route::get('deviation', [DeviationController::class, 'deviation']);
 Route::view('new-root-cause-analysis', 'frontend.forms.new-root-cause-analysis');
 
 Route::view('help-desk-incident', 'frontend.forms.help-desk-incident');
-
+Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
 Route::view('review-management-report', 'frontend.review-management.review-management-report');
 // ===============OOt form==========================\
 Route::view('OOT_form', 'frontend.OOT.OOT_form');
-
-// ===============Additional Testing==========================\
-Route::view("additional_testing", 'frontend.additional-testing.additional_testing');
 
             //! ============================================
             //!                    External Audit
             //! ============================================
 
-        // ========================================By Kuldeep ClinicalSite start===============================
+        // -------------------- By Kuldeep ClinicalSite start----------------------------
 
         Route::get('clinicalsiteindex', [ClinicalSiteController::class, 'index'])->name('clinicalsite');
         Route::post('clinicalsitestore', [ClinicalSiteController::class, 'store'])->name('clinicstore');
@@ -610,7 +607,7 @@ Route::view("additional_testing", 'frontend.additional-testing.additional_testin
         // Route::get('clinetauditTrailPdf/{id}', [ClinicalSiteController::class, 'auditTrailPdf'])->name('clinicalsiteTrailPdf');
         Route::post('clinicalsiteChild/{id}', [ClinicalSiteController::class, 'ClinicalChild'])->name('ClinicalsiteChild');
 
-        //! ============================================By Suneel  Validation Form ==================================
+        //! ----------------------- =By Suneel  Validation Form ----------------------------
         Route::get('/validation', [ValidationController::class, 'validationIndex'])->name('create');
         Route::post('/validation-create', [ValidationController::class, 'store'])->name('validation_store');
         Route::get('/validation/{id}/edit', [ValidationController::class, 'validationEdit'])->name('validation.edit');
@@ -752,14 +749,13 @@ Route::view("additional_testing", 'frontend.additional-testing.additional_testin
         Route::post('MVstages_change/{id}', [MonitoringVisitController::class, 'MonitoringVisitCancel'])->name('MVstages_change');
         Route::get('Monitoring_Visit_AuditTrial/{id}', [MonitoringVisitController::class, 'MonitoringVisitAuditTrial'])->name('Monitoring_Visit_AuditTrial');
         // Route::get('MonitoringVisitSingleReport/{id}', [MonitoringVisitController::class, 'MonitoringVisitSingleReport'])->name('MonitoringVisitSingleReport');
+       
         // ------------------------------ By sheetal --------------------------------        
         Route::get('/renewal',[RenewalController::class,'index'])->name('renewal');
         Route::post('/renewal/store',[RenewalController::class,'store'])->name('renewal.store')->middleware('auth');
         Route::get('renewal/show/{id}',[RenewalController::class,'show'])->name('renewal.show')->middleware('auth');
         Route::post('renewal/update/{id}', [RenewalController::class, 'update'])->name('renewal.update')->middleware('auth');
-        
-        //--------------------------stage routes------------------------------------------------------------//
-
+       
         Route::post('renewal/cancel/{id}', [RenewalController::class, 'renewal_cancel_stage'])->name('renewal_cancel_stage')->middleware('auth');
         Route::post('renewal/stage/{id}',[RenewalController::class, 'renewal_send_stage'])->name('renewal_send_stage')->middleware('auth');
         Route::post('renewal/backword/{id}',[RenewalController::class, 'renewal_backword_stage'])->name('renewal_backword_stage')->middleware('auth');
@@ -770,9 +766,7 @@ Route::view("additional_testing", 'frontend.additional-testing.additional_testin
         Route::get('renewal/AuditTrial/{id}', [RenewalController::class, 'renewalAuditTrial'])->name('renewalAuditTrial');
         Route::get('renewal/singleReport/{id}', [RenewalController::class, 'singleReport'])->name('singleReport');
         Route::get('renewal/auditReport/{id}', [RenewalController::class, 'auditReport'])->name('auditReport');
-        //=========================================================================================================//
         
-        //Route::view('hypothesis', 'frontend.newform.hypothesis');
         Route::get('/hypothesis',[HypoController::class,'index']);
         Route::post('/store',[HypoController::class,'store'])->name('hypothesis.store');
         Route::get('hypothesis/show/{id}',[HypoController::class,'show'])->name('hypothesis.show');
@@ -801,3 +795,88 @@ Route::view("additional_testing", 'frontend.additional-testing.additional_testin
         Route::post('root/child/{id}', [RootCauseController::class, 'root_child'])->name('root_child');
         Route::get('rootAuditTrial/{id}', [RootCauseController::class, 'rootAuditTrial']);
         Route::get('auditDetailsRoot/{id}', [RootCauseController::class, 'auditDetailsroot'])->name('showrootAuditDetails');
+        
+        // ------------------------------ By Payal -------------------------------------------
+                //====-------------- Resampling Form-----------------------
+
+            Route::view('resampling_new','frontend.OOS.resampling_new')->name('resampling_new');
+            Route::view('resampling_view','frontend.OOS.resampling_view');
+
+            Route::post('store',[ResamplingController::class,'store'])->name('resampling_store');
+            Route::get('create',[ResamplingController::class,'create'])->name('resampling_create');
+            Route::get('resampling_view/{id}/edit',[ResamplingController::class,'edit'])->name('resampling_edit');
+            Route::post('resampling_updated/{id}',[ResamplingController::class,'update'])->name('resampling_update');
+
+            Route::post('Rsendstage/{id}',[ResamplingController::class,'send_stage'])->name('Rsend_stage');
+            Route::post('sendstage2/{id}',[ResamplingController::class,'Rsend_stage2'])->name('Rsend_stage2');
+            Route::post('Rrequestmoreinfo_back_stage/{id}',[ResamplingController::class,'requestmoreinfo_back_stage'])->name('Rrequestmoreinfo_back_stage');
+            Route::post('cancel_stage/{id}', [ResamplingController::class, 'cancel_stage'])->name('cancel_stageR');;
+            Route::post('thirdStage/{id}', [ResamplingController::class, 'stageChange'])->name('thirdStage');
+
+            //!============================== Verification form  =============================================
+            Route::view('verification', 'frontend.verification.verification')->name('verification');
+            Route::post('verification_store', [VerificationController::class, 'store'])->name('verification_store');
+            Route::get('verification_edit/{id}',[VerificationController::class, 'edit'])->name('verification_edit');
+            Route::post('verification_update/{id}',[VerificationController::class, 'update'])->name('verification_update');
+
+            Route::post('Vsendstage/{id}',[VerificationController::class,'send_stage'])->name('Vsend_stage');
+            Route::post('sendstage2/{id}',[VerificationController::class,'Vsend_stage2'])->name('Vsend_stage2');
+
+            Route::post('Vrequestmoreinfo_back_stage/{id}',[VerificationController::class,'requestmoreinfo_back_stage'])->name('Vrequestmoreinfo_back_stage');
+            Route::post('cancel_stage/{id}', [VerificationController::class, 'cancel_stage'])->name('Vcancel_stage');;
+            Route::post('thirdStage/{id}', [VerificationController::class, 'stageChange'])->name('thirdStage');
+            Route::post('Vstore_audit_review/{id}', [VerificationController::class, 'store_audit_review'])->name('Vstore_audit_review');
+            Route::get('Vaudit_details/{id}', [VerificationController::class, 'auditDetails'])->name('Vaudit_details');
+
+            Route::get('Vaudit_report/{id}', [VerificationController::class, 'auditReport'])->name('Vaudit_report');
+            Route::get('Vsingle_report/{id}', [VerificationController::class, 'singleReport'])->name('Vsingle_report');
+            Route::get('Vaudit_trial/{id}', [VerificationController::class, 'AuditTrial'])->name('Vaudit_trial');
+
+            //============================= Analyst Interview  =====================================================
+
+            Route::view('analyst_interview','analystInterview.analystInterview_new');
+            Route::view('analyst_interview','analystInterview.analystInterview_new')->name('analyst_interview');
+
+            Route::post('analystinterview_store', [AnalystInterviewController::class, 'store'])->name('analystinterview_store');
+            Route::get('analystinterview_edit/{id}',[AnalystInterviewController::class, 'edit'])->name('analystinterview_edit');
+            Route::post('analystinterview_update/{id}',[AnalystInterviewController::class, 'update'])->name('analystinterview_update');
+
+            Route::post('sendstage/{id}',[AnalystInterviewController::class,'send_stage'])->name('AIsend_stage');
+            Route::post('requestmoreinfo_back_stage/{id}',[AnalystInterviewController::class,'requestmoreinfo_back_stage'])->name('AIrequestmoreinfo_back_stage');
+            Route::post('cancel_stage/{id}', [AnalystInterviewController::class, 'cancel_stage'])->name('AIcancel_stage');;
+            Route::post('thirdStage/{id}', [AnalystInterviewController::class, 'stageChange'])->name('thirdStage');
+            Route::post('AuditTrial/{id}', [AnalystInterviewController::class, 'store_audit_review'])->name('AIstore_audit_review');
+            Route::get('auditDetails/{id}', [AnalystInterviewController::class, 'auditDetails'])->name('AIaudit_details');
+            Route::get('AIaudit_report/{id}', [AnalystInterviewController::class, 'auditReport'])->name('AIaudit_report');
+            Route::get('AIsingle_report/{id}', [AnalystInterviewController::class, 'singleReport'])->name('AIsingle_report');
+            Route::get('AIAuditTrial/{id}', [AnalystInterviewController::class, 'AuditTrial'])->name('AIaudit_trial');
+
+            // ===============Additional Testing==========================\
+            Route::view("additional_testing", 'frontend.additional-testing.additional_testing')->name('additional_testing');
+            Route::post('additionaltesting_store', [AdditionalTestingController::class, 'store'])->name('additionaltesting_store');
+            Route::get('additionaltesting_edit/{id}',[AdditionalTestingController::class, 'edit'])->name('additionaltesting_edit');
+            Route::post('additionaltesting_update/{id}',[AdditionalTestingController::class, 'update'])->name('additionaltesting_update');
+
+            Route::post('sendstageat/{id}',[AdditionalTestingController::class,'send_stage'])->name('ATsend_stage');
+            Route::post('request_more_info_back_stage/{id}',[AdditionalTestingController::class,'requestmoreinfo_back_stage'])->name('ATrequest_more_info_back_stage');
+
+            Route::post('send_back_stage_to4/{id}',[AdditionalTestingController::class,'send_stageto4'])->name('send_stageto4');
+
+            Route::post('cancel_stages/{id}', [AdditionalTestingController::class, 'cancel_stages'])->name('ATcancel_stages');
+            Route::post('thirdStage/{id}', [AdditionalTestingController::class, 'stageChange'])->name('thirdStage');
+            Route::post('AuditTrial/{id}', [AdditionalTestingController::class, 'store_audit_review'])->name('ATstore_audit_review');
+            Route::get('auditDetails_at/{id}', [AdditionalTestingController::class, 'auditDetails'])->name('auditDetails_at');
+            Route::get('ATaudit_report/{id}', [AdditionalTestingController::class, 'auditReport'])->name('ATaudit_report');
+            Route::get('ATsingle_report/{id}', [AdditionalTestingController::class, 'singleReport'])->name('ATsingle_report');
+            Route::get('AuditTrial/{id}', [AdditionalTestingController::class, 'AuditTrial'])->name('ATaudit_trial');
+
+
+
+            // Route::get('/additional_testing_view/{id}', [AdditionalTestingController::class, 'edit']);
+            // Route::view("additional_testing_view", 'frontend.additional-testing.additional_testing_view');
+            // Route::post('additional_testing_store', [AdditionalTestingController::class, 'store'])->name('at_store');
+            // Route::get('additional_testing/{id}', [AdditionalTestingController::class, 'edit'])->name('at_edit');
+
+            // Route::view('/additional_testing_view','frontend.additional-testing.additional_testing_view')->name('at_update');
+            Route::post('additional_testing_update/{id}', [AdditionalTestingController::class, 'update'])->name('at_update');
+       
