@@ -2048,7 +2048,7 @@ $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => tr
 $group->save();
 
 $group = new RoleGroup();
-$group->id = 298
+$group->id = 298;
 $group->name = "Estonia-New Document-Trainer";
 $group->description = "Estonia-New Document-Trainer";
 $group->permission = json_encode(['read' => true, 'create' => true, 'edit' => true, 'delete' => true]);
