@@ -190,8 +190,9 @@ Route::group(['prefix' => 'rcms'], function () {
 
         Route::post('lab_investi_cancel/{id}', [LabInvestigationController::class, 'lab_cancel'])->name('lab_cancel');
         Route::get('lab_singleReport/{id}', [LabInvestigationController::class, 'singleReport'])->name('labSingleReport');
-        Route::get('lab_auditReport/{id}', [LabInvestigationController::class, 'auditReport'])->name('labAuditReport');
-              
+       // Route::get('lab_auditReport/{id}', [LabInvestigationController::class, 'auditReport'])->name('labAuditReport');
+       Route::get('lab_auditReport/{id}', [LabInvestigationController::class, 'LabAuditTrial'])->name('lab_auditReport');
+       
         //----------------------------------------------lab investigation------------------
        
 

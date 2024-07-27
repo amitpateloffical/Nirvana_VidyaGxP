@@ -255,7 +255,7 @@
                         $userRoles = DB::table('user_roles')->where(['user_id' => Auth::user()->id, 'q_m_s_divisions_id' => $data->division_id])->get();
                         $userRoleIds = $userRoles->pluck('q_m_s_roles_id')->toArray();
                        @endphp
-                        <button class="button_theme1"> <a class="text-white" href="{{ url('CapaAuditTrial', $data->id) }}">
+                        <button class="button_theme1"> <a class="text-white" href="{{ route('lab_auditReport', $data->id) }}">
                                 Audit Trail </a> </button>
                                 @if ($data->stage == 1 && (in_array(3, $userRoleIds) || in_array(18, $userRoleIds)))
                                     <button class="button_theme1" data-bs-toggle="modal" data-bs-target="#signature-modal">Submit</button>
@@ -696,8 +696,8 @@
         <label for="Zone">Zone</label>
         <select name="zone" id="zone">
             <option value="">Enter Your Selection Here</option>
-            @foreach($zones as $zone)
-                <option value="{{ $zone }}" {{ $data->zone == $zone ? 'selected' : '' }}>{{ $zone }}</option>
+            @foreach($zones as $zoneKey => $zoneValue)
+                <option value="{{ $zoneKey }}" {{ $data->zone == $zoneKey ? 'selected' : '' }}>{{ $zoneValue }}</option>
             @endforeach
         </select>
     </div>
@@ -708,8 +708,8 @@
         <label for="Country">Country</label>
         <select name="country" class="countries" id="country">
             <option value="">Select Country</option>
-            @foreach($countries as $country)
-                <option value="{{ $country }}" {{ $data->country == $country ? 'selected' : '' }}>{{ $country }}</option>
+            @foreach($countries as $countryKey => $countryValue)
+                <option value="{{ $countryKey }}" {{ $data->country == $countryKey ? 'selected' : '' }}>{{ $countryValue }}</option>
             @endforeach
         </select>
     </div>
@@ -720,8 +720,8 @@
         <label for="City">City</label>
         <select name="city" class="cities" id="city">
             <option value="">Select City</option>
-            @foreach($cities as $city)
-                <option value="{{ $city }}" {{ $data->city == $city ? 'selected' : '' }}>{{ $city }}</option>
+            @foreach($cities as $cityKey => $cityValue)
+                <option value="{{ $cityKey }}" {{ $data->city == $cityKey ? 'selected' : '' }}>{{ $cityValue }}</option>
             @endforeach
         </select>
     </div>
@@ -732,12 +732,13 @@
         <label for="State/District">State/District</label>
         <select name="state_district" class="states" id="stateId">
             <option value="">Select State</option>
-            @foreach($states as $state)
-                <option value="{{ $state }}" {{ $data->state_district == $state ? 'selected' : '' }}>{{ $state }}</option>
+            @foreach($states as $stateKey => $stateValue)
+                <option value="{{ $stateKey }}" {{ $data->state_district == $stateKey ? 'selected' : '' }}>{{ $stateValue }}</option>
             @endforeach
         </select>
     </div>
 </div>
+
 
                         </div>
                         <div class="button-block">
@@ -1442,7 +1443,7 @@
                         </div>
                         <div class="group-input">
                             <label for="comment">Comment</label>
-                            <input type="text" name="comments">
+                            <input type="text" name="comment">
                         </div>
                     </div>
 
@@ -1538,7 +1539,7 @@
                         </div>
                         <div class="group-input">
                             <label for="comment">Comment <span class="text-danger">*</span></label>
-                            <input type="text" name="a_l_comments" required>
+                            <input type="text" name="comment" required>
                         </div>
                     </div>
 

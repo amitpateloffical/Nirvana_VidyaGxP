@@ -547,6 +547,134 @@ class LabInvestigationController extends Controller
         // }
 
 
+
+        $fields = [
+            'due_date',
+            'trainer',
+            'short_description',
+            'expiry_date',
+            'type',
+            'priority_level',
+            'external_tests',
+            'test_lab',
+            'original_test_result',
+            'limit_specifications',
+            'additional_investigator',
+            'departments',
+            'description',
+            'comments',
+            'related_urls',
+            'severity_rate',
+            'occurrence',
+            'detection',
+            'RPN',
+            'risk_analysis',
+            'zone',
+            'country',
+            'city',
+            'state_district',
+            'root_cause_methodology'
+        ];
+    
+        foreach ($fields as $field) {
+            if (!empty($request->$field)) {
+                $previousValue = $lab->$field ?? "Null"; // Assuming this is a new record, the previous value is "Null"
+                $lab->$field = is_array($request->$field) ? implode(',', $request->$field) : $request->$field;
+                $currentValue = $lab->$field;
+    
+                $history = new LabInvestigation_AuditTrails();
+                $history->lab_id = $lab->id;
+                $history->activity_type = $field;
+                $history->previous = $previousValue;
+                $history->current = $currentValue;
+                $history->comment = "NA";
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lab->status;
+                $history->change_to = "Opened";
+                $history->change_from = "Initiator";
+                $history->action_name = "Create";
+                $history->save();
+            }
+        }
+
+
+
+// Fields that need to be serialized
+$serializeFields = [
+    'measurement', 'materials', 'environment', 'manpower', 'machine', 'methods', 
+    'why_1', 'why_2', 'why_3', 'why_4', 'why_5'
+];
+
+// Handle serialized fields and create audit trails
+foreach ($serializeFields as $field) {
+    if (!empty($request->$field)) {
+        $previousValue = $lab->$field ?? "Null";
+        $lab->$field = serialize($request->$field);
+        $currentValue = $lab->$field;
+
+        if ($previousValue !== $currentValue) {
+            $history = new LabInvestigation_AuditTrails();
+            $history->lab_id = $lab->id;
+            $history->activity_type = str_replace('_', ' ', $field); // Replace underscores with spaces for better readability
+            $history->previous = $previousValue;
+            $history->current = $currentValue;
+            $history->comment = "NA";
+            $history->user_id = Auth::user()->id;
+            $history->user_name = Auth::user()->name;
+            $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+            $history->origin_state = $lab->status;
+            $history->change_to = "Opened";
+            $history->change_from = "Initiator";
+            $history->action_name = "Create";
+            $history->save();
+        }
+    }
+}
+
+
+
+        $normalFields = [
+            'problem_statement', 'why_problem_statement', 'why_root_cause', 
+            'what_will_be', 'what_will_not_be', 'what_rationable',
+            'where_will_be', 'where_will_not_be', 'where_rationable',
+            'when_will_be', 'when_will_not_be', 'when_rationable',
+            'coverage_will_be', 'coverage_will_not_be', 'coverage_rationable',
+            'who_will_be', 'who_will_not_be', 'who_rationable',
+            'investigation_summary', 'root_cause_description', 'submitted_by'
+        ];
+
+        foreach ($normalFields as $field) {
+            if (!empty($request->$field)) {
+                $previousValue = $lab->$field ?? "Null";
+                $lab->$field = $request->$field;
+                $currentValue = $lab->$field;
+
+                $history = new LabInvestigation_AuditTrails();
+                $history->lab_id = $lab->id;
+                $history->activity_type = str_replace('_', ' ', $field); // Replace underscores with spaces for better readability
+                $history->previous = $previousValue;
+                $history->current = $currentValue;
+                $history->comment = "NA";
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lab->status;
+                $history->change_to = "Opened";
+                $history->change_from = "Initiator";
+                $history->action_name = "Create";
+                $history->save();
+            }
+        }
+
+
+        
+
+        // Save the lab investigation after setting all fields
+      
+    
+
          toastr()->success("Record is created Successfully");
            return redirect(url('rcms/qms-dashboard'));
     }
@@ -579,15 +707,15 @@ class LabInvestigationController extends Controller
     
 
 
-    public function update(Request $request,$id)
+    public function     update(Request $request,$id)
     {
 
 
 //        dd($request->all());
 
         $lab = LabInvestigation::find($id);
- 
- 
+        $lastDocument =   LabInvestigation::find($id);
+               
 
 
         $lab->division_id = '7';
@@ -794,22 +922,112 @@ class LabInvestigationController extends Controller
 
  
 
-        //    $grid1 = labInvestigationgrid::where('lab_investigation_id',$lab->id)->where('type','root_cause')->first();
+
+        $fields = [
+            'due_date',
+            'trainer',
+            'short_description',
+            'expiry_date',
+            'type',
+            'priority_level',
+            'external_tests',
+            'test_lab',
+            'original_test_result',
+            'limit_specifications',
+            'additional_investigator',
+            'departments',
+            'description',
+            'comments',
+            'related_urls',
+            'severity_rate',
+            'occurrence',
+            'detection',
+            'RPN',
+            'risk_analysis',
+            'zone',
+            'country',
+            'city',
+            'state_district',
+            'root_cause_methodology',
+            'what_will_be',
+            'what_will_not_be',
+            'what_rationable',
+            'where_will_be',
+            'where_will_not_be',
+            'where_rationable',
+            'when_will_be',
+            'when_will_not_be',
+            'when_rationable',
+            'coverage_will_be',
+            'coverage_will_not_be',
+            'coverage_rationable',
+            'who_will_be',
+            'who_will_not_be',
+            'who_rationable',
+            'root_cause_description',
+            'investigation_summary'
 
 
-        // if (!empty($request->Root_Cause_Category  )) {
-        //     $grid1->Root_Cause_Category = serialize($request->Root_Cause_Category);
-        // }
-        // if (!empty($request->Root_Cause_Sub_Category)) {
-        //     $grid1->Root_Cause_Sub_Category= serialize($request->Root_Cause_Sub_Category);
-        // }
-        // if (!empty($request->Probability)) {
-        //     $grid1->Probability = serialize($request->Probability);
-        // }
-        // if (!empty($request->Remarks)) {
-        //     $grid1->Remarks = serialize($request->Remarks);
-        // }
-        //  $grid1->save();
+        ];
+
+   
+    
+        foreach ($fields as $field) {
+            if ($request->filled($field)) {
+                $previousValue = $lastDocument->$field ?? "Null"; // Get the previous value from the last document
+                $currentValue = is_array($request->$field) ? implode(',', $request->$field) : $request->$field;
+    
+                // Check if the current value is different from the previous value
+                if ($previousValue != $currentValue) {
+                  //  $lab->$field = $currentValue; // Update the lab field with the new value
+    
+                    // Create an audit trail entry
+                    $history = new LabInvestigation_AuditTrails();
+                    $history->lab_id = $lab->id;
+                    $history->activity_type = str_replace('_', ' ', $field); // Replace underscores with spaces for better readability
+                    $history->previous = $previousValue;
+                    $history->current = $currentValue;
+                    $history->comment = $request->comment ?? "NA"; // Use provided comment or "NA" if not available
+                    $history->user_id = Auth::user()->id;
+                    $history->user_name = Auth::user()->name;
+                    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                    $history->origin_state = $lastDocument->status;
+                    $history->change_to = "Not Applicable";
+                    $history->change_from = $lastDocument->status;
+                    $history->action_name = is_null($previousValue) || $previousValue === '' ? "New" : "Update";
+                    $history->save();
+                }
+            }
+        }
+
+
+
+
+        $fields = ['measurement', 'materials', 'environment', 'manpower', 'machine', 'methods', 'problem_statement', 'Root_Cause_Category', 'Root_Cause_Sub_Category','Probability','Remarks', 'why_problem_statement', 'why_1', 'why_2', 'why_3', 'why_4','why_5','why_root_cause'];
+        foreach ($fields as $field) {
+            if (!empty($request->$field)) {
+                $lab->$field = is_array($request->$field) ? serialize($request->$field) : $request->$field;
+        
+                if ($lastDocument->$field != $lab->$field || !empty($request->comment)) {
+                    $history = new LabInvestigation_AuditTrails();
+                    $history->lab_id = $id;
+                    $history->activity_type = ucfirst(str_replace('_', ' ', $field));
+                    $history->previous = $lastDocument->$field;
+                    $history->current = $lab->$field;
+                    $history->comment = $request->comment;
+                    $history->user_id = Auth::user()->id;
+                    $history->user_name = Auth::user()->name;
+                    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                    $history->origin_state = $lastDocument->status;
+                    $history->change_to = "Not Applicable";
+                    $history->change_from = $lastDocument->status;
+                    $history->action_name = is_null($lastDocument->$field) || $lastDocument->$field === '' ? "New" : "Update";
+                    $history->save();
+                }
+            }
+        }
+        
+       
    
          toastr()->success("Record is update Successfully");
         return redirect()->back();
@@ -823,6 +1041,8 @@ class LabInvestigationController extends Controller
         if ($request->username == Auth::user()->email && Hash::check($request->password, Auth::user()->password)) {
         {
             $changestage = LabInvestigation::find($id);
+
+            $lastDocument =  LabInvestigation::find($id);
            // $changestage = LabInvestigation::find($id);
             if($changestage->stage == 1)
             {
@@ -830,7 +1050,29 @@ class LabInvestigationController extends Controller
                 $changestage->status = "Lab Investigation in Progress";
                 $changestage->submitted_by =  Auth::user()->name;
                 $changestage->submitted_on =  Carbon::now()->format('d-M-Y');
-                $changestage->comments = $request->comments;
+                $changestage->comment1 = $request->comment;
+
+                $history = new LabInvestigation_AuditTrails();
+                $history->lab_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous ="";
+                $history->current = $changestage->submitted_by;
+                $history->comment = $request->comment;
+                $history->action = 'Submit';
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->change_to =   "Lab Investigation in Progress";
+                $history->change_from = $lastDocument->status;
+                $history->action_name = 'Update';
+                $history->stage = 'Lab Investigation in Progress';
+              
+                
+
+                $history->save();
+          
+
 
                 $changestage->update();
                 // dd($changestage);
@@ -845,7 +1087,27 @@ class LabInvestigationController extends Controller
                 $changestage->status = "Lab Investigation Evaluation";
                 $changestage->submitted_by =  Auth::user()->name;
                 $changestage->submitted_on =  Carbon::now()->format('d-M-Y');
-                $changestage->comments = $request->comments;
+                $changestage->comment2 = $request->comment;
+
+                $history = new LabInvestigation_AuditTrails();
+                $history->lab_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous ="";
+                $history->current = $changestage->submitted_by;
+                $history->comment = $request->comment;
+                $history->action = 'Report Result';
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->change_to =   "Lab Investigation Evaluation";
+                $history->change_from = $lastDocument->status;
+                $history->action_name = 'Update';
+                $history->stage = 'Lab Investigation Evaluation';
+              
+                
+
+                $history->save();
 
                 $changestage->update();
                 // dd($changestage);
@@ -859,8 +1121,27 @@ class LabInvestigationController extends Controller
                 $changestage->status = "Close-Done";
                 $changestage->submitted_by =  Auth::user()->name;
                 $changestage->submitted_on =  Carbon::now()->format('d-M-Y');
-                $changestage->comments = $request->comments;
+                $changestage->comment3 = $request->comment;
 
+                $history = new LabInvestigation_AuditTrails();
+                $history->lab_id = $id;
+                $history->activity_type = 'Activity Log';
+                $history->previous ="";
+                $history->current = $changestage->submitted_by;
+                $history->comment = $request->comment;
+                $history->action = 'Evaluation Completed';
+                $history->user_id = Auth::user()->id;
+                $history->user_name = Auth::user()->name;
+                $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                $history->origin_state = $lastDocument->status;
+                $history->change_to =   "Close-Done";
+                $history->change_from = $lastDocument->status;
+                $history->action_name = 'Update';
+                $history->stage = 'Close-Done';
+              
+                
+
+                $history->save();
                 $changestage->update();
                 // dd($changestage);
                 toastr()->success('Document Sent');
@@ -894,18 +1175,67 @@ class LabInvestigationController extends Controller
             
                 if ($data->stage == 1) {
                     $data->stage = "4";
-                    $data->status = "Close done";
-                    // $capa->rejected_by = Auth::user()->name;
-                    // $capa->rejected_on = Carbon::now()->format('d-M-Y');
+                    $data->status = "Close Done";
+                    $data->rejected_by = Auth::user()->name;
+                    $data->rejected_on = Carbon::now()->format('d-M-Y');
+
+                    $data->comment4 = $request->comment;
+
+                    $history = new LabInvestigation_AuditTrails();
+                    $history->lab_id = $id;
+                    $history->activity_type = 'Activity Log';
+                    $history->previous ="";
+                    $history->current = $data->submitted_by;
+                    $history->comment = $request->comment;
+                    $history->action = 'Cancel';
+                    $history->user_id = Auth::user()->id;
+                    $history->user_name = Auth::user()->name;
+                    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                    $history->origin_state = $lastDocument->status;
+                    $history->change_to =   "Close-Done";
+                    $history->change_from = $lastDocument->status;
+                    $history->action_name = 'Update';
+                    $history->stage = 'Close-Done';
+                  
+                    
+    
+                    $history->save();
+
+
                     $data->update();
                     toastr()->success('Document Sent');
                     return back();
                 }
                 if ($data->stage == 3) {
                     $data->stage = "2";
-                    $data->status = "Close done";
-                    // $capa->rejected_by = Auth::user()->name;
-                    // $capa->rejected_on = Carbon::now()->format('d-M-Y');
+                    $data->status = "Lab Investigation in Progress";
+                    $data->rejected_by = Auth::user()->name;
+                    $data->rejected_on = Carbon::now()->format('d-M-Y');
+
+                    $data->comment5 = $request->comment;
+
+                    $history = new LabInvestigation_AuditTrails();
+                    $history->lab_id = $id;
+                    $history->activity_type = 'Activity Log';
+                    $history->previous ="";
+                    $history->current = $data->submitted_by;
+                    $history->comment = $request->comment;
+                    $history->action = 'Reject';
+                    $history->user_id = Auth::user()->id;
+                    $history->user_name = Auth::user()->name;
+                    $history->user_role = RoleGroup::where('id', Auth::user()->role)->value('name');
+                    $history->origin_state = $lastDocument->status;
+                    $history->change_to =   "Lab Investigation in Progress";
+                    $history->change_from = $lastDocument->status;
+                    $history->action_name = 'Update';
+                    $history->stage = 'Lab Investigation in Progress';
+                  
+                    
+    
+                    $history->save();
+
+
+
                     $data->update();
                     toastr()->success('Document Sent');
                     return back();
@@ -965,8 +1295,38 @@ class LabInvestigationController extends Controller
             }
         }
 
+
+
+
+
+
+        
+    public function LabAuditTrial($id)
+    {
+
+
+
+          //$audit = RiskAuditTrail::where('risk_id', $id)->orderByDESC('id')->get()->unique('activity_type');
+          $audit = LabInvestigation_AuditTrails::where('lab_id', $id)->orderByDesc('id')->paginate(5);
+          $today = Carbon::now()->format('d-m-y');
+          $document = LabInvestigation::where('id', $id)->first();
+          $document->initiator = User::where('id', $document->initiator_id)->value('name');
+  
+  
+          //dd($audit);
+          return view("frontend.lab-investigation.auditReport", compact('audit', 'document', 'today'));
+
+      
+
+
+ 
+    }
+
         public static function auditReport($id)
         {
+
+
+           //   return "hello";
             $doc = LabInvestigation::find($id);
             if (!empty($doc)) {
                // $audit = RootAuditTrial::where('root_id', $id)->orderByDESC('id')->get();

@@ -88,27 +88,13 @@ return new class extends Migration
             $table->longtext('who_rationable')->nullable(); // Changed to longtext
             $table->longText('root_cause_description')->nullable(); // Changed to longtext
             $table->longText('investigation_summary')->nullable(); // Changed to longtext
-            //grid first
             
-            
-            // $table->string('Root_Cause_Category')->nullable();
-            // $table->string('Root_Cause_Sub_Category')->nullable();
-            // $table->string('Probability')->nullable();
-            // $table->string('Remarks')->nullable();
-         
-
-            // //grid second
-            // $table->text('risk_factor')->nullable();
-            // $table->text('risk_element')->nullable();
-            // $table->text('problem_cause')->nullable();
-            // $table->text('existing_risk_control')->nullable();
-            // $table->text('risk_control_measure')->nullable();
-            // $table->text('residual_severity')->nullable();
-            // $table->text('residual_probability')->nullable();
-            // $table->text('residual_detectability')->nullable();
-            // $table->text('residual_rpn')->nullable();
-            // $table->text('risk_acceptance2')->nullable();
-            // $table->text('mitigation_proposal')->nullable();
+            $table->Text('comment1')->nullable();
+            $table->Text('comment2')->nullable();
+            $table->Text('comment3')->nullable();
+            $table->Text('comment4')->nullable();
+            $table->Text('comment5')->nullable();
+           
 
 
             $table->string('status')->nullable();
