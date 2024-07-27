@@ -31,7 +31,7 @@
 <div class="form-field-head">
 
     <div class="division-bar">
-        <strong>Site Division/Project</strong> : {{ Helpers::getDivisionName(session()->get('division')) }}/Observation
+        <strong>Site Division/Project</strong> : {{ Helpers::getDivisionName(session()->get('division')) }}Analyst Interview
     </div>
 </div>
 
@@ -53,326 +53,314 @@ $users = DB::table('users')->get();
             <!-- <button class="cctablinks" onclick="openCity(event, 'CCForm5')">Signatures</button> -->
         </div>
 
-        <form action="{{ route('observationstore') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('analystinterview_store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div id="step-form">
 
                 <div id="CCForm1" class="inner-block cctabcontent">
                     <div class="inner-block-content">
+
+                        <div class="sub-head">Parent Record Information</div>
                         <div class="row">
-                            <div class="col-12">
-                                <div class="sub-head">Parent record Information</div>
-                            </div>
-
                             <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>(Parent) OOS No.</b></label>
-                                    <input type="text" name="parent_oos_no">
+                                    <label for="Initiator"> (Parent) OOS No.
+                                    </label>
+                                    <input type="text" id="root_parent_oos_number" name="root_parent_oos_number">
                                 </div>
                             </div>
-                             <div class="col-lg-6">
+                            <div class="col-lg-6">
                                 <div class="group-input">
-                                    <label for="RLS Record Number"><b>(Parent) OOT No.</b></label>
-                                    <input type="text" name="parent_oot_no">
+                                    <label for="Initiator"> (Parent) OOT No.
+                                    </label>
+                                    <input type="text" id="root_parent_oot_number" name="root_parent_oot_number">
                                 </div>
                             </div>
-
-                           
                             <div class="col-lg-6 new-date-data-field">
                                 <div class="group-input input-date">
-                                    <label for="Scheduled Start Date">(Parent) Date Opened</label>
+                                    <label for="parent_date_opened">(Parent) Date Opened</label>
                                     <div class="calenderauditee">
-                                        <input type="text" id="parent_date_opened"  placeholder="DD-MM-YYYY" />
-                                        <input type="date" id="start_date_checkdate" name="parent_date_opened" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'parent_date_opened');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RLS Record Number"><b>(Parent) Short Description</b></label>
-                                    <input type="text" required name="parent_short_description">
-                                </div>
-                            </div> -->
-
-                            <div class="col-6">
-                                    <div class="group-input">
-                                        <label for="Short Description">(Parent) Short Description<span
-                                                class="text-danger">*</span></label><span id="rchars">255</span>
-                                        characters remaining
-                                        <input id="docname" type="text" name="parent_short_description" maxlength="255" required>
-                                    </div>
-                                </div>
-
-
-                            <!-- <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Description">(Parent) Observation</label>
-                                    <textarea name="parent_observation"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="col-6">
-                                <div class="group-input">
-                                    <label for="Description">(Parent) Classification</label>
-                                    <select name="parent_classification">
-                                        <option value="">Enter Your Selection Here</option>
-
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Description">(Parent) CAPA Taken/Proposed</label>
-                                    <textarea name="parent_capa_taken_proposed"></textarea>
-                                </div>
-                            </div> -->
-
-                            <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="Scheduled Start Date">(Parent) Target Closure Date</label>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="parent_target_closure_date" readonly placeholder="DD-MM-YYYY" />
-                                        <input type="date" id="start_date_checkdate" name="parent_target_closure_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'parent_target_closure_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RLS Record Number"><b>(Parent)Product/Material Name</b></label>
-                                    <input type="text" name="parent_product_material_name">
-                                </div>
-                            </div>
-                            
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RLS Record Number"><b>(Parent)Analyst Name</b></label>
-                                    <input type="text" name="parent_analyst_name">
-                                </div>
-                            </div>
-
-
-
-
-                            <div class="col-12">
-                        <div class="group-input">
-                            <label for="agenda">
-                                (Parent) Info. On Product/Material..<button type="button" name="parent_info_on_product_material" id="product_material">+</button>
-                            </label>
-                            <table class="table table-bordered" id="product_material_body">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 5%;">Row #</th>
-                                        <th>Item/Product Code</th>
-                                        <th>Lot/Batch Number</th>
-                                        <th>A.R.Number</th>
-                                        <th>Mfg.Date</th>
-                                        <th>Expiry Date</th>
-                                        <th>Label Claim</th>
-                                        <th>Pack Size</th>
-                                        <!-- <th>Action</th> -->
-                                        {{-- <th>Instru. Caliberation Due Date</th> --}}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-
-                                        <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                        <td><input type="text" name="parent_info_on_product_material[0][item_product_code]"></td>
-                                        <td><input type="text" name="parent_info_on_product_material[0][lot_batch_number]"></td>
-                                        <td><input type="text" name="parent_info_on_product_material[0][a_r_number]"></td>
-                                        <td>
-                                            <div class="col-lg-6 new-date-data-field">
-                                                <div class="group-input input-date">
-
-                                                    <div class="calenderauditee">
-                                                        <input type="text" id="mfg_date" readonly placeholder="DD-MM-YYYY" />
-                                                        <input type="date" id="start_date_checkdate" name="parent_info_on_product_material[0][mfg_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'mfg_date');checkDate('start_date_checkdate','end_date_checkdate')" />
+                                        <input type="text" id="end_date_1" readonly placeholder="DD-MMM-YYYY" />
+                                        <input type="date" id="end_date_checkdate_1" name="parent_date_opened"
+                                            min="yyyy-mm-dd"  class="hide-input" oninput="handleDateInput(this, 'end_date_1');checkDate('start_date_checkdate_1','end_date_checkdate_1')" />
+                                                          </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="col-lg-6 new-date-data-field">
-                                                <div class="group-input input-date">
-                                                    <div class="calenderauditee">
-                                                        <input type="text" id="expiry_date" readonly placeholder="DD-MM-YYYY" />
-                                                        <input type="date" id="start_date_checkdate" name="parent_info_on_product_material[0][expiry_date]" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'expiry_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td><input type="text" name="parent_info_on_product_material[0][label_claim]"></td>
-                                        <td><input type="text" name="parent_info_on_product_material[0][pack_size]"></td>
-                                        <!-- <td><button type="button" name="agenda" id="oos_details">Remove</button></td> -->
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="group-input">
-                            <label for="agenda">
-                                (Parent) OOS Details <button type="button" name="parent_oos_details" id="oos_details">+</button>
-                            </label>
-                            <table class="table table-bordered" id="oos_details_body2">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 5%;">Row #</th>
-                                        <th>AR Number</th>
-                                        <th>Test Name of OOS</th>
-                                        <th>Results Obtained</th>
-                                        <th>Specification Limit</th>
-                                        {{-- <th>Instru. Caliberation Due Date</th> --}}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                        <td><input type="text" name="parent_oos_details[0][ar_no]"></td>
-                                        <td><input type="text" name="parent_oos_details[0][test_name_of_oos]"></td>
-                                        <td><input type="text" name="parent_oos_details[0][results_obtained]"></td>
-                                        <td><input type="text" name="parent_oos_details[0][specification_limit]"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-
-                    <div class="col-12">
-                        <div class="group-input">
-                            <label for="agenda">
-                                (Parent) OOT Results <button type="button" name="parent_oot_results" id="oot_results">+</button>
-                            </label>
-                            <table class="table table-bordered" id="oot_results_body3">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 5%;">Row #</th>
-                                        <th>AR Number</th>
-                                        <th>Test Name of OOT</th>
-                                        <th>Result Obtained</th>
-                                        <th>Initial Intervel Details</th>
-                                        <th>Previous Interval Details</th>
-                                        <th>%Difference of Results</th>
-                                        <!-- <th>Initial Interview Details</th> -->
-                                        <th>Trend Limit</th>
-                                      
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                        <td><input type="text" name="parent_oot_results[0][ar_no]"></td>
-                                        <td><input type="text" name="parent_oot_results[0][test_name_of_oot]"></td>
-                                        <td><input type="text" name="parent_oot_results[0][results_obtained]"></td>
-                                        <td><input type="text" name="parent_oot_results[0][initial_intervel_details]"></td>
-                                        <td><input type="text" name="parent_oot_results[0][previous_interval_details]"></td>
-                                        <td><input type="text" name="parent_oot_results[0][difference_of_results]"></td>
-                                        <!-- <td><input type="text" name="parent_oot_results[0]initial_interview_details"></td> -->
-                                        <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="group-input">
-                            <label for="agenda">
-                                (Parent) Details of Stability Study <button type="button" name="parent_details_of_stability_study" id="details_of_stability_study">+</button>
-                            </label>
-                            <table class="table table-bordered" id="details_of_stability_study_body4">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 5%;">Row #</th>
-                                        <th>AR Number</th>
-                                        <th>Condition: Temperature & RH</th>
-                                        <th>Interval</th>
-                                        <th>Orientation</th>
-                                        <th>Pack Details(if any)</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input disabled type="text" name="serial_number[]" value="1"></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][ar_no]"></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][condition_temperature_&_rh]"></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][interval]"></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][orientation]"></td>
-                                        <td><input type="text" name="parent_details_of_stability_study[0][pack_details]"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
-
-
-                            <div class="sub-head">General Information</div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RLS Record Number"><b>Record Number</b></label>
-                                    <input disabled type="text" name="record_number">
-
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="Division Code"><b>Division Code</b></label>
-                                    <input readonly type="text" name="division_code" value="{{ Helpers::getDivisionName(session()->get('division')) }}">
-                                    <input type="hidden" name="division_id" value="{{ session()->get('division') }}">
-                                    {{-- <div class="static">QMS-North America</div> --}}
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="originator">Initiator</label>
-                                    <input disabled type="text">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="date_opened">Date of Initiation</label>
-                                    <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
-                                    <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 new-date-data-field">
-                        <div class="group-input input-date">
-                            <label for="Scheduled Start Date">Date Opened</label>
-                            <div class="calenderauditee">
-                                <input type="text" id="date_opened" readonly placeholder="DD-MM-YYYY" />
-                                <input type="date" id="start_date_checkdate" name="date_opened" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'date_opened');checkDate('start_date_checkdate','end_date_checkdate')" />
-                            </div>
-                        </div>
-                    </div>
-
-                            <div class="col-lg-6 new-date-data-field">
-                        <div class="group-input input-date">
-                            <label for="Scheduled Start Date">Target Closure Date</label>
-                            <div class="calenderauditee">
-                                <input type="text" id="target_closure_date" readonly placeholder="DD-MM-YYYY" />
-                                <input type="date" id="start_date_checkdate" name="target_closure_date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'target_closure_date');checkDate('start_date_checkdate','end_date_checkdate')" />
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- <div class="col-lg-6">
-                        <div class="group-input">
-                            <label for="RLS Record Number"><b>Short Description</b></label>
-                            <input type="text" name="short_description">
-                        </div>
-                    </div> -->
-
                     <div class="col-6">
+                        <div class="group-input">
+                            <label for="Short Description">(Parent) Short Description<span class="text-danger "
+                                    name="parent_short_description">*</span></label>
+                            <input id="docname" type="text" name="parent_short_description" maxlength="255" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 new-date-data-field">
+                        <div class="group-input input-date">
+                            <label for="parent_target_closure_date">(Parent) Target Closure Date</label>
+                            <div class="calenderauditee">
+                                <input type="text" id="end_date_2" readonly placeholder="DD-MMM-YYYY" />
+                                <input type="date" id="end_date_checkdate_2" name="parent_target_closure_date"
+                                    min="yyyy-mm-dd"
+                                    class="hide-input"
+                                    data-display-id="end_date_2" data-start-id="start_date_checkdate_2"
+                                    oninput="handleDateInput(this, 'end_date_2'); checkDate('start_date_checkdate_2', 'end_date_checkdate_2')" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="group-input">
+                            <label for="Initiator"> (Parent)Product / Material Name
+                            </label>
+                            <input type="text" id="text" name="parent_product_mat_name"/>
+                            </div>
+                            </div>
+                            <div class="col-lg-6">
+                            <div class="group-input">
+                                <label for="RLS Record Number"><b>(Parent)Analyst Name</b></label>
+                                <input type="text" name="parent_analyst_name">
+                            </div>
+                        </div>
+
+                        {{-- grid 1 --------------------------01-------}}
+        <div class="group-input">
+            <label for="audit-agenda-grid">
+                (Parent) Info. On Product/ Material
+                <button type="button"  id="Product_Material1">+</button>
+                <span class="text-primary" data-bs-toggle="modal"
+                        data-bs-target="#document-details-field-instruction-modal"
+                        style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                    (Launch Instruction)
+                </span>
+            </label>
+            <div class="table-responsive">
+                <table class="table table-bordered" id="product_material1_table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="width: 4%">Row#</th>
+                            <th style="width: 10%">Item/Product Code</th>
+                            <th style="width: 8%">Batch No*.</th>
+                            <th style="width: 8%">A.R.Number</th>
+                            <th style="width: 8%">Mfg.Date</th>
+                            <th style="width: 8%">Expiry Date</th>
+                            <th style="width: 8%">Label Claim.</th>
+                            <th style="width: 8%">Pack Size</th>
+                            <th style="width: 5%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input disabled type="text" name="serial[]" value="1" readonly></td>
+                            <td><input type="text" name="parent_info_on_product_material1[0][item_product_code]"></td>
+                            <td><input type="text" name="parent_info_on_product_material1[0][batch_no]"></td>
+                            <td><input type="text" name="parent_info_on_product_material1[0][ar_number]"></td>
+                            <td><input type="date" name="parent_info_on_product_material1[0][mfg_date]"></td>
+                            <td><input type="date" name="parent_info_on_product_material1[0][exp_date]"></td>
+                            <td><input type="text" name="parent_info_on_product_material1[0][label_claim]"></td>
+                            <td><input type="text" name="parent_info_on_product_material1[0][pack_size]"></td>
+                            <td><button type="button" class="removeRowBtn">Remove</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+                    <div class="group-input">
+                        <label for="audit-agenda-grid">
+                            (Parent) OOS Details (0)
+                            <button type="button" name="root_parent_oos_details"
+                                id="Product_Material3">+</button>
+                            <span class="text-primary" data-bs-toggle="modal"
+                                data-bs-target="#document-details-field-instruction-modal"
+                                style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                (Open)
+                            </span>
+                        </label>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="Product_Material3" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 4%">Row#</th>
+                                        <th style="width: 10%">A.R. Number</th>
+                                        <th style="width: 8%">Test Name of OOS</th>
+                                        <th style="width: 8%">Results Obtained</th>
+                                        <th style="width: 8%">Specification Limit</th>
+                                        <th style="width: 5%">Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input disabled type="text" name="serial[]" value="1"></td>
+                                        <td><input type="text"
+                                                name="root_parent_oos_details[0][ar_number]">
+                                        </td>
+                                        <td><input type="text"
+                                                name="root_parent_oos_details[0][test_name_of_oos]">
+                                        </td>
+                                        <td><input type="text"
+                                                name="root_parent_oos_details[0][results_obtained]">
+                                        </td>
+                                        <td><input type="text"
+                                                name="root_parent_oos_details[0][specification_limit]">
+                                        </td>
+                                        <td><button type="button" class="removeRowBtn">Remove</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                                <div class="group-input">
+                                    <label for="audit-agenda-grid">
+                                        (Parent) OOT Results (0)
+                                        <button type="button" name="parent_oot_results" id="Product_Material4">+</button>
+                                        <span class="text-primary" data-bs-toggle="modal"
+                                            data-bs-target="#document-details-field-instruction-modal"
+                                            style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                            (Open)
+                                        </span>
+                                    </label>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="Product_Material4" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 4%">Row#</th>
+                                                    <th style="width: 10%">A.R. Number</th>
+                                                    <th style="width: 8%">Test Number of OOT</th>
+                                                    <th style="width: 8%">Results Obtained</th>
+                                                    <th style="width: 8%">Previous Interval Details</th>
+                                                    <th style="width: 8%">% Difference of Results</th>
+                                                    <th style="width: 8%">Initial Interview Details</th>
+                                                    <th style="width: 8%">Trend Limit</th>
+                                                    <th style="width: 5%">Action</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                    <td><input type="text" name="parent_oot_results[0][ar_number]"></td>
+                                                    <td><input type="text" name="parent_oot_results[0][test_number_of_oot]">
+                                                    </td>
+                                                    <td><input type="text" name="parent_oot_results[0][results_obtained]">
+                                                    </td>
+                                                    <td><input type="text" name="parent_oot_results[0][prev_interval_details]">
+                                                    </td>
+                                                    <td><input type="text" name="parent_oot_results[0][diff_of_results]">
+                                                    </td>
+                                                    <td><input type="text"
+                                                            name="parent_oot_results[0][initial_interview_details]">
+                                                    </td>
+                                                    <td><input type="text" name="parent_oot_results[0][trend_limit]"></td>
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="group-input">
+                                    <label for="audit-agenda-grid">
+                                        (Parent) Details of Stability Study (0)
+                                        <button type="button" name="parent_details_of_stability_study"
+                                            id="Product_Material5">+</button>
+                                        <span class="text-primary" data-bs-toggle="modal"
+                                            data-bs-target="#document-details-field-instruction-modal"
+                                            style="font-size: 0.8rem; font-weight: 400; cursor: pointer;">
+                                            (Open)
+                                        </span>
+                                    </label>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="Product_Material5" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 4%">Row#</th>
+                                                    <th style="width: 10%">A.R. Number</th>
+                                                    <th style="width: 8%">Condition: Temperature & RH</th>
+                                                    <th style="width: 8%">Interval</th>
+                                                    <th style="width: 8%">Orientation</th>
+                                                    <th style="width: 8%">Pack Details (if any)</th>
+                                                    <th style="width: 5%">Action</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input disabled type="text" name="serial[]" value="1"></td>
+                                                    <td><input type="text"
+                                                            name="parent_details_of_stability_study[0][ar_number]">
+                                                    </td>
+                                                    <td><input type="text"
+                                                            name="parent_details_of_stability_study[0][condition_temp_and_rh]">
+                                                    </td>
+                                                    <td><input type="text"
+                                                            name="parent_details_of_stability_study[0][interval]">
+                                                    </td>
+                                                    <td><input type="text"
+                                                            name="parent_details_of_stability_study[0][orientation]"></td>
+                                                    <td><input type="text"
+                                                            name="parent_details_of_stability_study[0][pack_details_if_any]">
+                                                    </td>
+                                                    <td><button type="button" class="removeRowBtn">Remove</button></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="sub-head pt-3">General Information</div>
+                                <div class="row">
+
+
+                                    {{-- record or site/division code ANSHUL --}}
+                                    <div class="col-lg-6">
+                                        <div class="group-input">
+                                            <label for="RLS Record Number"><b>Record Number</b></label>
+                                            <input disabled type="text" name="record" value="{{ Helpers::getDivisionName(session()->get('division')) }}/DEV/{{ date('Y') }}/" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="group-input">
+                                            <label for="Division Code"><b>Site/Division Code</b></label>
+                                            <input readonly type="text" name="division_id" value="{{ Helpers::getDivisionName(session()->get('division')) }}"  />
+                                        <input type="hidden" name="division_code"
+                                            value="{{ session()->get('division') }}">
+                                    </div>
+                                </div>
+                                {{--  --}}
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="Initiator"> Initiator </label>
+                                        <input type="text" disabled name="initiator_id" value="{{ Auth::user()->name }}">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="group-input">
+                                        <label for="date_opened">Date of Initiation</label>
+                                        <input disabled type="text" value="{{ date('d-M-Y') }}" name="intiation_date">
+                                        <input type="hidden" value="{{ date('Y-m-d') }}" name="intiation_date">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 new-date-data-field">
+                                    <div class="group-input input-date">
+                                        <label for="Scheduled end date">Target Closure Date</label>
+                                        <div class="calenderauditee" >
+                                            <input type="text" id="target_closure_date_gi"
+                                                placeholder="DD-MMM-YYYY" />
+                                            <input type="date" id="end_date_checkdate_3"
+                                                name="target_closure_date_gi" min="yyyy-mm-dd" class="hide-input"
+                                                oninput="handleDateInput(this, 'target_closure_date_gi');checkDate('start_date_checkdate_3','end_date_checkdate_3')" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
                                     <div class="group-input">
                                         <label for="Short Description">Short Description<span
-                                                class="text-danger">*</span></label><span id="rchars2">255</span>
-                                        characters remaining
+                                                class="text-danger">*</span></label><span id="rchars2"></span>
                                         <input id="docname" type="text" name="short_description" maxlength="255" required>
                                     </div>
                                 </div>
@@ -392,54 +380,15 @@ $users = DB::table('users')->get();
                                 </div>
                             </div>
 
-                            
-                            <!-- <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Description">Submit By</label>
-                                    <input name="description"></input>
-                                </div>
                             </div>
-                            
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Description">Submit On</label>
-                                    <input name="description"></input>
-                                </div>
-                            </div> -->
-
-
-
-                            <!-- <div class="group-input">
-                                <label for="file_attchment_if_any">File Attachment</label>
-                                <div><small class="text-primary">Please Attach all relevant or supporting
-                                        documents</small></div>
-                                <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="file_attchment_if_any"></div>
-                                    <div class="add-btn">
-                                        <div>Add</div>
-                                        <input type="file" id="myfile" name="file_attchment_if_any[]" {{-- ignore --}} oninput="addMultipleFiles(this, 'file_attchment_if_any')" multiple>
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <!-- <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RLS Record Number"><b>Follow-up Task Submit By</b></label>
-                                    <input type="text" name="assignee">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="RLS Record Number"><b>Follow-up Task Submit On</b></label>
-                                    <input type="text" name="assignee">
-                                </div>
-                            </div> -->
-
                         </div>
                         <div class="button-block">
-                            <button type="submit" id="ChangesaveButton" class="saveButton">Save</button>
-                            <button type="button" id="ChangeNextButton" class="nextButton">Next</button>
-                            <button type="button"> <a class="text-white"> Exit </a> </button>
+                            <button type="submit" class="saveButton">Save</button>
+                            <button type="button" class="backButton" onclick="previousStep()">Back</button>
+                            <button type="button" class="nextButton" onclick="nextStep()">Next</button>
+                            <button type="button"> <a href="{{ url('rcms/qms-dashboard') }}" class="text-white">
+                                    Exit </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -466,6 +415,8 @@ $users = DB::table('users')->get();
                             <label for="agenda">
                                 Precautionary measures
                             </label>
+                            {{-- <button type="button" name="precautionary_measures"
+                            id="Product_Material90"></button> --}}
                             <table class="table table-bordered" >
                                 <thead>
                                     <tr>
@@ -478,13 +429,13 @@ $users = DB::table('users')->get();
                                     <tr>
                                         <td>1</td>
                                         <td>Is there any precautions mentioned in the method of analysis for sample and standard preparation?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="precautionary_measures[0][Q1]"></td>
                                     </tr>
 
                                     <tr>
                                         <td>2</td>
                                         <td>Whether the test under investigation is performed by the analyst for first time?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="precautionary_measures[0][Q2]"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -508,33 +459,33 @@ $users = DB::table('users')->get();
                                     <tr>
                                         <td>1</td>
                                         <td>What are the chemicals used for mobile phase preparation?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="mobile_phase_preparation[0][mpp_Q1]"></td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
                                         <td>What is the acid/base used for buffer ph adjustment?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="mobile_phase_preparation[0][mpp_Q2]"></td>
+                                    </tr>
                                      <tr>
                                         <td>3</td>
                                         <td>What is the buffer solution final ph observed value?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="mobile_phase_preparation[0][mpp_Q3]" ></td>
+                                    </tr>
                                     <tr>
                                         <td>4</td>
                                         <td>Have you filtered the buffer solution? If Yes what is the MOC of the filter used?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="mobile_phase_preparation[0][mpp_Q4]" ></td>
                                     </tr>
                                     <tr>
                                         <td>5</td>
                                         <td>Have you used mobile phase within the valid date?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="mobile_phase_preparation[0][mpp_Q5]" ></td>
+                                    </tr>
                                     <tr>
                                         <td>6</td>
                                         <td>Mobile phase stability mentioned in the MOA(Hrs):</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="mobile_phase_preparation[0][mpp_Q6]" ></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -558,44 +509,44 @@ $users = DB::table('users')->get();
                                     <tr>
                                         <td>1</td>
                                         <td>What is the storage condition of working standard?(Specify)</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="reference_working_standards[0][Q1]"></td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
                                         <td>How long working standard kept in desiccator to attain room temperature?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="reference_working_standards[0][Q2]"></td>
+                                    </tr>
                                      <tr>
                                         <td>3</td>
                                         <td>What is nature of standard?(Light sensitive,moisture sensitive, oxygen sensitive or hygroscopic)</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="reference_working_standards[0][Q3]"></td>
+                                    </tr>
                                     <tr>
                                         <td>4</td>
                                         <td>What precaution required while handling/analysis?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="reference_working_standards[0][Q4]"></td>
                                     </tr>
                                     <tr>
                                         <td>5</td>
                                         <td>Whether LOD or Water content determination required before usage? If yes what is the results observed?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="reference_working_standards[0][Q5]"></td>
+                                    </tr>
                                     <tr>
                                         <td>6</td>
                                         <td>Have you observed any spillage during weighing?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="reference_working_standards[0][Q6]"></td>
                                     </tr>
                                      <tr>
                                         <td>7</td>
                                         <td>Have you used working standard solution within the valid date?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="reference_working_standards[0][Q7]"></td>
                                     </tr>
                                       <tr>
                                         <td>8</td>
                                         <td>Working standard solution stability mentioned in the MOA?(specify hours):</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
-                                    
+                                        <td><input type="text" name="reference_working_standards[0][Q8]"></td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -618,74 +569,74 @@ $users = DB::table('users')->get();
                                     <tr>
                                         <td>1</td>
                                         <td>Is there any special precaution mentioned in the method of analysis for sample handling?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="handling_of_samples[0][Q1]"></td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
                                         <td>Whether sample mixed/triturate thoroughly before weighing?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="handling_of_samples[0][Q2]"></td>
+                                    </tr>
                                      <tr>
                                         <td>3</td>
                                         <td>Is there any unusual observation on composite sample prepared?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="handling_of_samples[0][Q3]"></td>
+                                    </tr>
                                     <tr>
                                         <td>4</td>
                                         <td>How you weighed the composite sample?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="handling_of_samples[0][Q4]"></td>
                                     </tr>
                                     <tr>
                                         <td>5</td>
                                         <td>Have you observed any spillage during weighing?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="handling_of_samples[0][Q5]"></td>
+                                    </tr>
                                     <tr>
                                         <td>6</td>
                                         <td>How you transferred the sample to volumetric glassware after weighing?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="handling_of_samples[0][Q6]"></td>
                                     </tr>
                                      <tr>
                                         <td>7</td>
                                         <td>Is there any unusual observation on sample solution after preparatio?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="handling_of_samples[0][Q7]"></td>
                                     </tr>
                                       <tr>
                                         <td>8</td>
                                         <td>Have you used correct volume of volumetric glassware?(specify the volume and number of glassware used)</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="handling_of_samples[0][Q8]"></td>
+                                    </tr>
                                     <tr>
                                         <td>9</td>
                                         <td>Whether sample preparation involves sonication? If Yes, What is the time & temperature followed?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="handling_of_samples[0][Q9]"></td>
+                                    </tr>
                                     <tr>
                                         <td>10</td>
                                         <td>Whether sample preparation involves intermittent shaking? If Yes, What is the time interval followed?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="handling_of_samples[0][Q10]"></td>
+                                    </tr>
                                     <tr>
                                         <td>11</td>
                                         <td>What is the MOC of sample filter used? And How many filters used while sample preparation?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="handling_of_samples[0][Q11]"></td>
+                                    </tr>
                                     <tr>
                                         <td>12</td>
                                         <td>Sample solution stability mentioned in the  MOA?(specify Hrs)</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="handling_of_samples[0][Q12]"></td>
+                                    </tr>
                                     <tr>
                                         <td>13</td>
                                         <td>Please describe any abnormality noticed while performing weighing/pipetting/volume makeup/dilution etc.</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="handling_of_samples[0][Q13]"></td>
+                                    </tr>
                                     <tr>
                                         <td>14</td>
                                         <td>Any other information related to testing?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
-                                    
+                                        <td><input type="text" name="handling_of_samples[0][Q14]"></td>
+                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
@@ -709,28 +660,28 @@ $users = DB::table('users')->get();
                                     <tr>
                                         <td>1</td>
                                         <td>Have you followed instrument set up instruction?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="instrument_setup_handling[0][Q1]"></td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
                                         <td>Have you verified solvent filters before placing mobile phase?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="instrument_setup_handling[0][Q2]"></td>
+                                    </tr>
                                      <tr>
                                         <td>3</td>
                                         <td>Specify the HPLC/GC column make/ID and total no. of previous injections.</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="instrument_setup_handling[0][Q3]"></td>
+                                    </tr>
                                     <tr>
                                         <td>4</td>
                                         <td>How much time taken for column conditioning and instrument stabilization?</td>
-                                        <td><input type="text"></td>
+                                        <td><input type="text" name="instrument_setup_handling[0][Q4]"></td>
                                     </tr>
                                     <tr>
                                         <td>5</td>
                                         <td>Any other information related to instrument set up?</td>
-                                        <td><input type="text"></td>
-                                    </tr> 
+                                        <td><input type="text" name="instrument_setup_handling[0][Q5]"></td>
+                                    </tr>
                                     </tbody>
                             </table>
                         </div>
@@ -742,7 +693,7 @@ $users = DB::table('users')->get();
                             <label for="Description">Interviewer(s) Assessment</label>
                             <textarea name="interviewer_assessment"></textarea>
                         </div>
-                    </div> 
+                    </div>
                     <div class="col-12">
                         <div class="group-input">
                             <label for="Description">Recommendations</label>
@@ -754,7 +705,7 @@ $users = DB::table('users')->get();
                             <label for="Description">Delay justification</label>
                             <textarea name="delay_justification"></textarea>
                         </div>
-                    </div> 
+                    </div>
                      <div class="col-12">
                         <div class="group-input">
                             <label for="Description">Any other Comments</label>
@@ -778,19 +729,19 @@ $users = DB::table('users')->get();
                         <div class="group-input">
                             <label for="Description">Interview Done By</label>
                         </div>
-                    </div>   
+                    </div>
                      <div class="col-6">
                         <div class="group-input">
                             <label for="Description">Interview Done On</label>
                         </div>
-                    </div> 
+                    </div>
 
 
   <div class="col-6">
                         <div class="group-input">
                             <label for="Description">Cancel By</label>
                         </div>
-                    </div>   
+                    </div>
                      <div class="col-6">
                         <div class="group-input">
                             <label for="Description">Cancel On</label>
@@ -798,55 +749,6 @@ $users = DB::table('users')->get();
                     </div>  -->
 
 
-                    
-                 
-
-
-
-
-
-
-
-
-
-
-                            <!-- <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Description">Compliance Execution Details</label>
-                                    <textarea name="compliance_execution_details"></textarea>
-                                </div>
-                            </div> -->
-
-                            <!-- <div class="col-lg-6 new-date-data-field">
-                                <div class="group-input input-date">
-                                    <label for="Scheduled Start Date">Date of Completion</label>
-                                    <div class="calenderauditee">
-                                        <input type="text" id="date_of_completion" readonly placeholder="DD-MM-YYYY" />
-                                        <input type="date" id="start_date_checkdate" name="date_of_completion" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="hide-input" oninput="handleDateInput(this, 'date_of_completion');checkDate('start_date_checkdate','end_date_checkdate')" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="group-input">
-                                <label for="file_attchment_if_any">Execution Attachment</label>
-                                <div><small class="text-primary">Please Attach all relevant or supporting
-                                        documents</small></div>
-                                <div class="file-attachment-field">
-                                    <div class="file-attachment-list" id="file_attchment_if_any"></div>
-                                    <div class="add-btn">
-                                        <div>Add</div>
-                                        <input type="file" id="myfile" name="execution_attachment" {{-- ignore --}} oninput="addMultipleFiles(this, 'file_attchment_if_any')" multiple>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12">
-                                <div class="group-input">
-                                    <label for="Description">Delay Justification</label>
-                                    <textarea name="delay_justification"></textarea>
-                                </div>
-                            </div>
-  -->
                             <!-- <div class="col-lg-6">
                                 <div class="group-input">
                                     <label for="Country">Execution Complete By</label>
@@ -883,23 +785,6 @@ $users = DB::table('users')->get();
                                         <input type="text" name="capa_date_due" id="date_due" readonly placeholder="DD-MMM-YYYY" />
                                         <input type="date" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" id="date_due_checkdate" class="hide-input" oninput="handleDateInput(this, 'date_due');checkDate('date_Response_due_checkdate','date_due_checkdate')" />
                                     </div>
-                                </div>
-                            </div>
-                            {{-- <div class="col-lg-6">
-                                    <div class="group-input">
-                                        <label for="date_due">Date Due</label>
-                                        <input type="date" name="capa_date_due">
-                                    </div>
-                                </div> --}}
-                            <div class="col-lg-6">
-                                <div class="group-input">
-                                    <label for="assign_to2">Assigned To</label>
-                                    <select name="assign_to2">
-                                        <option value="">-- Select --</option>
-                                        @foreach ($users as $data)
-                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
-                                        @endforeach
-                                    </select>
                                 </div>
                             </div>
                             {{-- <div class="col-lg-6">
@@ -998,7 +883,7 @@ $users = DB::table('users')->get();
                     </div>
                 </div>
 
-                
+
                 </div>
                 </div>
 
@@ -1039,7 +924,7 @@ $users = DB::table('users')->get();
                                         <label for="Completed On">Interview Done On :-</label>
                                         {{-- <div class="static">17-04-2023 11:12PM</div> --}}
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="sub-head">Cancellation</div>
                                 <div class="col-lg-6">
@@ -1061,7 +946,7 @@ $users = DB::table('users')->get();
                             <!-- <div class="col-12 mt-4">
                                 <div class="sub-head">Compliance Verification</div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="group-input">
@@ -1416,9 +1301,9 @@ $users = DB::table('users')->get();
             var rowCount = tableBody.children('tr').length;
             var newRow = generateTableRow(rowCount + 1);
             // var newRow = generateTableRow(rowCount - 1);
-            tableBody.append(newRow); 
-            
-           
+            tableBody.append(newRow);
+
+
         });
 
 
@@ -1553,6 +1438,217 @@ $users = DB::table('users')->get();
     });
 </script>
 
+
+
+
+{{-- All Grids Script  --}}
+
+
+    <!-- ------------------------ ----grid-1--------------------------------->
+
+
+    <script>
+        $(document).ready(function() {
+            let index = 1; // Start index for new rows
+            $('#Product_Material').click(function(e) {
+                function generateTableRow(serialNumber) {
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][item_product_code]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][lot_batch_number]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][ar_number]"></td>' +
+                    '<td><input type="date" name="parent_info_on_product_material[' + index + '][mfg_date]"></td>' +
+                    '<td><input type="date" name="parent_info_on_product_material[' + index + '][exp_date]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material[' + index + '][label_claim]"></td>' +
+                    '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
+                    '</tr>';
+                 index++;
+                return html;
+            }
+            var tableBody = $('#parent_info_on_product_material01 tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1,index);
+            tableBody.append(newRow);
+        });
+        });
+    </script>
+
+{{---------------------------------- script grid 1 ---------------01----------------------------}}
+
+
+
+    <script>
+        $(document).ready(function() {
+            let index = 1; // Start index for new rows
+            $('#Product_Material1').click(function(e) {
+                function generateTableRow(serialNumber) {
+                var html =
+                    '<tr>' +
+                    '<td><input disabled type="text" name="serial[]" value="' + serialNumber + '"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material1[' + index + '][item_product_code]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material1[' + index + '][batch_no]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material1[' + index + '][ar_number]"></td>' +
+                    '<td><input type="date" name="parent_info_on_product_material1[' + index + '][mfg_date]"></td>' +
+                    '<td><input type="date" name="parent_info_on_product_material1[' + index + '][exp_date]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material1[' + index + '][label_claim]"></td>' +
+                    '<td><input type="text" name="parent_info_on_product_material1[' + index + '][pack_size]"></td>' +
+                    '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
+                    '</tr>';
+                 index++;
+                return html;
+            }
+            var tableBody = $('#product_material1_table tbody');
+            var rowCount = tableBody.children('tr').length;
+            var newRow = generateTableRow(rowCount + 1,index);
+            tableBody.append(newRow);
+        });
+        });
+    </script>
+
+    <!-- -----------------------------grid-3--------------------------------->
+    <script>
+        $(document).ready(function() {
+            var index = 1;
+            $('#Product_Material3').click(function(e) {
+                function generateTableRow(serialNumber,index) {
+                    var html =
+                        '<tr>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
+                        '"></td>' +
+                        ' <td><input type="text" name="root_parent_oos_details['+ index +'][ar_number]"></td>' +
+                        '  <td><input type="text" name="root_parent_oos_details['+ index +'][test_name_of_oos]"></td>' +
+                        ' <td><input type="text" name="root_parent_oos_details['+ index +'][results_obtained]"></td>' +
+                        '  <td><input type="text" name="root_parent_oos_details['+ index +'][specification_limit]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
+                        '</tr>';
+
+                    return html;
+                }
+
+                var tableBody = $('#Product_Material3 tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1,index);
+                tableBody.append(newRow);
+                index++;
+            });
+        });
+    </script>
+
+    <!-- -----------------------------grid-4--------------------------------->
+    <script>
+        $(document).ready(function() {
+            var index = 1;
+            $('#Product_Material4').click(function(e) {
+                function generateTableRow(serialNumber,index) {
+                    var html =
+                        '<tr>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
+                        '"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][ar_number]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][test_number_of_oot]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][results_obtained]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][prev_interval_details]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][diff_of_results]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][initial_interview_details]"></td>' +
+                        '  <td><input type="text" name="parent_oot_results['+ index +'][trend_limit]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
+                        '</tr>';
+
+                    return html;
+                }
+
+                var tableBody = $('#Product_Material4 tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1,index);
+                tableBody.append(newRow);
+                index++;
+            });
+        });
+    </script>
+
+    <!--------------------------------grid-5--------------------------------->
+    <script>
+        $(document).ready(function() {
+            var index = 1;
+            $('#Product_Material5').click(function(e) {
+                function generateTableRow(serialNumber,index) {
+                    var html =
+                        '<tr>' +
+                        '<td><input disabled type="text" name="serial[]" value="' + serialNumber +
+                        '"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index +'][ar_number]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index +'][condition_temp_and_rh]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index +'][interval]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index +'][orientation]"></td>' +
+                        '<td><input type="text" name="parent_details_of_stability_study['+ index +'][pack_details_if_any]"></td>' +
+                        '<td><button type="text" class="removeRowBtn">Remove</button></td>'+
+                        '</tr>';
+
+                    return html;
+                }
+
+                var tableBody = $('#Product_Material5 tbody');
+                var rowCount = tableBody.children('tr').length;
+                var newRow = generateTableRow(rowCount + 1,index);
+                tableBody.append(newRow);
+                index++;
+            });
+        });
+    </script>
+
+    <!--------------------------------Date--------------------------------->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Function to handle the date input and update the text field
+            function handleDateInput(dateInput, displayInputId) {
+                const displayInput = document.getElementById(displayInputId);
+                const selectedDate = new Date(dateInput.value);
+                const options = {
+                    year: 'numeric',
+                    month: 'short',
+                    day: '2-digit'
+                };
+
+                if (!isNaN(selectedDate.getTime())) {
+                    displayInput.value = selectedDate.toLocaleDateString('en-GB', options).replace(/ /g, '-');
+                } else {
+                    displayInput.value = '';
+                }
+            }
+
+            // Function to validate date ranges
+            function checkDate(startDateId, endDateId) {
+                const startDateInput = document.getElementById(startDateId);
+                const endDateInput = document.getElementById(endDateId);
+
+                const startDate = new Date(startDateInput.value);
+                const endDate = new Date(endDateInput.value);
+
+                if (!isNaN(startDate.getTime()) && !isNaN(endDate.getTime()) && endDate < startDate) {
+                    alert("End date cannot be earlier than start date");
+                    endDateInput.value = '';
+                    const displayInputId = endDateInput.dataset.displayId;
+                    document.getElementById(displayInputId).value = '';
+                }
+            }
+
+            // Attach event listeners
+            document.querySelectorAll('input[type="date"]').forEach((dateInput) => {
+                dateInput.addEventListener('input', function() {
+                    handleDateInput(this, this.dataset.displayId);
+                    checkDate(this.dataset.startId, this.id);
+                });
+            });
+        });
+    </script>
+
+<script>
+    $(document).on('click', '.removeRowBtn', function() {
+        $(this).closest('tr').remove();
+    })
+</script>
 
 
 <script>

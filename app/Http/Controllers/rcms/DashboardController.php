@@ -4,6 +4,8 @@ namespace App\Http\Controllers\rcms;
 
 use App\Http\Controllers\Controller;
 use App\Models\ActionItem;
+use App\Models\AdditionalTesting;
+use App\Models\AnalystInterview;
 use App\Models\Capa;
 use App\Models\CC;
 use App\Models\EffectivenessCheck;

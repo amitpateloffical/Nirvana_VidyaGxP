@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    @php 
+    @php
         $users = DB::table('users')->get();
     @endphp
 
@@ -29,7 +29,7 @@
 
             <!-- Tab links -->
             <div class="cctab">
-                
+
                 <button class="cctablinks active" onclick="openCity(event, 'CCForm1')">Investigation</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm2')">Investigation & Root Cause</button>
                 <button class="cctablinks" onclick="openCity(event, 'CCForm3')">Signatures</button>
@@ -53,7 +53,7 @@
                                         <label for="date-opened">Date Opened </label>
                                         <div><small class="text-primary">When was this Investigation record opened?</small>
                                         </div>
-                                        <div class="calenderauditee">                                     
+                                        <div class="calenderauditee">
                                         <input type="text" name="date-opened" value="10 Jan, 2024" disabled>
                                     </div>
                                     </div>
