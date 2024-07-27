@@ -344,7 +344,6 @@ class Helpers
 
         return $initiator_groups;
 
-
     }
     // =========== kuldeep ============
 
@@ -360,6 +359,42 @@ class Helpers
             return "01-Jan-1999";
         }
     }
+    // ---------------- by monika =------------------------
+    public static function getLeadAuditorUserList1($userId)
+    {
+        $user = User::find($userId);
+        return $user ? $user->name : 'Unknown User';
+    }
+
+    public static function getCoAuditorUserList($userIds)
+    {
+        $userIdsArray = explode(',', $userIds);
+
+        $userIdsArray = array_map('trim', $userIdsArray);
+
+        $userNames = array_map(function($userId) {
+            $user = User::find($userId);
+            return $user ? $user->name : 'Unknown User';
+        }, $userIdsArray);
+
+        return implode(', ', $userNames);
+    }
+
+    public static function getApplicationSites($userIds)
+    {
+        $userIdsArray = explode(',', $userIds);
+
+        $userIdsArray = array_map('trim', $userIdsArray);
+
+        $siteNames = array_map(function($userId) {
+            $qms_division = QMSDivision::find($userId);
+            return $qms_division ? $qms_division->name : 'Unknown User';
+        }, $userIdsArray);
+
+        return implode(', ', $siteNames);
+
+    }
+
 
     public static function getDueDatemonthly($date = null, $addDays = false, $format = null)
     {
